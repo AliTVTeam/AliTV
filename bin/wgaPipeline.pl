@@ -5,7 +5,7 @@ use Getopt::Long;
 use Pod::Usage;
 use File::Basename;
 use FindBin;
-use lib $FindBin::Bin;
+use lib "$FindBin::Bin/../lib";
 use Verbose;
 use Data::Dumper;
 
@@ -141,7 +141,7 @@ Path to the customized circos template file.
 
 =cut
 
-$options{'circos-template=s'} = \(my $opt_template = $FindBin::Bin.'/circos_template_full.conf');
+$options{'circos-template=s'} = \(my $opt_template = $FindBin::Bin.'/../cfg/circos_template_full.conf');
 
 =item [--minlength=<INT>]
 
