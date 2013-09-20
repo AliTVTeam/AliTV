@@ -84,21 +84,25 @@ close LINK or die "$!";
 close IN or die "$!";
 
 open(KARYO,'>',"$out.karyo") or die "$!";
+open(WANTED,'>',"$out.wanted_ids") or die "$!";
 # The karyotype file contains the information for each sequence in columns
 # chr - ID LABEL START END COLOR
 print KARYO "#REFERENCE SEQUENCES\n";
 for(my $i = 0; $i < @referenceOrder; $i++){
     my $ref = $referenceOrder[$i];
     print KARYO "chr - $referenceIDs{$ref} $ref 0 $references{$ref} red\n";
+    print WANTED "$referenceIDs{$ref}\n";
 }
 unless($opt_self){
 	print KARYO "\n#QUERY SEQUENCES\n";
 	for(my $i = 0; $i < @queryOrder; $i++){
 	    my $que = $queryOrder[$i];
 	    print KARYO "chr - $queryIDs{$que} $que 0 $queries{$que} blue\n";
+	    print WANTED "$queryIDs{$que}\n";
 	}
 }
 close KARYO or die "$!";
+close WANTED or die "$!";
 
 # write circos.config file
 open(IN,"<",$template) or die "$!";

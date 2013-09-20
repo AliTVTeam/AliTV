@@ -18,10 +18,21 @@ GetOptions(
 	'reference=s' => \(my $reference_file),
 	'prefix=s' => \(my $prefix),
 	'n-stretch=s' => \(my $n_stretch),
-	'ir' => \(my $ir)
+	'ir' => \(my $ir),
+	'wanted_ids=s' => \(my $wanted_ids)
 ) or pod2usage(2);
 
 pod2usage(2) unless $query_file && $reference_file && $prefix;
+
+my %wanted_ids = {};
+if($wanted_ids){
+	open (IDS, '<', $wanted_ids) or die $!;
+	while(<IDS>){
+		chomp;
+		$wanted_ids{$_} = 1;
+	}
+	close IDS or die $!;
+}
 
 open (my $REF, $reference_file) or die $!;
 open (my $QRY, $query_file) or die $!;
@@ -46,16 +57,22 @@ do{
 };
 
 if ($n_stretch){
-	printf $HIG ("%s\t%d\t%d\tfill_color=%s\n", @$_, $n_stretch) for  @{$FEATURES->{n_stretch}};
+	for(@{$FEATURES->{n_stretch}}){
+		printf $HIG ("%s\t%d\t%d\tfill_color=%s\n", @{$_}, $n_stretch) if exists $wanted_ids{$_->[0]};
+	}
 }
 
 if($ir){
 	open(QRY, "<", "query_IR.high") or die "Can't open file query_IR.high\n$!";
-	print $HIG $_ while(<QRY>);
+	while(<QRY>){
+		print $HIG $_ if(exists $wanted_ids{(split(/\t/, $_))[0]});
+	}
 	close QRY or die "$!";
 	unlink "query_IR.high";
 	open(REF, "<", "reference_IR.high") or die "Can't open file reference_IR.high\n$!";
-	print $HIG $_ while(<REF>);
+	while(<REF>){
+		print $HIG $_ if(exists $wanted_ids{(split(/\t/, $_))[0]});
+	}
 	close REF or die "$!";
 	unlink "reference_IR.high";
 }

@@ -445,7 +445,7 @@ Returns the command to call highlightFeatures.pl
 sub highlight_command{
 	my $high_cmd = "perl ".$FindBin::Bin."/highlightFeatures.pl --query=$opt_query --reference=$opt_reference "; 
 	$high_cmd .= "--ir " if($opt_highlightIR);
-	$high_cmd .= "--prefix=$opt_prefix --n-stretch=purple 2>&1";
+	$high_cmd .= "--prefix=$opt_prefix --n-stretch=white --wanted_ids $opt_prefix.wanted_ids 2>&1";
 	return $high_cmd;
 }
 
@@ -472,6 +472,16 @@ It is not meant for extensive analyses of whole genomes. For this purpose see th
 and consider using them.  
 
 =head1 CHANGELOG
+
+=head2 20.09.2013
+
+=over
+
+=item * The --cleanheaders option is implemented and set by default, use --nocleanheaders to skip header cleaning
+
+=item * The highlight file gets filtered at the end to remove unaligned sequences (those cause errors in circos)
+
+=back
 
 =head2 08.11.2012
 
