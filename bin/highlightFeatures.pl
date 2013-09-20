@@ -24,7 +24,7 @@ GetOptions(
 
 pod2usage(2) unless $query_file && $reference_file && $prefix;
 
-my %wanted_ids = {};
+my %wanted_ids = ();
 if($wanted_ids){
 	open (IDS, '<', $wanted_ids) or die $!;
 	while(<IDS>){
