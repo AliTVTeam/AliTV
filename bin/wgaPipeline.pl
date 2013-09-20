@@ -177,6 +177,14 @@ Option to make LASTZ consider lowercase letters as masked
 
 $options{'mask'} = \(my $opt_mask = 0);
 
+=item [--[no]cleanheaders] 
+
+cleanheaders is default.
+
+=cut
+
+$options{'cleanheaders!'} = \(my $opt_clean_headers = 1);
+
 =item [--[no]verbose] 
 
 verbose is default.
@@ -254,6 +262,15 @@ else{
 $opt_prefix = get_prefix() unless $opt_prefix;
 my ($prefix_name,$prefix_dir) = fileparse($opt_prefix);
 
+if($opt_clean_headers){
+	$vwga->verbose('Cleaning fasta headers (replacing illegal symbols like | by _');
+	$vwga->hline();
+	my $clean_headers_cmd = clean_headers_command();
+	$vbash->verbose($clean_headers_cmd);
+	my $clean_re = qx($clean_headers_cmd);
+	$vwga->nline();
+	$vplain->verbose($clean_re) if $clean_re;
+}
 if($opt_highlightIR){
 	$vwga->verbose('Highlighting IR');
 	$vwga->hline();
@@ -321,6 +338,21 @@ my $stat = "Query: $chromosomes_drawn1 of $chromosomes_total1\nReference: $chrom
 $vplain->verbose($stat);
 $vwga->nline();
 $vwga->verbose('wgaPipeline finished');
+
+=head2 clean_headers_command
+
+Returns the command to clean header lines of fastas.
+
+=cut
+
+sub clean_headers_command{
+	my $cmd = 'cp '."$opt_query $opt_prefix"."_query.fasta\n";
+	$opt_query = "$opt_prefix"."_query.fasta";
+	$cmd .= 'cp '."$opt_reference $opt_prefix"."_reference.fasta\n";
+	$opt_reference = "$opt_prefix"."_reference.fasta";
+	$cmd .= 'perl -i -pe \'s/[|:]/_/g\' '."$opt_query $opt_reference";
+	return $cmd;	
+}
 
 =head2 ir_highlight_command
 
