@@ -28,6 +28,7 @@ GetOptions('in=s'=>\$in,
 	   'step=i'=>\$step,
 	   'minidy=i'=>\(my $minidy=50),
 	   'template=s'=>\$template,
+	   'transparency=i'=>\(my $opt_transparency=1),
            'help|?'=>\$help,
            'man'=>\$man);
 pod2usage(-verbose => 99, -sections => "NAME|USAGE|DESCRIPTION|REQUIRED ARGUMENTS|OPTIONS") if($help);
@@ -75,6 +76,7 @@ while(<IN>){
     my $colorIndex = floor($items[$idy]/$step)-(100/$step-10);
     $colorIndex = 0 if($colorIndex < 0);
     my $color = $colors[$colorIndex];
+    $color .= "_a$opt_transparency" if($opt_transparency);
     # write entrys in link file
     print LINK "link$linkCounter $referenceIDs{$items[$tagr]} $items[$s1] $items[$e1] color=$color\n";
     print LINK "link$linkCounter $queryIDs{$items[$tagq]} $items[$s2] $items[$e2] color=$color\n";

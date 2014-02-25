@@ -177,6 +177,16 @@ Option to make LASTZ consider lowercase letters as masked
 
 $options{'mask'} = \(my $opt_mask = 0);
 
+=item [--transparency <int>] 
+
+Give an transparency value for the circos links between 0 and 5
+(0: no transparency, 5: maximum transparency)
+Default: 1
+
+=cut
+
+$options{'transparency'} = \(my $opt_transparency = 1);
+
 =item [--[no]cleanheaders] 
 
 cleanheaders is default.
@@ -403,6 +413,7 @@ sub parser_command{
 		$cmd .= " --promer" if ($opt_promer);
 		$cmd .= " --minlen $opt_minlength" if ($opt_minlength);
 		$cmd .= " --minidy $opt_minidentity" if ($opt_minidentity);
+		$cmd .= " --transparency $opt_transparency";
 		return $cmd;		
 	}else{
 		my $self_command = "";
@@ -410,6 +421,7 @@ sub parser_command{
 		my $cmd = "perl ".$FindBin::Bin."/LastzCircosParser.pl --in $opt_prefix.txt --out $opt_prefix $self_command --template $opt_template 2>&1";		
 		$cmd .= " --minlen $opt_minlength" if ($opt_minlength);
 		$cmd .= " --minidy $opt_minidentity" if ($opt_minidentity);
+		$cmd .= " --transparency $opt_transparency";
 		return $cmd;
 	}
 }
