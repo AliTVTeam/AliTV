@@ -273,7 +273,7 @@ $opt_prefix = get_prefix() unless $opt_prefix;
 my ($prefix_name,$prefix_dir) = fileparse($opt_prefix);
 
 if($opt_clean_headers){
-	$vwga->verbose('Cleaning fasta headers (replacing illegal symbols like | by _');
+	$vwga->verbose('Cleaning fasta headers (replacing illegal symbols like | and = by _');
 	$vwga->hline();
 	my $clean_headers_cmd = clean_headers_command();
 	$vbash->verbose($clean_headers_cmd);
@@ -360,7 +360,7 @@ sub clean_headers_command{
 	$opt_query = "$opt_prefix"."_query.fasta";
 	$cmd .= 'cp '."$opt_reference $opt_prefix"."_reference.fasta\n";
 	$opt_reference = "$opt_prefix"."_reference.fasta";
-	$cmd .= 'perl -i -pe \'s/[|:]/_/g\' '."$opt_query $opt_reference";
+	$cmd .= 'perl -i -pe \'s/[|:=]/_/g\' '."$opt_query $opt_reference";
 	return $cmd;	
 }
 
