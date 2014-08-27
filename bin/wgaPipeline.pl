@@ -5,7 +5,7 @@ use Getopt::Long;
 use Pod::Usage;
 use File::Basename;
 use FindBin;
-use lib "$FindBin::Bin/../lib";
+use lib "$FindBin::RealBin/../lib";
 use Verbose;
 use Data::Dumper;
 
@@ -141,7 +141,7 @@ Path to the customized circos template file.
 
 =cut
 
-$options{'circos-template=s'} = \(my $opt_template = $FindBin::Bin.'/../cfg/circos_template_full.conf');
+$options{'circos-template=s'} = \(my $opt_template = $FindBin::RealBin.'/../cfg/circos_template_full.conf');
 
 =item [--minlength=<INT>]
 
@@ -371,8 +371,8 @@ Returns the command to highlight inverted repeat regions.
 =cut
 
 sub ir_highlight_command{
-	my $cmd = 'perl '.$FindBin::Bin."/highlight_and_mask_IR.pl --in $opt_query --seqprefix Q_ --outprefix query_IR --color black\n";
-	$cmd .= 'perl '.$FindBin::Bin."/highlight_and_mask_IR.pl --in $opt_reference --seqprefix R_ --outprefix reference_IR --color black";
+	my $cmd = 'perl '.$FindBin::RealBin."/highlight_and_mask_IR.pl --in $opt_query --seqprefix Q_ --outprefix query_IR --color black\n";
+	$cmd .= 'perl '.$FindBin::RealBin."/highlight_and_mask_IR.pl --in $opt_reference --seqprefix R_ --outprefix reference_IR --color black";
 	return $cmd;	
 }
 
@@ -409,7 +409,7 @@ Returns the command to call the parser script.
 
 sub parser_command{
 	if($opt_promer || $opt_nucmer){
-		my $cmd= "perl ".$FindBin::Bin."/DnadiffCircosParser.pl --in $opt_prefix --out $opt_prefix --template $opt_template 2>&1";
+		my $cmd= "perl ".$FindBin::RealBin."/DnadiffCircosParser.pl --in $opt_prefix --out $opt_prefix --template $opt_template 2>&1";
 		$cmd .= " --promer" if ($opt_promer);
 		$cmd .= " --minlen $opt_minlength" if ($opt_minlength);
 		$cmd .= " --minidy $opt_minidentity" if ($opt_minidentity);
@@ -418,7 +418,7 @@ sub parser_command{
 	}else{
 		my $self_command = "";
 		$self_command = "--self" if($opt_self);
-		my $cmd = "perl ".$FindBin::Bin."/LastzCircosParser.pl --in $opt_prefix.txt --out $opt_prefix $self_command --template $opt_template 2>&1";		
+		my $cmd = "perl ".$FindBin::RealBin."/LastzCircosParser.pl --in $opt_prefix.txt --out $opt_prefix $self_command --template $opt_template 2>&1";		
 		$cmd .= " --minlen $opt_minlength" if ($opt_minlength);
 		$cmd .= " --minidy $opt_minidentity" if ($opt_minidentity);
 		$cmd .= " --transparency $opt_transparency";
@@ -445,7 +445,7 @@ Returns the command to call ContigOrder.pl
 sub order_command{
 	my $order_script = 'ContigOrderByLongestHit.pl';
 	$order_script = 'ContigOrder.pl' if ($opt_contig_order_by_crosslinks);
-	return "perl ".$FindBin::Bin."/$order_script --link=$opt_prefix.link --template=$opt_prefix.circos.conf 2>&1";
+	return "perl ".$FindBin::RealBin."/$order_script --link=$opt_prefix.link --template=$opt_prefix.circos.conf 2>&1";
 }
 
 =head2 highlight_commmand
@@ -455,7 +455,7 @@ Returns the command to call highlightFeatures.pl
 =cut
 
 sub highlight_command{
-	my $high_cmd = "perl ".$FindBin::Bin."/highlightFeatures.pl --query=$opt_query --reference=$opt_reference "; 
+	my $high_cmd = "perl ".$FindBin::RealBin."/highlightFeatures.pl --query=$opt_query --reference=$opt_reference "; 
 	$high_cmd .= "--ir " if($opt_highlightIR);
 	$high_cmd .= "--prefix=$opt_prefix --n-stretch=white --wanted_ids $opt_prefix.wanted_ids 2>&1";
 	return $high_cmd;
