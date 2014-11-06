@@ -35,6 +35,7 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 function drawKaryo(karyo){
+console.log(karyo);
     svg.append("g").selectAll("path")
     .data(karyo)
     .enter().append("path")
@@ -79,7 +80,7 @@ svg.append("g")
     .data(links)
     .enter().append("path")
     .attr("d", d3.svg.chord().radius(innerRadius))
-    .style("fill", function(d) { console.log(d); return fill(1); })
+    .style("fill", function(d) { console.log(d); return fill(d.target.index); })
     .style("opacity", 1);
 }
 
