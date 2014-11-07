@@ -1,0 +1,72 @@
+** Installation
+
+#+BEGIN_EXAMPLE
+  git clone --recursive https://github.com/BioInf-Wuerzburg/wgaPipeline
+#+END_EXAMPLE
+   
+** Dependencies
+
+- lastz or MUMmer
+- Circos
+- optional - blastn (for IR annotation)
+
+** Usage
+To get usage information
+#+BEGIN_EXAMPLE
+  wgaPipeline --help
+#+END_EXAMPLE
+
+Example usage
+#+BEGIN_EXAMPLE
+  wgaPipeline --query query.fa --reference reference.fa
+#+END_EXAMPLE
+
+** Output
+By default, wgaPipeline generates ten files in the output folder:
+
+| <prefix>.txt             | The output of the whole genome alignment program in tabular format      |
+| <prefix>.svg             | The circular map of the wga created by Circos in svg format             |
+| <prefix>.png             | The circular map of the wga created by Circos in png format             |
+| <prefix>.circos.conf     | The generated circos config file                                        |
+| <prefix>.karyo           | The karyotype file for Circos                                           |
+| <prefix>.link            | The link file for Circos                                                |
+| <prefix>.high            | The highlight file for Circos                                           |
+| <prefix>.wanted_ids      | The new IDs of sequences with illegal characters replaced by underscore |
+| <prefix>_query.fasta     | A copy of the query fasta with adjusted IDs                             |
+| <prefix>_reference.fasta | A copy of the reference fasta with adjusted IDs                         |
+
+** Input
+Both the query and the reference file should be in fasta format.
+
+** Citing wgaPipeline
+
+not yet published - use the github page as reference for now
+
+lastz or MUMmer
+
+Circos
+
+BLAST (for IR annotation)
+
+** Contact
+If you have any questions or encounter problems or potential bugs, don't
+hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/wgaPipeline/issues][issues]] on github or write an email to:
+
+- Markus Ankenbrand - markus.ankenbrand@uni-wuerzburg.de
+- Thomas Hackl - thomas.hackl@uni.wuerzburg.de
+
+
+
+
+
+
+#+TITLE: wgaPipeline manual
+#+AUTHOR: Markus Ankenbrand
+#+EMAIL: markus.ankenbrand@uni-wuerzburg.de
+#+LANGUAGE: en
+#+OPTIONS: ^:nil date:nil H:2
+#+LaTeX_CLASS: scrartcl
+#+LaTeX_CLASS_OPTIONS: [a4paper,12pt,headings=small]
+#+LaTeX_HEADER: \setlength{\parindent}{0pt}
+#+LaTeX_HEADER: \setlength{\parskip}{1.5ex}
+#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
