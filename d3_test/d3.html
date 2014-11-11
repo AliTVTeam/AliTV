@@ -3,160 +3,23 @@
 <meta charset="utf-8">
 <style>
 body {
-  font: 10px sans-serif;
+	font: 10px sans-serif;
 }
 
 .chord path {
-  fill-opacity: .67;
-  stroke: #000;
-  stroke-width: .5px;
+	fill-opacity: .67;
+	stroke: #000;
+	stroke-width: .5px;
 }
 </style>
 </head>
 
 <body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>
-
-var width = 960,
-    height = 800,
-    innerRadius = Math.min(width, height) * .41,
-    outerRadius = innerRadius * 1.1;
-
-var fill = d3.scale.ordinal()
-    .domain(d3.range(5))
-    .range(["#000000", "#FFDD89", "#957244", "#F26223", "#00FF00"]);
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-function drawKaryo(karyo){
-console.log(karyo);
-    svg.append("g").selectAll("path")
-    .data(karyo)
-    .enter().append("path")
-    .style("fill", function(d) { return fill(d.index); })
-    .style("stroke", function(d) { return fill(d.index); })
-    .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius))
-    .on("mouseover", fade(.1))
-    .on("mouseout", fade(1));
-    addTicks(karyo);
-}
-
-function addTicks(karyo){
-var ticks = svg.append("g").selectAll("g")
-    .data(karyo)
-    .enter().append("g").selectAll("g")
-    .data(groupTicks)
-    .enter().append("g")
-    .attr("transform", function(d) {
-      return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
-          + "translate(" + outerRadius + ",0)";
-    });
-
-ticks.append("line")
-    .attr("x1", 1)
-    .attr("y1", 0)
-    .attr("x2", 5)
-    .attr("y2", 0)
-    .style("stroke", "#000");
-
-ticks.append("text")
-    .attr("x", 8)
-    .attr("dy", ".35em")
-    .attr("transform", function(d) { return d.angle > Math.PI ? "rotate(180)translate(-16)" : null; })
-    .style("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
-    .text(function(d) { return d.label; });
-}
-
-function drawLinks(links){
-svg.append("g")
-    .attr("class", "chord")
-    .selectAll("path")
-    .data(links)
-    .enter().append("path")
-    .attr("d", d3.svg.chord().radius(innerRadius))
-    .style("fill", function(d) { console.log(d); return fill(d.target.index); })
-    .style("opacity", 1);
-}
-
-loadKaryoFile("test/karyo.json");
-
-
-// Returns an array of tick angles and labels, given a group.
-function groupTicks(d) {
-  var k = (d.endAngle - d.startAngle) / d.value;
-  return d3.range(0, d.value, 10000).map(function(v, i) {
-    return {
-      angle: v * k + d.startAngle,
-      label: i % 5 ? null : v / 1000 + "k"
-    };
-  });
-}
-
-function loadKaryoFile(file){
-    $.getJSON(file, function(data){
-        karyo_to_coords(data);
-    });
-}
-
-function karyo_to_coords(data){
-    var total = 0;
-    $.each(data, function(key, value){
-        total += value;
-    });
-    var current = 0;
-    var index = 0;
-    $.each(data, function(key, value){
-        data[key] = {"value": value, "startAngle":(current/total)*(2*Math.PI), "index": index++};
-        current += value;
-        data[key].endAngle = (current/total)*(2*Math.PI);
-    });
-var array = $.map(data, function(value, index) {
-    return [value];
-});
-    drawKaryo(array);
-    load_link_file("test/link.json", data)
-}
-
-function load_link_file(file, karyo){
-    $.getJSON(file, function(data){
-        link_to_coords(data, karyo);
-    });
-}
-
-function link_to_coords(links, karyo){
-    $.each(links, function(key, value){
-        var s = karyo[value.source.name];
-        var s_totalAngle = s.endAngle - s.startAngle;
-        links[key].source.startAngle = s.startAngle + s_totalAngle*(value.source.start/s.value);
-        links[key].source.endAngle = s.startAngle + s_totalAngle*(value.source.end/s.value);
-        links[key].source.index = s.index;
-        links[key].source.value = Math.abs(value.source.end - value.source.start);   
-        var t = karyo[value.target.name];
-        var t_totalAngle = t.endAngle - t.startAngle;
-        links[key].target.endAngle = t.startAngle + t_totalAngle*(value.target.start/t.value);
-        links[key].target.startAngle = t.startAngle + t_totalAngle*(value.target.end/t.value);
-        links[key].target.index = t.index;
-        links[key].target.value = Math.abs(value.target.end - value.target.start);
-    });
-    drawLinks(links);
-}
-
-// Returns an event handler for fading a given chord group.
-function fade(opacity) {
-  return function(g, i) {
-    svg.selectAll(".chord path")
-        .filter(function(d) { return d.source.index != i && d.target.index != i; })
-        .transition()
-        .style("opacity", opacity);
-  };
-}
-
-</script>
+	<script src="js/d3.v3.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/wgaPipeline.js"></script>
+	<script>
+		loadKaryoFile("test/karyo.json");
+	</script>
 </body>
 </html>
