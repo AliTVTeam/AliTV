@@ -10,6 +10,9 @@ function fillByLength(length){
 	if(length < 10000){
 		return "#FF0000";
 	}
+	else if(length < 50000){
+		return "#FFDD00";
+	}
 	else{
 		return "#00FF00";
 	}
