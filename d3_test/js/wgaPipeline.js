@@ -84,18 +84,19 @@ function loadKaryoFile(file) {
 
 function karyo_to_coords(data) {
 	var total = 0;
+	var spacer = 10000;
 	$.each(data, function(key, value) {
-		total += value + 10000;
+		total += value + spacer;
 	});
 	var current = 0;
 	var index = 0;
 	$.each(data, function(key, value) {
 		data[key] = {
 			"value" : value,
-			"startAngle" : ((current + 10000) / total) * (2 * Math.PI),
+			"startAngle" : ((current + spacer) / total) * (2 * Math.PI),
 			"index" : index++
 		};
-		current += value + 10000;
+		current += value + spacer;
 		data[key].endAngle = (current / total) * (2 * Math.PI);
 	});
 	var array = $.map(data, function(value, index) {
