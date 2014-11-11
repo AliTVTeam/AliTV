@@ -8,7 +8,6 @@ var svg = d3.select("body").append("svg").attr("width", width).attr("height",
 		"translate(" + width / 2 + "," + height / 2 + ")");
 
 function drawKaryo(karyo) {
-	console.log(karyo);
 	svg.append("g").selectAll("path").data(karyo).enter().append("path").style(
 			"fill", function(d) {
 				return fill(d.index);
@@ -50,7 +49,6 @@ function drawLinks(links) {
 			.enter().append("path").attr("d",
 					d3.svg.chord().radius(innerRadius)).style("fill",
 					function(d) {
-						console.log(d);
 						return fill(d.target.index);
 					}).style("opacity", 1);
 }
@@ -92,7 +90,7 @@ function karyo_to_coords(data) {
 		return [ value ];
 	});
 	drawKaryo(array);
-	load_link_file("test/link.json", data)
+	loadLinkFile("test/link.json", data)
 }
 
 function loadLinkFile(file, karyo) {
