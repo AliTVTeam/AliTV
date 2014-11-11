@@ -1,7 +1,19 @@
-var width = 960, height = 800, innerRadius = Math.min(width, height) * .41, outerRadius = innerRadius * 1.1;
+var width = 960, 
+	height = 800, 
+	innerRadius = Math.min(width, height) * .41, 
+	outerRadius = innerRadius * 1.1;
 
 var fill = d3.scale.ordinal().domain(d3.range(5)).range(
 		[ "#000000", "#FFDD89", "#957244", "#F26223", "#00FF00" ]);
+
+function fillByLength(length){
+	if(length < 10000){
+		return "#FF0000";
+	}
+	else{
+		return "#00FF00";
+	}
+}
 
 var svg = d3.select("body").append("svg").attr("width", width).attr("height",
 		height).append("g").attr("transform",
@@ -49,7 +61,7 @@ function drawLinks(links) {
 			.enter().append("path").attr("d",
 					d3.svg.chord().radius(innerRadius)).style("fill",
 					function(d) {
-						return fill(d.target.index);
+						return fillByLength(Math.abs(d.target.end - d.target.start));
 					}).style("opacity", 1);
 }
 
@@ -73,17 +85,17 @@ function loadKaryoFile(file) {
 function karyo_to_coords(data) {
 	var total = 0;
 	$.each(data, function(key, value) {
-		total += value;
+		total += value + 10000;
 	});
 	var current = 0;
 	var index = 0;
 	$.each(data, function(key, value) {
 		data[key] = {
 			"value" : value,
-			"startAngle" : (current / total) * (2 * Math.PI),
+			"startAngle" : ((current + 10000) / total) * (2 * Math.PI),
 			"index" : index++
 		};
-		current += value;
+		current += value + 10000;
 		data[key].endAngle = (current / total) * (2 * Math.PI);
 	});
 	var array = $.map(data, function(value, index) {
