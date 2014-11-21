@@ -136,6 +136,7 @@ function link_to_coords(links, karyo) {
 		links[key].target.value = Math.abs(value.target.end
 				- value.target.start);
 	});
+        console.log(links);
 	drawLinks(links);
 }
 
