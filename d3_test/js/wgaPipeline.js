@@ -18,6 +18,18 @@ function fillByLength(length){
 	}
 }
 
+function fillByIdy(identity){
+	if(identity < 90){
+		return "#FF0000";
+	}
+	else if(identity < 95){
+		return "#FFDD00";
+	}
+	else{
+		return "#00FF00";
+	}
+}
+
 var svg = d3.select("body").append("svg").attr("width", width).attr("height",
 		height).append("g").attr("transform",
 		"translate(" + width / 2 + "," + height / 2 + ")");
@@ -64,7 +76,8 @@ function drawLinks(links) {
 			.enter().append("path").attr("d",
 					d3.svg.chord().radius(innerRadius)).style("fill",
 					function(d) {
-						return fillByLength(Math.abs(d.target.end - d.target.start));
+					//	return fillByLength(Math.abs(d.target.end - d.target.start));
+						return fillByIdy(Math.abs(d.identity));
 					}).style("opacity", 1);
 }
 
