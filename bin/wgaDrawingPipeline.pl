@@ -5,7 +5,7 @@ use Getopt::Long;
 use Pod::Usage;
 use File::Basename;
 use FindBin;
-use lib $FindBin::Bin;
+use lib "$FindBin::RealBin/../lib";
 use Verbose;
 use Data::Dumper;
 
