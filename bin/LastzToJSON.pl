@@ -70,7 +70,7 @@ while(<IN>){
 		$queryIDs{$items[$tagq]} = "$prefix$items[$tagq]";
     }
     # write entrys in link file
-push(@links, {source => {name => $referenceIDs{$items[$tagr]}, start =>$items[$s1], end =>$items[$e1]}, target => {name => $queryIDs{$items[$tagq]}, start => $items[$s2], end =>$items[$e2]}, identity => $items[$idy]});
+push(@links, {source => {name => $referenceIDs{$items[$tagr]}, start =>$items[$s1]+0, end =>$items[$e1]+0}, target => {name => $queryIDs{$items[$tagq]}, start => $items[$s2]+0, end =>$items[$e2]+0}, identity => $items[$idy]+0});
 }
 close IN or die "$!";
 open(LINK, '>', "$out.link") or die "$!";
@@ -82,13 +82,13 @@ open(WANTED,'>',"$out.wanted_ids") or die "$!";
 # chr - ID LABEL START END COLOR
 for(my $i = 0; $i < @referenceOrder; $i++){
     my $ref = $referenceOrder[$i];
-    $karyo{$referenceIDs{$ref}} = $references{$ref};
+    $karyo{$referenceIDs{$ref}} = $references{$ref}+0;
     print WANTED "$referenceIDs{$ref}\n";
 }
 unless($opt_self){
 	for(my $i = 0; $i < @queryOrder; $i++){
 	    my $que = $queryOrder[$i];
-	    $karyo{$queryIDs{$que}} = $queries{$que};
+	    $karyo{$queryIDs{$que}} = $queries{$que}+0;
 	    print WANTED "$queryIDs{$que}\n";
 	}
 }
