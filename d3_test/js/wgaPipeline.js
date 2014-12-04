@@ -162,3 +162,7 @@ function fade(opacity) {
 		}).transition().style("opacity", opacity);
 	};
 }
+
+function clear_chords(){
+	svg.selectAll(".chord path").remove();
+}
