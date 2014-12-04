@@ -92,9 +92,12 @@ function groupTicks(d) {
 	});
 }
 
-function loadKaryoFile(file) {
+function loadKaryoFile(file, callback) {
 	$.getJSON(file, function(data) {
 		karyo_to_coords(data);
+	        if(typeof callback !== "undefined"){
+		    callback(data);
+		}
 	});
 }
 
