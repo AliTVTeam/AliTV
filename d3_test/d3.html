@@ -33,6 +33,24 @@ body {
 			});
 		});
 		
+		function redraw(){
+			clear_chords();
+			var links = filter_links_by_length(full_links);
+			drawLinks(links);
+		}
+		
+		function filter_links_by_length(links){
+			var filtered = new Array(); 
+			$.each(links, function(index, value) {
+				var len = Math.abs(value.source.start - value.source.end);
+				if(len >= 10000){
+					filtered.push(value);
+				}
+			});
+			console.log(filtered);
+			return filtered;
+		}
 	</script>
+	<button onclick="redraw()">Filter alignments by length (>=10kbp)</button>
 </body>
 </html>
