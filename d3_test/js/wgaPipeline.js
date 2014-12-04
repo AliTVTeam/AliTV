@@ -94,9 +94,9 @@ function groupTicks(d) {
 
 function loadKaryoFile(file, callback) {
 	$.getJSON(file, function(data) {
-		karyo_to_coords(data);
+		var karyo = karyo_to_coords(data);
 	        if(typeof callback !== "undefined"){
-		    callback(data);
+		    callback(karyo);
 		}
 	});
 }
@@ -118,16 +118,15 @@ function karyo_to_coords(data) {
 		current += value + spacer;
 		data[key].endAngle = (current / total) * (2 * Math.PI);
 	});
-	var array = $.map(data, function(value, index) {
-		return [ value ];
-	});
-	drawKaryo(array);
-	loadLinkFile("test/link.json", data)
+	return data;
 }
 
-function loadLinkFile(file, karyo) {
+function loadLinkFile(file, karyo, callback) {
 	$.getJSON(file, function(data) {
-		link_to_coords(data, karyo);
+		var links = link_to_coords(data, karyo);
+		if(typeof callback !== 'undefined'){
+			callback(links);
+		}
 	});
 }
 
@@ -152,8 +151,7 @@ function link_to_coords(links, karyo) {
 		links[key].target.value = Math.abs(value.target.end
 				- value.target.start);
 	});
-        console.log(links);
-	drawLinks(links);
+	return links;
 }
 
 // Returns an event handler for fading a given chord group.
