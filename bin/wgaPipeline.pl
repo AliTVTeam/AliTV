@@ -34,7 +34,7 @@ path to the query fasta file.
 
 =cut
 
-$options{'query=s'} = \(my $opt_query);
+$options{'query=s'} = \( my $opt_query );
 
 =item --reference=<FASTA>
 
@@ -47,7 +47,7 @@ NOTE: lowercase letters are masked in lastz.
 
 =cut
 
-$options{'reference=s'} = \(my $opt_reference);
+$options{'reference=s'} = \( my $opt_reference );
 
 =item --self
 
@@ -56,8 +56,7 @@ Reference is ignored if self is set.
 
 =cut
 
-$options{'self'} = \(my $opt_self);
-
+$options{'self'} = \( my $opt_self );
 
 =item [--highlightIR] 
 
@@ -65,7 +64,7 @@ Trigger highlighting of Inverted Repeat regions
 
 =cut
 
-$options{'highlightIR'} = \(my $opt_highlightIR);
+$options{'highlightIR'} = \( my $opt_highlightIR );
 
 =item [--prefix=<STRING>] 
 
@@ -74,16 +73,16 @@ prefix for the output files. Default is current directory and a prefix
 
 =cut
 
-$options{'prefix=s'} = \(my $opt_prefix);
-	  
+$options{'prefix=s'} = \( my $opt_prefix );
+
 =item [--promer / --nucmer]
 
 use PROmer or NUCmer instead of LASTZ for the alignment 
 
 =cut
 
-$options{'promer'} = \(my $opt_promer);	
-$options{'nucmer'} = \(my $opt_nucmer);
+$options{'promer'} = \( my $opt_promer );
+$options{'nucmer'} = \( my $opt_nucmer );
 
 =item [--lastz]
 
@@ -92,7 +91,7 @@ use LASTZ for the alignment (default)
 =cut
 
 # Not necessary but prevents an error message if someone explicitly specifies lastz
-$options{'lastz'} = \(my $opt_lastz);	
+$options{'lastz'} = \( my $opt_lastz );
 
 =item [--contig-order-by-crosslinks]
 
@@ -101,7 +100,8 @@ use a script to set the contig order, that tries to minimize crosslinks
 
 =cut
 
-$options{'contig-order-by-crosslinks'} = \(my $opt_contig_order_by_crosslinks);
+$options{'contig-order-by-crosslinks'} =
+  \( my $opt_contig_order_by_crosslinks );
 
 =item [--seed-length=<INT>] 
 
@@ -109,7 +109,7 @@ seed-length. default LASTZ:12of19, NUCmer=20, PROmer=6
 
 =cut
 
-$options{'seed-length=i'} = \(my $opt_seed_length);
+$options{'seed-length=i'} = \( my $opt_seed_length );
 
 =item [--lastz-bin=<FILE>] 
 
@@ -117,7 +117,7 @@ Path to lastz binary file. Default tries if LASTZ is in PATH;
 
 =cut
 
-$options{'lastz-bin=s'} = \(my $opt_lastz_bin = `which lastz 2>/dev/null`);
+$options{'lastz-bin=s'} = \( my $opt_lastz_bin = `which lastz 2>/dev/null` );
 
 =item [--mummer-bin=<FILE>] 
 
@@ -125,7 +125,7 @@ Path to MUMmer binaries (PROmer, NUCmer). Default tries if MUMmer is in PATH;
 
 =cut
 
-$options{'mummer-bin=s'} = \(my $opt_mummer_bin = `which mummer 2>/dev/null`);
+$options{'mummer-bin=s'} = \( my $opt_mummer_bin = `which mummer 2>/dev/null` );
 
 =item [--circos-bin=<FILE>] 
 
@@ -133,7 +133,7 @@ Path to the Circos binary file. Default tries if Circos is in PATH;
 
 =cut
 
-$options{'circos-bin=s'} = \(my $opt_circos_bin = `which circos 2>/dev/null`);
+$options{'circos-bin=s'} = \( my $opt_circos_bin = `which circos 2>/dev/null` );
 
 =item [--circos-template=<FILE>] 
 
@@ -141,7 +141,8 @@ Path to the customized circos template file.
 
 =cut
 
-$options{'circos-template=s'} = \(my $opt_template = $FindBin::RealBin.'/../cfg/circos_template_full.conf');
+$options{'circos-template=s'} = \( my $opt_template =
+	  $FindBin::RealBin . '/../cfg/circos_template_full.conf' );
 
 =item [--minlength=<INT>]
 
@@ -149,7 +150,7 @@ Minimum length of an alignment to be parsed for Circos.
 
 =cut
 
-$options{'minlength=i'} = \(my $opt_minlength);
+$options{'minlength=i'} = \( my $opt_minlength );
 
 =item [--minidentity=<INT>]
 
@@ -157,8 +158,7 @@ Minimum identity percentage of an alignment to be parsed for Circos.
 
 =cut
 
-$options{'minidentity=i'} = \(my $opt_minidentity);
-
+$options{'minidentity=i'} = \( my $opt_minidentity );
 
 =item [--unmask] 
 
@@ -167,7 +167,7 @@ This is now the default, the option remains for compatibility purpose
 
 =cut
 
-$options{'unmask'} = \(my $opt_unmask = 1);
+$options{'unmask'} = \( my $opt_unmask = 1 );
 
 =item [--mask] 
 
@@ -175,7 +175,7 @@ Option to make LASTZ consider lowercase letters as masked
 
 =cut
 
-$options{'mask'} = \(my $opt_mask = 0);
+$options{'mask'} = \( my $opt_mask = 0 );
 
 =item [--transparency <int>] 
 
@@ -185,7 +185,7 @@ Default: 1
 
 =cut
 
-$options{'transparency'} = \(my $opt_transparency = 1);
+$options{'transparency'} = \( my $opt_transparency = 1 );
 
 =item [--[no]cleanheaders] 
 
@@ -193,7 +193,7 @@ cleanheaders is default.
 
 =cut
 
-$options{'cleanheaders!'} = \(my $opt_clean_headers = 1);
+$options{'cleanheaders!'} = \( my $opt_clean_headers = 1 );
 
 =item [--[no]verbose] 
 
@@ -201,7 +201,7 @@ verbose is default.
 
 =cut
 
-$options{'verbose!'} = \(my $opt_verbose = 1);
+$options{'verbose!'} = \( my $opt_verbose = 1 );
 
 =item [--help] 
 
@@ -209,7 +209,7 @@ show help
 
 =cut
 
-$options{'help|?'} = \(my $opt_help);
+$options{'help|?'} = \( my $opt_help );
 
 =item [--man] 
 
@@ -217,7 +217,7 @@ show man page
 
 =cut
 
-$options{'man'} = \(my $opt_man);
+$options{'man'} = \( my $opt_man );
 
 =back
 
@@ -230,50 +230,63 @@ $options{'man'} = \(my $opt_man);
 
 =cut
 
-
-chomp($opt_lastz_bin,$opt_mummer_bin,$opt_circos_bin);
+chomp( $opt_lastz_bin, $opt_mummer_bin, $opt_circos_bin );
 my $opt_mummer_path = dirname($opt_mummer_bin);
 
 GetOptions(%options) or pod2usage(1);
 
 my $vwga = Verbose->new(
-	report_level => $opt_verbose // 0, #/
-	format => "[{TIME_ELAPSED}] {MESSAGE}\n",
-	line_width => 70
+	report_level => $opt_verbose // 0,    #/
+	format       => "[{TIME_ELAPSED}] {MESSAGE}\n",
+	line_width   => 70
 );
 
 my $vbash = Verbose->new(
-	report_level => $opt_verbose // 0, #/
-	line_width => 70,
-	line_delim => "\\\n",
+	report_level => $opt_verbose // 0,    #/
+	line_width   => 70,
+	line_delim   => "\\\n",
 );
 
 my $vplain = Verbose->new(
-	report_level => $opt_verbose // 0, #/
+	report_level => $opt_verbose // 0,    #/
 	line_width => 70,
 );
 
-pod2usage(1) if($opt_help);
-pod2usage(-verbose => 99, -sections => "NAME|DESCRIPTION|USAGE|OPTIONS|AUTHORS") if($opt_man);
+pod2usage(1) if ($opt_help);
+pod2usage(
+	-verbose  => 99,
+	-sections => "NAME|DESCRIPTION|USAGE|OPTIONS|AUTHORS"
+) if ($opt_man);
 
-$opt_unmask = 0 if($opt_mask);
+$opt_unmask = 0 if ($opt_mask);
 
 $vwga->verbose('Checking parameter');
 $opt_reference = $opt_query if ($opt_self);
-pod2usage(-msg => "Missing reference or query", -verbose => 0) unless ($opt_reference && $opt_query);
-pod2usage(-msg => 'Circos not in $PATH and binary not specified', -verbose => 0) unless ($opt_circos_bin);
-if($opt_nucmer or $opt_promer){
-	pod2usage(-msg => 'mummer not in $PATH and binary not specified', -verbose => 0) unless ($opt_mummer_bin);
+pod2usage( -msg => "Missing reference or query", -verbose => 0 )
+  unless ( $opt_reference && $opt_query );
+pod2usage(
+	-msg     => 'Circos not in $PATH and binary not specified',
+	-verbose => 0
+) unless ($opt_circos_bin);
+if ( $opt_nucmer or $opt_promer ) {
+	pod2usage(
+		-msg     => 'mummer not in $PATH and binary not specified',
+		-verbose => 0
+	) unless ($opt_mummer_bin);
 }
-else{
-	pod2usage(-msg => 'lastz not in $PATH and binary not specified', -verbose => 0) unless ($opt_lastz_bin);
+else {
+	pod2usage(
+		-msg     => 'lastz not in $PATH and binary not specified',
+		-verbose => 0
+	) unless ($opt_lastz_bin);
 }
 
 $opt_prefix = get_prefix() unless $opt_prefix;
-my ($prefix_name,$prefix_dir) = fileparse($opt_prefix);
+my ( $prefix_name, $prefix_dir ) = fileparse($opt_prefix);
 
-if($opt_clean_headers){
-	$vwga->verbose('Cleaning fasta headers (replacing illegal symbols like | and = by _');
+if ($opt_clean_headers) {
+	$vwga->verbose(
+		'Cleaning fasta headers (replacing illegal symbols like | and = by _');
 	$vwga->hline();
 	my $clean_headers_cmd = clean_headers_command();
 	$vbash->verbose($clean_headers_cmd);
@@ -281,7 +294,7 @@ if($opt_clean_headers){
 	$vwga->nline();
 	$vplain->verbose($clean_re) if $clean_re;
 }
-if($opt_highlightIR){
+if ($opt_highlightIR) {
 	$vwga->verbose('Highlighting IR');
 	$vwga->hline();
 	my $ir_highlight_cmd = ir_highlight_command();
@@ -293,58 +306,73 @@ if($opt_highlightIR){
 $vwga->verbose('Calculating alignment');
 $vwga->hline();
 my $aln_cmd = aln_command();
-$vbash->verbose( $aln_cmd );
-my $aln_re = qx($aln_cmd); 
+$vbash->verbose($aln_cmd);
+my $aln_re = qx($aln_cmd);
 $vwga->nline();
 $vplain->verbose($aln_re) if $aln_re;
-$vwga->exit('ERROR: Calculating alignment failed') if $?>> 8;
+$vwga->exit('ERROR: Calculating alignment failed') if $? >> 8;
 
 $vwga->verbose('Parsing results');
 $vwga->hline();
 my $parser_cmd = parser_command();
-$vbash->verbose( $parser_cmd );
+$vbash->verbose($parser_cmd);
 my $parser_re = qx($parser_cmd);
 $vwga->nline();
 $vplain->verbose($parser_re) if $parser_re;
-$vwga->exit('ERROR: Parsing failed') if $?>> 8;
+$vwga->exit('ERROR: Parsing failed') if $? >> 8;
 
-unless($opt_self){
+unless ( $opt_promer || $opt_nucmer ) {
+	$vwga->verbose('Creating d3.js output');
+	$vwga->hline();
+	my $d3_cmd = d3_command();
+	$vbash->verbose($d3_cmd);
+	my $d3_re = qx($d3_cmd);
+	$vwga->nline();
+	$vplain->verbose($d3_re) if $d3_re;
+	$vwga->exit('ERROR: Creating d3.js output failed') if $? >> 8;
+}
+
+unless ($opt_self) {
 	$vwga->verbose('Optimizing contig order');
 	$vwga->hline();
 	my $order_cmd = order_command();
-	$vbash->verbose( $order_cmd );
+	$vbash->verbose($order_cmd);
 	my $order_re = qx($order_cmd);
 	$vwga->nline();
 	$vplain->verbose($order_re) if $order_re;
-	$vwga->exit('ERROR: Optimizing contig order failed') if $?>> 8;
+	$vwga->exit('ERROR: Optimizing contig order failed') if $? >> 8;
 }
 
 $vwga->verbose('Annotating features');
 $vwga->hline();
 my $highlight_cmd = highlight_command();
-$vbash->verbose( $highlight_cmd );
+$vbash->verbose($highlight_cmd);
 my $highlight_re = qx($highlight_cmd);
 $vwga->nline();
 $vplain->verbose($highlight_re) if $highlight_re;
-$vwga->exit('ERROR: Annotating features failed') if $?>> 8;
+$vwga->exit('ERROR: Annotating features failed') if $? >> 8;
 
 $vwga->verbose('Running Circos');
 $vwga->hline();
 my $circos_cmd = circos_command();
-$vbash->verbose( $circos_cmd );
+$vbash->verbose($circos_cmd);
 my $circos_re = qx($circos_cmd);
 $vwga->nline();
 $vplain->verbose($circos_re) if $circos_re;
-$vwga->exit('ERROR: Running Circos failed') if $?>> 8;
+$vwga->exit('ERROR: Running Circos failed') if $? >> 8;
 
 #Find out the contigs total / contigs aligned ratio:
 my $chromosomes_total1 = qx(grep -c "^>" $opt_query);
 my $chromosomes_total2 = qx(grep -c "^>" $opt_reference);
 my $chromosomes_drawn1 = qx(grep "chr - " $opt_prefix.karyo | grep -c " Q_");
 my $chromosomes_drawn2 = qx(grep "chr - " $opt_prefix.karyo | grep -c " R_");
-chomp($chromosomes_total1, $chromosomes_total2, $chromosomes_drawn1, $chromosomes_drawn2);
+chomp(
+	$chromosomes_total1, $chromosomes_total2,
+	$chromosomes_drawn1, $chromosomes_drawn2
+);
 $vwga->verbose("Chromosomes aligned: ");
-my $stat = "Query: $chromosomes_drawn1 of $chromosomes_total1\nReference: $chromosomes_drawn2 of $chromosomes_total2";
+my $stat =
+"Query: $chromosomes_drawn1 of $chromosomes_total1\nReference: $chromosomes_drawn2 of $chromosomes_total2";
 $vplain->verbose($stat);
 $vwga->nline();
 $vwga->verbose('wgaPipeline finished');
@@ -370,10 +398,14 @@ Returns the command to highlight inverted repeat regions.
 
 =cut
 
-sub ir_highlight_command{
-	my $cmd = 'perl '.$FindBin::RealBin."/highlight_and_mask_IR.pl --in $opt_query --seqprefix Q_ --outprefix query_IR --color black\n";
-	$cmd .= 'perl '.$FindBin::RealBin."/highlight_and_mask_IR.pl --in $opt_reference --seqprefix R_ --outprefix reference_IR --color black";
-	return $cmd;	
+sub ir_highlight_command {
+	my $cmd = 'perl '
+	  . $FindBin::RealBin
+	  . "/highlight_and_mask_IR.pl --in $opt_query --seqprefix Q_ --outprefix query_IR --color black\n";
+	$cmd .= 'perl '
+	  . $FindBin::RealBin
+	  . "/highlight_and_mask_IR.pl --in $opt_reference --seqprefix R_ --outprefix reference_IR --color black";
+	return $cmd;
 }
 
 =head2 aln_command
@@ -382,22 +414,34 @@ Returns the command to call the alignment program.
 
 =cut
 
-sub aln_command{
-	if($opt_promer || $opt_nucmer){ #//
-		my $cmd='';
+sub aln_command {
+	if ( $opt_promer || $opt_nucmer ) {    #//
+		my $cmd = '';
 		my $bin = $opt_promer ? 'promer' : 'nucmer';
-	    $cmd .= "$opt_mummer_path/$bin -p $opt_prefix ".($opt_seed_length ? "--minmatch $opt_seed_length " : '')."$opt_reference $opt_query 2>&1\n";
-	    $cmd .= "$opt_mummer_path/delta-filter -m $opt_prefix.delta > $opt_prefix.mdelta 2>&1\n";
-	    $cmd .= "$opt_mummer_path/show-coords -THrcl $opt_prefix.mdelta > $opt_prefix.mcoords 2>&1\n";
-		return $cmd;		
-	}else{
-		my $cmd  = "$opt_lastz_bin ";
-		$cmd .= "$opt_reference"."[multiple".($opt_unmask ? ',unmask' : '')."] ";
-		$cmd .= "$opt_query".($opt_unmask ? '[unmask]' : '')." ";
-		$cmd .= "--format=general:name1,zstart1,end1,size1,name2,zstart2+,end2+,strand2,size2,identity,score,length2 ";
-		$cmd .= "--output=$opt_prefix.txt --noytrim --ambiguous=iupac --gapped ";
-		$cmd .= ($opt_seed_length ? "--seed=match$opt_seed_length " : '')."2>&1";	
-		return $cmd;	
+		$cmd .=
+		    "$opt_mummer_path/$bin -p $opt_prefix "
+		  . ( $opt_seed_length ? "--minmatch $opt_seed_length " : '' )
+		  . "$opt_reference $opt_query 2>&1\n";
+		$cmd .=
+"$opt_mummer_path/delta-filter -m $opt_prefix.delta > $opt_prefix.mdelta 2>&1\n";
+		$cmd .=
+"$opt_mummer_path/show-coords -THrcl $opt_prefix.mdelta > $opt_prefix.mcoords 2>&1\n";
+		return $cmd;
+	}
+	else {
+		my $cmd = "$opt_lastz_bin ";
+		$cmd .=
+		    "$opt_reference"
+		  . "[multiple"
+		  . ( $opt_unmask ? ',unmask' : '' ) . "] ";
+		$cmd .= "$opt_query" . ( $opt_unmask ? '[unmask]' : '' ) . " ";
+		$cmd .=
+"--format=general:name1,zstart1,end1,size1,name2,zstart2+,end2+,strand2,size2,identity,score,length2 ";
+		$cmd .=
+		  "--output=$opt_prefix.txt --noytrim --ambiguous=iupac --gapped ";
+		$cmd .=
+		  ( $opt_seed_length ? "--seed=match$opt_seed_length " : '' ) . "2>&1";
+		return $cmd;
 	}
 }
 
@@ -407,19 +451,24 @@ Returns the command to call the parser script.
 
 =cut
 
-sub parser_command{
-	if($opt_promer || $opt_nucmer){
-		my $cmd= "perl ".$FindBin::RealBin."/DnadiffCircosParser.pl --in $opt_prefix --out $opt_prefix --template $opt_template 2>&1";
-		$cmd .= " --promer" if ($opt_promer);
-		$cmd .= " --minlen $opt_minlength" if ($opt_minlength);
+sub parser_command {
+	if ( $opt_promer || $opt_nucmer ) {
+		my $cmd = "perl "
+		  . $FindBin::RealBin
+		  . "/DnadiffCircosParser.pl --in $opt_prefix --out $opt_prefix --template $opt_template 2>&1";
+		$cmd .= " --promer"                  if ($opt_promer);
+		$cmd .= " --minlen $opt_minlength"   if ($opt_minlength);
 		$cmd .= " --minidy $opt_minidentity" if ($opt_minidentity);
 		$cmd .= " --transparency $opt_transparency";
-		return $cmd;		
-	}else{
+		return $cmd;
+	}
+	else {
 		my $self_command = "";
-		$self_command = "--self" if($opt_self);
-		my $cmd = "perl ".$FindBin::RealBin."/LastzCircosParser.pl --in $opt_prefix.txt --out $opt_prefix $self_command --template $opt_template 2>&1";		
-		$cmd .= " --minlen $opt_minlength" if ($opt_minlength);
+		$self_command = "--self" if ($opt_self);
+		my $cmd = "perl "
+		  . $FindBin::RealBin
+		  . "/LastzCircosParser.pl --in $opt_prefix.txt --out $opt_prefix $self_command --template $opt_template 2>&1";
+		$cmd .= " --minlen $opt_minlength"   if ($opt_minlength);
 		$cmd .= " --minidy $opt_minidentity" if ($opt_minidentity);
 		$cmd .= " --transparency $opt_transparency";
 		return $cmd;
@@ -432,8 +481,9 @@ Returns the command to call circos.
 
 =cut
 
-sub circos_command{
-	return "$opt_circos_bin -conf $opt_prefix.circos.conf -outputdir $prefix_dir -outputfile $prefix_name 2>&1";
+sub circos_command {
+	return
+"$opt_circos_bin -conf $opt_prefix.circos.conf -outputdir $prefix_dir -outputfile $prefix_name 2>&1";
 }
 
 =head2 order_commmand
@@ -442,10 +492,13 @@ Returns the command to call ContigOrder.pl
 
 =cut
 
-sub order_command{
+sub order_command {
 	my $order_script = 'ContigOrderByLongestHit.pl';
 	$order_script = 'ContigOrder.pl' if ($opt_contig_order_by_crosslinks);
-	return "perl ".$FindBin::RealBin."/$order_script --link=$opt_prefix.link --template=$opt_prefix.circos.conf 2>&1";
+	return
+	    "perl "
+	  . $FindBin::RealBin
+	  . "/$order_script --link=$opt_prefix.link --template=$opt_prefix.circos.conf 2>&1";
 }
 
 =head2 highlight_commmand
@@ -454,11 +507,29 @@ Returns the command to call highlightFeatures.pl
 
 =cut
 
-sub highlight_command{
-	my $high_cmd = "perl ".$FindBin::RealBin."/highlightFeatures.pl --query=$opt_query --reference=$opt_reference "; 
-	$high_cmd .= "--ir " if($opt_highlightIR);
-	$high_cmd .= "--prefix=$opt_prefix --n-stretch=white --wanted_ids $opt_prefix.wanted_ids 2>&1";
+sub highlight_command {
+	my $high_cmd = "perl "
+	  . $FindBin::RealBin
+	  . "/highlightFeatures.pl --query=$opt_query --reference=$opt_reference ";
+	$high_cmd .= "--ir " if ($opt_highlightIR);
+	$high_cmd .=
+"--prefix=$opt_prefix --n-stretch=white --wanted_ids $opt_prefix.wanted_ids 2>&1";
 	return $high_cmd;
+}
+
+=head2 d3_command
+
+Returns the command to call LastzToJSON.pl
+
+=cut
+
+sub d3_command {
+	my $self_command = "";
+	$self_command = "--self" if ($opt_self);
+	my $d3_cmd = "perl "
+	  . $FindBin::RealBin
+	  . "/LastzToJSON.pl --in $opt_prefix.txt --out $opt_prefix $self_command 2>&1";
+	return $d3_cmd;
 }
 
 =head2 get_prefix
@@ -467,14 +538,16 @@ Returns a default prefix if none is specified by the user. Style: <query_file>_-
 
 =cut
 
-sub get_prefix{
-	my ($ref_name,$ref_path,$ref_suffix) = fileparse($opt_reference, qw(.fa .fasta .fas));
-	my ($query_name,$query_path,$query_suffix) = fileparse($opt_query, qw(.fa .fasta .fas));
+sub get_prefix {
+	my ( $ref_name, $ref_path, $ref_suffix ) =
+	  fileparse( $opt_reference, qw(.fa .fasta .fas) );
+	my ( $query_name, $query_path, $query_suffix ) =
+	  fileparse( $opt_query, qw(.fa .fasta .fas) );
 	my $aligner = 'lastz';
-	if($opt_promer || $opt_nucmer){
-		$aligner = ($opt_promer ? 'promer' : 'nucmer');
+	if ( $opt_promer || $opt_nucmer ) {
+		$aligner = ( $opt_promer ? 'promer' : 'nucmer' );
 	}
-	return './'.$query_name.'_-_'.$ref_name.'_-_'.$aligner;
+	return './' . $query_name . '_-_' . $ref_name . '_-_' . $aligner;
 }
 
 =head1 LIMITATIONS
