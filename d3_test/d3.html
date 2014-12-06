@@ -21,13 +21,13 @@ body {
 	<script>
 		var full_karyo;
 		var full_links;
-		loadKaryoFile("test/karyo.json", function(karyo){
+		loadKaryoFile("data/karyo.json", function(karyo){
 			full_karyo = karyo;
 			var array = $.map(karyo, function(value, index) {
 				return [ value ];
 			});
 			drawKaryo(array);
-			loadLinkFile("test/link.json", karyo, function(links){
+			loadLinkFile("data/link.json", karyo, function(links){
 				full_links = links;
 				drawLinks(links);
 			});
