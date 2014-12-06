@@ -6,6 +6,8 @@ use Pod::Usage;
 use FindBin;
 use POSIX; # for rounding
 use JSON;
+use File::Copy qw(cp);
+use File::Path qw(make_path);
 
 ##### 
 ### @author Markus Ankenbrand
@@ -73,68 +75,31 @@ while(<IN>){
 push(@links, {source => {name => $referenceIDs{$items[$tagr]}, start =>$items[$s1]+0, end =>$items[$e1]+0}, target => {name => $queryIDs{$items[$tagq]}, start => $items[$s2]+0, end =>$items[$e2]+0}, identity => $items[$idy]+0});
 }
 close IN or die "$!";
-open(LINK, '>', "$out.link") or die "$!";
+make_path("$out.d3/js", "$out.d3/data");
+cp("$FindBin::RealBin/../d3_test/js/d3.v3.min.js","$out.d3/js/") or die "Copy failed: $!";
+cp("$FindBin::RealBin/../d3_test/js/jquery.min.js","$out.d3/js/") or die "Copy failed: $!";
+cp("$FindBin::RealBin/../d3_test/js/wgaPipeline.js","$out.d3/js/") or die "Copy failed: $!";
+cp("$FindBin::RealBin/../d3_test/d3.html","$out.d3/") or die "Copy failed: $!";
+open(LINK, '>', "$out.d3/data/link.json") or die "$!";
 print LINK encode_json \@links;
 close LINK or die "$!";
 
-open(WANTED,'>',"$out.wanted_ids") or die "$!";
 # The karyotype file contains the information for each sequence in columns
 # chr - ID LABEL START END COLOR
 for(my $i = 0; $i < @referenceOrder; $i++){
     my $ref = $referenceOrder[$i];
     $karyo{$referenceIDs{$ref}} = $references{$ref}+0;
-    print WANTED "$referenceIDs{$ref}\n";
 }
 unless($opt_self){
 	for(my $i = 0; $i < @queryOrder; $i++){
 	    my $que = $queryOrder[$i];
 	    $karyo{$queryIDs{$que}} = $queries{$que}+0;
-	    print WANTED "$queryIDs{$que}\n";
 	}
 }
-open(KARYO,'>',"$out.karyo.json") or die "$!";
+open(KARYO,'>',"$out.d3/data/karyo.json") or die "$!";
 print KARYO encode_json \%karyo;
 close KARYO or die "$!";
-close WANTED or die "$!";
 
-# write circos.config file
-#open(IN,"<",$template) or die "$!";
-#open(CONF,">","$out.circos.conf") or die "$!";
-#while(<IN>){
-#    # Set the apropriate karyotype, link and highlight files
-#    if(/^karyotype/){
-#	my $filepath = File::Spec->rel2abs("$out.karyo");
-#	print CONF "karyotype = $filepath\n";
-#    }
-#    elsif(/^linkfile/){
-#	my $filepath = File::Spec->rel2abs("$out.link");
-#	print CONF "file = $filepath\n";
-#    }
-#    # no highlights to draw
-#    elsif(/^highlightfile/){
-#	print CONF "show = no\n";
-#    }
-#    # reverse the reference chromosomes and their order to avoid unnecessarily crossing lines
-#    elsif(/^chromosomes_reverse/){
-#	my $reverse="$referenceIDs{$referenceOrder[0]}";
-#	for (my $i = 1; $i<@referenceOrder; $i++){
-#	    $reverse .= ";$referenceIDs{$referenceOrder[$i]}";
-#	}
-#	print CONF "chromosomes_reverse = $reverse\n";
-#    }
-#    elsif(/^chromosomes_order/){
-#	my $order = "^";
-#	for (my $i = $#referenceOrder; $i>=0; $i--){
-#	    $order .= ",$referenceIDs{$referenceOrder[$i]}";
-#	}
-#	print CONF "chromosomes_order = $order\n";
-#    }
-#    else{
-#	print CONF $_;
-#    }
-#}
-#close IN or die "$!";
-#close CONF or die "$!";
 
 __END__
 
