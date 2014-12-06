@@ -23,7 +23,7 @@ body {
 	<script src="js/wgaPipeline.js"></script>
 	<script>
 		var identity_range = [75,100];
-		var min_length = 0;
+		var min_length = 1000;
 		$(function() {
 			$("#identity-slider").slider({
 				range : true,
@@ -51,7 +51,7 @@ body {
 			console.log(array);
 			loadLinkFile("data/link.json", karyo, function(links) {
 				full_links = links;
-				drawLinks(links);
+				redraw(identity_range, min_length);
 			});
 		});
 
