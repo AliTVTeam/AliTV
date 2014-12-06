@@ -1,6 +1,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<link rel="stylesheet" href="css/jquery-ui.min.css">
 <style>
 body {
 	font: 10px sans-serif;
@@ -12,45 +13,82 @@ body {
 	stroke-width: .5px;
 }
 </style>
+<script src="js/d3.v3.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+
 </head>
 
 <body>
-	<script src="js/d3.v3.min.js"></script>
-	<script src="js/jquery.min.js"></script>
 	<script src="js/wgaPipeline.js"></script>
 	<script>
+		var identity_range = [75,100];
+		var min_length = 0;
+		$(function() {
+			$("#identity-slider").slider({
+				range : true,
+				min : 0,
+				max : 100,
+				values : [ 75, 100 ],
+				slide : function(event, ui) {
+						$("#identity-label").val(ui.values[0] + " % - " + ui.values[1] + " %");
+						identity_range = [ui.values[0],ui.values[1]];
+						redraw(identity_range, min_length);
+				}
+			});
+			$("#identity-label").val(
+					$("#identity-slider").slider("values", 0) + " % - "
+							+ $("#identity-slider").slider("values", 1) + " %");
+		});
 		var full_karyo;
 		var full_links;
-		loadKaryoFile("data/karyo.json", function(karyo){
+		loadKaryoFile("data/karyo.json", function(karyo) {
 			full_karyo = karyo;
 			var array = $.map(karyo, function(value, index) {
 				return [ value ];
 			});
 			drawKaryo(array);
-			loadLinkFile("data/link.json", karyo, function(links){
+			console.log(array);
+			loadLinkFile("data/link.json", karyo, function(links) {
 				full_links = links;
 				drawLinks(links);
 			});
 		});
-		
-		function redraw(){
+
+		function redraw(identity_range,min_length) {
 			clear_chords();
-			var links = filter_links_by_length(full_links);
+			var links = filter_links_by_length(full_links, min_length);
+			links = filter_links_by_identity(links, identity_range);
 			drawLinks(links);
 		}
-		
-		function filter_links_by_length(links){
-			var filtered = new Array(); 
+
+		function filter_links_by_length(links, minlen) {
+			var filtered = new Array();
 			$.each(links, function(index, value) {
 				var len = Math.abs(value.source.start - value.source.end);
-				if(len >= 10000){
+				if (len >= minlen) {
 					filtered.push(value);
 				}
 			});
-			console.log(filtered);
+			return filtered;
+		}
+		function filter_links_by_identity(links, identity_range) {
+			var filtered = new Array();
+			$.each(links, function(index, value) {
+				if (value.identity >= identity_range[0] && value.identity <= identity_range[1]) {
+					filtered.push(value);
+				}
+			});
 			return filtered;
 		}
 	</script>
-	<button onclick="redraw()">Filter alignments by length (>=10kbp)</button>
+	<button onclick="min_length=10000;redraw(identity_range,min_length)">Filter alignments by length
+		(>=10kbp)</button>
+	<p>
+		<label for="identity-label">Length range:</label> <input type="text"
+			id="identity-label" readonly
+			style="border: 0; color: #f6931f; font-weight: bold;">
+	</p>
+	<div id="identity-slider"></div>
 </body>
 </html>
