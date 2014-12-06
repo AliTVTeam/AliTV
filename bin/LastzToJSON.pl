@@ -75,10 +75,12 @@ while(<IN>){
 push(@links, {source => {name => $referenceIDs{$items[$tagr]}, start =>$items[$s1]+0, end =>$items[$e1]+0}, target => {name => $queryIDs{$items[$tagq]}, start => $items[$s2]+0, end =>$items[$e2]+0}, identity => $items[$idy]+0});
 }
 close IN or die "$!";
-make_path("$out.d3/js", "$out.d3/data");
+make_path("$out.d3/js", "$out.d3/data", "$out.d3/css");
 cp("$FindBin::RealBin/../d3_test/js/d3.v3.min.js","$out.d3/js/") or die "Copy failed: $!";
 cp("$FindBin::RealBin/../d3_test/js/jquery.min.js","$out.d3/js/") or die "Copy failed: $!";
+cp("$FindBin::RealBin/../d3_test/js/jquery-ui.min.js","$out.d3/js/") or die "Copy failed: $!";
 cp("$FindBin::RealBin/../d3_test/js/wgaPipeline.js","$out.d3/js/") or die "Copy failed: $!";
+cp("$FindBin::RealBin/../d3_test/css/jquery-ui.min.css","$out.d3/css/") or die "Copy failed: $!";
 cp("$FindBin::RealBin/../d3_test/d3.html","$out.d3/") or die "Copy failed: $!";
 open(LINK, '>', "$out.d3/data/link.json") or die "$!";
 print LINK encode_json \@links;
