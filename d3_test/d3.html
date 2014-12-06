@@ -39,6 +39,20 @@ body {
 			$("#identity-label").val(
 					$("#identity-slider").slider("values", 0) + " % - "
 							+ $("#identity-slider").slider("values", 1) + " %");
+			$("#minlength-slider").slider({
+				range : "max",
+				min : 0,
+				max : 10000,
+				step: 100,
+				value : 1000,
+				slide : function(event, ui) {
+						$("#minlength-label").val(ui.value + " bp");
+						min_length = ui.value;
+						redraw(identity_range, min_length);
+				}
+			});
+			$("#minlength-label").val(
+					$("#minlength-slider").slider("value") + " bp");
 		});
 		var full_karyo;
 		var full_links;
@@ -82,13 +96,17 @@ body {
 			return filtered;
 		}
 	</script>
-	<button onclick="min_length=10000;redraw(identity_range,min_length)">Filter alignments by length
-		(>=10kbp)</button>
 	<p>
 		<label for="identity-label">Identity range:</label> <input type="text"
 			id="identity-label" readonly
 			style="border: 0; color: #f6931f; font-weight: bold;">
 	</p>
 	<div id="identity-slider"></div>
+	<p>
+		<label for="minlength-label">Min. length:</label> <input type="text"
+			id="minlength-label" readonly
+			style="border: 0; color: #f6931f; font-weight: bold;">
+	</p>
+	<div id="minlength-slider"></div>
 </body>
 </html>
