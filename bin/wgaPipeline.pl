@@ -360,7 +360,7 @@ sub clean_headers_command{
 	$opt_query = "$opt_prefix"."_query.fasta";
 	$cmd .= 'cp '."$opt_reference $opt_prefix"."_reference.fasta\n";
 	$opt_reference = "$opt_prefix"."_reference.fasta";
-	$cmd .= 'perl -i -pe \'s/[|:=]/_/g\' '."$opt_query $opt_reference";
+	$cmd .= 'perl -i -pe \'s/[|:=~\/]/_/g\' '."$opt_query $opt_reference";
 	return $cmd;	
 }
 
