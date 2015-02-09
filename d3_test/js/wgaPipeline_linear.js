@@ -23,10 +23,13 @@ function fillByIdy(identity) {
 	}
 }
 
-var svg = d3.select("body").append("svg").attr("width", width).attr("height", height).append("g");
+var svg = d3.select("body").append("svg").attr("width", width).attr("height",
+		height).append("g");
 
 function drawKaryo(karyo) {
-	svg.append("g").selectAll("path").data(karyo).enter().append("rect").style(
+	svg.append("g").selectAll("path").data(karyo).enter().append("rect")
+	.on("mouseover", fade(.1))
+	.on("mouseout", fade(1)).style(
 			"fill", function(d) {
 				return fill(d.index);
 			}).style("stroke", function(d) {
@@ -38,33 +41,8 @@ function drawKaryo(karyo) {
 	}).attr("width", function(d) {
 		return d.width
 	}).attr("height", 10);
+	;
 }
-
-//var circle = svg.append("circle").attr("cx", -10).attr("cy", 0).attr("r", 10);
-
-var links = [ {
-	source : {
-		x : 0,
-		y : 10
-	},
-	target : {
-		x : 170,
-		y : 500
-	},
-	x : 0,
-	y : 0
-}, {
-	source : {
-		x : 200,
-		y : 500
-	},
-	target : {
-		x : 10,
-		y : 0
-	},
-	x : 0,
-	y : 0
-} ]
 
 function getRibbon(links) {
 	var diagonal = d3.svg.diagonal().source(function(d) {
@@ -109,24 +87,23 @@ function addTicks(karyo) {
 }
 
 function drawLinks(links) {
-//	svg.append("g").attr("class", "chord").selectAll("path").data(links)
-//			.enter().append("path").attr("d",
-//					d3.svg.chord().radius(innerRadius)).style("fill",
-//					function(d) {
-//						// return fillByLength(Math.abs(d.target.end -
-//						// d.target.start));
-//						return fillByIdy(Math.abs(d.identity));
-//					}).style("opacity", 1);
-	$.each(links, function(key,value){
-		svg.append('g')
-		.attr("class", "chord").append("path")
-		.attr("d", getRibbon(value.ribbon)).style("fill",
-				function() {
-				// return fillByLength(Math.abs(d.target.end -
-				// d.target.start));
-				return fillByIdy(Math.abs(value.identity));
-			}).style("opacity", 1);;		
-	});
+	svg.append("g").attr("class", "chord").selectAll("path").data(links)
+	 .enter().append("path").attr("d",
+	 function(d) {return getRibbon(d.ribbon)}).style("fill",
+	 function(d) {
+	 // return fillByLength(Math.abs(d.target.end -
+	 // d.target.start));
+	 return fillByIdy(Math.abs(d.identity));
+	 }).style("opacity", 1);
+//	$.each(links, function(key, value) {
+//		svg.append('g').attr("class", "chord").append("path").attr("d",
+//				getRibbon(value.ribbon)).style("fill", function() {
+//			// return fillByLength(Math.abs(d.target.end -
+//			// d.target.start));
+//			return fillByIdy(Math.abs(value.identity));
+//		}).style("opacity", 1);
+//		;
+//	});
 }
 
 // Returns an array of tick angles and labels, given a group.
@@ -150,14 +127,15 @@ function loadKaryoFile(file, callback) {
 }
 
 function karyo_to_coords(data) {
-	var total = [0,0];
+	var total = [ 0, 0 ];
 	var spacer = 10000;
 	$.each(data, function(key, value) {
 		total[value.genome_id] += value.length + spacer;
 	});
-	var current = [0,0];
+	var current = [ 0, 0 ];
 	var index = 0;
-	// take max of total instead of array to keep scale constant across genomes instead of scaling them to the same width.
+	// take max of total instead of array to keep scale constant across genomes
+	// instead of scaling them to the same width.
 	$.each(data, function(key, value) {
 		data[key] = {
 			"value" : value.length,
@@ -182,24 +160,46 @@ function loadLinkFile(file, karyo, callback) {
 
 function link_to_coords(links, karyo) {
 	$.each(links, function(key, value) {
-		links[key].ribbon = [{source:{x:0,y:0}, target:{x:0,y:0}, x:0, y:0}, {source:{x:0,y:0}, target:{x:0,y:0}, x:0, y:0}];
+		links[key].ribbon = [ {
+			source : {
+				x : 0,
+				y : 0
+			},
+			target : {
+				x : 0,
+				y : 0
+			},
+			x : 0,
+			y : 0
+		}, {
+			source : {
+				x : 0,
+				y : 0
+			},
+			target : {
+				x : 0,
+				y : 0
+			},
+			x : 0,
+			y : 0
+		} ];
 		var s = karyo[value.source.name];
 		links[key].ribbon[0].source.x = s.x + s.width
 				* (value.source.start / s.value);
-		links[key].ribbon[0].source.y = 480*s.genome_id+15;
+		links[key].ribbon[0].source.y = 480 * s.genome_id + 15;
 		links[key].ribbon[1].target.x = s.x + s.width
 				* (value.source.end / s.value);
-		links[key].ribbon[1].target.y = 480*s.genome_id+15;
+		links[key].ribbon[1].target.y = 480 * s.genome_id + 15;
 		links[key].source.index = s.index;
 		links[key].source.value = Math.abs(value.source.end
 				- value.source.start);
 		var t = karyo[value.target.name];
 		links[key].ribbon[0].target.x = t.x + t.width
 				* (value.target.start / t.value);
-		links[key].ribbon[0].target.y = 480*t.genome_id+15;
+		links[key].ribbon[0].target.y = 480 * t.genome_id + 15;
 		links[key].ribbon[1].source.x = t.x + t.width
 				* (value.target.end / t.value);
-		links[key].ribbon[1].source.y = 480*t.genome_id+15;
+		links[key].ribbon[1].source.y = 480 * t.genome_id + 15;
 		links[key].target.index = t.index;
 		links[key].target.value = Math.abs(value.target.end
 				- value.target.start);
