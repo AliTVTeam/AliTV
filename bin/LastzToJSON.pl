@@ -59,13 +59,13 @@ while(<IN>){
     ($s2, $e2) = ($e2, $s2) if ($items[$strand] =~ /-/);
     # new  Referenz (hash entry still undef = false)
     unless($references{$items[$tagr]}){
-		$references{$items[$tagr]} = $items[$lenr];
+		$references{$items[$tagr]} = {"length" => $items[$lenr]+0, "genome_id" => 0};
 		push(@referenceOrder, $items[$tagr]);
 		$referenceIDs{$items[$tagr]} = "R_$items[$tagr]";
     }
     # new Query (hash entry still undef = false)
     unless($queries{$items[$tagq]}){
-		$queries{$items[$tagq]} = $items[$lenq];
+		$queries{$items[$tagq]} = {"length" => $items[$lenq]+0, "genome_id" => 1};
 		push(@queryOrder, $items[$tagq]);
 		my $prefix = "R_";
 		$prefix = "Q_" unless ($opt_self);
@@ -79,7 +79,8 @@ make_path("$out.d3/js", "$out.d3/data", "$out.d3/css");
 cp("$FindBin::RealBin/../d3_test/js/d3.v3.min.js","$out.d3/js/") or die "Copy failed: $!";
 cp("$FindBin::RealBin/../d3_test/js/jquery.min.js","$out.d3/js/") or die "Copy failed: $!";
 cp("$FindBin::RealBin/../d3_test/js/jquery-ui.min.js","$out.d3/js/") or die "Copy failed: $!";
-cp("$FindBin::RealBin/../d3_test/js/wgaPipeline.js","$out.d3/js/") or die "Copy failed: $!";
+cp("$FindBin::RealBin/../d3_test/js/wgaPipeline_linear.js","$out.d3/js/") or die "Copy failed: $!";
+cp("$FindBin::RealBin/../d3_test/js/wgaPipeline_circular.js","$out.d3/js/") or die "Copy failed: $!";
 cp("$FindBin::RealBin/../d3_test/css/jquery-ui.min.css","$out.d3/css/") or die "Copy failed: $!";
 cp("$FindBin::RealBin/../d3_test/d3.html","$out.d3/") or die "Copy failed: $!";
 open(LINK, '>', "$out.d3/data/link.json") or die "$!";
@@ -90,12 +91,12 @@ close LINK or die "$!";
 # chr - ID LABEL START END COLOR
 for(my $i = 0; $i < @referenceOrder; $i++){
     my $ref = $referenceOrder[$i];
-    $karyo{$referenceIDs{$ref}} = $references{$ref}+0;
+    $karyo{$referenceIDs{$ref}} = $references{$ref};
 }
 unless($opt_self){
 	for(my $i = 0; $i < @queryOrder; $i++){
 	    my $que = $queryOrder[$i];
-	    $karyo{$queryIDs{$que}} = $queries{$que}+0;
+	    $karyo{$queryIDs{$que}} = $queries{$que};
 	}
 }
 open(KARYO,'>',"$out.d3/data/karyo.json") or die "$!";
