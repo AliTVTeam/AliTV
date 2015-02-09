@@ -77,7 +77,7 @@ Actual dev on pipeline source code - features, bugfixes etc, goes here
 **** FEAT daligner
 
 *** [0/0] d3js
-** [0/1] Sandbox
+** [0/3] Sandbox
 Ideas, brainstorming, experimenting, etc ...
 *** DISC linear visualization with using d3.js
 - d3js
@@ -92,6 +92,44 @@ Ideas, brainstorming, experimenting, etc ...
  - http://blog.ouseful.info/2012/05/24/f1-championship-points-as-a-d3-js-powered-sankey-diagram/
 - Tree layout
  - http://blog.pixelingene.com/demos/d3_tree/
+
+*** [0/2] Standards
+**** annotations per genome
+***** DISC .bed
+- http://genome.ucsc.edu/FAQ/FAQformat.html
+- http://bedtools.readthedocs.org/en/latest/
+
+****** sample
+#+BEGIN_EXAMPLE
+SID: sequence id (chromosome)
+FID: feature id
+
+SID	FROM	TO	FID	...
+#+END_EXAMPLE
+
+****** PROS
+- simple, standardized tsv format, with comprehensive tool box (bedtools) and
+  conversion scripts to other formats
+- exiting data set of arbitrary feature annotations can usually converted to bed
+  very easy (gff, blast, sam ...)
+
+****** CONS
+
+**** links
+***** DISC .sif
+- http://wiki.cytoscape.org/Cytoscape_User_Manual/Network_Formats
+
+****** PROS
+- simple tsv, compatible with Cytoscape
+****** CONS
+- no link attributes, e.g. identity, score etc..
+
+#+BEGIN_EXAMPLE
+FID_[AB]: feature id set A/B
+LTYPE: link type
+
+FID_A	LTYPE	FID_B
+#+END_EXAMPLE
 
 ** [0/0] Data
 Test data sets etc.
@@ -108,6 +146,7 @@ The ulitmate goal.
 * __org__                                                  :noexport:ARCHIVE:
 #+DRAWERS: FAIL MAIL
 #+LANGUAGE: en
+#+OPTIONS: H:4 TeX:t LaTeX:t skip:nil d:nil todo:nil pri:nil tags:nil title:nil stat:nil
 #+LaTeX_CLASS: scrartcl
 #+LaTeX_CLASS_OPTIONS: [a4paper,11pt]
 #+LaTeX_HEADER: \subtitle{-- status report --}
