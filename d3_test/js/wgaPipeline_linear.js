@@ -66,10 +66,6 @@ var links = [ {
 	y : 0
 } ]
 
-var path = svg.append('path')
-.attr("class", "link")
-.attr("d", getRibbon(links));
-
 function getRibbon(links) {
 	var diagonal = d3.svg.diagonal().source(function(d) {
 		return {
@@ -113,14 +109,20 @@ function addTicks(karyo) {
 }
 
 function drawLinks(links) {
-	svg.append("g").attr("class", "chord").selectAll("path").data(links)
-			.enter().append("path").attr("d",
-					d3.svg.chord().radius(innerRadius)).style("fill",
-					function(d) {
-						// return fillByLength(Math.abs(d.target.end -
-						// d.target.start));
-						return fillByIdy(Math.abs(d.identity));
-					}).style("opacity", 1);
+//	svg.append("g").attr("class", "chord").selectAll("path").data(links)
+//			.enter().append("path").attr("d",
+//					d3.svg.chord().radius(innerRadius)).style("fill",
+//					function(d) {
+//						// return fillByLength(Math.abs(d.target.end -
+//						// d.target.start));
+//						return fillByIdy(Math.abs(d.identity));
+//					}).style("opacity", 1);
+	console.log(links);
+	$.each(links, function(key,value){
+		svg.append('path')
+		.attr("class", "link")
+		.attr("d", getRibbon(value.ribbon));		
+	});
 }
 
 // Returns an array of tick angles and labels, given a group.
@@ -176,19 +178,24 @@ function loadLinkFile(file, karyo, callback) {
 
 function link_to_coords(links, karyo) {
 	$.each(links, function(key, value) {
+		links[key].ribbon = [{source:{x:0,y:0}, target:{x:0,y:0}, x:0, y:0}, {source:{x:0,y:0}, target:{x:0,y:0}, x:0, y:0}];
 		var s = karyo[value.source.name];
-		links[key][0].source.x = s.x + s.width
+		links[key].ribbon[0].source.x = s.x + s.width
 				* (value.source.start / s.value);
-		links[key][1].target.x = s.x + s.width
+		links[key].ribbon[0].source.y = 480*s.genome_id+15;
+		links[key].ribbon[1].target.x = s.x + s.width
 				* (value.source.end / s.value);
+		links[key].ribbon[1].target.y = 480*s.genome_id+15;
 		links[key].source.index = s.index;
 		links[key].source.value = Math.abs(value.source.end
 				- value.source.start);
 		var t = karyo[value.target.name];
-		links[key][0].target.x = t.x + t.width
+		links[key].ribbon[0].target.x = t.x + t.width
 				* (value.target.start / t.value);
-		links[key][1].source.x = t.x + t.width
+		links[key].ribbon[0].target.y = 480*t.genome_id+15;
+		links[key].ribbon[1].source.x = t.x + t.width
 				* (value.target.end / t.value);
+		links[key].ribbon[1].source.y = 480*t.genome_id+15;
 		links[key].target.index = t.index;
 		links[key].target.value = Math.abs(value.target.end
 				- value.target.start);

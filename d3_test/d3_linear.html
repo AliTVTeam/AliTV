@@ -63,10 +63,10 @@ body {
 			});
 			drawKaryo(array);
 			console.log(array);
-			//loadLinkFile("data/link.json", karyo, function(links) {
-			//	full_links = links;
-			//	redraw(identity_range, min_length);
-			//});
+			loadLinkFile("data/link.json", karyo, function(links) {
+				full_links = links;
+				redraw(identity_range, min_length);
+			});
 		});
 
 		function redraw(identity_range,min_length) {
