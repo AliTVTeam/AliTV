@@ -1,4 +1,4 @@
-var width = 960, height = 800;
+var width = 960, height = 700;
 
 var fill = d3.scale.ordinal().domain(d3.range(5)).range(
 		[ "#000000", "#FFDD89", "#957244", "#F26223", "#00FF00" ]);
@@ -117,11 +117,15 @@ function drawLinks(links) {
 //						// d.target.start));
 //						return fillByIdy(Math.abs(d.identity));
 //					}).style("opacity", 1);
-	console.log(links);
 	$.each(links, function(key,value){
-		svg.append('path')
-		.attr("class", "link")
-		.attr("d", getRibbon(value.ribbon));		
+		svg.append('g')
+		.attr("class", "chord").append("path")
+		.attr("d", getRibbon(value.ribbon)).style("fill",
+				function() {
+				// return fillByLength(Math.abs(d.target.end -
+				// d.target.start));
+				return fillByIdy(Math.abs(value.identity));
+			}).style("opacity", 1);;		
 	});
 }
 
