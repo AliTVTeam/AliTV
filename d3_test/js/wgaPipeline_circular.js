@@ -105,17 +105,18 @@ function karyo_to_coords(data) {
 	var total = 0;
 	var spacer = 10000;
 	$.each(data, function(key, value) {
-		total += value + spacer;
+		total += value.length + spacer;
 	});
 	var current = 0;
 	var index = 0;
 	$.each(data, function(key, value) {
 		data[key] = {
-			"value" : value,
+			"value" : value.length,
 			"startAngle" : ((current + spacer) / total) * (2 * Math.PI),
-			"index" : index++
+			"index" : index++,
+			"genome_id" : value.genome_id
 		};
-		current += value + spacer;
+		current += value.length + spacer;
 		data[key].endAngle = (current / total) * (2 * Math.PI);
 	});
 	return data;
