@@ -44,6 +44,9 @@ function drawKaryo(karyo) {
 	;
 }
 
+// This function is adjusted from:
+// http://stackoverflow.com/questions/26567104/d3-js-fill-area-between-to-diagonals
+// thanks to user 'meetamit'
 function getRibbon(links) {
 	var diagonal = d3.svg.diagonal().source(function(d) {
 		return {
