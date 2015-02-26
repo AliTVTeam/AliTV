@@ -195,6 +195,7 @@ sub parse_bed{
 	while(<IN>){
 		chomp;
 		my($id, $start, $end, $fid) = split(/\t/);
+		$L->warn("The sequence id $id used in the bed file is not defined in the karyo file.") unless(exists $karyo->{$id});
 		$features{$fid} = {"karyo" => $id, "start" => $start+0, "end" => $end+0}
 	}
 	close IN or $L->logdie("Can not close file $file\n$!");
@@ -226,6 +227,8 @@ sub parse_links{
 			$fidapresent = 1 if($elem eq 'fida');
 			$fidbpresent = 1 if($elem eq 'fidb');
 		}
+		$L->logdie("Link header is present but does not contain fida column (fida and fidb column are mandatory)") unless($fidapresent);
+		$L->logdie("Link header is present but does not contain fidb column (fida and fidb column are mandatory)") unless($fidbpresent);
 	} else {
 		push(@links, parse_link_line($line, \@header, $features));
 	}
@@ -254,7 +257,9 @@ sub parse_link_line{
 			$properties{$header[$i]} = $elements[$i];
 		}
 	}
+	$L->warn("There is no feature id $fida in the bed file (but used in link file)") unless(exists $features{$fida});
 	$properties{'source'} = {'name' => $features{$fida}{karyo}, 'start' => $features{$fida}{start}, 'end' =>$features{$fida}{end}};
+	$L->warn("There is no feature id $fidb in the bed file (but used in link file)") unless(exists $features{$fidb});
 	$properties{'target'} = {'name' => $features{$fidb}{karyo}, 'start' => $features{$fidb}{start}, 'end' =>$features{$fidb}{end}};
 	return \%properties;
 }
