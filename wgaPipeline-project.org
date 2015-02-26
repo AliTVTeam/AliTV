@@ -114,7 +114,8 @@ SID	FROM	TO	FID	...
   very easy (gff, blast, sam ...)
 
 ****** CONS
-
+- To use the features for links the fourth column (feature id) has to be mandatory, 
+  in contrast to the bed specification.
 **** links
 ***** DISC .sif
 - http://wiki.cytoscape.org/Cytoscape_User_Manual/Network_Formats
@@ -123,12 +124,37 @@ SID	FROM	TO	FID	...
 - simple tsv, compatible with Cytoscape
 ****** CONS
 - no link attributes, e.g. identity, score etc..
+- to add those attributes either an additional file is needed or the "link type" has to be abused
 
 #+BEGIN_EXAMPLE
 FID_[AB]: feature id set A/B
 LTYPE: link type
 
 FID_A	LTYPE	FID_B
+#+END_EXAMPLE
+
+***** DISC .tsv
+- simple tsv with header line 
+- mandatory columns are fida and fidb, all other columns are (named) link properties
+- the header starts with a hashtag (#)
+- if no header is present "#fida	type	fidb" is assumed, therefore supporting .sif format
+
+****** PROS
+- flexible
+- extensible
+- can be imported into Cytoscape (as edge properties)
+
+****** CONS
+- not standardized
+- (useful) header lines have to be documented
+
+#+BEGIN_EXAMPLE
+FID_[AB]: feature id set A/B
+LTYPE: link type
+IDY: link identity
+
+#fida	type	fidb	identity
+FID_A	LTYPE	FID_B	IDY
 #+END_EXAMPLE
 
 ** [0/0] Data
