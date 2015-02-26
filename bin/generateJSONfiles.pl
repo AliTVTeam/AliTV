@@ -12,6 +12,7 @@ use POSIX; # for rounding
 use JSON;
 use File::Copy qw(cp);
 use File::Path qw(make_path);
+use Scalar::Util qw(looks_like_number);
 
 
 my %options = ();
@@ -128,7 +129,7 @@ print OUT encode_json $karyo;
 close OUT or die "$!";
 
 if($opt_bed){	
-	my $features = parse_bed($opt_bed);
+	my $features = parse_bed($opt_bed, $karyo);
 	open(OUT, '>', "$opt_prefix.d3/data/features.json") or $L->logdie("Can not open file $opt_prefix.d3/data/features.json\n$!");
 	print OUT encode_json $features;
 	close OUT or die "$!";
@@ -188,6 +189,7 @@ Output: \%features of the form {$fid => {karyo => $karyo, start => $start, end =
 
 sub parse_bed{
 	my $file = $_[0];
+	my $karyo = $_[1];
 	my %features = ();
 	open(IN, '<', $file) or $L->logdie("Can not open file $file\n$!");
 	while(<IN>){
@@ -209,20 +211,53 @@ Output: \@links of the form [{source => $source, target => $target, identity => 
 
 sub parse_links{
 	my $file = $_[0];
-	my %features = %{$_[1]};
+	my $features = $_[1];
 	my @links = ();
 	open(IN, '<', $file) or $L->logdie("Can not open file $file\n$!");
+	my $line = <IN>;
+	my @header = ('fida', 'type', 'fidb');
+	if($line =~ /^#/){
+		chomp $line;
+		$line = substr($line, 1);
+		@header = split(/\t/, $line);
+		my $fidapresent = 0;
+		my $fidbpresent = 0;
+		foreach my $elem (@header){
+			$fidapresent = 1 if($elem eq 'fida');
+			$fidbpresent = 1 if($elem eq 'fidb');
+		}
+	} else {
+		push(@links, parse_link_line($line, \@header, $features));
+	}
 	while(<IN>){
-		chomp;
-		my($source, $target, $identity) = split(/\t/);
-		push(@links, {'source' => {'name' => $features{$source}{karyo}, 'start' => $features{$source}{start}, 'end' =>$features{$source}{end}},
-			 'target' => {'name' => $features{$target}{karyo}, 'start' => $features{$target}{start}, 'end' =>$features{$target}{end}},
-			 'identity' => $identity+0});
+		push(@links, parse_link_line($_, \@header, $features));
 	}
 	close IN or $L->logdie("Can not close file $file\n$!");
 	return \@links;
 }
 
+sub parse_link_line{
+	my $line = $_[0];
+	my @header = @{$_[1]};
+	my %features = %{$_[2]};
+	chomp($line);
+	my @elements = split(/\t/, $line);
+	my ($fida, $fidb);
+	my %properties;
+	for(my $i=0; $i<@header; $i++){
+		if($header[$i] eq 'fida'){
+			$fida = $elements[$i];
+		} elsif ($header[$i] eq 'fidb') {
+			$fidb = $elements[$i];
+		} else {
+			$elements[$i]+=0 if(looks_like_number($elements[$i]));
+			$properties{$header[$i]} = $elements[$i];
+		}
+	}
+	$properties{'source'} = {'name' => $features{$fida}{karyo}, 'start' => $features{$fida}{start}, 'end' =>$features{$fida}{end}};
+	$properties{'target'} = {'name' => $features{$fidb}{karyo}, 'start' => $features{$fidb}{start}, 'end' =>$features{$fidb}{end}};
+	return \%properties;
+}
 
 =head1 LIMITATIONS
 
