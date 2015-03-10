@@ -19,14 +19,47 @@ function fillByLength(length){
 }
 
 function fillByIdy(identity){
-	if(identity < 90){
-		return "#FF0000";
+	if(identity < 46){
+		return "#FF1600";
 	}
-	else if(identity < 95){
+	else if(identity < 50){
+		return "#FF3500";
+	}
+	else if(identity < 54){
+		return "#FF5300";
+	}
+	else if(identity < 58){
+		return "#FF7C01";
+	}
+	else if(identity < 62){
+		return "#FF9B01";
+	}
+	else if(identity < 66){
+		return "#FFC301";
+	}
+	else if(identity < 70){
+		return "#FFE201";
+	}	
+	else if(identity < 74){
+		return "#EBDD02";
+	}
+	else if(identity < 78){
+		return "#CCD603";
+	}
+	else if(identity < 82){
+		return "#B7D103";
+	}
+	else if(identity < 86){
+		return "#99C905";
+	}	
+	else if(identity < 90){
+		return "#7AC206";
+	}
+	else if(identity < 94){
 		return "#FFDD00";
 	}
 	else{
-		return "#00FF00";
+		return "#32B008";
 	}
 }
 
@@ -103,10 +136,11 @@ function loadKaryoFile(file, callback) {
 
 function karyo_to_coords(data) {
 	var total = 0;
-	var spacer = 10000;
+	var spacer = set_spacer(data);
 	$.each(data, function(key, value) {
 		total += value.length + spacer;
 	});
+	console.log(total);
 	var current = 0;
 	var index = 0;
 	$.each(data, function(key, value) {
@@ -167,3 +201,22 @@ function fade(opacity) {
 function clear_chords(){
 	svg.selectAll(".chord path").remove();
 }
+
+function set_spacer(data){
+	var spacer = 0;
+	$.each(data, function(key, value){
+		spacer += value.length;
+	});
+	spacer = spacer * 0.0038; //ca. 4% der Gesamtsumme aller Sequenzen entsprechen dem geeigneten Spacer 
+	//console.log(spacer);
+	return spacer;
+}
+
+function add_tooltip_legend(){
+	var hello = "huhu";
+	console.log(hello);
+}
+
+
+
+
