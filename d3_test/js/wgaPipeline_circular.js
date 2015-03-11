@@ -1,64 +1,56 @@
-var width = 960, 
-	height = 800, 
-	innerRadius = Math.min(width, height) * .41, 
-	outerRadius = innerRadius * 1.1;
+var width = 960, height = 800, innerRadius = Math.min(width, height) * .41, outerRadius = innerRadius * 1.1;
 
-var fill = d3.scale.ordinal().domain(d3.range(5)).range(
-		[ "#000000", "#FFDD89", "#957244", "#F26223", "#00FF00" ]);
+// var fill = d3.scale.ordinal().domain(d3.range(5)).range(
+// [ "#000000", "#FFDD89", "#957244", "#F26223", "#00FF00" ]);
 
-function fillByLength(length){
-	if(length < 10000){
+// var fill = d3.scale.ordinal()
+// .domain(d3.range(5))
+// .range(["#2C06B5", "#0AF7EF"]);
+
+var fill = d3.scale.category20c();
+
+var div = d3.select("body").append("div")
+	.attr("class", "tooltip")
+	.style("opacity", 0);
+
+function fillByLength(length) {
+	if (length < 10000) {
 		return "#FF0000";
-	}
-	else if(length < 50000){
+	} else if (length < 50000) {
 		return "#FFDD00";
-	}
-	else{
+	} else {
 		return "#00FF00";
 	}
 }
 
-function fillByIdy(identity){
-	if(identity < 46){
+function fillByIdy(identity) {
+	if (identity < 46) {
 		return "#FF1600";
-	}
-	else if(identity < 50){
+	} else if (identity < 50) {
 		return "#FF3500";
-	}
-	else if(identity < 54){
+	} else if (identity < 54) {
 		return "#FF5300";
-	}
-	else if(identity < 58){
+	} else if (identity < 58) {
 		return "#FF7C01";
-	}
-	else if(identity < 62){
+	} else if (identity < 62) {
 		return "#FF9B01";
-	}
-	else if(identity < 66){
+	} else if (identity < 66) {
 		return "#FFC301";
-	}
-	else if(identity < 70){
+	} else if (identity < 70) {
 		return "#FFE201";
-	}	
-	else if(identity < 74){
+	} else if (identity < 74) {
 		return "#EBDD02";
-	}
-	else if(identity < 78){
+	} else if (identity < 78) {
 		return "#CCD603";
-	}
-	else if(identity < 82){
+	} else if (identity < 82) {
 		return "#B7D103";
-	}
-	else if(identity < 86){
+	} else if (identity < 86) {
 		return "#99C905";
-	}	
-	else if(identity < 90){
+	} else if (identity < 90) {
 		return "#7AC206";
-	}
-	else if(identity < 94){
+	} else if (identity < 94) {
 		return "#FFDD00";
-	}
-	else{
+	} else {
 		return "#32B008";
 	}
 }
@@ -67,18 +59,35 @@ var svg = d3.select("body").append("svg").attr("width", width).attr("height",
 		height).append("g").attr("transform",
 		"translate(" + width / 2 + "," + height / 2 + ")");
 
+	
 function drawKaryo(karyo) {
-	svg.append("g").selectAll("path").data(karyo).enter().append("path").style(
+	svg.append("g")
+		.selectAll("path")
+		.data(karyo)
+		.enter()
+		.append("path")
+		.style(
 			"fill", function(d) {
 				return fill(d.index);
-			}).style("stroke", function(d) {
+			})
+		.style("stroke", function(d) {
 		return fill(d.index);
-	})
-			.attr(
-					"d",
-					d3.svg.arc().innerRadius(innerRadius).outerRadius(
-							outerRadius)).on("mouseover", fade(.1)).on(
-					"mouseout", fade(1));
+		})
+		
+		.attr(
+				"d",
+				d3.svg.arc()
+					.innerRadius(innerRadius)
+					.outerRadius(outerRadius)
+				)
+		.on("mouseover", function(g, i) {
+			fade(g, i, 0.1);
+			add_tooltip_legend();
+			})
+		.on("mouseout", function(g, i) {
+				fade(g, i, 1);
+				reAdd_tooltip_legend();
+		})
 	addTicks(karyo);
 }
 
@@ -109,7 +118,8 @@ function drawLinks(links) {
 			.enter().append("path").attr("d",
 					d3.svg.chord().radius(innerRadius)).style("fill",
 					function(d) {
-					//	return fillByLength(Math.abs(d.target.end - d.target.start));
+						// return fillByLength(Math.abs(d.target.end -
+						// d.target.start));
 						return fillByIdy(Math.abs(d.identity));
 					}).style("opacity", 1);
 }
@@ -128,8 +138,8 @@ function groupTicks(d) {
 function loadKaryoFile(file, callback) {
 	$.getJSON(file, function(data) {
 		var karyo = karyo_to_coords(data);
-	        if(typeof callback !== "undefined"){
-		    callback(karyo);
+		if (typeof callback !== "undefined") {
+			callback(karyo);
 		}
 	});
 }
@@ -159,7 +169,7 @@ function karyo_to_coords(data) {
 function loadLinkFile(file, karyo, callback) {
 	$.getJSON(file, function(data) {
 		var links = link_to_coords(data, karyo);
-		if(typeof callback !== 'undefined'){
+		if (typeof callback !== 'undefined') {
 			callback(links);
 		}
 	});
@@ -190,33 +200,37 @@ function link_to_coords(links, karyo) {
 }
 
 // Returns an event handler for fading a given chord group.
-function fade(opacity) {
-	return function(g, i) {
-		svg.selectAll(".chord path").filter(function(d) {
-			return d.source.index != i && d.target.index != i;
-		}).transition().style("opacity", opacity);
-	};
+function fade(g, i, opacity) {
+	svg.selectAll(".chord path").filter(function(d) {
+		return d.source.index != i && d.target.index != i;
+	}).transition().style("opacity", opacity);
 }
 
-function clear_chords(){
+function clear_chords() {
 	svg.selectAll(".chord path").remove();
 }
 
-function set_spacer(data){
+function set_spacer(data) {
 	var spacer = 0;
-	$.each(data, function(key, value){
+	$.each(data, function(key, value) {
 		spacer += value.length;
 	});
-	spacer = spacer * 0.0038; //ca. 4% der Gesamtsumme aller Sequenzen entsprechen dem geeigneten Spacer 
-	//console.log(spacer);
+	spacer = spacer * 0.0038; // ca. 4% der Gesamtsumme aller Sequenzen
+								// entsprechen dem geeigneten Spacer
+	// console.log(spacer);
 	return spacer;
 }
 
-function add_tooltip_legend(){
-	var hello = "huhu";
-	console.log(hello);
+function add_tooltip_legend() {
+	div.transition()
+		.duration(200)
+		.style("opacity", .9)
+		.style("left", (d3.event.pageX - 34) + "px")
+		.style("top", (d3.event.pageY - 12) + "px");
 }
 
-
-
-
+function reAdd_tooltip_legend(d) {
+	div.transition()
+		.duration(500)
+		.style("opacity", 0);
+}
