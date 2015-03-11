@@ -13,6 +13,9 @@ var div = d3.select("body").append("div")
 	.attr("class", "tooltip")
 	.style("opacity", 0);
 
+div.append("div")
+	.attr("class", "label")
+
 function fillByLength(length) {
 	if (length < 10000) {
 		return "#FF0000";
@@ -82,7 +85,7 @@ function drawKaryo(karyo) {
 				)
 		.on("mouseover", function(g, i) {
 			fade(g, i, 0.1);
-			add_tooltip_legend();
+			add_tooltip_legend(g);
 			})
 		.on("mouseout", function(g, i) {
 				fade(g, i, 1);
@@ -150,7 +153,6 @@ function karyo_to_coords(data) {
 	$.each(data, function(key, value) {
 		total += value.length + spacer;
 	});
-	console.log(total);
 	var current = 0;
 	var index = 0;
 	$.each(data, function(key, value) {
@@ -158,7 +160,8 @@ function karyo_to_coords(data) {
 			"value" : value.length,
 			"startAngle" : ((current + spacer) / total) * (2 * Math.PI),
 			"index" : index++,
-			"genome_id" : value.genome_id
+			"genome_id" : value.genome_id,
+			"name" : key
 		};
 		current += value.length + spacer;
 		data[key].endAngle = (current / total) * (2 * Math.PI);
@@ -221,12 +224,17 @@ function set_spacer(data) {
 	return spacer;
 }
 
-function add_tooltip_legend() {
+function add_tooltip_legend(g){
+	var name = "Name: " + g.name;
+	var length = g.value;
+	var text = name.concat(" \n", length);
 	div.transition()
 		.duration(200)
 		.style("opacity", .9)
 		.style("left", (d3.event.pageX - 34) + "px")
-		.style("top", (d3.event.pageY - 12) + "px");
+		.style("top", (d3.event.pageY - 12) + "px")
+		.text(name);
+		
 }
 
 function reAdd_tooltip_legend(d) {
@@ -234,3 +242,9 @@ function reAdd_tooltip_legend(d) {
 		.duration(500)
 		.style("opacity", 0);
 }
+
+
+
+
+
+
