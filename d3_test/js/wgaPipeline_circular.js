@@ -225,15 +225,15 @@ function set_spacer(data) {
 }
 
 function add_tooltip_legend(g){
-	var name = "Name: " + g.name;
-	var length = g.value;
+	var name = "name: " + g.name;
+	var length = "length: " + g.value + " bp";
 	var text = name.concat(" \n", length);
 	div.transition()
 		.duration(200)
 		.style("opacity", .9)
 		.style("left", (d3.event.pageX - 34) + "px")
 		.style("top", (d3.event.pageY - 12) + "px")
-		.text(name);
+		div.html(name + "<br/>" + length);
 		
 }
 

@@ -183,6 +183,7 @@ sub parse_karyo{
 	}
 	close IN or $L->logdie("Can not close file $file\n$!");
 	return \%karyo;
+	print Dumper(\%karyo);
 }
 
 =head2 parse_bed

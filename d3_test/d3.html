@@ -2,16 +2,31 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/jquery-ui.min.css">
-<style>
+<style type="text/css">
 body {
 	font: 10px sans-serif;
 }
 
 .chord path {
 	fill-opacity: .67;
-	stroke: #000;
-	stroke-width: .5px;
 }
+
+.tooltip {
+  	position: absolute;
+ 	text-align: left;
+  	width: 140px;
+  	height: 60px;
+  	padding: 8px;
+  	font: 12px sans-serif;
+  	background: #ddd;
+  	border: solid 1px #aaa;
+  	border-radius: 8px;
+  	pointer-events: none;
+}
+
+                                                       
+                        
+
 </style>
 <script src="js/d3.v3.min.js"></script>
 <script src="js/jquery.min.js"></script>
@@ -22,8 +37,10 @@ body {
 <body>
 	<script src="js/wgaPipeline_circular.js"></script>
 	<script>
+
 		var identity_range = [75,100];
-		var min_length = 1000;
+		var min_length = 1000;	
+	
 		$(function() {
 			$("#identity-slider").slider({
 				range : true,
@@ -40,8 +57,8 @@ body {
 					$("#identity-slider").slider("values", 0) + " % - "
 							+ $("#identity-slider").slider("values", 1) + " %");
 			$("#minlength-slider").slider({
-				range : "max",
-				min : 0,
+				range : false,
+				min : 10,
 				max : 10000,
 				step: 100,
 				value : 1000,
@@ -54,6 +71,7 @@ body {
 			$("#minlength-label").val(
 					$("#minlength-slider").slider("value") + " bp");
 		});
+		
 		var full_karyo;
 		var full_links;
 		loadKaryoFile("data/karyo.json", function(karyo) {
@@ -62,11 +80,12 @@ body {
 				return [ value ];
 			});
 			drawKaryo(array);
-			console.log(array);
 			loadLinkFile("data/link.json", karyo, function(links) {
 				full_links = links;
 				redraw(identity_range, min_length);
 			});
+			
+			return full_karyo;
 		});
 
 		function redraw(identity_range,min_length) {
@@ -95,6 +114,8 @@ body {
 			});
 			return filtered;
 		}
+		
+		
 	</script>
 	<p>
 		<label for="identity-label">Identity range:</label> <input type="text"
