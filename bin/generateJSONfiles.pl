@@ -169,12 +169,13 @@ Output: \%karyo of the form {$id => {length => $length, seq => $seq}}
 
 sub parse_karyo{
 	my $file = $_[0];
-	my %karyo = ();
+	my %karyo = ('chromosomes' => {}, 'order' => []);
 	open(IN, '<', $file) or $L->logdie("Can not open file $file\n$!");
 	while(<IN>){
 		chomp;
 		my($id, $gid, $len, $seq) = split(/\t/);
-		$karyo{$id} = {"genome_id" => $gid+0, "length" => $len+0, "seq" => $seq};
+		$karyo{'chromosomes'}{$id} = {"genome_id" => $gid+0, "length" => $len+0, "seq" => $seq, 'rc' => JSON::false};
+		push(@{$karyo{'order'}}, $id);
 	}
 	close IN or $L->logdie("Can not close file $file\n$!");
 	return \%karyo;
@@ -195,7 +196,7 @@ sub parse_bed{
 	while(<IN>){
 		chomp;
 		my($id, $start, $end, $fid) = split(/\t/);
-		$L->warn("The sequence id $id used in the bed file is not defined in the karyo file.") unless(exists $karyo->{$id});
+		$L->warn("The sequence id $id used in the bed file is not defined in the karyo file.") unless(exists $karyo->{'chromosomes'}{$id});
 		$features{$fid} = {"karyo" => $id, "start" => $start+0, "end" => $end+0}
 	}
 	close IN or $L->logdie("Can not close file $file\n$!");
