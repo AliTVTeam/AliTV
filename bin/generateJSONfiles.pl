@@ -56,9 +56,13 @@ $options{'bed=s'} = \( my $opt_bed );
 
 =item --link=<file>
 
-Path to the input link file. Simple tab delimited file with lines like that:
-feature_id <tab> feature_id[ <tab> additional information]
-The additional information is optional.
+Path to the input link file. Simple tsv file with header line.
+Mandatory columns are fida and fidb, all other columns are (named) link properties.
+The header starts with a hashtag (#). 
+If no header is present "#fida	type	fidb" is assumed, therefore supporting .sif format.
+Example:
+#fida <tab> fidb <tab> identity
+feature_id_a <tab> feature_id_b <tab> 90
 
 =cut
 
