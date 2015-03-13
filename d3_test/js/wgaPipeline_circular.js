@@ -150,7 +150,7 @@ function loadKaryoFile(file, callback) {
 function karyo_to_coords(data) {
 	var total = 0;
 	var spacer = set_spacer(data);
-	$.each(data, function(key, value) {
+	$.each(data.chromosomes, function(key, value) {
 		total += value.length + spacer;
 	});
 	var current = 0;
@@ -163,10 +163,11 @@ function karyo_to_coords(data) {
 			"genome_id" : value.genome_id,
 			"name" : key
 		};
+		
 		current += value.length + spacer;
-		data[key].endAngle = (current / total) * (2 * Math.PI);
-	});
-	return data;
+		data.chromosomes[key].endAngle = (current / total) * (2 * Math.PI);
+	}
+	return data.chromosomes;
 }
 
 function loadLinkFile(file, karyo, callback) {
@@ -215,7 +216,7 @@ function clear_chords() {
 
 function set_spacer(data) {
 	var spacer = 0;
-	$.each(data, function(key, value) {
+	$.each(data.chromosomes, function(key, value) {
 		spacer += value.length;
 	});
 	spacer = spacer * 0.0038; // ca. 4% der Gesamtsumme aller Sequenzen
