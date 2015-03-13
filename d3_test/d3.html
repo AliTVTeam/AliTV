@@ -59,7 +59,7 @@ body {
 			$("#minlength-slider").slider({
 				range : false,
 				min : 10,
-				max : 10000,
+				max : 100,
 				step: 100,
 				value : 1000,
 				slide : function(event, ui) {
@@ -70,6 +70,9 @@ body {
 			});
 			$("#minlength-label").val(
 					$("#minlength-slider").slider("value") + " bp");
+			
+			var max = $( "#minlength-slider" ).slider( "option", "max" );
+			$( "#minlength-slider" ).slider( "option", "max", set_slider());
 		});
 		
 		var full_karyo;
@@ -85,8 +88,8 @@ body {
 				redraw(identity_range, min_length);
 			});
 			
-			return full_karyo;
 		});
+		
 
 		function redraw(identity_range,min_length) {
 			clear_chords();
@@ -105,6 +108,7 @@ body {
 			});
 			return filtered;
 		}
+		
 		function filter_links_by_identity(links, identity_range) {
 			var filtered = new Array();
 			$.each(links, function(index, value) {
