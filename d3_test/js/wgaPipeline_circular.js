@@ -141,7 +141,6 @@ function groupTicks(d) {
 function loadKaryoFile(file, callback) {
 	$.getJSON(file, function(data) {
 		var karyo = karyo_to_coords(data);
-		console.log(karyo);
 		if (typeof callback !== "undefined") {
 			callback(karyo);
 		}
@@ -164,12 +163,21 @@ function karyo_to_coords(data) {
 			"startAngle" : ((current + spacer) / total) * (2 * Math.PI),
 			"index" : index++,
 			"genome_id" : value.genome_id,
-			"name" : key
-		};
-		
+			"name" : key,
+			"rc" : value.rc
+		};		
 		current += value.length + spacer;
 		data.chromosomes[key].endAngle = (current / total) * (2 * Math.PI);
-	}
+		
+		console.log(data.chromosomes[key]);
+		if(value.rc==true){
+			var startAngle = data.chromosomes[key].startAngle;
+			var endAngle = data.chromosomes[key].endAngle;
+			data.chromosomes[key].startAngle = endAngle;
+			data.chromosomes[key].endAngle = startAngle;
+		}
+		console.log(data.chromosomes[key]);
+		}
 	return data.chromosomes;
 }
 
