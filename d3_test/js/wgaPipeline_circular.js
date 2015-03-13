@@ -141,6 +141,7 @@ function groupTicks(d) {
 function loadKaryoFile(file, callback) {
 	$.getJSON(file, function(data) {
 		var karyo = karyo_to_coords(data);
+		console.log(karyo);
 		if (typeof callback !== "undefined") {
 			callback(karyo);
 		}
@@ -155,8 +156,10 @@ function karyo_to_coords(data) {
 	});
 	var current = 0;
 	var index = 0;
-	$.each(data, function(key, value) {
-		data[key] = {
+	for (var i=0;i<data.order.length;i++){
+		var key = data.order[i];
+		var value = data.chromosomes[key];
+		data.chromosomes[key]={
 			"value" : value.length,
 			"startAngle" : ((current + spacer) / total) * (2 * Math.PI),
 			"index" : index++,
