@@ -243,6 +243,9 @@ function reAdd_tooltip_legend(d) {
 		.style("opacity", 0);
 }
 
+function set_slider(){
+	return 10000;
+}
 
 
 
