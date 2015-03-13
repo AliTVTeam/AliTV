@@ -217,7 +217,7 @@ function link_to_coords(links, karyo) {
 // Returns an event handler for fading a given chord group.
 function fade(g, i, opacity) {
 	svg.selectAll(".chord path").filter(function(d) {
-		return d.source.index != i && d.target.index != i;
+		return d.source.index != g.index && d.target.index != g.index;
 	}).transition().style("opacity", opacity);
 }
 
