@@ -336,6 +336,15 @@ if($opt_d3){
 		$vwga->hline();
 		$vwga->nline();
 	} else {	
+		$vwga->verbose('Creating karyo, bed and link output for d3');
+		$vwga->hline();
+		my $d3_prepare_cmd = d3_prepare_command();
+		$vbash->verbose($d3_prepare_cmd);
+		my $d3_prepare_re = qx($d3_prepare_cmd);
+		$vwga->nline();
+		$vplain->verbose($d3_prepare_re) if $d3_prepare_re;
+		$vwga->exit('ERROR: Creating karyo, bed and link output for d3 failed') if $? >> 8;
+		
 		$vwga->verbose('Creating d3.js output');
 		$vwga->hline();
 		my $d3_cmd = d3_command();
@@ -532,18 +541,33 @@ sub highlight_command {
 	return $high_cmd;
 }
 
+=head2 d3_prepare_command
+
+Returns the command to call LastzToKaryoBedLinks.pl
+To get intermediate karyo, link and bed files to pass to generateJSONfiles.pl
+
+=cut
+
+sub d3_prepare_command {
+	my $self_command = "";
+	$self_command = "--self" if ($opt_self);
+	my $d3_cmd = "perl "
+	  . $FindBin::RealBin
+	  . "/LastzToKaryoBedLinks.pl --in $opt_prefix.txt --out $opt_prefix $self_command 2>&1";
+	return $d3_cmd;
+}
+
 =head2 d3_command
 
-Returns the command to call LastzToJSON.pl
+Returns the command to call LastzToKaryoBedLinks.pl
 
 =cut
 
 sub d3_command {
 	my $self_command = "";
-	$self_command = "--self" if ($opt_self);
 	my $d3_cmd = "perl "
 	  . $FindBin::RealBin
-	  . "/LastzToJSON.pl --in $opt_prefix.txt --out $opt_prefix $self_command 2>&1";
+	  . "/generateJSONfiles.pl --karyo $opt_prefix.karyo.tsv --bed $opt_prefix.bed --link $opt_prefix.links.tsv --prefix $opt_prefix 2>&1";
 	return $d3_cmd;
 }
 
