@@ -86,6 +86,7 @@ function drawKaryo(karyo) {
 		.on("mouseover", function(g, i) {
 			fade(g, i, 0.1);
 			add_tooltip_legend(g);
+			console.log(g);
 			})
 		.on("mouseout", function(g, i) {
 				fade(g, i, 1);
