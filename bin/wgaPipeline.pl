@@ -195,6 +195,15 @@ cleanheaders is default.
 
 $options{'cleanheaders!'} = \( my $opt_clean_headers = 1 );
 
+=item [--[no]d3] 
+
+Generate d3.js output to view in browser. Only available for lastz alignments.
+Default is nod3.
+
+=cut
+
+$options{'d3!'} = \( my $opt_d3 = 0 );
+
 =item [--[no]verbose] 
 
 verbose is default.
@@ -321,15 +330,21 @@ $vwga->nline();
 $vplain->verbose($parser_re) if $parser_re;
 $vwga->exit('ERROR: Parsing failed') if $? >> 8;
 
-unless ( $opt_promer || $opt_nucmer ) {
-	$vwga->verbose('Creating d3.js output');
-	$vwga->hline();
-	my $d3_cmd = d3_command();
-	$vbash->verbose($d3_cmd);
-	my $d3_re = qx($d3_cmd);
-	$vwga->nline();
-	$vplain->verbose($d3_re) if $d3_re;
-	$vwga->exit('ERROR: Creating d3.js output failed') if $? >> 8;
+if($opt_d3){
+	if ( $opt_promer || $opt_nucmer ) {
+		$vwga->verbose('As of now d3.js output can only be generated for lastz alignments. --d3 ignored');
+		$vwga->hline();
+		$vwga->nline();
+	} else {	
+		$vwga->verbose('Creating d3.js output');
+		$vwga->hline();
+		my $d3_cmd = d3_command();
+		$vbash->verbose($d3_cmd);
+		my $d3_re = qx($d3_cmd);
+		$vwga->nline();
+		$vplain->verbose($d3_re) if $d3_re;
+		$vwga->exit('ERROR: Creating d3.js output failed') if $? >> 8;
+	}
 }
 
 unless ($opt_self) {
@@ -557,6 +572,14 @@ It is not meant for extensive analyses of whole genomes. For this purpose see th
 and consider using them.  
 
 =head1 CHANGELOG
+
+=head2 13.03.2015
+
+=over
+
+=item * d3.js integrated for lastz alignments, default off
+
+=back
 
 =head2 20.09.2013
 
