@@ -8,7 +8,8 @@ var width = 960, height = 800, innerRadius = Math.min(width, height) * .41, oute
 // .range(["#2C06B5", "#0AF7EF"]);
 
 var fill = d3.scale.category20c();
-
+var legendRectSize = 18;
+var legendSpacing = 4;
 var div = d3.select("body").append("div")
 	.attr("class", "tooltip")
 	.style("opacity", 0);
@@ -86,11 +87,13 @@ function drawKaryo(karyo) {
 		.on("mouseover", function(g, i) {
 			fade(g, i, 0.1);
 			add_tooltip_legend(g);
-			console.log(g);
 			})
 		.on("mouseout", function(g, i) {
 				fade(g, i, 1);
 				reAdd_tooltip_legend();
+		})
+		.on("click", function(g, i){
+			set_orientation(g, i, karyo);
 		})
 	addTicks(karyo);
 }
@@ -169,15 +172,14 @@ function karyo_to_coords(data) {
 		};		
 		current += value.length + spacer;
 		data.chromosomes[key].endAngle = (current / total) * (2 * Math.PI);
+
+		//if(value.rc==true){
+		//	var startAngle = data.chromosomes[key].startAngle;
+		//	var endAngle = data.chromosomes[key].endAngle;
+		//	data.chromosomes[key].startAngle = endAngle;
+		//	data.chromosomes[key].endAngle = startAngle;
+		//}
 		
-		console.log(data.chromosomes[key]);
-		if(value.rc==true){
-			var startAngle = data.chromosomes[key].startAngle;
-			var endAngle = data.chromosomes[key].endAngle;
-			data.chromosomes[key].startAngle = endAngle;
-			data.chromosomes[key].endAngle = startAngle;
-		}
-		console.log(data.chromosomes[key]);
 		}
 	return data.chromosomes;
 }
@@ -217,9 +219,12 @@ function link_to_coords(links, karyo) {
 
 // Returns an event handler for fading a given chord group.
 function fade(g, i, opacity) {
-	svg.selectAll(".chord path").filter(function(d) {
+	svg.selectAll(".chord path")
+	.filter(function(d) {
 		return d.source.index != g.index && d.target.index != g.index;
-	}).transition().style("opacity", opacity);
+	})
+	.transition()
+	.style("opacity", opacity);
 }
 
 function clear_chords() {
@@ -257,7 +262,65 @@ function reAdd_tooltip_legend(d) {
 }
 
 function set_slider(){
+	//console.log(karyo);
 	return 10000;
+}
+
+function set_orientation(g, i,karyo){
+	console.log(karyo);
+	var value = karyo[i];
+	if(value.rc==true){
+		var startAngle = value.startAngle;
+		var endAngle = value.endAngle;
+		value.startAngle = endAngle;
+		value.endAngle = startAngle;
+		value.rc=false;
+	}
+	else{
+		var startAngle = value.startAngle;
+		var endAngle = value.endAngle;
+		value.startAngle = endAngle;
+		value.endAngle = startAngle;
+		value.rc=true;
+	}
+	//clear_chords();
+
+	console.log(karyo);
+	drawKaryo_withoutTicks(karyo);
+		
+}
+
+function drawKaryo_withoutTicks(karyo){
+	svg.append("g")
+	.selectAll("path")
+	.data(karyo)
+	.enter()
+	.append("path")
+	.style(
+		"fill", function(d) {
+			return fill(d.index);
+		})
+	.style("stroke", function(d) {
+	return fill(d.index);
+	})
+	
+	.attr(
+			"d",
+			d3.svg.arc()
+				.innerRadius(innerRadius)
+				.outerRadius(outerRadius)
+			)
+	.on("mouseover", function(g, i) {
+		fade(g, i, 0.1);
+		add_tooltip_legend(g);
+		})
+	.on("mouseout", function(g, i) {
+			fade(g, i, 1);
+			reAdd_tooltip_legend();
+	})
+	.on("click", function(g, i){
+		set_orientation(g, i, karyo);
+	})	
 }
 
 
