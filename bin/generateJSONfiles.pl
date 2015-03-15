@@ -7,7 +7,7 @@ use Data::Dumper;
 $Data::Dumper::Sortkeys = 1;
 use Getopt::Long;
 use Pod::Usage;
-#use Log::Log4perl qw(:no_extra_logdie_message);
+use Log::Log4perl qw(:no_extra_logdie_message);
 use POSIX; # for rounding
 use JSON;
 use File::Copy qw(cp);
