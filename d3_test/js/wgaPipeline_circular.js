@@ -1,6 +1,6 @@
-var width = 1100, height = 800, innerRadius = Math.min(width, height) * .41, outerRadius = innerRadius * 1.1;
-var identity = {percent: ["<46 %", "50 %", "54 %", "58 %", "62 %", "66 %", "70 %", "74 %", "78 %", "82 %", "86 %", "90 %", "94 %", ">98 %"], 
-				color: ["#FF1600", "#FF3500", "#FF5300", "#FF7C01", "#FF9B01", "#FFC301", "#FFE201", "#EBDD02", "#CCD602", "#B7D103", "#99C905", "#7AC206", "#51B807", "#32B008"]};
+var width = 1200, height = 800, innerRadius = Math.min(width, height) * .41, outerRadius = innerRadius * 1.1;
+var identity = {percent: ["Identity", "<46 %", "50 %", "54 %", "58 %", "62 %", "66 %", "70 %", "74 %", "78 %", "82 %", "86 %", "90 %", "94 %", ">98 %"], 
+				color: ["white", "#FF1600", "#FF3500", "#FF5300", "#FF7C01", "#FF9B01", "#FFC301", "#FFE201", "#EBDD02", "#CCD602", "#B7D103", "#99C905", "#7AC206", "#51B807", "#32B008"]};
 // var fill = d3.scale.ordinal().domain(d3.range(5)).range(
 // [ "#000000", "#FFDD89", "#957244", "#F26223", "#00FF00" ]);
 
@@ -28,13 +28,12 @@ var legend = svg.selectAll('.legend')
             .enter()
             .append('g')
             .attr('class', 'legend')
-            .text("identity")
 
-for(var i=0;i<=13;i++){
+for(var i=0;i<=14;i++){
 var pos_x = 480;
-var pos_y = -300 + i*25;
+var pos_y = -370 + i*25;
 var pos_x_text = 505;
-var pos_y_text = -282 + i*25;
+var pos_y_text = -352 + i*25;
 legend.append('rect')
 	.attr('x', pos_x)
 	.attr('y', pos_y)
@@ -42,6 +41,7 @@ legend.append('rect')
     .attr('height', legendRectSize)                                   
     .style('fill', identity.color[i])
     .style('stroke', identity.color[i]);
+
 
 legend.append('text')
 	.attr('x', pos_x_text + legendSpacing)
