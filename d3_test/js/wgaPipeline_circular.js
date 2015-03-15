@@ -8,7 +8,7 @@ var identity = {percent: ["Identity", "<46 %", "50 %", "54 %", "58 %", "62 %", "
 // .domain(d3.range(5))
 // .range(["#2C06B5", "#0AF7EF"]);
 
-console.log(identity);
+
 var svg = d3.select("body").append("svg").attr("width", width).attr("height",
 		height).append("g").attr("transform",
 		"translate(" + width / 2 + "," + height / 2 + ")");
@@ -180,7 +180,6 @@ function loadKaryoFile(file, callback) {
 }
 
 function karyo_to_coords(data) {
-	console.log(data);
 	var total = 0;
 	var spacer = set_spacer(data);
 	$.each(data.chromosomes, function(key, value) {
@@ -202,12 +201,12 @@ function karyo_to_coords(data) {
 		current += value.length + spacer;
 		data.chromosomes[key].endAngle = (current / total) * (2 * Math.PI);
 
-		//if(value.rc==true){
-		//	var startAngle = data.chromosomes[key].startAngle;
-		//	var endAngle = data.chromosomes[key].endAngle;
-		//	data.chromosomes[key].startAngle = endAngle;
-		//	data.chromosomes[key].endAngle = startAngle;
-		//}
+		if(value.rc==true){
+			var startAngle = data.chromosomes[key].startAngle;
+			var endAngle = data.chromosomes[key].endAngle;
+			data.chromosomes[key].startAngle = endAngle;
+			data.chromosomes[key].endAngle = startAngle;
+		}
 		
 		}
 	return data.chromosomes;
@@ -295,22 +294,22 @@ function set_slider(){
 	return 10000;
 }
 
-function set_orientation(g, i,karyo){
-	console.log(karyo);
-	var value = karyo[i];
-	if(value.rc==true){
-		var startAngle = value.startAngle;
-		var endAngle = value.endAngle;
-		value.startAngle = endAngle;
-		value.endAngle = startAngle;
-		value.rc=false;
+function set_orientation(g, i, karyo){
+	//console.log(g);
+	if(karyo[i].rc==true){
+		var startAngle = karyo[i].startAngle;
+		var endAngle = karyo[i].endAngle;
+		karyo[i].startAngle = endAngle;
+		karyo[i].endAngle = startAngle;
+		karyo[i].rc=false;
 	}
 	else{
-		var startAngle = value.startAngle;
-		var endAngle = value.endAngle;
-		value.startAngle = endAngle;
-		value.endAngle = startAngle;
-		value.rc=true;
+		var startAngle = karyo[i].startAngle;
+		var endAngle = karyo[i].endAngle;
+		karyo[i].startAngle = endAngle;
+		karyo[i].endAngle = startAngle;
+		karyo[i].rc=true;
+		console.log(karyo);
 	}
 	//clear_chords();
 
@@ -350,6 +349,7 @@ function drawKaryo_withoutTicks(karyo){
 		set_orientation(g, i, karyo);
 	})	
 }
+
 
 
 
