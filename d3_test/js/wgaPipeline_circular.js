@@ -93,7 +93,7 @@ function fillByIdy(identity) {
 }
 	
 function drawKaryo(karyo) {
-	svg.append("g")
+	svg.append("g").attr("class", "karyo")
 		.selectAll("path")
 		.data(karyo)
 		.enter()
@@ -121,14 +121,14 @@ function drawKaryo(karyo) {
 				reAdd_tooltip_legend();
 		})
 		.on("click", function(g, i){
-			set_orientation(i, karyo);			
-
+			svg.selectAll(".chord path").remove();
+			svg.selectAll(".ticks g").remove();
 		})
 	addTicks(karyo);
 }
 
 function addTicks(karyo) {
-	var ticks = svg.append("g").selectAll("g").data(karyo).enter().append("g")
+	var ticks = svg.append("g").attr("class","ticks").selectAll("g").data(karyo).enter().append("g")
 			.selectAll("g").data(groupTicks).enter().append("g").attr(
 					"transform",
 					function(d) {
@@ -297,61 +297,6 @@ function set_slider(){
 }
 
 
-function set_orientation(i, karyo){
-	console.log(karyo[i]);
-	if(karyo[i].rc==true){
-		var startAngle = karyo[i].startAngle;
-		var endAngle = karyo[i].endAngle;
-		karyo[i].startAngle = endAngle;
-		karyo[i].endAngle = startAngle;
-		karyo[i].rc=false;
-	}
-	else{
-		var startAngle = karyo[i].startAngle;
-		var endAngle = karyo[i].endAngle;
-		karyo[i].startAngle = endAngle;
-		karyo[i].endAngle = startAngle;
-		karyo[i].rc=true;
-	}
-	//clear_chords();
-	return karyo;
-	console.log(karyo[i]);
-	drawKaryo_withoutTicks(karyo);
-		
-}
-
-function drawKaryo_withoutTicks(karyo){
-	svg.append("g")
-	.selectAll("path")
-	.data(karyo)
-	.enter()
-	.append("path")
-	.style(
-		"fill", function(d) {
-			return fill(d.index);
-		})
-	.style("stroke", function(d) {
-	return fill(d.index);
-	})
-	
-	.attr(
-			"d",
-			d3.svg.arc()
-				.innerRadius(innerRadius)
-				.outerRadius(outerRadius)
-			)
-	.on("mouseover", function(g, i) {
-		fade(g, i, 0.1);
-		add_tooltip_legend(g);
-		})
-	.on("mouseout", function(g, i) {
-			fade(g, i, 1);
-			reAdd_tooltip_legend();
-	})
-	.on("click", function(g, i){
-		set_orientation(g, i, karyo);
-	})	
-}
 
 
 
