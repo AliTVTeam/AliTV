@@ -127,7 +127,7 @@ function drawKaryo(karyo) {
 			addTicks(karyo);
 			new_loadLinkFile("data/link.json", karyo, function(links) {
 				full_links = links;
-				//redraw(identity_range, min_length);
+				redraw(identity_range, min_length);
 			});
 		})
 	addTicks(karyo);
