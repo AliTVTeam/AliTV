@@ -124,6 +124,7 @@ function drawKaryo(karyo) {
 			svg.selectAll(".chord path").remove();
 			svg.selectAll(".ticks g").remove();
 			create_new_karyo(karyo, i);
+			addTicks(karyo);
 			loadLinkFile("data/link.json", karyo, function(links) {
 				full_links = links;
 				//redraw(identity_range, min_length);
