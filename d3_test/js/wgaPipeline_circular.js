@@ -112,16 +112,17 @@ function drawKaryo(karyo) {
 					.innerRadius(innerRadius)
 					.outerRadius(outerRadius)
 				)
-		.on("mouseover", function(g, i) {
-			fade(g, i, 0.1);
-			add_tooltip_legend(g);
-			})
+		//.on("mouseover", function(g, i) {
+		//	fade(g, i, 0.1);
+		//	add_tooltip_legend(g);
+		//	})
 		.on("mouseout", function(g, i) {
 				fade(g, i, 1);
 				reAdd_tooltip_legend();
 		})
 		.on("click", function(g, i){
-			set_orientation(g, i, karyo);
+			set_orientation(g, i, karyo);			
+
 		})
 	addTicks(karyo);
 }
@@ -200,6 +201,7 @@ function karyo_to_coords(data) {
 		};		
 		current += value.length + spacer;
 		data.chromosomes[key].endAngle = (current / total) * (2 * Math.PI);
+
 
 		if(value.rc==true){
 			var startAngle = data.chromosomes[key].startAngle;
@@ -294,6 +296,7 @@ function set_slider(){
 	return 10000;
 }
 
+
 function set_orientation(g, i, karyo){
 	//console.log(g);
 	if(karyo[i].rc==true){
@@ -348,6 +351,21 @@ function drawKaryo_withoutTicks(karyo){
 	.on("click", function(g, i){
 		set_orientation(g, i, karyo);
 	})	
+}
+
+
+
+function set_orientation(g){
+	console.log(g);
+	if(g.rc==true){
+		var startAngle = g.startAngle;
+		var endAngle = g.endAngle;
+		g.startAngle = endAngle;
+		g.endAngle = startAngle;
+	}
+	console.log(g);
+	return g.startAngle;
+	return g.endAngle;
 }
 
 
