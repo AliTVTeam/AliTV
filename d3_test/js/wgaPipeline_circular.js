@@ -123,7 +123,11 @@ function drawKaryo(karyo) {
 		.on("click", function(g, i){
 			svg.selectAll(".chord path").remove();
 			svg.selectAll(".ticks g").remove();
-			create_new_karyo(karyo);
+			create_new_karyo(karyo, i);
+			loadLinkFile("data/link.json", karyo, function(links) {
+				full_links = links;
+				//redraw(identity_range, min_length);
+			});
 		})
 	addTicks(karyo);
 }
@@ -297,8 +301,7 @@ function set_slider(){
 	return 10000;
 }
 
-function create_new_karyo(karyo){
-	for(var i=0;i<karyo.length;i++){
+function create_new_karyo(karyo, i){
 		console.log(karyo[i]);
 		var endAngle = karyo[i].endAngle;
 		var startAngle = karyo[i].startAngle;
@@ -312,7 +315,11 @@ function create_new_karyo(karyo){
 				"rc" : false
 			};
 		console.log(karyo[i]);
-	}
+	return karyo;
+}
+
+function create_new_links(links,karyo){
+	
 }
 
 
