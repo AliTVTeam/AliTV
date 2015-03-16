@@ -123,6 +123,7 @@ function drawKaryo(karyo) {
 		.on("click", function(g, i){
 			svg.selectAll(".chord path").remove();
 			svg.selectAll(".ticks g").remove();
+			create_new_karyo(karyo);
 		})
 	addTicks(karyo);
 }
@@ -296,6 +297,23 @@ function set_slider(){
 	return 10000;
 }
 
+function create_new_karyo(karyo){
+	for(var i=0;i<karyo.length;i++){
+		console.log(karyo[i]);
+		var endAngle = karyo[i].endAngle;
+		var startAngle = karyo[i].startAngle;
+		karyo[i]={
+				"value" : karyo[i].value,
+				"startAngle" : endAngle,
+				"index" : karyo[i].index,
+				"genome_id" : karyo[i].genome_id,
+				"name" : karyo[i].name,
+				"endAngle" : startAngle,
+				"rc" : false
+			};
+		console.log(karyo[i]);
+	}
+}
 
 
 
