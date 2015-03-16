@@ -125,7 +125,7 @@ function drawKaryo(karyo) {
 			svg.selectAll(".ticks g").remove();
 			create_new_karyo(karyo, i);
 			addTicks(karyo);
-			loadLinkFile("data/link.json", karyo, function(links) {
+			new_loadLinkFile("data/link.json", karyo, function(links) {
 				full_links = links;
 				//redraw(identity_range, min_length);
 			});
@@ -303,10 +303,9 @@ function set_slider(){
 }
 
 function create_new_karyo(karyo, i){
-		console.log(karyo[i]);
 		var endAngle = karyo[i].endAngle;
 		var startAngle = karyo[i].startAngle;
-		karyo[i]={
+		karyo[i] = {
 				"value" : karyo[i].value,
 				"startAngle" : endAngle,
 				"index" : karyo[i].index,
@@ -315,12 +314,57 @@ function create_new_karyo(karyo, i){
 				"endAngle" : startAngle,
 				"rc" : false
 			};
-		console.log(karyo[i]);
 	return karyo;
 }
 
-function create_new_links(links,karyo){
-	
+function new_loadLinkFile(file, karyo, callback) {
+	$.getJSON(file, function(data) {
+		var links = create_new_links(data, karyo);
+		if (typeof callback !== 'undefined') {
+			callback(links);
+		}
+	});
+}
+
+function create_new_links(links, karyo){
+		$.each(links, function(key, value) {
+			var s;
+			var sourceName = value.source.name;
+			for(var i=0;i<karyo.length;i++){
+				var karyoName = karyo[i].name;
+				if(karyoName==sourceName){
+					s = karyo[i];
+					break;
+				}
+			}
+			var s_totalAngle = s.endAngle - s.startAngle;
+			links[key].source.startAngle = s.startAngle + s_totalAngle
+					* (value.source.start / s.value);
+			links[key].source.endAngle = s.startAngle + s_totalAngle
+					* (value.source.end / s.value);
+			links[key].source.index = s.index;
+			links[key].source.value = Math.abs(value.source.end
+					- value.source.start);
+			
+			var t;
+			var targetName = value.target.name;
+			for(var j=0;j<karyo.length;j++){
+				var karyoName=karyo[j].name;
+				if(karyoName==targetName){
+					t = karyo[j];
+					break;
+				}
+			}
+			var t_totalAngle = t.endAngle - t.startAngle;
+			links[key].target.endAngle = t.startAngle + t_totalAngle
+					* (value.target.start / t.value);
+			links[key].target.startAngle = t.startAngle + t_totalAngle
+					* (value.target.end / t.value);
+			links[key].target.index = t.index;
+			links[key].target.value = Math.abs(value.target.end
+					- value.target.start);
+		});
+		return links;
 }
 
 
