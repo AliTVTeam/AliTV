@@ -1,6 +1,10 @@
-var width = 960, height = 700;
+var width = 1200, height = 800;
+var identity = {percent: ["Identity", "<46 %", "50 %", "54 %", "58 %", "62 %", "66 %", "70 %", "74 %", "78 %", "82 %", "86 %", "90 %", "94 %", ">98 %"], 
+				color: ["white", "#FF1600", "#FF3500", "#FF5300", "#FF7C01", "#FF9B01", "#FFC301", "#FFE201", "#EBDD02", "#CCD602", "#B7D103", "#99C905", "#7AC206", "#51B807", "#32B008"]};
 
 var fill = d3.scale.category20c();
+var svg = d3.select("body").append("svg").attr("width", width).attr("height",
+		height).append("g");
 var legendRectSize = 18;
 var legendSpacing = 4;
 var div = d3.select("body").append("div")
@@ -9,6 +13,33 @@ var div = d3.select("body").append("div")
 
 	div.append("div")
 		.attr("class", "label")
+		
+var legend = svg.selectAll('.legend')
+			.data(identity.percent)
+            .enter()
+            .append('g')
+            .attr('class', 'legend')
+
+for(var i=0;i<=14;i++){
+var pos_x = 200;
+var pos_y = -370 + i*25;
+var pos_x_text = 505;
+var pos_y_text = -352 + i*25;
+legend.append('rect')
+	.attr('x', pos_x)
+	.attr('y', pos_y)
+    .attr('width', legendRectSize)
+    .attr('height', legendRectSize)                                   
+    .style('fill', identity.color[i])
+    .style('stroke', identity.color[i]);
+
+
+legend.append('text')
+	.attr('x', pos_x_text + legendSpacing)
+	.attr('y', pos_y_text - legendSpacing)
+	.text(identity.percent[i]);
+}
+
 
 function fillByLength(length) {
 	if (length < 10000) {
@@ -52,8 +83,6 @@ function fillByIdy(identity) {
 	}
 }
 
-var svg = d3.select("body").append("svg").attr("width", width).attr("height",
-		height).append("g");
 
 function drawKaryo(karyo) {
 	svg.append("g").selectAll("path").data(karyo).enter().append("rect")
