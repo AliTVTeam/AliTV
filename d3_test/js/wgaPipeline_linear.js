@@ -1,7 +1,6 @@
 var width = 960, height = 700;
 
-var fill = d3.scale.ordinal().domain(d3.range(5)).range(
-		[ "#000000", "#FFDD89", "#957244", "#F26223", "#00FF00" ]);
+var fill = d3.scale.category20c();
 var legendRectSize = 18;
 var legendSpacing = 4;
 var div = d3.select("body").append("div")
