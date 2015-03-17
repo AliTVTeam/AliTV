@@ -132,24 +132,27 @@ function loadKaryoFile(file, callback) {
 function karyo_to_coords(data) {
 	var total = [ 0, 0 ];
 	var spacer = 10000;
-	$.each(data, function(key, value) {
+	$.each(data.chromosomes, function(key, value) {
 		total[value.genome_id] += value.length + spacer;
 	});
 	var current = [ 0, 0 ];
-	var index = 0;
+	var index = 0;	
 	// take max of total instead of array to keep scale constant across genomes
 	// instead of scaling them to the same width.
-	$.each(data, function(key, value) {
-		data[key] = {
+	for(var i=0;i<data.order.length;i++){
+		var key = data.order[i];
+		var value = data.chromosomes[key];
+		data.chromosomes[key] = {
 			"value" : value.length,
 			"index" : index++,
 			"x" : (current[value.genome_id] / total[value.genome_id]) * width,
 			"width" : (value.length / total[value.genome_id]) * width,
-			"genome_id" : value.genome_id
+			"genome_id" : value.genome_id,
+			"rc" : value.rc
 		};
 		current[value.genome_id] += value.length + spacer;
-	});
-	return data;
+	};
+	return data.chromosomes;
 }
 
 function loadLinkFile(file, karyo, callback) {
