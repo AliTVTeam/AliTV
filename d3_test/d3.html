@@ -25,7 +25,6 @@ body {
 }
 
 .legend {
-	font-size: 12px;
 	font: 12px sans-serif;
 }
 rect {
@@ -84,6 +83,8 @@ rect {
 		var full_karyo;
 		var full_links;
 		loadKaryoFile("data/karyo.json", function(karyo) {
+			//var max = $( "#minlength-slider" ).slider( "option", "max" );
+			//$( "#minlength-slider" ).slider( "option", "max", set_slider());
 			full_karyo = karyo;
 			var array = $.map(karyo, function(value, index) {
 				return [ value ];
