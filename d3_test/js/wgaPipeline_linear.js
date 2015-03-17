@@ -2,6 +2,14 @@ var width = 960, height = 700;
 
 var fill = d3.scale.ordinal().domain(d3.range(5)).range(
 		[ "#000000", "#FFDD89", "#957244", "#F26223", "#00FF00" ]);
+var legendRectSize = 18;
+var legendSpacing = 4;
+var div = d3.select("body").append("div")
+	.attr("class", "tooltip")
+	.style("opacity", 0);
+
+	div.append("div")
+		.attr("class", "label")
 
 function fillByLength(length) {
 	if (length < 10000) {
@@ -50,8 +58,15 @@ var svg = d3.select("body").append("svg").attr("width", width).attr("height",
 
 function drawKaryo(karyo) {
 	svg.append("g").selectAll("path").data(karyo).enter().append("rect")
-	.on("mouseover", fade(.1))
-	.on("mouseout", fade(1)).style(
+	.on("mouseover", function(g, i) {
+			fade(g, i, 0.1);
+			add_tooltip_legend(g);
+			})
+	.on("mouseout", function(g, i) {
+				fade(g, i, 1);
+				reAdd_tooltip_legend();
+		})
+	.style(
 			"fill", function(d) {
 				return fill(d.index);
 			}).style("stroke", function(d) {
@@ -170,6 +185,7 @@ function karyo_to_coords(data) {
 			"x" : (current[value.genome_id] / total[value.genome_id]) * width,
 			"width" : (value.length / total[value.genome_id]) * width,
 			"genome_id" : value.genome_id,
+			"name" : key,
 			"rc" : value.rc
 		};
 		current[value.genome_id] += value.length + spacer;
@@ -257,4 +273,23 @@ function set_spacer(data) {
 								// entsprechen dem geeigneten Spacer
 	// console.log(spacer);
 	return spacer;
+}
+
+function add_tooltip_legend(g){
+	var name = "name: " + g.name;
+	var length = "length: " + g.value + " bp";
+	var text = name.concat(" \n", length);
+	div.transition()
+		.duration(200)
+		.style("opacity", .9)
+		.style("left", (d3.event.pageX - 34) + "px")
+		.style("top", (d3.event.pageY - 12) + "px")
+		div.html(name + "<br/>" + length);
+		
+}
+
+function reAdd_tooltip_legend(d) {
+	div.transition()
+		.duration(500)
+		.style("opacity", 0);
 }
