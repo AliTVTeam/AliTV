@@ -131,7 +131,7 @@ function loadKaryoFile(file, callback) {
 
 function karyo_to_coords(data) {
 	var total = [ 0, 0 ];
-	var spacer = 10000;
+	var spacer = set_spacer(data);
 	$.each(data.chromosomes, function(key, value) {
 		total[value.genome_id] += value.length + spacer;
 	});
@@ -224,4 +224,15 @@ function fade(opacity) {
 
 function clear_chords() {
 	svg.selectAll(".chord path").remove();
+}
+
+function set_spacer(data) {
+	var spacer = 0;
+	$.each(data.chromosomes, function(key, value) {
+		spacer += value.length;
+	});
+	spacer = spacer * 0.0038; // ca. 4% der Gesamtsumme aller Sequenzen
+								// entsprechen dem geeigneten Spacer
+	// console.log(spacer);
+	return spacer;
 }
