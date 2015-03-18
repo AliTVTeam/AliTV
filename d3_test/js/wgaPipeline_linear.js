@@ -209,6 +209,7 @@ function loadKaryoFile(file, callback) {
 }
 
 function karyo_to_coords(data) {
+	console.log(data);
 	var total = [ 0, 0, 0 ];
 	var spacer = set_spacer(data);
 	$.each(data.chromosomes, function(key, value) {
