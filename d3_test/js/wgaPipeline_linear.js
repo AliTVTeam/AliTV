@@ -85,7 +85,10 @@ function fillByIdy(identity) {
 
 
 function drawKaryo(karyo) {
-	svg.append("g").selectAll("path").data(karyo).enter().append("rect")
+	var array = $.map(karyo, function(value, index) {
+		return [ value ];
+	});
+	svg.append("g").selectAll("path").data(array).enter().append("rect")
 	.on("mouseover", function(g, i) {
 			fade(g, i, 0.1);
 			//add_tooltip_legend(g);
@@ -97,9 +100,12 @@ function drawKaryo(karyo) {
 	.on("click", function(g, i){
 		svg.selectAll(".chord path").remove();
 		svg.selectAll(".ticks g").remove();
-		create_new_karyo(karyo, i);
+		create_new_karyo(karyo, g);
+		var array = $.map(karyo, function(value, index) {
+			return [ value ];
+		});
 		//addTicks(karyo);
-		new_loadLinkFile("data/link.json", karyo, function(links) {
+		loadLinkFile("data/link.json", karyo, function(links) {
 			full_links = links;
 			redraw(identity_range, min_length);
 		});
@@ -241,7 +247,7 @@ function loadLinkFile(file, karyo, callback) {
 }
 
 function link_to_coords(links, karyo) {
-	console.log(links);
+	console.log(karyo);
 	$.each(links, function(key, value) {
 		links[key].ribbon = [ {
 			source : {
@@ -333,68 +339,22 @@ function reAdd_tooltip_legend(d) {
 		.style("opacity", 0);
 }
 
-function create_new_karyo(karyo, i){
-	var endAngle = karyo[i].endAngle;
-	var startAngle = karyo[i].startAngle;
-	karyo[i] = {
-			"value" : karyo[i].value,
-			"startAngle" : endAngle,
-			"index" : karyo[i].index,
-			"genome_id" : karyo[i].genome_id,
-			"name" : karyo[i].name,
-			"endAngle" : startAngle,
-			"rc" : false
+function create_new_karyo(karyo, g){
+	var key = g.name;
+	var x = karyo[key].x;
+	var width = karyo[key].width;
+	karyo[key] = {
+			"value" : karyo[key].value,
+			"index" : karyo[key].index,
+			"x" : width,
+			"width": x,
+			"genome_id" : karyo[key].genome_id,
+			"name" : key,
+			"rc" : karyo[key].rc
 		};
 return karyo;
 }
 
-function new_loadLinkFile(file, karyo, callback) {
-$.getJSON(file, function(data) {
-	var links = create_new_links(data, karyo);
-	if (typeof callback !== 'undefined') {
-		callback(links);
-	}
-});
-}
 
-function create_new_links(links, karyo){
-	$.each(links, function(key, value) {
-		var s;
-		var sourceName = value.source.name;
-		for(var i=0;i<karyo.length;i++){
-			var karyoName = karyo[i].name;
-			if(karyoName==sourceName){
-				s = karyo[i];
-				break;
-			}
-		}
-		var s_totalAngle = s.endAngle - s.startAngle;
-		links[key].source.startAngle = s.startAngle + s_totalAngle
-				* (value.source.start / s.value);
-		links[key].source.endAngle = s.startAngle + s_totalAngle
-				* (value.source.end / s.value);
-		links[key].source.index = s.index;
-		links[key].source.value = Math.abs(value.source.end
-				- value.source.start);
-		
-		var t;
-		var targetName = value.target.name;
-		for(var j=0;j<karyo.length;j++){
-			var karyoName=karyo[j].name;
-			if(karyoName==targetName){
-				t = karyo[j];
-				break;
-			}
-		}
-		var t_totalAngle = t.endAngle - t.startAngle;
-		links[key].target.endAngle = t.startAngle + t_totalAngle
-				* (value.target.start / t.value);
-		links[key].target.startAngle = t.startAngle + t_totalAngle
-				* (value.target.end / t.value);
-		links[key].target.index = t.index;
-		links[key].target.value = Math.abs(value.target.end
-				- value.target.start);
-	});
-	return links;
-}
+
 

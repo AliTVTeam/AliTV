@@ -78,8 +78,7 @@ rect {
 			var array = $.map(karyo, function(value, index) {
 				return [ value ];
 			});
-			drawKaryo(array);
-			console.log(array);
+			drawKaryo(karyo);
 			loadLinkFile("data/link.json", karyo, function(links) {
 				full_links = links;
 				redraw(identity_range, min_length);
