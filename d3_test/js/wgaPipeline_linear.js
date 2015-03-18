@@ -1,4 +1,4 @@
-var width = 1200, height = 800;
+var width = 1200, height = 1500;
 var identity = {percent: ["Identity", "<46 %", "50 %", "54 %", "58 %", "62 %", "66 %", "70 %", "74 %", "78 %", "82 %", "86 %", "90 %", "94 %", ">98 %"], 
 				color: ["white", "#FF1600", "#FF3500", "#FF5300", "#FF7C01", "#FF9B01", "#FFC301", "#FFE201", "#EBDD02", "#CCD602", "#B7D103", "#99C905", "#7AC206", "#51B807", "#32B008"]};
 
@@ -104,7 +104,6 @@ function drawKaryo(karyo) {
 		var array = $.map(karyo, function(value, index) {
 			return [ value ];
 		});
-		//addTicks(karyo);
 		loadLinkFile("data/link.json", karyo, function(links) {
 			full_links = links;
 			redraw(identity_range, min_length);
@@ -123,13 +122,14 @@ function drawKaryo(karyo) {
 		return d.width
 	}).attr("height", 10);
 	;
+	
+	//addTicks(array);
 }
 
 // This function is adjusted from:
 // http://stackoverflow.com/questions/26567104/d3-js-fill-area-between-to-diagonals
 // thanks to user 'meetamit'
 function getRibbon(links) {
-	console.log(links);
 	var diagonal = d3.svg.diagonal().source(function(d) {
 		return {
 			"x" : d.source.x,
@@ -150,23 +150,20 @@ function getRibbon(links) {
 }
 
 function addTicks(karyo) {
-	var ticks = svg.append("g").selectAll("g").data(karyo).enter().append("g")
-			.selectAll("g").data(groupTicks).enter().append("g").attr(
-					"transform",
-					function(d) {
-						return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
-								+ "translate(" + outerRadius + ",0)";
-					});
-
+	var ticks = svg.append("g")
+	.selectAll("g")
+	.data(karyo)
+	.enter()
+	.append("g")
+	.selectAll("g")
+	.data(groupTicks)
+	.enter()
+	.append("g")
+	
 	ticks.append("line").attr("x1", 1).attr("y1", 0).attr("x2", 5)
 			.attr("y2", 0).style("stroke", "#000");
 
-	ticks.append("text").attr("x", 8).attr("dy", ".35em").attr("transform",
-			function(d) {
-				return d.angle > Math.PI ? "rotate(180)translate(-16)" : null;
-			}).style("text-anchor", function(d) {
-		return d.angle > Math.PI ? "end" : null;
-	}).text(function(d) {
+	ticks.append("text").attr("x", 8).attr("dy", ".35em").text(function(d) {
 		return d.label;
 	});
 }
@@ -193,10 +190,10 @@ function drawLinks(links) {
 
 // Returns an array of tick angles and labels, given a group.
 function groupTicks(d) {
-	var k = (d.endAngle - d.startAngle) / d.value;
+	var k = d.width / d.value;
 	return d3.range(0, d.value, 10000).map(function(v, i) {
 		return {
-			angle : v * k + d.startAngle,
+			tick : v * k + d.x,
 			label : i % 5 ? null : v / 1000 + "k"
 		};
 	});
@@ -212,12 +209,12 @@ function loadKaryoFile(file, callback) {
 }
 
 function karyo_to_coords(data) {
-	var total = [ 0, 0 ];
+	var total = [ 0, 0, 0 ];
 	var spacer = set_spacer(data);
 	$.each(data.chromosomes, function(key, value) {
 		total[value.genome_id] += value.length + spacer;
 	});
-	var current = [ 0, 0 ];
+	var current = [ 0, 0, 0 ];
 	var index = 0;	
 	// take max of total instead of array to keep scale constant across genomes
 	// instead of scaling them to the same width.
@@ -234,8 +231,9 @@ function karyo_to_coords(data) {
 			"rc" : value.rc
 		};
 		current[value.genome_id] += value.length + spacer;
-		console.log(data.chromosomes[key]);
+		console.log(current);
 	};
+	console.log(data.chromosomes);
 	return data.chromosomes;
 }
 
