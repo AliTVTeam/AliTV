@@ -129,6 +129,7 @@ function drawKaryo(karyo) {
 // http://stackoverflow.com/questions/26567104/d3-js-fill-area-between-to-diagonals
 // thanks to user 'meetamit'
 function getRibbon(links) {
+	console.log(links);
 	var diagonal = d3.svg.diagonal().source(function(d) {
 		return {
 			"x" : d.source.x,
@@ -233,6 +234,7 @@ function karyo_to_coords(data) {
 			"rc" : value.rc
 		};
 		current[value.genome_id] += value.length + spacer;
+		console.log(data.chromosomes[key]);
 	};
 	return data.chromosomes;
 }
@@ -247,7 +249,6 @@ function loadLinkFile(file, karyo, callback) {
 }
 
 function link_to_coords(links, karyo) {
-	console.log(karyo);
 	$.each(links, function(key, value) {
 		links[key].ribbon = [ {
 			source : {
@@ -273,15 +274,19 @@ function link_to_coords(links, karyo) {
 			y : 0
 		} ];
 		var s = karyo[value.source.name];
+		
 		links[key].ribbon[0].source.x = s.x + s.width
 				* (value.source.start / s.value);
 		links[key].ribbon[0].source.y = 480 * s.genome_id + 15;
+		
 		links[key].ribbon[1].target.x = s.x + s.width
 				* (value.source.end / s.value);
 		links[key].ribbon[1].target.y = 480 * s.genome_id + 15;
+		
 		links[key].source.index = s.index;
 		links[key].source.value = Math.abs(value.source.end
 				- value.source.start);
+		
 		var t = karyo[value.target.name];
 		links[key].ribbon[0].target.x = t.x + t.width
 				* (value.target.start / t.value);
