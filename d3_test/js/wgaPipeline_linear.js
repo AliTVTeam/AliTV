@@ -241,6 +241,7 @@ function loadLinkFile(file, karyo, callback) {
 }
 
 function link_to_coords(links, karyo) {
+	console.log(links);
 	$.each(links, function(key, value) {
 		links[key].ribbon = [ {
 			source : {

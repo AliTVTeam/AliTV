@@ -93,9 +93,14 @@ function fillByIdy(identity) {
 }
 	
 function drawKaryo(karyo) {
+	var array = $.map(karyo, function(value, index) {
+		return [ value ];
+	});
+	console.log(karyo);
+	console.log(array);
 	svg.append("g").attr("class", "karyo")
 		.selectAll("path")
-		.data(karyo)
+		.data(array)
 		.enter()
 		.append("path")
 		.style(
@@ -123,18 +128,21 @@ function drawKaryo(karyo) {
 		.on("click", function(g, i){
 			svg.selectAll(".chord path").remove();
 			svg.selectAll(".ticks g").remove();
-			create_new_karyo(karyo, i);
-			addTicks(karyo);
-			new_loadLinkFile("data/link.json", karyo, function(links) {
+			create_new_karyo(karyo, g);
+			var array = $.map(karyo, function(value, index) {
+				return [ value ];
+			});
+			addTicks(array);
+			loadLinkFile("data/link.json", karyo, function(links) {
 				full_links = links;
 				redraw(identity_range, min_length);
 			});
 		})
-	addTicks(karyo);
+	addTicks(array);
 }
 
-function addTicks(karyo) {
-	var ticks = svg.append("g").attr("class","ticks").selectAll("g").data(karyo).enter().append("g")
+function addTicks(array) {
+	var ticks = svg.append("g").attr("class","ticks").selectAll("g").data(array).enter().append("g")
 			.selectAll("g").data(groupTicks).enter().append("g").attr(
 					"transform",
 					function(d) {
@@ -302,71 +310,21 @@ function set_slider(){
 	return 10000;
 }
 
-function create_new_karyo(karyo, i){
-		var endAngle = karyo[i].endAngle;
-		var startAngle = karyo[i].startAngle;
-		karyo[i] = {
-				"value" : karyo[i].value,
+function create_new_karyo(karyo, g){
+	var key = g.name;
+		var endAngle = karyo[key].endAngle;
+		var startAngle = karyo[key].startAngle;
+		karyo[key] = {
+				"value" : karyo[key].value,
 				"startAngle" : endAngle,
-				"index" : karyo[i].index,
-				"genome_id" : karyo[i].genome_id,
-				"name" : karyo[i].name,
+				"index" : karyo[key].index,
+				"genome_id" : karyo[key].genome_id,
+				"name" : karyo[key].name,
 				"endAngle" : startAngle,
 				"rc" : false
 			};
 	return karyo;
 }
-
-function new_loadLinkFile(file, karyo, callback) {
-	$.getJSON(file, function(data) {
-		var links = create_new_links(data, karyo);
-		if (typeof callback !== 'undefined') {
-			callback(links);
-		}
-	});
-}
-
-function create_new_links(links, karyo){
-		$.each(links, function(key, value) {
-			var s;
-			var sourceName = value.source.name;
-			for(var i=0;i<karyo.length;i++){
-				var karyoName = karyo[i].name;
-				if(karyoName==sourceName){
-					s = karyo[i];
-					break;
-				}
-			}
-			var s_totalAngle = s.endAngle - s.startAngle;
-			links[key].source.startAngle = s.startAngle + s_totalAngle
-					* (value.source.start / s.value);
-			links[key].source.endAngle = s.startAngle + s_totalAngle
-					* (value.source.end / s.value);
-			links[key].source.index = s.index;
-			links[key].source.value = Math.abs(value.source.end
-					- value.source.start);
-			
-			var t;
-			var targetName = value.target.name;
-			for(var j=0;j<karyo.length;j++){
-				var karyoName=karyo[j].name;
-				if(karyoName==targetName){
-					t = karyo[j];
-					break;
-				}
-			}
-			var t_totalAngle = t.endAngle - t.startAngle;
-			links[key].target.endAngle = t.startAngle + t_totalAngle
-					* (value.target.start / t.value);
-			links[key].target.startAngle = t.startAngle + t_totalAngle
-					* (value.target.end / t.value);
-			links[key].target.index = t.index;
-			links[key].target.value = Math.abs(value.target.end
-					- value.target.start);
-		});
-		return links;
-}
-
 
 
 
