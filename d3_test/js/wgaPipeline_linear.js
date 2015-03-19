@@ -130,23 +130,28 @@ function drawKaryo(karyo) {
 // http://stackoverflow.com/questions/26567104/d3-js-fill-area-between-to-diagonals
 // thanks to user 'meetamit'
 function getRibbon(links) {
-	var diagonal = d3.svg.diagonal().source(function(d) {
-		return {
-			"x" : d.source.x,
-			"y" : d.source.y
-		};
-	}).target(function(d) {
-		return {
-			"x" : d.target.x,
-			"y" : d.target.y
-		};
-	}).projection(function(d) {
-		return [ d.x, d.y ];
-	});
-	var path1 = diagonal(links[0]);
-	var path2 = diagonal(links[1]).replace(/^M/, 'L');
-	var shape = path1 + path2 + 'Z';
-	return shape;
+	for(var i=0;i<links.length;i++){
+		var difference = links[i].target.line - links[i].source.line;
+		if(difference==1){
+			var diagonal = d3.svg.diagonal().source(function(d) {
+				return {
+					"x" : d.source.x,
+					"y" : d.source.y
+				};
+			}).target(function(d) {
+				return {
+					"x" : d.target.x,
+					"y" : d.target.y
+				};
+				}).projection(function(d) {
+					return [ d.x, d.y ];
+				});
+			var path1 = diagonal(links[0]);
+			var path2 = diagonal(links[1]).replace(/^M/, 'L');
+			var shape = path1 + path2 + 'Z';
+			return shape;
+		}	
+	}
 }
 
 function addTicks(karyo) {
@@ -296,6 +301,7 @@ function link_to_coords(links, karyo) {
 		links[key].target.value = Math.abs(value.target.end
 				- value.target.start);
 	});
+	
 	var array = $.map(karyo, function(value, index) {
 		return [ value ];
 	});
@@ -308,18 +314,23 @@ function link_to_coords(links, karyo) {
 		targetName = links[i].target.name;
 		for(var j=0;j<karyo.length;j++){
 			if(sourceName==karyo[j].name){
+				
 				line = karyo[j].genome_id + 1;
-				links[i].source.line = line;
+				var key = links[i].ribbon;
+				key[0].source.line = line;
+				key[1].source.line = line;
 			}
 		}
 		for(var k=0;k<karyo.length;k++){
 			if(targetName==karyo[k].name){
 				line = karyo[k].genome_id + 1;
-				links[i].target.line = line;
+				
+				var key = links[i].ribbon;
+				key[0].target.line = line;
+				key[1].target.line = line;
 			}
 		}
 	}
-	
 	return links;
 }
 
