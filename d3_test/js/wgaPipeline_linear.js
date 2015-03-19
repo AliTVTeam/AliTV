@@ -1,4 +1,4 @@
-var width = 1200, height = 1500;
+var width = 1200, height = 1600;
 var identity = {percent: ["Identity", "<46 %", "50 %", "54 %", "58 %", "62 %", "66 %", "70 %", "74 %", "78 %", "82 %", "86 %", "90 %", "94 %", ">98 %"], 
 				color: ["white", "#FF1600", "#FF3500", "#FF5300", "#FF7C01", "#FF9B01", "#FFC301", "#FFE201", "#EBDD02", "#CCD602", "#B7D103", "#99C905", "#7AC206", "#51B807", "#32B008"]};
 
@@ -91,7 +91,7 @@ function drawKaryo(karyo) {
 	svg.append("g").selectAll("path").data(array).enter().append("rect")
 	.on("mouseover", function(g, i) {
 			fade(g, i, 0.1);
-			add_tooltip_legend(g);
+			//add_tooltip_legend(g);
 			})
 	.on("mouseout", function(g, i) {
 				fade(g, i, 1);
@@ -215,12 +215,12 @@ function loadKaryoFile(file, callback) {
 }
 
 function karyo_to_coords(data) {
-	var total = [ 0, 0, 0 ];
+	var total = [ 0, 0, 0, 0 ];
 	var spacer = set_spacer(data);
 	$.each(data.chromosomes, function(key, value) {
 		total[value.genome_id] += value.length + spacer;
 	});
-	var current = [ 0, 0, 0 ];
+	var current = [ 0, 0, 0, 0 ];
 	var index = 0;	
 	// take max of total instead of array to keep scale constant across genomes
 	// instead of scaling them to the same width.
