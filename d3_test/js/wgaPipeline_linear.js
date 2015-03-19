@@ -209,7 +209,6 @@ function loadKaryoFile(file, callback) {
 }
 
 function karyo_to_coords(data) {
-	console.log(data);
 	var total = [ 0, 0, 0 ];
 	var spacer = set_spacer(data);
 	$.each(data.chromosomes, function(key, value) {
@@ -249,6 +248,7 @@ function loadLinkFile(file, karyo, callback) {
 
 function link_to_coords(links, karyo) {
 	$.each(links, function(key, value) {
+		
 		links[key].ribbon = [ {
 			source : {
 				x : 0,
@@ -276,11 +276,11 @@ function link_to_coords(links, karyo) {
 		
 		links[key].ribbon[0].source.x = s.x + s.width
 				* (value.source.start / s.value);
-		links[key].ribbon[0].source.y = 480 * s.genome_id + 15;
+		links[key].ribbon[0].source.y = 480 * s.genome_id + 40;
 		
 		links[key].ribbon[1].target.x = s.x + s.width
 				* (value.source.end / s.value);
-		links[key].ribbon[1].target.y = 480 * s.genome_id + 15;
+		links[key].ribbon[1].target.y = 480 * s.genome_id + 40;
 		
 		links[key].source.index = s.index;
 		links[key].source.value = Math.abs(value.source.end
@@ -297,6 +297,26 @@ function link_to_coords(links, karyo) {
 		links[key].target.value = Math.abs(value.target.end
 				- value.target.start);
 	});
+	var array = $.map(karyo, function(value, index) {
+		return [ value ];
+	});
+	karyo = array;
+	var sourceName;
+	var line;
+	for(var i=0;i<links.length;i++){
+		sourceName = links[i].source.name;
+		for(var j=0;j<karyo.length;j++){
+			if(sourceName==karyo[j].name){
+				line = karyo[j].genome_id + 1;
+				console.log(line);
+				links[i].source.line = line;
+			}
+		}
+	}
+	
+	
+	console.log(links);
+	
 	return links;
 }
 
