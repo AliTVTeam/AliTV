@@ -1,4 +1,5 @@
-var width = 1200, height = 1600;
+var width = 1200;
+var height = 3000;
 var identity = {percent: ["Identity", "<46 %", "50 %", "54 %", "58 %", "62 %", "66 %", "70 %", "74 %", "78 %", "82 %", "86 %", "90 %", "94 %", ">98 %"], 
 				color: ["white", "#FF1600", "#FF3500", "#FF5300", "#FF7C01", "#FF9B01", "#FFC301", "#FFE201", "#EBDD02", "#CCD602", "#B7D103", "#99C905", "#7AC206", "#51B807", "#32B008"]};
 
@@ -7,6 +8,7 @@ var svg = d3.select("body").append("svg").attr("width", width).attr("height",
 		height).append("g");
 var legendRectSize = 18;
 var legendSpacing = 4;
+
 var div = d3.select("body").append("div")
 	.attr("class", "tooltip")
 	.style("opacity", 0);
@@ -19,6 +21,15 @@ var legend = svg.selectAll('.legend')
             .enter()
             .append('g')
             .attr('class', 'legend')
+
+var padding_1 = svg.selectAll("path")
+				.append("rect")
+				.attr("class", "frame")
+				.attr("x", 50)
+				.attr("y", 50)
+				.attr("width", 50)
+				.attr("height", 50)
+				.attr("color", "white");
 
 for(var i=0;i<=14;i++){
 var pos_x = 200;
@@ -88,7 +99,12 @@ function drawKaryo(karyo) {
 	var array = $.map(karyo, function(value, index) {
 		return [ value ];
 	});
-	svg.append("g").selectAll("path").data(array).enter().append("rect")
+	svg.append("g")
+	.selectAll("path")
+	.attr("class","karyo")
+	.data(array)
+	.enter()
+	.append("rect")
 	.on("mouseover", function(g, i) {
 			fade(g, i, 0.1);
 			//add_tooltip_legend(g);
@@ -110,18 +126,22 @@ function drawKaryo(karyo) {
 		});
 	})
 	.style(
-			"fill", function(d) {
-				return fill(d.index);
-			}).style("stroke", function(d) {
+		"fill", function(d) {
+			return fill(d.index);
+		})
+	.style("stroke", function(d) {
 		return fill(d.index);
-	}).attr("x", function(d) {
-		return d.x
-	}).attr("y", function(d) {
-		return 500 * d.genome_id
-	}).attr("width", function(d) {
-		return d.width
-	}).attr("height", 10);
-	;
+		})
+		.attr("x", function(d) {
+			return d.x
+		})
+		.attr("y", function(d){
+			return 500 * d.genome_id 
+		})
+		.attr("width", function(d) {
+			return d.width
+		})
+		.attr("height", 30);
 	
 	//addTicks(array);
 }
@@ -154,10 +174,10 @@ function getRibbon(links) {
 	}
 }
 
-function addTicks(karyo) {
+function addTicks(array) {
 	var ticks = svg.append("g")
 	.selectAll("g")
-	.data(karyo)
+	.data(array)
 	.enter()
 	.append("g")
 	.selectAll("g")
@@ -197,6 +217,7 @@ function drawLinks(links) {
 // Returns an array of tick angles and labels, given a group.
 function groupTicks(d) {
 	var k = d.width / d.value;
+	console.log(k);
 	return d3.range(0, d.value, 10000).map(function(v, i) {
 		return {
 			tick : v * k + d.x,
@@ -215,12 +236,12 @@ function loadKaryoFile(file, callback) {
 }
 
 function karyo_to_coords(data) {
-	var total = [ 0, 0, 0, 0 ];
+	var total = [ 0, 0, 0, 0, 0, 0, 0 ];
 	var spacer = set_spacer(data);
 	$.each(data.chromosomes, function(key, value) {
 		total[value.genome_id] += value.length + spacer;
 	});
-	var current = [ 0, 0, 0, 0 ];
+	var current = [ 0, 0, 0, 0, 0, 0, 0 ];
 	var index = 0;	
 	// take max of total instead of array to keep scale constant across genomes
 	// instead of scaling them to the same width.
@@ -262,8 +283,8 @@ function link_to_coords(links, karyo) {
 				x : 0,
 				y : 0
 			},
-			x : 0,
-			y : 0
+			x : 1,
+			y : 1
 		}, {
 			source : {
 				x : 0,
@@ -273,18 +294,18 @@ function link_to_coords(links, karyo) {
 				x : 0,
 				y : 0
 			},
-			x : 0,
-			y : 0
+			x : 1,
+			y : 1
 		} ];
 		var s = karyo[value.source.name];
 		
 		links[key].ribbon[0].source.x = s.x + s.width
 				* (value.source.start / s.value);
-		links[key].ribbon[0].source.y = 480 * s.genome_id + 40;
+		links[key].ribbon[0].source.y = 480 * s.genome_id + 45;
 		
 		links[key].ribbon[1].target.x = s.x + s.width
 				* (value.source.end / s.value);
-		links[key].ribbon[1].target.y = 480 * s.genome_id + 40;
+		links[key].ribbon[1].target.y = 480 * s.genome_id + 45;
 		
 		links[key].source.index = s.index;
 		links[key].source.value = Math.abs(value.source.end
@@ -293,10 +314,10 @@ function link_to_coords(links, karyo) {
 		var t = karyo[value.target.name];
 		links[key].ribbon[0].target.x = t.x + t.width
 				* (value.target.start / t.value);
-		links[key].ribbon[0].target.y = 480 * t.genome_id + 15;
+		links[key].ribbon[0].target.y = 450 * t.genome_id + 35;
 		links[key].ribbon[1].source.x = t.x + t.width
 				* (value.target.end / t.value);
-		links[key].ribbon[1].source.y = 480 * t.genome_id + 15;
+		links[key].ribbon[1].source.y = 450 * t.genome_id + 35;
 		links[key].target.index = t.index;
 		links[key].target.value = Math.abs(value.target.end
 				- value.target.start);
@@ -392,6 +413,7 @@ function create_new_karyo(karyo, g){
 		};
 return karyo;
 }
+
 
 
 
