@@ -89,7 +89,14 @@ rect {
 			clear_chords();
 			var links = filter_links_by_length(full_links, min_length);
 			links = filter_links_by_identity(links, identity_range);
-			drawLinks(links);
+			
+			for(var i=0;i<links.length;i++){
+				//var difference = links[i].target.line - links[i].source.line;
+				if(links[i].target.line!=3){
+					//links = links[i];
+					drawLinks(links);
+				}
+			}
 		}
 
 		function filter_links_by_length(links, minlen) {

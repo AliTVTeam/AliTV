@@ -91,7 +91,7 @@ function drawKaryo(karyo) {
 	svg.append("g").selectAll("path").data(array).enter().append("rect")
 	.on("mouseover", function(g, i) {
 			fade(g, i, 0.1);
-			//add_tooltip_legend(g);
+			add_tooltip_legend(g);
 			})
 	.on("mouseout", function(g, i) {
 				fade(g, i, 1);
@@ -188,6 +188,7 @@ function drawLinks(links) {
 //	});
 }
 
+
 // Returns an array of tick angles and labels, given a group.
 function groupTicks(d) {
 	var k = d.width / d.value;
@@ -231,9 +232,7 @@ function karyo_to_coords(data) {
 			"rc" : value.rc
 		};
 		current[value.genome_id] += value.length + spacer;
-		console.log(current);
 	};
-	console.log(data.chromosomes);
 	return data.chromosomes;
 }
 
@@ -302,20 +301,24 @@ function link_to_coords(links, karyo) {
 	});
 	karyo = array;
 	var sourceName;
+	var targetName;
 	var line;
 	for(var i=0;i<links.length;i++){
 		sourceName = links[i].source.name;
+		targetName = links[i].target.name;
 		for(var j=0;j<karyo.length;j++){
 			if(sourceName==karyo[j].name){
 				line = karyo[j].genome_id + 1;
-				console.log(line);
 				links[i].source.line = line;
 			}
 		}
+		for(var k=0;k<karyo.length;k++){
+			if(targetName==karyo[k].name){
+				line = karyo[k].genome_id + 1;
+				links[i].target.line = line;
+			}
+		}
 	}
-	
-	
-	console.log(links);
 	
 	return links;
 }
