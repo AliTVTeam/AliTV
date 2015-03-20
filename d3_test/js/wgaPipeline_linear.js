@@ -243,6 +243,7 @@ function karyo_to_coords(data) {
 	});
 	var current = [ 0, 0, 0, 0, 0, 0, 0 ];
 	var index = 0;	
+	var line=0;
 	// take max of total instead of array to keep scale constant across genomes
 	// instead of scaling them to the same width.
 	for(var i=0;i<data.order.length;i++){
@@ -258,6 +259,9 @@ function karyo_to_coords(data) {
 			"rc" : value.rc
 		};
 		current[value.genome_id] += value.length + spacer;
+		data.genome_order.key = line;
+		line = line + 1;
+		console.log(data.genome_order);
 	};
 	return data.chromosomes;
 }
@@ -301,23 +305,25 @@ function link_to_coords(links, karyo) {
 		
 		links[key].ribbon[0].source.x = s.x + s.width
 				* (value.source.start / s.value);
-		links[key].ribbon[0].source.y = 480 * s.genome_id + 45;
+		links[key].ribbon[0].source.y = 480 * s.genome_id + 45 + (s.genome_id * 30); // + 45 + (s.genome_id * 30);
 		
 		links[key].ribbon[1].target.x = s.x + s.width
 				* (value.source.end / s.value);
-		links[key].ribbon[1].target.y = 480 * s.genome_id + 45;
+		links[key].ribbon[1].target.y = 480 * s.genome_id + 45 + (s.genome_id * 30); // + 45 + (s.genome_id * 30);
 		
 		links[key].source.index = s.index;
 		links[key].source.value = Math.abs(value.source.end
 				- value.source.start);
 		
 		var t = karyo[value.target.name];
+		
+		
 		links[key].ribbon[0].target.x = t.x + t.width
 				* (value.target.start / t.value);
-		links[key].ribbon[0].target.y = 450 * t.genome_id + 35;
+		links[key].ribbon[0].target.y = 480 * t.genome_id + (s.genome_id * 15); // - 45 + (t.genome_id * 45);
 		links[key].ribbon[1].source.x = t.x + t.width
 				* (value.target.end / t.value);
-		links[key].ribbon[1].source.y = 450 * t.genome_id + 35;
+		links[key].ribbon[1].source.y = 480 * t.genome_id + (s.genome_id * 15); // - 45 + (t.genome_id * 45);
 		links[key].target.index = t.index;
 		links[key].target.value = Math.abs(value.target.end
 				- value.target.start);
@@ -336,7 +342,7 @@ function link_to_coords(links, karyo) {
 		for(var j=0;j<karyo.length;j++){
 			if(sourceName==karyo[j].name){
 				
-				line = karyo[j].genome_id + 1;
+				line = karyo[j].genome_id;
 				var key = links[i].ribbon;
 				key[0].source.line = line;
 				key[1].source.line = line;
@@ -344,7 +350,7 @@ function link_to_coords(links, karyo) {
 		}
 		for(var k=0;k<karyo.length;k++){
 			if(targetName==karyo[k].name){
-				line = karyo[k].genome_id + 1;
+				line = karyo[k].genome_id;
 				
 				var key = links[i].ribbon;
 				key[0].target.line = line;
@@ -352,6 +358,7 @@ function link_to_coords(links, karyo) {
 			}
 		}
 	}
+
 	return links;
 }
 
