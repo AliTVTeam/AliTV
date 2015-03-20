@@ -173,7 +173,7 @@ Output: \%karyo of the form {$id => {length => $length, seq => $seq}}
 
 sub parse_karyo{
 	my $file = $_[0];
-	my %karyo = ('chromosomes' => {}, 'order' => []);
+	my %karyo = ('chromosomes' => {}, 'order' => [], 'genome_order' => {});
 	open(IN, '<', $file) or $L->logdie("Can not open file $file\n$!");
 	while(<IN>){
 		chomp;
