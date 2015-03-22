@@ -243,6 +243,7 @@ function loadKaryoFile(file, callback) {
 function karyo_to_coords(data) {
 	var genome_order={};
 	var line = 0;
+	var lastLine;
 	for(var i=0;i<data.order.length;i++){
 		var key = data.order[i];
 		genome_order[key] = {
@@ -253,7 +254,9 @@ function karyo_to_coords(data) {
 	
 	$.each(genome_order, function(key, value){
 		console.log(key);
+		lastLine=value.line
 	})
+	console.log(lastLine);
 	
 	var total = [ 0, 0, 0 ];
 	var spacer = set_spacer(data);
