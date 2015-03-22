@@ -256,14 +256,14 @@ function karyo_to_coords(data) {
 		console.log(key);
 		lastLine=value.line
 	})
-	console.log(lastLine);
+
 	var total=[];
 	var current=[];
 	for(var i=0;i<lastLine;i++){
 		total.push(0);
 		current.push(0);
 	}
-	console.log(total,current);
+
 	var spacer = set_spacer(data);
 	$.each(data.chromosomes, function(key, value) {
 		total[value.genome_id] += value.length + spacer;
@@ -287,6 +287,7 @@ function karyo_to_coords(data) {
 		current[value.genome_id] += value.length + spacer;
 	};
 	console.log(data.chromosomes);
+	//return data.genome_order;
 	return data.chromosomes;
 }
 
