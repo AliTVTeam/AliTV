@@ -1,14 +1,18 @@
+//Width und height legen die Zeichenfläche fest
 var width = 1200;
 var height = 3000;
 var identity = {percent: ["Identity", "<46 %", "50 %", "54 %", "58 %", "62 %", "66 %", "70 %", "74 %", "78 %", "82 %", "86 %", "90 %", "94 %", ">98 %"], 
 				color: ["white", "#FF1600", "#FF3500", "#FF5300", "#FF7C01", "#FF9B01", "#FFC301", "#FFE201", "#EBDD02", "#CCD602", "#B7D103", "#99C905", "#7AC206", "#51B807", "#32B008"]};
 
 var fill = d3.scale.category20c();
+//svg ist die zentrale Zeichenfläche, die alle Elemente der linearen wgaPipeline enthält
 var svg = d3.select("body").append("svg").attr("width", width).attr("height",
 		height).append("g");
+
 var legendRectSize = 18;
 var legendSpacing = 4;
 
+//div ist der Tooltip
 var div = d3.select("body").append("div")
 	.attr("class", "tooltip")
 	.style("opacity", 0);
@@ -107,7 +111,7 @@ function drawKaryo(karyo) {
 	.append("rect")
 	.on("mouseover", function(g, i) {
 			fade(g, i, 0.1);
-			//add_tooltip_legend(g);
+			add_tooltip_legend(g);
 			})
 	.on("mouseout", function(g, i) {
 				fade(g, i, 1);
@@ -228,6 +232,7 @@ function groupTicks(d) {
 
 function loadKaryoFile(file, callback) {
 	$.getJSON(file, function(data) {
+		console.log(file);
 		var karyo = karyo_to_coords(data);
 		if (typeof callback !== "undefined") {
 			callback(karyo);
@@ -236,12 +241,23 @@ function loadKaryoFile(file, callback) {
 }
 
 function karyo_to_coords(data) {
-	var total = [ 0, 0, 0, 0, 0, 0, 0 ];
+	var genome_order={};
+	var line = 0;
+	for(var i=0;i<data.order.length;i++){
+		var key = data.order[i];
+		genome_order[key] = {
+				"line":line
+		}
+		line = line + 1;
+	}
+	
+	
+	var total = [ 0, 0, 0 ];
 	var spacer = set_spacer(data);
 	$.each(data.chromosomes, function(key, value) {
 		total[value.genome_id] += value.length + spacer;
 	});
-	var current = [ 0, 0, 0, 0, 0, 0, 0 ];
+	var current = [ 0, 0, 0 ];
 	var index = 0;	
 	var line=0;
 	// take max of total instead of array to keep scale constant across genomes
@@ -259,10 +275,8 @@ function karyo_to_coords(data) {
 			"rc" : value.rc
 		};
 		current[value.genome_id] += value.length + spacer;
-		data.genome_order.key = line;
-		line = line + 1;
-		console.log(data.genome_order);
 	};
+	console.log(data.chromosomes);
 	return data.chromosomes;
 }
 
