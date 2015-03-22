@@ -257,15 +257,19 @@ function karyo_to_coords(data) {
 		lastLine=value.line
 	})
 	console.log(lastLine);
-	
-	var total = [ 0, 0, 0 ];
+	var total=[];
+	var current=[];
+	for(var i=0;i<lastLine;i++){
+		total.push(0);
+		current.push(0);
+	}
+	console.log(total,current);
 	var spacer = set_spacer(data);
 	$.each(data.chromosomes, function(key, value) {
 		total[value.genome_id] += value.length + spacer;
 	});
-	var current = [ 0, 0, 0 ];
 	var index = 0;	
-	var line=0;
+
 	// take max of total instead of array to keep scale constant across genomes
 	// instead of scaling them to the same width.
 	for(var i=0;i<data.order.length;i++){
