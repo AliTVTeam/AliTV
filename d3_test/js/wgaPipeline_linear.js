@@ -251,6 +251,9 @@ function karyo_to_coords(data) {
 		line = line + 1;
 	}
 	
+	$.each(genome_order, function(key, value){
+		console.log(key);
+	})
 	
 	var total = [ 0, 0, 0 ];
 	var spacer = set_spacer(data);
