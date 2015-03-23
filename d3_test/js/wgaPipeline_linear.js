@@ -26,14 +26,6 @@ var legend = svg.selectAll('.legend')
             .append('g')
             .attr('class', 'legend')
 
-var padding_1 = svg.selectAll("path")
-				.append("rect")
-				.attr("class", "frame")
-				.attr("x", 50)
-				.attr("y", 50)
-				.attr("width", 50)
-				.attr("height", 50)
-				.attr("color", "white");
 
 for(var i=0;i<=14;i++){
 var pos_x = 200;
@@ -147,7 +139,7 @@ function drawKaryo(karyo) {
 		})
 		.attr("height", 30);
 	
-	//addTicks(array);
+	addTicks(array);
 }
 
 // This function is adjusted from:
@@ -232,7 +224,6 @@ function groupTicks(d) {
 
 function loadKaryoFile(file, callback) {
 	$.getJSON(file, function(data) {
-		console.log(file);
 		var karyo = karyo_to_coords(data);
 		if (typeof callback !== "undefined") {
 			callback(karyo);
