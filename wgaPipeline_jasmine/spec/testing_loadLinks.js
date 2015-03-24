@@ -4,7 +4,7 @@ describe("test the verification of file", function(){
 		expect(file).toBeDefined();
 	});	
 	it("the link file in the function should be defined", function(){
-		expect(loadKaryoFile("data/link.json")).toBeDefined();
+		expect(loadLinkFile("data/link.json")).toBeDefined();
 	});
 });
 
