@@ -283,6 +283,7 @@ function karyo_to_coords(data) {
 }
 
 function loadLinkFile(file, karyo, callback) {
+	console.log(karyo);
 	$.getJSON(file, function(data) {
 		var links = link_to_coords(data, karyo);
 		if (typeof callback !== 'undefined') {

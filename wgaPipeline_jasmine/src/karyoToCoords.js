@@ -5,12 +5,10 @@ function karyo_to_coords(data) {
 	var index=0;
 	
 	var spacer = set_spacer(data);
-	console.log(spacer);
 	$.each(data.chromosomes, function(key, value) {
 		total[value.genome_id] += value.length + spacer;
 	});
 	
-	console.log(data);
 	for(var i=0;i<data.order.length;i++){
 		var key = data.order[i];
 		var value = data.chromosomes[key];
@@ -24,7 +22,6 @@ function karyo_to_coords(data) {
 		};
 		current[value.genome_id] += value.length + spacer;
 	};
-	console.log(data);
 	return data.chromosomes;
 }
 
