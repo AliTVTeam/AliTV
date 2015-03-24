@@ -27,8 +27,9 @@ var dataOrder = ["R_gi_222106127_ref_NC_011988.1_","Q_s6","Q_s8","Q_s22","Q_s2"]
 						order:["R_gi_222106127_ref_NC_011988.1_","Q_s6","Q_s8","Q_s22","Q_s2"]}; 
 		
 		it("should expand the original object data.chromosomes which should differ from the new one", function(){
-			console.log(data);
-			expect(karyo_to_coords(data)).toEqual(testData);
+			expect(karyo_to_coords(data)).not.toEqual(testData);
+			var testName = testData.chromosomes["Q_s2"].name;
+			expect(karyo_to_coords(data)).toContain(testName);
 		});
 	});
 	
