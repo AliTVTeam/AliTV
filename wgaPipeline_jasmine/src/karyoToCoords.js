@@ -1,26 +1,6 @@
 function karyo_to_coords(data) {
-	var genome_order={};
-	var line = 0;
-	var lastLine;
-	for(var i=0;i<data.order.length;i++){
-		var key = data.order[i];
-		genome_order[key] = {
-				"line":line
-		}
-		line = line + 1;
-	}
-	
-	$.each(genome_order, function(key, value){
-		console.log(key);
-		lastLine=value.line
-	})
-
-	var total=[];
-	var current=[];
-	for(var i=0;i<lastLine;i++){
-		total.push(0);
-		current.push(0);
-	}
+	var total=[0,0];
+	var current=[0,0];
 
 	var spacer = set_spacer(data);
 	$.each(data.chromosomes, function(key, value) {
@@ -38,9 +18,6 @@ function set_spacer(data){
 	$.each(data.chromosomes, function(key, value) {
 		spacer += value.length;
 	});
-	spacer = spacer * 0.0038; // ca. 4% der Gesamtsumme aller Sequenzen
-								// entsprechen dem geeigneten Spacer
-
-	console.log(spacer);
+	spacer = spacer * 0.0038; // ca. 4% der Gesamtsumme aller Sequenzen								// entsprechen dem geeigneten Spacer
 	return spacer;
 }
