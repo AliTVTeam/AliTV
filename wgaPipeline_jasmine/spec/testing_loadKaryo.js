@@ -1,4 +1,5 @@
 var karyoFile = "data/karyo.json";
+
 describe("test the verification of file", function(){
 	it("karyo file should be defined", function(){
 		var file = "data/karyo.json";
@@ -17,7 +18,6 @@ describe("loadKaryoFile", function(){
 	
 	beforeEach(function(done){
 		loadKaryoFile(karyoFile, function(data){
-			console.log(data);
 			returnData = data;
 			done();
 		});
