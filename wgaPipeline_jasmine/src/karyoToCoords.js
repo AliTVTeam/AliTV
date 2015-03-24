@@ -1,12 +1,3 @@
-function loadKaryoFile(file, callback){
-	$.getJSON(file, function(data) {
-		if (typeof callback !== "undefined") {
-			callback(data);
-		}
-	});
-	return file;
-}
-
 function karyo_to_coords(data) {
 	var genome_order={};
 	var line = 0;
