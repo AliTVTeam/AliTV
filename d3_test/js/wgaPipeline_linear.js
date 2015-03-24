@@ -398,7 +398,7 @@ function set_spacer(data) {
 	});
 	spacer = spacer * 0.0038; // ca. 4% der Gesamtsumme aller Sequenzen
 								// entsprechen dem geeigneten Spacer
-	// console.log(spacer);
+	console.log(spacer);
 	return spacer;
 }
 
