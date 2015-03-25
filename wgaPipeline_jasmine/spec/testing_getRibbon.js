@@ -20,7 +20,7 @@ describe("getRibbon", function(){
 	});
 	
 	
-	it("should test if there is a function getRibbon which return shape", function(){
+	it("should test if there is a function getRibbon which return a true value", function(){
 		expect(getRibbon(links)).toBeDefined();
 	});
 	
