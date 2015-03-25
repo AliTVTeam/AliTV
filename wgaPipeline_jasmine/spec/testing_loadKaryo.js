@@ -1,6 +1,6 @@
 var karyoFile = "data/karyo.json";
 
-describe("test the verification of file", function(){
+describe("test the verification of the karyofile", function(){
 	it("karyo file should be defined", function(){
 		var file = "data/karyo.json";
 		expect(file).toBeDefined();
