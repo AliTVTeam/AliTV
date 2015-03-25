@@ -1,5 +1,3 @@
-var width=1200;
-
 function karyo_to_coords(data) {
 	var genome_order={};
 	var line = 1;
