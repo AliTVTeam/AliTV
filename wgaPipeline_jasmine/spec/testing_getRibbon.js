@@ -19,10 +19,13 @@ describe("getRibbon", function(){
 		});
 	});
 	
-	
 	it("should test if there is a function getRibbon which return a true value", function(){
 		expect(getRibbon(links)).toBeDefined();
 	});
+	
+	it("should substract the targetline-information from the sourceline_information, the expected value should be 1", function(){
+		expect(testLineDifference(links)).toBeDefined();
+	})
 	
 
 });	

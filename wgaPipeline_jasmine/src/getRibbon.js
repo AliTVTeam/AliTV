@@ -1,7 +1,7 @@
 function getRibbon(links) {
+	
 	for(var i=0;i<links.length;i++){
 		var difference = links[i].ribbon[0].target.line - links[i].ribbon[0].source.line;
-		console.log(links);
 		if(difference==1){
 			var diagonal = d3.svg.diagonal().source(function(d) {
 				return {
@@ -21,5 +21,14 @@ function getRibbon(links) {
 			var shape = path1 + path2 + 'Z';
 			return shape;
 		}	
+	}
+}
+
+function testLineDifference(links){
+	for(var i=0;i<links.length;i++){
+		var difference = links[i].ribbon[0].target.line - links[i].ribbon[0].source.line;
+		if(difference==1){
+			
+		}
 	}
 }
