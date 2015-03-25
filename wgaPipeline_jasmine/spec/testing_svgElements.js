@@ -1,10 +1,7 @@
-describe('Testing the first D3.js function drawKaryo', function() {
+describe('Testing D3.js, but first test the general svg-element', function() {
   var c;
-
   beforeEach(function() {
-	//var testData = karyo;
-    c = drawKaryo();
-    //c.setData(testData);
+    c = createSimpleSvg();
     c.render();
   });
   
@@ -24,13 +21,14 @@ describe('Testing the first D3.js function drawKaryo', function() {
     it('should have the correct width', function() {
       expect(getSvg().attr('width')).toBe('1200');
     });
-  });
+});
 
   function getSvg() {
     return d3.select('svg');
   }
-
-
+  
+ 
+  
 describe('testing the data of drawKaryo' ,function() {	  
 	it('should be null if no data has been specified', function() {
 		expect(c.getData()).toBeNull();
@@ -42,16 +40,25 @@ describe('testing the data of drawKaryo' ,function() {
 });
 });
 
-describe('testing svg-Elements', function(){
+describe('adding the g to svg and create the karyo element', function(){
 	beforeEach(function() {
-		var testData = karyo;
-	    c = drawKaryo();
-	    c.setData(testData);
+	    c = createSimpleSvg();
 	    c.render();
 	  });
 	
-	it('new syntax: everything would be easier, but this test have to work: it should test if we have the correct data', function() {
-		c.setData(karyo);
-		expect(c.getData()).toBe(karyo);
+	afterEach(function(){
+		d3.selectAll('svg').remove();
 	});
+	
+	it('should test if there is a function drawKaryo', function(){
+		expect(drawKaryo(karyo)).toBeDefined();
+	})
+	
+	it('should test if the karyo element really exists', function(){
+		expect(getKaryo()).toBeNull();
+	})
+	
+	 function getKaryo(){
+	  return d3.select('g');
+  }
 })
