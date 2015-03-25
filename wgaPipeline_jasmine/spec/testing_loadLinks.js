@@ -1,11 +1,11 @@
-var file = "data/link.json";
+var linkFile = "data/link.json";
 describe("test the verification of linkfile", function(){
 	it("link file should be defined", function(){
 		var file = "data/links.json";
 		expect(file).toBeDefined();
 	});	
 	it("the link file in the function should be defined", function(){
-		expect(loadLinkFile("data/link.json")).toBeDefined();
+		expect(loadLinkFile(linkFile)).toBeDefined();
 	});
 });
 
@@ -15,7 +15,7 @@ describe("loadLinkFile", function(){
 	var expectedName;
 	
 	beforeEach(function(done){
-		loadLinkFile(file, function(data){
+		loadLinkFile(linkFile, function(data){
 			returnData = data;
 			expectedName = returnData[0].target.name;
 			done();

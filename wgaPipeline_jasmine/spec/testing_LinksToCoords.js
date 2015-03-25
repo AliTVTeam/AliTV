@@ -2,13 +2,26 @@ var returnKaryo;
 var returnLink;
 var karyo;
 
-beforeEach(function(done){
+describe("links_to_coords", function(){
+	
+	beforeEach(function(done){
 		loadKaryoFile(karyoFile, function(data){
-			returnKaryo = data;
+			karyo_to_coords(data);
+			returnKaryo=data;
+			
+			loadLinkFile(linkFile, function(data){
+			returnLink=data;
 			done();
+			});
 		});
+	});
+	
+	it("should show me the data", function(){
+		console.log(returnKaryo);
+		console.log(returnLink);
+	});
 
-});
+});	
 
 
 //describe("link_to_coords", function(){	

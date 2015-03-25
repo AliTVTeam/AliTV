@@ -29,7 +29,9 @@ describe("loadKaryoFile", function(){
 	
 	it("the external karyo file should be load in and we have the order array", function(){
 	expect(returnData.order).toEqual(expectedOrder);
+	console.log(returnData);
 	});
+	
 });
 	
 
