@@ -2,7 +2,7 @@
   "name": "wgaPipeline",
   "version": "0.0.0",
   "scripts": {
-    "test": "grunt jasmine --verbose"
+    "test": "grunt travis --verbose"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
