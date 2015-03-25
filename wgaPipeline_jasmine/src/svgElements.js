@@ -3,6 +3,7 @@ var height=3000;
 
 function drawKaryo() {
 	var that = {};
+	var data = null;
 	
 	var array = $.map(karyo, function(value, index) {
 		return [ value ];
@@ -15,6 +16,15 @@ function drawKaryo() {
 			.attr("height",height)
 			.append("g");
 	};
+	
+
+    that.setData = function(d) {
+        data = d;
+    };
+
+    that.getData = function() {
+        return data;
+    }
 	
 	return that;
 }
