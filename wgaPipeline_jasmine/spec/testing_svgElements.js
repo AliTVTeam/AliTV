@@ -5,7 +5,7 @@ describe('Testing the first D3.js function drawKaryo', function() {
     c = drawKaryo();
     c.render();
   });
-
+  
   afterEach(function() {
     d3.selectAll('svg').remove();
   });
@@ -28,15 +28,14 @@ describe('Testing the first D3.js function drawKaryo', function() {
     return d3.select('svg');
   }
   
-  describe('testing the data' ,function() {
+  describe('testing the data' ,function() {	  
 	    it('should be null if no data has been specified', function() {
 	        expect(c.getData()).toBeNull();
 	    });
 
 	    it('karyo should be load in and it would able to update data with karyo', function() {
-	      //var testData =  [{ date: '2014-01', value: 100}, {date: '2014-02', value: 215}];
-	      c.setData(testData);
-	      expect(c.getData()).toBe(testData);
+	      c.setData(karyo);
+	      expect(c.getData()).toBe(karyo);
 	    });
   	});
 
