@@ -26,7 +26,6 @@ describe("getRibbon", function(){
 	it("should substract the targetline-information from the sourceline_information, the expected value should be 1", function(){
 		expect(testLineDifference(links)).toBeDefined();
 	})
-	
 
 });	
 
