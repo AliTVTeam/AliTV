@@ -28,7 +28,7 @@ function testLineDifference(links){
 	for(var i=0;i<links.length;i++){
 		var difference = links[i].ribbon[0].target.line - links[i].ribbon[0].source.line;
 		if(difference==1){
-			
+			return true;
 		}
 	}
 }
