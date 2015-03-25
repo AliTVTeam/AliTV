@@ -19,6 +19,10 @@ describe("link_to_coords", function(){
 		expect(karyo).toBeDefined();
 		expect(links).toBeDefined();
 	});
+	
+	it("should test if there is a function which get the defined karyo and links", function(){
+		expect(links_to_coords(links, karyo)).toBeDefined();
+	})
 
 });	
 
