@@ -58,7 +58,15 @@ describe('adding the g to svg and create the karyo element', function(){
 		expect(getKaryo()).not.toBeNull();
 	})
 	
-	 function getKaryo(){
-	  return d3.select('g');
-  }
+	it('should test if the karyo element has the right class', function(){
+		expect(getKaryoClass()).toBeNull();
+	})
+	
+	function getKaryo(){
+		return d3.select('g');
+	}
+	
+	function getKaryoClass(){
+		return d3.select(".karyo g");
+	}
 })
