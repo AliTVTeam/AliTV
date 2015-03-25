@@ -3,18 +3,17 @@ var returnLinks;
 var links;
 var karyo;
 
-describe("link_to_coords", function(){
+describe("getRibbon", function(){
 	
 	beforeEach(function(done){
 		loadKaryoFile(karyoFile, function(data){
 			karyo_to_coords(data);
 			returnKaryo=data.chromosomes;
 			
-			loadLinkFile(linkFile, function(data){
-			returnLinks=data;
+		loadLinkFile(linkFile, function(data){
+			links = data;
+			link_to_coords(links,karyo);
 			
-			links=0;
-			karyo=0;
 			done();
 			});
 		});
@@ -22,17 +21,9 @@ describe("link_to_coords", function(){
 	
 	
 	it("should test if links and karyo are defined when they are returned from their functions", function(){
-		expect(returnKaryo).toBeDefined();
-		expect(returnLinks).toBeDefined();
+		
 	});
 	
-	it("should test if there is a function which get the defined karyo and links and which should create the ribbon information", function(){
-		links = returnLinks;
-		karyo = returnKaryo;
-		expect(link_to_coords(links, karyo)).toEqual(links);
-
-	})
-
 
 });	
 
