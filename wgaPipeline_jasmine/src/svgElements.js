@@ -40,6 +40,43 @@ function drawKaryo(karyo){
 	.data(karyo)
 	.enter()
 	.append("rect")
+	.on("mouseover", function(g, i) {
+			fade(g, i, 0.1);
+			add_tooltip_legend(g);
+			})
+	.on("mouseout", function(g, i) {
+				fade(g, i, 1);
+				reAdd_tooltip_legend();
+		})
+	.on("click", function(g, i){
+		svg.selectAll(".chord path").remove();
+		svg.selectAll(".ticks g").remove();
+		create_new_karyo(karyo, g);
+		var array = $.map(karyo, function(value, index) {
+			return [ value ];
+		});
+		loadLinkFile("data/link.json", karyo, function(links) {
+			full_links = links;
+			redraw(identity_range, min_length);
+		});
+	})
+	.style(
+		"fill", function(d) {
+			return fill(d.index);
+		})
+	.style("stroke", function(d) {
+		return fill(d.index);
+		})
+		.attr("x", function(d) {
+			return d.x
+		})
+		.attr("y", function(d){
+			return 500 * d.genome_id 
+		})
+		.attr("width", function(d) {
+			return d.width
+		})
+		.attr("height", 30);
 				
 	return true;
 }
