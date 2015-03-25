@@ -12,7 +12,7 @@ describe('Testing the first D3.js function drawKaryo', function() {
 
   describe('the svg' ,function() {
     it('should be created', function() {
-        expect(getSvg()).toBeNull();
+        expect(getSvg()).not.toBeNull();
     });
 
 //    it('should have the correct height', function() {
