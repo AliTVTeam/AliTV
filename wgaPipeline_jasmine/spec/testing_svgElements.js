@@ -30,7 +30,7 @@ describe('Testing the first D3.js function drawKaryo', function() {
   
   describe('testing the data' ,function() {
 	    it('should be null if no data has been specified', function() {
-	        expect(c.getData()).not.toBeNull();
+	        expect(c.getData()).toBeNull();
 	    });
 
 //	    it('should be able to update the data', function() {
