@@ -52,6 +52,6 @@ describe('testing svg-Elements', function(){
 	
 	it('new syntax: everything would be easier, but this test have to work: it should test if we have the correct data', function() {
 		c.setData(karyo);
-		expect(c.getData()).not.toBe(karyo);
+		expect(c.getData()).toBe(karyo);
 	});
 })
