@@ -20,8 +20,8 @@ describe("getRibbon", function(){
 	});
 	
 	
-	it("should test if links and karyo are defined when they are returned from their functions", function(){
-		
+	it("should test if there is a function getRibbon which return shape", function(){
+		expect(getRibbon(links)).toBeDefined();
 	});
 	
 
