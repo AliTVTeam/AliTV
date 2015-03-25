@@ -6,7 +6,6 @@ function karyo_to_coords(data) {
 	var lastLine;
 	for(var i=0;i<data.order.length;i++){
 		var key = data.order[i];
-		console.log(key);
 		genome_order[key] = {
 				"line":line
 		}
