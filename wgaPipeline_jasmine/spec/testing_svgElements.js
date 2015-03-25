@@ -16,11 +16,11 @@ describe('Testing the first D3.js function drawKaryo', function() {
     });
 
     it('should have the correct height', function() {
-      expect(getSvg().attr('height')).not.toBe('3000');
+      expect(getSvg().attr('height')).toBe('3000');
     });
 
     it('should have the correct width', function() {
-      expect(getSvg().attr('width')).not.toBe('1200');
+      expect(getSvg().attr('width')).toBe('1200');
     });
   });
 
