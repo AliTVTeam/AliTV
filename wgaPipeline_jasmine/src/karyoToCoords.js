@@ -1,7 +1,28 @@
+var width=1200;
+
 function karyo_to_coords(data) {
-	var width=1200;
-	var total=[0,0];
-	var current=[0,0];
+	var genome_order={};
+	var line = 1;
+	var lastLine;
+	for(var i=0;i<data.order.length;i++){
+		var key = data.order[i];
+		console.log(key);
+		genome_order[key] = {
+				"line":line
+		}
+		line = line + 1;
+	}
+
+	$.each(genome_order, function(key, value){
+		lastLine=value.line
+	})
+
+	var total=[];
+	var current=[];
+	for(var i=0;i<lastLine;i++){
+		total.push(0);
+		current.push(0);
+	}
 	var index=0;
 	
 	var spacer = set_spacer(data);
