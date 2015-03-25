@@ -33,11 +33,11 @@ describe('Testing the first D3.js function drawKaryo', function() {
 	        expect(c.getData()).toBeNull();
 	    });
 
-//	    it('should be able to update the data', function() {
-//	      var testData =  [{ date: '2014-01', value: 100}, {date: '2014-02', value: 215}];
-//	      c.setData(testData);
-//	      expect(c.getData()).toBe(testData);
-//	    });
+	    it('karyo should be load in and it would able to update data with karyo', function() {
+	      //var testData =  [{ date: '2014-01', value: 100}, {date: '2014-02', value: 215}];
+	      c.setData(testData);
+	      expect(c.getData()).toBe(testData);
+	    });
   	});
 
 });
