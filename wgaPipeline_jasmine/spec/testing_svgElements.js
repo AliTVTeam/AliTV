@@ -55,7 +55,7 @@ describe('adding the g to svg and create the karyo element', function(){
 	})
 	
 	it('should test if the karyo element really exists', function(){
-		expect(getKaryo()).toBeNull();
+		expect(getKaryo()).not.toBeNull();
 	})
 	
 	 function getKaryo(){
