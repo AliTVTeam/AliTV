@@ -1,4 +1,4 @@
-//function getRibbon(links) {
+function getRibbon(links) {
 //	for(var i=0;i<links.length;i++){
 //		var difference = links[i].target.line - links[i].source.line;
 //		if(difference==1){
@@ -18,7 +18,8 @@
 //			var path1 = diagonal(links[0]);
 //			var path2 = diagonal(links[1]).replace(/^M/, 'L');
 //			var shape = path1 + path2 + 'Z';
-//			return shape;
+			var shape=true;
+			return shape;
 //		}	
 //	}
-//}
+}
