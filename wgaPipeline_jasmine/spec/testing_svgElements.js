@@ -70,3 +70,7 @@ describe('adding the g to svg and create the karyo element', function(){
 		return d3.select(".karyo g");
 	}
 })
+
+describe('should test if the events work correctly', function(){
+	
+})
