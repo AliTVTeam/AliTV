@@ -1,4 +1,4 @@
-//function link_to_coords(links, karyo) {
+function link_to_coords(links, karyo) {
 //	$.each(links, function(key, value) {
 //		
 //		links[key].ribbon = [ {
@@ -82,5 +82,5 @@
 //		}
 //	}
 //
-//	return links;
-//}
+	return links;
+}

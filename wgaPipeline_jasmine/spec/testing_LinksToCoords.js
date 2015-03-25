@@ -21,7 +21,7 @@ describe("link_to_coords", function(){
 	});
 	
 	it("should test if there is a function which get the defined karyo and links", function(){
-		expect(links_to_coords(links, karyo)).toBeDefined();
+		expect(link_to_coords(links, karyo)).toEqual(links);
 	})
 
 });	
