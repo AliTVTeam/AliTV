@@ -69,6 +69,40 @@ describe('adding the g to svg and create the karyo element', function(){
 	}
 })
 
-describe('should test if the events work correctly', function(){
-	
-})
+//	var jasmineExtensions = {
+//			  jQuerySpies: {},
+//			  spyOnEvent: function(element, eventName) {
+//			    var control = {
+//			      triggered: false
+//			    };
+//			    element.bind(eventName, function() {
+//			      control.triggered = true;
+//			    });
+//			    jasmineExtensions.jQuerySpies[element[eventName]] = control;
+//			  }
+//			};
+//			 
+//			var spyOnEvent = jasmineExtensions.spyOnEvent;
+//			 
+//			beforeEach(function() {
+//			  this.addMatchers({
+//			    toHaveBeenTriggered: function() {
+//			      var control = jasmineExtensions.jQuerySpies[this.actual];
+//			      return control.triggered;
+//			    }
+//			  });
+//			});
+
+//	describe("the onclick event", function() {
+//		  it("should ", function() {
+//		    var form = $("<form/>");
+//		    var button = $("<input/>");
+//		    form.append(button);
+//		    spyOnEvent(form, 'submit');
+//		 
+//		    myApp.buttonBinder.bind(button);
+//		    button.click();
+//		 
+//		    expect(form.submit).toHaveBeenTriggered();
+//		  });
+//		});
