@@ -1,3 +1,5 @@
 .project
 .settings/
 tmp/
+.grunt/
+node_modules/
