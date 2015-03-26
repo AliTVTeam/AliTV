@@ -20,7 +20,20 @@ describe("link_to_coords", function(){
 		});
 	});
 	
-	
+	beforeEach(function() {
+	    this.addMatchers({
+	    	toBeDivisibleByTwo: function() {
+	        	return (this.actual % 2) === 0;
+	        	}
+	    	toContainRibbon: function(){
+	        	console.log(this.actual);
+	        	return this.actual === links;	
+	        	}
+	    
+	    });
+	});
+
+
 	it("should test if links and karyo are defined when they are returned from their functions", function(){
 		expect(returnKaryo).toBeDefined();
 		expect(returnLinks).toBeDefined();
