@@ -26,16 +26,25 @@ module.exports = function(grunt) {
           //helpers: 'test/spec/*.js'
         }
       }
+    },
+    jshint: {
+      options: {
+	globals: {
+          jQuery: true
+	}
+      },
+      all: ['Gruntfile.js', 'wgaPipeline_jasmine/src/*.js']
     }
   });
 
   // Load the plugin that provides the "jasmine" task.
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // Default task(s).
-  grunt.registerTask('default', ['jasmine']);
+  grunt.registerTask('default', ['jshint','jasmine']);
 
-  grunt.registerTask('travis', ['jasmine']);
+  grunt.registerTask('travis', ['jshint','jasmine']);
 
 };
 

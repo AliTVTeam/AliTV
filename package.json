@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "grunt-contrib-jasmine": "^0.8.2",
+    "grunt-contrib-jshint": "^0.11.1",
     "grunt": "^0.4.5"
   },
   "repository": {
