@@ -2,6 +2,7 @@ var returnKaryo;
 var returnLinks;
 var links;
 var karyo;
+//function this.addMatchers(){};
 
 describe("link_to_coords", function(){
 	
@@ -20,19 +21,13 @@ describe("link_to_coords", function(){
 		});
 	});
 	
-	beforeEach(function() {
-	    this.addMatchers({
-	    	toBeDivisibleByTwo: function() {
-	        	return (this.actual % 2) === 0;
-	        	}
-	    	toContainRibbon: function(){
-	        	console.log(this.actual);
-	        	return this.actual === links;	
-	        	}
-	    
-	    });
-	});
-
+//	beforeEach(function () {
+//	    this.addMatchers({
+//			toContainRibbon: function(links){
+//				return this.actual[0].ribbon === links[0].ribbon;
+//			}
+//	    });
+//	});
 
 	it("should test if links and karyo are defined when they are returned from their functions", function(){
 		expect(returnKaryo).toBeDefined();
@@ -45,8 +40,13 @@ describe("link_to_coords", function(){
 		expect(link_to_coords(links, karyo)).toEqual(links);
 
 	})
+	
+//	it("should test if the new links contain the ribbon information", function(){
+//		expect(link_to_coords(links, karyo)).toContainRibbon(links);
+//	})
 
 
 });	
+
 
 
