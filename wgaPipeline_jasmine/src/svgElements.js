@@ -16,7 +16,7 @@ function createSimpleSvg() {
 
     that.getData = function() {
         return data;
-    }
+    };
     
 	that.render = function() {
 			var svg = d3.select("body")
@@ -25,6 +25,7 @@ function createSimpleSvg() {
 			.attr("height",height)
 			.append("g");			
 	};		
+	
 	return that;
 }
 
