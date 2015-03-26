@@ -26,9 +26,7 @@ describe('Testing D3.js, but first test the general svg-element', function() {
   function getSvg() {
     return d3.select('svg');
   }
-  
- 
-  
+   
 describe('testing the data of drawKaryo' ,function() {	  
 	it('should be null if no data has been specified', function() {
 		expect(c.getData()).toBeNull();
