@@ -58,26 +58,28 @@ describe("link_to_coords", function(){
 });
 
 describe('the information which is saved in the link file', function () {
-//
-//    beforeEach(function () {
-//        jasmine.addMatchers({
-//            toContainRibbon: function () {
-//                return {
-//                    compare: function (actual, expected) {
-//                        return {
-//                        	var ribbon = links[0].ribbon;
-//                        	pass: actual[0].ribbon === ribbon
-//                        };
-//                    }
-//                };
-//            }
-//        });
-//    });
-//
-    it('should contain the ribbon information', function () {
-//        expect(links).not.toContainRibbon();
+
+    beforeEach(function () {
+        jasmine.addMatchers({
+            toContainRibbon: function () {
+                return {
+                    compare: function (actual, expected) {
+                    	var ribbon = links[0].ribbon;
+                        return {
+                        	pass: actual[0].ribbon === ribbon,
+                        	message: 'link contain ribbon information'
+                        
+                        };
+                    }
+                };
+            }
+        });
     });
-//
+
+    it('should contain the ribbon information', function () {
+        expect(links).toContainRibbon();
+    });
+
 });
 
 
