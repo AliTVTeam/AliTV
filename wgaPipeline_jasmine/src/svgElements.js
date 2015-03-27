@@ -16,7 +16,7 @@ function createSimpleSvg() {
 
     that.getData = function() {
         return data;
-    }
+    };
     
 	that.render = function() {
 			var svg = d3.select("body")
@@ -25,6 +25,7 @@ function createSimpleSvg() {
 			.attr("height",height)
 			.append("g");			
 	};		
+	
 	return that;
 }
 
@@ -69,13 +70,13 @@ function drawKaryo(karyo){
 		return fill(d.index);
 		})
 		.attr("x", function(d) {
-			return d.x
+			return d.x;
 		})
 		.attr("y", function(d){
-			return 500 * d.genome_id 
+			return 500 * d.genome_id; 
 		})
 		.attr("width", function(d) {
-			return d.width
+			return d.width;
 		})
 		.attr("height", 30);
 				
