@@ -106,3 +106,26 @@ describe('adding the g to svg and create the karyo element', function(){
 //		    expect(form.submit).toHaveBeenTriggered();
 //		  });
 //		});
+
+
+
+  describe("Custom Matchers", function() { 
+    beforeEach(function() {
+    	
+      jasmine.addMatchers({
+        toBeCustom: function(util, customEqualityTesters) {
+          return {
+            compare: function(actual, expected) {
+              var passed = actual == expected
+              return {
+                pass: passed,
+                message: 'Expected ' + actual + (passed ? '' : ' not') + ' to equal ' + expected
+              };
+            }
+         };
+        }
+      });
+    });
+  });
+
+

@@ -2,7 +2,43 @@ var returnKaryo;
 var returnLinks;
 var links;
 var karyo;
-//function this.addMatchers(){};
+
+//var customMatchers = {
+//		toContainRibbon: function(util, customEqualityTesters){
+//			
+//			return{
+//			compare: function(actual, expected){
+//				if(expected === undefined){
+//					expected = '';
+//				}
+//			var result={};
+//			result.pass = util.equals(actual.links, links[0].ribbon + expected, customEqualityMatchers);
+//			if(result.pass){
+//				result.message = "contain expected ribbon information";
+//			}
+//			else{
+//				result.message = "not contain the expected ribbon information";
+//			}
+//			return result;
+//			}
+//		};
+//	} 
+//};
+
+
+var CustomMatchers = CustomMatchers || {};
+	CustomMatchers.toContainRibbon = function(util, customEqualityTesters) {
+		return {
+			compare: function(actual) {
+				var result = {
+						pass: util.equals(actual, parseInt(actual, 10)),
+						message: 'Expected ' + jasmine.pp(actual) + ' to be an Integer.'
+				};
+				return result;
+			}
+		};
+};
+
 
 describe("link_to_coords", function(){
 	
@@ -20,15 +56,6 @@ describe("link_to_coords", function(){
 			});
 		});
 	});
-	
-//	beforeEach(function () {
-//	    this.addMatchers({
-//			toContainRibbon: function(links){
-//				return this.actual[0].ribbon === links[0].ribbon;
-//			}
-//	    });
-//	});
-
 	it("should test if links and karyo are defined when they are returned from their functions", function(){
 		expect(returnKaryo).toBeDefined();
 		expect(returnLinks).toBeDefined();
@@ -42,10 +69,21 @@ describe("link_to_coords", function(){
 	})
 	
 //	it("should test if the new links contain the ribbon information", function(){
-//		expect(link_to_coords(links, karyo)).toContainRibbon(links);
+//		expect(links).toContainRibbon();
 //	})
 
+});
 
+describe("the important information which is saved in the link file", function(){
+	
+	beforeEach(function() {
+		    jasmine.addMatchers(CustomMatchers);
+		  });
+		
+		  it("should behave...", function() {
+		    expect(1).toContainRibbon(); // toBeAnInteger() should now be in scope and available
+		  });
+		  
 });	
 
 
