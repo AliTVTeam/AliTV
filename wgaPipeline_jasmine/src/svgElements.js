@@ -1,6 +1,7 @@
 var width=1200;
 var height=3000;
 
+
 function createSimpleSvg() {
 	var that = {};
 	var data = null;

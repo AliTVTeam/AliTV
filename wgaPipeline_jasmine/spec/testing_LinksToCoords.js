@@ -25,22 +25,23 @@ var karyo;
 //	} 
 //};
 
-
-describe("link_to_coords", function(){
-	beforeEach(function(done){
-		loadKaryoFile(karyoFile, function(data){
-			karyo_to_coords(data);
-			returnKaryo=data.chromosomes;
-			
-			loadLinkFile(linkFile, function(data){
-			returnLinks=data;
-			
-			links=0;
-			karyo=0;
-			done();
-			});
-		});
-	});
+//
+//describe("link_to_coords", function(){
+//	beforeEach(function(done){
+//		loadKaryoFile(karyoFile, function(data){
+//			karyo_to_coords(data);
+//			returnKaryo=data.chromosomes;
+//			
+//			loadLinkFile(linkFile, function(data){
+//			returnLinks=data;
+//			
+//			links=0;
+//			karyo=0;
+//			done();
+//			});
+//		});
+//
+//	});
 	it("should test if links and karyo are defined when they are returned from their functions", function(){
 		expect(returnKaryo).toBeDefined();
 		expect(returnLinks).toBeDefined();
@@ -56,17 +57,16 @@ describe("link_to_coords", function(){
 
 });
 
-//describe('the information which is saved in the link file', function () {
+describe('the information which is saved in the link file', function () {
 //
 //    beforeEach(function () {
 //        jasmine.addMatchers({
-//
 //            toContainRibbon: function () {
 //                return {
 //                    compare: function (actual, expected) {
 //                        return {
 //                        	var ribbon = links[0].ribbon;
-//                            pass: actual[0].ribbon === ribbon
+//                        	pass: actual[0].ribbon === ribbon
 //                        };
 //                    }
 //                };
@@ -74,10 +74,10 @@ describe("link_to_coords", function(){
 //        });
 //    });
 //
-//    it('should contain the ribbon information', function () {
+    it('should contain the ribbon information', function () {
 //        expect(links).not.toContainRibbon();
-//    });
+    });
 //
-//});
+});
 
 

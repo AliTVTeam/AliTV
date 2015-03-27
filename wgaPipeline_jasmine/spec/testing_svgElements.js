@@ -67,65 +67,28 @@ describe('adding the g to svg and create the karyo element', function(){
 	function getKaryoClass(){
 		return d3.select(".karyo g");
 	}
+	describe("Mouseover events", function() {
+		var rect = d3.select('.karyo').attr("id", "rect");;
+		var spyEvent;
+		
+		beforeEach(function() {
+			loadChart();
+		});
+		
+		it("links should change their opacity", function() {
+			spyEvent = spyOnEvent('#rect', 'mouseover');
+			$('.karyo').trigger("mouseover");
+			expect(karyo.style('fill')).toEqual('rgb(255,0,0)');
+		});
+		
+	});
 })
 
-//	var jasmineExtensions = {
-//			  jQuerySpies: {},
-//			  spyOnEvent: function(element, eventName) {
-//			    var control = {
-//			      triggered: false
-//			    };
-//			    element.bind(eventName, function() {
-//			      control.triggered = true;
-//			    });
-//			    jasmineExtensions.jQuerySpies[element[eventName]] = control;
-//			  }
-//			};
-//			 
-//			var spyOnEvent = jasmineExtensions.spyOnEvent;
-//			 
-//			beforeEach(function() {
-//			  this.addMatchers({
-//			    toHaveBeenTriggered: function() {
-//			      var control = jasmineExtensions.jQuerySpies[this.actual];
-//			      return control.triggered;
-//			    }
-//			  });
-//			});
-
-//	describe("the onclick event", function() {
-//		  it("should ", function() {
-//		    var form = $("<form/>");
-//		    var button = $("<input/>");
-//		    form.append(button);
-//		    spyOnEvent(form, 'submit');
-//		 
-//		    myApp.buttonBinder.bind(button);
-//		    button.click();
-//		 
-//		    expect(form.submit).toHaveBeenTriggered();
-//		  });
-//		});
+function loadChart() {
+    loadFixtures('d3_linear.html');
+}
 
 
-
-  describe("Custom Matchers", function() { 
-    beforeEach(function() {
-    	
-      jasmine.addMatchers({
-        toBeCustom: function(util, customEqualityTesters) {
-          return {
-            compare: function(actual, expected) {
-              var passed = actual == expected
-              return {
-                pass: passed,
-                message: 'Expected ' + actual + (passed ? '' : ' not') + ' to equal ' + expected
-              };
-            }
-         };
-        }
-      });
-    });
-  });
+ 
 
 
