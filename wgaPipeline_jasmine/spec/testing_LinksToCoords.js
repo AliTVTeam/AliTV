@@ -26,22 +26,7 @@ var karyo;
 //};
 
 
-var CustomMatchers = CustomMatchers || {};
-	CustomMatchers.toContainRibbon = function(util, customEqualityTesters) {
-		return {
-			compare: function(actual) {
-				var result = {
-						pass: util.equals(actual, parseInt(actual, 10)),
-						message: 'Expected ' + jasmine.pp(actual) + ' to be an Integer.'
-				};
-				return result;
-			}
-		};
-};
-
-
 describe("link_to_coords", function(){
-	
 	beforeEach(function(done){
 		loadKaryoFile(karyoFile, function(data){
 			karyo_to_coords(data);
@@ -68,23 +53,31 @@ describe("link_to_coords", function(){
 
 	})
 	
-//	it("should test if the new links contain the ribbon information", function(){
-//		expect(links).toContainRibbon();
-//	})
 
 });
 
-describe("the important information which is saved in the link file", function(){
-	
-	beforeEach(function() {
-		    jasmine.addMatchers(CustomMatchers);
-		  });
-		
-		  it("should behave...", function() {
-		    expect(1).toContainRibbon(); // toBeAnInteger() should now be in scope and available
-		  });
-		  
-});	
-
+//describe('the information which is saved in the link file', function () {
+//
+//    beforeEach(function () {
+//        jasmine.addMatchers({
+//
+//            toContainRibbon: function () {
+//                return {
+//                    compare: function (actual, expected) {
+//                        return {
+//                        	var ribbon = links[0].ribbon;
+//                            pass: actual[0].ribbon === ribbon
+//                        };
+//                    }
+//                };
+//            }
+//        });
+//    });
+//
+//    it('should contain the ribbon information', function () {
+//        expect(links).not.toContainRibbon();
+//    });
+//
+//});
 
 
