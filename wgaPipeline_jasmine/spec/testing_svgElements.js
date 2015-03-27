@@ -67,16 +67,16 @@ describe('adding the g to svg and create the karyo element', function(){
 	function getKaryoClass(){
 		return d3.select(".karyo g");
 	}
-	describe("Mouseover events", function() {
-		var rect = d3.select('.karyo').attr("id", "rect");;
+	
+	describe("Mouseover event", function() {
 		var spyEvent;
 		
 		beforeEach(function() {
-			loadChart();
+			drawKaryo(karyo);
 		});
 		
 		it("links should change their opacity", function() {
-			spyEvent = spyOnEvent('#rect', 'mouseover');
+			spyEvent = spyOnEvent('karyo', 'mouseover');
 			$('.karyo').trigger("mouseover");
 			expect(karyo.style('fill')).toEqual('rgb(255,0,0)');
 		});
@@ -84,9 +84,9 @@ describe('adding the g to svg and create the karyo element', function(){
 	});
 })
 
-function loadChart() {
-    loadFixtures('d3_linear.html');
-}
+//function loadChart() {
+//    loadFixtures('d3_linear.html');
+//}
 
 
  
