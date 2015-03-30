@@ -1,5 +1,6 @@
 var width = 1200;
 var height = 3000;
+var svg;
 
 jQuery.fn.d3Click = function() {
 	this.each(function(i, e) {
@@ -41,7 +42,7 @@ function drawKaryo(karyo) {
 	karyo = $.map(karyo, function(value, index) {
 		return [value];
 	});
-	var svg = d3.select("body")
+	svg = d3.select("body")
 		.append("svg")
 		.attr("width", width)
 		.attr("height", height)
@@ -62,6 +63,7 @@ function drawKaryo(karyo) {
 		//			reAdd_tooltip_legend();
 		//		})
 		.on("click", function(g, i) {
+			fade(g, i, 0.1);
 			console.log("Hello");
 		})
 		//		.style(
@@ -89,7 +91,7 @@ function drawKaryo(karyo) {
 function fade(g, i, opacity) {
 	svg.selectAll(".chord path")
 		.filter(function(d) {
-			return d.source.index != g.index && d.target.index != g.index;
+			//		return d.source.index != g.index && d.target.index != g.index;
 		})
 		.transition()
 		.style("opacity", opacity);
