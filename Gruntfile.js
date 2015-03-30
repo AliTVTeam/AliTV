@@ -40,7 +40,8 @@ module.exports = function(grunt) {
 	  ],
 	  vendor: [
 	    'wgaPipeline_jasmine/js/jquery.min.js',
-	    'wgaPipeline_jasmine/js/d3.v3.min.js'
+	    'wgaPipeline_jasmine/js/d3.v3.min.js',
+	    'wgaPipeline_jasmine/lib/jasmine-2.2.0/jasmine-jquery.js'
 	  ],
 	  template: require('grunt-template-jasmine-istanbul'),
           templateOptions: {
@@ -65,20 +66,6 @@ module.exports = function(grunt) {
 	}
       },
       all: ['Gruntfile.js', 'wgaPipeline_jasmine/src/*.js', 'wgaPipeline_jasmine/js/wgaPipeline_circular.js']
-    },
-    coverage: {
-      default: {
-        options: {
-          thresholds: {
-            'statements': 90,
-            'branches': 90,
-            'lines': 90,
-            'functions': 90
-          },
-          dir: 'coverage',
-          root: 'wgaPipeline_jasmine'
-        }
-      }
     }
   });
 
@@ -91,7 +78,7 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('default', ['jshint','jasmine']);
 
-  grunt.registerTask('travis', ['jshint','jasmine']);
+  grunt.registerTask('travis', ['jsbeautifier:verify','jshint','jasmine']);
 
 };
 
