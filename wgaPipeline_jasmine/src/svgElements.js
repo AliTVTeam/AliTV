@@ -1,6 +1,14 @@
 var width = 1200;
 var height = 3000;
 
+jQuery.fn.d3Click = function() {
+	this.each(function(i, e) {
+		var evt = document.createEvent("MouseEvents");
+		evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+
+		e.dispatchEvent(evt);
+	});
+};
 
 function createSimpleSvg() {
 	var that = {};
@@ -30,6 +38,9 @@ function createSimpleSvg() {
 }
 
 function drawKaryo(karyo) {
+	karyo = $.map(karyo, function(value, index) {
+		return [value];
+	});
 	var svg = d3.select("body")
 		.append("svg")
 		.attr("width", width)
@@ -37,38 +48,30 @@ function drawKaryo(karyo) {
 		.append("g");
 
 	svg.append("g")
-	.selectAll("path")
-	.attr("class","karyo")
-	.data(karyo)
-	.enter()
-	.append("rect")
-	.on("mouseover", function(g, i) {
-			fade(g, i, 0.1);
-			add_tooltip_legend(g);
-			})
-	.on("mouseout", function(g, i) {
-				fade(g, i, 1);
-				reAdd_tooltip_legend();
+		.selectAll("path")
+		.attr("class", "karyo")
+		.data(karyo)
+		.enter()
+		.append("rect")
+		//		.on("mouseover", function(g, i) {
+		//			fade(g, i, 0.1);
+		//			add_tooltip_legend(g);
+		//		})
+		//		.on("mouseout", function(g, i) {
+		//			fade(g, i, 1);
+		//			reAdd_tooltip_legend();
+		//		})
+		.on("click", function(g, i) {
+			console.log("Hello");
 		})
-	.on("click", function(g, i){
-		svg.selectAll(".chord path").remove();
-		svg.selectAll(".ticks g").remove();
-		create_new_karyo(karyo, g);
-		var array = $.map(karyo, function(value, index) {
-			return [ value ];
-		});
-		loadLinkFile("data/link.json", karyo, function(links) {
-			full_links = links;
-			redraw(identity_range, min_length);
-		});
-	})
-	.style(
-		"fill", function(d) {
-			return fill(d.index);
-		})
-	.style("stroke", function(d) {
-		return fill(d.index);
-		})
+		//		.style(
+		//			"fill",
+		//			function(d) {
+		//				return fill(d.index);
+		//			})
+		//		.style("stroke", function(d) {
+		//			return fill(d.index);
+		//		})
 		.attr("x", function(d) {
 			return d.x;
 		})
