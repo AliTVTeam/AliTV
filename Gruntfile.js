@@ -3,6 +3,26 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    jsbeautifier : {
+    	"default": {
+    		src : ["wgaPipeline_jasmine/src/*.js"],
+    		options : {
+    			js: {
+    				indent_with_tabs: true
+    			}
+    		}
+    	},
+    	"verify": {
+    		src : ["wgaPipeline_jasmine/src/*.js"],
+    		options : {
+    			mode: "VERIFY_ONLY",
+    			js: {
+    				indent_with_tabs: true
+    			}
+    		}
+
+    	},
+    },
     jasmine: {
       components: {
         src: [
@@ -40,6 +60,7 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "jasmine" task.
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks("grunt-jsbeautifier");
 
   // Default task(s).
   grunt.registerTask('default', ['jshint','jasmine']);
