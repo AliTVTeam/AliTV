@@ -5,7 +5,7 @@ function karyo_to_coords(data) {
 	for (i = 0; i < data.order.length; i++) {
 		key = data.order[i];
 		genome_order[key] = {
-			"line" : line
+			"line": line
 		};
 		line = line + 1;
 	}
@@ -31,16 +31,16 @@ function karyo_to_coords(data) {
 		key = data.order[i];
 		var value = data.chromosomes[key];
 		data.chromosomes[key] = {
-			"value" : value.length,
-			"index" : index++,
-			"x" : (current[value.genome_id] / total[value.genome_id]) * width,
-			"width" : (value.length / total[value.genome_id]) * width,
-			"genome_id" : value.genome_id,
-			"name" : key
+			"value": value.length,
+			"index": index++,
+			"x": (current[value.genome_id] / total[value.genome_id]) * width,
+			"width": (value.length / total[value.genome_id]) * width,
+			"genome_id": value.genome_id,
+			"name": key
 		};
 		current[value.genome_id] += value.length + spacer;
 	}
-	
+
 	return data.chromosomes;
 }
 
@@ -50,6 +50,6 @@ function set_spacer(data) {
 		spacer += value.length;
 	});
 	spacer = spacer * 0.0038; // ca. 4% der Gesamtsumme aller Sequenzen //
-								// entsprechen dem geeigneten Spacer
+	// entsprechen dem geeigneten Spacer
 	return spacer;
 }

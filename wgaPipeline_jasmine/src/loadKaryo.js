@@ -1,4 +1,4 @@
-function loadKaryoFile(file, callback){
+function loadKaryoFile(file, callback) {
 	$.getJSON(file, function(data) {
 		if (typeof callback !== "undefined") {
 			callback(data);
@@ -6,4 +6,3 @@ function loadKaryoFile(file, callback){
 	});
 	return file;
 }
-
