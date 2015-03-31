@@ -46,7 +46,12 @@ module.exports = function(grunt) {
 	  template: require('grunt-template-jasmine-istanbul'),
           templateOptions: {
             coverage: 'wgaPipeline_jasmine/coverage/coverage.json',
-            report: 'wgaPipeline_jasmine/coverage',
+            report: {
+		type: 'lcov',
+		options: {
+		  dir: 'wgaPipeline_jasmine/coverage'
+		}
+	    },
             thresholds: {
               lines: 75,
               statements: 75,
