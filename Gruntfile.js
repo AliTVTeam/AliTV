@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 				pkg : grunt.file.readJSON('package.json'),
 				jsbeautifier : {
 					"default" : {
-						src : [ "Gruntfile.js", "wgaPipeline_jasmine/src/*.js" ],
+						src : [ "Gruntfile.js", "d3/src/*.js" ],
 						options : {
 							js : {
 								indent_with_tabs : true
@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 						}
 					},
 					"verify" : {
-						src : [ "wgaPipeline_jasmine/src/*.js" ],
+						src : [ "d3/src/*.js" ],
 						options : {
 							mode : "VERIFY_ONLY",
 							js : {
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 				},
 				jasmine : {
 					components : {
-						src : [ 'wgaPipeline_jasmine/src/*.js' ],
+						src : [ 'd3/src/*.js' ],
 						options : {
 							'--local-to-remote-url-access' : true,
 							specs : [
@@ -36,16 +36,16 @@ module.exports = function(grunt) {
 									'd3/test/spec/testing_LinksToCoords.js',
 									'd3/test/spec/testing_getRibbon.js',
 									'd3/test/spec/testing_svgElements.js', ],
-							vendor : [ 'wgaPipeline_jasmine/js/jquery.min.js',
-									'wgaPipeline_jasmine/js/d3.v3.min.js',
-									'wgaPipeline_jasmine/lib/jasmine-2.2.0/jasmine-jquery.js' ],
+							vendor : [ 'd3/lib/jquery.min.js',
+									'd3/lib/d3.v3.min.js',
+									'd3/test/lib/jasmine-2.2.0/jasmine-jquery.js' ],
 							template : require('grunt-template-jasmine-istanbul'),
 							templateOptions : {
-								coverage : 'wgaPipeline_jasmine/coverage/coverage.json',
+								coverage : 'd3/test/coverage/coverage.json',
 								report : {
 									type : 'lcov',
 									options : {
-										dir : 'wgaPipeline_jasmine/coverage'
+										dir : 'd3/test/coverage'
 									}
 								},
 								thresholds : {
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 									functions : 90
 								}
 							},
-							helpers : 'wgaPipeline_jasmine/js/helper.js'
+							helpers : 'd3/test/lib/helper.js'
 						// keepRunner : true
 						}
 					}
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
 							jQuery : true
 						}
 					},
-					all : [ 'Gruntfile.js', 'wgaPipeline_jasmine/src/*.js',
+					all : [ 'Gruntfile.js', 'd3/src/*.js',
 							'wgaPipeline_jasmine/js/wgaPipeline_circular.js' ]
 				}
 			});
