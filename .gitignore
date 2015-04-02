@@ -3,4 +3,4 @@
 tmp/
 .grunt/
 node_modules/
-wgaPipeline_jasmine/coverage/
+d3/test/coverage/
