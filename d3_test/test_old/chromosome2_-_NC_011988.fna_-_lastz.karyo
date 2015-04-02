@@ -1,8 +1,0 @@
-#REFERENCE SEQUENCES
-chr - R_gi_222106127_ref_NC_011988.1_ gi_222106127_ref_NC_011988.1_ 0 1283187 red
-
-#QUERY SEQUENCES
-chr - Q_s2 s2 0 531783 blue
-chr - Q_s6 s6 0 416406 blue
-chr - Q_s8 s8 0 257437 blue
-chr - Q_s22 s22 0 117247 blue
