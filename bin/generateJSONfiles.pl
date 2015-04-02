@@ -152,15 +152,15 @@ Create directory structure with js, css and html files to provide the framework 
 =cut
 
 sub create_dir_structure{
-	make_path("$opt_prefix.d3/js", "$opt_prefix.d3/data", "$opt_prefix.d3/css");
-	cp("$FindBin::RealBin/../d3_test/js/d3.v3.min.js","$opt_prefix.d3/js/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3_test/js/jquery.min.js","$opt_prefix.d3/js/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3_test/js/jquery-ui.min.js","$opt_prefix.d3/js/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3_test/js/wgaPipeline_linear.js","$opt_prefix.d3/js/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3_test/js/wgaPipeline_circular.js","$opt_prefix.d3/js/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3_test/css/jquery-ui.min.css","$opt_prefix.d3/css/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3_test/d3.html","$opt_prefix.d3/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3_test/d3_linear.html","$opt_prefix.d3/") or $L->logdie("Copy failed: $!");
+	make_path("$opt_prefix.d3/lib", "$opt_prefix.d3/data", "$opt_prefix.d3/lib");
+	cp("$FindBin::RealBin/../d3/lib/d3.v3.min.js","$opt_prefix.d3/lib/") or $L->logdie("Copy failed: $!");
+	cp("$FindBin::RealBin/../d3/lib/jquery.min.js","$opt_prefix.d3/lib/") or $L->logdie("Copy failed: $!");
+	cp("$FindBin::RealBin/../d3/lib/jquery-ui.min.js","$opt_prefix.d3/lib/") or $L->logdie("Copy failed: $!");
+	cp("$FindBin::RealBin/../d3/js/wgaPipeline_linear.js","$opt_prefix.d3/js/") or $L->logdie("Copy failed: $!");
+	cp("$FindBin::RealBin/../d3/js/wgaPipeline_circular.js","$opt_prefix.d3/js/") or $L->logdie("Copy failed: $!");
+	cp("$FindBin::RealBin/../d3/lib/jquery-ui.min.css","$opt_prefix.d3/lib/") or $L->logdie("Copy failed: $!");
+	cp("$FindBin::RealBin/../d3/d3.html","$opt_prefix.d3/") or $L->logdie("Copy failed: $!");
+	cp("$FindBin::RealBin/../d3/d3_linear.html","$opt_prefix.d3/") or $L->logdie("Copy failed: $!");
 }
 
 
