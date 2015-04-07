@@ -33,8 +33,7 @@ function drawKaryo(karyo) {
 	karyo = $.map(karyo, function(value, index) {
 		return [value];
 	});
-	svg = d3.select("body")
-		.append("svg")
+	svg = d3.select("#drawingArea")
 		.attr("width", width)
 		.attr("height", height)
 		.append("g");
@@ -57,14 +56,14 @@ function drawKaryo(karyo) {
 			fade(g, i, 0.1);
 			console.log("Hello");
 		})
-		//		.style(
-		//			"fill",
-		//			function(d) {
-		//				return fill(d.index);
-		//			})
-		//		.style("stroke", function(d) {
-		//			return fill(d.index);
-		//		})
+				.style(
+					"fill",
+					function(d) {
+						return fill(d.index);
+					})
+				.style("stroke", function(d) {
+					return fill(d.index);
+				})
 		.attr("x", function(d) {
 			return d.x;
 		})
