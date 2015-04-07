@@ -71,7 +71,17 @@ module.exports = function(grunt) {
 				all: ['Gruntfile.js', 'd3/src/*.js',
 					'wgaPipeline_jasmine/js/wgaPipeline_circular.js'
 				]
-			}
+			},
+			concat: {
+				options: {
+
+				},
+				dist: {
+				      src: ['d3/test/spec/testing_getRibbon.js', 'd3/test/spec/testing_karyoToCoords.js', 'd3/test/spec/testing_LinksToCoords',
+				            'd3/test/spec/testing_loadKaryo.js', 'd3/test/spec/testing_loadLinks.js','d3/test/spec/testing_svg_Elements'],
+				      dest: 'd3/js/wgaPipelineLinear2.js',
+				},
+			}		
 		});
 
 	// Load the plugin that provides the "jasmine" task.
