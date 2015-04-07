@@ -30,12 +30,12 @@ module.exports = function(grunt) {
 					options: {
 						'--local-to-remote-url-access': true,
 						specs: [
-							'd3/test/spec/testing_loadKaryo.js',
-							'd3/test/spec/testing_karyoToCoords.js',
-							'd3/test/spec/testing_loadLinks.js',
-							'd3/test/spec/testing_LinksToCoords.js',
-							'd3/test/spec/testing_getRibbon.js',
-							'd3/test/spec/testing_svgElements.js',
+							'd3/src/testing_loadKaryo.js',
+							'd3/src/testing_karyoToCoords.js',
+							'd3/src/testing_loadLinks.js',
+							'd3/src/testing_LinksToCoords.js',
+							'd3/src/testing_getRibbon.js',
+							'd3/src/testing_svgElements.js',
 						],
 						vendor: ['d3/lib/jquery.min.js',
 							'd3/lib/d3.v3.min.js',
@@ -77,9 +77,10 @@ module.exports = function(grunt) {
 
 				},
 				dist: {
-				      src: ['d3/test/spec/testing_getRibbon.js', 'd3/test/spec/testing_karyoToCoords.js', 'd3/test/spec/testing_LinksToCoords',
-				            'd3/test/spec/testing_loadKaryo.js', 'd3/test/spec/testing_loadLinks.js','d3/test/spec/testing_svg_Elements'],
-				      dest: 'd3/js/wgaPipelineLinear2.js',
+				      src: ['d3/src/drawingStuff.js', 'd3/src/drawLinks.js', 'd3/src/karyoToCoords.js', 
+				            'd3/src/getRibbon.js', 'd3/src/LinksToCoords.js', 'd3/src/loadKaryo.js', 
+				            'd3/src/loadLinks.js','d3/src/drawKaryo.js'],
+				      dest: 'd3/js/wgaPipelineLinear.js',
 				},
 			}		
 		});

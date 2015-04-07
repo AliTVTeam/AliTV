@@ -15,9 +15,10 @@ body {
 	color: #000000;
 	outline: none;
 	text-decoration: none;
-	position: absolute;
+	position: relative;
 	font: 12px sans-serif;
 }
+
 
 .chord path {
 	fill-opacity: .67;
@@ -74,12 +75,11 @@ rect {
 		});
 		var fullKaryo;
 		var full_links;
+		console.log("test");
 		loadKaryoFile("data/karyo.json", function(karyo) {
 			fullKaryo = karyo_to_coords(karyo);
 			drawKaryo(fullKaryo);
-			console.log("irgendwas");
 			loadLinkFile("data/link.json", karyo, function(links) {
-				console.log(links);
 				full_links = links;
 				redraw(identity_range, min_length);
 			});
