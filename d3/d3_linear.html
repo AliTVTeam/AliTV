@@ -37,7 +37,7 @@ rect {
 </head>
 
 <body>
-	<script src="js/wgaPipeline_linear.js"></script>
+	<script src="js/wgaPipelineLinear.js"></script>
 	
 	<script>
 		var identity_range = [75,100];
@@ -72,15 +72,14 @@ rect {
 			$("#minlength-label").val(
 					$("#minlength-slider").slider("value") + " bp");
 		});
-		var full_karyo;
+		var fullKaryo;
 		var full_links;
 		loadKaryoFile("data/karyo.json", function(karyo) {
-			full_karyo = karyo;
-			var array = $.map(karyo, function(value, index) {
-				return [ value ];
-			});
-			drawKaryo(karyo);
+			fullKaryo = karyo_to_coords(karyo);
+			drawKaryo(fullKaryo);
+			console.log("irgendwas");
 			loadLinkFile("data/link.json", karyo, function(links) {
+				console.log(links);
 				full_links = links;
 				redraw(identity_range, min_length);
 			});
@@ -113,6 +112,7 @@ rect {
 			return filtered;
 		}
 	</script>
+	<svg id="drawingArea"></svg>
 	<p>
 		<label for="identity-label">Identity range:</label> <input type="text"
 			id="identity-label" readonly
