@@ -20,7 +20,7 @@ function karyo_to_coords(data) {
 		current += value.length + spacer;
 		data.chromosomes[key].endAngle = (current / total) * (2 * Math.PI);
 
-		if (value.rc == true) {
+		if (value.rc === true) {
 			var startAngle = data.chromosomes[key].startAngle;
 			var endAngle = data.chromosomes[key].endAngle;
 			data.chromosomes[key].startAngle = endAngle;
