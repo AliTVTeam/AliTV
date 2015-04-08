@@ -4,3 +4,5 @@ tmp/
 .grunt/
 node_modules/
 d3/test/coverage/
+d3/js/wgaPipelineLinear.js
+d3/js/wgaPipelineCircular.js
