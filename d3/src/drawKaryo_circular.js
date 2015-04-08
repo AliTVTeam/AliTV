@@ -1,6 +1,6 @@
 var width = 1200;
 var height = 3000;
-var innerRadius = Math.min(width, height) * .41;
+var innerRadius = Math.min(width, height) * 0.41;
 var outerRadius = innerRadius * 1.1;
 
 var div = d3.select("body")
@@ -49,7 +49,7 @@ function drawKaryo(karyo) {
 					fullLink = link_to_coords(links, karyo);
 					redraw(identity_range, min_length);
 				});
-			})
+			});
 	addTicks(array);
 }
 
