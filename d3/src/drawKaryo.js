@@ -1,6 +1,5 @@
 var width = 1200;
 var height = 3000;
-var svg;
 var div = d3.select("body")
 			.append("div")
 			.attr("class", "tooltip")
@@ -8,6 +7,9 @@ var div = d3.select("body")
 
 div.append("div")
 	.attr("class", "label");
+
+var svg = d3.select("body").append("svg").attr("width", width).attr("height",
+		height).append("g");
 
 //function createSimpleSvg() {
 //	var that = {};
@@ -37,61 +39,53 @@ div.append("div")
 //}
 
 function drawKaryo(karyo) {
-	karyo = $.map(karyo, function(value, index) {
-		return [value];
+	var array = $.map(karyo, function(value, index) {
+		return [ value ];
 	});
-	svg = d3.select("#drawingArea")
-		.attr("width", width)
-		.attr("height", height)
-		.append("g");
-
 	svg.append("g")
-		.selectAll("path")
-		.attr("class", "karyo")
-		.data(karyo)
-		.enter()
-		.append("rect")
-		.on("mouseover", function(g, i) {
+	.selectAll("path")
+	.attr("class","karyo")
+	.data(array)
+	.enter()
+	.append("rect")
+	.on("mouseover", function(g, i) {
 			fade(g, i, 0.1);
 			add_tooltip_legend(g);
+			})
+	.on("mouseout", function(g, i) {
+				fade(g, i, 1);
+				reAdd_tooltip_legend();
 		})
-		.on("mouseout", function(g, i) {
-			fade(g, i, 1);
-			reAdd_tooltip_legend();
-		})
-//		.on("click", function(g, i) {
-//			svg.selectAll(".chord path").remove();
-//			svg.selectAll(".ticks g").remove();
-//			console.log(karyo);
-//			create_new_karyo(karyo, g);
-//			var array = $.map(karyo, function(value, index) {
-//				return [ value ];
-//			});
-//			loadLinkFile("data/link.json", karyo, function(links) {
-//				full_links = links;
-//				redraw(identity_range, min_length);
-//			});
-//		})
-		.style(
-			"fill",
-			function(d) {
-				return fill(d.index);
-				})
-		.style("stroke", function(d) {
+	.on("click", function(g, i){
+		svg.selectAll(".chord path").remove();
+		svg.selectAll(".ticks g").remove();
+		create_new_karyo(karyo, g);
+		var array = $.map(karyo, function(value, index) {
+			return [ value ];
+		});
+		loadLinkFile("data/link.json", karyo, function(links) {
+			fullLink = link_to_coords(links, karyo);
+			redraw(identity_range, min_length);
+		});
+	})
+	.style(
+		"fill", function(d) {
 			return fill(d.index);
 		})
-		.attr("x", function(d) {
-			return d.x;
+	.style("stroke", function(d) {
+		return fill(d.index);
 		})
-		.attr("y", function(d) {
-			return 500 * d.genome_id;
+		.attr("x", function(d) {
+			return d.x
+		})
+		.attr("y", function(d){
+			return 500 * d.genome_id 
 		})
 		.attr("width", function(d) {
-			return d.width;
+			return d.width
 		})
 		.attr("height", 30);
-
-	return true;
+	
 }
 
 function fade(g, i, opacity) {
