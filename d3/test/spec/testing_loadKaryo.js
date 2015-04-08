@@ -4,22 +4,15 @@ if(navigator.userAgent.match(/phantomjs/i)){
 	karyoFile = "https://raw.githubusercontent.com/BioInf-Wuerzburg/wgaPipeline/d3.js/d3_test/data/karyo.json";
 };
 
-describe("test the verification of the karyofile", function() {
-	it("karyo file should be defined", function() {
+describe("test the correct verification of the karyofile", function() {
+	it("the name of karyo file should be defined", function() {
 		var file = "data/karyo.json";
 		expect(file).toBeDefined();
 	});
-	it("the karyo file in the function should be defined", function() {
-		expect(loadKaryoFile(karyoFile)).toBeDefined();
-	});
-
 });
 
 
-describe(
-		
-		"loadKaryoFile",
-		function() {
+describe("loadKaryoFile", function() {
 			var returnData;
 			var expectedChromosomes = {
 				"Q_s6" : {
@@ -63,22 +56,14 @@ describe(
 				});
 			});
 
-			it(
-					"the external karyo file should be load in and we have the chromosome object",
-					function() {
-						expect(returnData.chromosomes).toEqual(
-								expectedChromosomes);
-					});
+			it("the external karyo file should be load in and we have the chromosome object. data should contain the chromosomes object we expected", function() {
+				expect(returnData.chromosomes).toEqual(expectedChromosomes);
+			});
 
-			it(
-					"the external karyo file should be load in and we have the order array",
-					function() {
-						expect(returnData.order).toEqual(expectedOrder);
-					});
-			
-
-
-		});
+			it("the external karyo file should be load in and we have the order array. data should contain the data obkect we expected", function() {
+				expect(returnData.order).toEqual(expectedOrder);
+			});			
+});
 
 describe("Spy on loadKaryoFile", function(){
 	//es wird ein test-Objekt loadKaryo angelegt, welches als test-Eigenschaft den Aufruf auf die Funktion loadKaryoFile enthält
