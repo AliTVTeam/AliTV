@@ -80,22 +80,26 @@ describe(
 
 		});
 
-describe("Spy on loadKaryo", function(){
+describe("Spy on loadKaryoFile", function(){
+	//es wird ein test-Objekt loadKaryo angelegt, welches als test-Eigenschaft den Aufruf auf die Funktion loadKaryoFile enthält
 	var loadKaryo = {};
 	loadKaryo.test = function test(karyoFile){
 		loadKaryoFile(karyoFile);
 	}
 	
+	//vor jedem spec wird der spy auf loadKaryo gesetzt
 	beforeEach(function() {
 		spyOn(loadKaryo, 'test');
 	    loadKaryo.test(karyoFile);
 	});
 	
-	it("tracks that the spy was called", function() {
+	
+	it("the spy tracks that the function loadKaryoFile was called", function() {
 	    expect(loadKaryo.test).toHaveBeenCalled();
 	});
 	
-	it("tracks all the arguments of its calls", function() {
+	it("the spy tracks the arguments of loadKaryoFile. In this case the arguments are either the filename or when you use grunt the url to the github-page. " +
+			"The test fails when you not assign the access to the data", function() {
 		if(navigator.userAgent.match(/phantomjs/i)){	
 			expect(loadKaryo.test).toHaveBeenCalledWith("https://raw.githubusercontent.com/BioInf-Wuerzburg/wgaPipeline/d3.js/d3_test/data/karyo.json");
 		}
