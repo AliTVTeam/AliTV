@@ -76,28 +76,32 @@
 //	}
 //});
 //
+
 //describe("Mouseover event", function() {
 //	var spyEvent;
 //	beforeEach(function() {
-//		drawKaryo(karyo);
+//		drawKaryo(returnKaryo);
 //	});
-
-	// it("links should change their opacity", function() {
-	// spyEvent = spyOnEvent('karyo', 'mouseover');
-	// $('.karyo').trigger("mouseover");
-	// expect(karyo.style('opacity')).toEqual(0.1);
-	// var spyEvent = spyOnEvent('.karyo', 'mouseover')
-	// $('.karyo').trigger("mouseover")
-	// expect('mouseover').toHaveBeenTriggeredOn('.karyo')
-	// expect(spyEvent).toHaveBeenTriggered()
-	// });
-//	it("should invoke the btnShowMessage click event.", function() {
-//		spyEvent = spyOnEvent('rect', 'click');
-//		$('rect').d3Click();
 //
-//		expect('click').toHaveBeenTriggeredOn('rect');
-//		expect(spyEvent).toHaveBeenTriggered();
+//	it("links should change their opacity", function() {
+//		spyEvent = spyOnEvent('karyo', 'mouseover');
+//		$('.karyo').trigger("mouseover");
+//
+//		expect(karyo.style('opacity')).toEqual(0.1);
+//
+//		var spyEvent = spyOnEvent('.karyo', 'mouseover')
+//		$('.karyo').trigger("mouseover")
+//
+//		expect('mouseover').toHaveBeenTriggeredOn('.karyo')
+//		expect(spyEvent).toHaveBeenTriggered()
 //	});
+//	 it("should invoke the btnShowMessage click event.", function() {
+//	 spyEvent = spyOnEvent('rect', 'click');
+//	 $('rect').d3Click();
+//	
+//	 expect('click').toHaveBeenTriggeredOn('rect');
+//	 expect(spyEvent).toHaveBeenTriggered();
+//	 });
 //
 //});
 

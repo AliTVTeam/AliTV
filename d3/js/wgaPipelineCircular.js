@@ -31,7 +31,7 @@ function karyo_to_coords(data) {
 		current += value.length + spacer;
 		data.chromosomes[key].endAngle = (current / total) * (2 * Math.PI);
 
-		if (value.rc == true) {
+		if (value.rc === true) {
 			var startAngle = data.chromosomes[key].startAngle;
 			var endAngle = data.chromosomes[key].endAngle;
 			data.chromosomes[key].startAngle = endAngle;
@@ -147,7 +147,7 @@ function drawLinks(links) {
 }
 var width = 1200;
 var height = 3000;
-var innerRadius = Math.min(width, height) * .41;
+var innerRadius = Math.min(width, height) * 0.41;
 var outerRadius = innerRadius * 1.1;
 
 var div = d3.select("body")
@@ -196,7 +196,7 @@ function drawKaryo(karyo) {
 					fullLink = link_to_coords(links, karyo);
 					redraw(identity_range, min_length);
 				});
-			})
+			});
 	addTicks(array);
 }
 
