@@ -41,18 +41,18 @@ function set_spacer(data) {
 	return spacer;
 }
 
-function create_new_karyo(karyo, g){
+function create_new_karyo(karyo, g) {
 	var key = g.name;
-	var x = karyo[key].x + karyo[key].width;
-	var width = karyo[key].width * (-1);
+	var endAngle = karyo[key].endAngle;
+	var startAngle = karyo[key].startAngle;
 	karyo[key] = {
-			"value" : karyo[key].value,
-			"index" : karyo[key].index,
-			"x" : x,
-			"width": width,
-			"genome_id" : karyo[key].genome_id,
-			"name" : key,
-			"rc" : karyo[key].rc
-		};
-return karyo;
+		"value" : karyo[key].value,
+		"startAngle" : endAngle,
+		"index" : karyo[key].index,
+		"genome_id" : karyo[key].genome_id,
+		"name" : karyo[key].name,
+		"endAngle" : startAngle,
+		"rc" : false
+	};
+	return karyo;
 }

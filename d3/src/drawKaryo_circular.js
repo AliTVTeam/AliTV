@@ -46,7 +46,7 @@ function drawKaryo(karyo) {
 				});
 				addTicks(array);
 				loadLinkFile("data/link.json", karyo, function(links) {
-					full_links = links;
+					fullLink = link_to_coords(links, karyo);
 					redraw(identity_range, min_length);
 				});
 			})
