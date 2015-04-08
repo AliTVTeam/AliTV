@@ -3,6 +3,8 @@ if(navigator.userAgent.match(/phantomjs/i)){
 	karyoFile = "https://raw.githubusercontent.com/BioInf-Wuerzburg/wgaPipeline/d3.js/d3_test/data/karyo.json";
 };
 
+describe("describe function loadKaryoFile", function(){
+	
 describe("test the correct verification of the karyofile", function() {
 	it("the name of karyo file should be defined", function() {
 		var file = "data/karyo.json";
@@ -94,3 +96,4 @@ describe("Spy on loadKaryoFile", function(){
 	});
 
 })
+});

@@ -3,7 +3,9 @@ var returnLinks;
 var links;
 var karyo;
 
-describe("link_to_coords", function(){
+
+describe("describe function link_to_coords", function(){
+describe("general tests", function(){
 	beforeEach(function(done){
 		loadKaryoFile(karyoFile, function(data){
 			karyo_to_coords(data);
@@ -57,6 +59,7 @@ describe('the information which is saved in the link file', function () {
         expect(links).toContainRibbon();
     });
 
+});
 });
 
 

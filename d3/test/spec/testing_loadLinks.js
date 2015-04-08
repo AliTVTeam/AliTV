@@ -4,6 +4,8 @@ if(navigator.userAgent.match(/phantomjs/i)){
 	linkFile = "https://raw.githubusercontent.com/BioInf-Wuerzburg/wgaPipeline/d3.js/d3_test/data/link.json";
 };
 
+
+describe("describe function loadLinkFile", function(){
 describe("test the verification of linkfile", function(){
 	it("the name of the link file should be defined", function(){
 		var file = "data/links.json";
@@ -60,5 +62,5 @@ describe("Spy on loadLinkFile", function(){
 	});
 
 });
-
+});
 
