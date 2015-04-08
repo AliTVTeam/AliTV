@@ -72,10 +72,14 @@ module.exports = function(grunt) {
 
 				},
 				dist: {
-				      src: ['d3/src/drawingStuff.js', 'd3/src/drawLinks.js', 'd3/src/karyoToCoords.js', 
-				            'd3/src/getRibbon.js', 'd3/src/LinksToCoords.js', 'd3/src/loadKaryo.js', 
-				            'd3/src/loadLinks.js','d3/src/drawKaryo.js'],
-				      dest: 'd3/js/wgaPipelineLinear.js',
+				      src: ['d3/src/drawingStuff.js', 'd3/src/drawLinks_linear.js', 'd3/src/karyoToCoords_linear.js', 
+				            'd3/src/getRibbon.js', 'd3/src/LinksToCoords_linear.js', 'd3/src/loadKaryo.js', 
+				            'd3/src/loadLinks.js','d3/src/drawKaryo_linear.js'],
+				      dest: 'd3/js/wgaPipelineLinear.js', 
+				      src: ['d3/src/loadKaryo.js', 'd3/src/karyoToCoords_circular.js', 'd3/src/drawKaryo.js', 'd3/src/drawingStuff.js',
+				            'd3/src/loadLinks.js', 'd3/src/LinksToCoords_circular.js', 'd3/src/drawLinks_circular.js', 
+				            'd3/src/drawKaryo_circular.js'],
+				      dest: 'd3/js/wgaPipelineCircular.js', 
 				},
 			}		
 		});

@@ -16,6 +16,7 @@ var identity = {
 var svg = d3.select("body").append("svg").attr("width", width).attr("height",
 		height).append("g").attr("transform",
 		"translate(" + width / 2 + "," + height / 2 + ")");
+
 var fill = d3.scale.category20c();
 var legendRectSize = 18;
 var legendSpacing = 4;
@@ -86,8 +87,6 @@ function drawKaryo(karyo) {
 	var array = $.map(karyo, function(value, index) {
 		return [ value ];
 	});
-	console.log(karyo);
-	console.log(array);
 	svg.append("g").attr("class", "karyo").selectAll("path").data(array)
 			.enter().append("path").style("fill", function(d) {
 				return fill(d.index);
