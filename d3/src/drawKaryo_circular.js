@@ -54,7 +54,7 @@ function drawKaryo(karyo) {
 }
 
 function fade(g, i, opacity) {
-	svg.selectAll(".chord path")
+	circularSvg.selectAll(".chord path")
 		.filter(function(d) {
 			return d.source.index != g.index && d.target.index != g.index;
 		})
