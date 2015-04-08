@@ -30,12 +30,7 @@ module.exports = function(grunt) {
 					options: {
 						'--local-to-remote-url-access': true,
 						specs: [
-							'd3/src/testing_loadKaryo.js',
-							'd3/src/testing_karyoToCoords.js',
-							'd3/src/testing_loadLinks.js',
-							'd3/src/testing_LinksToCoords.js',
-							'd3/src/testing_getRibbon.js',
-							'd3/src/testing_svgElements.js',
+							'd3/test/spec/testing_loadKaryo.js'
 						],
 						vendor: ['d3/lib/jquery.min.js',
 							'd3/lib/d3.v3.min.js',

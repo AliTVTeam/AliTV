@@ -7,7 +7,7 @@ var div = d3.select("body")
 			.style("opacity", 0);
 
 div.append("div")
-	.attr("class", "label")
+	.attr("class", "label");
 
 //function createSimpleSvg() {
 //	var that = {};
@@ -59,18 +59,27 @@ function drawKaryo(karyo) {
 			fade(g, i, 1);
 			reAdd_tooltip_legend();
 		})
-		.on("click", function(g, i) {
-			fade(g, i, 0.1);
-			console.log("Hello");
-		})
-				.style(
-					"fill",
-					function(d) {
-						return fill(d.index);
-					})
-				.style("stroke", function(d) {
-					return fill(d.index);
+//		.on("click", function(g, i) {
+//			svg.selectAll(".chord path").remove();
+//			svg.selectAll(".ticks g").remove();
+//			console.log(karyo);
+//			create_new_karyo(karyo, g);
+//			var array = $.map(karyo, function(value, index) {
+//				return [ value ];
+//			});
+//			loadLinkFile("data/link.json", karyo, function(links) {
+//				full_links = links;
+//				redraw(identity_range, min_length);
+//			});
+//		})
+		.style(
+			"fill",
+			function(d) {
+				return fill(d.index);
 				})
+		.style("stroke", function(d) {
+			return fill(d.index);
+		})
 		.attr("x", function(d) {
 			return d.x;
 		})
@@ -88,7 +97,7 @@ function drawKaryo(karyo) {
 function fade(g, i, opacity) {
 	svg.selectAll(".chord path")
 		.filter(function(d) {
-			//		return d.source.index != g.index && d.target.index != g.index;
+			return d.source.index != g.index && d.target.index != g.index;
 		})
 		.transition()
 		.style("opacity", opacity);
@@ -100,9 +109,9 @@ function add_tooltip_legend(g){
 	var text = name.concat(" \n", length);
 	div.transition()
 		.duration(200)
-		.style("opacity", .9)
+		.style("opacity", 0.9)
 		.style("left", (d3.event.pageX - 34) + "px")
-		.style("top", (d3.event.pageY - 12) + "px")
+		.style("top", (d3.event.pageY - 12) + "px");
 		div.html(name + "<br/>" + length);
 		
 }

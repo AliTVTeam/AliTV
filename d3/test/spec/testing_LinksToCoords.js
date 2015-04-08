@@ -3,36 +3,13 @@ var returnLinks;
 var links;
 var karyo;
 
-//var customMatchers = {
-//		toContainRibbon: function(util, customEqualityTesters){
-//			
-//			return{
-//			compare: function(actual, expected){
-//				if(expected === undefined){
-//					expected = '';
-//				}
-//			var result={};
-//			result.pass = util.equals(actual.links, links[0].ribbon + expected, customEqualityMatchers);
-//			if(result.pass){
-//				result.message = "contain expected ribbon information";
-//			}
-//			else{
-//				result.message = "not contain the expected ribbon information";
-//			}
-//			return result;
-//			}
-//		};
-//	} 
-//};
-
-//
 describe("link_to_coords", function(){
 	beforeEach(function(done){
 		loadKaryoFile(karyoFile, function(data){
 			karyo_to_coords(data);
 			returnKaryo=data.chromosomes;
 			
-			loadLinkFile(linkFile, function(data){
+			loadLinkFile(linkFile, karyo, function(data){
 			returnLinks=data;
 			
 			links=0;

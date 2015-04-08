@@ -1,4 +1,4 @@
-function link_to_coords(links, karyo) {
+function link_to_coords(links, fullKaryo) {
 	$.each(links, function(key, value) {
 
 		links[key].ribbon = [{
@@ -24,9 +24,8 @@ function link_to_coords(links, karyo) {
 			x: 1,
 			y: 1
 		}];
-
-		var s = karyo[value.source.name];
-
+		
+		var s = fullKaryo[value.source.name];
 		links[key].ribbon[0].source.x = s.x + s.width *
 			(value.source.start / s.value);
 		links[key].ribbon[0].source.y = 480 * s.genome_id + 45 +
@@ -41,8 +40,7 @@ function link_to_coords(links, karyo) {
 		links[key].source.value = Math.abs(value.source.end -
 			value.source.start);
 
-		var t = karyo[value.target.name];
-
+		var t = fullKaryo[value.target.name];
 		links[key].ribbon[0].target.x = t.x + t.width *
 			(value.target.start / t.value);
 		links[key].ribbon[0].target.y = 480 * t.genome_id + (s.genome_id * 15); // - 45
@@ -61,8 +59,7 @@ function link_to_coords(links, karyo) {
 		links[key].target.value = Math.abs(value.target.end -
 			value.target.start);
 	});
-
-	var array = $.map(karyo, function(value, index) {
+	var array = $.map(fullKaryo, function(value, index) {
 		return [value];
 	});
 	karyo = array;

@@ -18,7 +18,7 @@ describe("loadLinkFile", function(){
 	var expectedName;
 	
 	beforeEach(function(done){
-		loadLinkFile(linkFile, function(data){
+		loadLinkFile(linkFile, karyo, function(data){
 			returnData = data;
 			expectedName = returnData[0].target.name;
 			done();

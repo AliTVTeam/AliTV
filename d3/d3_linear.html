@@ -74,20 +74,19 @@ rect {
 					$("#minlength-slider").slider("value") + " bp");
 		});
 		var fullKaryo;
-		var full_links;
-		console.log("test");
+		var fullLink;
 		loadKaryoFile("data/karyo.json", function(karyo) {
 			fullKaryo = karyo_to_coords(karyo);
 			drawKaryo(fullKaryo);
 			loadLinkFile("data/link.json", karyo, function(links) {
-				full_links = links;
+				fullLink = link_to_coords(links, fullKaryo);
 				redraw(identity_range, min_length);
 			});
 		});
 
 		function redraw(identity_range,min_length) {
 			clear_chords();
-			var links = filter_links_by_length(full_links, min_length);
+			var links = filter_links_by_length(fullLink, min_length);
 			links = filter_links_by_identity(links, identity_range);
 			drawLinks(links);	
 		}
