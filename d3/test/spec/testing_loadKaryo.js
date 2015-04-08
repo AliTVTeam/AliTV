@@ -79,3 +79,30 @@ describe(
 
 
 		});
+
+describe("Spy on loadKaryo", function(){
+	var loadKaryo = {};
+	loadKaryo.test = function test(karyoFile){
+		loadKaryoFile(karyoFile);
+	}
+	
+	beforeEach(function() {
+		spyOn(loadKaryo, 'test');
+	    loadKaryo.test(karyoFile);
+	});
+	
+	it("tracks that the spy was called", function() {
+	    expect(loadKaryo.test).toHaveBeenCalled();
+	});
+	
+	it("tracks all the arguments of its calls", function() {
+		if(navigator.userAgent.match(/phantomjs/i)){	
+			expect(loadKaryo.test).toHaveBeenCalledWith("https://raw.githubusercontent.com/BioInf-Wuerzburg/wgaPipeline/d3.js/d3_test/data/karyo.json");
+		}
+		else{
+			expect(loadKaryo.test).toHaveBeenCalledWith("data/karyo.json");
+		}
+	    
+	});
+
+})
