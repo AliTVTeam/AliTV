@@ -1,15 +1,14 @@
 var linkFile = "data/link.json";
+
 if(navigator.userAgent.match(/phantomjs/i)){	
 	linkFile = "https://raw.githubusercontent.com/BioInf-Wuerzburg/wgaPipeline/d3.js/d3_test/data/link.json";
 };
+
 describe("test the verification of linkfile", function(){
-	it("link file should be defined", function(){
+	it("the name of the link file should be defined", function(){
 		var file = "data/links.json";
 		expect(file).toBeDefined();
 	});	
-	it("the link file in the function should be defined", function(){
-		expect(loadLinkFile(linkFile)).toBeDefined();
-	});
 });
 
 describe("loadLinkFile", function(){
@@ -29,6 +28,37 @@ describe("loadLinkFile", function(){
 	expect(returnData[0].target.name).toEqual(expectedName);
 	});
 	
+});
+
+describe("Spy on loadLinkFile", function(){
+	//es wird ein test-Objekt loadLink angelegt, welches als test-Eigenschaft den Aufruf auf die Funktion loadLinkFile enthält
+	var loadLink = {};
+	loadLink.test = function test(linkFile){
+		loadLinkFile(linkFile);
+	}
+	
+	//vor jedem spec wird der spy auf loadLink gesetzt
+	beforeEach(function() {
+		spyOn(loadLink, 'test');
+	    loadLink.test(linkFile);
+	});
+	
+	
+	it("the spy tracks that the function loadLinkFile was called", function() {
+	    expect(loadLink.test).toHaveBeenCalled();
+	});
+	
+	it("the spy tracks the arguments of loadLinkFile. In this case the arguments are either the filename or when you use grunt the url to the github-page. " +
+			"The test fails when you not assign the access to the data", function() {
+		if(navigator.userAgent.match(/phantomjs/i)){	
+			expect(loadLink.test).toHaveBeenCalledWith("https://raw.githubusercontent.com/BioInf-Wuerzburg/wgaPipeline/d3.js/d3_test/data/karyo.json");
+		}
+		else{
+			expect(loadLink.test).toHaveBeenCalledWith("data/karyo.json");
+		}
+	    
+	});
+
 });
 
 

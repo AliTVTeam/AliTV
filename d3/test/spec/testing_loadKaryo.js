@@ -1,5 +1,4 @@
 var karyoFile = "data/karyo.json";
-
 if(navigator.userAgent.match(/phantomjs/i)){	
 	karyoFile = "https://raw.githubusercontent.com/BioInf-Wuerzburg/wgaPipeline/d3.js/d3_test/data/karyo.json";
 };
