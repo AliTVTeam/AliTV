@@ -28,24 +28,23 @@ describe("describe function getRibbon", function(){
 		//vor jedem spec wird der spy auf loadKaryo gesetzt
 		beforeEach(function() {
 			spyOn(getRibbon, 'test');
-		    getRibbon.test(links);
 		});
 		
 		
 		it("the spy tracks that the function loadKaryoFile was called", function() {
+		    getRibbon.test(links);
 		    expect(getRibbon.test).toHaveBeenCalled();
 		});
 		
-//		it("the spy tracks the arguments of loadKaryoFile. In this case the arguments are either the filename or when you use grunt the url to the github-page. " +
-//				"The test fails when you not assign the access to the data", function() {
-//			if(navigator.userAgent.match(/phantomjs/i)){	
-//				expect(loadKaryo.test).toHaveBeenCalledWith("https://raw.githubusercontent.com/BioInf-Wuerzburg/wgaPipeline/d3.js/d3_test/data/karyo.json");
-//			}
-//			else{
-//				expect(loadKaryo.test).toHaveBeenCalledWith("data/karyo.json");
-//			}
-//		    
-//		});
+		//noch ein spy-test, testet eigentlich fast auf den gleichen inhalt wie beim vorherigen test
+		
+		it("the spy tracks if it was called at all", function() {
+		    expect(getRibbon.test.calls.any()).toEqual(false);
+
+		    getRibbon.test(links);
+
+		    expect(getRibbon.test.calls.any()).toEqual(true);
+		  });
 
 });
 });
