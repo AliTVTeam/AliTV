@@ -1,7 +1,5 @@
 var width = 1200;
 var height = 3000;
-var innerRadius = Math.min(width, height) * .41;
-var outerRadius = innerRadius * 1.1;
 
 var div = d3.select("body")
 			.append("div")
@@ -79,13 +77,13 @@ function drawKaryo(karyo) {
 		return fill(d.index);
 		})
 		.attr("x", function(d) {
-			return d.x
+			return d.x;
 		})
 		.attr("y", function(d){
-			return 500 * d.genome_id 
+			return 500 * d.genome_id; 
 		})
 		.attr("width", function(d) {
-			return d.width
+			return d.width;
 		})
 		.attr("height", 30);
 	
