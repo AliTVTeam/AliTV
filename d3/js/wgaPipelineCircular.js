@@ -197,7 +197,7 @@ function drawKaryo(karyo) {
 					redraw(identity_range, min_length);
 				});
 			})
-	//addTicks(array);
+	addTicks(array);
 }
 
 function fade(g, i, opacity) {
@@ -230,4 +230,38 @@ function reAdd_tooltip_legend(d) {
 
 function clear_chords() {
 	circularSvg.selectAll(".chord path").remove();
+}
+
+function addTicks(array) {
+	var ticks = circularSvg.append("g").attr("class", "ticks").selectAll("g").data(
+			array).enter().append("g").selectAll("g").data(groupTicks).enter()
+			.append("g").attr(
+					"transform",
+					function(d) {
+						return "rotate(" + (d.angle * 180 / Math.PI - 90) +
+								")" + "translate(" + outerRadius + ",0)";
+					});
+
+	ticks.append("line").attr("x1", 1).attr("y1", 0).attr("x2", 5)
+			.attr("y2", 0).style("stroke", "#000");
+
+	ticks.append("text").attr("x", 8).attr("dy", ".35em").attr("transform",
+			function(d) {
+				return d.angle > Math.PI ? "rotate(180)translate(-16)" : null;
+			}).style("text-anchor", function(d) {
+		return d.angle > Math.PI ? "end" : null;
+	}).text(function(d) {
+		return d.label;
+	});
+}
+
+//Returns an array of tick angles and labels, given a group.
+function groupTicks(d) {
+	var k = (d.endAngle - d.startAngle) / d.value;
+	return d3.range(0, d.value, 10000).map(function(v, i) {
+		return {
+			angle : v * k + d.startAngle,
+			label : i % 5 ? null : v / 1000 + "k"
+		};
+	});
 }
