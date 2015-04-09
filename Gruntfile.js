@@ -73,18 +73,20 @@ module.exports = function(grunt) {
 
 				},
 				basic: {
-				      src: ['d3/src/drawingStuff.js', 'd3/src/drawLinks_linear.js', 'd3/src/karyoToCoords_linear.js', 
-				            'd3/src/getRibbon.js', 'd3/src/LinksToCoords_linear.js', 'd3/src/loadKaryo.js', 
-				            'd3/src/loadLinks.js','d3/src/drawKaryo_linear.js'],
-				      dest: 'd3/js/wgaPipelineLinear.js', 
+					src: ['d3/src/drawingStuff.js', 'd3/src/drawLinks_linear.js', 'd3/src/karyoToCoords_linear.js',
+						'd3/src/getRibbon.js', 'd3/src/LinksToCoords_linear.js', 'd3/src/loadKaryo.js',
+						'd3/src/loadLinks.js', 'd3/src/drawKaryo_linear.js'
+					],
+					dest: 'd3/js/wgaPipelineLinear.js',
 				},
 				extras: {
 					src: ['d3/src/loadKaryo.js', 'd3/src/karyoToCoords_circular.js', 'd3/src/drawKaryo.js', 'd3/src/drawingStuff.js',
-				            'd3/src/loadLinks.js', 'd3/src/LinksToCoords_circular.js', 'd3/src/drawLinks_circular.js', 
-				            'd3/src/drawKaryo_circular.js'],
-				    dest: 'd3/js/wgaPipelineCircular.js', 
+						'd3/src/loadLinks.js', 'd3/src/LinksToCoords_circular.js', 'd3/src/drawLinks_circular.js',
+						'd3/src/drawKaryo_circular.js'
+					],
+					dest: 'd3/js/wgaPipelineCircular.js',
 				}
-			}		
+			}
 		});
 
 	// Load the plugin that provides the "jasmine" task.
@@ -95,7 +97,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 
 	// Default task(s).
-	grunt.registerTask('default', ['jshint', 'jasmine']);
+	grunt.registerTask('default', ['make', 'test']);
+
+	grunt
+		.registerTask('make', ['jsbeautifier:default', 'concat']);
+
+	grunt
+		.registerTask('test', ['jsbeautifier:verify', 'jshint', 'jasmine']);
 
 	grunt
 		.registerTask('travis', ['jsbeautifier:verify', 'jshint',
