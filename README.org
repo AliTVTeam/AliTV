@@ -1,5 +1,5 @@
 ** Build
-[[https://travis-ci.org/BioInf-Wuerzburg/wgaPipeline.svg?branch=grunt][https://travis-ci.org/BioInf-Wuerzburg/wgaPipeline.svg?branch=grunt]]
+[[https://travis-ci.org/BioInf-Wuerzburg/wgaPipeline/][https://travis-ci.org/BioInf-Wuerzburg/wgaPipeline.svg]]
 
 ** Installation
 
