@@ -86,6 +86,14 @@ module.exports = function(grunt) {
 					],
 					dest: 'd3/js/wgaPipeline_circular.js',
 				}
+			},
+			jsdoc: {
+				dist: {
+					src: ['d3/src/*.js'],
+					options: {
+						destination: 'd3/doc'
+					}
+				}
 			}
 		});
 
@@ -95,12 +103,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-jsbeautifier");
 	grunt.loadNpmTasks('grunt-istanbul-coverage');
 	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-jsdoc');
 
 	// Default task(s).
 	grunt.registerTask('default', ['make', 'test']);
 
 	grunt
-		.registerTask('make', ['jsbeautifier:default', 'concat']);
+		.registerTask('make', ['jsbeautifier:default', 'concat', 'jsdoc']);
 
 	grunt
 		.registerTask('test', ['jsbeautifier:verify', 'jshint', 'jasmine']);
