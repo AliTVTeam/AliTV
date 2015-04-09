@@ -31,4 +31,3 @@ function fillByIdy(identity) {
 		return "#32B008";
 	}
 }
-

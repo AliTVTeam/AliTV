@@ -10,12 +10,12 @@ function karyo_to_coords(data) {
 		var key = data.order[i];
 		var value = data.chromosomes[key];
 		data.chromosomes[key] = {
-			"value" : value.length,
-			"startAngle" : ((current + spacer) / total) * (2 * Math.PI),
-			"index" : index++,
-			"genome_id" : value.genome_id,
-			"name" : key,
-			"rc" : value.rc
+			"value": value.length,
+			"startAngle": ((current + spacer) / total) * (2 * Math.PI),
+			"index": index++,
+			"genome_id": value.genome_id,
+			"name": key,
+			"rc": value.rc
 		};
 		current += value.length + spacer;
 		data.chromosomes[key].endAngle = (current / total) * (2 * Math.PI);
@@ -46,13 +46,13 @@ function create_new_karyo(karyo, g) {
 	var endAngle = karyo[key].endAngle;
 	var startAngle = karyo[key].startAngle;
 	karyo[key] = {
-		"value" : karyo[key].value,
-		"startAngle" : endAngle,
-		"index" : karyo[key].index,
-		"genome_id" : karyo[key].genome_id,
-		"name" : karyo[key].name,
-		"endAngle" : startAngle,
-		"rc" : false
+		"value": karyo[key].value,
+		"startAngle": endAngle,
+		"index": karyo[key].index,
+		"genome_id": karyo[key].genome_id,
+		"name": karyo[key].name,
+		"endAngle": startAngle,
+		"rc": false
 	};
 	return karyo;
 }

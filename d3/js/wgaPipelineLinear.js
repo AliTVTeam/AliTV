@@ -32,7 +32,6 @@ function fillByIdy(identity) {
 	}
 }
 
-
 function drawLinks(links) {
 	svg.append("g").attr("class", "chord").selectAll("path").data(links)
 		.enter().append("path").attr("d",
@@ -111,20 +110,20 @@ function set_spacer(data) {
 	return spacer;
 }
 
-function create_new_karyo(karyo, g){
+function create_new_karyo(karyo, g) {
 	var key = g.name;
 	var x = karyo[key].x + karyo[key].width;
 	var width = karyo[key].width * (-1);
 	karyo[key] = {
-			"value" : karyo[key].value,
-			"index" : karyo[key].index,
-			"x" : x,
-			"width": width,
-			"genome_id" : karyo[key].genome_id,
-			"name" : key,
-			"rc" : karyo[key].rc
-		};
-return karyo;
+		"value": karyo[key].value,
+		"index": karyo[key].index,
+		"x": x,
+		"width": width,
+		"genome_id": karyo[key].genome_id,
+		"name": key,
+		"rc": karyo[key].rc
+	};
+	return karyo;
 }
 
 function getRibbon(links) {
@@ -187,7 +186,7 @@ function link_to_coords(links, fullKaryo) {
 			x: 1,
 			y: 1
 		}];
-		
+
 		var s = fullKaryo[value.source.name];
 		links[key].ribbon[0].source.x = s.x + s.width *
 			(value.source.start / s.value);
@@ -265,8 +264,6 @@ function loadKaryoFile(file, callback) {
 	return file;
 }
 
-
-
 function loadLinkFile(file, karyo, callback) {
 	$.getJSON(file, function(data) {
 		if (typeof callback !== 'undefined') {
@@ -280,15 +277,15 @@ var width = 1200;
 var height = 3000;
 
 var div = d3.select("body")
-			.append("div")
-			.attr("class", "tooltip")
-			.style("opacity", 0);
+	.append("div")
+	.attr("class", "tooltip")
+	.style("opacity", 0);
 
 div.append("div")
 	.attr("class", "label");
 
 var svg = d3.select("body").append("svg").attr("width", width).attr("height",
-		height).append("g");
+	height).append("g");
 
 //function createSimpleSvg() {
 //	var that = {};
@@ -319,52 +316,53 @@ var svg = d3.select("body").append("svg").attr("width", width).attr("height",
 
 function drawKaryo(karyo) {
 	var array = $.map(karyo, function(value, index) {
-		return [ value ];
+		return [value];
 	});
 	svg.append("g")
-	.selectAll("path")
-	.attr("class","karyo")
-	.data(array)
-	.enter()
-	.append("rect")
-	.on("mouseover", function(g, i) {
+		.selectAll("path")
+		.attr("class", "karyo")
+		.data(array)
+		.enter()
+		.append("rect")
+		.on("mouseover", function(g, i) {
 			fade(g, i, 0.1);
 			add_tooltip_legend(g);
+		})
+		.on("mouseout", function(g, i) {
+			fade(g, i, 1);
+			reAdd_tooltip_legend();
+		})
+		.on("click", function(g, i) {
+			svg.selectAll(".chord path").remove();
+			svg.selectAll(".ticks g").remove();
+			create_new_karyo(karyo, g);
+			var array = $.map(karyo, function(value, index) {
+				return [value];
+			});
+			loadLinkFile("data/link.json", karyo, function(links) {
+				fullLink = link_to_coords(links, karyo);
+				redraw(identity_range, min_length);
+			});
+		})
+		.style(
+			"fill",
+			function(d) {
+				return fill(d.index);
 			})
-	.on("mouseout", function(g, i) {
-				fade(g, i, 1);
-				reAdd_tooltip_legend();
-		})
-	.on("click", function(g, i){
-		svg.selectAll(".chord path").remove();
-		svg.selectAll(".ticks g").remove();
-		create_new_karyo(karyo, g);
-		var array = $.map(karyo, function(value, index) {
-			return [ value ];
-		});
-		loadLinkFile("data/link.json", karyo, function(links) {
-			fullLink = link_to_coords(links, karyo);
-			redraw(identity_range, min_length);
-		});
-	})
-	.style(
-		"fill", function(d) {
+		.style("stroke", function(d) {
 			return fill(d.index);
-		})
-	.style("stroke", function(d) {
-		return fill(d.index);
 		})
 		.attr("x", function(d) {
 			return d.x;
 		})
-		.attr("y", function(d){
-			return 500 * d.genome_id; 
+		.attr("y", function(d) {
+			return 500 * d.genome_id;
 		})
 		.attr("width", function(d) {
 			return d.width;
 		})
 		.attr("height", 30);
-	
+
 }
 
 function fade(g, i, opacity) {
@@ -376,7 +374,7 @@ function fade(g, i, opacity) {
 		.style("opacity", opacity);
 }
 
-function add_tooltip_legend(g){
+function add_tooltip_legend(g) {
 	var name = "name: " + g.name;
 	var length = "length: " + g.value + " bp";
 	var text = name.concat(" \n", length);
@@ -385,8 +383,8 @@ function add_tooltip_legend(g){
 		.style("opacity", 0.9)
 		.style("left", (d3.event.pageX - 34) + "px")
 		.style("top", (d3.event.pageY - 12) + "px");
-		div.html(name + "<br/>" + length);
-		
+	div.html(name + "<br/>" + length);
+
 }
 
 function reAdd_tooltip_legend(d) {

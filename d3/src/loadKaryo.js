@@ -6,5 +6,3 @@ function loadKaryoFile(file, callback) {
 	});
 	return file;
 }
-
-

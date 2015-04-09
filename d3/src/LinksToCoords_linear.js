@@ -24,7 +24,7 @@ function link_to_coords(links, fullKaryo) {
 			x: 1,
 			y: 1
 		}];
-		
+
 		var s = fullKaryo[value.source.name];
 		links[key].ribbon[0].source.x = s.x + s.width *
 			(value.source.start / s.value);
