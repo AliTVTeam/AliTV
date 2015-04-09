@@ -152,15 +152,46 @@ Create directory structure with js, css and html files to provide the framework 
 =cut
 
 sub create_dir_structure{
-	make_path("$opt_prefix.d3/lib", "$opt_prefix.d3/data", "$opt_prefix.d3/js") or $L->logdie("Creating folders failed: $!");
-	cp("$FindBin::RealBin/../d3/lib/d3.v3.min.js","$opt_prefix.d3/lib/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3/lib/jquery.min.js","$opt_prefix.d3/lib/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3/lib/jquery-ui.min.js","$opt_prefix.d3/lib/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3/js/wgaPipeline_linear.js","$opt_prefix.d3/js/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3/js/wgaPipeline_circular.js","$opt_prefix.d3/js/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3/lib/jquery-ui.min.css","$opt_prefix.d3/lib/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3/d3.html","$opt_prefix.d3/") or $L->logdie("Copy failed: $!");
-	cp("$FindBin::RealBin/../d3/d3_linear.html","$opt_prefix.d3/") or $L->logdie("Copy failed: $!");
+
+        # the following list contains all directories which have to be created inside the destination folder
+        my @dirlist = qw(
+                             "$opt_prefix.d3/lib"
+                             "$opt_prefix.d3/data"
+                             "$opt_prefix.d3/js"
+                        );
+
+	# the following list contains all files which have to be copied into the destination folder
+	my @files2copy = qw(
+                             lib/d3.v3.min.js
+                             lib/jquery.min.js
+                             lib/jquery-ui.min.js
+                             lib/jquery-ui.min.css
+
+                             js/wgaPipeline_linear.js
+                             js/wgaPipeline_circular.js
+
+                             d3.html
+                             d3_linear.html
+                            );
+
+	make_path(@dirlist, {error => \my $err});
+	if (@$err)
+	{
+	    for my $diag (@$err) {
+		my ($file, $message) = %$diag;
+		if ($file eq '') {
+		    $L->logdie("Creating folder failed with general error: $message");
+		}
+		else {
+		    $L->logdie("Creating folder failed for folder '$file': $message");
+		}
+	    }
+	}
+
+	foreach my $file (@files2copy)
+	{
+	    cp("$FindBin::RealBin/../d3/".$file,"$opt_prefix.d3/".$file) or $L->logdie("Copy failed for file '$file': $!");
+	}
 }
 
 
