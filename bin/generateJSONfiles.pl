@@ -152,7 +152,7 @@ Create directory structure with js, css and html files to provide the framework 
 =cut
 
 sub create_dir_structure{
-	make_path("$opt_prefix.d3/lib", "$opt_prefix.d3/data", "$opt_prefix.d3/lib");
+	make_path("$opt_prefix.d3/lib", "$opt_prefix.d3/data", "$opt_prefix.d3/js") or $L->logdie("Creating folders failed: $!");
 	cp("$FindBin::RealBin/../d3/lib/d3.v3.min.js","$opt_prefix.d3/lib/") or $L->logdie("Copy failed: $!");
 	cp("$FindBin::RealBin/../d3/lib/jquery.min.js","$opt_prefix.d3/lib/") or $L->logdie("Copy failed: $!");
 	cp("$FindBin::RealBin/../d3/lib/jquery-ui.min.js","$opt_prefix.d3/lib/") or $L->logdie("Copy failed: $!");
