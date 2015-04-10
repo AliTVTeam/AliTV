@@ -154,10 +154,10 @@ Create directory structure with js, css and html files to provide the framework 
 sub create_dir_structure{
 
         # the following list contains all directories which have to be created inside the destination folder
-        my @dirlist = qw(
-                             "$opt_prefix.d3/lib"
-                             "$opt_prefix.d3/data"
-                             "$opt_prefix.d3/js"
+        my @dirlist = map { $opt_prefix.".d3/".$_ } qw(
+                             lib
+                             data
+                             js
                         );
 
 	# the following list contains all files which have to be copied into the destination folder
@@ -190,7 +190,7 @@ sub create_dir_structure{
 
 	foreach my $file (@files2copy)
 	{
-	    cp("$FindBin::RealBin/../d3/".$file,"$opt_prefix.d3/".$file) or $L->logdie("Copy failed for file '$file': $!");
+	    cp("$FindBin::RealBin/../d3/".$file,$opt_prefix.".d3/".$file) or $L->logdie("Copy failed for file '$file': $!");
 	}
 }
 
