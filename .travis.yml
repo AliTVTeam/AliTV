@@ -1,10 +1,9 @@
 language: perl 
 perl:
   - "5.10"
-install: true
 before_script:
   - npm install -g grunt-cli
   - npm install
 script:
-  - perl t/test_generateJSONfiles.pl
+  - perl Build.PL && ./Build test
   - npm test
