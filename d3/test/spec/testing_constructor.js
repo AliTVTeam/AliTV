@@ -1,4 +1,4 @@
-describe('The constructor is supposed to create a non empty object', function(){
+describe('The constructor is supposed a proper wgaPipeline object', function(){
 	it('Constructor wgaPipeline exists', function(){
 		expect(wgaPipeline).toBeDefined();
 	});
