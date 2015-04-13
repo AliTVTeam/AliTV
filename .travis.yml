@@ -1,5 +1,9 @@
-language: node_js
-node_js:
-  - "0.10"
-before_install:
+language: perl 
+perl:
+  - "5.10"
+before_script:
   - npm install -g grunt-cli
+  - npm install
+script:
+  - perl Build.PL && ./Build test
+  - npm test
