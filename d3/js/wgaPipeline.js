@@ -9,6 +9,6 @@
  * var wga = new wgaPipeline(svg);
  */
 function wgaPipeline(svg) {
-	//	this.svg = svg;
+	this.svg = svg;
 	//	this.data = {};
 }
