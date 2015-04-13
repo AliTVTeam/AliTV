@@ -1,5 +1,6 @@
 ** Build
-[[https://travis-ci.org/BioInf-Wuerzburg/wgaPipeline/][https://travis-ci.org/BioInf-Wuerzburg/wgaPipeline.svg]]
+[[https://travis-ci.org/BioInf-Wuerzburg/wgaPipeline/][https://travis-ci.org/BioInf-Wuerzburg/wgaPipeline.svg?branch=d3js_oo]]
+[[https://coveralls.io/r/BioInf-Wuerzburg/wgaPipeline?branch=d3js_oo][https://coveralls.io/repos/BioInf-Wuerzburg/wgaPipeline/badge.svg?branch=d3js_oo]]
 
 ** Installation
 
