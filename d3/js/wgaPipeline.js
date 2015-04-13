@@ -8,7 +8,7 @@
  * var svg = $('#canvas');
  * var wga = new wgaPipeline(svg);
  */
-//function wgaPipeline(svg) {
-//	this.svg = svg;
-//	this.data = {};
-//}
+function wgaPipeline(svg) {
+	//	this.svg = svg;
+	//	this.data = {};
+}
