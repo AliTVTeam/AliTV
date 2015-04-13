@@ -10,5 +10,5 @@
  */
 function wgaPipeline(svg) {
 	this.svg = svg;
-	//	this.data = {};
+	this.data = {};
 }
