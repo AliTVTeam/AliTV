@@ -10,4 +10,7 @@ describe('The constructor is supposed to create a non empty object', function(){
 	it('the svg property is properly set', function(){
 		expect(wga.svg).toEqual(svg);
 	});
+	it('the data property is initialized as empty object', function(){
+		expect(wga.data).toEqual({});
+	});
 });
