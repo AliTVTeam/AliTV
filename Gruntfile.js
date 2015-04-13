@@ -6,7 +6,9 @@ module.exports = function(grunt) {
 			pkg: grunt.file.readJSON('package.json'),
 			jsbeautifier: {
 				"default": {
-					src: ["Gruntfile.js", "d3/src/*.js"],
+					src: ["Gruntfile.js", "d3/src/*.js",
+						"d3/js/wgaPipeline.js"
+					],
 					options: {
 						js: {
 							indent_with_tabs: true
@@ -14,7 +16,9 @@ module.exports = function(grunt) {
 					}
 				},
 				"verify": {
-					src: ["d3/src/*.js"],
+					src: ["Gruntfile.js", "d3/src/*.js",
+						"d3/js/wgaPipeline.js"
+					],
 					options: {
 						mode: "VERIFY_ONLY",
 						js: {
@@ -26,13 +30,10 @@ module.exports = function(grunt) {
 			},
 			jasmine: {
 				components: {
-					src: ['d3/src/*.js'],
+					src: ['d3/js/wgaPipeline.js'],
 					options: {
 						'--local-to-remote-url-access': true,
-						specs: [
-							'd3/test/spec/testing_loadKaryo.js', 'd3/test/spec/testing_karyoToCoords.js', 'd3/test/spec/testing_loadLinks.js',
-							'd3/test/spec/testing_svgElements.js'
-						],
+						specs: ['d3/test/spec/testing_object.js'],
 						vendor: ['d3/lib/jquery.min.js',
 							'd3/lib/d3.v3.min.js',
 							'd3/test/lib/jasmine-2.2.0/jasmine-jquery.js'
@@ -68,7 +69,7 @@ module.exports = function(grunt) {
 			},
 			jsdoc: {
 				dist: {
-					src: ['d3/src/*.js'],
+					src: ['d3/js/wgaPipeline.js'],
 					options: {
 						destination: 'd3/doc'
 					}
@@ -96,12 +97,10 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('make', ['jsbeautifier:default', 'jsdoc']);
 
-	grunt
-		.registerTask('test', ['jsbeautifier:verify', 'jshint', 'jasmine']);
+	grunt.registerTask('test', ['jsbeautifier:verify', 'jshint', 'jasmine']);
 
-	grunt
-		.registerTask('travis', ['jsbeautifier:verify', 'jshint',
-			'jasmine', 'coveralls'
-		]);
+	grunt.registerTask('travis', ['jsbeautifier:verify', 'jshint', 'jasmine',
+		'coveralls'
+	]);
 
 };
