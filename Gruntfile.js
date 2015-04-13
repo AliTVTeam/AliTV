@@ -76,10 +76,12 @@ module.exports = function(grunt) {
 				}
 			},
 			coveralls: {
-				options: {
+				all: {
 					// LCOV coverage file relevant to every target
 					src: 'd3/test/coverage/lcov.info',
-					force: false
+					options: {
+						force: false
+					}
 				}
 			}
 		});
