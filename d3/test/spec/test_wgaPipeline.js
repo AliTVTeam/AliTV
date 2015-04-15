@@ -14,3 +14,11 @@ describe('The constructor is supposed a proper WgaPipeline object', function(){
 		expect(wga.data).toEqual({});
 	});
 });
+
+describe('The setData method of WgaPipeline objects is supposed to set the data', function(){
+	var svg = $('<svg></svg>');
+	var wga = new WgaPipeline(svg);
+	it('setData method is supposed to be a function', function(){
+		expect(typeof wga.setData).toEqual('function');
+	});
+});
