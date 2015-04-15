@@ -9,15 +9,36 @@
  * var wga = new wgaPipeline(svg);
  */
 function WgaPipeline(svg) {
-	this.svg = svg;
-	this.data = {};
-	this.coords = {};
 	/**
-	 * @property {number}  width                  - The width of the svg.
-	 * @property {number}  height                 - The height of the svg.
-	 * @property {object}  linear                 - The configuration options for the linear layout.
-	 * @property {number}  linear.genomeDistance  - The vertical distance between adjacent genomes.
-	 * @property {number}  linear.karyoHeight     - The height of each chromosome.
+	 * property to contain the svg DOM element
+	 */
+	this.svg = svg;
+	/**
+	 * property to store the data
+	 * @property {Object}  karyo                        - the chromosome information
+	 * @property {Array}   karyo.order                  - array of chromosome IDs in the desired order
+	 * @property {Object}  karyo.chromosomes            - the chromosome details, karyo IDs as keys
+	 * @property {Number}  karyo.chromosomes.genome_id  - number of genome to which this chromosome belongs
+	 * @property {Number}  karyo.chromosomes.length     - length in bp
+	 * @property {Boolean} karyo.chromosomes.rc         - should the sequence be treated as its reverse complement
+	 * @property {String}  karyo.chromosomes.seq        - sequence of the chromosome
+	 * @property {Object}  features                     - the feature information, feature IDs as keys
+	 * @property {String}  features.karyo               - the karyo ID
+	 * @property {Number}  features.start               - start position on the sequence
+	 * @property {Number}  features.end                 - end position on the sequence
+	 * @property {Object}  links                        - the link information
+	 * @property {String}  links.source                 - source feature of the link
+	 * @property {String}  links.target                 - target feature of the link
+	 * @property {Number}  links.identity               - identity of the link
+	 */
+	this.data = {};
+	/**
+	 * property to store configuration options
+	 * @property {Number}  width                  - The width of the svg.
+	 * @property {Number}  height                 - The height of the svg.
+	 * @property {Object}  linear                 - The configuration options for the linear layout.
+	 * @property {Number}  linear.genomeDistance  - The vertical distance between adjacent genomes.
+	 * @property {Number}  linear.karyoHeight     - The height of each chromosome.
 	 */
 	this.conf = {
 		width: 1000,
@@ -61,8 +82,9 @@ WgaPipeline.prototype.setData = function(data) {
 /**
  * Calculates coordinates for the chromosomes to draw in the linear layout.
  * This function operates on the data property of the object and therefore needs no parameters.
+ * This function is primarily meant for internal usage, the user should not need to call this directly.
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
- * @returns {Array} containing one Object for each element in data.karyo of the form {karyo: 'karyo_name', x:0, y:0, width:10, height:10}
+ * @returns {Array} Array containing one Object for each element in data.karyo of the form {karyo: 'karyo_name', x:0, y:0, width:10, height:10}
  */
 WgaPipeline.prototype.getLinearKaryoCoords = function() {
 	var linearKaryoCoords = [];

@@ -192,6 +192,10 @@ var wga = new wgaPipeline(svg);</code></pre>
 </dt>
 <dd>
     
+    <div class="description">
+        property to store configuration options
+    </div>
+    
     
     
 
@@ -231,7 +235,7 @@ var wga = new wgaPipeline(svg);</code></pre>
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Number</span>
 
 
             
@@ -254,7 +258,7 @@ var wga = new wgaPipeline(svg);</code></pre>
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Number</span>
 
 
             
@@ -277,7 +281,7 @@ var wga = new wgaPipeline(svg);</code></pre>
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">Object</span>
 
 
             
@@ -318,7 +322,7 @@ var wga = new wgaPipeline(svg);</code></pre>
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Number</span>
 
 
             
@@ -341,7 +345,7 @@ var wga = new wgaPipeline(svg);</code></pre>
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Number</span>
 
 
             
@@ -385,7 +389,584 @@ var wga = new wgaPipeline(svg);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line22">line 22</a>
+        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line43">line 43</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="data"><span class="type-signature"></span>data<span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        property to store the data
+    </div>
+    
+    
+    
+
+    
+<dl class="details">
+    
+        
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>karyo</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the chromosome information
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>order</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">array of chromosome IDs in the desired order</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>chromosomes</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the chromosome details, karyo IDs as keys
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>genome_id</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">number of genome to which this chromosome belongs</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">length in bp</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>rc</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">should the sequence be treated as its reverse complement</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>seq</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">sequence of the chromosome</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>features</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the feature information, feature IDs as keys
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>karyo</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the karyo ID</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">start position on the sequence</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>end</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">end position on the sequence</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>links</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the link information
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>source</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">source feature of the link</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">target feature of the link</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>identity</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">identity of the link</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line34">line 34</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="svg"><span class="type-signature"></span>svg<span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        property to contain the svg DOM element
+    </div>
+    
+    
+    
+
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line15">line 15</a>
     </li></ul></dd>
     
     
@@ -458,7 +1039,7 @@ This function operates on the data property of the object and therefore needs no
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line67">line 67</a>
+        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line88">line 88</a>
     </li></ul></dd>
     
     
@@ -483,7 +1064,7 @@ This function operates on the data property of the object and therefore needs no
     
             
 <div class="param-desc">
-    containing one Object for each element in data.karyo of the form {karyo: 'karyo_name', x:0, y:0, width:10, height:10}
+    Array containing one Object for each element in data.karyo of the form {karyo: 'karyo_name', x:0, y:0, width:10, height:10}
 </div>
 
 
@@ -605,7 +1186,7 @@ For the required format see the example
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line57">line 57</a>
+        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line78">line 78</a>
     </li></ul></dd>
     
     
@@ -673,7 +1254,7 @@ wga.setData({'karyo': karyo, 'features': features, 'links': links};</code></pre>
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Wed Apr 15 2015 14:33:58 GMT+0200 (MESZ)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Wed Apr 15 2015 14:52:31 GMT+0200 (MESZ)
 </footer>
 
 <script> prettyPrint(); </script>
