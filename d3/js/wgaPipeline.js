@@ -42,6 +42,13 @@ WgaPipeline.prototype.setData = function(data) {
 	this.data = data;
 };
 
+/**
+ * Calculates coordinates for the chromosomes to draw in the linear layout.
+ * This function operates on the data property of the object and therefore needs no parameters.
+ * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
+ * @returns {Array} containing one Object for each element in data.karyo of the form {karyo: 'karyo_name', x:0, y:0, width:10, height:10}
+ */
 WgaPipeline.prototype.getLinearKaryoCoords = function() {
-
+	var linearKaryoCoords = [];
+	return linearKaryoCoords;
 };
