@@ -12,3 +12,7 @@ function WgaPipeline(svg) {
 	this.svg = svg;
 	this.data = {};
 }
+
+WgaPipeline.prototype.setData = function() {
+
+};
