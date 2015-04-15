@@ -44,7 +44,7 @@ function WgaPipeline(svg) {
 		width: 1000,
 		height: 1000,
 		linear: {
-			lineHeight: 300,
+			genomeDistance: 300,
 			karyoHeight: 30
 		}
 

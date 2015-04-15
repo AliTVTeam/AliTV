@@ -1,3 +1,12 @@
+var defaultConf =  {
+		width: 1000,
+		height: 1000,
+		linear: {
+			genomeDistance: 300,
+			karyoHeight: 30
+		}
+};
+
 describe('The constructor is supposed a proper WgaPipeline object', function(){
 	it('Constructor wgaPipeline exists', function(){
 		expect(WgaPipeline).toBeDefined();
@@ -13,14 +22,6 @@ describe('The constructor is supposed a proper WgaPipeline object', function(){
 	it('the data property is initialized as empty object', function(){
 		expect(wga.data).toEqual({});
 	});
-	var defaultConf =  {
-		width: 1000,
-		height: 1000,
-		linear: {
-			lineHeight: 300,
-			karyoHeight: 30
-		}
-	};
 	it('the conf property is initialized with default values', function(){
 		expect(wga.conf).toEqual(defaultConf);
 	});
@@ -64,5 +65,12 @@ describe('The getLinearKaryoCoords method of WgaPipeline objects is supposed to 
 	var linearKaryoCoords = wga.getLinearKaryoCoords();
 	it('getLinearKaryoCoords method is supposed to return linearKaryoCoords', function(){
 		expect(linearKaryoCoords).toBeDefined();
+	});
+	var expectedCoords = [
+		{'karyo': c1, 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight},
+		{'karyo': c2, 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight}
+	];
+	it('getLinearKaryoCoords method is supposed to work with simple test data', function(){
+		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
 });
