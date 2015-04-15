@@ -51,9 +51,13 @@ describe('The setData method of WgaPipeline objects is supposed to set the data'
 	it('setData method is supposed to be a function', function(){
 		expect(typeof wga.setData).toEqual('function');
 	});
-	wga.setData(data);
 	it('setData method is supposed to set the data variable', function(){
+		wga.setData(data);
 		expect(wga.data).toEqual(data);
+	});
+	it('setData method is supposed to overwrite existing data', function(){
+		wga.setData(data2);
+		expect(wga.data).toEqual(data2);
 	});
 });
 
