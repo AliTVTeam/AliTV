@@ -13,6 +13,9 @@ describe('The constructor is supposed a proper WgaPipeline object', function(){
 	it('the data property is initialized as empty object', function(){
 		expect(wga.data).toEqual({});
 	});
+	it('the coords property is initialized as empty object', function(){
+		expect(wga.coords).toEqual({});
+	});
 });
 
 describe('The setData method of WgaPipeline objects is supposed to set the data', function(){

@@ -11,6 +11,7 @@
 function WgaPipeline(svg) {
 	this.svg = svg;
 	this.data = {};
+	this.coords = {};
 }
 
 /**
