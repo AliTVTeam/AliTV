@@ -12,6 +12,13 @@ function WgaPipeline(svg) {
 	this.svg = svg;
 	this.data = {};
 	this.coords = {};
+	/**
+	 * @property {number}  width                  - The width of the svg.
+	 * @property {number}  height                 - The height of the svg.
+	 * @property {object}  linear                 - The configuration options for the linear layout.
+	 * @property {number}  linear.genomeDistance  - The vertical distance between adjacent genomes.
+	 * @property {number}  linear.karyoHeight     - The height of each chromosome.
+	 */
 	this.conf = {
 		width: 1000,
 		height: 1000,
