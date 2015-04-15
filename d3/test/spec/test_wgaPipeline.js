@@ -46,6 +46,8 @@ describe('The setData method of WgaPipeline objects is supposed to set the data'
 });
 
 describe('The getLinearKaryoCoords method of WgaPipeline objects is supposed to calculate coordinates for the karyos in the linear case', function(){
+	var svg = $('<svg></svg>');
+	var wga = new WgaPipeline(svg);
 	it('getLinearKaryoCoords method is supposed to be a function', function(){
 		expect(typeof wga.getLinearKaryoCoords).toEqual('function');
 	});

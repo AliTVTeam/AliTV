@@ -41,3 +41,7 @@ function WgaPipeline(svg) {
 WgaPipeline.prototype.setData = function(data) {
 	this.data = data;
 };
+
+WgaPipeline.prototype.getLinearKaryoCoords = function() {
+
+};
