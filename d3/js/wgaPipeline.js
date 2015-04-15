@@ -16,7 +16,8 @@ function WgaPipeline(svg) {
 	/**
 	 * property to store the data
 	 * @property {Object}  karyo                        - the chromosome information
-	 * @property {Array}   karyo.order                  - array of chromosome IDs in the desired order
+	 * @property {Array}   karyo.order                  - array of chromosome IDs in the desired order (circular layout)
+	 * @property {Array}   karyo.genome_order           - array of genome IDs in the desired order (linear layout)
 	 * @property {Object}  karyo.chromosomes            - the chromosome details, karyo IDs as keys
 	 * @property {Number}  karyo.chromosomes.genome_id  - number of genome to which this chromosome belongs
 	 * @property {Number}  karyo.chromosomes.length     - length in bp
@@ -34,20 +35,21 @@ function WgaPipeline(svg) {
 	this.data = {};
 	/**
 	 * property to store configuration options
-	 * @property {Number}  width                  - The width of the svg.
-	 * @property {Number}  height                 - The height of the svg.
+	 * @property {Number}  width                  - The width of the svg in px.
+	 * @property {Number}  height                 - The height of the svg in px.
 	 * @property {Object}  linear                 - The configuration options for the linear layout.
-	 * @property {Number}  linear.genomeDistance  - The vertical distance between adjacent genomes.
-	 * @property {Number}  linear.karyoHeight     - The height of each chromosome.
+	 * @property {Number}  linear.genomeDistance  - The vertical distance between adjacent genomes in px.
+	 * @property {Number}  linear.karyoHeight     - The height of each chromosome in px.
+	 * @property {Number}  linear.karyoDistance   - The horizontal distance between adjacent chromosomes of the same genome in bp.
 	 */
 	this.conf = {
 		width: 1000,
 		height: 1000,
 		linear: {
 			genomeDistance: 300,
-			karyoHeight: 30
+			karyoHeight: 30,
+			karyoDistance: 10
 		}
-
 	};
 }
 
@@ -61,6 +63,7 @@ function WgaPipeline(svg) {
  * var wga = new wgaPipeline(svg);
  * var karyo = {
  * 	'order': ['c1', 'c2'],
+ * 	'genome_order': ['0', '1'],
  * 	'chromosomes': {
  * 	'c1': {'genome_id': 0, 'length': 2000, 'rc': false, 'seq': null},
  * 	'c2': {'genome_id': 1, 'length': 1000, 'rc': false, 'seq': null}
@@ -88,5 +91,37 @@ WgaPipeline.prototype.setData = function(data) {
  */
 WgaPipeline.prototype.getLinearKaryoCoords = function() {
 	var linearKaryoCoords = [];
+	var genome_order = this.data.karyo.genome_order;
+	var conf = this.conf;
+
+	var total = [];
+	var current = [];
+	var i;
+	// Initialize total with the negative of one karyoDistance - as there is one space less then karyos per genome
+	for (i = 0; i < genome_order.length; i++) {
+		total.push(-conf.linear.karyoDistance);
+		current.push(0);
+	}
+
+	$.each(this.data.karyo.chromosomes, function(key, value) {
+		total[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
+	});
+
+	var maxTotalSize = Math.max.apply(null, total);
+
+	for (i = 0; i < this.data.karyo.order.length; i++) {
+		key = this.data.karyo.order[i];
+		var value = this.data.karyo.chromosomes[key];
+		var coord = {
+			'karyo': key,
+			'x': (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width,
+			'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
+			'width': (value.length / maxTotalSize) * conf.width,
+			'height': conf.linear.karyoHeight
+		};
+		current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
+		linearKaryoCoords.push(coord);
+	}
+
 	return linearKaryoCoords;
 };

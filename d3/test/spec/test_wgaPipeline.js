@@ -3,7 +3,8 @@ var defaultConf =  {
 		height: 1000,
 		linear: {
 			genomeDistance: 300,
-			karyoHeight: 30
+			karyoHeight: 30,
+			karyoDistance: 10
 		}
 };
 
@@ -29,6 +30,7 @@ describe('The constructor is supposed a proper WgaPipeline object', function(){
 
 var karyo = {
 		'order': ['c1', 'c2'],
+		'genome_order': [0, 1],
 		'chromosomes': {
 			'c1': {'genome_id': 0, 'length': 2000, 'rc': false, 'seq': null},
 			'c2': {'genome_id': 1, 'length': 1000, 'rc': false, 'seq': null}
@@ -67,8 +69,8 @@ describe('The getLinearKaryoCoords method of WgaPipeline objects is supposed to 
 		expect(linearKaryoCoords).toBeDefined();
 	});
 	var expectedCoords = [
-		{'karyo': c1, 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight},
-		{'karyo': c2, 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight}
+		{'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight},
+		{'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight}
 	];
 	it('getLinearKaryoCoords method is supposed to work with simple test data', function(){
 		expect(linearKaryoCoords).toEqual(expectedCoords);
