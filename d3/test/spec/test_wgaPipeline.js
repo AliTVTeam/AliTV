@@ -16,6 +16,17 @@ describe('The constructor is supposed a proper WgaPipeline object', function(){
 	it('the coords property is initialized as empty object', function(){
 		expect(wga.coords).toEqual({});
 	});
+	var defaultConf =  {
+		width: 1000,
+		height: 1000,
+		linear: {
+			lineHeight: 300,
+			karyoHeight: 30
+		}
+	};
+	it('the conf property is initialized with default values', function(){
+		expect(wga.conf).toEqual(defaultConf);
+	});
 });
 
 var karyo = {

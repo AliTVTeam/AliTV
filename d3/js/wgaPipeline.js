@@ -12,6 +12,15 @@ function WgaPipeline(svg) {
 	this.svg = svg;
 	this.data = {};
 	this.coords = {};
+	this.conf = {
+		width: 1000,
+		height: 1000,
+		linear: {
+			lineHeight: 300,
+			karyoHeight: 30
+		}
+
+	};
 }
 
 /**
