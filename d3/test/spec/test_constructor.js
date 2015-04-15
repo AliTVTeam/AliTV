@@ -1,10 +1,10 @@
-describe('The constructor is supposed a proper wgaPipeline object', function(){
+describe('The constructor is supposed a proper WgaPipeline object', function(){
 	it('Constructor wgaPipeline exists', function(){
-		expect(wgaPipeline).toBeDefined();
+		expect(WgaPipeline).toBeDefined();
 	});
 	var svg = $('<svg></svg>');
-	var wga = new wgaPipeline(svg);
-	it('wgaPipelie object is not null', function(){
+	var wga = new WgaPipeline(svg);
+	it('WgaPipelie object is not null', function(){
 		expect(wga).not.toBeNull();
 	});
 	it('the svg property is properly set', function(){
