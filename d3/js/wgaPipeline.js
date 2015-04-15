@@ -37,6 +37,6 @@ function WgaPipeline(svg) {
  * ];
  * wga.setData({'karyo': karyo, 'features': features, 'links': links};
  */
-WgaPipeline.prototype.setData = function() {
-
+WgaPipeline.prototype.setData = function(data) {
+	this.data = data;
 };
