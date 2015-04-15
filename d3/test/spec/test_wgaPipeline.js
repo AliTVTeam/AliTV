@@ -44,3 +44,9 @@ describe('The setData method of WgaPipeline objects is supposed to set the data'
 		expect(wga.data).toEqual(data);
 	});
 });
+
+describe('The getLinearKaryoCoords method of WgaPipeline objects is supposed to calculate coordinates for the karyos in the linear case', function(){
+	it('getLinearKaryoCoords method is supposed to be a function', function(){
+		expect(typeof wga.getLinearKaryoCoords).toEqual('function');
+	});
+});
