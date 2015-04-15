@@ -132,18 +132,23 @@ open(OUT, '>', "$opt_prefix.d3/data/karyo.json") or $L->logdie("Can not open fil
 print OUT encode_json $karyo;
 close OUT or die "$!";
 
+my $features = {};
+my $links = [];
 if($opt_bed){	
-	my $features = parse_bed($opt_bed, $karyo);
+	$features = parse_bed($opt_bed, $karyo);
 	open(OUT, '>', "$opt_prefix.d3/data/features.json") or $L->logdie("Can not open file $opt_prefix.d3/data/features.json\n$!");
 	print OUT encode_json $features;
 	close OUT or die "$!";
 	if($opt_link){
-		my $links = parse_links($opt_link, $features);
+		$links = parse_links($opt_link, $features);
 		open(OUT, '>', "$opt_prefix.d3/data/link.json") or $L->logdie("Can not open file $opt_prefix.d3/data/links.json\n$!");
 		print OUT encode_json $links;
 		close OUT or die "$!";
 	}
 }
+open(OUT, '>', "$opt_prefix.d3/data/data.json") or $L->logdie("Can not open file $opt_prefix.d3/data/data.json\n$!");
+print OUT encode_json {'karyo' => $karyo, 'features' => $features, 'links' => $links};
+close OUT or die "$!";
 
 =head2 create_dir_structure
 
