@@ -125,3 +125,9 @@ WgaPipeline.prototype.getLinearKaryoCoords = function() {
 
 	return linearKaryoCoords;
 };
+
+/**
+ * This function draws the karyos in the linear layout
+ * @author Markus Ankenbrand and Sonja Hohlfeld
+ * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
+ */
