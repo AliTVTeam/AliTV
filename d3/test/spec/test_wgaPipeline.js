@@ -17,6 +17,9 @@ describe('The constructor is supposed a proper WgaPipeline object', function(){
 	it('WgaPipelie object is not null', function(){
 		expect(wga).not.toBeNull();
 	});
+	it('WgaPipelie object should be an instance of WgaPipeline class', function(){
+		expect(wga instanceof WgaPipeline).toBeTruthy();
+	});
 	it('the svg property is properly set', function(){
 		expect(wga.svg).toEqual(svg);
 	});
@@ -25,6 +28,12 @@ describe('The constructor is supposed a proper WgaPipeline object', function(){
 	});
 	it('the width of the svg should be set to the configured width', function(){
 		expect(wga.svg.width()).toEqual(defaultConf.width);
+	});
+	it('the svgD3 property should exist', function(){
+		expect(wga.svgD3).not.toBeNull();
+	});
+	it('the svgD3 property should be a d3 object', function(){
+		expect(wga.svgD3 instanceof d3.selection).toBeTruthy();
 	});
 	it('the data property is initialized as empty object', function(){
 		expect(wga.data).toEqual({});
