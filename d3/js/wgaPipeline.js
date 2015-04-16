@@ -51,6 +51,8 @@ function WgaPipeline(svg) {
 			karyoDistance: 10
 		}
 	};
+	// Initialize svg size
+	svg.height(this.conf.height);
 }
 
 /**
@@ -131,3 +133,6 @@ WgaPipeline.prototype.getLinearKaryoCoords = function() {
  * @author Markus Ankenbrand and Sonja Hohlfeld
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
  */
+WgaPipeline.prototype.drawLinearKaryo = function(coords) {
+
+};
