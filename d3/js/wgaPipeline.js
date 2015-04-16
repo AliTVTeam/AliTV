@@ -53,6 +53,7 @@ function WgaPipeline(svg) {
 	};
 	// Initialize svg size
 	svg.height(this.conf.height);
+	svg.width(this.conf.width);
 }
 
 /**
