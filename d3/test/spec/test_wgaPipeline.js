@@ -20,6 +20,9 @@ describe('The constructor is supposed a proper WgaPipeline object', function(){
 	it('the svg property is properly set', function(){
 		expect(wga.svg).toEqual(svg);
 	});
+	it('the height of the svg should be set to the configured height', function(){
+		expect(wga.svg.height()).toEqual(defaultConf.height);
+	});
 	it('the data property is initialized as empty object', function(){
 		expect(wga.data).toEqual({});
 	});
