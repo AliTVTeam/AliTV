@@ -163,7 +163,16 @@ describe('The getLinearKaryoCoords method of WgaPipeline objects is supposed to 
 describe('The drawLinearKaryo method of WgaPipeline objects is supposed to draw karyos', function(){
 	var svg = $('<svg></svg>');
 	var wga = new WgaPipeline(svg);
+	wga.setData(data);
+	var linearKaryoCoords = wga.getLinearKaryoCoords();
 	it('drawLinearKaryo method is supposed to be a function', function(){
 		expect(typeof wga.drawLinearKaryo).toEqual('function');
+	});
+	wga.drawLinearKaryo(linearKaryoCoords);
+	it('there should be karyos in the svg', function(){
+		expect(wga.svg.find('.karyo').length).toEqual(2);
+	});
+	it('the drawn karyos have the expected height', function(){
+		expect(wga.svg.find('.karyo')[0].height()).toEqual(defaultConf.linear.karyoHeight);
 	});
 });
