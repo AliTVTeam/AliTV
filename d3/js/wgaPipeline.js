@@ -110,7 +110,7 @@ WgaPipeline.prototype.getLinearKaryoCoords = function() {
 	var maxTotalSize = Math.max.apply(null, total);
 
 	for (i = 0; i < this.data.karyo.order.length; i++) {
-		key = this.data.karyo.order[i];
+		var key = this.data.karyo.order[i];
 		var value = this.data.karyo.chromosomes[key];
 		var coord = {
 			'karyo': key,
