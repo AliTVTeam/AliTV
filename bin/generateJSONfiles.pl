@@ -303,9 +303,9 @@ sub parse_link_line{
 		}
 	}
 	$L->warn("There is no feature id $fida in the bed file (but used in link file)") unless(exists $features{$fida});
-	$properties{'source'} = {'name' => $features{$fida}{karyo}, 'start' => $features{$fida}{start}, 'end' =>$features{$fida}{end}};
+	$properties{'source'} = $fida;
 	$L->warn("There is no feature id $fidb in the bed file (but used in link file)") unless(exists $features{$fidb});
-	$properties{'target'} = {'name' => $features{$fidb}{karyo}, 'start' => $features{$fidb}{start}, 'end' =>$features{$fidb}{end}};
+	$properties{'target'} = $fidb;
 	return \%properties;
 }
 
