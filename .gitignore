@@ -1,4 +1,5 @@
 .includepath
+.externalToolBuilders/
 .project
 .settings/
 tmp/
