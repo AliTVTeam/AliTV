@@ -168,5 +168,6 @@ WgaPipeline.prototype.drawLinearKaryo = function(coords) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
 WgaPipeline.prototype.drawLinear = function() {
-
+	var karyoCoords = this.getLinearKaryoCoords();
+	this.drawLinearKaryo(karyoCoords);
 };

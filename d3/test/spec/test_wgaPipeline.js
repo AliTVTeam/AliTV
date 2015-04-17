@@ -195,7 +195,7 @@ describe('The drawLinear method of WgaPipeline objects is supposed to draw the l
 	});
 	it('there should be exactly three karyos in the test svg', function(){
 		wga.drawLinear();
-		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(2);
+		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(3);
 	});
 	it('the drawn karyos have the expected height', function(){
 		wga.drawLinear();
