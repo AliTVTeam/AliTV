@@ -139,5 +139,23 @@ WgaPipeline.prototype.getLinearKaryoCoords = function() {
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
  */
 WgaPipeline.prototype.drawLinearKaryo = function(coords) {
+	this.svgD3.append("g")
+		.selectAll("path")
+		.data(coords)
+		.enter()
+		.append("rect")
+		.attr("class", "karyo")
+		.attr("x", function(d) {
+			return d.x;
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.attr("width", function(d) {
+			return d.width;
+		})
+		.attr("height", function(d) {
+			return d.height;
+		});
 
 };
