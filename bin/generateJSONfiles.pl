@@ -209,14 +209,17 @@ Output: \%karyo of the form {$id => {length => $length, seq => $seq}}
 
 sub parse_karyo{
 	my $file = $_[0];
-	my %karyo = ('chromosomes' => {}, 'order' => [], 'genome_order' => {});
+	my %karyo = ('chromosomes' => {}, 'order' => [], 'genome_order' => []);
+	my %genome_ids = ();
 	open(IN, '<', $file) or $L->logdie("Can not open file $file\n$!");
 	while(<IN>){
 		chomp;
 		my($id, $gid, $len, $seq) = split(/\t/);
 		$karyo{'chromosomes'}{$id} = {"genome_id" => $gid+0, "length" => $len+0, "seq" => $seq, 'rc' => JSON::false};
 		push(@{$karyo{'order'}}, $id);
+		$genome_ids{$gid+0} = 1;
 	}
+	$karyo{'genome_order'} = [sort {$a <=> $b} keys %genome_ids];
 	close IN or $L->logdie("Can not close file $file\n$!");
 	return \%karyo;
 	print Dumper(\%karyo);
