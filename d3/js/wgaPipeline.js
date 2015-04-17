@@ -167,3 +167,6 @@ WgaPipeline.prototype.drawLinearKaryo = function(coords) {
  * It draws directly on the svg and therefore has no return value.
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
+WgaPipeline.prototype.drawLinear = function() {
+
+};
