@@ -169,10 +169,12 @@ describe('The drawLinearKaryo method of WgaPipeline objects is supposed to draw 
 		expect(typeof wga.drawLinearKaryo).toEqual('function');
 	});
 	wga.drawLinearKaryo(linearKaryoCoords);
-	it('there should be karyos in the svg', function(){
-		expect(wga.svg.find('.karyo').length).toEqual(2);
+	it('there should be exactly two karyos in the simple test svg', function(){
+		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(2);
 	});
 	it('the drawn karyos have the expected height', function(){
-		expect(wga.svg.find('.karyo')[0].height()).toEqual(defaultConf.linear.karyoHeight);
+		console.log(wga.svgD3.selectAll('.karyo').attr("height"));
+		// This test checks only the height attribute of the first selected element
+		expect(Number(wga.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.linear.karyoHeight);
 	});
 });
