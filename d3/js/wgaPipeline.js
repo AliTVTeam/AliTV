@@ -160,3 +160,10 @@ WgaPipeline.prototype.drawLinearKaryo = function(coords) {
 			return d.height;
 		});
 };
+
+/**
+ * This function draws the data in the linear layout.
+ * It operates on the data of the object and therefore needs no parameters.
+ * It draws directly on the svg and therefore has no return value.
+ * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
+ */
