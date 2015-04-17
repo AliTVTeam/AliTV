@@ -193,4 +193,13 @@ describe('The drawLinear method of WgaPipeline objects is supposed to draw the l
 	it('drawLinear method is supposed to be a function', function(){
 		expect(typeof wga.drawLinear).toEqual('function');
 	});
+	it('there should be exactly three karyos in the test svg', function(){
+		wga.drawLinear();
+		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(2);
+	});
+	it('the drawn karyos have the expected height', function(){
+		wga.drawLinear();
+		// This test checks only the height attribute of the first selected element
+		expect(Number(wga.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.linear.karyoHeight);
+	});
 });
