@@ -139,6 +139,7 @@ WgaPipeline.prototype.getLinearKaryoCoords = function() {
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
  */
 WgaPipeline.prototype.drawLinearKaryo = function(coords) {
+	this.svgD3.selectAll(".karyo").remove();
 	this.svgD3.append("g")
 		.selectAll("path")
 		.data(coords)
@@ -157,5 +158,5 @@ WgaPipeline.prototype.drawLinearKaryo = function(coords) {
 		.attr("height", function(d) {
 			return d.height;
 		});
-
+	console.log(this.svg.html());
 };

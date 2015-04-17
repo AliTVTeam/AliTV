@@ -179,7 +179,7 @@ describe('The drawLinearKaryo method of WgaPipeline objects is supposed to draw 
 		expect(Number(wga.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.linear.karyoHeight);
 	});
 	it('there should be exactly four karyos in the more complex test svg', function(){
-		wga.setData(data3);
+		wga.setData(data4);
 		linearKaryoCoords = wga.getLinearKaryoCoords();
 		wga.drawLinearKaryo(linearKaryoCoords);
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
