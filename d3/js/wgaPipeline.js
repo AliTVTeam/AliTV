@@ -16,7 +16,7 @@ function WgaPipeline(svg) {
 	/**
 	 * property to contain the svg DOM element as d3 Object
 	 */
-	this.svgD3 = d3.selectAll( svg.toArray() );
+	this.svgD3 = d3.selectAll(svg.toArray());
 	/**
 	 * property to store the data
 	 * @property {Object}  karyo                        - the chromosome information

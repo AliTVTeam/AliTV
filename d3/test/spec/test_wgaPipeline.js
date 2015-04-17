@@ -164,17 +164,24 @@ describe('The drawLinearKaryo method of WgaPipeline objects is supposed to draw 
 	var svg = $('<svg></svg>');
 	var wga = new WgaPipeline(svg);
 	wga.setData(data);
-	var linearKaryoCoords = wga.getLinearKaryoCoords();
 	it('drawLinearKaryo method is supposed to be a function', function(){
 		expect(typeof wga.drawLinearKaryo).toEqual('function');
 	});
-	wga.drawLinearKaryo(linearKaryoCoords);
 	it('there should be exactly two karyos in the simple test svg', function(){
+		linearKaryoCoords = wga.getLinearKaryoCoords();
+		wga.drawLinearKaryo(linearKaryoCoords);
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(2);
 	});
 	it('the drawn karyos have the expected height', function(){
-		console.log(wga.svgD3.selectAll('.karyo').attr("height"));
+		linearKaryoCoords = wga.getLinearKaryoCoords();
+		wga.drawLinearKaryo(linearKaryoCoords);
 		// This test checks only the height attribute of the first selected element
 		expect(Number(wga.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.linear.karyoHeight);
+	});
+	it('there should be exactly four karyos in the more complex test svg', function(){
+		wga.setData(data3);
+		linearKaryoCoords = wga.getLinearKaryoCoords();
+		wga.drawLinearKaryo(linearKaryoCoords);
+		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
 	});
 });
