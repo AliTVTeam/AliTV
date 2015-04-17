@@ -219,7 +219,7 @@ sub parse_karyo{
 		push(@{$karyo{'order'}}, $id);
 		$genome_ids{$gid+0} = 1;
 	}
-	$karyo{'genome_order'} = [sort {$a <=> $b} keys %genome_ids];
+	$karyo{'genome_order'} = [sort {$a <=> $b} map {$_+0} keys %genome_ids];
 	close IN or $L->logdie("Can not close file $file\n$!");
 	return \%karyo;
 	print Dumper(\%karyo);
