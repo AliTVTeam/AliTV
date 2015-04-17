@@ -185,3 +185,12 @@ describe('The drawLinearKaryo method of WgaPipeline objects is supposed to draw 
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
 	});
 });
+
+describe('The drawLinear method of WgaPipeline objects is supposed to draw the linear layout', function(){
+	var svg = $('<svg></svg>');
+	var wga = new WgaPipeline(svg);
+	wga.setData(data2);
+	it('drawLinear method is supposed to be a function', function(){
+		expect(typeof wga.drawLinear).toEqual('function');
+	});
+});
