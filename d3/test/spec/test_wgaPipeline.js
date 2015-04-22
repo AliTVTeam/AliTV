@@ -204,7 +204,7 @@ describe('The drawLinear method of WgaPipeline objects is supposed to draw the l
 	});
 });
 
-describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed to calculate coordinates for the karyos in the linear case', function(){
+describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed to calculate coordinates for the karyos in the circular case', function(){
 	var svg = $('<svg></svg>');
 	var wga = new WgaPipeline(svg);
 	it('getCircularKaryoCoords method is supposed to be a function', function(){
