@@ -171,3 +171,11 @@ WgaPipeline.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
 	this.drawLinearKaryo(karyoCoords);
 };
+
+/**
+ * Calculates coordinates for the chromosomes to draw in the circular layout.
+ * This function operates on the data property of the object and therefore needs no parameters.
+ * This function is primarily meant for internal usage, the user should not need to call this directly.
+ * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
+ * @returns {Array} Array containing one Object for each element in data.karyo of the form {karyo: 'karyo_name', startAngle:0, endAngle:1}
+ */
