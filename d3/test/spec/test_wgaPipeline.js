@@ -309,4 +309,32 @@ describe('The drawCircularKaryo method of WgaPipeline objects is supposed to dra
 	it('drawCircularKaryo method is supposed to be a function', function(){
 		expect(typeof wga.drawCircularKaryo).toEqual('function');
 	});
+	it('there should be exactly one karyoGroup in the simple test svg', function(){
+		circularKaryoCoords = wga.getCircularKaryoCoords();
+		wga.drawCircularKaryo(circularKaryoCoords);
+		expect(wga.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
+	});
+	it('there should be exactly two karyos in the simple test svg', function(){
+		circularKaryoCoords = wga.getCircularKaryoCoords();
+		wga.drawCircularKaryo(circularKaryoCoords);
+		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(2);
+	});
+	it('the drawn karyos have the expected outerRadius', function(){
+		circularKaryoCoords = wga.getCircularKaryoCoords();
+		wga.drawCircularKaryo(circularKaryoCoords);
+		// This test checks only the outerRadius attribute of the first selected element
+		expect(Number(wga.svgD3.selectAll('.karyo').attr("outerRadius"))).toEqual(defaultConf.circular.outerRadius);
+	});
+	it('the drawn karyos have the expected innerRadius', function(){
+		circularKaryoCoords = wga.getCircularKaryoCoords();
+		wga.drawCircularKaryo(circularKaryoCoords);
+		// This test checks only the innerRadius attribute of the first selected element
+		expect(Number(wga.svgD3.selectAll('.karyo').attr("innerRadius"))).toEqual(defaultConf.circular.outerRadius - defaultConf.circular.karyoHeight);
+	});
+	it('there should be exactly four karyos in the more complex test svg', function(){
+		wga.setData(data4);
+		circularKaryoCoords = wga.getCircularKaryoCoords();
+		wga.drawCircularKaryo(circularKaryoCoords);
+		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
+	});
 });
