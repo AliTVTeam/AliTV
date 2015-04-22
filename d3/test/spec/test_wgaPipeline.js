@@ -170,6 +170,11 @@ describe('The drawLinearKaryo method of WgaPipeline objects is supposed to draw 
 	it('drawLinearKaryo method is supposed to be a function', function(){
 		expect(typeof wga.drawLinearKaryo).toEqual('function');
 	});
+	it('there should be exactly one karyoGroup in the simple test svg', function(){
+		linearKaryoCoords = wga.getLinearKaryoCoords();
+		wga.drawLinearKaryo(linearKaryoCoords);
+		expect(wga.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
+	});
 	it('there should be exactly two karyos in the simple test svg', function(){
 		linearKaryoCoords = wga.getLinearKaryoCoords();
 		wga.drawLinearKaryo(linearKaryoCoords);
