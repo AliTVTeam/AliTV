@@ -208,6 +208,33 @@ describe('The drawLinear method of WgaPipeline objects is supposed to draw the l
 });
 
 describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed to calculate coordinates for the karyos in the circular case', function(){
+	beforeEach(function() {
+	    jasmine.addMatchers({
+	    	toHaveSameAngles: function(util, customEqualityTesters) {
+	    		return { 
+	    			compare: function(actual, expected){
+	    				var result = {pass: true};
+	    				if(actual.length !== expected.length){
+	    					result.pass = false;
+	    				} else {
+	    					var precision = 8;
+	    					var factor = Math.pow(10, precision);
+	    					for(var i=0; i<actual.length; i++){
+	    						var startActual = Math.round(actual[0].startAngle*factor)/factor;
+	    						var startExpected = Math.round(expected[0].startAngle*factor)/factor;
+	    						var endActual = Math.round(actual[0].endAngle*factor)/factor;
+	    						var endExpected = Math.round(expected[0].endAngle*factor)/factor;
+	    						if((startActual !== startExpected) || (endActual !== endExpected)){
+	    							result.pass = false;
+	    						}
+	    					}
+	    				}
+	    				return result;
+	    			}
+	    		};
+	    	}
+	    });
+	});
 	var svg = $('<svg></svg>');
 	var wga = new WgaPipeline(svg);
 	it('getCircularKaryoCoords method is supposed to be a function', function(){
@@ -227,7 +254,7 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
             {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
             {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace}
         ];
-		expect(circularKaryoCoords).toEqual(expectedCoords);
+		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
 	});
 	it('getCircularKaryoCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes)', function(){
 		wga.setData(data2);
@@ -239,7 +266,7 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
 		    {'karyo': 'c3', 'startAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'endAngle': 4000*expAnglePerBase + 2*expAnglePerSpace}
 		];
-		expect(circularKaryoCoords).toEqual(expectedCoords);
+		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
 	});
 	it('getCircularKaryoCoords method is supposed to work with simple test data (3 genomes, 3 chromosomes)', function(){
 		wga.setData(data3);
@@ -251,7 +278,7 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
 		    {'karyo': 'c3', 'startAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'endAngle': 4000*expAnglePerBase + 2*expAnglePerSpace}
 		];
-		expect(circularKaryoCoords).toEqual(expectedCoords);
+		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
 	});
 	it('getCircularKaryoCoords method is supposed to work with simple test data (3 genomes, 4 chromosomes)', function(){
 		wga.setData(data4);
@@ -264,6 +291,6 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 		    {'karyo': 'c3', 'startAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'endAngle': 4000*expAnglePerBase + 2*expAnglePerSpace},
 		    {'karyo': 'c4', 'startAngle': 4000*expAnglePerBase + 3*expAnglePerSpace, 'endAngle': 5000*expAnglePerBase + 3*expAnglePerSpace}
 		];
-		expect(circularKaryoCoords).toEqual(expectedCoords);
+		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
 	});
 });
