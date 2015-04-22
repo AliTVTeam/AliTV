@@ -179,3 +179,6 @@ WgaPipeline.prototype.drawLinear = function() {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  * @returns {Array} Array containing one Object for each element in data.karyo of the form {karyo: 'karyo_name', startAngle:0, endAngle:1}
  */
+WgaPipeline.prototype.getCircularKaryoCoords = function() {
+
+};
