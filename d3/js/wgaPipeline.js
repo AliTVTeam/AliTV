@@ -202,12 +202,13 @@ WgaPipeline.prototype.getCircularKaryoCoords = function() {
 		};
 		current += value.length + spacer;
 		data.endAngle = (current / total) * (2 * Math.PI);
-		if (value.rc === true) {
-			var startAngle = data.startAngle;
-			var endAngle = data.endAngle;
-			data.startAngle = endAngle;
-			data.endAngle = startAngle;
-		}
+		// not yet tested
+		//		if (value.rc === true) {
+		//			var startAngle = data.startAngle;
+		//			var endAngle = data.endAngle;
+		//			data.startAngle = endAngle;
+		//			data.endAngle = startAngle;
+		//		}
 		circularKaryoCoords.push(data);
 	}
 	return circularKaryoCoords;
