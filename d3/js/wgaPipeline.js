@@ -219,3 +219,6 @@ WgaPipeline.prototype.getCircularKaryoCoords = function() {
  * @author Markus Ankenbrand
  * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
  */
+WgaPipeline.prototype.drawCircularKaryo = function(coords) {
+
+};
