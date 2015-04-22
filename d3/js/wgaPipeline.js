@@ -180,5 +180,6 @@ WgaPipeline.prototype.drawLinear = function() {
  * @returns {Array} Array containing one Object for each element in data.karyo of the form {karyo: 'karyo_name', startAngle:0, endAngle:1}
  */
 WgaPipeline.prototype.getCircularKaryoCoords = function() {
-
+	var circularKaryoCoords = [];
+	return circularKaryoCoords;
 };
