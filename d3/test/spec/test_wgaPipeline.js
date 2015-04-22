@@ -210,4 +210,9 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 	it('getCircularKaryoCoords method is supposed to be a function', function(){
 		expect(typeof wga.getCircularKaryoCoords).toEqual('function');
 	});
+	it('getCircularKaryoCoords method is supposed to return circularKaryoCoords', function(){
+		wga.setData(data);
+		var circularKaryoCoords = wga.getCircularKaryoCoords();
+		expect(circularKaryoCoords).toBeDefined();
+	});
 });
