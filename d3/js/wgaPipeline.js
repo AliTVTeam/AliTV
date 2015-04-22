@@ -213,3 +213,9 @@ WgaPipeline.prototype.getCircularKaryoCoords = function() {
 	}
 	return circularKaryoCoords;
 };
+
+/**
+ * This function draws the karyos in the circular layout
+ * @author Markus Ankenbrand
+ * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
+ */
