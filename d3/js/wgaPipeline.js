@@ -46,7 +46,9 @@ function WgaPipeline(svg) {
 	 * @property {Number}  linear.karyoHeight     - The height of each chromosome in px.
 	 * @property {Number}  linear.karyoDistance   - The horizontal distance between adjacent chromosomes of the same genome in bp.
 	 * @property {Object}  circular               - The configuration options for the circular layout.
+	 * @property {Number}  circular.karyoHeight   - The height of each chromosome in px.
 	 * @property {Number}  circular.karyoDistance - The distance between adjacent chromosomes on the circle in bp.
+	 * @property {Number}  circular.outerRadius	  - The outer radius of the circle in px.
 	 */
 	this.conf = {
 		width: 1000,
