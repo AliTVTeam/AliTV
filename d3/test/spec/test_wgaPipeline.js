@@ -157,7 +157,7 @@ describe('The getLinearKaryoCoords method of WgaPipeline objects is supposed to 
 		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/2000), 'height': defaultConf.linear.karyoHeight},
 		    {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight},
 		    {'karyo': 'c3', 'x': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/(1000+defaultConf.linear.karyoDistance)), 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight},
-		    {'karyo': 'c4', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight},
+		    {'karyo': 'c4', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
@@ -217,5 +217,53 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 		wga.setData(data);
 		var circularKaryoCoords = wga.getCircularKaryoCoords();
 		expect(circularKaryoCoords).toBeDefined();
+	});
+	it('getCircularKaryoCoords method is supposed to work with simple test data (2 genomes, 2 chromosomes)', function(){
+		wga.setData(data);
+		var circularKaryoCoords = wga.getCircularKaryoCoords();
+		var expAnglePerBase = 2*Math.PI/(3000+2*defaultConf.circular.karyoDistance);
+		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
+		var expectedCoords = [
+            {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
+            {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace}
+        ];
+		expect(circularKaryoCoords).toEqual(expectedCoords);
+	});
+	it('getCircularKaryoCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes)', function(){
+		wga.setData(data2);
+		var circularKaryoCoords = wga.getCircularKaryoCoords();
+		var expAnglePerBase = 2*Math.PI/(4000+3*defaultConf.circular.karyoDistance);
+		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
+		var expectedCoords = [
+		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
+		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
+		    {'karyo': 'c3', 'startAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'endAngle': 4000*expAnglePerBase + 2*expAnglePerSpace}
+		];
+		expect(circularKaryoCoords).toEqual(expectedCoords);
+	});
+	it('getCircularKaryoCoords method is supposed to work with simple test data (3 genomes, 3 chromosomes)', function(){
+		wga.setData(data3);
+		var circularKaryoCoords = wga.getCircularKaryoCoords();
+		var expAnglePerBase = 2*Math.PI/(4000+3*defaultConf.circular.karyoDistance);
+		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
+		var expectedCoords = [
+		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
+		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
+		    {'karyo': 'c3', 'startAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'endAngle': 4000*expAnglePerBase + 2*expAnglePerSpace}
+		];
+		expect(circularKaryoCoords).toEqual(expectedCoords);
+	});
+	it('getCircularKaryoCoords method is supposed to work with simple test data (3 genomes, 4 chromosomes)', function(){
+		wga.setData(data4);
+		var circularKaryoCoords = wga.getCircularKaryoCoords();
+		var expAnglePerBase = 2*Math.PI/(5000+4*defaultConf.circular.karyoDistance);
+		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
+		var expectedCoords = [
+		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
+		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
+		    {'karyo': 'c3', 'startAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'endAngle': 4000*expAnglePerBase + 2*expAnglePerSpace},
+		    {'karyo': 'c4', 'startAngle': 4000*expAnglePerBase + 3*expAnglePerSpace, 'endAngle': 5000*expAnglePerBase + 3*expAnglePerSpace}
+		];
+		expect(circularKaryoCoords).toEqual(expectedCoords);
 	});
 });
