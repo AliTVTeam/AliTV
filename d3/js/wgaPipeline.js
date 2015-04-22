@@ -186,5 +186,29 @@ WgaPipeline.prototype.drawLinear = function() {
  */
 WgaPipeline.prototype.getCircularKaryoCoords = function() {
 	var circularKaryoCoords = [];
+	var total = 0;
+	var spacer = this.conf.circular.karyoDistance;
+	var karyo = this.data.karyo;
+	var current = -spacer;
+	$.each(karyo.chromosomes, function(key, value) {
+		total += value.length + spacer;
+	});
+	for (var i = 0; i < karyo.order.length; i++) {
+		var key = karyo.order[i];
+		var value = karyo.chromosomes[key];
+		var data = {
+			"karyo": key,
+			"startAngle": ((current + spacer) / total) * (2 * Math.PI),
+		};
+		current += value.length + spacer;
+		data.endAngle = (current / total) * (2 * Math.PI);
+		if (value.rc === true) {
+			var startAngle = data.startAngle;
+			var endAngle = data.endAngle;
+			data.startAngle = endAngle;
+			data.endAngle = startAngle;
+		}
+		circularKaryoCoords.push(data);
+	}
 	return circularKaryoCoords;
 };
