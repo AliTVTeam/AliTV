@@ -294,3 +294,12 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
 	});
 });
+
+describe('The drawCircularKaryo method of WgaPipeline objects is supposed to draw karyos', function(){
+	var svg = $('<svg></svg>');
+	var wga = new WgaPipeline(svg);
+	wga.setData(data);
+	it('drawCircularKaryo method is supposed to be a function', function(){
+		expect(typeof wga.drawCircularKaryo).toEqual('function');
+	});
+});
