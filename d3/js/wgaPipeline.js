@@ -59,7 +59,9 @@ function WgaPipeline(svg) {
 			karyoDistance: 10
 		},
 		circular: {
-			karyoDistance: 10
+			karyoHeight: 30,
+			karyoDistance: 10,
+			outerRadius: 450
 		}
 	};
 	// Initialize svg size
