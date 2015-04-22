@@ -224,5 +224,14 @@ WgaPipeline.prototype.getCircularKaryoCoords = function() {
  * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
  */
 WgaPipeline.prototype.drawCircularKaryo = function(coords) {
-
+	this.svgD3.selectAll(".karyoGroup").remove();
+	var outerRadius = this.conf.circular.outerRadius;
+	this.svgD3.append("g")
+		.attr("class", "karyoGroup")
+		.selectAll("path")
+		.data(coords)
+		.enter()
+		.append("path")
+		.attr("d", d3.svg.arc().innerRadius(outerRadius - this.conf.circular.karyoHeight).outerRadius(outerRadius))
+		.attr("class", "karyo");
 };
