@@ -37,12 +37,12 @@ function WgaPipeline(svg) {
 	/**
 	 * property to store data specific drawing options (structure highly dependent on data structure)
 	 * @property {Object}  filters                      - the data dependent displaying information
-	 * @property {Object}  karyo                        - the chromosome dependent displaying information
-	 * @property {Array}   karyo.order                  - array of chromosome IDs in the desired order (circular layout)
-	 * @property {Array}   karyo.genome_order           - array of genome IDs in the desired order (linear layout)
-	 * @property {Object}  karyo.chromosomes            - the chromosome drawing details, karyo IDs as keys
-	 * @property {Boolean} karyo.chromosomes.reverse    - should the sequence be treated as its reverse (complement)
-	 * @property {Boolean} karyo.chromosomes.visible    - should the sequence be displayed at all
+	 * @property {Object}  filters.karyo                        - the chromosome dependent displaying information
+	 * @property {Array}   filters.karyo.order                  - array of chromosome IDs in the desired order (circular layout)
+	 * @property {Array}   filters.karyo.genome_order           - array of genome IDs in the desired order (linear layout)
+	 * @property {Object}  filters.karyo.chromosomes            - the chromosome drawing details, karyo IDs as keys
+	 * @property {Boolean} filters.karyo.chromosomes.reverse    - should the sequence be treated as its reverse (complement)
+	 * @property {Boolean} filters.karyo.chromosomes.visible    - should the sequence be displayed at all
 	 */
 	this.filters = {};
 	/**

@@ -64,12 +64,12 @@ function WgaPipeline(svg) {
 	/**
 	 * property to store data specific drawing options (structure highly dependent on data structure)
 	 * @property {Object}  filters                      - the data dependent displaying information
-	 * @property {Object}  karyo                        - the chromosome dependent displaying information
-	 * @property {Array}   karyo.order                  - array of chromosome IDs in the desired order (circular layout)
-	 * @property {Array}   karyo.genome_order           - array of genome IDs in the desired order (linear layout)
-	 * @property {Object}  karyo.chromosomes            - the chromosome drawing details, karyo IDs as keys
-	 * @property {Boolean} karyo.chromosomes.reverse    - should the sequence be treated as its reverse (complement)
-	 * @property {Boolean} karyo.chromosomes.visible    - should the sequence be displayed at all
+	 * @property {Object}  filters.karyo                        - the chromosome dependent displaying information
+	 * @property {Array}   filters.karyo.order                  - array of chromosome IDs in the desired order (circular layout)
+	 * @property {Array}   filters.karyo.genome_order           - array of genome IDs in the desired order (linear layout)
+	 * @property {Object}  filters.karyo.chromosomes            - the chromosome drawing details, karyo IDs as keys
+	 * @property {Boolean} filters.karyo.chromosomes.reverse    - should the sequence be treated as its reverse (complement)
+	 * @property {Boolean} filters.karyo.chromosomes.visible    - should the sequence be displayed at all
 	 */
 	this.filters = {};
 	/**
@@ -106,18 +106,16 @@ function WgaPipeline(svg) {
 
 /**
  * Sets the data of the WgaPipeline object.
- * For the required format see the example
+ * For the required format see the documentation of the data property
  * @author Markus Ankenbrand &lt;markus.ankenbrand@uni-wuerzburg.de>
  * @param {Object} data - Object containing karyo, link and feature information
  * @example
  * var svg = $('#canvas');
  * var wga = new wgaPipeline(svg);
  * var karyo = {
- * 	'order': ['c1', 'c2'],
- * 	'genome_order': ['0', '1'],
  * 	'chromosomes': {
- * 	'c1': {'genome_id': 0, 'length': 2000, 'rc': false, 'seq': null},
- * 	'c2': {'genome_id': 1, 'length': 1000, 'rc': false, 'seq': null}
+ * 	'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+ * 	'c2': {'genome_id': 1, 'length': 1000, 'seq': null}
  * 	}
  * };
  * var features = {
@@ -134,6 +132,47 @@ WgaPipeline.prototype.setData = function(data) {
 };
 
 /**
+ * Sets the filters of the WgaPipeline object.
+ * For the required format see the documentation of the filters property
+ * The filters are highly dependent on the data object and have to resemble its layout
+ * @author Markus Ankenbrand &lt;markus.ankenbrand@uni-wuerzburg.de>
+ * @param {Object} filters - Object containing data specific drawing information
+ * @example
+ * var svg = $('#canvas');
+ * var wga = new wgaPipeline(svg);
+ * var karyo = {
+ * 	'chromosomes': {
+ * 	'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+ * 	'c2': {'genome_id': 1, 'length': 1000, 'seq': null}
+ * 	}
+ * };
+ * var features = {
+ * 	'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
+ * 	'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
+ * };
+ * var links = [
+ * 	{'source': 'f1', 'target': 'f2', 'identity': 90}
+ * ];
+ * wga.setData({'karyo': karyo, 'features': features, 'links': links};
+ * var filters = {
+ * 	'karyo': {
+ * 		'order': ['c1', 'c2'],
+ * 		'genome_order': ['0', '1'],
+ * 		'chromosomes': {
+ * 	 		'c1': {'reverse': false, 'visible': true},
+ * 			'c2': {'reverse': false, 'visible': true}
+ * 		}
+ * 	}
+ * };
+ * wga.setFilters(filters);
+ * wga.drawLinear();
+ * wga.drawCircular();
+ */
+WgaPipeline.prototype.setFilters = function(filters) {
+	this.filters = filters;
+};
+
+/**
  * Calculates coordinates for the chromosomes to draw in the linear layout.
  * This function operates on the data property of the object and therefore needs no parameters.
  * This function is primarily meant for internal usage, the user should not need to call this directly.
@@ -142,7 +181,7 @@ WgaPipeline.prototype.setData = function(data) {
  */
 WgaPipeline.prototype.getLinearKaryoCoords = function() {
 	var linearKaryoCoords = [];
-	var genome_order = this.data.karyo.genome_order;
+	var genome_order = this.filters.karyo.genome_order;
 	var conf = this.conf;
 
 	var total = [];
@@ -160,8 +199,8 @@ WgaPipeline.prototype.getLinearKaryoCoords = function() {
 
 	var maxTotalSize = Math.max.apply(null, total);
 
-	for (i = 0; i &lt; this.data.karyo.order.length; i++) {
-		var key = this.data.karyo.order[i];
+	for (i = 0; i &lt; this.filters.karyo.order.length; i++) {
+		var key = this.filters.karyo.order[i];
 		var value = this.data.karyo.chromosomes[key];
 		var coord = {
 			'karyo': key,
@@ -227,14 +266,15 @@ WgaPipeline.prototype.getCircularKaryoCoords = function() {
 	var circularKaryoCoords = [];
 	var total = 0;
 	var spacer = this.conf.circular.karyoDistance;
-	var karyo = this.data.karyo;
+	var chromosomes = this.data.karyo.chromosomes;
+	var order = this.filters.karyo.order;
 	var current = -spacer;
-	$.each(karyo.chromosomes, function(key, value) {
+	$.each(chromosomes, function(key, value) {
 		total += value.length + spacer;
 	});
-	for (var i = 0; i &lt; karyo.order.length; i++) {
-		var key = karyo.order[i];
-		var value = karyo.chromosomes[key];
+	for (var i = 0; i &lt; order.length; i++) {
+		var key = order[i];
+		var value = chromosomes[key];
 		var data = {
 			"karyo": key,
 			"startAngle": ((current + spacer) / total) * (2 * Math.PI),
@@ -298,7 +338,7 @@ WgaPipeline.prototype.drawCircular = function() {
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Apr 23 2015 18:28:02 GMT+0200 (MESZ)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Apr 23 2015 20:03:47 GMT+0200 (MESZ)
 </footer>
 
 <script> prettyPrint(); </script>

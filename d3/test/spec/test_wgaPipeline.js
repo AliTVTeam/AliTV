@@ -411,7 +411,6 @@ describe('The drawCircularKaryo method of WgaPipeline objects is supposed to dra
 	});
 });
 
-
 describe('The drawCircular method of WgaPipeline objects is supposed to draw the circular layout', function(){
 	var svg = $('<svg></svg>');
 	var wga = new WgaPipeline(svg);

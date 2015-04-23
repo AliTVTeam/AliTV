@@ -1082,9 +1082,27 @@ var wga = new wgaPipeline(svg);</code></pre>
             
             
             
-            <td class="description last">the data dependent displaying information</td>
-        </tr>
+            <td class="description last">the data dependent displaying information
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
 	
+	<tbody>
 	
 	
         <tr>
@@ -1257,6 +1275,12 @@ var wga = new wgaPipeline(svg);</code></pre>
             
             
             <td class="description last">should the sequence be displayed at all</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
         </tr>
 	
 	
@@ -1478,7 +1502,7 @@ It draws directly on the svg and therefore has no return value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line254">line 254</a>
+        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line294">line 294</a>
     </li></ul></dd>
     
     
@@ -1602,7 +1626,7 @@ It draws directly on the svg and therefore has no return value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line234">line 234</a>
+        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line274">line 274</a>
     </li></ul></dd>
     
     
@@ -1680,7 +1704,7 @@ It draws directly on the svg and therefore has no return value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line187">line 187</a>
+        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line226">line 226</a>
     </li></ul></dd>
     
     
@@ -1804,7 +1828,7 @@ It draws directly on the svg and therefore has no return value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line158">line 158</a>
+        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line197">line 197</a>
     </li></ul></dd>
     
     
@@ -1882,7 +1906,7 @@ This function is primarily meant for internal usage, the user should not need to
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line199">line 199</a>
+        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line238">line 238</a>
     </li></ul></dd>
     
     
@@ -1982,7 +2006,7 @@ This function is primarily meant for internal usage, the user should not need to
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line116">line 116</a>
+        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line155">line 155</a>
     </li></ul></dd>
     
     
@@ -2041,7 +2065,7 @@ This function is primarily meant for internal usage, the user should not need to
     
     <div class="description">
         Sets the data of the WgaPipeline object.
-For the required format see the example
+For the required format see the documentation of the data property
     </div>
     
 
@@ -2129,7 +2153,7 @@ For the required format see the example
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line105">line 105</a>
+        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line103">line 103</a>
     </li></ul></dd>
     
     
@@ -2157,11 +2181,9 @@ For the required format see the example
     <pre class="prettyprint"><code>var svg = $('#canvas');
 var wga = new wgaPipeline(svg);
 var karyo = {
-	'order': ['c1', 'c2'],
-	'genome_order': ['0', '1'],
 	'chromosomes': {
-	'c1': {'genome_id': 0, 'length': 2000, 'rc': false, 'seq': null},
-	'c2': {'genome_id': 1, 'length': 1000, 'rc': false, 'seq': null}
+	'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+	'c2': {'genome_id': 1, 'length': 1000, 'seq': null}
 	}
 };
 var features = {
@@ -2172,6 +2194,165 @@ var links = [
 	{'source': 'f1', 'target': 'f2', 'identity': 90}
 ];
 wga.setData({'karyo': karyo, 'features': features, 'links': links};</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setFilters"><span class="type-signature"></span>setFilters<span class="signature">(filters)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Sets the filters of the WgaPipeline object.
+For the required format see the documentation of the filters property
+The filters are highly dependent on the data object and have to resemble its layout
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>filters</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Object containing data specific drawing information</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:markus.ankenbrand@uni-wuerzburg.de">Markus Ankenbrand</a></li>
+        </ul>
+    </dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wgaPipeline.js.html">wgaPipeline.js</a>, <a href="wgaPipeline.js.html#line144">line 144</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var svg = $('#canvas');
+var wga = new wgaPipeline(svg);
+var karyo = {
+	'chromosomes': {
+	'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+	'c2': {'genome_id': 1, 'length': 1000, 'seq': null}
+	}
+};
+var features = {
+	'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
+	'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
+};
+var links = [
+	{'source': 'f1', 'target': 'f2', 'identity': 90}
+];
+wga.setData({'karyo': karyo, 'features': features, 'links': links};
+var filters = {
+	'karyo': {
+		'order': ['c1', 'c2'],
+		'genome_order': ['0', '1'],
+		'chromosomes': {
+	 		'c1': {'reverse': false, 'visible': true},
+			'c2': {'reverse': false, 'visible': true}
+		}
+	}
+};
+wga.setFilters(filters);
+wga.drawLinear();
+wga.drawCircular();</code></pre>
 
     
 </dd>
@@ -2198,7 +2379,7 @@ wga.setData({'karyo': karyo, 'features': features, 'links': links};</code></pre>
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Apr 23 2015 18:28:02 GMT+0200 (MESZ)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Apr 23 2015 20:03:48 GMT+0200 (MESZ)
 </footer>
 
 <script> prettyPrint(); </script>
