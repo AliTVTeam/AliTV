@@ -18,6 +18,21 @@
   figure output on the fly extends the functionality of AliTV to an
   analysis tool.
 ** Must-have criteria
+   - Reimplementation of existing functionality including documentation and testing
+     - Calculate coordinates for links (linear layout)
+     - Draw links (linear layout)
+     - Color karyos (linear layout)
+     - Add ticks to the karyos (linear layout)
+     - Color links based on identity (linear layout)
+     - Fade in/out links on mouse over event (linear layout)
+     - Reverse karyos and corresponding links by clicking on the karyos
+   - Visualization of annotated features on the karyos, e.g. genes or
+     inverted repeat regions
+   - Visualization of a provided phylogenetic tree next to the alignments
+   - Add text labels to the genomes, chromosomes (karyos), and features
+   - Implement APIs to the AliTV class to allow remote configuration of
+     - graphic parameters of AliTV objects
+     - filter parameters of AliTV objects
 ** Nice-to-have criteria
 ** (Abgrenzungskriterien)
 * Usage
