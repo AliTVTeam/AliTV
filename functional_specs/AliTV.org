@@ -75,7 +75,10 @@
    required. For data preparation exact specification have to be made!
 * Environment
 ** Software
+   For the GUI a javascipt enabled web browser is required. For data
+   preparation exact software specification have to be made!
 ** Hardware
+   AliTV does not require special hardware.
 ** (Orgware)
 * Functionality
 * Data
