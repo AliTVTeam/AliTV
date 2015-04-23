@@ -16,8 +16,11 @@
 		wga = new WgaPipeline(svg);
 		$.getJSON('data/data.json', function(data) {
 			wga.setData(data);
-			console.log(wga.getLinearKaryoCoords());
-			wga.drawLinear();
+			$.getJSON('data/filters.json', function(filters) {
+				console.log(filters);
+				wga.setFilters(filters);
+				wga.drawLinear();
+			});
 		});
 	});
 </script>
