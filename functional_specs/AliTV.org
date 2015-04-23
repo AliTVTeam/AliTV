@@ -171,6 +171,23 @@
    If other feature classes are supported one need to be able to
    switch on or off the drawing of the individual feature class using
    the configuration.
+** /F0700/ API for remote control of graphical parameters [0/7]
+   Implement an API for the following graphical parameters
+   - [ ] Spacer between chromosomes
+   - [ ] Spacer between genomes
+   - [ ] Height of chromosome rectangles
+   - [ ] Size of the canvas
+   - [ ] Tick frequency
+   - [ ] Tick labeling frequency
+   - [ ] Tree drawing on/off
+** /F0750/ API for remote control of filter parameters [0/6]
+   Implement an API for the following filter parameters
+   - [ ] filter threshold for minimum link identity
+   - [ ] filter threshold for maximum link identity
+   - [ ] filter threshold for minimum link length
+   - [ ] filter threshold for maximum link length
+   - [ ] skip chromosomes without linkage information
+   - [ ] skip chromosomes without visible linkage information
 * Data
 * User interface
 * Quality targets
