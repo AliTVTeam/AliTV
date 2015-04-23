@@ -128,6 +128,23 @@
    assigning a different color. The generic style to use for feature
    annotation should be configured via configuration. Features which
    are linked to other features have to be ignored.
+** /F0300N/ Supporting of different feature classes
+   The user should be enabled to provide different feature classes for
+   the annotation of chromosomes. The information are provided by the
+   data object. Therefore, a feature is not only classified by linking
+   or non linking feature, but also other feature classes are
+   possible. Those classes can be genes, t-RNAs, (inverted) repeats,
+   etc.
+** /F0350N/ Drawing of different feature classes
+   The features from /F0300/ have to be drawn onto the
+   chromosomes. The style information for the feature class should be
+   provided by the configuration. If the feature class has no
+   predefined style a fallback style should be used. Changes on
+   feature drawing are made by altering the configuration. Some sample
+   feature classes need to be provided:
+    - gene
+    - (inverted) repeat
+    - N stretch
 * Data
 * User interface
 * Quality targets
