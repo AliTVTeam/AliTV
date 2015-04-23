@@ -145,6 +145,13 @@
     - gene
     - (inverted) repeat
     - N stretch
+** /F0400/ Draw a provided phylogenetic tree next to the alignments
+   If the user provides a phylogenetic tree other than a
+   multifurcation, the tree should be drawn next to the alignment. The
+   exact position (left or right) of the tree should be given by the
+   configuration. There it should be also possible to switch off the
+   tree drawing.
+
 * Data
 * User interface
 * Quality targets
