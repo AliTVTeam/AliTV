@@ -254,13 +254,12 @@ WgaPipeline.prototype.getCircularKaryoCoords = function() {
 		};
 		current += value.length + spacer;
 		data.endAngle = (current / total) * (2 * Math.PI);
-		// not yet tested
-		//		if (value.rc === true) {
-		//			var startAngle = data.startAngle;
-		//			var endAngle = data.endAngle;
-		//			data.startAngle = endAngle;
-		//			data.endAngle = startAngle;
-		//		}
+		if (this.filters.karyo.chromosomes[key].reverse === true) {
+			var startAngle = data.startAngle;
+			var endAngle = data.endAngle;
+			data.startAngle = endAngle;
+			data.endAngle = startAngle;
+		}
 		circularKaryoCoords.push(data);
 	}
 	return circularKaryoCoords;
