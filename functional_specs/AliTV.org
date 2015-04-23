@@ -57,6 +57,10 @@
    - import of save states of visualization (data, configuration,
      filters)
 ** (Abgrenzungskriterien)
+   - The bachelor thesis is restricted to the graphical representation of readily provided data (JSON, test sets exist).
+   - The calculation and preparation of different data types is out of scope of the thesis.
+   - In general the alignment and tree calculations are performed by external programs (some may be called by AliTV)
+   - AliTV is not an alignment editor, while data may be filtered it is not supported to alter any data
 * Usage
 ** Application field
 ** Target audience
