@@ -202,6 +202,11 @@
    - [ ] whole chromosomes
    - [ ] but also specific links.
 
+** /F0900N/ Legend for colors used [0/3]
+   Add legends for the used colors:
+   - [ ] genomes
+   - [ ] identity for links
+   - [ ] color code for different feature classes
 * Data
 ** Definition of data object
   #+BEGIN_SRC javascript
