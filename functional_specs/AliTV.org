@@ -63,8 +63,16 @@
    - AliTV is not an alignment editor, while data may be filtered it is not supported to alter any data
 * Usage
 ** Application field
+   AliTV can be used for visualization of multiple whole genome
+   alignments. The current view can be exported as (almost)
+   'publication ready' SVG and all setting to restore the view can
+   also be saved. Moreover its interactive features allow the
+   analysis of those multiple whole genome alignments.
 ** Target audience
+   Biologists working on sequencing data.
 ** System requirements
+   For the graphical user interface a modern web browser is
+   required. For data preparation exact specification have to be made!
 * Environment
 ** Software
 ** Hardware
