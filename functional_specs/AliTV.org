@@ -121,6 +121,13 @@
 *** /F0170/ Reverse chromosomes and annotated links on left click
     The orientation of a chromosome can be altered by clicking onto
     that chromosome.
+** /F0200/ Visualization of user provided features onto the chromosomes
+   The user can provide features which should be annotated on the
+   chromosomes of a genome, e.g. genes or inverted repeat
+   regions. Those features should be marked on the chromosomes by
+   assigning a different color. The generic style to use for feature
+   annotation should be configured via configuration. Features which
+   are linked to other features have to be ignored.
 * Data
 * User interface
 * Quality targets
