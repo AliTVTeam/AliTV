@@ -116,6 +116,17 @@ var filters4 = {'karyo': {
 		}
 	}
 };
+var filters4_reverse = {'karyo': {
+	'order': ['c1', 'c2', 'c3', 'c4'],
+	'genome_order': [0, 1, 2],
+	'chromosomes': {
+		'c1': {'reverse': false, 'visible': null},
+		'c2': {'reverse': true, 'visible': null},
+		'c3': {'reverse': false, 'visible': null},
+		'c4': {'reverse': true, 'visible': null}
+	}
+}
+};
 var features = {
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
@@ -359,6 +370,20 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
 		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
 		    {'karyo': 'c3', 'startAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'endAngle': 4000*expAnglePerBase + 2*expAnglePerSpace},
+		    {'karyo': 'c4', 'startAngle': 4000*expAnglePerBase + 3*expAnglePerSpace, 'endAngle': 5000*expAnglePerBase + 3*expAnglePerSpace}
+		];
+		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
+	});
+	it('getCircularKaryoCoords method is supposed to use the reverse property of filters', function(){
+		wga.setData(data4);
+		wga.setFilters(filters4_reverse);
+		var circularKaryoCoords = wga.getCircularKaryoCoords();
+		var expAnglePerBase = 2*Math.PI/(5000+4*defaultConf.circular.karyoDistance);
+		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
+		var expectedCoords = [
+		    {'karyo': 'c1', 'endAngle': 0, 'startAngle': 2000*expAnglePerBase},
+		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
+		    {'karyo': 'c3', 'endAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'startAngle': 4000*expAnglePerBase + 2*expAnglePerSpace},
 		    {'karyo': 'c4', 'startAngle': 4000*expAnglePerBase + 3*expAnglePerSpace, 'endAngle': 5000*expAnglePerBase + 3*expAnglePerSpace}
 		];
 		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
