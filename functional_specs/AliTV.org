@@ -151,7 +151,15 @@
    exact position (left or right) of the tree should be given by the
    configuration. There it should be also possible to switch off the
    tree drawing.
-
+** /F0600/ Text labels for the genomes, chromosomes, and features
+   The labels for genomes and chromosomes should be drawn next to the
+   specific element by default. For features (non linking) the labels
+   are switched off by default. For all three elements drawing or non
+   drawing should be configurable by the configuration.
+** /F0650N/ Support text labels on or off for feature classes
+   If other feature classes are supported one need to be able to
+   switch on or off the drawing of the individual feature class using
+   the configuration.
 * Data
 * User interface
 * Quality targets
