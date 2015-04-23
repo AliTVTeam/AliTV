@@ -52,6 +52,10 @@
      elements for each genome
    - Add support for different feature classes with individual
      graphical representation
+   - export of the svg
+   - creation of save states for the current visualization
+   - import of save states of visualization (data, configuration,
+     filters)
 ** (Abgrenzungskriterien)
 * Usage
 ** Application field
