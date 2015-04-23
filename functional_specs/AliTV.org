@@ -188,6 +188,20 @@
    - [ ] filter threshold for maximum link length
    - [ ] skip chromosomes without linkage information
    - [ ] skip chromosomes without visible linkage information
+** /F0800/ Extend API to hide specific elements [0/6]
+   Extend the API to allow hide specific elements from the plot. This
+   can be done for:
+   - [ ] whole genomes
+   - [ ] whole chromosomes
+   - [ ] but also specific links.
+   Additionally counters should be displayed indicating how many
+   genomes are hidden, how many chromosomes of a genome are hidden and
+   how many links of a chromosome are hidden. All levels need a API
+   call to reset the hidden state to visible again
+   - [ ] whole genomes
+   - [ ] whole chromosomes
+   - [ ] but also specific links.
+
 * Data
 * User interface
 * Quality targets
