@@ -340,3 +340,17 @@ describe('The drawCircularKaryo method of WgaPipeline objects is supposed to dra
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
 	});
 });
+
+
+describe('The drawCircular method of WgaPipeline objects is supposed to draw the circular layout', function(){
+	var svg = $('<svg></svg>');
+	var wga = new WgaPipeline(svg);
+	wga.setData(data2);
+	it('drawCircular method is supposed to be a function', function(){
+		expect(typeof wga.drawCircular).toEqual('function');
+	});
+	it('there should be exactly three karyos in the test svg', function(){
+		wga.drawCircular();
+		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(3);
+	});
+});
