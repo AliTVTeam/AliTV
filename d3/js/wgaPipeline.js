@@ -235,3 +235,14 @@ WgaPipeline.prototype.drawCircularKaryo = function(coords) {
 		.attr("d", d3.svg.arc().innerRadius(outerRadius - this.conf.circular.karyoHeight).outerRadius(outerRadius))
 		.attr("class", "karyo");
 };
+
+/**
+ * This function draws the data in the circular layout.
+ * It operates on the data of the object and therefore needs no parameters.
+ * It draws directly on the svg and therefore has no return value.
+ * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
+ */
+WgaPipeline.prototype.drawCircular = function() {
+	var karyoCoords = this.getCircularKaryoCoords();
+	this.drawCircularKaryo(karyoCoords);
+};
