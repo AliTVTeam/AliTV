@@ -54,13 +54,14 @@ var karyo = {
 			'c2': {'genome_id': 1, 'length': 1000, 'seq': null}
 		}
 };
-var filters = {
+var filters = {'karyo': {
 		'order': ['c1', 'c2'],
 		'genome_order': [0, 1],
 		'chromosomes': {
 			'c1': {'reverse': false, 'visible': true},
 			'c2': {'reverse': false, 'visible': true}
 		}
+	}
 }
 var karyo2 = {
 		'chromosomes': {
@@ -69,7 +70,7 @@ var karyo2 = {
 			'c3': {'genome_id': 1, 'length': 1000, 'seq': null}
 		}
 };
-var filters2 = {
+var filters2 = {'karyo': {
 		'order': ['c1', 'c2', 'c3'],
 		'genome_order': [0, 1],
 		'chromosomes': {
@@ -77,6 +78,7 @@ var filters2 = {
 			'c2': {'reverse': false, 'visible': true},
 			'c3': {'reverse': false, 'visible': true}
 		}
+	}
 }
 var karyo3 = {
 		'chromosomes': {
@@ -85,7 +87,7 @@ var karyo3 = {
 			'c3': {'genome_id': 2, 'length': 1000, 'seq': null}
 		}
 };
-var filters3 = {
+var filters3 = {'karyo': {
 		'order': ['c1', 'c2', 'c3'],
 		'genome_order': [0, 1, 2],
 		'chromosomes': {
@@ -93,6 +95,7 @@ var filters3 = {
 			'c2': {'reverse': false, 'visible': true},
 			'c3': {'reverse': false, 'visible': true}
 		}
+	}
 };
 var karyo4 = {
 		'chromosomes': {
@@ -102,7 +105,7 @@ var karyo4 = {
 			'c4': {'genome_id': 2, 'length': 1000, 'seq': null}
 		}
 };
-var karyo4 = {
+var filters4 = {'karyo': {
 		'order': ['c1', 'c2', 'c3', 'c4'],
 		'genome_order': [0, 1, 2],
 		'chromosomes': {
@@ -111,6 +114,7 @@ var karyo4 = {
 			'c3': {'reverse': false, 'visible': null},
 			'c4': {'reverse': false, 'visible': null}
 		}
+	}
 };
 var features = {
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},

@@ -128,11 +128,13 @@ WgaPipeline.prototype.setData = function(data) {
  * ];
  * wga.setData({'karyo': karyo, 'features': features, 'links': links};
  * var filters = {
- * 	'order': ['c1', 'c2'],
- * 	'genome_order': ['0', '1'],
- * 	'chromosomes': {
- * 	'c1': {'reverse': false, 'visible': true},
- * 	'c2': {'reverse': false, 'visible': true}
+ * 	'karyo': {
+ * 		'order': ['c1', 'c2'],
+ * 		'genome_order': ['0', '1'],
+ * 		'chromosomes': {
+ * 	 		'c1': {'reverse': false, 'visible': true},
+ * 			'c2': {'reverse': false, 'visible': true}
+ * 		}
  * 	}
  * };
  * wga.setFilters(filters);
