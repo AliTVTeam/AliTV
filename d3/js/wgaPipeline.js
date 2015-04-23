@@ -105,6 +105,42 @@ WgaPipeline.prototype.setData = function(data) {
 };
 
 /**
+ * Sets the filters of the WgaPipeline object.
+ * For the required format see the documentation of the filters property
+ * The filters are highly dependent on the data object and have to resemble its layout
+ * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
+ * @param {Object} filters - Object containing data specific drawing information
+ * @example
+ * var svg = $('#canvas');
+ * var wga = new wgaPipeline(svg);
+ * var karyo = {
+ * 	'chromosomes': {
+ * 	'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+ * 	'c2': {'genome_id': 1, 'length': 1000, 'seq': null}
+ * 	}
+ * };
+ * var features = {
+ * 	'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
+ * 	'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
+ * };
+ * var links = [
+ * 	{'source': 'f1', 'target': 'f2', 'identity': 90}
+ * ];
+ * wga.setData({'karyo': karyo, 'features': features, 'links': links};
+ * var filters = {
+ * 	'order': ['c1', 'c2'],
+ * 	'genome_order': ['0', '1'],
+ * 	'chromosomes': {
+ * 	'c1': {'reverse': false, 'visible': true},
+ * 	'c2': {'reverse': false, 'visible': true}
+ * 	}
+ * };
+ * wga.setFilters(filters);
+ * wga.drawLinear();
+ * wga.drawCircular();
+ */
+
+/**
  * Calculates coordinates for the chromosomes to draw in the linear layout.
  * This function operates on the data property of the object and therefore needs no parameters.
  * This function is primarily meant for internal usage, the user should not need to call this directly.
