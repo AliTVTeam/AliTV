@@ -1,0 +1,29 @@
+#+AUTHOR: Markus Ankenbrand, Frank Förster
+#+TITLE: Functional specifications for the Alignment Toolbox and Visualization (AliTV)
+#+DESCRIPTION: This file contains the functional specification of the AliTV
+#+EMAIL: markus.ankenbrand@uni-wuerzburg.de, frank.foerster@biozentrum.uni-wuerzburg.de
+
+#+LATEX_CLASS: scrartcl
+#+LATEX_CLASS_OPTIONS: [a4paper,english]
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+
+#+TODO: TODO(t!) INPG(i@/!) TEST(n@/!) TESTFAIL(f@/!) TESTPASS(p@/!) | DONE(d!) REJC(c@)
+
+
+* Objectives of AliTV
+** Must-have criteria
+** Nice-to-have criteria
+** (Abgrenzungskriterien)
+* Usage
+** Application field
+** Target audience
+** System requirements
+* Environment
+** Software
+** Hardware
+** (Orgware)
+* Functionality
+* Data
+* User interface
+* Quality targets
