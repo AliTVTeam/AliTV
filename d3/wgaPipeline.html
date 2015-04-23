@@ -10,9 +10,10 @@
 <script src="js/wgaPipeline.js"></script>
 
 <script type="text/javascript">
+	var wga;
 	$(document).ready(function() {
 		var svg = $('#wgaCanvas');
-		var wga = new WgaPipeline(svg);
+		wga = new WgaPipeline(svg);
 		$.getJSON('data/data.json', function(data) {
 			wga.setData(data);
 			console.log(wga.getLinearKaryoCoords());
@@ -24,5 +25,7 @@
 
 <body>
 <svg id='wgaCanvas'></svg>
+<button type="button" onclick="wga.drawCircular();">Draw Circular</button> 
+<button type="button" onclick="wga.drawLinear();">Draw Linear</button> 
 </body>
 </html>
