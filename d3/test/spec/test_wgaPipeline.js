@@ -314,6 +314,11 @@ describe('The drawCircularKaryo method of WgaPipeline objects is supposed to dra
 		wga.drawCircularKaryo(circularKaryoCoords);
 		expect(wga.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
 	});
+	it('the karyo group should be translated to the center of the svg', function(){
+		circularKaryoCoords = wga.getCircularKaryoCoords();
+		wga.drawCircularKaryo(circularKaryoCoords);
+		expect(wga.svgD3.selectAll('.karyoGroup').attr("transform")).toEqual("translate(" + defaultConf.width / 2 + "," + defaultConf.height / 2 + ")");
+	});
 	it('there should be exactly two karyos in the simple test svg', function(){
 		circularKaryoCoords = wga.getCircularKaryoCoords();
 		wga.drawCircularKaryo(circularKaryoCoords);
