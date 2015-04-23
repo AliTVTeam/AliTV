@@ -228,6 +228,7 @@ WgaPipeline.prototype.drawCircularKaryo = function(coords) {
 	var outerRadius = this.conf.circular.outerRadius;
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
+		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.height / 2 + ")")
 		.selectAll("path")
 		.data(coords)
 		.enter()
