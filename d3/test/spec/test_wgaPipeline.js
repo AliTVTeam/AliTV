@@ -49,39 +49,67 @@ describe('The constructor is supposed a proper WgaPipeline object', function(){
 });
 
 var karyo = {
+		'chromosomes': {
+			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+			'c2': {'genome_id': 1, 'length': 1000, 'seq': null}
+		}
+};
+var filters = {
 		'order': ['c1', 'c2'],
 		'genome_order': [0, 1],
 		'chromosomes': {
-			'c1': {'genome_id': 0, 'length': 2000, 'rc': false, 'seq': null},
-			'c2': {'genome_id': 1, 'length': 1000, 'rc': false, 'seq': null}
+			'c1': {'reverse': false, 'visible': true},
+			'c2': {'reverse': false, 'visible': true}
+		}
+}
+var karyo2 = {
+		'chromosomes': {
+			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+			'c2': {'genome_id': 1, 'length': 1000, 'seq': null},
+			'c3': {'genome_id': 1, 'length': 1000, 'seq': null}
 		}
 };
-var karyo2 = {
+var filters2 = {
 		'order': ['c1', 'c2', 'c3'],
 		'genome_order': [0, 1],
 		'chromosomes': {
-			'c1': {'genome_id': 0, 'length': 2000, 'rc': false, 'seq': null},
-			'c2': {'genome_id': 1, 'length': 1000, 'rc': false, 'seq': null},
-			'c3': {'genome_id': 1, 'length': 1000, 'rc': false, 'seq': null}
+			'c1': {'reverse': false, 'visible': true},
+			'c2': {'reverse': false, 'visible': true},
+			'c3': {'reverse': false, 'visible': true}
+		}
+}
+var karyo3 = {
+		'chromosomes': {
+			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+			'c2': {'genome_id': 1, 'length': 1000, 'seq': null},
+			'c3': {'genome_id': 2, 'length': 1000, 'seq': null}
 		}
 };
-var karyo3 = {
+var filters3 = {
 		'order': ['c1', 'c2', 'c3'],
 		'genome_order': [0, 1, 2],
 		'chromosomes': {
-			'c1': {'genome_id': 0, 'length': 2000, 'rc': false, 'seq': null},
-			'c2': {'genome_id': 1, 'length': 1000, 'rc': false, 'seq': null},
-			'c3': {'genome_id': 2, 'length': 1000, 'rc': false, 'seq': null}
+			'c1': {'reverse': false, 'visible': true},
+			'c2': {'reverse': false, 'visible': true},
+			'c3': {'reverse': false, 'visible': true}
+		}
+};
+var karyo4 = {
+		'chromosomes': {
+			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+			'c2': {'genome_id': 1, 'length': 1000, 'seq': null},
+			'c3': {'genome_id': 1, 'length': 1000, 'seq': null},
+			'c4': {'genome_id': 2, 'length': 1000, 'seq': null}
 		}
 };
 var karyo4 = {
 		'order': ['c1', 'c2', 'c3', 'c4'],
 		'genome_order': [0, 1, 2],
 		'chromosomes': {
-			'c1': {'genome_id': 0, 'length': 2000, 'rc': false, 'seq': null},
-			'c2': {'genome_id': 1, 'length': 1000, 'rc': false, 'seq': null},
-			'c3': {'genome_id': 1, 'length': 1000, 'rc': false, 'seq': null},
-			'c4': {'genome_id': 2, 'length': 1000, 'rc': false, 'seq': null}
+			'c1': {'reverse': false, 'visible': null},
+			'c2': {'reverse': false, 'visible': null},
+			'c3': {'reverse': false, 'visible': null},
+			'c4': {'reverse': false, 'visible': null}
 		}
 };
 var features = {
@@ -109,6 +137,24 @@ describe('The setData method of WgaPipeline objects is supposed to set the data'
 	it('setData method is supposed to overwrite existing data', function(){
 		wga.setData(data2);
 		expect(wga.data).toEqual(data2);
+	});
+});
+
+describe('The setFilters method of WgaPipeline objects is supposed to set the filters', function(){
+	var svg = $('<svg></svg>');
+	var wga = new WgaPipeline(svg);
+	it('setFilters method is supposed to be a function', function(){
+		expect(typeof wga.setFilters).toEqual('function');
+	});
+	it('setFilters method is supposed to set the filters variable', function(){
+		wga.setData(data);
+		wga.setFilters(filters);
+		expect(wga.filters).toEqual(filters);
+	});
+	it('setData method is supposed to overwrite existing filters', function(){
+		wga.setData(data2);
+		wga.setFilters(filters2);
+		expect(wga.filters2).toEqual(filters2);
 	});
 });
 
