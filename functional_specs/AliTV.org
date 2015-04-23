@@ -34,6 +34,7 @@
      - graphic parameters of AliTV objects
      - filter parameters of AliTV objects
 ** Nice-to-have criteria
+   - Shade chromosomes belonging to a genome differently
    - Add legends for color schemes:
      - genomes
      - identity for links
@@ -81,6 +82,45 @@
    AliTV does not require special hardware.
 ** (Orgware)
 * Functionality
+** /F0100/ Reimplementation of existing functionalty (for linear layout)
+*** /F0110/ Calculate coordinates for links
+    To draw linkage information from the given dataset, it is needed
+    to transform chromosome specific coordinates into canvas
+    coordinate system.
+*** /F0120/ Filter linkage information for neighbors
+    Reduce the number of linkage information between different
+    chromosomes by filtering out all links but keeping the links of
+    neighbored chromosomes.
+*** /F0130/ Draw links
+    Given the coordinates from /F0101/ and /F0102/ one can draw links between the
+    chromosomes using the d3 toolkit.
+*** /F0135/ Color links according to their identity
+    Links should be colored by their identity value. Therefore a
+    gradient should be used starting at high identity with green and
+    stopping at low identity with red.
+*** /F0140/ Color chromosomes
+    To distinguish between different genomes, we need to color
+    chromosomes according to the genome they belong to.
+*** /F0145N/ Differentiate color of chromosomes
+    In addition to /F0104/ we want to shade the color of different
+    chromosomes belonging to the same genome. This can be achieved by
+    using a gradient for a genome color.
+*** /F0150/ Add ticks to chromosomes
+    For a better navigation on the chromosomes we need ticks and tick
+    labels indicating the position on the corresponding
+    chromosome. Both should be drawn by default and need to be
+    configurable via configuration.
+*** /F0160/ Fade out links on mouseover event
+    If the mouse pointer enters the area of a chromosome all links
+    should be faded out except the links of the chromosome the mouse
+    points to. This enables the user to investigate the links in more
+    detail.
+*** /F0165/ Fade in links on mouseout event
+    If the mouse pointer leaves the area of a chromosome all links
+    should be faded in again.
+*** /F0170/ Reverse chromosomes and annotated links on left click
+    The orientation of a chromosome can be altered by clicking onto
+    that chromosome.
 * Data
 * User interface
 * Quality targets
