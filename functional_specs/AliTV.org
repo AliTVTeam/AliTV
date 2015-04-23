@@ -12,6 +12,11 @@
 
 
 * Objectives of AliTV
+  The software Alignment Toolbox and Visualization (AliTV) should be
+  used to interactively generate 'publication ready' figures starting
+  from biological data sets. Moreover, its capability of changing the
+  figure output on the fly extends the functionality of AliTV to an
+  analysis tool.
 ** Must-have criteria
 ** Nice-to-have criteria
 ** (Abgrenzungskriterien)
