@@ -34,6 +34,24 @@
      - graphic parameters of AliTV objects
      - filter parameters of AliTV objects
 ** Nice-to-have criteria
+   - Add legends for color schemes:
+     - genomes
+     - identity for links
+     - features
+   - Allow reordering of
+     - chromosomes (linear layout)
+     - genomes (for a given tree: branches can only be swapped, but
+       free reordered within multifurcations)
+   - Implement a zoom/panning feature:
+     - Independent zoom for x and y axis
+     - Independent zoom levels for different genomes
+     - Independent panning of genomes
+   - Plot tracks onto genomes, e.g. coverage or GC content
+   - Extend filter API to enable the user to hide single elements
+     (chromosomes, genomes) from the plot, but give a number of hidden
+     elements for each genome
+   - Add support for different feature classes with individual
+     graphical representation
 ** (Abgrenzungskriterien)
 * Usage
 ** Application field
