@@ -166,11 +166,13 @@ describe('The getLinearKaryoCoords method of WgaPipeline objects is supposed to 
 	});
 	it('getLinearKaryoCoords method is supposed to return linearKaryoCoords', function(){
 		wga.setData(data);
+		wga.setFilters(filters);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		expect(linearKaryoCoords).toBeDefined();
 	});
 	it('getLinearKaryoCoords method is supposed to work with simple test data (2 genomes, 2 chromosomes)', function(){
 		wga.setData(data);
+		wga.setFilters(filters);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
             {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight},
@@ -180,6 +182,7 @@ describe('The getLinearKaryoCoords method of WgaPipeline objects is supposed to 
 	});
 	it('getLinearKaryoCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes)', function(){
 		wga.setData(data2);
+		wga.setFilters(filters2);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
 		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/2000), 'height': defaultConf.linear.karyoHeight},
@@ -190,6 +193,7 @@ describe('The getLinearKaryoCoords method of WgaPipeline objects is supposed to 
 	});
 	it('getLinearKaryoCoords method is supposed to work with simple test data (3 genomes, 3 chromosomes)', function(){
 		wga.setData(data3);
+		wga.setFilters(filters3);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
 		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight},
@@ -200,6 +204,7 @@ describe('The getLinearKaryoCoords method of WgaPipeline objects is supposed to 
 	});
 	it('getLinearKaryoCoords method is supposed to work with simple test data (3 genomes, 4 chromosomes)', function(){
 		wga.setData(data4);
+		wga.setFilters(filters4);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
 		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/2000), 'height': defaultConf.linear.karyoHeight},
@@ -215,6 +220,7 @@ describe('The drawLinearKaryo method of WgaPipeline objects is supposed to draw 
 	var svg = $('<svg></svg>');
 	var wga = new WgaPipeline(svg);
 	wga.setData(data);
+	wga.setFilters(filters);
 	it('drawLinearKaryo method is supposed to be a function', function(){
 		expect(typeof wga.drawLinearKaryo).toEqual('function');
 	});
@@ -236,6 +242,7 @@ describe('The drawLinearKaryo method of WgaPipeline objects is supposed to draw 
 	});
 	it('there should be exactly four karyos in the more complex test svg', function(){
 		wga.setData(data4);
+		wga.setFilters(filters4);
 		linearKaryoCoords = wga.getLinearKaryoCoords();
 		wga.drawLinearKaryo(linearKaryoCoords);
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
@@ -246,6 +253,7 @@ describe('The drawLinear method of WgaPipeline objects is supposed to draw the l
 	var svg = $('<svg></svg>');
 	var wga = new WgaPipeline(svg);
 	wga.setData(data2);
+	wga.setFilters(filters2);
 	it('drawLinear method is supposed to be a function', function(){
 		expect(typeof wga.drawLinear).toEqual('function');
 	});
@@ -295,11 +303,13 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 	});
 	it('getCircularKaryoCoords method is supposed to return circularKaryoCoords', function(){
 		wga.setData(data);
+		wga.setFilters(filters);
 		var circularKaryoCoords = wga.getCircularKaryoCoords();
 		expect(circularKaryoCoords).toBeDefined();
 	});
 	it('getCircularKaryoCoords method is supposed to work with simple test data (2 genomes, 2 chromosomes)', function(){
 		wga.setData(data);
+		wga.setFilters(filters);
 		var circularKaryoCoords = wga.getCircularKaryoCoords();
 		var expAnglePerBase = 2*Math.PI/(3000+2*defaultConf.circular.karyoDistance);
 		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
@@ -311,6 +321,7 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 	});
 	it('getCircularKaryoCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes)', function(){
 		wga.setData(data2);
+		wga.setFilters(filters2);
 		var circularKaryoCoords = wga.getCircularKaryoCoords();
 		var expAnglePerBase = 2*Math.PI/(4000+3*defaultConf.circular.karyoDistance);
 		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
@@ -323,6 +334,7 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 	});
 	it('getCircularKaryoCoords method is supposed to work with simple test data (3 genomes, 3 chromosomes)', function(){
 		wga.setData(data3);
+		wga.setFilters(filters3);
 		var circularKaryoCoords = wga.getCircularKaryoCoords();
 		var expAnglePerBase = 2*Math.PI/(4000+3*defaultConf.circular.karyoDistance);
 		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
@@ -335,6 +347,7 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 	});
 	it('getCircularKaryoCoords method is supposed to work with simple test data (3 genomes, 4 chromosomes)', function(){
 		wga.setData(data4);
+		wga.setFilters(filters4);
 		var circularKaryoCoords = wga.getCircularKaryoCoords();
 		var expAnglePerBase = 2*Math.PI/(5000+4*defaultConf.circular.karyoDistance);
 		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
@@ -352,6 +365,7 @@ describe('The drawCircularKaryo method of WgaPipeline objects is supposed to dra
 	var svg = $('<svg></svg>');
 	var wga = new WgaPipeline(svg);
 	wga.setData(data);
+	wga.setFilters(filters);
 	it('drawCircularKaryo method is supposed to be a function', function(){
 		expect(typeof wga.drawCircularKaryo).toEqual('function');
 	});
@@ -386,6 +400,7 @@ describe('The drawCircularKaryo method of WgaPipeline objects is supposed to dra
 //	});
 	it('there should be exactly four karyos in the more complex test svg', function(){
 		wga.setData(data4);
+		wga.setFilters(filters4);
 		circularKaryoCoords = wga.getCircularKaryoCoords();
 		wga.drawCircularKaryo(circularKaryoCoords);
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
@@ -397,6 +412,7 @@ describe('The drawCircular method of WgaPipeline objects is supposed to draw the
 	var svg = $('<svg></svg>');
 	var wga = new WgaPipeline(svg);
 	wga.setData(data2);
+	wga.setFilters(filters2);
 	it('drawCircular method is supposed to be a function', function(){
 		expect(typeof wga.drawCircular).toEqual('function');
 	});
