@@ -127,7 +127,7 @@ my $L = Log::Log4perl::get_logger();
 
 create_dir_structure();
 
-my $karyo = parse_karyo($opt_karyo);
+my ($karyo, $karyo_filters) = parse_karyo($opt_karyo);
 open(OUT, '>', "$opt_prefix.d3/data/karyo.json") or $L->logdie("Can not open file $opt_prefix.d3/data/karyo.json\n$!");
 print OUT encode_json $karyo;
 close OUT or die "$!";
@@ -148,6 +148,9 @@ if($opt_bed){
 }
 open(OUT, '>', "$opt_prefix.d3/data/data.json") or $L->logdie("Can not open file $opt_prefix.d3/data/data.json\n$!");
 print OUT encode_json {'karyo' => $karyo, 'features' => $features, 'links' => $links};
+close OUT or die "$!";
+open(OUT, '>', "$opt_prefix.d3/data/filters.json") or $L->logdie("Can not open file $opt_prefix.d3/data/filters.json\n$!");
+print OUT encode_json {'karyo' => $karyo_filters};
 close OUT or die "$!";
 
 =head2 create_dir_structure
@@ -203,25 +206,28 @@ sub create_dir_structure{
 =head2 parse_karyo
 
 Sub to parse the karyo file. Input: filename
-Output: \%karyo of the form {$id => {length => $length, seq => $seq}}
+Output: \%karyo of the form {chromosomes => {$id => {genome_id => $genome_id, length => $length, seq => $seq}}} 
+    and \%filters of the form {genome_order => \@genome_order_array, order => \@order_array, {chromosomes => {$id => {reverse => $reverse, visible => $visible}}}}
 
 =cut
 
 sub parse_karyo{
 	my $file = $_[0];
-	my %karyo = ('chromosomes' => {}, 'order' => [], 'genome_order' => []);
+	my %karyo = ('chromosomes' => {});
+	my %filters = ('chromosomes' => {}, 'order' => [], 'genome_order' => []);
 	my %genome_ids = ();
 	open(IN, '<', $file) or $L->logdie("Can not open file $file\n$!");
 	while(<IN>){
 		chomp;
 		my($id, $gid, $len, $seq) = split(/\t/);
-		$karyo{'chromosomes'}{$id} = {"genome_id" => $gid+0, "length" => $len+0, "seq" => $seq, 'rc' => JSON::false};
-		push(@{$karyo{'order'}}, $id);
+		$karyo{'chromosomes'}{$id} = {"genome_id" => $gid+0, "length" => $len+0, "seq" => $seq};
+		$filters{'chromosomes'}{$id} = {'reverse' => JSON::false, 'visible' => JSON::true};
+		push(@{$filters{'order'}}, $id);
 		$genome_ids{$gid+0} = 1;
 	}
-	$karyo{'genome_order'} = [sort {$a <=> $b} map {$_+0} keys %genome_ids];
+	$filters{'genome_order'} = [sort {$a <=> $b} map {$_+0} keys %genome_ids];
 	close IN or $L->logdie("Can not close file $file\n$!");
-	return \%karyo;
+	return (\%karyo, \%filters);
 	print Dumper(\%karyo);
 }
 
