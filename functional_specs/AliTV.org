@@ -203,5 +203,51 @@
    - [ ] but also specific links.
 
 * Data
+** Definition of data object
+  #+BEGIN_SRC javascript
+/**
+ * {Object}  karyo                        - the chromosome information
+ * {Object}  karyo.chromosomes            - the chromosome details, karyo IDs as keys
+ * {Number}  karyo.chromosomes.genome_id  - number of genome to which this chromosome belongs
+ * {Number}  karyo.chromosomes.length     - length in bp
+ * {String}  karyo.chromosomes.seq        - sequence of the chromosome
+ * {Object}  features                     - the feature information, feature IDs as keys
+ * {String}  features.karyo               - the karyo ID
+ * {Number}  features.start               - start position on the sequence
+ * {Number}  features.end                 - end position on the sequence
+ * {Object}  links                        - the link information
+ * {String}  links.source                 - source feature of the link
+ * {String}  links.target                 - target feature of the link
+ * {Number}  links.identity               - identity of the link
+ */
+  #+END_SRC
+** Definition of filters object
+   #+BEGIN_SRC javascript
+/**
+ * {Object}  filters                              - the data dependent displaying information
+ * {Object}  filters.karyo                        - the chromosome dependent displaying information
+ * {Array}   filters.karyo.order                  - array of chromosome IDs in the desired order (circular layout)
+ * {Array}   filters.karyo.genome_order           - array of genome IDs in the desired order (linear layout)
+ * {Object}  filters.karyo.chromosomes            - the chromosome drawing details, filters.karyo IDs as keys
+ * {Boolean} filters.karyo.chromosomes.reverse    - should the sequence be treated as its reverse (complement)
+ * {Boolean} filters.karyo.chromosomes.visible    - should the sequence be displayed at all
+ */
+   #+END_SRC
+** Definition of initial configuration object
+   #+BEGIN_SRC javascript
+/**
+ * {Number}  width                  - The width of the svg in px.
+ * {Number}  height                 - The height of the svg in px.
+ * {Object}  linear                 - The configuration options for the linear layout.
+ * {Number}  linear.genomeDistance  - The vertical distance between adjacent genomes in px.
+ * {Number}  linear.karyoHeight     - The height of each chromosome in px.
+ * {Number}  linear.karyoDistance   - The horizontal distance between adjacent chromosomes of the same genome in bp.
+ * {Object}  circular               - The configuration options for the circular layout.
+ * {Number}  circular.karyoHeight   - The height of each chromosome in px.
+ * {Number}  circular.karyoDistance - The distance between adjacent chromosomes on the circle in bp.
+ * {Number}  circular.outerRadius	  - The outer radius of the circle in px.
+ */
+
+   #+END_SRC
 * User interface
 * Quality targets
