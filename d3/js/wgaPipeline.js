@@ -154,7 +154,7 @@ WgaPipeline.prototype.setFilters = function(filters) {
  */
 WgaPipeline.prototype.getLinearKaryoCoords = function() {
 	var linearKaryoCoords = [];
-	var genome_order = this.data.karyo.genome_order;
+	var genome_order = this.filters.karyo.genome_order;
 	var conf = this.conf;
 
 	var total = [];
@@ -172,8 +172,8 @@ WgaPipeline.prototype.getLinearKaryoCoords = function() {
 
 	var maxTotalSize = Math.max.apply(null, total);
 
-	for (i = 0; i < this.data.karyo.order.length; i++) {
-		var key = this.data.karyo.order[i];
+	for (i = 0; i < this.filters.karyo.order.length; i++) {
+		var key = this.filters.karyo.order[i];
 		var value = this.data.karyo.chromosomes[key];
 		var coord = {
 			'karyo': key,
