@@ -154,7 +154,7 @@ describe('The setFilters method of WgaPipeline objects is supposed to set the fi
 	it('setData method is supposed to overwrite existing filters', function(){
 		wga.setData(data2);
 		wga.setFilters(filters2);
-		expect(wga.filters2).toEqual(filters2);
+		expect(wga.filters).toEqual(filters2);
 	});
 });
 

@@ -139,6 +139,9 @@ WgaPipeline.prototype.setData = function(data) {
  * wga.drawLinear();
  * wga.drawCircular();
  */
+WgaPipeline.prototype.setFilters = function(filters) {
+	this.filters = filters;
+};
 
 /**
  * Calculates coordinates for the chromosomes to draw in the linear layout.
