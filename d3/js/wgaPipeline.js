@@ -239,14 +239,15 @@ WgaPipeline.prototype.getCircularKaryoCoords = function() {
 	var circularKaryoCoords = [];
 	var total = 0;
 	var spacer = this.conf.circular.karyoDistance;
-	var karyo = this.data.karyo;
+	var chromosomes = this.data.karyo.chromosomes;
+	var order = this.filters.karyo.order;
 	var current = -spacer;
-	$.each(karyo.chromosomes, function(key, value) {
+	$.each(chromosomes, function(key, value) {
 		total += value.length + spacer;
 	});
-	for (var i = 0; i < karyo.order.length; i++) {
-		var key = karyo.order[i];
-		var value = karyo.chromosomes[key];
+	for (var i = 0; i < order.length; i++) {
+		var key = order[i];
+		var value = chromosomes[key];
 		var data = {
 			"karyo": key,
 			"startAngle": ((current + spacer) / total) * (2 * Math.PI),
