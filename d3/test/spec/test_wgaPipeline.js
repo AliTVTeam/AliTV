@@ -381,10 +381,10 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 		var expAnglePerBase = 2*Math.PI/(5000+4*defaultConf.circular.karyoDistance);
 		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
 		var expectedCoords = [
-		    {'karyo': 'c1', 'endAngle': 0, 'startAngle': 2000*expAnglePerBase},
-		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
-		    {'karyo': 'c3', 'endAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'startAngle': 4000*expAnglePerBase + 2*expAnglePerSpace},
-		    {'karyo': 'c4', 'startAngle': 4000*expAnglePerBase + 3*expAnglePerSpace, 'endAngle': 5000*expAnglePerBase + 3*expAnglePerSpace}
+		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
+		    {'karyo': 'c2', 'endAngle': 2000*expAnglePerBase + expAnglePerSpace, 'startAngle': 3000*expAnglePerBase + expAnglePerSpace},
+		    {'karyo': 'c3', 'startAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'endAngle': 4000*expAnglePerBase + 2*expAnglePerSpace},
+		    {'karyo': 'c4', 'endAngle': 4000*expAnglePerBase + 3*expAnglePerSpace, 'startAngle': 5000*expAnglePerBase + 3*expAnglePerSpace}
 		];
 		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
 	});
