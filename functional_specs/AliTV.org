@@ -151,6 +151,17 @@
    exact position (left or right) of the tree should be given by the
    configuration. There it should be also possible to switch off the
    tree drawing.
+** /F0500N/ Allow reordering of genomes (linear layout)
+   The order of genomes should be alterable by drag and drop
+   vertically. If a non multifurcation tree is provided only swapping
+   meaning rotating at branch points is allowed to keep the
+   information of the tree. The tree information need to be adjusted
+   accordingly. If the tree is not displayed, it is treated as a
+   multifurcation tree. If later the tree drawing is enabled
+   again. Genome ordering has to be reset back to the order provided
+   by the tree.
+** /F0550N/ Allow reordering of chromosomes (linear layout)
+   Chromosomes can be reordered by using drag and drop horizontally.
 ** /F0600/ Text labels for the genomes, chromosomes, and features
    The labels for genomes and chromosomes should be drawn next to the
    specific element by default. For features (non linking) the labels
