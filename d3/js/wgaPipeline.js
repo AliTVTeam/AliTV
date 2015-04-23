@@ -20,12 +20,9 @@ function WgaPipeline(svg) {
 	/**
 	 * property to store the data
 	 * @property {Object}  karyo                        - the chromosome information
-	 * @property {Array}   karyo.order                  - array of chromosome IDs in the desired order (circular layout)
-	 * @property {Array}   karyo.genome_order           - array of genome IDs in the desired order (linear layout)
 	 * @property {Object}  karyo.chromosomes            - the chromosome details, karyo IDs as keys
 	 * @property {Number}  karyo.chromosomes.genome_id  - number of genome to which this chromosome belongs
 	 * @property {Number}  karyo.chromosomes.length     - length in bp
-	 * @property {Boolean} karyo.chromosomes.rc         - should the sequence be treated as its reverse complement
 	 * @property {String}  karyo.chromosomes.seq        - sequence of the chromosome
 	 * @property {Object}  features                     - the feature information, feature IDs as keys
 	 * @property {String}  features.karyo               - the karyo ID
@@ -37,6 +34,17 @@ function WgaPipeline(svg) {
 	 * @property {Number}  links.identity               - identity of the link
 	 */
 	this.data = {};
+	/**
+	 * property to store data specific drawing options (structure highly dependent on data structure)
+	 * @property {Object}  filters                      - the data dependent displaying information
+	 * @property {Object}  karyo                        - the chromosome dependent displaying information
+	 * @property {Array}   karyo.order                  - array of chromosome IDs in the desired order (circular layout)
+	 * @property {Array}   karyo.genome_order           - array of genome IDs in the desired order (linear layout)
+	 * @property {Object}  karyo.chromosomes            - the chromosome drawing details, karyo IDs as keys
+	 * @property {Boolean} karyo.chromosomes.reverse    - should the sequence be treated as its reverse (complement)
+	 * @property {Boolean} karyo.chromosomes.visible    - should the sequence be displayed at all
+	 */
+	this.filters = {};
 	/**
 	 * property to store configuration options
 	 * @property {Number}  width                  - The width of the svg in px.
