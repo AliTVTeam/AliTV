@@ -207,6 +207,9 @@
    - [ ] genomes
    - [ ] identity for links
    - [ ] color code for different feature classes
+** /F1000N/ Export as SVG
+   The class needs an API call to export the whole drawing with all
+   current settings as SVG graphic.
 * Data
 ** Definition of data object
   #+BEGIN_SRC javascript
