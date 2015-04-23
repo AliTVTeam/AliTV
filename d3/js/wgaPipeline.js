@@ -79,18 +79,16 @@ function WgaPipeline(svg) {
 
 /**
  * Sets the data of the WgaPipeline object.
- * For the required format see the example
+ * For the required format see the documentation of the data property
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  * @param {Object} data - Object containing karyo, link and feature information
  * @example
  * var svg = $('#canvas');
  * var wga = new wgaPipeline(svg);
  * var karyo = {
- * 	'order': ['c1', 'c2'],
- * 	'genome_order': ['0', '1'],
  * 	'chromosomes': {
- * 	'c1': {'genome_id': 0, 'length': 2000, 'rc': false, 'seq': null},
- * 	'c2': {'genome_id': 1, 'length': 1000, 'rc': false, 'seq': null}
+ * 	'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+ * 	'c2': {'genome_id': 1, 'length': 1000, 'seq': null}
  * 	}
  * };
  * var features = {
