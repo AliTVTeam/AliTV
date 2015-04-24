@@ -13,17 +13,17 @@ var defaultConf =  {
 		}
 };
 
-describe('The constructor is supposed a proper WgaPipeline object', function(){
-	it('Constructor wgaPipeline exists', function(){
-		expect(WgaPipeline).toBeDefined();
+describe('The constructor is supposed a proper AliTV object', function(){
+	it('Constructor AliTV exists', function(){
+		expect(AliTV).toBeDefined();
 	});
 	var svg = $('<svg></svg>');
-	var wga = new WgaPipeline(svg);
+	var wga = new AliTV(svg);
 	it('WgaPipelie object is not null', function(){
 		expect(wga).not.toBeNull();
 	});
-	it('WgaPipelie object should be an instance of WgaPipeline class', function(){
-		expect(wga instanceof WgaPipeline).toBeTruthy();
+	it('WgaPipelie object should be an instance of AliTV class', function(){
+		expect(wga instanceof AliTV).toBeTruthy();
 	});
 	it('the svg property is properly set', function(){
 		expect(wga.svg).toEqual(svg);
@@ -139,9 +139,9 @@ var data2 = {'karyo': karyo2, 'features': features, 'links': links};
 var data3 = {'karyo': karyo3, 'features': features, 'links': links};
 var data4 = {'karyo': karyo4, 'features': features, 'links': links};
 
-describe('The setData method of WgaPipeline objects is supposed to set the data', function(){
+describe('The setData method of AliTV objects is supposed to set the data', function(){
 	var svg = $('<svg></svg>');
-	var wga = new WgaPipeline(svg);
+	var wga = new AliTV(svg);
 	it('setData method is supposed to be a function', function(){
 		expect(typeof wga.setData).toEqual('function');
 	});
@@ -155,9 +155,9 @@ describe('The setData method of WgaPipeline objects is supposed to set the data'
 	});
 });
 
-describe('The setFilters method of WgaPipeline objects is supposed to set the filters', function(){
+describe('The setFilters method of AliTV objects is supposed to set the filters', function(){
 	var svg = $('<svg></svg>');
-	var wga = new WgaPipeline(svg);
+	var wga = new AliTV(svg);
 	it('setFilters method is supposed to be a function', function(){
 		expect(typeof wga.setFilters).toEqual('function');
 	});
@@ -173,9 +173,9 @@ describe('The setFilters method of WgaPipeline objects is supposed to set the fi
 	});
 });
 
-describe('The getLinearKaryoCoords method of WgaPipeline objects is supposed to calculate coordinates for the karyos in the linear case', function(){
+describe('The getLinearKaryoCoords method of AliTV objects is supposed to calculate coordinates for the karyos in the linear case', function(){
 	var svg = $('<svg></svg>');
-	var wga = new WgaPipeline(svg);
+	var wga = new AliTV(svg);
 	it('getLinearKaryoCoords method is supposed to be a function', function(){
 		expect(typeof wga.getLinearKaryoCoords).toEqual('function');
 	});
@@ -231,9 +231,9 @@ describe('The getLinearKaryoCoords method of WgaPipeline objects is supposed to 
 	});
 });
 
-describe('The drawLinearKaryo method of WgaPipeline objects is supposed to draw karyos', function(){
+describe('The drawLinearKaryo method of AliTV objects is supposed to draw karyos', function(){
 	var svg = $('<svg></svg>');
-	var wga = new WgaPipeline(svg);
+	var wga = new AliTV(svg);
 	wga.setData(data);
 	wga.setFilters(filters);
 	it('drawLinearKaryo method is supposed to be a function', function(){
@@ -264,9 +264,9 @@ describe('The drawLinearKaryo method of WgaPipeline objects is supposed to draw 
 	});
 });
 
-describe('The drawLinear method of WgaPipeline objects is supposed to draw the linear layout', function(){
+describe('The drawLinear method of AliTV objects is supposed to draw the linear layout', function(){
 	var svg = $('<svg></svg>');
-	var wga = new WgaPipeline(svg);
+	var wga = new AliTV(svg);
 	wga.setData(data2);
 	wga.setFilters(filters2);
 	it('drawLinear method is supposed to be a function', function(){
@@ -283,7 +283,7 @@ describe('The drawLinear method of WgaPipeline objects is supposed to draw the l
 	});
 });
 
-describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed to calculate coordinates for the karyos in the circular case', function(){
+describe('The getCircularKaryoCoords method of AliTV objects is supposed to calculate coordinates for the karyos in the circular case', function(){
 	beforeEach(function() {
 	    jasmine.addMatchers({
 	    	toHaveSameAngles: function(util, customEqualityTesters) {
@@ -312,7 +312,7 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 	    });
 	});
 	var svg = $('<svg></svg>');
-	var wga = new WgaPipeline(svg);
+	var wga = new AliTV(svg);
 	it('getCircularKaryoCoords method is supposed to be a function', function(){
 		expect(typeof wga.getCircularKaryoCoords).toEqual('function');
 	});
@@ -390,9 +390,9 @@ describe('The getCircularKaryoCoords method of WgaPipeline objects is supposed t
 	});
 });
 
-describe('The drawCircularKaryo method of WgaPipeline objects is supposed to draw karyos', function(){
+describe('The drawCircularKaryo method of AliTV objects is supposed to draw karyos', function(){
 	var svg = $('<svg></svg>');
-	var wga = new WgaPipeline(svg);
+	var wga = new AliTV(svg);
 	wga.setData(data);
 	wga.setFilters(filters);
 	it('drawCircularKaryo method is supposed to be a function', function(){
@@ -436,9 +436,9 @@ describe('The drawCircularKaryo method of WgaPipeline objects is supposed to dra
 	});
 });
 
-describe('The drawCircular method of WgaPipeline objects is supposed to draw the circular layout', function(){
+describe('The drawCircular method of AliTV objects is supposed to draw the circular layout', function(){
 	var svg = $('<svg></svg>');
-	var wga = new WgaPipeline(svg);
+	var wga = new AliTV(svg);
 	wga.setData(data2);
 	wga.setFilters(filters2);
 	it('drawCircular method is supposed to be a function', function(){

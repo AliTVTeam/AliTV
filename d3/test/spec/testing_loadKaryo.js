@@ -1,6 +1,6 @@
 var karyoFile = "data/karyo.json";
 if(navigator.userAgent.match(/phantomjs/i)){	
-	karyoFile = "https://raw.githubusercontent.com/BioInf-Wuerzburg/wgaPipeline/d3.js/d3_test/data/karyo.json";
+	karyoFile = "https://raw.githubusercontent.com/BioInf-Wuerzburg/AliTV/d3.js/d3_test/data/karyo.json";
 };
 
 describe("describe function loadKaryoFile", function(){
@@ -87,7 +87,7 @@ describe("Spy on loadKaryoFile", function(){
 	it("the spy tracks the arguments of loadKaryoFile. In this case the arguments are either the filename or when you use grunt the url to the github-page. " +
 			"The test fails when you not assign the access to the data", function() {
 		if(navigator.userAgent.match(/phantomjs/i)){	
-			expect(loadKaryo.test).toHaveBeenCalledWith("https://raw.githubusercontent.com/BioInf-Wuerzburg/wgaPipeline/d3.js/d3_test/data/karyo.json");
+			expect(loadKaryo.test).toHaveBeenCalledWith("https://raw.githubusercontent.com/BioInf-Wuerzburg/AliTV/d3.js/d3_test/data/karyo.json");
 		}
 		else{
 			expect(loadKaryo.test).toHaveBeenCalledWith("data/karyo.json");

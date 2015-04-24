@@ -3,7 +3,7 @@ var returnLinks;
 var links;
 var karyo;
 
-describe("describe function link_to_coords for the linear version of the wgaPipeline", function(){
+describe("describe function link_to_coords for the linear version of the AliTV", function(){
 describe("general tests", function(){
 	beforeEach(function(done){
 		loadKaryoFile(karyoFile, function(data){
@@ -60,7 +60,7 @@ describe('the information which is saved in the link file for the linear version
 });
 });
 
-describe("describe link_to_coords for the circular version of the wgaPipeline", function() {
+describe("describe link_to_coords for the circular version of the AliTV", function() {
 			describe('the information which is saved in the link file for the circular version', function() {
 						beforeEach(function(done) {
 							loadKaryoFile(karyoFile, function(data) {

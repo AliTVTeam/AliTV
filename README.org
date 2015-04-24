@@ -1,11 +1,11 @@
 ** Build
-[[https://travis-ci.org/BioInf-Wuerzburg/wgaPipeline/][https://travis-ci.org/BioInf-Wuerzburg/wgaPipeline.svg?branch=d3js_oo]]
-[[https://coveralls.io/r/BioInf-Wuerzburg/wgaPipeline?branch=d3js_oo][https://coveralls.io/repos/BioInf-Wuerzburg/wgaPipeline/badge.svg?branch=d3js_oo]]
+[[https://travis-ci.org/BioInf-Wuerzburg/AliTV/][https://travis-ci.org/BioInf-Wuerzburg/AliTV.svg?branch=d3js_oo]]
+[[https://coveralls.io/r/BioInf-Wuerzburg/AliTV?branch=d3js_oo][https://coveralls.io/repos/BioInf-Wuerzburg/AliTV/badge.svg?branch=d3js_oo]]
 
 ** Installation
 
 #+BEGIN_EXAMPLE
-  git clone --recursive https://github.com/BioInf-Wuerzburg/wgaPipeline
+  git clone --recursive https://github.com/BioInf-Wuerzburg/AliTV
 #+END_EXAMPLE
    
 ** Dependencies
@@ -17,16 +17,16 @@
 ** Usage
 To get usage information
 #+BEGIN_EXAMPLE
-  wgaPipeline --help
+  AliTV --help
 #+END_EXAMPLE
 
 Example usage
 #+BEGIN_EXAMPLE
-  wgaPipeline --query query.fa --reference reference.fa
+  AliTV --query query.fa --reference reference.fa
 #+END_EXAMPLE
 
 ** Output
-By default, wgaPipeline generates ten files in the output folder:
+By default, AliTV generates ten files in the output folder:
 
 | <prefix>.txt             | The output of the whole genome alignment program in tabular format      |
 | <prefix>.svg             | The circular map of the wga created by Circos in svg format             |
@@ -42,7 +42,7 @@ By default, wgaPipeline generates ten files in the output folder:
 ** Input
 Both the query and the reference file should be in fasta format.
 
-** Citing wgaPipeline
+** Citing AliTV
 
 not yet published - use the github page as reference for now
 
@@ -54,7 +54,7 @@ BLAST (for IR annotation)
 
 ** Contact
 If you have any questions or encounter problems or potential bugs, don't
-hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/wgaPipeline/issues][issues]] on github or write an email to:
+hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/AliTV/issues][issues]] on github or write an email to:
 
 - Markus Ankenbrand - markus.ankenbrand@uni-wuerzburg.de
 - Thomas Hackl - thomas.hackl@uni.wuerzburg.de
@@ -64,7 +64,7 @@ hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/wgaP
 
 
 
-#+TITLE: wgaPipeline manual
+#+TITLE: AliTV manual
 #+AUTHOR: Markus Ankenbrand
 #+EMAIL: markus.ankenbrand@uni-wuerzburg.de
 #+LANGUAGE: en

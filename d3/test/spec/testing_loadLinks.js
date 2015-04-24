@@ -1,7 +1,7 @@
 var linkFile = "data/link.json";
 
 if(navigator.userAgent.match(/phantomjs/i)){	
-	linkFile = "https://raw.githubusercontent.com/BioInf-Wuerzburg/wgaPipeline/d3.js/d3_test/data/link.json";
+	linkFile = "https://raw.githubusercontent.com/BioInf-Wuerzburg/AliTV/d3.js/d3_test/data/link.json";
 };
 
 
@@ -53,7 +53,7 @@ describe("Spy on loadLinkFile", function(){
 	it("the spy tracks the arguments of loadLinkFile. In this case the arguments are either the filename or when you use grunt the url to the github-page. " +
 			"The test fails when you not assign the access to the data correctly.", function() {
 		if(navigator.userAgent.match(/phantomjs/i)){	
-			expect(loadLink.test).toHaveBeenCalledWith("https://raw.githubusercontent.com/BioInf-Wuerzburg/wgaPipeline/d3.js/d3_test/data/link.json");
+			expect(loadLink.test).toHaveBeenCalledWith("https://raw.githubusercontent.com/BioInf-Wuerzburg/AliTV/d3.js/d3_test/data/link.json");
 		}
 		else{
 			expect(loadLink.test).toHaveBeenCalledWith("data/link.json");

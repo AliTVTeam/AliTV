@@ -23,7 +23,7 @@ generateJSONfiles.pl
 
 =head1 DESCRIPTION
 
-Generates a karyo.json and a link.json file for use with the wgaPipeline - d3.js component.
+Generates a karyo.json and a link.json file for use with the AliTV - d3.js component.
 
 =head1 USAGE
 
@@ -175,8 +175,8 @@ sub create_dir_structure{
                              lib/jquery-ui.min.js
                              lib/jquery-ui.min.css
 
-                             js/wgaPipeline_linear.js
-                             js/wgaPipeline_circular.js
+                             js/AliTV_linear.js
+                             js/AliTV_circular.js
 
                              d3.html
                              d3_linear.html

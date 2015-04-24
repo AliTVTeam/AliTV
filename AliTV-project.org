@@ -1,5 +1,5 @@
 # -*- org-hierarchical-todo-statistics: nil; -*-
-#+Title: wgaPipeline-project 
+#+Title: AliTV-project 
 
 * Project
 ** Members
@@ -19,7 +19,7 @@ gene prediction/annotations prior to visualization. Addionally, visualization is
 usually integrated in some form of interactive viewer, carrying lots of meta
 information etc. The actual graphics, however are mostly "ugly".
 
-wgaPipeline objectives:
+AliTV objectives:
 1) generation of whole genome alignments
    - using established methods (lastz, mummer)
    - using alternative methods (e.g. daligner)

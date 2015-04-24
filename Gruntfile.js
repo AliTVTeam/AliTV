@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 			jsbeautifier: {
 				"default": {
 					src: ["Gruntfile.js", "d3/src/*.js",
-						"d3/js/wgaPipeline.js"
+						"d3/js/AliTV.js"
 					],
 					options: {
 						js: {
@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 				},
 				"verify": {
 					src: ["Gruntfile.js", "d3/src/*.js",
-						"d3/js/wgaPipeline.js"
+						"d3/js/AliTV.js"
 					],
 					options: {
 						mode: "VERIFY_ONLY",
@@ -30,10 +30,10 @@ module.exports = function(grunt) {
 			},
 			jasmine: {
 				components: {
-					src: ['d3/js/wgaPipeline.js'],
+					src: ['d3/js/AliTV.js'],
 					options: {
 						'--local-to-remote-url-access': true,
-						specs: ['d3/test/spec/test_wgaPipeline.js'],
+						specs: ['d3/test/spec/test_AliTV.js'],
 						vendor: ['d3/lib/jquery.min.js',
 							'd3/lib/d3.v3.min.js',
 							'd3/test/lib/jasmine-2.2.0/jasmine-jquery.js'
@@ -65,11 +65,11 @@ module.exports = function(grunt) {
 						jQuery: true
 					}
 				},
-				all: ['Gruntfile.js', 'd3/js/wgaPipeline.js']
+				all: ['Gruntfile.js', 'd3/js/AliTV.js']
 			},
 			jsdoc: {
 				dist: {
-					src: ['d3/js/wgaPipeline.js'],
+					src: ['d3/js/AliTV.js'],
 					options: {
 						destination: 'd3/doc'
 					}

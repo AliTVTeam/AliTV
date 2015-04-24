@@ -177,7 +177,7 @@ $vwga->nline();
 $vplain->verbose($circos_re) if $circos_re;
 $vwga->exit('ERROR: Running Circos failed') if $?>> 8;
 
-$vwga->verbose('wgaPipeline finished');
+$vwga->verbose('AliTV finished');
 
 =head2 parser_command
 

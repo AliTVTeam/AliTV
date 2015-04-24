@@ -1,14 +1,14 @@
 /**
- * Creates an object of type wgaPipeline for drawing whole genome alignment visualizations
+ * Creates an object of type AliTV for drawing whole genome alignment visualizations
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de> 
  * @constructor
  * @param {Object} svg - jQuery object containing a svg DOM element. Visualizations will be drawn on this svg. Size may be changed by object methods. Previous content will be deleted.
  * @example
- * // initializes an wgaPipeline object (wga) on the svg element with id 'canvas'
+ * // initializes an AliTV object (wga) on the svg element with id 'canvas'
  * var svg = $('#canvas');
- * var wga = new wgaPipeline(svg);
+ * var wga = new AliTV(svg);
  */
-function WgaPipeline(svg) {
+function AliTV(svg) {
 	/**
 	 * property to contain the svg DOM element as jQuery Object
 	 */
@@ -78,13 +78,13 @@ function WgaPipeline(svg) {
 }
 
 /**
- * Sets the data of the WgaPipeline object.
+ * Sets the data of the AliTV object.
  * For the required format see the documentation of the data property
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  * @param {Object} data - Object containing karyo, link and feature information
  * @example
  * var svg = $('#canvas');
- * var wga = new wgaPipeline(svg);
+ * var wga = new AliTV(svg);
  * var karyo = {
  * 	'chromosomes': {
  * 	'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
@@ -100,19 +100,19 @@ function WgaPipeline(svg) {
  * ];
  * wga.setData({'karyo': karyo, 'features': features, 'links': links};
  */
-WgaPipeline.prototype.setData = function(data) {
+AliTV.prototype.setData = function(data) {
 	this.data = data;
 };
 
 /**
- * Sets the filters of the WgaPipeline object.
+ * Sets the filters of the AliTV object.
  * For the required format see the documentation of the filters property
  * The filters are highly dependent on the data object and have to resemble its layout
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  * @param {Object} filters - Object containing data specific drawing information
  * @example
  * var svg = $('#canvas');
- * var wga = new wgaPipeline(svg);
+ * var wga = new AliTV(svg);
  * var karyo = {
  * 	'chromosomes': {
  * 	'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
@@ -141,7 +141,7 @@ WgaPipeline.prototype.setData = function(data) {
  * wga.drawLinear();
  * wga.drawCircular();
  */
-WgaPipeline.prototype.setFilters = function(filters) {
+AliTV.prototype.setFilters = function(filters) {
 	this.filters = filters;
 };
 
@@ -152,7 +152,7 @@ WgaPipeline.prototype.setFilters = function(filters) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  * @returns {Array} Array containing one Object for each element in data.karyo of the form {karyo: 'karyo_name', x:0, y:0, width:10, height:10}
  */
-WgaPipeline.prototype.getLinearKaryoCoords = function() {
+AliTV.prototype.getLinearKaryoCoords = function() {
 	var linearKaryoCoords = [];
 	var genome_order = this.filters.karyo.genome_order;
 	var conf = this.conf;
@@ -194,7 +194,7 @@ WgaPipeline.prototype.getLinearKaryoCoords = function() {
  * @author Markus Ankenbrand and Sonja Hohlfeld
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
  */
-WgaPipeline.prototype.drawLinearKaryo = function(coords) {
+AliTV.prototype.drawLinearKaryo = function(coords) {
 	this.svgD3.selectAll(".karyoGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
@@ -223,7 +223,7 @@ WgaPipeline.prototype.drawLinearKaryo = function(coords) {
  * It draws directly on the svg and therefore has no return value.
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
-WgaPipeline.prototype.drawLinear = function() {
+AliTV.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
 	this.drawLinearKaryo(karyoCoords);
 };
@@ -235,7 +235,7 @@ WgaPipeline.prototype.drawLinear = function() {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  * @returns {Array} Array containing one Object for each element in data.karyo of the form {karyo: 'karyo_name', startAngle:0, endAngle:1}
  */
-WgaPipeline.prototype.getCircularKaryoCoords = function() {
+AliTV.prototype.getCircularKaryoCoords = function() {
 	var circularKaryoCoords = [];
 	var total = 0;
 	var spacer = this.conf.circular.karyoDistance;
@@ -270,7 +270,7 @@ WgaPipeline.prototype.getCircularKaryoCoords = function() {
  * @author Markus Ankenbrand
  * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
  */
-WgaPipeline.prototype.drawCircularKaryo = function(coords) {
+AliTV.prototype.drawCircularKaryo = function(coords) {
 	this.svgD3.selectAll(".karyoGroup").remove();
 	var outerRadius = this.conf.circular.outerRadius;
 	this.svgD3.append("g")
@@ -290,7 +290,7 @@ WgaPipeline.prototype.drawCircularKaryo = function(coords) {
  * It draws directly on the svg and therefore has no return value.
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
-WgaPipeline.prototype.drawCircular = function() {
+AliTV.prototype.drawCircular = function() {
 	var karyoCoords = this.getCircularKaryoCoords();
 	this.drawCircularKaryo(karyoCoords);
 };
