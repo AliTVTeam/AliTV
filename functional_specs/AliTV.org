@@ -229,6 +229,22 @@
    API call have to be provided and the functionality to draw a plot
    onto the chromosomes of a genome for all genomes with the
    corresponding information.
+** /F1400N/ Implementing horizontal zoom
+   The user should be able to zoom inside a horizontal position. This
+   should not influence the vertical zooming which means the distances
+   between different genomes should constant.
+** /F1500N/ Implementing vertiacal zoom
+   The user should be able to zoom inside a vertical position. This
+   allows focusing on specific genomes. Non visible genomes do not
+   need to be drawn. The vertical zoom level should not influence the
+   horizontal zooming.
+** /F1400N/ Implementing an independent horizontal genome zoom
+   The zoom level for horizontal zooming into the figure need to be
+   set independent for each genome. This enables different zoom levels
+   for different genomes.
+** /F1500N/ Implementing an independent genome panning
+   A panning should be implemented for each genome. This allows
+   focusing onto specific genome regions instead of the whole genome.
 * Data
 ** Definition of data object
   #+BEGIN_SRC javascript
