@@ -293,6 +293,10 @@
 
    #+END_SRC
 * User interface
+  As all the functionality is implemented inside the AliTV class, the
+  required HTML file for showing the figure is tiny, but the figure
+  itself can be configured using standard HTML elements and the API of
+  the AliTV class.
   #+BEGIN_SRC html
 <html>
 <head>
