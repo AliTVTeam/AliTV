@@ -135,16 +135,17 @@
    or non linking feature, but also other feature classes are
    possible. Those classes can be genes, t-RNAs, (inverted) repeats,
    etc.
-** /F0350N/ Drawing of different feature classes
+** /F0350N/ Drawing of different feature classes [0/4]
    The features from /F0300/ have to be drawn onto the
    chromosomes. The style information for the feature class should be
    provided by the configuration. If the feature class has no
    predefined style a fallback style should be used. Changes on
    feature drawing are made by altering the configuration. Some sample
    feature classes need to be provided:
-    - gene
-    - (inverted) repeat
-    - N stretch
+    - [ ] gene
+    - [ ] repeat
+    - [ ] inverted repeat
+    - [ ] N stretch
 ** /F0400/ Draw a provided phylogenetic tree next to the alignments
    If the user provides a phylogenetic tree other than a
    multifurcation, the tree should be drawn next to the alignment. The
