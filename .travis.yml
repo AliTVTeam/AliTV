@@ -1,0 +1,12 @@
+language: perl 
+perl:
+  - "5.10"
+before_script:
+  - npm install -g grunt-cli
+  - npm install -g codeclimate-test-reporter
+  - npm install
+script:
+  - perl Build.PL && ./Build test
+  - npm test
+after_script:
+  - codeclimate < d3/test/coverage/lcov.info

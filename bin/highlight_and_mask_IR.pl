@@ -20,7 +20,7 @@ highlight_and_mask_IR.pl
 
 =head1 DESCRIPTION
 
-This script is part of the wgaPipeline and if triggered by the pipeline highlights IR regions 
+This script is part of the AliTV and if triggered by the pipeline highlights IR regions 
 and/or masks them in a temporary fasta file before the WGA
 
 =head1 USAGE

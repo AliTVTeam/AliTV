@@ -5,7 +5,7 @@ use Getopt::Long;
 use Pod::Usage;
 use File::Basename;
 use FindBin;
-use lib $FindBin::Bin;
+use lib "$FindBin::RealBin/../lib";
 use Verbose;
 use Data::Dumper;
 
@@ -177,7 +177,7 @@ $vwga->nline();
 $vplain->verbose($circos_re) if $circos_re;
 $vwga->exit('ERROR: Running Circos failed') if $?>> 8;
 
-$vwga->verbose('wgaPipeline finished');
+$vwga->verbose('AliTV finished');
 
 =head2 parser_command
 

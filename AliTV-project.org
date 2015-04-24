@@ -1,0 +1,204 @@
+# -*- org-hierarchical-todo-statistics: nil; -*-
+#+Title: AliTV-project 
+
+* Project
+** Members
+#+PROPERTY: ASSIGNEE_ALL MA TH ""
+| Name              | ID | email                                      |
+|-------------------+----+--------------------------------------------|
+| Markus Ankenbrand | MA | markus.ankenbrand@uni-wuerzburg.de         |
+| Thomas Hackl      | TH | thomas.hackl@uni-wuerzburg.de              |
+| Frank Foerster    | FF | frank.foerster@biozentrum.uni-wuerzburg.de |
+
+** Objectives
+Whole genome alignment and visualization of homologous regions is an essential
+tool in comparative genomics. However currently available software either
+performs purely on large genomes (>100Mbp), when based on directly on
+alignments, or is aimed at synteny visualisation that depends on comprehensive
+gene prediction/annotations prior to visualization. Addionally, visualization is
+usually integrated in some form of interactive viewer, carrying lots of meta
+information etc. The actual graphics, however are mostly "ugly".
+
+AliTV objectives:
+1) generation of whole genome alignments
+   - using established methods (lastz, mummer)
+   - using alternative methods (e.g. daligner)
+2) Conversion of alignment data and visualization
+   - using Circos (cirular, 2 genomes)
+   - d3.js
+     - circular, multiple genomes
+     - linear, multiple genomes
+  
+** git
+*git-ff-merge* strategy for pushing/pulling
+script available at binf git base (132.187.22.105:common/git-scripts)
+** org 
+*** TODO "TODO" keywords
+Current suggestions - entirely open to discussion. 
+
+general tasks:
+#+TODO: TODO(t) INPG DISC HOLD | DONE(d) REJC(r)
+coding tasks:
+#+TODO: BUGF(b) FEAT(f) UINV TEST | FIXD(x) CANC(c)
+
+#+BEGIN_SRC lisp
+;;; TH's TODO color scheme
+(setq org-todo-keyword-faces
+      '(("TODO" . "red1")
+        ("BUGF" . "red1")
+        ("FEAT" . "orange1")
+        ("INPG" . "orange1")
+        ("UINV" . "orange1")
+        ("DISC" . "CornflowerBlue")
+        ("HOLD" . "CornflowerBlue")
+        ("DONE" . "ForestGreen")
+        ("FIXD" . "ForestGreen")))
+#+END_SRC
+
+*** column mode
+Gives a good overview on outline properties and easy access to modifications
+- on :: C-c C-x C-c (for subtree)
+- off :: q (on highlighted entry)
+- navigate :: arrow keys
+- modify :: S-arrow key or e
+
+http://orgmode.org/worg/org-tutorials/org-column-view-tutorial.html
+
+#+COLUMNS: %40ITEM %4TODO %2ASSIGNEE %1PRIORITY %12DEADLINE(due) %20TAGS(tag)
+
+* Log  
+** [2/3] Coding
+Actual dev on pipeline source code - features, bugfixes etc, goes here
+*** [2/3] alignment
+**** DONE lastz
+     CLOSED: [2015-01-31 Sa 14:01]
+**** DONE mummer
+     CLOSED: [2015-01-31 Sa 14:01]
+**** FEAT daligner
+
+*** [0/0] d3js
+** [0/5] Sandbox
+Ideas, brainstorming, experimenting, etc ...
+*** DISC linear visualization with using d3.js
+- d3js
+ - http://d3js.org/
+ - http://www.tips-for-excel.com/tag/d3-js-tutorial (esp. fig 2)
+- Parallel linear diagrams
+ - http://blog.massiveart.com/de/d3js-erfolgreich-daten-visualisiert-im-web
+ - http://www.tips-for-excel.com/d3test/Titanic/titanic.html
+ - http://bl.ocks.org/syntagmatic/2409451
+ - http://bl.ocks.org/mbostock/1341021
+- Sankey diagrams
+ - http://blog.ouseful.info/2012/05/24/f1-championship-points-as-a-d3-js-powered-sankey-diagram/
+- Tree layout
+ - http://blog.pixelingene.com/demos/d3_tree/
+
+*** [0/4] Standards
+**** chromosomes per genome
+***** DISC .tsv
+- simple tab separated format, defined columns
+
+****** sample
+#+BEGIN_EXAMPLE
+SID: sequence id (chromosome)
+GID: genome id (to which of multiple genomes does this sequence belong)
+LEN: length of this sequence
+SEQ: sequence as text (optional)
+
+SID	GID	LEN[	SEQ]
+#+END_EXAMPLE
+
+****** PROS
+- simple
+
+****** CONS
+- not standardized
+- not flexible
+
+**** annotations per genome
+***** DISC .bed
+- http://genome.ucsc.edu/FAQ/FAQformat.html
+- http://bedtools.readthedocs.org/en/latest/
+
+****** sample
+#+BEGIN_EXAMPLE
+SID: sequence id (chromosome)
+FID: feature id
+
+SID	FROM	TO	FID	...
+#+END_EXAMPLE
+
+****** PROS
+- simple, standardized tsv format, with comprehensive tool box (bedtools) and
+  conversion scripts to other formats
+- exiting data set of arbitrary feature annotations can usually converted to bed
+  very easy (gff, blast, sam ...)
+
+****** CONS
+- To use the features for links the fourth column (feature id) has to be mandatory, 
+  in contrast to the bed specification.
+**** links
+***** DISC .sif
+- http://wiki.cytoscape.org/Cytoscape_User_Manual/Network_Formats
+
+****** sample
+#+BEGIN_EXAMPLE
+FID_[AB]: feature id set A/B
+LTYPE: link type
+
+FID_A	LTYPE	FID_B
+#+END_EXAMPLE
+
+****** PROS
+- simple tsv, compatible with Cytoscape
+****** CONS
+- no link attributes, e.g. identity, score etc..
+- to add those attributes either an additional file is needed or the "link type" has to be abused
+
+***** DISC .tsv
+- simple tsv with header line 
+- mandatory columns are fida and fidb, all other columns are (named) link properties
+- the header starts with a hashtag (#)
+- if no header is present "#fida	type	fidb" is assumed, therefore supporting .sif format
+
+****** sample
+#+BEGIN_EXAMPLE
+FID_[AB]: feature id set A/B
+LTYPE: link type
+IDY: link identity
+
+#fida	type	fidb	identity
+FID_A	LTYPE	FID_B	IDY
+#+END_EXAMPLE
+
+****** PROS
+- flexible
+- extensible
+- can be imported into Cytoscape (as edge properties)
+
+****** CONS
+- not standardized
+- (useful) header lines have to be documented
+
+** [0/0] Data
+Test data sets etc.
+** [0/0] Web 
+* Paper
+The ulitmate goal.
+
+:PROPERTIES:
+:COOKIE_DATA: todo recursive
+:END:
+
+
+
+* __org__                                                  :noexport:ARCHIVE:
+#+DRAWERS: FAIL MAIL
+#+LANGUAGE: en
+#+OPTIONS: H:4 TeX:t LaTeX:t skip:nil d:nil todo:nil pri:nil tags:nil title:nil stat:nil
+#+OPTIONS: ^:nil todo:nil toc:t
+#+LaTeX_CLASS: scrartcl
+#+LaTeX_CLASS_OPTIONS: [a4paper,11pt]
+#+LaTeX_HEADER: \subtitle{-- status report --}
+#+LaTeX_HEADER: \setlength{\parindent}{0pt}
+#+LaTeX_HEADER: \setlength{\parskip}{1.5ex}
