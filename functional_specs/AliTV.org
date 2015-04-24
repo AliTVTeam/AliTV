@@ -334,3 +334,13 @@
 </html>
   #+END_SRC
 * Quality targets
+  The development should be test driven, therefore it is required to write
+   1) the documentation,
+   2) the test(s),
+   3) implement the functionality.
+
+  Therefore, the grunt/Jasmine test environment and a syntax check
+  should be used. The coverage for documentation and code test
+  coverage have to be tested. Every function should be covered by
+  documentation (100 %) and the test code coverage need to be at least
+  80 %.
