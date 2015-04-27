@@ -130,7 +130,8 @@ var filters4_reverse = {'karyo': {
 };
 var features = {
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
-		'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
+		'f2': {'karyo': 'c2', 'start': 100, 'end': 600},
+		'f3': {'karyo': 'c3', 'start': 400, 'end': 900}
 };
 var links = [
              {
