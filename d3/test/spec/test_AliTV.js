@@ -449,3 +449,11 @@ describe('The drawCircular method of AliTV objects is supposed to draw the circu
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(3);
 	});
 });
+
+describe('The getLinearLinkCoords method of AliTV objects is supposed to calculate coordinates for the links in the linear case', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getLinearLinkCoords method is supposed to be a function', function(){
+		expect(typeof ali.getLinearLinkCoords).toEqual('function');
+	});
+});
