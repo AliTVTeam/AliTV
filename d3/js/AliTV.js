@@ -28,7 +28,7 @@ function AliTV(svg) {
 	 * @property {String}  features.karyo               - the karyo ID
 	 * @property {Number}  features.start               - start position on the sequence
 	 * @property {Number}  features.end                 - end position on the sequence
-	 * @property {Object}  links                        - the link information
+	 * @property {Object}  links                        - the link information, link IDs as keys
 	 * @property {String}  links.source                 - source feature of the link
 	 * @property {String}  links.target                 - target feature of the link
 	 * @property {Number}  links.identity               - identity of the link
