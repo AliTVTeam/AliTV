@@ -95,9 +95,9 @@ function AliTV(svg) {
  * 	'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
  * 	'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
  * };
- * var links = [
+ * var links = { "l1":
  * 	{'source': 'f1', 'target': 'f2', 'identity': 90}
- * ];
+ * };
  * wga.setData({'karyo': karyo, 'features': features, 'links': links};
  */
 AliTV.prototype.setData = function(data) {
@@ -123,9 +123,9 @@ AliTV.prototype.setData = function(data) {
  * 	'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
  * 	'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
  * };
- * var links = [
+ * var links = {"l1":
  * 	{'source': 'f1', 'target': 'f2', 'identity': 90}
- * ];
+ * };
  * wga.setData({'karyo': karyo, 'features': features, 'links': links};
  * var filters = {
  * 	'karyo': {
