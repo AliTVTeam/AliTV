@@ -139,38 +139,22 @@ var features2 = {
 		'f4': {'karyo': 'c3', 'start': 800, 'end': 900},
 		'f5': {'karyo': 'c1', 'start': 1800, 'end': 1900}
 };
-var links = [
-             {
+var links = {
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
-			 }
-];
-var links2 = [
-             {
-            	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
-			 },
-			 {
+			 };
+var links2 = {
+            	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
 				 "l2": {'source': 'f2', 'target': 'f3', 'identity': 86}
-			 }
-];
-var links3 = [
-              {
-             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
- 			 },
- 			 {
+			 };
+var links3 = {
+             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
  				 "l2": {'source': 'f5', 'target': 'f4', 'identity': 86}
- 			 }
- ];
-var links4 = [
-              {
-             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
- 			 },
- 			 {
- 				 "l2": {'source': 'f2', 'target': 'f3', 'identity': 86}
- 			 },
- 			 {
+ 			 };
+var links4 = {
+             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
+ 				 "l2": {'source': 'f2', 'target': 'f3', 'identity': 86},
  				 "l3": {'source': 'f1', 'target': 'f3', 'identity': 94}
- 			 }
- ];
+ 			 };
 
 var data = {'karyo': karyo, 'features': features, 'links': links};
 var data2 = {'karyo': karyo2, 'features': features, 'links': links};
