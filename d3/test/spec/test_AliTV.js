@@ -463,58 +463,28 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		var linearLinkCoords = ali.getLinearLinkCoords();
 		expect(linearLinkCoords).toBeDefined();
 	});
-//	it('getCircularKaryoCoords method is supposed to work with simple test data (2 genomes, 2 chromosomes)', function(){
-//		wga.setData(data);
-//		wga.setFilters(filters);
-//		var circularKaryoCoords = wga.getCircularKaryoCoords();
-//		var expAnglePerBase = 2*Math.PI/(3000+2*defaultConf.circular.karyoDistance);
-//		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
-//		var expectedCoords = [
-//            {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
-//            {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace}
-//        ];
-//		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
-//	});
-//	it('getCircularKaryoCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes)', function(){
-//		wga.setData(data2);
-//		wga.setFilters(filters2);
-//		var circularKaryoCoords = wga.getCircularKaryoCoords();
-//		var expAnglePerBase = 2*Math.PI/(4000+3*defaultConf.circular.karyoDistance);
-//		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
-//		var expectedCoords = [
-//		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
-//		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
-//		    {'karyo': 'c3', 'startAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'endAngle': 4000*expAnglePerBase + 2*expAnglePerSpace}
-//		];
-//		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
-//	});
-//	it('getCircularKaryoCoords method is supposed to work with simple test data (3 genomes, 3 chromosomes)', function(){
-//		wga.setData(data3);
-//		wga.setFilters(filters3);
-//		var circularKaryoCoords = wga.getCircularKaryoCoords();
-//		var expAnglePerBase = 2*Math.PI/(4000+3*defaultConf.circular.karyoDistance);
-//		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
-//		var expectedCoords = [
-//		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
-//		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
-//		    {'karyo': 'c3', 'startAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'endAngle': 4000*expAnglePerBase + 2*expAnglePerSpace}
-//		];
-//		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
-//	});
-//	it('getCircularKaryoCoords method is supposed to work with simple test data (3 genomes, 4 chromosomes)', function(){
-//		wga.setData(data4);
-//		wga.setFilters(filters4);
-//		var circularKaryoCoords = wga.getCircularKaryoCoords();
-//		var expAnglePerBase = 2*Math.PI/(5000+4*defaultConf.circular.karyoDistance);
-//		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
-//		var expectedCoords = [
-//		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
-//		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
-//		    {'karyo': 'c3', 'startAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'endAngle': 4000*expAnglePerBase + 2*expAnglePerSpace},
-//		    {'karyo': 'c4', 'startAngle': 4000*expAnglePerBase + 3*expAnglePerSpace, 'endAngle': 5000*expAnglePerBase + 3*expAnglePerSpace}
-//		];
-//		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
-//	});
+	it('getLinearLinkCoords method is supposed to work with simple test data (2 genomes, 2 chromosomes, 1 link)', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		var expectedCoords = [
+            {
+            	linkID : "l1", 
+            	source0: {x: 300/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
+            	target0: {x: 800/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance}, 
+            	source1: {x: 100/2000 * defaultConf.width, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance},
+            	target1: {x: 600/2000 * defaultConf.width, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance}           		
+            }           
+        ];
+		expect(linearLinkCoords).toEqual(expectedCoords);
+	});
+	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 3 chromosomes, 2 links)', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+	});
+
 //	it('getCircularKaryoCoords method is supposed to use the reverse property of filters', function(){
 //		wga.setData(data4);
 //		wga.setFilters(filters4_reverse);
