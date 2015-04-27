@@ -65,7 +65,8 @@ function AliTV(svg) {
 		linear: {
 			genomeDistance: 300,
 			karyoHeight: 30,
-			karyoDistance: 10
+			karyoDistance: 10,
+			linkKaryoDistance: 10
 		},
 		circular: {
 			karyoHeight: 30,
