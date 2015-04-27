@@ -483,6 +483,22 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		ali.setData(data);
 		ali.setFilters(filters);
 		var linearKaryoCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		var expectedCoords = [
+		    {
+		    	linkID : "l1",
+		    	source0: {x: 300/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
+            	target0: {x: 800/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance}, 
+            	source1: {x: 100/2000 * defaultConf.width, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance},
+            	target1: {x: 600/2000 * defaultConf.width, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance}		    	
+	        }, 
+		    {
+		    	linkID : "l2",
+		    	source0: {x: 300/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
+            	target0: {x: 800/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance}, 
+            	source1: {x: 100/2000 * defaultConf.width, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance},
+            	target1: {x: 600/2000 * defaultConf.width, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance}		    	
+	        }  
+		];
 	});
 
 //	it('getCircularKaryoCoords method is supposed to use the reverse property of filters', function(){
