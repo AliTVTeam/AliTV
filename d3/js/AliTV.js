@@ -200,6 +200,10 @@ AliTV.prototype.getLinearKaryoCoords = function() {
  *			]
  */
 
+AliTV.prototype.getLinearLinkCoords = function(coords) {
+
+};
+
 /**
  * This function draws the karyos in the linear layout
  * @author Markus Ankenbrand and Sonja Hohlfeld
