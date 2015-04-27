@@ -187,7 +187,6 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
 		linearKaryoCoords.push(coord);
 	}
-
 	return linearKaryoCoords;
 };
 
@@ -204,6 +203,55 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 
 AliTV.prototype.getLinearLinkCoords = function(coords) {
 	var linearLinkCoords = [];
+	if (typeof coords === 'undefined') {
+		return linearLinkCoords;
+	}
+	var that = this;
+	var conf = this.conf;
+	var karyoMap = {};
+	$.each(coords, function(key, value) {
+		karyoMap[value.karyo] = key;
+	});
+
+	$.each(this.data.links, function(key, value) {
+		var link = {};
+		link.linkID = key;
+		link.source0 = {};
+		link.source1 = {};
+		link.target0 = {};
+		link.target1 = {};
+
+		var feature1 = that.data.features[value.source];
+		var feature2 = that.data.features[value.target];
+		var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
+		var karyo2 = that.data.karyo.chromosomes[feature2.karyo];
+		var karyo1Coords = coords[karyoMap[feature1.karyo]];
+		var karyo2Coords = coords[karyoMap[feature2.karyo]];
+		var genomePosition1 = that.filters.karyo.genome_order.indexOf(karyo1.genome_id);
+		var genomePosition2 = that.filters.karyo.genome_order.indexOf(karyo2.genome_id);
+		if (genomePosition1 > genomePosition2) {
+			var tmp = feature1;
+			feature1 = feature2;
+			feature2 = tmp;
+			tmp = karyo1;
+			karyo1 = karyo2;
+			karyo2 = tmp;
+			tmp = karyo1Coords;
+			karyo1Coords = karyo2Coords;
+			karyo2Coords = tmp;
+		}
+		link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
+		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.linear.linkKaryoDistance;
+		link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
+		link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.linear.linkKaryoDistance;
+
+		link.target0.x = karyo2Coords.x + karyo2Coords.width * feature2.start / karyo2.length;
+		link.target0.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
+		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
+		link.target1.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
+		linearLinkCoords.push(link);
+	});
+
 	return linearLinkCoords;
 };
 

@@ -136,7 +136,7 @@ var features2 = {
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600},
 		'f3': {'karyo': 'c4', 'start': 400, 'end': 900},
-		'f4': {'karyo': 'c3', 'start': 800, 'end': 900},
+		'f4': {'karyo': 'c3', 'start': 900, 'end': 800},
 		'f5': {'karyo': 'c1', 'start': 1800, 'end': 1900}
 };
 var links = {
@@ -144,7 +144,7 @@ var links = {
 			 };
 var links2 = {
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
-				 "l2": {'source': 'f2', 'target': 'f3', 'identity': 86}
+				 "l2": {'source': 'f3', 'target': 'f2', 'identity': 86}
 			 };
 var links3 = {
              	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
