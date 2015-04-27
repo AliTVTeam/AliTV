@@ -141,6 +141,9 @@ var links = [
 			 },
 			 {
 				 "l2": {'source': 'f2', 'target': 'f3', 'identity': 86}
+			 },
+			 {
+				 "l3": {'source': 'f1', 'target': 'f3', 'identity': 94}
 			 }
 ];
 
