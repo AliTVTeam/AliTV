@@ -132,7 +132,7 @@ var features = {
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600},
 		'f3': {'karyo': 'c4', 'start': 400, 'end': 900},
-		'f4': {'karyo': 'c3', 'start': 900, 'end': 800},
+		'f4': {'karyo': 'c3', 'start': 800, 'end': 900},
 		'f5': {'karyo': 'c1', 'start': 1800, 'end': 1900}
 };
 var links = [
@@ -511,12 +511,29 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		];
 		expect(linearLinkCoords).toEqual(expectedCoords);
 	});
-	it('getLinearLinkCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes, 2 links'), function(){
+	it('getLinearLinkCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes, 2 links (one link is reverse complemented)', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
 		var linearKaryoCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-	}
+		var expectedCoords = [
+		    {
+		    	linkID : "l1", 
+            	source0: {x: 300/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
+            	target0: {x: 100/1000 * defaultConf.width * 0.5, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance}, 
+            	source1: {x: 800/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
+            	target1: {x: 600/1000 * defaultConf.width * 0.5, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance}
+		    },
+		    {
+		    	linkID: "l2",
+		    	source0: {x: 1800/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
+		    	target0: {x: 900/1000 * defaultConf.width * 0.5 + defaultConf.width * 0.5 + defaultConf.linear.karyoDistance, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance},
+		    	source1: {x: 1900/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
+		    	target1: {x: 800/1000 * defaultConf.width * 0.5 + defaultConf.width * 0.5 + defaultConf.linear.karyoDistance, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance}
+		    }
+		];
+		expect(linearLinkCoords).toEqual(expectedCoords);
+	});
 
 //	it('getCircularKaryoCoords method is supposed to use the reverse property of filters', function(){
 //		wga.setData(data4);
