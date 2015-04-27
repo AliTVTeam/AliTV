@@ -478,7 +478,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 	it('getLinearLinkCoords method is supposed to be a function', function(){
 		expect(typeof ali.getLinearLinkCoords).toEqual('function');
 	});
-	it('getLinearLinkCoords method is supposed to return linearLinkCoords', function(){
+	it('getLinearLinkCoords method is supposed to return a defined value even if coords is not set', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
 		var linearLinkCoords = ali.getLinearLinkCoords();
