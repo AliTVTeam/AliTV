@@ -132,9 +132,15 @@ var features = {
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
 };
-var links = {"l1":
-             {'source': 'f1', 'target': 'f2', 'identity': 90}
-			};
+var links = [
+             {
+            	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
+			 },
+			 {
+				 "l2": {'source': 'f2', 'target': 'f3', 'identity': 86}
+			 }
+];
+
 var data = {'karyo': karyo, 'features': features, 'links': links};
 var data2 = {'karyo': karyo2, 'features': features, 'links': links};
 var data3 = {'karyo': karyo3, 'features': features, 'links': links};
