@@ -318,10 +318,10 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 	    					var precision = 8;
 	    					var factor = Math.pow(10, precision);
 	    					for(var i=0; i<actual.length; i++){
-	    						var startActual = Math.round(actual[0].startAngle*factor)/factor;
-	    						var startExpected = Math.round(expected[0].startAngle*factor)/factor;
-	    						var endActual = Math.round(actual[0].endAngle*factor)/factor;
-	    						var endExpected = Math.round(expected[0].endAngle*factor)/factor;
+	    						var startActual = Math.round(actual[i].startAngle*factor)/factor;
+	    						var startExpected = Math.round(expected[i].startAngle*factor)/factor;
+	    						var endActual = Math.round(actual[i].endAngle*factor)/factor;
+	    						var endExpected = Math.round(expected[i].endAngle*factor)/factor;
 	    						if((startActual !== startExpected) || (endActual !== endExpected)){
 	    							result.pass = false;
 	    						}
@@ -552,7 +552,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
             	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.linear.linkKaryoDistance}           		
             }           
         ];
-		expect(linearLinkCoords).toEqual(expectedCoords);
+		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
 	});
 	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 3 chromosomes, 2 links)', function(){
 		ali.setData({karyo:karyo4,features:features2, links:links2});
@@ -575,7 +575,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
             	target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.linear.linkKaryoDistance}		    	
 	        }  
 		];
-		expect(linearLinkCoords).toEqual(expectedCoords);
+		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
 	});
 	it('getLinearLinkCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes, 2 links (one link is reverse complemented)', function(){
 		ali.setData({karyo:karyo4, links:links3, features:features2});
@@ -598,7 +598,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		    	target1: {x: 800/1000 * linearKaryoCoords[2].width + linearKaryoCoords[2].x, y: linearKaryoCoords[2].y - defaultConf.linear.linkKaryoDistance}
 		    }
 		];
-		expect(linearLinkCoords).toEqual(expectedCoords);
+		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
 	});
 	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 2 chromosomes, 3 links (but one link is not between adjacent chromosomes, later it should not be drawn)', function(){
 		ali.setData({karyo:karyo4,features:features2, links:links4});
@@ -615,20 +615,20 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		},
 		{
 			linkID: "l2",
-	    	source0: {x: 1800/2000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.linear.linkKaryoDistance},
-	    	target0: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.linear.linkKaryoDistance},
-	    	source1: {x: 1900/2000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.linear.linkKaryoDistance},
-	    	target1: {x: 800/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.linear.linkKaryoDistance}
+	    	source0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.linear.linkKaryoDistance},
+	    	target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.linear.linkKaryoDistance},
+	    	source1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.linear.linkKaryoDistance},
+	    	target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.linear.linkKaryoDistance}
 		},
 		{
 			linkID: "l3",
 			source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.linear.linkKaryoDistance},
 			target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.linear.linkKaryoDistance},
 			source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.linear.linkKaryoDistance},
-			target1: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.linear.linkKaryoDistance}
+			target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.linear.linkKaryoDistance}
 		}
 		];
-		expect(linearLinkCoords).toEqual(expectedCoords);
+		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
 	});
 
 //	it('getCircularKaryoCoords method is supposed to use the reverse property of filters', function(){
