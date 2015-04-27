@@ -53,6 +53,7 @@ function AliTV(svg) {
 	 * @property {Number}  linear.genomeDistance  - The vertical distance between adjacent genomes in px.
 	 * @property {Number}  linear.karyoHeight     - The height of each chromosome in px.
 	 * @property {Number}  linear.karyoDistance   - The horizontal distance between adjacent chromosomes of the same genome in bp.
+	 * @property {Number}  linear.linkKaryoSpacer - The vertical distance between chromosomes and links in px.
 	 * @property {Object}  circular               - The configuration options for the circular layout.
 	 * @property {Number}  circular.karyoHeight   - The height of each chromosome in px.
 	 * @property {Number}  circular.karyoDistance - The distance between adjacent chromosomes on the circle in bp.
