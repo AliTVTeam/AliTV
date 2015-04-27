@@ -479,9 +479,9 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
             {
             	linkID : "l1", 
             	source0: {x: 300/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
-            	target0: {x: 800/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance}, 
-            	source1: {x: 100/2000 * defaultConf.width, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance},
-            	target1: {x: 600/2000 * defaultConf.width, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance}           		
+            	target0: {x: 100/1000 * defaultConf.width * 0.5, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance}, 
+            	source1: {x: 800/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
+            	target1: {x: 600/1000 * defaultConf.width * 0.5, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance}           		
             }           
         ];
 		expect(linearLinkCoords).toEqual(expectedCoords);
@@ -490,23 +490,31 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		ali.setData(data);
 		ali.setFilters(filters);
 		var linearKaryoCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		var expectedCoords = [
 		    {
-		    	linkID : "l1",
-		    	source0: {x: 300/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
-            	target0: {x: 800/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance}, 
-            	source1: {x: 100/2000 * defaultConf.width, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance},
-            	target1: {x: 600/2000 * defaultConf.width, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance}		    	
+		    	linkID : "l1", 
+            	source0: {x: 300/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
+            	target0: {x: 100/1000 * defaultConf.width * 0.5, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance}, 
+            	source1: {x: 800/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
+            	target1: {x: 600/1000 * defaultConf.width * 0.5, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance}			    	
 	        }, 
 		    {
 		    	linkID : "l2",
-		    	source0: {x: 300/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
-            	target0: {x: 800/2000 * defaultConf.width, y: defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance}, 
-            	source1: {x: 100/2000 * defaultConf.width, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance},
-            	target1: {x: 600/2000 * defaultConf.width, y: defaultConf.linear.genomeDistance - defaultConf.linear.linkKaryoDistance}		    	
+		    	source0: {x: 100/1000 * defaultConf.width * 0.5, y: defaultConf.linear.genomeDistance + defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance},
+            	target0: {x: 400/1000 * defaultConf.width * 0.5, y: defaultConf.linear.genomeDistance + defaultConf.linear.karyoHeight + defaultConf.linear.linkKaryoDistance}, 
+            	source1: {x: 600/1000 * defaultConf.width * 0.5, y: defaultConf.linear.genomeDistance * 2 - defaultConf.linear.linkKaryoDistance},
+            	target1: {x: 900/1000 * defaultConf.width * 0.5, y: defaultConf.linear.genomeDistance * 2 - defaultConf.linear.linkKaryoDistance}		    	
 	        }  
 		];
+		expect(linearLinkCoords).toEqual(expectedCoords);
 	});
+	it('getLinearLinkCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes, 2 links'), function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+	}
 
 //	it('getCircularKaryoCoords method is supposed to use the reverse property of filters', function(){
 //		wga.setData(data4);
