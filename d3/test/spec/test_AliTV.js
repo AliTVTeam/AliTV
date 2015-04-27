@@ -131,9 +131,9 @@ var features = {
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
 };
-var links = [
+var links = {"l1":
              {'source': 'f1', 'target': 'f2', 'identity': 90}
-             ];
+			};
 var data = {'karyo': karyo, 'features': features, 'links': links};
 var data2 = {'karyo': karyo2, 'features': features, 'links': links};
 var data3 = {'karyo': karyo3, 'features': features, 'links': links};
