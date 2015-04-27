@@ -201,7 +201,8 @@ AliTV.prototype.getLinearKaryoCoords = function() {
  */
 
 AliTV.prototype.getLinearLinkCoords = function(coords) {
-
+	var linearLinkCoords = [];
+	return linearLinkCoords;
 };
 
 /**
