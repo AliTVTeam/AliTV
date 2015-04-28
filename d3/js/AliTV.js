@@ -221,6 +221,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.source1 = {};
 		link.target0 = {};
 		link.target1 = {};
+		link.adjacent = true;
 
 		var feature1 = that.data.features[value.source];
 		var feature2 = that.data.features[value.target];
@@ -251,8 +252,14 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
 		link.target1.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
 		linearLinkCoords.push(link);
-	});
 
+		var differenceOfGenomePosition = genomePosition2 - genomePosition1;
+		if (differenceOfGenomePosition == 1 || differenceOfGenomePosition == -1) {
+			link.adjacent = true;
+		} else {
+			link.adjacent = false;
+		}
+	});
 	return linearLinkCoords;
 };
 
