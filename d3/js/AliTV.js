@@ -298,7 +298,18 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
  */
 
 AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
-
+	this.svgD3.selectAll(".linkGroup").remove();
+	this.svgD3.append("g")
+		.attr("class", "linkGroup")
+		.selectAll("path")
+		.data(linearLinkCoords)
+		.enter()
+		.append("path")
+		.attr("class", "link")
+		.attr("d", function(d) {
+			return d.x;
+		})
+	console.log(this.svgD3);
 };
 
 /**
@@ -310,6 +321,8 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 AliTV.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
 	this.drawLinearKaryo(karyoCoords);
+	var linkCoords = this.getLinearLinkCoords(karyoCoords);
+	this.drawLinearLinks(linkCoords);
 };
 
 /**
