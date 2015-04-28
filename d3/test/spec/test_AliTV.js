@@ -642,19 +642,39 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		];
 		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
 	});
+});
 
-//	it('getCircularKaryoCoords method is supposed to use the reverse property of filters', function(){
+describe('The drawLinearLinks method of AliTV objects is supposed to draw links in the linear layout, for an alignment with more than two different genomes only adjacent links should be drawn', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('drawLinearLinks method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearLinks).toEqual('function');
+	});
+	
+//	ali.setData(data);
+//	wga.setFilters(filters);
+//	it('there should be exactly one karyoGroup in the simple test svg', function(){
+//		linearKaryoCoords = wga.getLinearKaryoCoords();
+//		wga.drawLinearKaryo(linearKaryoCoords);
+//		expect(wga.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
+//	});
+//	it('there should be exactly two karyos in the simple test svg', function(){
+//		linearKaryoCoords = wga.getLinearKaryoCoords();
+//		wga.drawLinearKaryo(linearKaryoCoords);
+//		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(2);
+//	});
+//	it('the drawn karyos have the expected height', function(){
+//		linearKaryoCoords = wga.getLinearKaryoCoords();
+//		wga.drawLinearKaryo(linearKaryoCoords);
+//		// This test checks only the height attribute of the first selected element
+//		expect(Number(wga.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.linear.karyoHeight);
+//	});
+//	it('there should be exactly four karyos in the more complex test svg', function(){
 //		wga.setData(data4);
-//		wga.setFilters(filters4_reverse);
-//		var circularKaryoCoords = wga.getCircularKaryoCoords();
-//		var expAnglePerBase = 2*Math.PI/(5000+4*defaultConf.circular.karyoDistance);
-//		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
-//		var expectedCoords = [
-//		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
-//		    {'karyo': 'c2', 'endAngle': 2000*expAnglePerBase + expAnglePerSpace, 'startAngle': 3000*expAnglePerBase + expAnglePerSpace},
-//		    {'karyo': 'c3', 'startAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'endAngle': 4000*expAnglePerBase + 2*expAnglePerSpace},
-//		    {'karyo': 'c4', 'endAngle': 4000*expAnglePerBase + 3*expAnglePerSpace, 'startAngle': 5000*expAnglePerBase + 3*expAnglePerSpace}
-//		];
-//		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
+//		wga.setFilters(filters4);
+//		linearKaryoCoords = wga.getLinearKaryoCoords();
+//		wga.drawLinearKaryo(linearKaryoCoords);
+//		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
 //	});
 });
