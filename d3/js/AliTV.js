@@ -309,7 +309,6 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 				source: link.source0,
 				target: link.target0
 			});
-			console.log(path1);
 			var path2 = diagonal({
 				source: link.target1,
 				target: link.source1
