@@ -292,6 +292,12 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 };
 
 /**
+ * This function draws adjacent links in the linear layout
+ * @author Sonja Hohlfeld
+ * @param {Array} The array containing the coordinates of all links as returned by getLinearLinkCoords()
+ */
+
+/**
  * This function draws the data in the linear layout.
  * It operates on the data of the object and therefore needs no parameters.
  * It draws directly on the svg and therefore has no return value.
