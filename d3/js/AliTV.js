@@ -192,11 +192,11 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 
 /**
  * Calculate coordinates for the links to draw in the linear layout and uses link-data and karyo-coordinates
- * this function should also check if links are adjacent or not and save this information in the link property adjacent
+ * this function should also check if links are adjacent or not and save this information in the link property "adjacent"
  * This function is primarily meant for internal usage, the user should not need to call this directly
  * @author Sonja Hohlfeld
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
- * @returns {Array} Returns an Array which is presented in the followong example
+ * @returns {Array} Returns an Array which is presented in the following example
  * @example [
  *					{"linkID": "l1", "source0": {"x":0, "y":10}, "target0": {"x": 0, "y":20}, "source1": {"x":10, "y":10}, "target1": {"x":10, "y":20}, "adjacent": true}
  *			]
