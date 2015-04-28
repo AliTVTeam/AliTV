@@ -28,7 +28,7 @@ function AliTV(svg) {
 	 * @property {String}  features.karyo               - the karyo ID
 	 * @property {Number}  features.start               - start position on the sequence
 	 * @property {Number}  features.end                 - end position on the sequence
-	 * @property {Object}  links                        - the link information
+	 * @property {Object}  links                        - the link information, link IDs as keys
 	 * @property {String}  links.source                 - source feature of the link
 	 * @property {String}  links.target                 - target feature of the link
 	 * @property {Number}  links.identity               - identity of the link
@@ -53,6 +53,7 @@ function AliTV(svg) {
 	 * @property {Number}  linear.genomeDistance  - The vertical distance between adjacent genomes in px.
 	 * @property {Number}  linear.karyoHeight     - The height of each chromosome in px.
 	 * @property {Number}  linear.karyoDistance   - The horizontal distance between adjacent chromosomes of the same genome in bp.
+	 * @property {Number}  linear.linkKaryoSpacer - The vertical distance between chromosomes and links in px.
 	 * @property {Object}  circular               - The configuration options for the circular layout.
 	 * @property {Number}  circular.karyoHeight   - The height of each chromosome in px.
 	 * @property {Number}  circular.karyoDistance - The distance between adjacent chromosomes on the circle in bp.
@@ -64,7 +65,8 @@ function AliTV(svg) {
 		linear: {
 			genomeDistance: 300,
 			karyoHeight: 30,
-			karyoDistance: 10
+			karyoDistance: 10,
+			linkKaryoDistance: 10
 		},
 		circular: {
 			karyoHeight: 30,
@@ -95,9 +97,9 @@ function AliTV(svg) {
  * 	'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
  * 	'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
  * };
- * var links = [
+ * var links = { "l1":
  * 	{'source': 'f1', 'target': 'f2', 'identity': 90}
- * ];
+ * };
  * wga.setData({'karyo': karyo, 'features': features, 'links': links};
  */
 AliTV.prototype.setData = function(data) {
@@ -123,9 +125,9 @@ AliTV.prototype.setData = function(data) {
  * 	'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
  * 	'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
  * };
- * var links = [
+ * var links = {"l1":
  * 	{'source': 'f1', 'target': 'f2', 'identity': 90}
- * ];
+ * };
  * wga.setData({'karyo': karyo, 'features': features, 'links': links};
  * var filters = {
  * 	'karyo': {
@@ -185,8 +187,72 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
 		linearKaryoCoords.push(coord);
 	}
-
 	return linearKaryoCoords;
+};
+
+/**
+ * Calculate coordinates for the links to draw in the linear layout and uses link-data and karyo-coordinates
+ * This function is primarily meant for internal usage, the user should not need to call this directly
+ * @author Sonja Hohlfeld
+ * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
+ * @returns {Array} Returns an Array which is presented in the followong example
+ * @example [
+ *					{"linkID": "l1", "source0": {"x":0, "y":10}, "target0": {"x": 0, "y":20}, "source1": {"x":10, "y":10}, "target1": {"x":10, "y":20}}
+ *			]
+ */
+
+AliTV.prototype.getLinearLinkCoords = function(coords) {
+	var linearLinkCoords = [];
+	if (typeof coords === 'undefined') {
+		return linearLinkCoords;
+	}
+	var that = this;
+	var conf = this.conf;
+	var karyoMap = {};
+	$.each(coords, function(key, value) {
+		karyoMap[value.karyo] = key;
+	});
+
+	$.each(this.data.links, function(key, value) {
+		var link = {};
+		link.linkID = key;
+		link.source0 = {};
+		link.source1 = {};
+		link.target0 = {};
+		link.target1 = {};
+
+		var feature1 = that.data.features[value.source];
+		var feature2 = that.data.features[value.target];
+		var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
+		var karyo2 = that.data.karyo.chromosomes[feature2.karyo];
+		var karyo1Coords = coords[karyoMap[feature1.karyo]];
+		var karyo2Coords = coords[karyoMap[feature2.karyo]];
+		var genomePosition1 = that.filters.karyo.genome_order.indexOf(karyo1.genome_id);
+		var genomePosition2 = that.filters.karyo.genome_order.indexOf(karyo2.genome_id);
+		if (genomePosition1 > genomePosition2) {
+			var tmp = feature1;
+			feature1 = feature2;
+			feature2 = tmp;
+			tmp = karyo1;
+			karyo1 = karyo2;
+			karyo2 = tmp;
+			tmp = karyo1Coords;
+			karyo1Coords = karyo2Coords;
+			karyo2Coords = tmp;
+		}
+		link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
+		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.linear.linkKaryoDistance;
+		link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
+		link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.linear.linkKaryoDistance;
+
+		link.target0.x = karyo2Coords.x + karyo2Coords.width * feature2.start / karyo2.length;
+		link.target0.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
+		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
+		link.target1.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
+		linearLinkCoords.push(link);
+	});
+
+	return linearLinkCoords;
 };
 
 /**
