@@ -298,6 +298,10 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
  */
 
 AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
+	var coordsToPath = function(d) {
+		// do the conversion stuff
+	}
+
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
@@ -306,10 +310,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.enter()
 		.append("path")
 		.attr("class", "link")
-		.attr("d", function(d) {
-			return d.x;
-		})
-	console.log(this.svgD3);
+		.attr("d", coordsToPath);
 };
 
 /**
