@@ -294,8 +294,12 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 /**
  * This function draws adjacent links in the linear layout
  * @author Sonja Hohlfeld
- * @param {Array} The array containing the coordinates of all links as returned by getLinearLinkCoords()
+ * @param {Array} The array linearLinkCoords containing the coordinates of all links as returned by getLinearLinkCoords()
  */
+
+AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
+
+};
 
 /**
  * This function draws the data in the linear layout.
