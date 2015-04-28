@@ -647,23 +647,38 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 describe('The drawLinearLinks method of AliTV objects is supposed to draw links in the linear layout, for an alignment with more than two different genomes only adjacent links should be drawn', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	
+	ali.setData(data);
+	ali.setFilters(filters);
+
 	it('drawLinearLinks method is supposed to be a function', function(){
 		expect(typeof ali.drawLinearLinks).toEqual('function');
 	});
 	
-//	ali.setData(data);
-//	wga.setFilters(filters);
-//	it('there should be exactly one karyoGroup in the simple test svg', function(){
-//		linearKaryoCoords = wga.getLinearKaryoCoords();
-//		wga.drawLinearKaryo(linearKaryoCoords);
-//		expect(wga.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
-//	});
-//	it('there should be exactly two karyos in the simple test svg', function(){
-//		linearKaryoCoords = wga.getLinearKaryoCoords();
-//		wga.drawLinearKaryo(linearKaryoCoords);
-//		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(2);
-//	});
+	it('there should be exactly one link and two karyos in the simple test svg', function(){
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		ali.drawLinearKaryo(linearKaryoCoords);
+		ali.drawLinearLinks(linearLinkCoords);
+		expect(ali.svgD3.selectAll('.karyoGroup').size()).toEqual(2);
+		expect(ali.svgD3.selectAll('.linkGroup').size()).toEqual(1);
+	});
+	it('there should be exactly two karyos ad two links in the simple test svg', function(){
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		ali.drawLinearKaryo(linearKaryoCoords);
+		ali.drawLinearLinks(linearLinkCoords);
+		expect(ali.svgD3.selectAll('.karyoGroup').size()).toEqual(2);
+		expect(ali.svgD3.selectAll('.linkGroup').size()).toEqual(2);
+	});
+	it('there should be exactly three karyos ad two links in the simple test svg (actual there are exactly three links, but only two are drawn because the third one is not an adjacent link)', function(){
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		ali.drawLinearKaryo(linearKaryoCoords);
+		ali.drawLinearLinks(linearLinkCoords);
+		expect(linearLinkCoords.length).toEqual(3);
+		expect(ali.svgD3.selectAll('.karyoGroup').size()).toEqual(2);
+		expect(ali.svgD3.selectAll('.linkGroup').size()).toEqual(2);
+	});
 //	it('the drawn karyos have the expected height', function(){
 //		linearKaryoCoords = wga.getLinearKaryoCoords();
 //		wga.drawLinearKaryo(linearKaryoCoords);
