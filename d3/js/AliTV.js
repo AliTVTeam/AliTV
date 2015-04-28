@@ -298,10 +298,26 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
  */
 
 AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
-	var coordsToPath = function(d) {
-		// do the conversion stuff
-	}
-
+	var coordsToPath = function(link) {
+		if (link.adjacent === true) {
+			var diagonal = d3.svg.diagonal().source(function(d) {
+				return d.source;
+			}).target(function(d) {
+				return d.target;
+			});
+			var path1 = diagonal({
+				source: link.source0,
+				target: link.target0
+			});
+			console.log(path1);
+			var path2 = diagonal({
+				source: link.target1,
+				target: link.source1
+			}).replace(/^M/, 'L');
+			var shape = path1 + path2 + 'Z';
+			return shape;
+		}
+	};
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
