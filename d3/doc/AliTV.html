@@ -382,6 +382,29 @@ var wga = new AliTV(svg);</code></pre>
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>linkKaryoSpacer</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The vertical distance between chromosomes and links in px.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
             </td>
@@ -528,7 +551,7 @@ var wga = new AliTV(svg);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line61">line 61</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line62">line 62</a>
     </li></ul></dd>
     
     
@@ -884,7 +907,7 @@ var wga = new AliTV(svg);</code></pre>
             
             
             
-            <td class="description last">the link information
+            <td class="description last">the link information, link IDs as keys
                 <h6>Properties</h6>
 
 <table class="props">
@@ -1502,7 +1525,7 @@ It draws directly on the svg and therefore has no return value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line293">line 293</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line406">line 406</a>
     </li></ul></dd>
     
     
@@ -1626,7 +1649,7 @@ It draws directly on the svg and therefore has no return value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line273">line 273</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line386">line 386</a>
     </li></ul></dd>
     
     
@@ -1704,7 +1727,7 @@ It draws directly on the svg and therefore has no return value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line226">line 226</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line337">line 337</a>
     </li></ul></dd>
     
     
@@ -1828,7 +1851,131 @@ It draws directly on the svg and therefore has no return value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line197">line 197</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line271">line 271</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="drawLinearLinks"><span class="type-signature"></span>drawLinearLinks<span class="signature">(The)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        This function draws adjacent links in the linear layout
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">array linearLinkCoords containing the coordinates of all links as returned by getLinearLinkCoords()</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Sonja Hohlfeld</li>
+        </ul>
+    </dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line300">line 300</a>
     </li></ul></dd>
     
     
@@ -1906,7 +2053,7 @@ This function is primarily meant for internal usage, the user should not need to
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line238">line 238</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line351">line 351</a>
     </li></ul></dd>
     
     
@@ -2006,7 +2153,7 @@ This function is primarily meant for internal usage, the user should not need to
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line155">line 155</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line157">line 157</a>
     </li></ul></dd>
     
     
@@ -2050,6 +2197,161 @@ This function is primarily meant for internal usage, the user should not need to
 
         
     
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getLinearLinkCoords"><span class="type-signature"></span>getLinearLinkCoords<span class="signature">(The)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Calculate coordinates for the links to draw in the linear layout and uses link-data and karyo-coordinates
+this function should also check if links are adjacent or not and save this information in the link property "adjacent"
+This function is primarily meant for internal usage, the user should not need to call this directly
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">array containing the coordinates as returned by getLinearKaryoCoords()</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Sonja Hohlfeld</li>
+        </ul>
+    </dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line205">line 205</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Returns an Array which is presented in the following example
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Array</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code> [
+					{"linkID": "l1", "source0": {"x":0, "y":10}, "target0": {"x": 0, "y":20}, "source1": {"x":10, "y":10}, "target1": {"x":10, "y":20}, "adjacent": true}
+			]</code></pre>
+
     
 </dd>
 
@@ -2153,7 +2455,7 @@ For the required format see the documentation of the data property
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line103">line 103</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line105">line 105</a>
     </li></ul></dd>
     
     
@@ -2190,9 +2492,9 @@ var features = {
 	'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 	'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
 };
-var links = [
+var links = { "l1":
 	{'source': 'f1', 'target': 'f2', 'identity': 90}
-];
+};
 wga.setData({'karyo': karyo, 'features': features, 'links': links};</code></pre>
 
     
@@ -2299,7 +2601,7 @@ The filters are highly dependent on the data object and have to resemble its lay
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line144">line 144</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line146">line 146</a>
     </li></ul></dd>
     
     
@@ -2336,9 +2638,9 @@ var features = {
 	'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 	'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
 };
-var links = [
+var links = {"l1":
 	{'source': 'f1', 'target': 'f2', 'identity': 90}
-];
+};
 wga.setData({'karyo': karyo, 'features': features, 'links': links};
 var filters = {
 	'karyo': {
@@ -2379,7 +2681,7 @@ wga.drawCircular();</code></pre>
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Fri Apr 24 2015 17:17:31 GMT+0200 (MESZ)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Tue Apr 28 2015 15:50:51 GMT+0200 (MESZ)
 </footer>
 
 <script> prettyPrint(); </script>
