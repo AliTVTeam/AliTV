@@ -329,6 +329,13 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 };
 
 /**
+ * This function color links according to their identity and is called by drawLinearLinks within the style attribute
+ * It operates on the identity value of the links and therefore the identity should be assigned to the function
+ * The identity is assigned to a color which is used by the drawLinearLinks function, so the returned value is the RGB farbcode
+ * @author Sonja Hohlfeld
+ */
+
+/**
  * This function draws the data in the linear layout.
  * It operates on the data of the object and therefore needs no parameters.
  * It draws directly on the svg and therefore has no return value.
