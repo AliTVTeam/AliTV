@@ -722,5 +722,7 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 });
 
 describe('The colorLinkByIdentity method of AliTV objects is supposed to color links according to their identity value', function(){
-	
+	it('colorLinksByIdentity method is supposed to be a function', function(){
+		expect(typeof ali.colorLinkyByIdentity).toEqual('function');
+	});
 });
