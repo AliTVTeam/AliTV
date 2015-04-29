@@ -720,3 +720,7 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(2);
 	});
 });
+
+describe('The colorLinkByIdentity method of AliTV objects is supposed to color links according to their identity value', function(){
+	
+});
