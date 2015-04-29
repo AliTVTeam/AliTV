@@ -325,7 +325,10 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.enter()
 		.append("path")
 		.attr("class", "link")
-		.attr("d", coordsToPath);
+		.attr("d", coordsToPath)
+		.style("fill", function(d) {
+			this.colorLinksByIdentity(Math.abs(d.identity));
+		});
 };
 
 /**
@@ -335,7 +338,6 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.colorLinksByIdentity = function(identity) {
-
 	if (identity < 46) {
 		return "#FF1600";
 	}
