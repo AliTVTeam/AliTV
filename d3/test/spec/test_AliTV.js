@@ -728,4 +728,18 @@ describe('The colorLinkByIdentity method of AliTV objects is supposed to color l
 	it('colorLinksByIdentity method is supposed to be a function', function(){
 		expect(typeof ali.colorLinksByIdentity).toEqual('function');
 	});
+	it('the link has an idenitity value less than 46% and therefore the returned color should be "#FF1600"', function(){
+		var links_45 = {
+           	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 45}
+			 };
+		ali.setData({karyo:karyo,features:features, links:links_45});
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		console.log(linearLinkCoords);
+		ali.drawLinearKaryo(linearKaryoCoords);
+		ali.drawLinearLinks(linearLinkCoords);
+		expect(Number(ali.svgD3.selectAll('.link').attr("fill"))).toEqual("#FF1600");
+		
+	});
 });

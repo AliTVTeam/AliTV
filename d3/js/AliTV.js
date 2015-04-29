@@ -335,7 +335,10 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.colorLinksByIdentity = function(identity) {
-	return true;
+
+	if (identity < 46) {
+		return "#FF1600";
+	}
 };
 
 /**
