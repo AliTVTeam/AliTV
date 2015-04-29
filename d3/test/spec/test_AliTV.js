@@ -146,6 +146,11 @@ var features2 = {
 		'f4': {'karyo': 'c3', 'start': 900, 'end': 800},
 		'f5': {'karyo': 'c1', 'start': 1800, 'end': 1900}
 };
+var features3 = {
+		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
+		'f2': {'karyo': 'c2', 'start': 100, 'end': 600},
+		'f3': {'karyo': 'c4', 'start': 400, 'end': 900}
+};
 var links = {
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 };
@@ -162,6 +167,10 @@ var links4 = {
  				 "l2": {'source': 'f2', 'target': 'f3', 'identity': 86},
  				 "l3": {'source': 'f1', 'target': 'f3', 'identity': 94}
  			 };
+var links5 = {
+		"l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
+		"l2": {'source': 'f2', 'target': 'f3', 'identity': 86}
+};
 
 var data = {'karyo': karyo, 'features': features, 'links': links};
 var data2 = {'karyo': karyo2, 'features': features, 'links': links};
@@ -617,7 +626,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
 	});
 	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 2 chromosomes, 3 links (but one link is not between adjacent chromosomes, later it should not be drawn)', function(){
-		ali.setData({karyo:karyo4,features:features2, links:links4});
+		ali.setData({karyo:karyo4,features:features3, links:links5});
 		ali.setFilters(filters4);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
