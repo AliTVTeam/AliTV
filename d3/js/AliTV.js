@@ -334,6 +334,9 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  * The identity is assigned to a color which is used by the drawLinearLinks function, so the returned value is the RGB farbcode
  * @author Sonja Hohlfeld
  */
+AliTV.prototype.colorLinksByIdentity = function(identity) {
+	return true;
+};
 
 /**
  * This function draws the data in the linear layout.
