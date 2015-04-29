@@ -341,9 +341,11 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.colorLinksByIdentity = function(identity) {
-	if (identity < 46) {
-		return "#FF1600";
-	}
+	var color = d3.scale.linear()
+		.domain([-1, 0, 1])
+		.range(["red", "yellow", "green"]);
+
+	color(identity);
 };
 
 /**
