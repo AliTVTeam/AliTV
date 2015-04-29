@@ -718,17 +718,4 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 	});
-//	it('the drawn karyos have the expected height', function(){
-//		linearKaryoCoords = wga.getLinearKaryoCoords();
-//		wga.drawLinearKaryo(linearKaryoCoords);
-//		// This test checks only the height attribute of the first selected element
-//		expect(Number(wga.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.linear.karyoHeight);
-//	});
-//	it('there should be exactly four karyos in the more complex test svg', function(){
-//		wga.setData(data4);
-//		wga.setFilters(filters4);
-//		linearKaryoCoords = wga.getLinearKaryoCoords();
-//		wga.drawLinearKaryo(linearKaryoCoords);
-//		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
-//	});
 });
