@@ -106,6 +106,13 @@ var karyo4 = {
 			'c4': {'genome_id': 2, 'length': 1000, 'seq': null}
 		}
 };
+var karyo5 = {
+		'chromosomes': {
+			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+			'c2': {'genome_id': 1, 'length': 1000, 'seq': null},
+			'c4': {'genome_id': 2, 'length': 1000, 'seq': null}
+		}
+};
 var filters4 = {'karyo': {
 		'order': ['c1', 'c2', 'c3', 'c4'],
 		'genome_order': [0, 1, 2],
