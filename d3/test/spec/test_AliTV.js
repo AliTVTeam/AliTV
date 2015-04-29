@@ -636,7 +636,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
 	});
 	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 2 chromosomes, 3 links (but one link is not between adjacent chromosomes, later it should not be drawn)', function(){
-		ali.setData({karyo:karyo4,features:features3, links:links5});
+		ali.setData({karyo:karyo4,features:features2, links:links4});
 		ali.setFilters(filters4);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
@@ -690,7 +690,7 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 	});
 	it('there should be exactly two links and three chromosomes in the simple test svg', function(){
 		ali.setData({karyo:karyo5,features:features3, links:links5});
-		ali.setFilters(filters4);
+		ali.setFilters(filters5);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		console.log(linearKaryoCoords);
