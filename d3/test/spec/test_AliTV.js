@@ -492,6 +492,7 @@ describe('The drawCircularKaryo method of AliTV objects is supposed to draw kary
 		wga.setFilters(filters4);
 		circularKaryoCoords = wga.getCircularKaryoCoords();
 		wga.drawCircularKaryo(circularKaryoCoords);
+		console.log(wga.svgD3.selectAll('.karyo'));
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
 	});
 });
@@ -763,10 +764,10 @@ describe('The colorLinkByIdentity method of AliTV objects is supposed to color l
 		ali.setFilters(filters);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-		console.log(linearLinkCoords);
 		ali.drawLinearKaryo(linearKaryoCoords);
 		ali.drawLinearLinks(linearLinkCoords);
-//		expect(Number(ali.svgD3.selectAll('.link').attr("fill"))).toEqual("#FF1600");
+		console.log(ali.svgD3.selectAll('.link').style("fill"));
+		expect(ali.svgD3.selectAll('.link').style("fill")).toEqual("#FF1600");
 		
 	});
 });
