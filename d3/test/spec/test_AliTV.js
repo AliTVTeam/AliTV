@@ -161,6 +161,12 @@ var features3 = {
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600},
 		'f3': {'karyo': 'c4', 'start': 400, 'end': 900}
 };
+var features4 = {
+		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
+		'f2': {'karyo': 'c2', 'start': 100, 'end': 600},
+		'f3': {'karyo': 'c4', 'start': 400, 'end': 900},
+		'f4': {'karyo': 'c1', 'start': 1800, 'end': 1900}	
+}
 var links = {
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 };
@@ -180,6 +186,10 @@ var links4 = {
 var links5 = {
 		"l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
 		"l2": {'source': 'f2', 'target': 'f3', 'identity': 86}
+};
+var links6 = {
+		"l3": {'source': 'f1', 'target': 'f3', 'identity': 90},
+		"l5": {'source': 'f4', 'target': 'f2', 'identity': 86}
 };
 
 var data = {'karyo': karyo, 'features': features, 'links': links};
@@ -693,21 +703,18 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 		ali.setFilters(filters5);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-		console.log(linearKaryoCoords);
-		console.log(linearLinkCoords);
 		ali.drawLinearKaryo(linearKaryoCoords);
 		ali.drawLinearLinks(linearLinkCoords);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(2);
 	});
 	it('there should be exactly three karyos ad one links in the simple test svg (actual there are exactly two links, but only one is drawn because the second one is not an adjacent link)', function(){
-		ali.setData({karyo:karyo5,features:features3, links:links5});
+		ali.setData({karyo:karyo5,features:features4, links:links6});
 		ali.setFilters(filters5);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		ali.drawLinearKaryo(linearKaryoCoords);
 		ali.drawLinearLinks(linearLinkCoords);
-		expect(linearLinkCoords.length).toEqual(3);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 	});
