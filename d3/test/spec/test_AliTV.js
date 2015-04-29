@@ -717,7 +717,7 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 		ali.drawLinearKaryo(linearKaryoCoords);
 		ali.drawLinearLinks(linearLinkCoords);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
-		expect(ali.svgD3.selectAll('.link').size()).toEqual(2);
+		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 	});
 });
 
