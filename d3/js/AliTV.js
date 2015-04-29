@@ -54,6 +54,7 @@ function AliTV(svg) {
 	 * @property {Number}  linear.karyoHeight     - The height of each chromosome in px.
 	 * @property {Number}  linear.karyoDistance   - The horizontal distance between adjacent chromosomes of the same genome in bp.
 	 * @property {Number}  linear.linkKaryoSpacer - The vertical distance between chromosomes and links in px.
+	 * @property {Boolean} linear.drawAllLinks    - Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.
 	 * @property {Object}  circular               - The configuration options for the circular layout.
 	 * @property {Number}  circular.karyoHeight   - The height of each chromosome in px.
 	 * @property {Number}  circular.karyoDistance - The distance between adjacent chromosomes on the circle in bp.
@@ -66,7 +67,8 @@ function AliTV(svg) {
 			genomeDistance: 300,
 			karyoHeight: 30,
 			karyoDistance: 10,
-			linkKaryoDistance: 10
+			linkKaryoDistance: 10,
+			drawAllLinks: false
 		},
 		circular: {
 			karyoHeight: 30,
@@ -220,7 +222,6 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.source1 = {};
 		link.target0 = {};
 		link.target1 = {};
-		link.adjacent = true;
 		link.identity = value.identity;
 
 		var feature1 = that.data.features[value.source];
@@ -251,13 +252,16 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.target0.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
 		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
 		link.target1.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
-		linearLinkCoords.push(link);
 
 		var differenceOfGenomePosition = genomePosition2 - genomePosition1;
 		if (differenceOfGenomePosition == 1 || differenceOfGenomePosition == -1) {
 			link.adjacent = true;
+			linearLinkCoords.push(link);
 		} else {
 			link.adjacent = false;
+			if (conf.drawAllLinks === true) {
+				linearLinkCoords.push(link);
+			}
 		}
 	});
 	return linearLinkCoords;
