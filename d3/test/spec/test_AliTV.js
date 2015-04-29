@@ -5,7 +5,8 @@ var defaultConf =  {
 			genomeDistance: 300,
 			karyoHeight: 30,
 			karyoDistance: 10,
-			linkKaryoDistance: 10
+			linkKaryoDistance: 10,
+			drawAllLinks: false
 		},
 		circular: {
 			karyoHeight: 30,
