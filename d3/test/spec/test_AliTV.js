@@ -332,7 +332,7 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 	});
 	it('there should be exactly three karyos and one link in the test svg', function(){
 		wga.drawLinear();
-		expect(wga.svgD3.selectAll('.link').size()).toEqual(2);
+		expect(wga.svgD3.selectAll('.link').size()).toEqual(1);
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(3);
 	});
 	it('the drawn karyos have the expected height', function(){
