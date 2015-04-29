@@ -213,7 +213,6 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 	$.each(coords, function(key, value) {
 		karyoMap[value.karyo] = key;
 	});
-
 	$.each(this.data.links, function(key, value) {
 		var link = {};
 		link.linkID = key;
@@ -222,6 +221,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.target0 = {};
 		link.target1 = {};
 		link.adjacent = true;
+		link.identity = value.identity;
 
 		var feature1 = that.data.features[value.source];
 		var feature2 = that.data.features[value.target];
