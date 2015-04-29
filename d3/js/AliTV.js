@@ -325,10 +325,10 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.enter()
 		.append("path")
 		.attr("class", "link")
-		.attr("d", coordsToPath)
-		.style("fill", function(d) {
-			this.colorLinksByIdentity(Math.abs(d.identity));
-		});
+		.attr("d", coordsToPath);
+	//		.style("fill", function(d) {
+	//			this.colorLinksByIdentity(Math.abs(d.identity));
+	//		});
 };
 
 /**
