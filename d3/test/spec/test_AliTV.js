@@ -647,14 +647,14 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 describe('The drawLinearLinks method of AliTV objects is supposed to draw links in the linear layout, for an alignment with more than two different genomes only adjacent links should be drawn', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	ali.setData(data);
-	ali.setFilters(filters);
 
 	it('drawLinearLinks method is supposed to be a function', function(){
 		expect(typeof ali.drawLinearLinks).toEqual('function');
 	});
 	
 	it('there should be exactly one link and two karyos in the simple test svg', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		ali.drawLinearKaryo(linearKaryoCoords);
