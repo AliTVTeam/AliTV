@@ -662,14 +662,16 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(2);
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 	});
-//	it('there should be exactly two karyos ad two links in the simple test svg', function(){
-//		var linearKaryoCoords = ali.getLinearKaryoCoords();
-//		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-//		ali.drawLinearKaryo(linearKaryoCoords);
-//		ali.drawLinearLinks(linearLinkCoords);
-//		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(2);
-//		expect(ali.svgD3.selectAll('.link').size()).toEqual(2);
-//	});
+	it('there should be exactly two links and three chromosomes in the simple test svg', function(){
+//		ali.setData({karyo:karyo4,features:features2, links:links2});
+//		ali.setFilters(filters4);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		ali.drawLinearKaryo(linearKaryoCoords);
+		ali.drawLinearLinks(linearLinkCoords);
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(2);
+		expect(ali.svgD3.selectAll('.link').size()).toEqual(2);
+	});
 //	it('there should be exactly three karyos ad two links in the simple test svg (actual there are exactly three links, but only two are drawn because the third one is not an adjacent link)', function(){
 //		var linearKaryoCoords = ali.getLinearKaryoCoords();
 //		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
