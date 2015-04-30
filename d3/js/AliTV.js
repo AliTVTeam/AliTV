@@ -302,12 +302,26 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 			return d.height;
 		})
 		.style("fill", function(d) {
-			return color(d.genome);
+			return color(d.genome)
 		});
 };
 
 /**
- * This function draws adjacent links in the linear layout and color according to their identity value
+ * This function color links according to their identity and is called by drawLinearLinks within the style attribute
+ * It operates on the identity value of the links and therefore the identity should be assigned to the function
+ * The identity is assigned to a color which is used by the drawLinearLinks function, so the returned value is the RGB farbcode
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.colorLinksByIdentity = function(identity) {
+	var color = d3.scale.linear()
+		.domain([0, 40, 100])
+		.range(["#D21414", "#D21414", "#1DAD0A"]);
+
+	return color(identity);
+};
+
+/**
+ * This function draws adjacent links in the linear layout
  * @author Sonja Hohlfeld
  * @param {Array} The array linearLinkCoords containing the coordinates of all links as returned by getLinearLinkCoords()
  */
@@ -332,10 +346,6 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		return shape;
 	};
 
-	var color = d3.scale.linear()
-		.domain([0, 20, 100])
-		.range(["#D21414", "#D21414", "#1DAD0A"]);
-
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
@@ -346,10 +356,10 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.attr("class", "link")
 		.attr("d", coordsToPath)
 		.style("fill", function(d) {
-			return color(d.identity);
+			return that.colorLinksByIdentity(d.identity);
 		});
-
 };
+
 
 /**
  * This function draws the data in the linear layout.
