@@ -321,6 +321,16 @@ AliTV.prototype.colorLinksByIdentity = function(identity) {
 };
 
 /**
+ * This function color karyos according to their genome_id and is called by drawLinearKaryo within the style attribute
+ * It operates on the genome_id of the links and therefore the genome_id should be assigned to the function
+ * The genome_id is assigned to a color which is used by the drawLinearKaryo function, so the returned value is the RGB farbcode
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.colorKaryoByGenomeId = function() {
+
+};
+
+/**
  * This function draws adjacent links in the linear layout
  * @author Sonja Hohlfeld
  * @param {Array} The array linearLinkCoords containing the coordinates of all links as returned by getLinearLinkCoords()
