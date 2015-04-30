@@ -320,6 +320,11 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		var shape = path1 + path2 + 'Z';
 		return shape;
 	};
+
+	var color = d3.scale.linear()
+		.domain([0, 20, 100])
+		.range(["red", "yellow", "green"]);
+
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
@@ -330,8 +335,12 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.attr("class", "link")
 		.attr("d", coordsToPath)
 		.style("fill", function(d) {
-			that.colorLinksByIdentity(Math.abs(d.identity));
+			return color(d.identity);
 		});
+	//		.style("fill", function(d) {
+	//			that.colorLinksByIdentity(Math.abs(d.identity));
+	//		});
+
 };
 
 /**
