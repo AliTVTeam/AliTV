@@ -302,7 +302,7 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 			return d.height;
 		})
 		.style("fill", function(d) {
-			return color(d.genome)
+			return color(d.genome);
 		});
 };
 
