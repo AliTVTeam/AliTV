@@ -326,9 +326,10 @@ AliTV.prototype.colorLinksByIdentity = function(identity) {
  */
 AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 	var that = this;
-	var genomeOrder = that.filters.karyo.genome_order;
+	var genomeOrder = [0, (that.filters.karyo.genome_order.length - 1)];
+	console.log(genomeOrder);
 	var colorRange = [that.conf.linear.startLineColor, that.conf.linear.endLineColor];
-	var color = d3.scale.ordinal()
+	var color = d3.scale.linear()
 		.domain(genomeOrder)
 		.range(colorRange);
 
