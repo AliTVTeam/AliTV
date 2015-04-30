@@ -274,6 +274,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
  */
 AliTV.prototype.drawLinearKaryo = function(coords) {
 	var filters = this.filters;
+	var that = this;
 	var genomeOrder = filters.karyo.genome_order;
 
 	var color = d3.scale.ordinal()
@@ -301,7 +302,7 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 			return d.height;
 		})
 		.style("fill", function(d) {
-			return color(d.genome);
+			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
 		});
 };
 
