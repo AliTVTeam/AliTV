@@ -327,7 +327,6 @@ AliTV.prototype.colorLinksByIdentity = function(identity) {
 AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 	var that = this;
 	var genomeOrder = [0, (that.filters.karyo.genome_order.length - 1)];
-	console.log(genomeOrder);
 	var colorRange = [that.conf.linear.startLineColor, that.conf.linear.endLineColor];
 	var color = d3.scale.linear()
 		.domain(genomeOrder)
@@ -362,7 +361,6 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		return shape;
 	};
 
-	console.log(that.data);
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
