@@ -82,7 +82,11 @@ function AliTV(svg) {
 			karyoHeight: 30,
 			karyoDistance: 10,
 			outerRadius: 450
-		}
+		},
+		minLinkIdentity: 40,
+		maxLinkIdentity: 100,
+		minLinkIdentityColor: "#D21414",
+		maxLinkIdentityColor: "#1DAD0A"
 	};
 	// Initialize svg size
 	svg.height(this.conf.height);
