@@ -326,8 +326,12 @@ AliTV.prototype.colorLinksByIdentity = function(identity) {
  * The genome_id is assigned to a color which is used by the drawLinearKaryo function, so the returned value is the RGB farbcode
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.colorKaryoByGenomeId = function() {
+AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
+	var color = d3.scale.ordinal()
+		.domain(genomeOrder)
+		.range(['rgb(84,48,5)', 'rgb(140,81,10)', 'rgb(191,129,45)', 'rgb(223,194,125)', 'rgb(246,232,195)', 'rgb(199,234,229)', 'rgb(128,205,193)', 'rgb(53,151,143)', 'rgb(1,102,94)', 'rgb(0,60,48)']);
 
+	return color(genomeId);
 };
 
 /**

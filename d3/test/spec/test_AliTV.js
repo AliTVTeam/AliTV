@@ -778,9 +778,9 @@ describe('The colorKaryoByGenome method of AliTV objects is supposed to color ka
 	it('colorKaryoByGenome method is supposed to be a function', function(){
 		expect(typeof ali.colorKaryoByGenomeId).toEqual('function');
 	});
-//	it('the colorLinksByIdentity method is supposed to return the color "#d21414" because the function get an identity of 0', function(){
-//		expect(ali.colorLinksByIdentity(0)).toEqual("#d21414");		
-//	});
+	it('the colorKaryoByGenomeId method is supposed to return the color "rgb(84,48,5)" because the function get a genomeId of 0', function(){
+		expect(ali.colorKaryoByGenomeId(0)).toEqual("#d21414");		
+	});
 //	it('the colorLinksByIdentity method is supposed to return the color "#1DAD0A" because the function get an identity of 100', function(){
 //		expect(ali.colorLinksByIdentity(100)).toEqual("#1dad0a");		
 //	});
