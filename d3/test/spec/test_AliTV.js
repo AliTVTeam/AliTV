@@ -6,7 +6,9 @@ var defaultConf =  {
 			karyoHeight: 30,
 			karyoDistance: 10,
 			linkKaryoDistance: 10,
-			drawAllLinks: false
+			drawAllLinks: false,
+			startLineColor: "#49006a",
+			endLineColor: "#1d91c0"
 		},
 		circular: {
 			karyoHeight: 30,
@@ -777,8 +779,10 @@ describe('The colorKaryoByGenome method of AliTV objects is supposed to color ka
 	it('colorKaryoByGenome method is supposed to be a function', function(){
 		expect(typeof ali.colorKaryoByGenomeId).toEqual('function');
 	});
-	it('the colorKaryoByGenomeId method is supposed to return the color "rgb(84,48,5)" because the function get a genomeId of 0', function(){
-		expect(ali.colorKaryoByGenomeId(0)).toEqual("#d21414");		
+	it('the colorKaryoByGenomeId method is supposed to return the color "#49006a" because the function get a genomeId of 0', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		expect(ali.colorKaryoByGenomeId(0)).toEqual(defaultConf.linear.startLineColor);		
 	});
 });
 
