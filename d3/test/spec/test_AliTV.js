@@ -14,7 +14,11 @@ var defaultConf =  {
 			karyoHeight: 30,
 			karyoDistance: 10,
 			outerRadius: 450
-		}
+		},
+		minLinkIdentity: 40,
+		maxLinkIdentity: 100,
+		minLinkIdentityColor: "#D21414",
+		maxLinkIdentityColor: "#1DAD0A"
 };
 
 describe('The constructor is supposed a proper AliTV object', function(){
