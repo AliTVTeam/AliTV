@@ -764,8 +764,10 @@ describe('The colorLinkByIdentity method of AliTV objects is supposed to color l
 		expect(typeof ali.colorLinksByIdentity).toEqual('function');
 	});
 	it('the colorLinksByIdentity method is supposed to return the color "#d21414" because the function get an identity of 0', function(){
-		expect(ali.colorLinksByIdentity(0)).toEqual("#d21414");
-		
+		expect(ali.colorLinksByIdentity(0)).toEqual("#d21414");		
+	});
+	it('the colorLinksByIdentity method is supposed to return the color "#1DAD0A" because the function get an identity of 100', function(){
+		expect(ali.colorLinksByIdentity(100)).toEqual("#d21414");		
 	});
 });
 
