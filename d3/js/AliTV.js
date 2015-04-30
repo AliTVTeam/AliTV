@@ -223,7 +223,6 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.source1 = {};
 		link.target0 = {};
 		link.target1 = {};
-		link.identity = value.identity;
 
 		var feature1 = that.data.features[value.source];
 		var feature2 = that.data.features[value.target];
