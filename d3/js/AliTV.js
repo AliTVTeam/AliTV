@@ -360,6 +360,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		return shape;
 	};
 
+	console.log(that.data);
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
@@ -370,7 +371,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.attr("class", "link")
 		.attr("d", coordsToPath)
 		.style("fill", function(d) {
-			return that.colorLinksByIdentity(d.identity);
+			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
 		});
 };
 
