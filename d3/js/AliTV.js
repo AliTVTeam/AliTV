@@ -337,25 +337,22 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.style("fill", function(d) {
 			return color(d.identity);
 		});
-	//		.style("fill", function(d) {
-	//			that.colorLinksByIdentity(Math.abs(d.identity));
-	//		});
 
 };
 
-/**
- * This function color links according to their identity and is called by drawLinearLinks within the style attribute
- * It operates on the identity value of the links and therefore the identity should be assigned to the function
- * The identity is assigned to a color which is used by the drawLinearLinks function, so the returned value is the RGB farbcode
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.colorLinksByIdentity = function(identity) {
-	var color = d3.scale.linear()
-		.domain([-1, 0, 1])
-		.range(["red", "yellow", "green"]);
-
-	color(identity);
-};
+///**
+// * This function color links according to their identity and is called by drawLinearLinks within the style attribute
+// * It operates on the identity value of the links and therefore the identity should be assigned to the function
+// * The identity is assigned to a color which is used by the drawLinearLinks function, so the returned value is the RGB farbcode
+// * @author Sonja Hohlfeld
+// */
+//AliTV.prototype.colorLinksByIdentity = function(identity) {
+//	var color = d3.scale.linear()
+//		.domain([-1, 0, 1])
+//		.range(["red", "yellow", "green"]);
+//
+//	color(identity);
+//};
 
 /**
  * This function draws the data in the linear layout.
