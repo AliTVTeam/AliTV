@@ -323,7 +323,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 
 	var color = d3.scale.linear()
 		.domain([0, 20, 100])
-		.range(["red", "yellow", "green"]);
+		.range(["#D21414", "#D21414", "#1DAD0A"]);
 
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
