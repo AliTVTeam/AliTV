@@ -760,6 +760,20 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 	console.log(ali.svgD3.selectAll('.link').style("fill"));
 	expect(String(ali.svgD3.selectAll('.link').style("fill"))).toEqual("rgb(210, 20, 20)");
 	
-	});
+	});	
+	it('the identity value of the link is 100% and therefore the color should be "rgb(29, 173, 10)"', function(){
+		var links_100 = {
+	       	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 100}
+			 };
+		ali.setData({karyo:karyo,features:features, links:links_100});
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		ali.drawLinearKaryo(linearKaryoCoords);
+		ali.drawLinearLinks(linearLinkCoords);
+		console.log(ali.svgD3.selectAll('.link').style("fill"));
+		expect(String(ali.svgD3.selectAll('.link').style("fill"))).toEqual("rgb(210, 20, 20)");
+		
+		});
 });
 
