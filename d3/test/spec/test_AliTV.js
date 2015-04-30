@@ -747,6 +747,7 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 	});
+	// TODO the follwing test are not working with grunt, but in the SpecRunner
 //	it('the link has an idenitity value less than 20% and therefore the returned color should be "rgb(210, 20, 20)"', function(){
 //	var links_15 = {
 //       	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 15}
