@@ -758,7 +758,7 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 	ali.drawLinearKaryo(linearKaryoCoords);
 	ali.drawLinearLinks(linearLinkCoords);
 	console.log(ali.svgD3.selectAll('.link').style("fill"));
-	expect(String(ali.svgD3.selectAll('.link').style("fill"))).toEqual("#FF1600");
+	expect(String(ali.svgD3.selectAll('.link').style("fill"))).toEqual("rgb(210, 20, 20)");
 	
 	});
 });
