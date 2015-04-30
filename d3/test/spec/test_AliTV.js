@@ -450,7 +450,7 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 	});
 });
 
-describe('The drawCircularKaryo method of AliTV objects is supposed to draw karyos', function(){
+describe('The drawCircularKaryo method of AliTV objects is supposed to draw karyos and color them according to their genome id', function(){
 	var svg = $('<svg></svg>');
 	var wga = new AliTV(svg);
 	wga.setData(data);
