@@ -184,11 +184,13 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 			'x': (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width,
 			'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
 			'width': (value.length / maxTotalSize) * conf.width,
-			'height': conf.linear.karyoHeight
+			'height': conf.linear.karyoHeight,
+			'genome': value.genome_id
 		};
 		current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
 		linearKaryoCoords.push(coord);
 	}
+	console.log(linearKaryoCoords);
 	return linearKaryoCoords;
 };
 
