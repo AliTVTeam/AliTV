@@ -270,9 +270,9 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		wga.setFilters(filters3);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
-		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight},
-            {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight},
-		    {'karyo': 'c3', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight}
+		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+            {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 2}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
