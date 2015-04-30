@@ -70,7 +70,9 @@ function AliTV(svg) {
 			karyoHeight: 30,
 			karyoDistance: 10,
 			linkKaryoDistance: 10,
-			drawAllLinks: false
+			drawAllLinks: false,
+			startLineColor: "#49006a",
+			endLineColor: "#1d91c0"
 		},
 		circular: {
 			karyoHeight: 30,
