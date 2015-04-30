@@ -319,8 +319,11 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.colorLinksByIdentity = function(identity) {
+	var that = this;
+	var linkIdentityDomain = [0, that.conf.minLinkIdentity, that.conf.maxLinkIdentity, 100];
+	console.log(linkIdentityDomain);
 	var color = d3.scale.linear()
-		.domain([0, 40, 100])
+		.domain(linkIdentityDomain)
 		.range(["#D21414", "#D21414", "#1DAD0A"]);
 
 	return color(identity);
