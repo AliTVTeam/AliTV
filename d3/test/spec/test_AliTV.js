@@ -452,49 +452,58 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 
 describe('The drawCircularKaryo method of AliTV objects is supposed to draw karyos and color them according to their genome id', function(){
 	var svg = $('<svg></svg>');
-	var wga = new AliTV(svg);
-	wga.setData(data);
-	wga.setFilters(filters);
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
 	it('drawCircularKaryo method is supposed to be a function', function(){
-		expect(typeof wga.drawCircularKaryo).toEqual('function');
+		expect(typeof ali.drawCircularKaryo).toEqual('function');
 	});
 	it('there should be exactly one karyoGroup in the simple test svg', function(){
-		circularKaryoCoords = wga.getCircularKaryoCoords();
-		wga.drawCircularKaryo(circularKaryoCoords);
-		expect(wga.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
+		circularKaryoCoords = ali.getCircularKaryoCoords();
+		ali.drawCircularKaryo(circularKaryoCoords);
+		expect(ali.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
 	});
 	it('the karyo group should be translated to the center of the svg', function(){
-		circularKaryoCoords = wga.getCircularKaryoCoords();
-		wga.drawCircularKaryo(circularKaryoCoords);
-		expect(wga.svgD3.selectAll('.karyoGroup').attr("transform")).toEqual("translate(" + defaultConf.width / 2 + "," + defaultConf.height / 2 + ")");
+		circularKaryoCoords = ali.getCircularKaryoCoords();
+		ali.drawCircularKaryo(circularKaryoCoords);
+		expect(ali.svgD3.selectAll('.karyoGroup').attr("transform")).toEqual("translate(" + defaultConf.width / 2 + "," + defaultConf.height / 2 + ")");
 	});
 	it('there should be exactly two karyos in the simple test svg', function(){
-		circularKaryoCoords = wga.getCircularKaryoCoords();
-		wga.drawCircularKaryo(circularKaryoCoords);
-		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(2);
+		circularKaryoCoords = ali.getCircularKaryoCoords();
+		ali.drawCircularKaryo(circularKaryoCoords);
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(2);
 	});
 	// TODO the following tests do not work as there is a svg d attribute created by D3
 //	it('the drawn karyos have the expected outerRadius', function(){
-//		circularKaryoCoords = wga.getCircularKaryoCoords();
-//		wga.drawCircularKaryo(circularKaryoCoords);
+//		circularKaryoCoords = ali.getCircularKaryoCoords();
+//		ali.drawCircularKaryo(circularKaryoCoords);
 //		// This test checks only the outerRadius attribute of the first selected element
-//		expect(Number(wga.svgD3.selectAll('.karyo').attr("outerRadius"))).toEqual(defaultConf.circular.outerRadius);
-//		console.log(wga.svgD3.selectAll('.karyo'));
+//		expect(Number(ali.svgD3.selectAll('.karyo').attr("outerRadius"))).toEqual(defaultConf.circular.outerRadius);
+//		console.log(ali.svgD3.selectAll('.karyo'));
 //	});
 //	it('the drawn karyos have the expected innerRadius', function(){
-//		circularKaryoCoords = wga.getCircularKaryoCoords();
-//		wga.drawCircularKaryo(circularKaryoCoords);
+//		circularKaryoCoords = ali.getCircularKaryoCoords();
+//		ali.drawCircularKaryo(circularKaryoCoords);
 //		// This test checks only the innerRadius attribute of the first selected element
-//		expect(Number(wga.svgD3.selectAll('.karyo').attr("innerRadius"))).toEqual(defaultConf.circular.outerRadius - defaultConf.circular.karyoHeight);
+//		expect(Number(ali.svgD3.selectAll('.karyo').attr("innerRadius"))).toEqual(defaultConf.circular.outerRadius - defaultConf.circular.karyoHeight);
 //	});
 	it('there should be exactly four karyos in the more complex test svg', function(){
-		wga.setData(data4);
-		wga.setFilters(filters4);
-		circularKaryoCoords = wga.getCircularKaryoCoords();
-		wga.drawCircularKaryo(circularKaryoCoords);
-		console.log(wga.svgD3.selectAll('.karyo'));
-		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
+		ali.setData(data4);
+		ali.setFilters(filters4);
+		circularKaryoCoords = ali.getCircularKaryoCoords();
+		ali.drawCircularKaryo(circularKaryoCoords);
+		console.log(ali.svgD3.selectAll('.karyo'));
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(4);
 	});
+	it('the karyo belongs to the genome_id = 1 and therefore the color should be "rgb(99, 121, 57)"', function(){
+	ali.setData({karyo:karyo,features:features, links:links});
+	ali.setFilters(filters);
+	var linearKaryoCoords = ali.getLinearKaryoCoords();
+	ali.drawLinearKaryo(linearKaryoCoords);
+	console.log(filters.karyo.genome_order);
+	expect(String(ali.svgD3.selectAll('.karyo').style("fill"))).toEqual("rgb(210, 20, 20)");
+	
+	});	
 });
 
 describe('The drawCircular method of AliTV objects is supposed to draw the circular layout', function(){
