@@ -57,7 +57,7 @@ function AliTV(svg) {
 	 * @property {Boolean} linear.drawAllLinks    - Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.
 	 * @property {String}  linear.startLineColor  - The start color of the color gradient for drawing karyos according to their genomeId
 	 * @property {String}  linear.endLineColor    - The end color of the color gradient. 
-	 * @property {Number}  linear.tickFrequency   - The frequency of the drawn ticks on a chromosome.
+	 * @property {Number}  linear.tickDistance    - The distance in bp of ticks on the drawn chromosomes.
 	 * @property {Object}  circular               - The configuration options for the circular layout.
 	 * @property {Number}  circular.karyoHeight   - The height of each chromosome in px.
 	 * @property {Number}  circular.karyoDistance - The distance between adjacent chromosomes on the circle in bp.
@@ -78,7 +78,7 @@ function AliTV(svg) {
 			drawAllLinks: false,
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
-			tickFrequency: 1
+			tickDistance: 100
 		},
 		circular: {
 			karyoHeight: 30,
@@ -413,7 +413,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 AliTV.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
 	this.drawLinearKaryo(karyoCoords);
-	this.addLinearTicks();
+	this.addLinearTicks(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
 };
