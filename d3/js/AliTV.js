@@ -347,6 +347,12 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 };
 
 /**
+ * This function add ticks and wick labels to the karyo indicating the position on the corresponding chromosome
+ * It operates on the chromosomes and need the length in bp and the width in px of the karyo
+ * @author Sonja Hohlfeld
+ */
+
+/**
  * This function draws adjacent links in the linear layout
  * @author Sonja Hohlfeld
  * @param {Array} The array linearLinkCoords containing the coordinates of all links as returned by getLinearLinkCoords()
