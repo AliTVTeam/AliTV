@@ -106,6 +106,13 @@ var karyo4 = {
 			'c4': {'genome_id': 2, 'length': 1000, 'seq': null}
 		}
 };
+var karyo5 = {
+		'chromosomes': {
+			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+			'c2': {'genome_id': 1, 'length': 1000, 'seq': null},
+			'c4': {'genome_id': 2, 'length': 1000, 'seq': null}
+		}
+};
 var filters4 = {'karyo': {
 		'order': ['c1', 'c2', 'c3', 'c4'],
 		'genome_order': [0, 1, 2],
@@ -116,6 +123,16 @@ var filters4 = {'karyo': {
 			'c4': {'reverse': false, 'visible': null}
 		}
 	}
+};
+var filters5 = {'karyo': {
+	'order': ['c1', 'c2', 'c4'],
+	'genome_order': [0, 1, 2],
+	'chromosomes': {
+		'c1': {'reverse': false, 'visible': null},
+		'c2': {'reverse': false, 'visible': null},
+		'c4': {'reverse': false, 'visible': null}
+	}
+}
 };
 var filters4_reverse = {'karyo': {
 	'order': ['c1', 'c2', 'c3', 'c4'],
@@ -139,6 +156,17 @@ var features2 = {
 		'f4': {'karyo': 'c3', 'start': 900, 'end': 800},
 		'f5': {'karyo': 'c1', 'start': 1800, 'end': 1900}
 };
+var features3 = {
+		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
+		'f2': {'karyo': 'c2', 'start': 100, 'end': 600},
+		'f3': {'karyo': 'c4', 'start': 400, 'end': 900}
+};
+var features4 = {
+		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
+		'f2': {'karyo': 'c2', 'start': 100, 'end': 600},
+		'f3': {'karyo': 'c4', 'start': 400, 'end': 900},
+		'f4': {'karyo': 'c1', 'start': 1800, 'end': 1900}	
+}
 var links = {
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 };
@@ -155,6 +183,14 @@ var links4 = {
  				 "l2": {'source': 'f2', 'target': 'f3', 'identity': 86},
  				 "l3": {'source': 'f1', 'target': 'f3', 'identity': 94}
  			 };
+var links5 = {
+		"l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
+		"l2": {'source': 'f2', 'target': 'f3', 'identity': 86}
+};
+var links6 = {
+		"l3": {'source': 'f1', 'target': 'f3', 'identity': 90},
+		"l5": {'source': 'f4', 'target': 'f2', 'identity': 86}
+};
 
 var data = {'karyo': karyo, 'features': features, 'links': links};
 var data2 = {'karyo': karyo2, 'features': features, 'links': links};
@@ -294,8 +330,9 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 	it('drawLinear method is supposed to be a function', function(){
 		expect(typeof wga.drawLinear).toEqual('function');
 	});
-	it('there should be exactly three karyos in the test svg', function(){
+	it('there should be exactly three karyos and one link in the test svg', function(){
 		wga.drawLinear();
+		expect(wga.svgD3.selectAll('.link').size()).toEqual(1);
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(3);
 	});
 	it('the drawn karyos have the expected height', function(){
@@ -642,19 +679,44 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		];
 		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
 	});
+});
 
-//	it('getCircularKaryoCoords method is supposed to use the reverse property of filters', function(){
-//		wga.setData(data4);
-//		wga.setFilters(filters4_reverse);
-//		var circularKaryoCoords = wga.getCircularKaryoCoords();
-//		var expAnglePerBase = 2*Math.PI/(5000+4*defaultConf.circular.karyoDistance);
-//		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
-//		var expectedCoords = [
-//		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
-//		    {'karyo': 'c2', 'endAngle': 2000*expAnglePerBase + expAnglePerSpace, 'startAngle': 3000*expAnglePerBase + expAnglePerSpace},
-//		    {'karyo': 'c3', 'startAngle': 3000*expAnglePerBase + 2*expAnglePerSpace, 'endAngle': 4000*expAnglePerBase + 2*expAnglePerSpace},
-//		    {'karyo': 'c4', 'endAngle': 4000*expAnglePerBase + 3*expAnglePerSpace, 'startAngle': 5000*expAnglePerBase + 3*expAnglePerSpace}
-//		];
-//		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
-//	});
+describe('The drawLinearLinks method of AliTV objects is supposed to draw links in the linear layout, for an alignment with more than two different genomes only adjacent links should be drawn', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+
+	it('drawLinearLinks method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearLinks).toEqual('function');
+	});
+	
+	it('there should be exactly one link and two karyos in the simple test svg', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		ali.drawLinearKaryo(linearKaryoCoords);
+		ali.drawLinearLinks(linearLinkCoords);
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(2);
+		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
+	});
+	it('there should be exactly two links and three chromosomes in the simple test svg', function(){
+		ali.setData({karyo:karyo5,features:features3, links:links5});
+		ali.setFilters(filters5);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		ali.drawLinearKaryo(linearKaryoCoords);
+		ali.drawLinearLinks(linearLinkCoords);
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
+		expect(ali.svgD3.selectAll('.link').size()).toEqual(2);
+	});
+	it('there should be exactly three karyos ad one links in the simple test svg (actual there are exactly two links, but only one is drawn because the second one is not an adjacent link)', function(){
+		ali.setData({karyo:karyo5,features:features4, links:links6});
+		ali.setFilters(filters5);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		ali.drawLinearKaryo(linearKaryoCoords);
+		ali.drawLinearLinks(linearLinkCoords);
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
+		expect(ali.svgD3.selectAll('.link').size()).toEqual(2);
+	});
 });

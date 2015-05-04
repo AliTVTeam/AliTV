@@ -292,6 +292,43 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 };
 
 /**
+ * This function draws adjacent links in the linear layout
+ * @author Sonja Hohlfeld
+ * @param {Array} The array linearLinkCoords containing the coordinates of all links as returned by getLinearLinkCoords()
+ */
+
+AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
+	var coordsToPath = function(link) {
+		if (link.adjacent === true) {
+			var diagonal = d3.svg.diagonal().source(function(d) {
+				return d.source;
+			}).target(function(d) {
+				return d.target;
+			});
+			var path1 = diagonal({
+				source: link.source0,
+				target: link.target0
+			});
+			var path2 = diagonal({
+				source: link.target1,
+				target: link.source1
+			}).replace(/^M/, 'L');
+			var shape = path1 + path2 + 'Z';
+			return shape;
+		}
+	};
+	this.svgD3.selectAll(".linkGroup").remove();
+	this.svgD3.append("g")
+		.attr("class", "linkGroup")
+		.selectAll("path")
+		.data(linearLinkCoords)
+		.enter()
+		.append("path")
+		.attr("class", "link")
+		.attr("d", coordsToPath);
+};
+
+/**
  * This function draws the data in the linear layout.
  * It operates on the data of the object and therefore needs no parameters.
  * It draws directly on the svg and therefore has no return value.
@@ -300,6 +337,8 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 AliTV.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
 	this.drawLinearKaryo(karyoCoords);
+	var linkCoords = this.getLinearLinkCoords(karyoCoords);
+	this.drawLinearLinks(linkCoords);
 };
 
 /**

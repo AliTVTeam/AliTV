@@ -55,7 +55,7 @@ function AliTV(svg) {
 	 * @property {String}  features.karyo               - the karyo ID
 	 * @property {Number}  features.start               - start position on the sequence
 	 * @property {Number}  features.end                 - end position on the sequence
-	 * @property {Object}  links                        - the link information
+	 * @property {Object}  links                        - the link information, link IDs as keys
 	 * @property {String}  links.source                 - source feature of the link
 	 * @property {String}  links.target                 - target feature of the link
 	 * @property {Number}  links.identity               - identity of the link
@@ -80,6 +80,7 @@ function AliTV(svg) {
 	 * @property {Number}  linear.genomeDistance  - The vertical distance between adjacent genomes in px.
 	 * @property {Number}  linear.karyoHeight     - The height of each chromosome in px.
 	 * @property {Number}  linear.karyoDistance   - The horizontal distance between adjacent chromosomes of the same genome in bp.
+	 * @property {Number}  linear.linkKaryoSpacer - The vertical distance between chromosomes and links in px.
 	 * @property {Object}  circular               - The configuration options for the circular layout.
 	 * @property {Number}  circular.karyoHeight   - The height of each chromosome in px.
 	 * @property {Number}  circular.karyoDistance - The distance between adjacent chromosomes on the circle in bp.
@@ -91,7 +92,8 @@ function AliTV(svg) {
 		linear: {
 			genomeDistance: 300,
 			karyoHeight: 30,
-			karyoDistance: 10
+			karyoDistance: 10,
+			linkKaryoDistance: 10
 		},
 		circular: {
 			karyoHeight: 30,
@@ -122,9 +124,9 @@ function AliTV(svg) {
  * 	'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
  * 	'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
  * };
- * var links = [
+ * var links = { "l1":
  * 	{'source': 'f1', 'target': 'f2', 'identity': 90}
- * ];
+ * };
  * wga.setData({'karyo': karyo, 'features': features, 'links': links};
  */
 AliTV.prototype.setData = function(data) {
@@ -150,9 +152,9 @@ AliTV.prototype.setData = function(data) {
  * 	'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
  * 	'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
  * };
- * var links = [
+ * var links = {"l1":
  * 	{'source': 'f1', 'target': 'f2', 'identity': 90}
- * ];
+ * };
  * wga.setData({'karyo': karyo, 'features': features, 'links': links};
  * var filters = {
  * 	'karyo': {
@@ -212,8 +214,80 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
 		linearKaryoCoords.push(coord);
 	}
-
 	return linearKaryoCoords;
+};
+
+/**
+ * Calculate coordinates for the links to draw in the linear layout and uses link-data and karyo-coordinates
+ * this function should also check if links are adjacent or not and save this information in the link property "adjacent"
+ * This function is primarily meant for internal usage, the user should not need to call this directly
+ * @author Sonja Hohlfeld
+ * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
+ * @returns {Array} Returns an Array which is presented in the following example
+ * @example [
+ *					{"linkID": "l1", "source0": {"x":0, "y":10}, "target0": {"x": 0, "y":20}, "source1": {"x":10, "y":10}, "target1": {"x":10, "y":20}, "adjacent": true}
+ *			]
+ */
+
+AliTV.prototype.getLinearLinkCoords = function(coords) {
+	var linearLinkCoords = [];
+	if (typeof coords === 'undefined') {
+		return linearLinkCoords;
+	}
+	var that = this;
+	var conf = this.conf;
+	var karyoMap = {};
+	$.each(coords, function(key, value) {
+		karyoMap[value.karyo] = key;
+	});
+
+	$.each(this.data.links, function(key, value) {
+		var link = {};
+		link.linkID = key;
+		link.source0 = {};
+		link.source1 = {};
+		link.target0 = {};
+		link.target1 = {};
+		link.adjacent = true;
+
+		var feature1 = that.data.features[value.source];
+		var feature2 = that.data.features[value.target];
+		var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
+		var karyo2 = that.data.karyo.chromosomes[feature2.karyo];
+		var karyo1Coords = coords[karyoMap[feature1.karyo]];
+		var karyo2Coords = coords[karyoMap[feature2.karyo]];
+		var genomePosition1 = that.filters.karyo.genome_order.indexOf(karyo1.genome_id);
+		var genomePosition2 = that.filters.karyo.genome_order.indexOf(karyo2.genome_id);
+		if (genomePosition1 > genomePosition2) {
+			var tmp = feature1;
+			feature1 = feature2;
+			feature2 = tmp;
+			tmp = karyo1;
+			karyo1 = karyo2;
+			karyo2 = tmp;
+			tmp = karyo1Coords;
+			karyo1Coords = karyo2Coords;
+			karyo2Coords = tmp;
+		}
+		link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
+		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.linear.linkKaryoDistance;
+		link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
+		link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.linear.linkKaryoDistance;
+
+		link.target0.x = karyo2Coords.x + karyo2Coords.width * feature2.start / karyo2.length;
+		link.target0.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
+		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
+		link.target1.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
+		linearLinkCoords.push(link);
+
+		var differenceOfGenomePosition = genomePosition2 - genomePosition1;
+		if (differenceOfGenomePosition == 1 || differenceOfGenomePosition == -1) {
+			link.adjacent = true;
+		} else {
+			link.adjacent = false;
+		}
+	});
+	return linearLinkCoords;
 };
 
 /**
@@ -245,6 +319,43 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 };
 
 /**
+ * This function draws adjacent links in the linear layout
+ * @author Sonja Hohlfeld
+ * @param {Array} The array linearLinkCoords containing the coordinates of all links as returned by getLinearLinkCoords()
+ */
+
+AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
+	var coordsToPath = function(link) {
+		if (link.adjacent === true) {
+			var diagonal = d3.svg.diagonal().source(function(d) {
+				return d.source;
+			}).target(function(d) {
+				return d.target;
+			});
+			var path1 = diagonal({
+				source: link.source0,
+				target: link.target0
+			});
+			var path2 = diagonal({
+				source: link.target1,
+				target: link.source1
+			}).replace(/^M/, 'L');
+			var shape = path1 + path2 + 'Z';
+			return shape;
+		}
+	};
+	this.svgD3.selectAll(".linkGroup").remove();
+	this.svgD3.append("g")
+		.attr("class", "linkGroup")
+		.selectAll("path")
+		.data(linearLinkCoords)
+		.enter()
+		.append("path")
+		.attr("class", "link")
+		.attr("d", coordsToPath);
+};
+
+/**
  * This function draws the data in the linear layout.
  * It operates on the data of the object and therefore needs no parameters.
  * It draws directly on the svg and therefore has no return value.
@@ -253,6 +364,8 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 AliTV.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
 	this.drawLinearKaryo(karyoCoords);
+	var linkCoords = this.getLinearLinkCoords(karyoCoords);
+	this.drawLinearLinks(linkCoords);
 };
 
 /**
@@ -337,7 +450,7 @@ AliTV.prototype.drawCircular = function() {
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Fri Apr 24 2015 17:17:31 GMT+0200 (MESZ)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Tue Apr 28 2015 15:50:51 GMT+0200 (MESZ)
 </footer>
 
 <script> prettyPrint(); </script>
