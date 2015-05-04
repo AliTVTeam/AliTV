@@ -355,16 +355,21 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
  */
 AliTV.prototype.addLinearTicks = function(karyoCoords) {
 	var that = this;
-
+	that.svgD3.selectAll(".tickGroup").remove();
 	$.each(karyoCoords, function(key, value) {
-		var tickFrequency = that.data.karyo.chromosomes[value.karyo].length / that.conf.linear.tickDistance;
+		var ticks = [];
 
 		var scale = d3.scale.linear()
-			.domain([value.x, value.x + value.width])
-			.range([0, that.data.karyo.chromosomes[value.karyo].length]);
+			.domain([0, that.data.karyo.chromosomes[value.karyo].length])
+			.range([value.x, value.x + value.width]);
 
-		var ticks = scale.ticks(tickFrequency);
+		var chromosomePosition = 0;
+		while (chromosomePosition <= that.data.karyo.chromosomes[value.karyo].length) {
+			ticks.push(scale(chromosomePosition));
+			chromosomePosition += that.conf.linear.tickDistance;
+		}
 		console.log(ticks);
+
 		var y1 = value.y;
 		var y2 = value.height;
 
