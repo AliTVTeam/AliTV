@@ -811,4 +811,8 @@ describe('The addLinearTicks method is supposed to add ticks and tick labels nex
 	});
 });
 
+describe('The fadeOutLinks method is called by a mouse pointer event and is supposed to fade out all links except the links of the chromosome the mouse points to', function(){
+
+});
+
 
