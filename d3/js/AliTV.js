@@ -368,7 +368,6 @@ AliTV.prototype.addLinearTicks = function(karyoCoords) {
 			ticks.push(scale(chromosomePosition));
 			chromosomePosition += that.conf.linear.tickDistance;
 		}
-		console.log(ticks);
 
 		var y1 = value.y;
 		var y2 = value.height;
