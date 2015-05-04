@@ -397,7 +397,9 @@ AliTV.prototype.addLinearTicks = function(karyoCoords) {
  * If the mouse pointer enters the area of a chromosome all links should be faded out except the the links of the chromosome the mouse points to.
  * @param {Number} The opacity value is a number between 0 and 1 and indicates the degree of the colored link opacity.
  */
+AliTV.prototype.fadeOutLinks = function() {
 
+};
 
 /**
  * This function draws adjacent links in the linear layout
