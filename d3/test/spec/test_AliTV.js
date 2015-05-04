@@ -8,7 +8,8 @@ var defaultConf =  {
 			linkKaryoDistance: 10,
 			drawAllLinks: false,
 			startLineColor: "#49006a",
-			endLineColor: "#1d91c0"
+			endLineColor: "#1d91c0",
+			tickDistance: 100
 		},
 		circular: {
 			karyoHeight: 30,
@@ -344,10 +345,22 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 	it('drawLinear method is supposed to be a function', function(){
 		expect(typeof wga.drawLinear).toEqual('function');
 	});
-	it('there should be exactly three karyos and one link in the test svg', function(){
-		wga.drawLinear();
+	it('there should be exactly three karyos, ticks (depend on tickDistance) and one link in the test svg', function(){	
+		var karyoCoords = wga.getLinearKaryoCoords();
+		wga.addLinearTicks(karyoCoords);
+		wga.drawLinearKaryo(karyoCoords);
+		var linkCoords = wga.getLinearLinkCoords(karyoCoords);
+		wga.drawLinearLinks(linkCoords);
+		
+		var totalTicks = 0;
+		$.each(karyoCoords, function(key, value){
+			var tickFrequency = wga.data.karyo.chromosomes[value.karyo].length / wga.conf.linear.tickDistance;
+			totalTicks += tickFrequency + 1;
+		});
+		
 		expect(wga.svgD3.selectAll('.link').size()).toEqual(1);
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(3);
+		expect(wga.svgD3.selectAll('.tick').size()).toEqual(totalTicks);
 	});
 	it('the drawn karyos have the expected height', function(){
 		wga.drawLinear();
@@ -789,4 +802,13 @@ describe('The colorKaryoByGenome method of AliTV objects is supposed to color ka
 		expect(ali.colorKaryoByGenomeId(0)).toEqual(defaultConf.linear.startLineColor);		
 	});
 });
+
+describe('The addLinearTicks method is supposed to add ticks and tick labels next to the karyos indicating th position on the corresponding chromosome', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('addLinearTicks method is supposed to be a function', function(){
+		expect(typeof ali.addLinearTicks).toEqual('function');
+	});
+});
+
 

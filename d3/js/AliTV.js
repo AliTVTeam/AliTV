@@ -57,6 +57,7 @@ function AliTV(svg) {
 	 * @property {Boolean} linear.drawAllLinks    - Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.
 	 * @property {String}  linear.startLineColor  - The start color of the color gradient for drawing karyos according to their genomeId
 	 * @property {String}  linear.endLineColor    - The end color of the color gradient. 
+	 * @property {Number}  linear.tickDistance    - The distance in bp of ticks on the drawn chromosomes.
 	 * @property {Object}  circular               - The configuration options for the circular layout.
 	 * @property {Number}  circular.karyoHeight   - The height of each chromosome in px.
 	 * @property {Number}  circular.karyoDistance - The distance between adjacent chromosomes on the circle in bp.
@@ -76,7 +77,8 @@ function AliTV(svg) {
 			linkKaryoDistance: 10,
 			drawAllLinks: false,
 			startLineColor: "#49006a",
-			endLineColor: "#1d91c0"
+			endLineColor: "#1d91c0",
+			tickDistance: 100
 		},
 		circular: {
 			karyoHeight: 30,
@@ -347,6 +349,50 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 };
 
 /**
+ * This function add ticks and tick labels to the karyo indicating the position on the corresponding chromosome
+ * It operates on the chromosomes and need the length in bp and the width in px of the karyo
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.addLinearTicks = function(karyoCoords) {
+	var that = this;
+	that.svgD3.selectAll(".tickGroup").remove();
+	$.each(karyoCoords, function(key, value) {
+		var ticks = [];
+
+		var scale = d3.scale.linear()
+			.domain([0, that.data.karyo.chromosomes[value.karyo].length])
+			.range([value.x, value.x + value.width]);
+
+		var chromosomePosition = 0;
+		while (chromosomePosition <= that.data.karyo.chromosomes[value.karyo].length) {
+			ticks.push(scale(chromosomePosition));
+			chromosomePosition += that.conf.linear.tickDistance;
+		}
+
+		var y1 = value.y;
+		var y2 = value.height;
+
+		that.svgD3.append("g")
+			.attr("class", "tickGroup")
+			.selectAll("path")
+			.data(ticks)
+			.enter()
+			.append("line")
+			.attr("class", "tick")
+			.attr("x1", function(d) {
+				return d;
+			})
+			.attr("y1", y1 - 5)
+			.attr("x2", function(d) {
+				return d;
+			})
+			.attr("y2", y1 + y2 + 5)
+			.style("stroke", "#000");
+	});
+
+};
+
+/**
  * This function draws adjacent links in the linear layout
  * @author Sonja Hohlfeld
  * @param {Array} The array linearLinkCoords containing the coordinates of all links as returned by getLinearLinkCoords()
@@ -395,6 +441,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  */
 AliTV.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
+	this.addLinearTicks(karyoCoords);
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);

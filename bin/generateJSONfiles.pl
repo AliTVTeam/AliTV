@@ -177,9 +177,11 @@ sub create_dir_structure{
 
                              js/AliTV_linear.js
                              js/AliTV_circular.js
+                             js/AliTV.js
 
                              d3.html
                              d3_linear.html
+                             AliTV.html
                             );
 
 	make_path(@dirlist, {error => \my $err});
