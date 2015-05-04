@@ -367,8 +367,7 @@ AliTV.prototype.addLinearTicks = function(karyoCoords) {
 		var ticks = scale.ticks(tickFrequency);
 		console.log(ticks);
 
-		this.svgD3.selectAll(".tickGroup").remove();
-		this.svgD3.append("g")
+		that.svgD3.append("g")
 			.attr("class", "tickGroup")
 			.selectAll("path")
 			.data(ticks)
