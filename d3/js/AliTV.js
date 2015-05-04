@@ -351,6 +351,9 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
  * It operates on the chromosomes and need the length in bp and the width in px of the karyo
  * @author Sonja Hohlfeld
  */
+AliTV.prototype.addLinearTicks = function() {
+
+};
 
 /**
  * This function draws adjacent links in the linear layout
