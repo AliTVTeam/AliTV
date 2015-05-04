@@ -311,6 +311,9 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 		})
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
+		})
+		.attr("ticks", function(d) {
+			return that.addLinearTicks(that.data.karyo.chromosomes[d.karyo].length, d.width);
 		});
 };
 
@@ -353,8 +356,14 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
  * It operates on the chromosomes and need the length in bp and the width in px of the karyo
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.addLinearTicks = function() {
+AliTV.prototype.addLinearTicks = function(karyoLength, karyoWidth) {
+	var that = this;
+	var tickFrequency = this.conf.linear.tickFrequency;
+	var scale = d3.scale.linear()
+		.range([0, karyoLength])
+		.domain([0, karyoWidth]);
 
+	console.log(scale.ticks(2).map(scale.tickFormat(2, "+%")));
 };
 
 /**
