@@ -311,9 +311,6 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 		})
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
-		})
-		.attr("ticks", function(d) {
-			return that.addLinearTicks(that.data.karyo.chromosomes[d.karyo].length, d.width);
 		});
 };
 
@@ -416,6 +413,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 AliTV.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
 	this.drawLinearKaryo(karyoCoords);
+	this.addLinearTicks();
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
 };
