@@ -349,7 +349,7 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 };
 
 /**
- * This function add ticks and wick labels to the karyo indicating the position on the corresponding chromosome
+ * This function add ticks and tick labels to the karyo indicating the position on the corresponding chromosome
  * It operates on the chromosomes and need the length in bp and the width in px of the karyo
  * @author Sonja Hohlfeld
  */
@@ -357,15 +357,16 @@ AliTV.prototype.addLinearTicks = function(karyoCoords) {
 	var that = this;
 
 	$.each(karyoCoords, function(key, value) {
-		console.log(karyoCoords);
 		var tickFrequency = that.data.karyo.chromosomes[value.karyo].length / that.conf.linear.tickDistance;
 
 		var scale = d3.scale.linear()
-			.domain([0, that.data.karyo.chromosomes[value.karyo].length])
-			.range([value.x, value.x + value.width]);
+			.range([0, that.data.karyo.chromosomes[value.karyo].length])
+			.domain([value.x, value.x + value.width]);
 
 		var ticks = scale.ticks(tickFrequency);
-		console.log(ticks);
+
+		var y1 = value.y;
+		var y2 = value.height;
 
 		that.svgD3.append("g")
 			.attr("class", "tickGroup")
@@ -377,11 +378,11 @@ AliTV.prototype.addLinearTicks = function(karyoCoords) {
 			.attr("x1", function(d) {
 				return d;
 			})
-			.attr("y1", 0)
+			.attr("y1", y1 - 5)
 			.attr("x2", function(d) {
 				return d;
 			})
-			.attr("y2", 100)
+			.attr("y2", y1 + y2 + 5)
 			.style("stroke", "#000");
 	});
 
