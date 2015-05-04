@@ -5,7 +5,8 @@ var defaultConf =  {
 			genomeDistance: 300,
 			karyoHeight: 30,
 			karyoDistance: 10,
-			linkKaryoDistance: 10
+			linkKaryoDistance: 10,
+			drawAllLinks: false
 		},
 		circular: {
 			karyoHeight: 30,
@@ -491,6 +492,7 @@ describe('The drawCircularKaryo method of AliTV objects is supposed to draw kary
 		wga.setFilters(filters4);
 		circularKaryoCoords = wga.getCircularKaryoCoords();
 		wga.drawCircularKaryo(circularKaryoCoords);
+		console.log(wga.svgD3.selectAll('.karyo'));
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
 	});
 });
@@ -646,9 +648,35 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		];
 		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
 	});
-	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 2 chromosomes, 3 links (but one link is not between adjacent chromosomes, later it should not be drawn)', function(){
+	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 2 chromosomes, 2 links (but one link is not between adjacent chromosomes, later it should not be drawn)', function(){
 		ali.setData({karyo:karyo4,features:features2, links:links4});
 		ali.setFilters(filters4);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		var expectedCoords = [
+		{
+			linkID : "l1", 
+        	source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.linear.linkKaryoDistance},
+        	target0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.linear.linkKaryoDistance}, 
+        	source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.linear.linkKaryoDistance},
+        	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.linear.linkKaryoDistance},
+        	adjacent: true
+		},
+		{
+			linkID: "l2",
+	    	source0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.linear.linkKaryoDistance},
+	    	target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.linear.linkKaryoDistance},
+	    	source1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.linear.linkKaryoDistance},
+	    	target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.linear.linkKaryoDistance},
+	    	adjacent: true
+		}
+		];
+		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
+	});
+	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 2 chromosomes, 2 links (but one link is not between adjacent chromosomes, but it is drawn because the user set conf.drawAllLinks on true)', function(){
+		ali.setData({karyo:karyo4,features:features2, links:links4});
+		ali.setFilters(filters4);
+		ali.conf.linear.drawAllLinks = true;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		var expectedCoords = [
@@ -717,6 +745,36 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 		ali.drawLinearKaryo(linearKaryoCoords);
 		ali.drawLinearLinks(linearLinkCoords);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
-		expect(ali.svgD3.selectAll('.link').size()).toEqual(2);
+		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 	});
+	// TODO the follwing test are not working with grunt, but in the SpecRunner
+//	it('the link has an idenitity value less than 20% and therefore the returned color should be "rgb(210, 20, 20)"', function(){
+//	var links_15 = {
+//       	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 15}
+//		 };
+//	ali.setData({karyo:karyo,features:features, links:links_15});
+//	ali.setFilters(filters);
+//	var linearKaryoCoords = ali.getLinearKaryoCoords();
+//	var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+//	ali.drawLinearKaryo(linearKaryoCoords);
+//	ali.drawLinearLinks(linearLinkCoords);
+//	console.log(ali.svgD3.selectAll('.link').style("fill"));
+//	expect(String(ali.svgD3.selectAll('.link').style("fill"))).toEqual("rgb(210, 20, 20)");
+//	
+//	});	
+//	it('the identity value of the link is 100% and therefore the color should be "rgb(29, 173, 10)"', function(){
+//		var links_100 = {
+//	       	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 100}
+//			 };
+//		ali.setData({karyo:karyo,features:features, links:links_100});
+//		ali.setFilters(filters);
+//		var linearKaryoCoords = ali.getLinearKaryoCoords();
+//		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+//		ali.drawLinearKaryo(linearKaryoCoords);
+//		ali.drawLinearLinks(linearLinkCoords);
+//		console.log(ali.svgD3.selectAll('.link').style("fill"));
+//		expect(String(ali.svgD3.selectAll('.link').style("fill"))).toEqual("rgb(29, 173, 10)");
+//		
+//		});
 });
+

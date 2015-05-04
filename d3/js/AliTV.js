@@ -54,6 +54,7 @@ function AliTV(svg) {
 	 * @property {Number}  linear.karyoHeight     - The height of each chromosome in px.
 	 * @property {Number}  linear.karyoDistance   - The horizontal distance between adjacent chromosomes of the same genome in bp.
 	 * @property {Number}  linear.linkKaryoSpacer - The vertical distance between chromosomes and links in px.
+	 * @property {Boolean} linear.drawAllLinks    - Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.
 	 * @property {Object}  circular               - The configuration options for the circular layout.
 	 * @property {Number}  circular.karyoHeight   - The height of each chromosome in px.
 	 * @property {Number}  circular.karyoDistance - The distance between adjacent chromosomes on the circle in bp.
@@ -66,7 +67,8 @@ function AliTV(svg) {
 			genomeDistance: 300,
 			karyoHeight: 30,
 			karyoDistance: 10,
-			linkKaryoDistance: 10
+			linkKaryoDistance: 10,
+			drawAllLinks: false
 		},
 		circular: {
 			karyoHeight: 30,
@@ -213,7 +215,6 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 	$.each(coords, function(key, value) {
 		karyoMap[value.karyo] = key;
 	});
-
 	$.each(this.data.links, function(key, value) {
 		var link = {};
 		link.linkID = key;
@@ -221,7 +222,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.source1 = {};
 		link.target0 = {};
 		link.target1 = {};
-		link.adjacent = true;
+		link.identity = value.identity;
 
 		var feature1 = that.data.features[value.source];
 		var feature2 = that.data.features[value.target];
@@ -251,13 +252,16 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.target0.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
 		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
 		link.target1.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
-		linearLinkCoords.push(link);
 
 		var differenceOfGenomePosition = genomePosition2 - genomePosition1;
 		if (differenceOfGenomePosition == 1 || differenceOfGenomePosition == -1) {
 			link.adjacent = true;
+			linearLinkCoords.push(link);
 		} else {
 			link.adjacent = false;
+			if (conf.linear.drawAllLinks === true) {
+				linearLinkCoords.push(link);
+			}
 		}
 	});
 	return linearLinkCoords;
@@ -292,31 +296,35 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 };
 
 /**
- * This function draws adjacent links in the linear layout
+ * This function draws adjacent links in the linear layout and color according to their identity value
  * @author Sonja Hohlfeld
  * @param {Array} The array linearLinkCoords containing the coordinates of all links as returned by getLinearLinkCoords()
  */
 
 AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
+	var that = this;
 	var coordsToPath = function(link) {
-		if (link.adjacent === true) {
-			var diagonal = d3.svg.diagonal().source(function(d) {
-				return d.source;
-			}).target(function(d) {
-				return d.target;
-			});
-			var path1 = diagonal({
-				source: link.source0,
-				target: link.target0
-			});
-			var path2 = diagonal({
-				source: link.target1,
-				target: link.source1
-			}).replace(/^M/, 'L');
-			var shape = path1 + path2 + 'Z';
-			return shape;
-		}
+		var diagonal = d3.svg.diagonal().source(function(d) {
+			return d.source;
+		}).target(function(d) {
+			return d.target;
+		});
+		var path1 = diagonal({
+			source: link.source0,
+			target: link.target0
+		});
+		var path2 = diagonal({
+			source: link.target1,
+			target: link.source1
+		}).replace(/^M/, 'L');
+		var shape = path1 + path2 + 'Z';
+		return shape;
 	};
+
+	var color = d3.scale.linear()
+		.domain([0, 20, 100])
+		.range(["#D21414", "#D21414", "#1DAD0A"]);
+
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
@@ -325,7 +333,11 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.enter()
 		.append("path")
 		.attr("class", "link")
-		.attr("d", coordsToPath);
+		.attr("d", coordsToPath)
+		.style("fill", function(d) {
+			return color(d.identity);
+		});
+
 };
 
 /**
