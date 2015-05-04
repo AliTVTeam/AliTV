@@ -346,10 +346,22 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 		expect(typeof wga.drawLinear).toEqual('function');
 	});
 	it('there should be exactly three karyos, ticks and one link in the test svg', function(){
-		wga.drawLinear();
+		var totalTicks;
+		
+		var karyoCoords = wga.getLinearKaryoCoords();
+		wga.drawLinearKaryo(karyoCoords);
+		wga.addLinearTicks(karyoCoords);
+		var linkCoords = wga.getLinearLinkCoords(karyoCoords);
+		wga.drawLinearLinks(linkCoords);
+		
+		$.each(karyoCoords, function(key, value){
+			var tickFrequency = wga.data.karyo.chromosomes[value.karyo].length / wga.conf.linear.tickDistance;
+			totalTicks += tickFrequency;
+		});
+		console.log(totalTicks);
 		expect(wga.svgD3.selectAll('.link').size()).toEqual(1);
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(3);
-		expect(wga.svgD3.selectAll('.tick').size()).toEqual(3);
+		expect(wga.svgD3.selectAll('.tick').size()).toEqual(totalTicks);
 	});
 	it('the drawn karyos have the expected height', function(){
 		wga.drawLinear();

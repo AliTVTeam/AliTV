@@ -360,11 +360,11 @@ AliTV.prototype.addLinearTicks = function(karyoCoords) {
 		var tickFrequency = that.data.karyo.chromosomes[value.karyo].length / that.conf.linear.tickDistance;
 
 		var scale = d3.scale.linear()
-			.range([0, that.data.karyo.chromosomes[value.karyo].length])
-			.domain([value.x, value.x + value.width]);
+			.domain([value.x, value.x + value.width])
+			.range([0, that.data.karyo.chromosomes[value.karyo].length]);
 
 		var ticks = scale.ticks(tickFrequency);
-
+		console.log(ticks);
 		var y1 = value.y;
 		var y2 = value.height;
 
