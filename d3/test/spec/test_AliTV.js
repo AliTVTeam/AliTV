@@ -790,3 +790,8 @@ describe('The colorKaryoByGenome method of AliTV objects is supposed to color ka
 	});
 });
 
+describe('The addLinearTicks method is supposed to add ticks and tick labels next to the karyos indicating th position on the corresponding chromosome', function(){
+
+});
+
+
