@@ -55,10 +55,16 @@ function AliTV(svg) {
 	 * @property {Number}  linear.karyoDistance   - The horizontal distance between adjacent chromosomes of the same genome in bp.
 	 * @property {Number}  linear.linkKaryoSpacer - The vertical distance between chromosomes and links in px.
 	 * @property {Boolean} linear.drawAllLinks    - Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.
+	 * @property {String}  linear.startLineColor  - The start color of the color gradient for drawing karyos according to their genomeId
+	 * @property {String}  linear.endLineColor    - The end color of the color gradient. 
 	 * @property {Object}  circular               - The configuration options for the circular layout.
 	 * @property {Number}  circular.karyoHeight   - The height of each chromosome in px.
 	 * @property {Number}  circular.karyoDistance - The distance between adjacent chromosomes on the circle in bp.
 	 * @property {Number}  circular.outerRadius	  - The outer radius of the circle in px.
+	 * @property {Number}  minLinkIdentity        - The minimum of the link identity the user wants to color
+	 * @property {Number}  maxLinkIdentity        - The maximum of the link identity the user wants to color
+	 * @property {String}  minLinkIdentityColor   - The color of the minimum link
+	 * @property {String}  maxLinkIdentityColor   - The color of the maximum link  
 	 */
 	this.conf = {
 		width: 1000,
@@ -68,13 +74,19 @@ function AliTV(svg) {
 			karyoHeight: 30,
 			karyoDistance: 10,
 			linkKaryoDistance: 10,
-			drawAllLinks: false
+			drawAllLinks: false,
+			startLineColor: "#49006a",
+			endLineColor: "#1d91c0"
 		},
 		circular: {
 			karyoHeight: 30,
 			karyoDistance: 10,
 			outerRadius: 450
-		}
+		},
+		minLinkIdentity: 40,
+		maxLinkIdentity: 100,
+		minLinkIdentityColor: "#D21414",
+		maxLinkIdentityColor: "#1DAD0A"
 	};
 	// Initialize svg size
 	svg.height(this.conf.height);
@@ -184,7 +196,8 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 			'x': (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width,
 			'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
 			'width': (value.length / maxTotalSize) * conf.width,
-			'height': conf.linear.karyoHeight
+			'height': conf.linear.karyoHeight,
+			'genome': value.genome_id
 		};
 		current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
 		linearKaryoCoords.push(coord);
@@ -222,7 +235,6 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.source1 = {};
 		link.target0 = {};
 		link.target1 = {};
-		link.identity = value.identity;
 
 		var feature1 = that.data.features[value.source];
 		var feature2 = that.data.features[value.target];
@@ -268,11 +280,13 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 };
 
 /**
- * This function draws the karyos in the linear layout
+ * This function draws the karyos in the linear layout and color them according to their genome_id
  * @author Markus Ankenbrand and Sonja Hohlfeld
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
  */
 AliTV.prototype.drawLinearKaryo = function(coords) {
+	var that = this;
+
 	this.svgD3.selectAll(".karyoGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
@@ -292,11 +306,48 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 		})
 		.attr("height", function(d) {
 			return d.height;
+		})
+		.style("fill", function(d) {
+			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
 		});
 };
 
 /**
- * This function draws adjacent links in the linear layout and color according to their identity value
+ * This function color links according to their identity and is called by drawLinearLinks within the style attribute
+ * It operates on the identity value of the links and therefore the identity should be assigned to the function
+ * The identity is assigned to a color which is used by the drawLinearLinks function, so the returned value is the RGB farbcode
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.colorLinksByIdentity = function(identity) {
+	var that = this;
+	var linkIdentityDomain = [0, that.conf.minLinkIdentity, that.conf.maxLinkIdentity, 100];
+	var linkIdentityColorRange = [that.conf.minLinkIdentityColor, that.conf.minLinkIdentityColor, that.conf.maxLinkIdentityColor, that.conf.maxLinkIdentityColor];
+	var color = d3.scale.linear()
+		.domain(linkIdentityDomain)
+		.range(linkIdentityColorRange);
+
+	return color(identity);
+};
+
+/**
+ * This function color karyos according to their genome_id and is called by drawLinearKaryo within the style attribute
+ * It operates on the genome_id of the links and therefore the genome_id should be assigned to the function
+ * The genome_id is assigned to a color which is used by the drawLinearKaryo function, so the returned value is the RGB farbcode
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
+	var that = this;
+	var genomeOrder = [0, (that.filters.karyo.genome_order.length - 1)];
+	var colorRange = [that.conf.linear.startLineColor, that.conf.linear.endLineColor];
+	var color = d3.scale.linear()
+		.domain(genomeOrder)
+		.range(colorRange);
+
+	return color(genomeId);
+};
+
+/**
+ * This function draws adjacent links in the linear layout
  * @author Sonja Hohlfeld
  * @param {Array} The array linearLinkCoords containing the coordinates of all links as returned by getLinearLinkCoords()
  */
@@ -321,10 +372,6 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		return shape;
 	};
 
-	var color = d3.scale.linear()
-		.domain([0, 20, 100])
-		.range(["#D21414", "#D21414", "#1DAD0A"]);
-
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
@@ -335,10 +382,10 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.attr("class", "link")
 		.attr("d", coordsToPath)
 		.style("fill", function(d) {
-			return color(d.identity);
+			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
 		});
-
 };
+
 
 /**
  * This function draws the data in the linear layout.

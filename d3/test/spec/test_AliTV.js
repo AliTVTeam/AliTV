@@ -6,13 +6,19 @@ var defaultConf =  {
 			karyoHeight: 30,
 			karyoDistance: 10,
 			linkKaryoDistance: 10,
-			drawAllLinks: false
+			drawAllLinks: false,
+			startLineColor: "#49006a",
+			endLineColor: "#1d91c0"
 		},
 		circular: {
 			karyoHeight: 30,
 			karyoDistance: 10,
 			outerRadius: 450
-		}
+		},
+		minLinkIdentity: 40,
+		maxLinkIdentity: 100,
+		minLinkIdentityColor: "#D21414",
+		maxLinkIdentityColor: "#1DAD0A"
 };
 
 describe('The constructor is supposed a proper AliTV object', function(){
@@ -249,8 +255,8 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		wga.setFilters(filters);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
-            {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight},
-            {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight}
+            {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+            {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
         ];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
@@ -259,9 +265,9 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		wga.setFilters(filters2);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
-		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/2000), 'height': defaultConf.linear.karyoHeight},
-		    {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight},
-		    {'karyo': 'c3', 'x': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/(1000+defaultConf.linear.karyoDistance)), 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight}
+		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/2000), 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+		    {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/(1000+defaultConf.linear.karyoDistance)), 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 1}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
@@ -270,9 +276,9 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		wga.setFilters(filters3);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
-		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight},
-            {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight},
-		    {'karyo': 'c3', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight}
+		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+            {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 2}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
@@ -281,10 +287,10 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		wga.setFilters(filters4);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
-		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/2000), 'height': defaultConf.linear.karyoHeight},
-		    {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight},
-		    {'karyo': 'c3', 'x': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/(1000+defaultConf.linear.karyoDistance)), 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight},
-		    {'karyo': 'c4', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight}
+		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/2000), 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+		    {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/(1000+defaultConf.linear.karyoDistance)), 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 1},
+		    {'karyo': 'c4', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 2}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
@@ -292,35 +298,42 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 
 describe('The drawLinearKaryo method of AliTV objects is supposed to draw karyos', function(){
 	var svg = $('<svg></svg>');
-	var wga = new AliTV(svg);
-	wga.setData(data);
-	wga.setFilters(filters);
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
 	it('drawLinearKaryo method is supposed to be a function', function(){
-		expect(typeof wga.drawLinearKaryo).toEqual('function');
+		expect(typeof ali.drawLinearKaryo).toEqual('function');
 	});
 	it('there should be exactly one karyoGroup in the simple test svg', function(){
-		linearKaryoCoords = wga.getLinearKaryoCoords();
-		wga.drawLinearKaryo(linearKaryoCoords);
-		expect(wga.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
+		linearKaryoCoords = ali.getLinearKaryoCoords();
+		ali.drawLinearKaryo(linearKaryoCoords);
+		expect(ali.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
 	});
 	it('there should be exactly two karyos in the simple test svg', function(){
-		linearKaryoCoords = wga.getLinearKaryoCoords();
-		wga.drawLinearKaryo(linearKaryoCoords);
-		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(2);
+		linearKaryoCoords = ali.getLinearKaryoCoords();
+		ali.drawLinearKaryo(linearKaryoCoords);
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(2);
 	});
 	it('the drawn karyos have the expected height', function(){
-		linearKaryoCoords = wga.getLinearKaryoCoords();
-		wga.drawLinearKaryo(linearKaryoCoords);
+		linearKaryoCoords = ali.getLinearKaryoCoords();
+		ali.drawLinearKaryo(linearKaryoCoords);
 		// This test checks only the height attribute of the first selected element
-		expect(Number(wga.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.linear.karyoHeight);
+		expect(Number(ali.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.linear.karyoHeight);
 	});
 	it('there should be exactly four karyos in the more complex test svg', function(){
-		wga.setData(data4);
-		wga.setFilters(filters4);
-		linearKaryoCoords = wga.getLinearKaryoCoords();
-		wga.drawLinearKaryo(linearKaryoCoords);
-		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
+		ali.setData(data4);
+		ali.setFilters(filters4);
+		linearKaryoCoords = ali.getLinearKaryoCoords();
+		ali.drawLinearKaryo(linearKaryoCoords);
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(4);
 	});
+//	it('the karyo belongs to the genome_id = 1 and therefore the color should be "rgb(84, 48, 5)"', function(){
+//		ali.setData({karyo:karyo,features:features, links:links});
+//		ali.setFilters(filters);
+//		var linearKaryoCoords = ali.getLinearKaryoCoords();
+//		ali.drawLinearKaryo(linearKaryoCoords);
+//		expect(String(ali.svgD3.selectAll('.karyo').style("fill"))).toEqual("rgb(84, 48, 5)");	
+//		});
 });
 
 describe('The drawLinear method of AliTV objects is supposed to draw the linear layout', function(){
@@ -450,51 +463,50 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 	});
 });
 
-describe('The drawCircularKaryo method of AliTV objects is supposed to draw karyos', function(){
+describe('The drawCircularKaryo method of AliTV objects is supposed to draw karyos and color them according to their genome id', function(){
 	var svg = $('<svg></svg>');
-	var wga = new AliTV(svg);
-	wga.setData(data);
-	wga.setFilters(filters);
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
 	it('drawCircularKaryo method is supposed to be a function', function(){
-		expect(typeof wga.drawCircularKaryo).toEqual('function');
+		expect(typeof ali.drawCircularKaryo).toEqual('function');
 	});
 	it('there should be exactly one karyoGroup in the simple test svg', function(){
-		circularKaryoCoords = wga.getCircularKaryoCoords();
-		wga.drawCircularKaryo(circularKaryoCoords);
-		expect(wga.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
+		circularKaryoCoords = ali.getCircularKaryoCoords();
+		ali.drawCircularKaryo(circularKaryoCoords);
+		expect(ali.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
 	});
 	it('the karyo group should be translated to the center of the svg', function(){
-		circularKaryoCoords = wga.getCircularKaryoCoords();
-		wga.drawCircularKaryo(circularKaryoCoords);
-		expect(wga.svgD3.selectAll('.karyoGroup').attr("transform")).toEqual("translate(" + defaultConf.width / 2 + "," + defaultConf.height / 2 + ")");
+		circularKaryoCoords = ali.getCircularKaryoCoords();
+		ali.drawCircularKaryo(circularKaryoCoords);
+		expect(ali.svgD3.selectAll('.karyoGroup').attr("transform")).toEqual("translate(" + defaultConf.width / 2 + "," + defaultConf.height / 2 + ")");
 	});
 	it('there should be exactly two karyos in the simple test svg', function(){
-		circularKaryoCoords = wga.getCircularKaryoCoords();
-		wga.drawCircularKaryo(circularKaryoCoords);
-		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(2);
+		circularKaryoCoords = ali.getCircularKaryoCoords();
+		ali.drawCircularKaryo(circularKaryoCoords);
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(2);
 	});
 	// TODO the following tests do not work as there is a svg d attribute created by D3
 //	it('the drawn karyos have the expected outerRadius', function(){
-//		circularKaryoCoords = wga.getCircularKaryoCoords();
-//		wga.drawCircularKaryo(circularKaryoCoords);
+//		circularKaryoCoords = ali.getCircularKaryoCoords();
+//		ali.drawCircularKaryo(circularKaryoCoords);
 //		// This test checks only the outerRadius attribute of the first selected element
-//		expect(Number(wga.svgD3.selectAll('.karyo').attr("outerRadius"))).toEqual(defaultConf.circular.outerRadius);
-//		console.log(wga.svgD3.selectAll('.karyo'));
+//		expect(Number(ali.svgD3.selectAll('.karyo').attr("outerRadius"))).toEqual(defaultConf.circular.outerRadius);
+//		console.log(ali.svgD3.selectAll('.karyo'));
 //	});
 //	it('the drawn karyos have the expected innerRadius', function(){
-//		circularKaryoCoords = wga.getCircularKaryoCoords();
-//		wga.drawCircularKaryo(circularKaryoCoords);
+//		circularKaryoCoords = ali.getCircularKaryoCoords();
+//		ali.drawCircularKaryo(circularKaryoCoords);
 //		// This test checks only the innerRadius attribute of the first selected element
-//		expect(Number(wga.svgD3.selectAll('.karyo').attr("innerRadius"))).toEqual(defaultConf.circular.outerRadius - defaultConf.circular.karyoHeight);
+//		expect(Number(ali.svgD3.selectAll('.karyo').attr("innerRadius"))).toEqual(defaultConf.circular.outerRadius - defaultConf.circular.karyoHeight);
 //	});
 	it('there should be exactly four karyos in the more complex test svg', function(){
-		wga.setData(data4);
-		wga.setFilters(filters4);
-		circularKaryoCoords = wga.getCircularKaryoCoords();
-		wga.drawCircularKaryo(circularKaryoCoords);
-		console.log(wga.svgD3.selectAll('.karyo'));
-		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(4);
-	});
+		ali.setData(data4);
+		ali.setFilters(filters4);
+		circularKaryoCoords = ali.getCircularKaryoCoords();
+		ali.drawCircularKaryo(circularKaryoCoords);
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(4);
+	});	
 });
 
 describe('The drawCircular method of AliTV objects is supposed to draw the circular layout', function(){
@@ -747,34 +759,34 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 	});
-	// TODO the follwing test are not working with grunt, but in the SpecRunner
-//	it('the link has an idenitity value less than 20% and therefore the returned color should be "rgb(210, 20, 20)"', function(){
-//	var links_15 = {
-//       	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 15}
-//		 };
-//	ali.setData({karyo:karyo,features:features, links:links_15});
-//	ali.setFilters(filters);
-//	var linearKaryoCoords = ali.getLinearKaryoCoords();
-//	var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-//	ali.drawLinearKaryo(linearKaryoCoords);
-//	ali.drawLinearLinks(linearLinkCoords);
-//	console.log(ali.svgD3.selectAll('.link').style("fill"));
-//	expect(String(ali.svgD3.selectAll('.link').style("fill"))).toEqual("rgb(210, 20, 20)");
-//	
-//	});	
-//	it('the identity value of the link is 100% and therefore the color should be "rgb(29, 173, 10)"', function(){
-//		var links_100 = {
-//	       	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 100}
-//			 };
-//		ali.setData({karyo:karyo,features:features, links:links_100});
-//		ali.setFilters(filters);
-//		var linearKaryoCoords = ali.getLinearKaryoCoords();
-//		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-//		ali.drawLinearKaryo(linearKaryoCoords);
-//		ali.drawLinearLinks(linearLinkCoords);
-//		console.log(ali.svgD3.selectAll('.link').style("fill"));
-//		expect(String(ali.svgD3.selectAll('.link').style("fill"))).toEqual("rgb(29, 173, 10)");
-//		
-//		});
+});
+
+describe('The colorLinkByIdentity method of AliTV objects is supposed to color links according to their identity value', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('colorLinksByIdentity method is supposed to be a function', function(){
+		expect(typeof ali.colorLinksByIdentity).toEqual('function');
+	});
+	it('the colorLinksByIdentity method is supposed to return the color "#d21414" because the function get an identity of 0', function(){
+		expect(ali.colorLinksByIdentity(0)).toEqual("#d21414");		
+	});
+	it('the colorLinksByIdentity method is supposed to return the color "#1DAD0A" because the function get an identity of 100', function(){
+		expect(ali.colorLinksByIdentity(100)).toEqual("#1dad0a");		
+	});
+});
+
+describe('The colorKaryoByGenome method of AliTV objects is supposed to color karyos according to their genome_id', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('colorKaryoByGenome method is supposed to be a function', function(){
+		expect(typeof ali.colorKaryoByGenomeId).toEqual('function');
+	});
+	it('the colorKaryoByGenomeId method is supposed to return the color "#49006a" because the function get a genomeId of 0', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		expect(ali.colorKaryoByGenomeId(0)).toEqual(defaultConf.linear.startLineColor);		
+	});
 });
 
