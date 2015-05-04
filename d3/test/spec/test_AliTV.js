@@ -9,7 +9,7 @@ var defaultConf =  {
 			drawAllLinks: false,
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
-			tickFrequency: 10
+			tickDistance: 100
 		},
 		circular: {
 			karyoHeight: 30,
