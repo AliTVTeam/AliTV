@@ -353,14 +353,39 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
  * It operates on the chromosomes and need the length in bp and the width in px of the karyo
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.addLinearTicks = function(karyoLength, karyoWidth) {
+AliTV.prototype.addLinearTicks = function(karyoCoords) {
 	var that = this;
-	var tickFrequency = this.conf.linear.tickFrequency;
-	var scale = d3.scale.linear()
-		.range([0, karyoLength])
-		.domain([0, karyoWidth]);
 
-	console.log(scale.ticks(2).map(scale.tickFormat(2, "+%")));
+	$.each(karyoCoords, function(key, value) {
+		console.log(karyoCoords);
+		var tickFrequency = that.data.karyo.chromosomes[value.karyo].length / that.conf.linear.tickDistance;
+
+		var scale = d3.scale.linear()
+			.domain([0, that.data.karyo.chromosomes[value.karyo].length])
+			.range([value.x, value.x + value.width]);
+
+		var ticks = scale.ticks(tickFrequency);
+		console.log(ticks);
+
+		this.svgD3.selectAll(".tickGroup").remove();
+		this.svgD3.append("g")
+			.attr("class", "tickGroup")
+			.selectAll("path")
+			.data(ticks)
+			.enter()
+			.append("line")
+			.attr("class", "tick")
+			.attr("x1", function(d) {
+				return d;
+			})
+			.attr("y1", 0)
+			.attr("x2", function(d) {
+				return d;
+			})
+			.attr("y2", 100)
+			.style("stroke", "#000");
+	});
+
 };
 
 /**
