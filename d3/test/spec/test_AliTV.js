@@ -812,7 +812,11 @@ describe('The addLinearTicks method is supposed to add ticks and tick labels nex
 });
 
 describe('The fadeOutLinks method is called by a mouse pointer event and is supposed to fade out all links except the links of the chromosome the mouse points to', function(){
-
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('fadeOutLinks method is supposed to be a function', function(){
+		expect(typeof ali.fadeOutLinks).toEqual('function');
+	});
 });
 
 
