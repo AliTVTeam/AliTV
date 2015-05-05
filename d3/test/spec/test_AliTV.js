@@ -864,6 +864,18 @@ describe('The getCircularLinkCoords method of AliTV objects is supposed to calcu
 	});
 });
 
+describe('The drawCircularLinks method of AliTV objects is supposed to draw links in the circular layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+
+	it('drawCircularLinks method is supposed to be a function', function(){
+		expect(typeof ali.drawCircularLinks).toEqual('function');
+	});
+	
+});
+
+
+
 describe('The drawLinearLinks method of AliTV objects is supposed to draw links in the linear layout, for an alignment with more than two different genomes only adjacent links should be drawn', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
