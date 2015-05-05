@@ -553,6 +553,14 @@ describe('The drawCircularTicks method is supposed to add ticks to the karyos in
 	it('drawCircularTicks method is supposed to be a function', function(){
 		expect(typeof ali.drawCircularTicks).toEqual('function');
 	});
+	it('drawCircularTicks method is supposed to draw ticks', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var ckc = ali.getCircularKaryoCoords();
+		var ctc = ali.getCircularTickCoords(ckc);
+		ali.drawCircularTicks(ctc);
+		expect(ali.svgD3.selectAll(".tickGroup").size()).toEqual(2);
+	});
 });
 
 describe('The drawCircularKaryo method of AliTV objects is supposed to draw karyos and color them according to their genome id', function(){
