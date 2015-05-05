@@ -564,8 +564,17 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
  * @author Markus Ankenbrand
  * @param {Array} The array circularLinkCoords containing the coordinates of all links as returned by getCircularLinkCoords()
  */
-AliTV.prototype.drawCircularLinks = function(coords) {
-
+AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
+	this.svgD3.selectAll(".linkGroup").remove();
+	this.svgD3.append("g")
+		.attr("class", "linkGroup")
+		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.height / 2 + ")")
+		.selectAll("path")
+		.data(circularLinkCoords)
+		.enter()
+		.append("path")
+		.attr("class", "link")
+		.attr("d", d3.svg.chord().radius(this.conf.circular.outerRadius - this.conf.circular.karyoHeight - this.conf.circular.linkKaryoDistance));
 };
 
 /**
