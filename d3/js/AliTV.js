@@ -495,7 +495,8 @@ AliTV.prototype.getCircularKaryoCoords = function() {
  *			]
  */
 AliTV.prototype.getCircularLinkCoords = function(coords) {
-
+	var circularLinkCoords = [];
+	return circularLinkCoords;
 };
 
 /**
