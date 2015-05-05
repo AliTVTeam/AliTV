@@ -17,7 +17,7 @@ var defaultConf =  {
 			linkKaryoDistance: 10,
 			outerRadius: 450,
 			tickDistance: 100,
-			tickSize: 5,
+			tickSize: 5
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
