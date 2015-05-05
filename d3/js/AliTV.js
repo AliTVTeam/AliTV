@@ -497,7 +497,7 @@ AliTV.prototype.getCircularKaryoCoords = function() {
  * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
  * @returns {Array} Returns an Array which is presented in the following example
  * @example [
- *					{"linkID": "l1", "source": {"startAngle":1, "endAngle":3}, "target": {"startAngle":4, "endAngle":6}, "sourceKaryo": "x", "targetKaryo": "y"}}
+ *					{"linkID": "l1", "source": {"startAngle":1, "endAngle":3}, "target": {"startAngle":4, "endAngle":6}}
  *			]
  */
 AliTV.prototype.getCircularLinkCoords = function(coords) {
@@ -522,9 +522,6 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
 		var karyo2 = that.data.karyo.chromosomes[feature2.karyo];
 		var karyo1Coords = coords[karyoMap[feature1.karyo]];
 		var karyo2Coords = coords[karyoMap[feature2.karyo]];
-
-		link.sourceKaryo = feature1.karyo;
-		link.targetKaryo = feature2.karyo;
 
 		sourceScale = d3.scale.linear().domain([0, karyo1.length]).range([karyo1Coords.startAngle, karyo1Coords.endAngle]);
 		targetScale = d3.scale.linear().domain([0, karyo2.length]).range([karyo2Coords.startAngle, karyo2Coords.endAngle]);

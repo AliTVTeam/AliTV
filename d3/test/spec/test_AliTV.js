@@ -858,10 +858,6 @@ describe('The getCircularLinkCoords method of AliTV objects is supposed to calcu
 	    							result.pass = false;
 	    							result.message = "mismatch in target of " + actual[i].linkID + ": (" +targetActual.startAngle +", "+ targetActual.endAngle +") vs ("+targetExpected.startAngle +", "+  targetExpected.endAngle+")";
 	    						}
-	    						if(actual[i].sourceKaryo !== expected[i].sourceKaryo || actual[i].targetKaryo !== expected[i].targetKaryo){
-	    							result.pass = false;
-	    							result.message = "wrong sourceKaryo or targetKaryo: " + actual[i].sourceKaryo + "-->" + actual[i].targetKaryo + " vs " + expected[i].sourceKaryo + "-->" + expected[i].targetKaryo;
-	    						}
 	    					}
 	    				}
 	    				return result;
@@ -896,9 +892,7 @@ describe('The getCircularLinkCoords method of AliTV objects is supposed to calcu
             	target: {
             		startAngle: circularKaryoCoords[1].startAngle + (100/1000 * (circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle)), 
             		endAngle: circularKaryoCoords[1].startAngle + (600/1000 * (circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle))
-            		},
-            	sourceKaryo: "c1", 
-            	targetKaryo: "c2"
+            		}
             }           
         ];
 		expect(circularLinkCoords).toHaveSameCoordinates(expectedCoords);
@@ -918,9 +912,7 @@ describe('The getCircularLinkCoords method of AliTV objects is supposed to calcu
             	target: {
             		startAngle: circularKaryoCoords[1].startAngle + (100/1000 * (circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle)), 
             		endAngle: circularKaryoCoords[1].startAngle + (600/1000 * (circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle))
-            		},
-            	sourceKaryo: "c1", 
-            	targetKaryo: "c2"
+            		}
             },
             {
             	linkID : "l2",
@@ -931,9 +923,7 @@ describe('The getCircularLinkCoords method of AliTV objects is supposed to calcu
             	target: {
             		startAngle: circularKaryoCoords[3].startAngle + (400/1000 * (circularKaryoCoords[3].endAngle - circularKaryoCoords[3].startAngle)), 
             		endAngle: circularKaryoCoords[3].startAngle + (900/1000 * (circularKaryoCoords[3].endAngle - circularKaryoCoords[3].startAngle))
-            		},
-            	sourceKaryo: "c2", 
-            	targetKaryo: "c4"
+            		}
             },
             {
             	linkID : "l3",
@@ -944,9 +934,7 @@ describe('The getCircularLinkCoords method of AliTV objects is supposed to calcu
             	target: {
             		startAngle: circularKaryoCoords[3].startAngle + (400/1000 * (circularKaryoCoords[3].endAngle - circularKaryoCoords[3].startAngle)), 
             		endAngle: circularKaryoCoords[3].startAngle + (900/1000 * (circularKaryoCoords[3].endAngle - circularKaryoCoords[3].startAngle))
-            		},
-            	sourceKaryo: "c1", 
-            	targetKaryo: "c4"
+            		}
             }
         ];
 		expect(circularLinkCoords).toHaveSameCoordinates(expectedCoords);
