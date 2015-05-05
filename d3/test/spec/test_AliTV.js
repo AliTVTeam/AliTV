@@ -847,13 +847,29 @@ describe('The fadeOutLinks method is called by a mouse pointer event and is supp
 		expect(typeof ali.fadeLinks).toEqual('function');
 	});
 	
-	it("if fadeOutLinks is called links should change their opacity", function() {
+	it("if the mouse pointer enters a chromosome links are filtered and there opacity would be set on 0.1", function() {
 		 var spyEvent = spyOnEvent('.karyo', 'mouseover');
 		 $('.karyo').trigger("mouseover");
 
+		 console.log(ali.svgD3.selectAll('.link').style("opacity"));
 		 expect(ali.svgD3.selectAll('.link').style("opacity")).toEqual("0.1");
-
 	 });
+	
+	it("if the mouse pointer leaves a chromsome the link opacity is set back to 1", function() {
+		 var spyEvent = spyOnEvent('.karyo', 'mouseout');
+		 $('.karyo').trigger("mouseout");
+
+		 expect(ali.svgD3.selectAll('.link').style("opacity")).toEqual("1");
+	 });
+	
+});
+
+describe('The drawLinearTicks method is supposed to draw ticks in the linear layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawLinearTick method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearTick).toEqual('function');
+	});
 	
 });
 
