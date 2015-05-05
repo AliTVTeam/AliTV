@@ -400,6 +400,7 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 /**
  * This function calculates the tick coords and operates on the chromosomes and need the length in bp and the width in px of the karyo.
  * @author Sonja Hohlfeld
+ * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
  */
 
 AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
