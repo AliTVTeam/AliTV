@@ -549,8 +549,17 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
  * @returns {Array} Returns an Array of angles
  */
 AliTV.prototype.getCircularTickCoords = function(coords) {
+	var that = this;
 	var circularTickCoords = [];
-
+	$.each(coords, function(key, value) {
+		var karyoLength = that.data.karyo.chromosomes[value.karyo].length;
+		var baseToAngle = d3.scale.linear().domain([0, karyoLength]).range([value.startAngle, value.endAngle]);
+		var chromosomePosition = 0;
+		while (chromosomePosition <= karyoLength) {
+			circularTickCoords.push(baseToAngle(chromosomePosition));
+			chromosomePosition += that.conf.circular.tickDistance;
+		}
+	});
 	return circularTickCoords;
 };
 
