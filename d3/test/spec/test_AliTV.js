@@ -735,6 +735,52 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 });
 
 describe('The getCircularLinkCoords method of AliTV objects is supposed to calculate coordinates for the links in the circular layout', function(){
+	beforeEach(function() {
+	    jasmine.addMatchers({
+	    	toHaveSameCoordinates: function(util, customEqualityTesters) {
+	    		return { 
+	    			compare: function(actual, expected){
+	    				var comp = function(a,b){
+	    					return (a < b) ? -1 : 1;
+	    				};
+	    				actual.sort(comp);
+	    				expected.sort(comp);
+	    				var result = {pass: true};
+	    				if(actual.length !== expected.length){
+	    					result.pass = false;
+	    					result.message = "arrays do not have the same number of objects";
+	    				} else {
+	    					var precision = 8;
+	    					var factor = Math.pow(10, precision);
+	    					for(var i=0; i<actual.length; i++){
+	    						if(actual[i].linkID !== expected[i].linkID){
+	    							result.pass = false;
+	    							result.message = "mismatch in linkID: " + actual[i].linkID + " vs " + expected[i].linkID;
+	    						}
+	    						var sourceActual = {startAngle: Math.round(actual[i].source.startAngle*factor)/factor, endAngle: Math.round(actual[i].source.endAngle*factor)/factor};
+	    						var sourceExpected = {startAngle: Math.round(expected[i].source.startAngle*factor)/factor, endAngle: Math.round(expected[i].source.endAngle*factor)/factor};
+	    						if((sourceActual.startAngle !== sourceExpected.startAngle) || (sourceActual.endAngle !== sourceExpected.endAngle)){
+	    							result.pass = false;
+	    							result.message = "mismatch in source of " + actual[i].linkID + ": (" +sourceActual.startAngle +", "+ sourceActual.endAngle +") vs ("+sourceExpected.startAngle +", "+  sourceExpected.endAngle+")";
+	    						}
+	    						var targetActual = {x :Math.round(actual[i].target.startAngle*factor)/factor, y: Math.round(actual[i].target.endAngle*factor)/factor};
+	    						var targetExpected = {x :Math.round(expected[i].target.startAngle*factor)/factor, y: Math.round(expected[i].target.endAngle*factor)/factor};
+	    						if((targetActual.startAngle !== targetExpected.startAngle) || (targetActual.endAngle !== targetExpected.endAngle)){
+	    							result.pass = false;
+	    							result.message = "mismatch in target of " + actual[i].linkID + ": (" +targetActual.startAngle +", "+ targetActual.endAngle +") vs ("+targetExpected.startAngle +", "+  targetExpected.endAngle+")";
+	    						}
+	    						if(actual[i].sourceKaryo !== expected[i].sourceKaryo || actual[i].targetKaryo !== expected[i].targetKaryo){
+	    							result.pass = false;
+	    							result.message = "wrong sourceKaryo or targetKaryo: " + actual[i].sourceKaryo + "-->" + actual[i].targetKaryo + " vs " + expected[i].sourceKaryo + "-->" + expected[i].targetKaryo;
+	    						}
+	    					}
+	    				}
+	    				return result;
+	    			}
+	    		};
+	    	}
+	    });
+	});
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	it('getCircularLinkCoords method is supposed to be a function', function(){
