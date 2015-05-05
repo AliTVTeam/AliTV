@@ -290,7 +290,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
  */
 AliTV.prototype.drawLinearKaryo = function(coords) {
 	var that = this;
-
+	console.log(that.data);
 	this.svgD3.selectAll(".karyoGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
@@ -312,7 +312,7 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 			return d.height;
 		})
 		.on("mouseover", function(g, i) {
-			that.fadeOutLinks();
+			that.fadeOutLinks(g, i, 0.1);
 		})
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
