@@ -288,7 +288,6 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
  */
 AliTV.prototype.drawLinearKaryo = function(coords) {
 	var that = this;
-	console.log(that.data);
 	this.svgD3.selectAll(".karyoGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
