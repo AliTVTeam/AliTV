@@ -14,6 +14,7 @@ var defaultConf =  {
 		circular: {
 			karyoHeight: 30,
 			karyoDistance: 10,
+			linkKaryoDistance: 10,
 			outerRadius: 450
 		},
 		minLinkIdentity: 40,
