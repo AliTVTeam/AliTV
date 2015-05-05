@@ -871,12 +871,13 @@ describe('The drawLinearTicks method is supposed to draw ticks in the linear lay
 		expect(typeof ali.drawLinearTicks).toEqual('function');
 	});
 	
-	it('the svg should contain exactly 20 ticks', function(){
+	it('the svg should contain exactly 21 ticks', function(){
 		ali.setData({karyo:karyo6});
 		ali.setFilters(filters6);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
-		expect(ali.svgD3.selectAll('.tick').size()).toEqual(1);
+		ali.drawLinearTicks(ticks, linearKaryoCoords);
+		expect(ali.svgD3.selectAll('.tick').size()).toEqual(21);
 	});
 	
 });
