@@ -237,7 +237,6 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.source1 = {};
 		link.target0 = {};
 		link.target1 = {};
-
 		var feature1 = that.data.features[value.source];
 		var feature2 = that.data.features[value.target];
 		var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
@@ -246,6 +245,9 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		var karyo2Coords = coords[karyoMap[feature2.karyo]];
 		var genomePosition1 = that.filters.karyo.genome_order.indexOf(karyo1.genome_id);
 		var genomePosition2 = that.filters.karyo.genome_order.indexOf(karyo2.genome_id);
+		link.sourceKaryo = feature1.karyo;
+		link.targetKaryo = feature2.karyo;
+
 		if (genomePosition1 > genomePosition2) {
 			var tmp = feature1;
 			feature1 = feature2;
