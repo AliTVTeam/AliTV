@@ -822,6 +822,16 @@ describe('The getLinearTickCoords method is supposed to calculate coords for the
 	it('getLinearTickCoords method is supposed to be a function', function(){
 		expect(typeof ali.getLinearTickCoords).toEqual('function');
 	});
+	
+	it('getLinearTickCoords method is supposed to calculate the same coords as the expected coords', function(){
+		ali.setData({karyo:karyo6});
+		ali.setFilters(filters6);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var ticks = ali.getLinearTickCoords;
+		var expectedTicks = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000];
+		
+		expect(ticks).toEqual(expectedTicks);		
+	});
 });
 
 describe('The fadeOutLinks method is called by a mouse pointer event and is supposed to fade out all links except the links of the chromosome the mouse points to', function(){
