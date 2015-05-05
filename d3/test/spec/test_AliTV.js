@@ -734,6 +734,14 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 	});
 });
 
+describe('The getCircularLinkCoords method of AliTV objects is supposed to calculate coordinates for the links in the circular layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getLinearLinkCoords method is supposed to be a function', function(){
+		expect(typeof ali.getLinearLinkCoords).toEqual('function');
+	});
+});
+
 describe('The drawLinearLinks method of AliTV objects is supposed to draw links in the linear layout, for an alignment with more than two different genomes only adjacent links should be drawn', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
