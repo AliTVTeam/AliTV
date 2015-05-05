@@ -541,11 +541,19 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
 };
 
 /**
+ * This function calculates the coordinates (angles) for the ticks in the circular layout
+ * @author Markus Ankenbrand
+ * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
+ */
+
+
+/**
  * This function draws the karyos in the circular layout
  * @author Markus Ankenbrand
  * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
  */
 AliTV.prototype.drawCircularKaryo = function(coords) {
+	var that = this;
 	this.svgD3.selectAll(".karyoGroup").remove();
 	var outerRadius = this.conf.circular.outerRadius;
 	this.svgD3.append("g")
@@ -556,7 +564,10 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
 		.enter()
 		.append("path")
 		.attr("d", d3.svg.arc().innerRadius(outerRadius - this.conf.circular.karyoHeight).outerRadius(outerRadius))
-		.attr("class", "karyo");
+		.attr("class", "karyo")
+		.style("fill", function(d) {
+			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
+		});
 };
 
 /**
@@ -565,6 +576,7 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
  * @param {Array} The array circularLinkCoords containing the coordinates of all links as returned by getCircularLinkCoords()
  */
 AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
+	var that = this;
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
@@ -574,7 +586,10 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
 		.enter()
 		.append("path")
 		.attr("class", "link")
-		.attr("d", d3.svg.chord().radius(this.conf.circular.outerRadius - this.conf.circular.karyoHeight - this.conf.circular.linkKaryoDistance));
+		.attr("d", d3.svg.chord().radius(this.conf.circular.outerRadius - this.conf.circular.karyoHeight - this.conf.circular.linkKaryoDistance))
+		.style("fill", function(d) {
+			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
+		});;
 };
 
 /**
