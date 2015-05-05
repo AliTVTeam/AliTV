@@ -397,9 +397,10 @@ AliTV.prototype.addLinearTicks = function(karyoCoords) {
 /**
  * This function is called by a mouse event.
  * If the mouse pointer enters the area of a chromosome all links should be faded out except the the links of the chromosome the mouse points to.
+ * If the mouse pointer leaves the area of a chromosome all links should be faded in.
  * @param {Number} The opacity value is a number between 0 and 1 and indicates the degree of the colored link opacity.
  */
-AliTV.prototype.fadeOutLinks = function(g, opacity) {
+AliTV.prototype.fadeLinks = function(g, opacity) {
 	var that = this;
 	that.svgD3.selectAll(".link")
 		.filter(function(d) {
