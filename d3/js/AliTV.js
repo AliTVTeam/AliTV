@@ -586,4 +586,6 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
 AliTV.prototype.drawCircular = function() {
 	var karyoCoords = this.getCircularKaryoCoords();
 	this.drawCircularKaryo(karyoCoords);
+	var linkCoords = this.getCircularLinkCoords(karyoCoords);
+	this.drawCircularLinks(linkCoords);
 };
