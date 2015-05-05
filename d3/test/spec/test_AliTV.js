@@ -867,8 +867,8 @@ describe('The fadeOutLinks method is called by a mouse pointer event and is supp
 describe('The drawLinearTicks method is supposed to draw ticks in the linear layout', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('drawLinearTick method is supposed to be a function', function(){
-		expect(typeof ali.drawLinearTick).toEqual('function');
+	it('drawLinearTicks method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearTicks).toEqual('function');
 	});
 	
 });

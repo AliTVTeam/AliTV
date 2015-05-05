@@ -427,6 +427,10 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
  * @param {Array} The array containing the coordinates as returned by getLinearTickCoords()
  */
 
+AliTV.prototype.drawLinearTicks = function(ticks) {
+
+};
+
 /**
  * This function is called by a mouse event.
  * If the mouse pointer enters the area of a chromosome all links should be faded out except the the links of the chromosome the mouse points to.
