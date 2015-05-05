@@ -806,7 +806,7 @@ describe('The colorKaryoByGenome method of AliTV objects is supposed to color ka
 describe('The getLinearTickCoords method is supposed to calculate coords for the linear ticks', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('addLinearTicks method is supposed to be a function', function(){
+	it('getLinearTickCoords method is supposed to be a function', function(){
 		expect(typeof ali.getLinearTickCoords).toEqual('function');
 	});
 });

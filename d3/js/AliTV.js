@@ -402,6 +402,10 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
  * @author Sonja Hohlfeld
  */
 
+AliTV.prototype.getLinearTickCoords = function() {
+
+};
+
 
 /**
  * This function is called by a mouse event.
