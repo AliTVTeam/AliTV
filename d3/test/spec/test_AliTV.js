@@ -737,8 +737,8 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 describe('The getCircularLinkCoords method of AliTV objects is supposed to calculate coordinates for the links in the circular layout', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('getLinearLinkCoords method is supposed to be a function', function(){
-		expect(typeof ali.getLinearLinkCoords).toEqual('function');
+	it('getCircularLinkCoords method is supposed to be a function', function(){
+		expect(typeof ali.getCircularLinkCoords).toEqual('function');
 	});
 });
 
