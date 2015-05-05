@@ -427,8 +427,31 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
  * @param {Array} The array containing the coordinates as returned by getLinearTickCoords()
  */
 
-AliTV.prototype.drawLinearTicks = function(ticks) {
+AliTV.prototype.drawLinearTicks = function(ticks, karyoCoords) {
+	var that = this;
+	that.svgD3.selectAll(".tickGroup").remove();
 
+	$.each(karyoCoords, function(key, value) {
+		var y1 = value.y;
+		var y2 = value.height;
+
+		that.svgD3.append("g")
+			.attr("class", "tickGroup")
+			.selectAll("path")
+			.data(ticks)
+			.enter()
+			.append("line")
+			.attr("class", "tick")
+			.attr("x1", function(d) {
+				return d;
+			})
+			.attr("y1", y1 - 5)
+			.attr("x2", function(d) {
+				return d;
+			})
+			.attr("y2", y1 + y2 + 5)
+			.style("stroke", "#000");
+	});
 };
 
 /**
