@@ -406,8 +406,7 @@ AliTV.prototype.fadeOutLinks = function(g, i, opacity) {
 	var that = this;
 	that.svgD3.selectAll(".link")
 		.filter(function(d) {
-			return d.sourceKaryo != g.karyo && d.targetKaryo != g.karyo;
-
+			return that.data.features[that.data.links[d.linkID].source].karyo != g.karyo && that.data.features[that.data.links[d.linkID].target].karyo != g.karyo;
 		})
 		.transition()
 		.style("opacity", opacity);
