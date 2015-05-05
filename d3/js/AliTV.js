@@ -485,6 +485,17 @@ AliTV.prototype.getCircularKaryoCoords = function() {
 };
 
 /**
+ * Calculate coordinates for the links to draw in the cirular layout and uses link-data and karyo-coordinates
+ * This function is primarily meant for internal usage, the user should not need to call this directly
+ * @author Markus Ankenbrand
+ * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
+ * @returns {Array} Returns an Array which is presented in the following example
+ * @example [
+ *					{"linkID": "l1", "source": {"startAngle":1, "endAngle":3}, "target": {"startAngle":4, "endAngle":6}, "sourceKaryo": "x", "targetKaryo": "y"}}
+ *			]
+ */
+
+/**
  * This function draws the karyos in the circular layout
  * @author Markus Ankenbrand
  * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
