@@ -740,6 +740,12 @@ describe('The getCircularLinkCoords method of AliTV objects is supposed to calcu
 	it('getCircularLinkCoords method is supposed to be a function', function(){
 		expect(typeof ali.getCircularLinkCoords).toEqual('function');
 	});
+	it('getCircularLinkCoords method is supposed to return a defined value even if coords is not set', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var circularLinkCoords = ali.getCircularLinkCoords();
+		expect(circularLinkCoords).toBeDefined();
+	});
 });
 
 describe('The drawLinearLinks method of AliTV objects is supposed to draw links in the linear layout, for an alignment with more than two different genomes only adjacent links should be drawn', function(){
