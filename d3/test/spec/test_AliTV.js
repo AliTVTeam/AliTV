@@ -560,7 +560,7 @@ describe('The drawCircularTicks method is supposed to add ticks to the karyos in
 		var ckc = ali.getCircularKaryoCoords();
 		var ctc = ali.getCircularTickCoords(ckc);
 		ali.drawCircularTicks(ctc);
-		expect(ali.svgD3.selectAll(".tickGroup").size()).toEqual(2);
+		expect(ali.svgD3.selectAll(".tickGroup").size()).toEqual(1);
 	});
 });
 
