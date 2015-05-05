@@ -814,20 +814,21 @@ describe('The addLinearTicks method is supposed to add ticks and tick labels nex
 describe('The fadeOutLinks method is called by a mouse pointer event and is supposed to fade out all links except the links of the chromosome the mouse points to', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	ali.setData(data2);
-	ali.setFilters(filters2);
-	ali.drawLinear();
-	
-	var spyEvent;
+	beforeEach(function(){
+		ali.setData(data2);
+		ali.setFilters(filters2);
+		ali.drawLinear();	
+	});
+
 	it('fadeOutLinks method is supposed to be a function', function(){
 		expect(typeof ali.fadeOutLinks).toEqual('function');
 	});
 	
 	it("if fadeOutLinks is called links should change their opacity", function() {
-		 spyEvent = spyOnEvent('karyo', 'mouseover');
-		 $('.karyo').trigger("mouseover");
+		 var spyEvent = spyOnEvent('.karyo', 'mouseover');
+		 ali.svgD3.selectAll('.karyo').trigger("mouseover");
 
-		 expect(karyo.style('opacity')).toEqual(0.1);
+		 expect(ali.svgD3.selectAll('.link').style("opacity")).toEqual("0.1");
 
 //		 var spyEvent = spyOnEvent('.karyo', 'mouseover')
 //		 $('.karyo').trigger("mouseover")
