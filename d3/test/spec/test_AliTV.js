@@ -547,6 +547,14 @@ describe('The getCircularTickCoords method of AliTV objects is supposed to calcu
 	});
 });
 
+describe('The drawCircularTicks method is supposed to add ticks to the karyos in the circular layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawCircularTicks method is supposed to be a function', function(){
+		expect(typeof ali.drawCircularTicks).toEqual('function');
+	});
+});
+
 describe('The drawCircularKaryo method of AliTV objects is supposed to draw karyos and color them according to their genome id', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
