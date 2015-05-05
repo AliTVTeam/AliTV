@@ -547,7 +547,9 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
  * @returns {Array} Returns an Array of angles
  */
 AliTV.prototype.getCircularTickCoords = function(coords) {
+	var circularTickCoords = [];
 
+	return circularTickCoords;
 };
 
 /**
