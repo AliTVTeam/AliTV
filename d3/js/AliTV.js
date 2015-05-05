@@ -475,7 +475,8 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  */
 AliTV.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
-	this.addLinearTicks(karyoCoords);
+	var ticks = this.getLinearTickCoords(karyoCoords);
+	this.drawLinearTicks(ticks, karyoCoords);
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
