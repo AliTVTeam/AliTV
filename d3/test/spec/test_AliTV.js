@@ -821,7 +821,7 @@ describe('The fadeOutLinks method is called by a mouse pointer event and is supp
 	});
 
 	it('fadeOutLinks method is supposed to be a function', function(){
-		expect(typeof ali.fadeOutLinks).toEqual('function');
+		expect(typeof ali.fadeLinks).toEqual('function');
 	});
 	
 	it("if fadeOutLinks is called links should change their opacity", function() {
@@ -830,11 +830,6 @@ describe('The fadeOutLinks method is called by a mouse pointer event and is supp
 
 		 expect(ali.svgD3.selectAll('.link').style("opacity")).toEqual("0.1");
 
-//		 var spyEvent = spyOnEvent('.karyo', 'mouseover')
-//		 $('.karyo').trigger("mouseover")
-//
-//		 expect('mouseover').toHaveBeenTriggeredOn('.karyo')
-//		 expect(spyEvent).toHaveBeenTriggered()
 	 });
 	
 });
