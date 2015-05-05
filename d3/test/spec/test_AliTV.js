@@ -487,8 +487,31 @@ describe('The getCircularTickCoords method of AliTV objects is supposed to calcu
 	it('getCircularTickCoords method is supposed to return circularTickCoords', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
-		var circularTickCoords = ali.getCircularTickCoords();
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularTickCoords = ali.getCircularTickCoords(circularKaryoCoords);
 		expect(circularTickCoords).toBeDefined();
+	});
+	it('getCircularTickCoords method is supposed to return the correct angles in the simple case (2 chromosomes)', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularTickCoords = ali.getCircularTickCoords(circularKaryoCoords);
+		var c0total = circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle;
+		var c0start = circularKaryoCoords[0].startAngle;
+		var c1total = circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle;
+		var c1start = circularKaryoCoords[1].startAngle;
+		var expectedCoords = [];
+		var chrpos = 0;
+		while (chrpos <= ali.data.karyo.chromosomes[circularKaryoCoords[0].karyo].length){
+			expectedCoords.push(c0start + c0total * (chrpos/2000));
+			chrpos += defaultConf.circular.tickDistance;
+		}
+		chrpos = 0;
+		while (chrpos <= ali.data.karyo.chromosomes[circularKaryoCoords[1].karyo].length){
+			expectedCoords.push(c1start + c1total * (chrpos/1000));
+			chrpos += defaultConf.circular.tickDistance;
+		}
+		expect(circularTickCoords).toEqual(expectedCoords);
 	});
 });
 
