@@ -562,7 +562,9 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
  * @author Markus Ankenbrand
  * @param {Array} The array circularLinkCoords containing the coordinates of all links as returned by getCircularLinkCoords()
  */
+AliTV.prototype.drawCircularLinks = function(coords) {
 
+};
 
 /**
  * This function draws the data in the circular layout.
