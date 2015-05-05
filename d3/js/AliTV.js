@@ -308,8 +308,8 @@ AliTV.prototype.drawLinearKaryo = function(coords) {
 		.attr("height", function(d) {
 			return d.height;
 		})
-		.on("mouseover", function(g, i) {
-			that.fadeOutLinks(g, i, 0.1);
+		.on("mouseover", function(g) {
+			that.fadeOutLinks(g, 0.1);
 		})
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
@@ -399,7 +399,7 @@ AliTV.prototype.addLinearTicks = function(karyoCoords) {
  * If the mouse pointer enters the area of a chromosome all links should be faded out except the the links of the chromosome the mouse points to.
  * @param {Number} The opacity value is a number between 0 and 1 and indicates the degree of the colored link opacity.
  */
-AliTV.prototype.fadeOutLinks = function(g, i, opacity) {
+AliTV.prototype.fadeOutLinks = function(g, opacity) {
 	var that = this;
 	that.svgD3.selectAll(".link")
 		.filter(function(d) {
