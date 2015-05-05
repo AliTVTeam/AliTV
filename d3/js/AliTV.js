@@ -531,7 +531,7 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
 		};
 		link.target = {
 			startAngle: targetScale(feature2.start),
-			endAngle: sourceScale(feature2.end)
+			endAngle: targetScale(feature2.end)
 		};
 
 		circularLinkCoords.push(link);
