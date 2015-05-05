@@ -814,6 +814,54 @@ describe('The getCircularLinkCoords method of AliTV objects is supposed to calcu
         ];
 		expect(circularLinkCoords).toHaveSameCoordinates(expectedCoords);
 	});
+	it('getCircularLinkCoords method is supposed to work with simple test data (3 genomes, 4 chromosomes, 3 links)', function(){
+		ali.setData({karyo:karyo4,features:features2, links:links4});
+		ali.setFilters(filters4);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularLinkCoords = ali.getCircularLinkCoords(circularKaryoCoords);
+		var expectedCoords = [
+            {
+            	linkID : "l1",
+            	source: {
+            		startAngle: circularKaryoCoords[0].startAngle + (300/2000 * (circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle)), 
+            		targetAngle: circularKaryoCoords[0].startAngle + (800/2000 * (circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle))
+            		},
+            	target: {
+            		startAngle: circularKaryoCoords[1].startAngle + (100/1000 * (circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle)), 
+            		targetAngle: circularKaryoCoords[1].startAngle + (600/1000 * (circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle))
+            		},
+            	sourceKaryo: "c1", 
+            	targetKaryo: "c2"
+            },
+            {
+            	linkID : "l2",
+            	source: {
+            		startAngle: circularKaryoCoords[0].startAngle + (100/2000 * (circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle)), 
+            		targetAngle: circularKaryoCoords[0].startAngle + (600/2000 * (circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle))
+            		},
+            	target: {
+            		startAngle: circularKaryoCoords[3].startAngle + (400/1000 * (circularKaryoCoords[3].endAngle - circularKaryoCoords[3].startAngle)), 
+            		targetAngle: circularKaryoCoords[3].startAngle + (900/1000 * (circularKaryoCoords[3].endAngle - circularKaryoCoords[3].startAngle))
+            		},
+            	sourceKaryo: "c2", 
+            	targetKaryo: "c4"
+            },
+            {
+            	linkID : "l3",
+            	source: {
+            		startAngle: circularKaryoCoords[0].startAngle + (300/2000 * (circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle)), 
+            		targetAngle: circularKaryoCoords[0].startAngle + (800/2000 * (circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle))
+            		},
+            	target: {
+            		startAngle: circularKaryoCoords[3].startAngle + (400/1000 * (circularKaryoCoords[3].endAngle - circularKaryoCoords[3].startAngle)), 
+            		targetAngle: circularKaryoCoords[3].startAngle + (900/1000 * (circularKaryoCoords[3].endAngle - circularKaryoCoords[3].startAngle))
+            		},
+            	sourceKaryo: "c1", 
+            	targetKaryo: "c4"
+            }
+        ];
+		expect(circularLinkCoords).toHaveSameCoordinates(expectedCoords);
+	});
 });
 
 describe('The drawLinearLinks method of AliTV objects is supposed to draw links in the linear layout, for an alignment with more than two different genomes only adjacent links should be drawn', function(){
