@@ -245,8 +245,6 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		var karyo2Coords = coords[karyoMap[feature2.karyo]];
 		var genomePosition1 = that.filters.karyo.genome_order.indexOf(karyo1.genome_id);
 		var genomePosition2 = that.filters.karyo.genome_order.indexOf(karyo2.genome_id);
-		link.sourceKaryo = feature1.karyo;
-		link.targetKaryo = feature2.karyo;
 
 		if (genomePosition1 > genomePosition2) {
 			var tmp = feature1;
