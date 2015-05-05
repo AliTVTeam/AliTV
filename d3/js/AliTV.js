@@ -546,7 +546,9 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
  * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
  * @returns {Array} Returns an Array of angles
  */
+AliTV.prototype.getCircularTickCoords = function(coords) {
 
+};
 
 /**
  * This function draws the karyos in the circular layout
