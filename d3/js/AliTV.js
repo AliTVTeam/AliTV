@@ -589,7 +589,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
 		.attr("d", d3.svg.chord().radius(this.conf.circular.outerRadius - this.conf.circular.karyoHeight - this.conf.circular.linkKaryoDistance))
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
-		});;
+		});
 };
 
 /**
