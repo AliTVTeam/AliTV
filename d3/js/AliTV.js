@@ -421,6 +421,11 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 	return ticks;
 };
 
+/**
+ * This function draw the ticks in the linear layout.
+ * @author Sonja Hohlfeld
+ * @param {Array} The array containing the coordinates as returned by getLinearTickCoords()
+ */
 
 /**
  * This function is called by a mouse event.
