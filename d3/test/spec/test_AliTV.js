@@ -892,7 +892,7 @@ describe('The drawCircularLinks method of AliTV objects is supposed to draw link
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(2);
 	});
-	it('there should be exactly three karyos ad one links in the simple test svg (actual there are exactly two links, but only one is drawn because the second one is not an adjacent link)', function(){
+	it('there should be exactly three karyos and two links in the simple test svg', function(){
 		ali.setData({karyo:karyo5,features:features4, links:links6});
 		ali.setFilters(filters5);
 		var circularKaryoCoords = ali.getCircularKaryoCoords();
@@ -900,7 +900,7 @@ describe('The drawCircularLinks method of AliTV objects is supposed to draw link
 		ali.drawCircularKaryo(circularKaryoCoords);
 		ali.drawCircularLinks(circularLinkCoords);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
-		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
+		expect(ali.svgD3.selectAll('.link').size()).toEqual(2);
 	});
 });
 
