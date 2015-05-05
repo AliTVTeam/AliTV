@@ -544,6 +544,7 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
  * This function calculates the coordinates (angles) for the ticks in the circular layout
  * @author Markus Ankenbrand
  * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
+ * @returns {Array} Returns an Array of angles
  */
 
 
