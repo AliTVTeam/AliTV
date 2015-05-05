@@ -594,7 +594,31 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
  * @param {Array} The array containing the coordinates as returned by getCircularTickCoords()
  */
 AliTV.prototype.drawCircularTicks = function(coords) {
+	var that = this;
+	that.svgD3.selectAll(".tickGroup").remove();
 
+	var tickLine = d3.svg.line.radial().radius(100).angle(function(d) {
+		return d;
+	});
+
+	that.svgD3.append("g")
+		.attr("class", "tickGroup")
+		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.height / 2 + ")")
+		.selectAll("path")
+		.data(coords)
+		.enter()
+		.append("path")
+		.attr("d", function(d) {
+			var startPoint = d3.svg.line.radial()([
+				[that.conf.circular.outerRadius + that.conf.circular.tickSize, d]
+			]);
+			var endPoint = d3.svg.line.radial()([
+				[that.conf.circular.outerRadius, d]
+			]);
+			endPoint = endPoint.replace(/^M/, 'L');
+			return startPoint + endPoint + "Z";
+		})
+		.style("stroke", "#000");
 };
 
 /**
