@@ -826,7 +826,7 @@ describe('The fadeOutLinks method is called by a mouse pointer event and is supp
 	
 	it("if fadeOutLinks is called links should change their opacity", function() {
 		 var spyEvent = spyOnEvent('.karyo', 'mouseover');
-		 ali.svgD3.selectAll('.karyo').trigger("mouseover");
+		 $('.karyo').trigger("mouseover");
 
 		 expect(ali.svgD3.selectAll('.link').style("opacity")).toEqual("0.1");
 
