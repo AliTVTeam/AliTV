@@ -558,6 +558,13 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
 };
 
 /**
+ * This function draws links in the circular layout
+ * @author Markus Ankenbrand
+ * @param {Array} The array circularLinkCoords containing the coordinates of all links as returned by getCircularLinkCoords()
+ */
+
+
+/**
  * This function draws the data in the circular layout.
  * It operates on the data of the object and therefore needs no parameters.
  * It draws directly on the svg and therefore has no return value.
