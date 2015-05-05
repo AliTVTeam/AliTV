@@ -353,50 +353,6 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 	return color(genomeId);
 };
 
-///**
-// * This function add ticks and tick labels to the karyo indicating the position on the corresponding chromosome
-// * It operates on the chromosomes and need the length in bp and the width in px of the karyo
-// * @author Sonja Hohlfeld
-// */
-//AliTV.prototype.addLinearTicks = function(karyoCoords) {
-//	var that = this;
-//	that.svgD3.selectAll(".tickGroup").remove();
-//	$.each(karyoCoords, function(key, value) {
-//		var ticks = [];
-//
-//		var scale = d3.scale.linear()
-//			.domain([0, that.data.karyo.chromosomes[value.karyo].length])
-//			.range([value.x, value.x + value.width]);
-//
-//		var chromosomePosition = 0;
-//		while (chromosomePosition <= that.data.karyo.chromosomes[value.karyo].length) {
-//			ticks.push(scale(chromosomePosition));
-//			chromosomePosition += that.conf.linear.tickDistance;
-//		}
-//
-//		var y1 = value.y;
-//		var y2 = value.height;
-//
-//		that.svgD3.append("g")
-//			.attr("class", "tickGroup")
-//			.selectAll("path")
-//			.data(ticks)
-//			.enter()
-//			.append("line")
-//			.attr("class", "tick")
-//			.attr("x1", function(d) {
-//				return d;
-//			})
-//			.attr("y1", y1 - 5)
-//			.attr("x2", function(d) {
-//				return d;
-//			})
-//			.attr("y2", y1 + y2 + 5)
-//			.style("stroke", "#000");
-//	});
-//
-//};
-
 /**
  * This function calculates the tick coords and operates on the chromosomes and need the length in bp and the width in px of the karyo.
  * @author Sonja Hohlfeld
