@@ -494,6 +494,9 @@ AliTV.prototype.getCircularKaryoCoords = function() {
  *					{"linkID": "l1", "source": {"startAngle":1, "endAngle":3}, "target": {"startAngle":4, "endAngle":6}, "sourceKaryo": "x", "targetKaryo": "y"}}
  *			]
  */
+AliTV.prototype.getCircularLinkCoords = function(coords) {
+
+};
 
 /**
  * This function draws the karyos in the circular layout
