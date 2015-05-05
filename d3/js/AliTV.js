@@ -402,8 +402,22 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.getLinearTickCoords = function() {
+AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
+	var that = this;
+	var ticks = [];
 
+	$.each(karyoCoords, function(key, value) {
+		var scale = d3.scale.linear()
+			.domain([0, that.data.karyo.chromosomes[value.karyo].length])
+			.range([value.x, value.x + value.width]);
+
+		var chromosomePosition = 0;
+		while (chromosomePosition <= that.data.karyo.chromosomes[value.karyo].length) {
+			ticks.push(scale(chromosomePosition));
+			chromosomePosition += that.conf.linear.tickDistance;
+		}
+	});
+	return ticks;
 };
 
 
