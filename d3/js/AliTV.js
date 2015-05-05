@@ -496,6 +496,45 @@ AliTV.prototype.getCircularKaryoCoords = function() {
  */
 AliTV.prototype.getCircularLinkCoords = function(coords) {
 	var circularLinkCoords = [];
+	if (typeof coords === 'undefined') {
+		return circularLinkCoords;
+	}
+	var that = this;
+	var conf = this.conf;
+	var karyoMap = {};
+	$.each(coords, function(key, value) {
+		karyoMap[value.karyo] = key;
+	});
+
+	$.each(this.data.links, function(key, value) {
+		var link = {};
+		link.linkID = key;
+
+		var feature1 = that.data.features[value.source];
+		var feature2 = that.data.features[value.target];
+		var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
+		var karyo2 = that.data.karyo.chromosomes[feature2.karyo];
+		var karyo1Coords = coords[karyoMap[feature1.karyo]];
+		var karyo2Coords = coords[karyoMap[feature2.karyo]];
+
+		link.sourceKaryo = feature1.karyo;
+		link.targetKaryo = feature2.karyo;
+
+		sourceScale = d3.scale.linear().domain([0, karyo1.length]).range([karyo1Coords.startAngle, karyo1Coords.endAngle]);
+		targetScale = d3.scale.linear().domain([0, karyo2.length]).range([karyo2Coords.startAngle, karyo2Coords.endAngle]);
+
+		link.source = {
+			startAngle: sourceScale(feature1.start),
+			endAngle: sourceScale(feature1.end)
+		};
+		link.target = {
+			startAngle: targetScale(feature2.start),
+			endAngle: sourceScale(feature2.end)
+		};
+
+		circularLinkCoords.push(link);
+	});
+
 	return circularLinkCoords;
 };
 
