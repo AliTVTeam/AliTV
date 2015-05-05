@@ -764,8 +764,8 @@ describe('The getCircularLinkCoords method of AliTV objects is supposed to calcu
 	    							result.pass = false;
 	    							result.message = "mismatch in source of " + actual[i].linkID + ": (" +sourceActual.startAngle +", "+ sourceActual.endAngle +") vs ("+sourceExpected.startAngle +", "+  sourceExpected.endAngle+")";
 	    						}
-	    						var targetActual = {x :Math.round(actual[i].target.startAngle*factor)/factor, y: Math.round(actual[i].target.endAngle*factor)/factor};
-	    						var targetExpected = {x :Math.round(expected[i].target.startAngle*factor)/factor, y: Math.round(expected[i].target.endAngle*factor)/factor};
+	    						var targetActual = {startAngle: Math.round(actual[i].target.startAngle*factor)/factor, endAngle: Math.round(actual[i].target.endAngle*factor)/factor};
+	    						var targetExpected = {startAngle: Math.round(expected[i].target.startAngle*factor)/factor, endAngle: Math.round(expected[i].target.endAngle*factor)/factor};
 	    						if((targetActual.startAngle !== targetExpected.startAngle) || (targetActual.endAngle !== targetExpected.endAngle)){
 	    							result.pass = false;
 	    							result.message = "mismatch in target of " + actual[i].linkID + ": (" +targetActual.startAngle +", "+ targetActual.endAngle +") vs ("+targetExpected.startAngle +", "+  targetExpected.endAngle+")";
