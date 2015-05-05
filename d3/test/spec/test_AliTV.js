@@ -483,6 +483,12 @@ describe('The getCircularTickCoords method of AliTV objects is supposed to calcu
 	it('getCircularTickCoords method is supposed to be a function', function(){
 		expect(typeof ali.getCircularTickCoords).toEqual('function');
 	});
+	it('getCircularTickCoords method is supposed to return circularTickCoords', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var circularTickCoords = ali.getCircularTickCoords();
+		expect(circularTickCoords).toBeDefined();
+	});
 });
 
 describe('The drawCircularKaryo method of AliTV objects is supposed to draw karyos and color them according to their genome id', function(){
