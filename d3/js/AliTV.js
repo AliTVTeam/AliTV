@@ -291,14 +291,14 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
  * @author Markus Ankenbrand and Sonja Hohlfeld
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
  */
-AliTV.prototype.drawLinearKaryo = function(coords) {
+AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 	var that = this;
 
 	this.svgD3.selectAll(".karyoGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
 		.selectAll("path")
-		.data(coords)
+		.data(linearKaryoCoords)
 		.enter()
 		.append("rect")
 		.attr("class", "karyo")
