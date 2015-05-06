@@ -594,10 +594,6 @@ AliTV.prototype.drawCircularTicks = function(coords) {
 	var that = this;
 	that.svgD3.selectAll(".tickGroup").remove();
 
-	var tickLine = d3.svg.line.radial().radius(100).angle(function(d) {
-		return d;
-	});
-
 	that.svgD3.append("g")
 		.attr("class", "tickGroup")
 		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.height / 2 + ")")
