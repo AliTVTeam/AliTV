@@ -385,7 +385,7 @@ function drawKaryo(karyo) {
 function fade(g, i, opacity) {
 	svg.selectAll(".chord path")
 		.filter(function(d) {
-			return d.source.index != g.index && d.target.index != g.index;
+			return d.source.name != g.name && d.target.name != g.name;
 		})
 		.transition()
 		.style("opacity", opacity);

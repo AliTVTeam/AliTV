@@ -246,7 +246,6 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.source1 = {};
 		link.target0 = {};
 		link.target1 = {};
-
 		var feature1 = that.data.features[value.source];
 		var feature2 = that.data.features[value.target];
 		var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
@@ -255,6 +254,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		var karyo2Coords = coords[karyoMap[feature2.karyo]];
 		var genomePosition1 = that.filters.karyo.genome_order.indexOf(karyo1.genome_id);
 		var genomePosition2 = that.filters.karyo.genome_order.indexOf(karyo2.genome_id);
+
 		if (genomePosition1 > genomePosition2) {
 			var tmp = feature1;
 			feature1 = feature2;
@@ -296,7 +296,6 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
  */
 AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 	var that = this;
-
 	this.svgD3.selectAll(".karyoGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
@@ -316,6 +315,12 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		})
 		.attr("height", function(d) {
 			return d.height;
+		})
+		.on("mouseover", function(g) {
+			that.fadeLinks(g, 0.1);
+		})
+		.on("mouseout", function(g) {
+			that.fadeLinks(g, 1);
 		})
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
@@ -357,16 +362,18 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 };
 
 /**
- * This function add ticks and tick labels to the karyo indicating the position on the corresponding chromosome
- * It operates on the chromosomes and need the length in bp and the width in px of the karyo
+ * This function calculates the tick coords and operates on the chromosomes and need the length in bp and the width in px of the karyo.
  * @author Sonja Hohlfeld
+ * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
+ * @return {Array} The array containing the tick coordinates as shown in the following example
+ * @example linearTickCoords = [[0, 50, 100, 150, 200], [0, 50, 100], [100, 150, 200]]
  */
-AliTV.prototype.addLinearTicks = function(karyoCoords) {
+
+AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 	var that = this;
-	that.svgD3.selectAll(".tickGroup").remove();
+	var linearTickCoords = [];
 	$.each(karyoCoords, function(key, value) {
 		var ticks = [];
-
 		var scale = d3.scale.linear()
 			.domain([0, that.data.karyo.chromosomes[value.karyo].length])
 			.range([value.x, value.x + value.width]);
@@ -375,29 +382,61 @@ AliTV.prototype.addLinearTicks = function(karyoCoords) {
 		while (chromosomePosition <= that.data.karyo.chromosomes[value.karyo].length) {
 			ticks.push(scale(chromosomePosition));
 			chromosomePosition += that.conf.linear.tickDistance;
+			var coords = {};
+			coords.x1 = ticks[ticks.length - 1];
+			coords.y1 = value.y - 5;
+			coords.x2 = ticks[ticks.length - 1];
+			coords.y2 = value.y + value.height + 5;
+			linearTickCoords.push(coords);
 		}
-
-		var y1 = value.y;
-		var y2 = value.height;
-
-		that.svgD3.append("g")
-			.attr("class", "tickGroup")
-			.selectAll("path")
-			.data(ticks)
-			.enter()
-			.append("line")
-			.attr("class", "tick")
-			.attr("x1", function(d) {
-				return d;
-			})
-			.attr("y1", y1 - 5)
-			.attr("x2", function(d) {
-				return d;
-			})
-			.attr("y2", y1 + y2 + 5)
-			.style("stroke", "#000");
 	});
+	return linearTickCoords;
+};
 
+/**
+ * This function draw the ticks in the linear layout.
+ * @author Sonja Hohlfeld
+ * @param {Array} The array containing the coordinates as returned by getLinearTickCoords()
+ */
+
+AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
+	var that = this;
+	that.svgD3.append("g")
+		.attr("class", "tickGroup")
+		.selectAll("path")
+		.data(linearTickCoords)
+		.enter()
+		.append("line")
+		.attr("class", "tick")
+		.attr("x1", function(d) {
+			return d.x1;
+		})
+		.attr("y1", function(d) {
+			return d.y1;
+		})
+		.attr("x2", function(d) {
+			return d.x2;
+		})
+		.attr("y2", function(d) {
+			return d.y2;
+		})
+		.style("stroke", "#000");
+};
+
+/**
+ * This function is called by a mouse event.
+ * If the mouse pointer enters the area of a chromosome all links should be faded out except the the links of the chromosome the mouse points to.
+ * If the mouse pointer leaves the area of a chromosome all links should be faded in.
+ * @param {Number} The opacity value is a number between 0 and 1 and indicates the degree of the colored link opacity.
+ */
+AliTV.prototype.fadeLinks = function(g, opacity) {
+	var that = this;
+	that.svgD3.selectAll(".link")
+		.filter(function(d) {
+			return that.data.features[that.data.links[d.linkID].source].karyo != g.karyo && that.data.features[that.data.links[d.linkID].target].karyo != g.karyo;
+		})
+		.transition()
+		.style("opacity", opacity);
 };
 
 /**
@@ -449,7 +488,8 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  */
 AliTV.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
-	this.addLinearTicks(karyoCoords);
+	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
+	this.drawLinearTicks(linearTickCoords);
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);

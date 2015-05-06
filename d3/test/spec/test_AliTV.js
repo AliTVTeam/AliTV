@@ -124,6 +124,11 @@ var karyo5 = {
 			'c4': {'genome_id': 2, 'length': 1000, 'seq': null}
 		}
 };
+var karyo6 = {
+		'chromosomes': {
+			'c1': {'genome_id': 0, 'length': 2000, 'seq': null}
+		}
+};
 var filters4 = {'karyo': {
 		'order': ['c1', 'c2', 'c3', 'c4'],
 		'genome_order': [0, 1, 2],
@@ -156,6 +161,14 @@ var filters4_reverse = {'karyo': {
 	}
 }
 };
+var filters6 = {'karyo': {
+	'order': ['c1'],
+	'genome_order': [0],
+	'chromosomes': {
+		'c1': {'reverse': false, 'visible': true}
+	}
+}
+}
 var features = {
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
@@ -350,7 +363,8 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 	});
 	it('there should be exactly three karyos, ticks (depend on tickDistance) and one link in the test svg', function(){	
 		var karyoCoords = wga.getLinearKaryoCoords();
-		wga.addLinearTicks(karyoCoords);
+		var ticks = wga.getLinearTickCoords(karyoCoords);
+		wga.drawLinearTicks(ticks, karyoCoords);
 		wga.drawLinearKaryo(karyoCoords);
 		var linkCoords = wga.getLinearLinkCoords(karyoCoords);
 		wga.drawLinearLinks(linkCoords);
@@ -1052,12 +1066,79 @@ describe('The colorKaryoByGenome method of AliTV objects is supposed to color ka
 	});
 });
 
-describe('The addLinearTicks method is supposed to add ticks and tick labels next to the karyos indicating th position on the corresponding chromosome', function(){
+describe('The getLinearTickCoords method is supposed to calculate coords for the linear ticks', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('addLinearTicks method is supposed to be a function', function(){
-		expect(typeof ali.addLinearTicks).toEqual('function');
+	it('getLinearTickCoords method is supposed to be a function', function(){
+		expect(typeof ali.getLinearTickCoords).toEqual('function');
 	});
+	
+	it('getLinearTickCoords method is supposed to calculate the same coords as the expected coords', function(){
+		ali.setData({karyo:karyo6});
+		ali.setFilters(filters6);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
+		var expectedTicks = [{ x1: 0, y1: -5, x2: 0, y2: 35 }, { x1: 50, y1: -5, x2: 50, y2: 35 }, { x1: 100, y1: -5, x2: 100, y2: 35 }, { x1: 150, y1: -5, x2: 150, y2: 35 }, { x1: 200, y1: -5, x2: 200, y2: 35 }, { x1: 250, y1: -5, x2: 250, y2: 35 }, { x1: 300, y1: -5, x2: 300, y2: 35 }, { x1: 350, y1: -5, x2: 350, y2: 35 }, { x1: 400, y1: -5, x2: 400, y2: 35 }, { x1: 450, y1: -5, x2: 450, y2: 35 }, { x1: 500, y1: -5, x2: 500, y2: 35 }, { x1: 550, y1: -5, x2: 550, y2: 35 }, { x1: 600, y1: -5, x2: 600, y2: 35 }, { x1: 650, y1: -5, x2: 650, y2: 35 }, { x1: 700, y1: -5, x2: 700, y2: 35 }, { x1: 750, y1: -5, x2: 750, y2: 35 }, { x1: 800, y1: -5, x2: 800, y2: 35 }, { x1: 850, y1: -5, x2: 850, y2: 35 }, { x1: 900, y1: -5, x2: 900, y2: 35 }, { x1: 950, y1: -5, x2: 950, y2: 35 }, { x1: 1000, y1: -5, x2: 1000, y2: 35 }];
+		
+		expect(ticks).toEqual(expectedTicks);		
+	});
+});
+
+describe('The fadeOutLinks method is called by a mouse pointer event and is supposed to fade out all links except the links of the chromosome the mouse points to', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	beforeEach(function(done){
+		ali.setData({karyo:karyo5, features: features3, links: links4});
+		ali.setFilters(filters5);
+		ali.drawLinear();
+		done();
+	});
+
+	it('fadeOutLinks method is supposed to be a function', function(){
+		expect(typeof ali.fadeLinks).toEqual('function');
+	});
+	
+	it("if the mouse pointer enters a chromosome links are filtered and there opacity would be set on 0.1", function(done) {
+		 var spyEvent = spyOnEvent('.karyo', 'mouseover');
+		 //ali.svg.find('.karyo').get(2).dispatchEvent(new MouseEvent("mouseover"));
+			ali.svg.find('.karyo').eq(2).d3Trigger("mouseover");
+			setTimeout(function(){
+				expect(ali.svg.find('.link').css("opacity")).toEqual("0.1");
+				done();
+			}, 1000);
+	 });
+	
+	it("if the mouse pointer leaves a chromsome the link opacity is set back to 1", function(done) {
+		 var spyEvent = spyOnEvent('.karyo', 'mouseout');
+		 ali.svg.find('.karyo').d3Trigger("mouseover");
+			setTimeout(function(){
+				expect(ali.svg.find('.link').css("opacity")).toEqual("0.1");
+				ali.svg.find('.karyo').eq(2).d3Trigger("mouseout");
+				setTimeout(function(){
+					expect(ali.svg.find('.link').css("opacity")).toEqual("1");			
+					done();
+				}, 1000);				
+			}, 1000);
+	 });
+	
+});
+
+describe('The drawLinearTicks method is supposed to draw ticks in the linear layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawLinearTicks method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearTicks).toEqual('function');
+	});
+	
+	it('the svg should contain exactly 21 ticks', function(){
+		ali.setData({karyo:karyo6});
+		ali.setFilters(filters6);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
+		ali.drawLinearTicks(ticks, linearKaryoCoords);
+		expect(ali.svgD3.selectAll('.tick').size()).toEqual(21);
+	});
+	
 });
 
 
