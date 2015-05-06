@@ -1,3 +1,6 @@
+/* global d3: false */
+/* global $: false */
+
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de> 
@@ -47,25 +50,28 @@ function AliTV(svg) {
 	this.filters = {};
 	/**
 	 * property to store configuration options
-	 * @property {Number}  width                  - The width of the svg in px.
-	 * @property {Number}  height                 - The height of the svg in px.
-	 * @property {Object}  linear                 - The configuration options for the linear layout.
-	 * @property {Number}  linear.genomeDistance  - The vertical distance between adjacent genomes in px.
-	 * @property {Number}  linear.karyoHeight     - The height of each chromosome in px.
-	 * @property {Number}  linear.karyoDistance   - The horizontal distance between adjacent chromosomes of the same genome in bp.
-	 * @property {Number}  linear.linkKaryoSpacer - The vertical distance between chromosomes and links in px.
-	 * @property {Boolean} linear.drawAllLinks    - Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.
-	 * @property {String}  linear.startLineColor  - The start color of the color gradient for drawing karyos according to their genomeId
-	 * @property {String}  linear.endLineColor    - The end color of the color gradient. 
-	 * @property {Number}  linear.tickDistance    - The distance in bp of ticks on the drawn chromosomes.
-	 * @property {Object}  circular               - The configuration options for the circular layout.
-	 * @property {Number}  circular.karyoHeight   - The height of each chromosome in px.
-	 * @property {Number}  circular.karyoDistance - The distance between adjacent chromosomes on the circle in bp.
-	 * @property {Number}  circular.outerRadius	  - The outer radius of the circle in px.
-	 * @property {Number}  minLinkIdentity        - The minimum of the link identity the user wants to color
-	 * @property {Number}  maxLinkIdentity        - The maximum of the link identity the user wants to color
-	 * @property {String}  minLinkIdentityColor   - The color of the minimum link
-	 * @property {String}  maxLinkIdentityColor   - The color of the maximum link  
+	 * @property {Number}  width                      - The width of the svg in px.
+	 * @property {Number}  height                     - The height of the svg in px.
+	 * @property {Object}  linear                     - The configuration options for the linear layout.
+	 * @property {Number}  linear.genomeDistance      - The vertical distance between adjacent genomes in px.
+	 * @property {Number}  linear.karyoHeight         - The height of each chromosome in px.
+	 * @property {Number}  linear.karyoDistance       - The horizontal distance between adjacent chromosomes of the same genome in bp.
+	 * @property {Number}  linear.linkKaryoDistance   - The vertical distance between chromosomes and links in px.
+	 * @property {Boolean} linear.drawAllLinks        - Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.
+	 * @property {String}  linear.startLineColor      - The start color of the color gradient for drawing karyos according to their genomeId
+	 * @property {String}  linear.endLineColor        - The end color of the color gradient. 
+	 * @property {Number}  linear.tickDistance        - The distance in bp of ticks on the drawn chromosomes.
+	 * @property {Object}  circular                   - The configuration options for the circular layout.
+	 * @property {Number}  circular.karyoHeight       - The height of each chromosome in px.
+	 * @property {Number}  circular.karyoDistance     - The distance between adjacent chromosomes on the circle in bp.
+	 * @property {Number}  circular.linkKaryoDistance - The vertical distance between chromosomes and links in px.
+	 * @property {Number}  circular.outerRadius	      - The outer radius of the circle in px.
+	 * @property {Number}  circular.tickDistance      - The distance in bp of ticks on the drawn chromosomes.
+	 * @property {Number}  circular.tickSize          - The size of the ticks in pixels 
+	 * @property {Number}  minLinkIdentity            - The minimum of the link identity the user wants to color
+	 * @property {Number}  maxLinkIdentity            - The maximum of the link identity the user wants to color
+	 * @property {String}  minLinkIdentityColor       - The color of the minimum link
+	 * @property {String}  maxLinkIdentityColor       - The color of the maximum link  
 	 */
 	this.conf = {
 		width: 1000,
@@ -83,7 +89,10 @@ function AliTV(svg) {
 		circular: {
 			karyoHeight: 30,
 			karyoDistance: 10,
-			outerRadius: 450
+			linkKaryoDistance: 10,
+			outerRadius: 450,
+			tickDistance: 100,
+			tickSize: 5
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -267,8 +276,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
 		link.target1.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
 
-		var differenceOfGenomePosition = genomePosition2 - genomePosition1;
-		if (differenceOfGenomePosition == 1 || differenceOfGenomePosition == -1) {
+		if (Math.abs(genomePosition2 - genomePosition1) === 1) {
 			link.adjacent = true;
 			linearLinkCoords.push(link);
 		} else {
@@ -286,14 +294,14 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
  * @author Markus Ankenbrand and Sonja Hohlfeld
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
  */
-AliTV.prototype.drawLinearKaryo = function(coords) {
+AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 	var that = this;
 
 	this.svgD3.selectAll(".karyoGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
 		.selectAll("path")
-		.data(coords)
+		.data(linearKaryoCoords)
 		.enter()
 		.append("rect")
 		.attr("class", "karyo")
@@ -485,11 +493,83 @@ AliTV.prototype.getCircularKaryoCoords = function() {
 };
 
 /**
+ * Calculate coordinates for the links to draw in the cirular layout and uses link-data and karyo-coordinates
+ * This function is primarily meant for internal usage, the user should not need to call this directly
+ * @author Markus Ankenbrand
+ * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
+ * @returns {Array} Returns an Array which is presented in the following example
+ * @example [
+ *					{"linkID": "l1", "source": {"startAngle":1, "endAngle":3}, "target": {"startAngle":4, "endAngle":6}}
+ *			]
+ */
+AliTV.prototype.getCircularLinkCoords = function(coords) {
+	var circularLinkCoords = [];
+	if (typeof coords === 'undefined') {
+		return circularLinkCoords;
+	}
+	var that = this;
+	var karyoMap = {};
+	$.each(coords, function(key, value) {
+		karyoMap[value.karyo] = key;
+	});
+
+	$.each(this.data.links, function(key, value) {
+		var link = {};
+		link.linkID = key;
+
+		var feature1 = that.data.features[value.source];
+		var feature2 = that.data.features[value.target];
+		var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
+		var karyo2 = that.data.karyo.chromosomes[feature2.karyo];
+		var karyo1Coords = coords[karyoMap[feature1.karyo]];
+		var karyo2Coords = coords[karyoMap[feature2.karyo]];
+
+		var sourceScale = d3.scale.linear().domain([0, karyo1.length]).range([karyo1Coords.startAngle, karyo1Coords.endAngle]);
+		var targetScale = d3.scale.linear().domain([0, karyo2.length]).range([karyo2Coords.startAngle, karyo2Coords.endAngle]);
+
+		link.source = {
+			startAngle: sourceScale(feature1.start),
+			endAngle: sourceScale(feature1.end)
+		};
+		link.target = {
+			startAngle: targetScale(feature2.start),
+			endAngle: targetScale(feature2.end)
+		};
+
+		circularLinkCoords.push(link);
+	});
+
+	return circularLinkCoords;
+};
+
+/**
+ * This function calculates the coordinates (angles) for the ticks in the circular layout
+ * @author Markus Ankenbrand
+ * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
+ * @returns {Array} Returns an Array of angles
+ */
+AliTV.prototype.getCircularTickCoords = function(coords) {
+	var that = this;
+	var circularTickCoords = [];
+	$.each(coords, function(key, value) {
+		var karyoLength = that.data.karyo.chromosomes[value.karyo].length;
+		var baseToAngle = d3.scale.linear().domain([0, karyoLength]).range([value.startAngle, value.endAngle]);
+		var chromosomePosition = 0;
+		while (chromosomePosition <= karyoLength) {
+			circularTickCoords.push(baseToAngle(chromosomePosition));
+			chromosomePosition += that.conf.circular.tickDistance;
+		}
+	});
+	return circularTickCoords;
+};
+
+/**
  * This function draws the karyos in the circular layout
  * @author Markus Ankenbrand
  * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
  */
 AliTV.prototype.drawCircularKaryo = function(coords) {
+	var that = this;
 	this.svgD3.selectAll(".karyoGroup").remove();
 	var outerRadius = this.conf.circular.outerRadius;
 	this.svgD3.append("g")
@@ -500,7 +580,61 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
 		.enter()
 		.append("path")
 		.attr("d", d3.svg.arc().innerRadius(outerRadius - this.conf.circular.karyoHeight).outerRadius(outerRadius))
-		.attr("class", "karyo");
+		.attr("class", "karyo")
+		.style("fill", function(d) {
+			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
+		});
+};
+
+/**
+ * This function draws the ticks to the karyos in the circular layout
+ * @author Markus Ankenbrand
+ * @param {Array} The array containing the coordinates as returned by getCircularTickCoords()
+ */
+AliTV.prototype.drawCircularTicks = function(coords) {
+	var that = this;
+	that.svgD3.selectAll(".tickGroup").remove();
+
+	that.svgD3.append("g")
+		.attr("class", "tickGroup")
+		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.height / 2 + ")")
+		.selectAll("path")
+		.data(coords)
+		.enter()
+		.append("path")
+		.attr("d", function(d) {
+			var startPoint = d3.svg.line.radial()([
+				[that.conf.circular.outerRadius + that.conf.circular.tickSize, d]
+			]);
+			var endPoint = d3.svg.line.radial()([
+				[that.conf.circular.outerRadius, d]
+			]);
+			endPoint = endPoint.replace(/^M/, 'L');
+			return startPoint + endPoint + "Z";
+		})
+		.style("stroke", "#000");
+};
+
+/**
+ * This function draws links in the circular layout
+ * @author Markus Ankenbrand
+ * @param {Array} The array circularLinkCoords containing the coordinates of all links as returned by getCircularLinkCoords()
+ */
+AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
+	var that = this;
+	this.svgD3.selectAll(".linkGroup").remove();
+	this.svgD3.append("g")
+		.attr("class", "linkGroup")
+		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.height / 2 + ")")
+		.selectAll("path")
+		.data(circularLinkCoords)
+		.enter()
+		.append("path")
+		.attr("class", "link")
+		.attr("d", d3.svg.chord().radius(this.conf.circular.outerRadius - this.conf.circular.karyoHeight - this.conf.circular.linkKaryoDistance))
+		.style("fill", function(d) {
+			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
+		});
 };
 
 /**
@@ -511,5 +645,9 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
  */
 AliTV.prototype.drawCircular = function() {
 	var karyoCoords = this.getCircularKaryoCoords();
+	var tickCoords = this.getCircularTickCoords(karyoCoords);
+	this.drawCircularTicks(tickCoords);
 	this.drawCircularKaryo(karyoCoords);
+	var linkCoords = this.getCircularLinkCoords(karyoCoords);
+	this.drawCircularLinks(linkCoords);
 };

@@ -1,3 +1,5 @@
+/* global module: false */
+/* global require: false */
 module.exports = function(grunt) {
 
 	// Project configuration.
@@ -61,6 +63,7 @@ module.exports = function(grunt) {
 			},
 			jshint: {
 				options: {
+					undef: true,
 					globals: {
 						jQuery: true
 					}

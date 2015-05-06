@@ -14,7 +14,10 @@ var defaultConf =  {
 		circular: {
 			karyoHeight: 30,
 			karyoDistance: 10,
-			outerRadius: 450
+			linkKaryoDistance: 10,
+			outerRadius: 450,
+			tickDistance: 100,
+			tickSize: 5
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -476,6 +479,91 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 	});
 });
 
+describe('The getCircularTickCoords method of AliTV objects is supposed to calculate tick coordinates for the circular layout', function(){
+	beforeEach(function() {
+	    jasmine.addMatchers({
+	    	toHaveSameCoordinates: function(util, customEqualityTesters) {
+	    		return { 
+	    			compare: function(actual, expected){
+	    				var compare = function(a,b){
+	    					return (a < b) ? -1 : 1;
+	    				};
+	    				actual.sort(compare);
+	    				expected.sort(compare);
+	    				var result = {pass: true};
+	    				if(actual.length !== expected.length){
+	    					result.pass = false;
+	    					result.message = "arrays do not have the same number of objects";
+	    				} else {
+	    					var precision = 8;
+	    					var factor = Math.pow(10, precision);
+	    					for(var i=0; i<actual.length; i++){
+	    						var a = Math.round(actual[i]*factor)/factor;
+	    						var e = Math.round(expected[i]*factor)/factor;
+	    						if(a !== e){
+	    							result.pass = false;
+	    							result.message = "mismatch at index " + i + ": " + a + " vs " + e;
+	    						}
+	    					}
+	    				}
+	    				return result;
+	    			}
+	    		};
+	    	}
+	    });
+	});
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getCircularTickCoords method is supposed to be a function', function(){
+		expect(typeof ali.getCircularTickCoords).toEqual('function');
+	});
+	it('getCircularTickCoords method is supposed to return circularTickCoords', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularTickCoords = ali.getCircularTickCoords(circularKaryoCoords);
+		expect(circularTickCoords).toBeDefined();
+	});
+	it('getCircularTickCoords method is supposed to return the correct angles in the simple case (2 chromosomes)', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularTickCoords = ali.getCircularTickCoords(circularKaryoCoords);
+		var c0total = circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle;
+		var c0start = circularKaryoCoords[0].startAngle;
+		var c1total = circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle;
+		var c1start = circularKaryoCoords[1].startAngle;
+		var expectedCoords = [];
+		var chrpos = 0;
+		while (chrpos <= ali.data.karyo.chromosomes[circularKaryoCoords[0].karyo].length){
+			expectedCoords.push(c0start + c0total * (chrpos/2000));
+			chrpos += defaultConf.circular.tickDistance;
+		}
+		chrpos = 0;
+		while (chrpos <= ali.data.karyo.chromosomes[circularKaryoCoords[1].karyo].length){
+			expectedCoords.push(c1start + c1total * (chrpos/1000));
+			chrpos += defaultConf.circular.tickDistance;
+		}
+		expect(circularTickCoords).toHaveSameCoordinates(expectedCoords);
+	});
+});
+
+describe('The drawCircularTicks method is supposed to add ticks to the karyos in the circular layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawCircularTicks method is supposed to be a function', function(){
+		expect(typeof ali.drawCircularTicks).toEqual('function');
+	});
+	it('drawCircularTicks method is supposed to draw ticks', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var ckc = ali.getCircularKaryoCoords();
+		var ctc = ali.getCircularTickCoords(ckc);
+		ali.drawCircularTicks(ctc);
+		expect(ali.svgD3.selectAll(".tickGroup").size()).toEqual(1);
+	});
+});
+
 describe('The drawCircularKaryo method of AliTV objects is supposed to draw karyos and color them according to their genome id', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
@@ -530,9 +618,10 @@ describe('The drawCircular method of AliTV objects is supposed to draw the circu
 	it('drawCircular method is supposed to be a function', function(){
 		expect(typeof wga.drawCircular).toEqual('function');
 	});
-	it('there should be exactly three karyos in the test svg', function(){
+	it('there should be exactly three karyos and one link in the test svg', function(){
 		wga.drawCircular();
 		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(3);
+		expect(wga.svgD3.selectAll('.link').size()).toEqual(1);
 	});
 });
 
@@ -733,6 +822,166 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
 	});
 });
+
+describe('The getCircularLinkCoords method of AliTV objects is supposed to calculate coordinates for the links in the circular layout', function(){
+	beforeEach(function() {
+	    jasmine.addMatchers({
+	    	toHaveSameCoordinates: function(util, customEqualityTesters) {
+	    		return { 
+	    			compare: function(actual, expected){
+	    				var comp = function(a,b){
+	    					return (a < b) ? -1 : 1;
+	    				};
+	    				actual.sort(comp);
+	    				expected.sort(comp);
+	    				var result = {pass: true};
+	    				if(actual.length !== expected.length){
+	    					result.pass = false;
+	    					result.message = "arrays do not have the same number of objects";
+	    				} else {
+	    					var precision = 8;
+	    					var factor = Math.pow(10, precision);
+	    					for(var i=0; i<actual.length; i++){
+	    						if(actual[i].linkID !== expected[i].linkID){
+	    							result.pass = false;
+	    							result.message = "mismatch in linkID: " + actual[i].linkID + " vs " + expected[i].linkID;
+	    						}
+	    						var sourceActual = {startAngle: Math.round(actual[i].source.startAngle*factor)/factor, endAngle: Math.round(actual[i].source.endAngle*factor)/factor};
+	    						var sourceExpected = {startAngle: Math.round(expected[i].source.startAngle*factor)/factor, endAngle: Math.round(expected[i].source.endAngle*factor)/factor};
+	    						if((sourceActual.startAngle !== sourceExpected.startAngle) || (sourceActual.endAngle !== sourceExpected.endAngle)){
+	    							result.pass = false;
+	    							result.message = "mismatch in source of " + actual[i].linkID + ": (" +sourceActual.startAngle +", "+ sourceActual.endAngle +") vs ("+sourceExpected.startAngle +", "+  sourceExpected.endAngle+")";
+	    						}
+	    						var targetActual = {startAngle: Math.round(actual[i].target.startAngle*factor)/factor, endAngle: Math.round(actual[i].target.endAngle*factor)/factor};
+	    						var targetExpected = {startAngle: Math.round(expected[i].target.startAngle*factor)/factor, endAngle: Math.round(expected[i].target.endAngle*factor)/factor};
+	    						if((targetActual.startAngle !== targetExpected.startAngle) || (targetActual.endAngle !== targetExpected.endAngle)){
+	    							result.pass = false;
+	    							result.message = "mismatch in target of " + actual[i].linkID + ": (" +targetActual.startAngle +", "+ targetActual.endAngle +") vs ("+targetExpected.startAngle +", "+  targetExpected.endAngle+")";
+	    						}
+	    					}
+	    				}
+	    				return result;
+	    			}
+	    		};
+	    	}
+	    });
+	});
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getCircularLinkCoords method is supposed to be a function', function(){
+		expect(typeof ali.getCircularLinkCoords).toEqual('function');
+	});
+	it('getCircularLinkCoords method is supposed to return a defined value even if coords is not set', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var circularLinkCoords = ali.getCircularLinkCoords();
+		expect(circularLinkCoords).toBeDefined();
+	});
+	it('getCircularLinkCoords method is supposed to work with simple test data (2 genomes, 2 chromosomes, 1 link)', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularLinkCoords = ali.getCircularLinkCoords(circularKaryoCoords);
+		var expectedCoords = [
+            {
+            	linkID : "l1",
+            	source: {
+            		startAngle: circularKaryoCoords[0].startAngle + (300/2000 * (circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle)), 
+            		endAngle: circularKaryoCoords[0].startAngle + (800/2000 * (circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle))
+            		},
+            	target: {
+            		startAngle: circularKaryoCoords[1].startAngle + (100/1000 * (circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle)), 
+            		endAngle: circularKaryoCoords[1].startAngle + (600/1000 * (circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle))
+            		}
+            }           
+        ];
+		expect(circularLinkCoords).toHaveSameCoordinates(expectedCoords);
+	});
+	it('getCircularLinkCoords method is supposed to work with simple test data (3 genomes, 4 chromosomes, 3 links)', function(){
+		ali.setData({karyo:karyo4,features:features2, links:links4});
+		ali.setFilters(filters4);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularLinkCoords = ali.getCircularLinkCoords(circularKaryoCoords);
+		var expectedCoords = [
+            {
+            	linkID : "l1",
+            	source: {
+            		startAngle: circularKaryoCoords[0].startAngle + (300/2000 * (circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle)), 
+            		endAngle: circularKaryoCoords[0].startAngle + (800/2000 * (circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle))
+            		},
+            	target: {
+            		startAngle: circularKaryoCoords[1].startAngle + (100/1000 * (circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle)), 
+            		endAngle: circularKaryoCoords[1].startAngle + (600/1000 * (circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle))
+            		}
+            },
+            {
+            	linkID : "l2",
+            	source: {
+            		startAngle: circularKaryoCoords[1].startAngle + (100/1000 * (circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle)), 
+            		endAngle: circularKaryoCoords[1].startAngle + (600/1000 * (circularKaryoCoords[1].endAngle - circularKaryoCoords[1].startAngle))
+            		},
+            	target: {
+            		startAngle: circularKaryoCoords[3].startAngle + (400/1000 * (circularKaryoCoords[3].endAngle - circularKaryoCoords[3].startAngle)), 
+            		endAngle: circularKaryoCoords[3].startAngle + (900/1000 * (circularKaryoCoords[3].endAngle - circularKaryoCoords[3].startAngle))
+            		}
+            },
+            {
+            	linkID : "l3",
+            	source: {
+            		startAngle: circularKaryoCoords[0].startAngle + (300/2000 * (circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle)), 
+            		endAngle: circularKaryoCoords[0].startAngle + (800/2000 * (circularKaryoCoords[0].endAngle - circularKaryoCoords[0].startAngle))
+            		},
+            	target: {
+            		startAngle: circularKaryoCoords[3].startAngle + (400/1000 * (circularKaryoCoords[3].endAngle - circularKaryoCoords[3].startAngle)), 
+            		endAngle: circularKaryoCoords[3].startAngle + (900/1000 * (circularKaryoCoords[3].endAngle - circularKaryoCoords[3].startAngle))
+            		}
+            }
+        ];
+		expect(circularLinkCoords).toHaveSameCoordinates(expectedCoords);
+	});
+});
+
+describe('The drawCircularLinks method of AliTV objects is supposed to draw links in the circular layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+
+	it('drawCircularLinks method is supposed to be a function', function(){
+		expect(typeof ali.drawCircularLinks).toEqual('function');
+	});
+	
+	it('there should be exactly one link and two karyos in the simple test svg', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularLinkCoords = ali.getCircularLinkCoords(circularKaryoCoords);
+		ali.drawCircularKaryo(circularKaryoCoords);
+		ali.drawCircularLinks(circularLinkCoords);
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(2);
+		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
+	});
+	it('there should be exactly two links and three chromosomes in the simple test svg', function(){
+		ali.setData({karyo:karyo5,features:features3, links:links5});
+		ali.setFilters(filters5);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularLinkCoords = ali.getCircularLinkCoords(circularKaryoCoords);
+		ali.drawCircularKaryo(circularKaryoCoords);
+		ali.drawCircularLinks(circularLinkCoords);
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
+		expect(ali.svgD3.selectAll('.link').size()).toEqual(2);
+	});
+	it('there should be exactly three karyos and two links in the simple test svg', function(){
+		ali.setData({karyo:karyo5,features:features4, links:links6});
+		ali.setFilters(filters5);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularLinkCoords = ali.getCircularLinkCoords(circularKaryoCoords);
+		ali.drawCircularKaryo(circularKaryoCoords);
+		ali.drawCircularLinks(circularLinkCoords);
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
+		expect(ali.svgD3.selectAll('.link').size()).toEqual(2);
+	});
+});
+
+
 
 describe('The drawLinearLinks method of AliTV objects is supposed to draw links in the linear layout, for an alignment with more than two different genomes only adjacent links should be drawn', function(){
 	var svg = $('<svg></svg>');
