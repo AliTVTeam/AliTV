@@ -361,9 +361,9 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 
 AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 	var that = this;
-	var ticks = [];
 
 	$.each(karyoCoords, function(key, value) {
+		var ticks = [];
 		var scale = d3.scale.linear()
 			.domain([0, that.data.karyo.chromosomes[value.karyo].length])
 			.range([value.x, value.x + value.width]);
@@ -373,8 +373,9 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 			ticks.push(scale(chromosomePosition));
 			chromosomePosition += that.conf.linear.tickDistance;
 		}
+		that.drawLinearTicks(ticks, value);
 	});
-	return ticks;
+
 };
 
 /**
@@ -385,29 +386,25 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 
 AliTV.prototype.drawLinearTicks = function(ticks, karyoCoords) {
 	var that = this;
-	that.svgD3.selectAll(".tickGroup").remove();
+	var y1 = karyoCoords.y;
+	var y2 = karyoCoords.height;
 
-	$.each(karyoCoords, function(key, value) {
-		var y1 = value.y;
-		var y2 = value.height;
-
-		that.svgD3.append("g")
-			.attr("class", "tickGroup")
-			.selectAll("path")
-			.data(ticks)
-			.enter()
-			.append("line")
-			.attr("class", "tick")
-			.attr("x1", function(d) {
-				return d;
-			})
-			.attr("y1", y1 - 5)
-			.attr("x2", function(d) {
-				return d;
-			})
-			.attr("y2", y1 + y2 + 5)
-			.style("stroke", "#000");
-	});
+	that.svgD3.append("g")
+		.attr("class", "tickGroup")
+		.selectAll("path")
+		.data(ticks)
+		.enter()
+		.append("line")
+		.attr("class", "tick")
+		.attr("x1", function(d) {
+			return d;
+		})
+		.attr("y1", y1 - 5)
+		.attr("x2", function(d) {
+			return d;
+		})
+		.attr("y2", y1 + y2 + 5)
+		.style("stroke", "#000");
 };
 
 /**
@@ -475,8 +472,8 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  */
 AliTV.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
-	var ticks = this.getLinearTickCoords(karyoCoords);
-	this.drawLinearTicks(ticks, karyoCoords);
+	this.getLinearTickCoords(karyoCoords);
+	//this.drawLinearTicks(ticks, karyoCoords);
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);

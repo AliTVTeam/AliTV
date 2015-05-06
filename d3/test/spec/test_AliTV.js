@@ -360,7 +360,8 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 	});
 	it('there should be exactly three karyos, ticks (depend on tickDistance) and one link in the test svg', function(){	
 		var karyoCoords = wga.getLinearKaryoCoords();
-		wga.addLinearTicks(karyoCoords);
+		var ticks = wga.getLinearTickCoords(karyoCoords);
+		wga.drawLinearTicks(ticks, karyoCoords);
 		wga.drawLinearKaryo(karyoCoords);
 		var linkCoords = wga.getLinearLinkCoords(karyoCoords);
 		wga.drawLinearLinks(linkCoords);
