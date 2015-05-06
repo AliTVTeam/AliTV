@@ -521,8 +521,8 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
 		var karyo1Coords = coords[karyoMap[feature1.karyo]];
 		var karyo2Coords = coords[karyoMap[feature2.karyo]];
 
-		sourceScale = d3.scale.linear().domain([0, karyo1.length]).range([karyo1Coords.startAngle, karyo1Coords.endAngle]);
-		targetScale = d3.scale.linear().domain([0, karyo2.length]).range([karyo2Coords.startAngle, karyo2Coords.endAngle]);
+		var sourceScale = d3.scale.linear().domain([0, karyo1.length]).range([karyo1Coords.startAngle, karyo1Coords.endAngle]);
+		var targetScale = d3.scale.linear().domain([0, karyo2.length]).range([karyo2Coords.startAngle, karyo2Coords.endAngle]);
 
 		link.source = {
 			startAngle: sourceScale(feature1.start),
