@@ -1,3 +1,5 @@
+/* global module: false */
+/* global require: false */
 module.exports = function(grunt) {
 
 	// Project configuration.
