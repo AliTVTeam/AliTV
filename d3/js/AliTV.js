@@ -357,11 +357,13 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
  * This function calculates the tick coords and operates on the chromosomes and need the length in bp and the width in px of the karyo.
  * @author Sonja Hohlfeld
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
+ * @return {Array} The array containing the tick coordinates as shown in the following example
+ * @example linearTickCoords = [[0, 50, 100, 150, 200], [0, 50, 100], [100, 150, 200]]
  */
 
 AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 	var that = this;
-
+	var linearTickCoords = [];
 	$.each(karyoCoords, function(key, value) {
 		var ticks = [];
 		var scale = d3.scale.linear()
@@ -372,10 +374,15 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 		while (chromosomePosition <= that.data.karyo.chromosomes[value.karyo].length) {
 			ticks.push(scale(chromosomePosition));
 			chromosomePosition += that.conf.linear.tickDistance;
+			var coords = {};
+			coords.x1 = ticks[ticks.length - 1];
+			coords.y1 = value.y - 5;
+			coords.x2 = ticks[ticks.length - 1];
+			coords.y2 = value.y + value.height + 5;
+			linearTickCoords.push(coords);
 		}
-		that.drawLinearTicks(ticks, value);
 	});
-
+	return linearTickCoords;
 };
 
 /**
@@ -384,26 +391,28 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
  * @param {Array} The array containing the coordinates as returned by getLinearTickCoords()
  */
 
-AliTV.prototype.drawLinearTicks = function(ticks, karyoCoords) {
+AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 	var that = this;
-	var y1 = karyoCoords.y;
-	var y2 = karyoCoords.height;
 
 	that.svgD3.append("g")
 		.attr("class", "tickGroup")
 		.selectAll("path")
-		.data(ticks)
+		.data(linearTickCoords)
 		.enter()
 		.append("line")
 		.attr("class", "tick")
 		.attr("x1", function(d) {
-			return d;
+			return d.x1;
 		})
-		.attr("y1", y1 - 5)
+		.attr("y1", function(d) {
+			return d.y1;
+		})
 		.attr("x2", function(d) {
-			return d;
+			return d.x2;
 		})
-		.attr("y2", y1 + y2 + 5)
+		.attr("y2", function(d) {
+			return d.y2;
+		})
 		.style("stroke", "#000");
 };
 
@@ -472,8 +481,8 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  */
 AliTV.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
-	this.getLinearTickCoords(karyoCoords);
-	//this.drawLinearTicks(ticks, karyoCoords);
+	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
+	this.drawLinearTicks(linearTickCoords);
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
