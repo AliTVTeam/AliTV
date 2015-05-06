@@ -838,29 +838,38 @@ describe('The getLinearTickCoords method is supposed to calculate coords for the
 describe('The fadeOutLinks method is called by a mouse pointer event and is supposed to fade out all links except the links of the chromosome the mouse points to', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	beforeEach(function(){
-		ali.setData(data2);
-		ali.setFilters(filters2);
-		ali.drawLinear();	
+	beforeEach(function(done){
+		ali.setData({karyo:karyo5, features: features3, links: links4});
+		ali.setFilters(filters5);
+		ali.drawLinear();
+		done();
 	});
 
 	it('fadeOutLinks method is supposed to be a function', function(){
 		expect(typeof ali.fadeLinks).toEqual('function');
 	});
 	
-	it("if the mouse pointer enters a chromosome links are filtered and there opacity would be set on 0.1", function() {
+	it("if the mouse pointer enters a chromosome links are filtered and there opacity would be set on 0.1", function(done) {
 		 var spyEvent = spyOnEvent('.karyo', 'mouseover');
-		 $('.karyo').trigger("mouseover");
-
-		 console.log(ali.svgD3.selectAll('.link').style("opacity"));
-		 expect(ali.svgD3.selectAll('.link').style("opacity")).toEqual("0.1");
+		 //ali.svg.find('.karyo').get(2).dispatchEvent(new MouseEvent("mouseover"));
+			ali.svg.find('.karyo').eq(2).d3Trigger("mouseover");
+			setTimeout(function(){
+				expect(ali.svg.find('.link').css("opacity")).toEqual("0.1");
+				done();
+			}, 1000);
 	 });
 	
-	it("if the mouse pointer leaves a chromsome the link opacity is set back to 1", function() {
+	it("if the mouse pointer leaves a chromsome the link opacity is set back to 1", function(done) {
 		 var spyEvent = spyOnEvent('.karyo', 'mouseout');
-		 $('.karyo').trigger("mouseout");
-
-		 expect(ali.svgD3.selectAll('.link').style("opacity")).toEqual("1");
+		 ali.svg.find('.karyo').d3Trigger("mouseover");
+			setTimeout(function(){
+				expect(ali.svg.find('.link').css("opacity")).toEqual("0.1");
+				ali.svg.find('.karyo').eq(2).d3Trigger("mouseout");
+				setTimeout(function(){
+					expect(ali.svg.find('.link').css("opacity")).toEqual("1");			
+					done();
+				}, 1000);				
+			}, 1000);
 	 });
 	
 });

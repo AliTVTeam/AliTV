@@ -393,7 +393,6 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 
 AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 	var that = this;
-
 	that.svgD3.append("g")
 		.attr("class", "tickGroup")
 		.selectAll("path")
