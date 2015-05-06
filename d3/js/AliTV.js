@@ -273,8 +273,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
 		link.target1.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
 
-		var differenceOfGenomePosition = genomePosition2 - genomePosition1;
-		if (differenceOfGenomePosition == 1 || differenceOfGenomePosition == -1) {
+		if (Math.abs(genomePosition2 - genomePosition1) === 1) {
 			link.adjacent = true;
 			linearLinkCoords.push(link);
 		} else {
