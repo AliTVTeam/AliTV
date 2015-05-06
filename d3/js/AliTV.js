@@ -505,7 +505,6 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
 		return circularLinkCoords;
 	}
 	var that = this;
-	var conf = this.conf;
 	var karyoMap = {};
 	$.each(coords, function(key, value) {
 		karyoMap[value.karyo] = key;
