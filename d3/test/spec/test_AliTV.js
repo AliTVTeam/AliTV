@@ -829,7 +829,7 @@ describe('The getLinearTickCoords method is supposed to calculate coords for the
 		ali.setFilters(filters6);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
-		var expectedTicks = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000];
+		var expectedTicks = [{ x1: 0, y1: -5, x2: 0, y2: 35 }, { x1: 50, y1: -5, x2: 50, y2: 35 }, { x1: 100, y1: -5, x2: 100, y2: 35 }, { x1: 150, y1: -5, x2: 150, y2: 35 }, { x1: 200, y1: -5, x2: 200, y2: 35 }, { x1: 250, y1: -5, x2: 250, y2: 35 }, { x1: 300, y1: -5, x2: 300, y2: 35 }, { x1: 350, y1: -5, x2: 350, y2: 35 }, { x1: 400, y1: -5, x2: 400, y2: 35 }, { x1: 450, y1: -5, x2: 450, y2: 35 }, { x1: 500, y1: -5, x2: 500, y2: 35 }, { x1: 550, y1: -5, x2: 550, y2: 35 }, { x1: 600, y1: -5, x2: 600, y2: 35 }, { x1: 650, y1: -5, x2: 650, y2: 35 }, { x1: 700, y1: -5, x2: 700, y2: 35 }, { x1: 750, y1: -5, x2: 750, y2: 35 }, { x1: 800, y1: -5, x2: 800, y2: 35 }, { x1: 850, y1: -5, x2: 850, y2: 35 }, { x1: 900, y1: -5, x2: 900, y2: 35 }, { x1: 950, y1: -5, x2: 950, y2: 35 }, { x1: 1000, y1: -5, x2: 1000, y2: 35 }];
 		
 		expect(ticks).toEqual(expectedTicks);		
 	});
