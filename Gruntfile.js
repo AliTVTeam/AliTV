@@ -61,6 +61,7 @@ module.exports = function(grunt) {
 			},
 			jshint: {
 				options: {
+					undef: true,
 					globals: {
 						jQuery: true
 					}
