@@ -1162,7 +1162,6 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		ali.svg.find('.karyo').eq(0).d3Trigger("click");
 		setTimeout(function(){
 			expect(ali.filters.karyo.chromosomes.c1.reverse).toEqual(true);
-			ali.svg.find('.karyo').eq(2).d3Trigger("click");
 			done();
 		}, 1000);
 	});
@@ -1170,7 +1169,17 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		ali.svg.find('.karyo').eq(0).d3Trigger("click");
 		setTimeout(function(){
 			expect(ali.filters.karyo.chromosomes.c1.reverse).toEqual(false);
-			ali.svg.find('.karyo').eq(2).d3Trigger("click");
+			done();
+		}, 1000);
+	});
+	it('if the current reverse information is false, after the click it should be true and in the karyoCoords the x-value and the width should be changes', function(done){
+		ali.svg.find('.karyo').eq(0).d3Trigger("click");
+		var expectedCoords = [
+		                      	{'karyo': 'c1', 'x': 0 + defaultConf.width, 'y': 0, 'width': defaultConf.width * (-1), 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+		                      	{'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
+		                     ];
+		setTimeout(function(){
+			expect(expectedCoords).toEqual(linearKaryoCoords);
 			done();
 		}, 1000);
 	});
