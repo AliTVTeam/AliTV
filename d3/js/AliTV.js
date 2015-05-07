@@ -691,3 +691,7 @@ AliTV.prototype.drawCircular = function() {
 	var linkCoords = this.getCircularLinkCoords(karyoCoords);
 	this.drawCircularLinks(linkCoords);
 };
+
+AliTV.prototype.reverseChromosome = function() {
+
+};
