@@ -322,6 +322,9 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		.on("mouseout", function(g) {
 			that.fadeLinks(g, 1);
 		})
+		.on("click", function() {
+
+		})
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
 		});
