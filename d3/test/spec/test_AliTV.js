@@ -1215,7 +1215,7 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		console.log(linearKaryoCoords);
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		console.log(linearLinkCoords);
-		var expectedLinks = [{ linkID: 'l1', source0: { x: 600, y: 40 }, source1: { x: 850, y: 40 }, target0: { x: 50, y: 290 }, target1: { x: 300, y: 290 }, adjacent: true }];
+		var expectedLinks = [{ linkID: 'l1', source0: { x: 850, y: 40 }, source1: { x: 600, y: 40 }, target0: { x: 50, y: 290 }, target1: { x: 300, y: 290 }, adjacent: true }];
 		
 		setTimeout(function(){
 			expect(expectedLinks).toEqual(linearLinkCoords);
