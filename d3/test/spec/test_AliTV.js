@@ -21,8 +21,10 @@ var defaultConf =  {
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
+		midLinkIdentity: 60,
 		minLinkIdentityColor: "#D21414",
-		maxLinkIdentityColor: "#1DAD0A"
+		maxLinkIdentityColor: "#1DAD0A",
+		midLinkIdentityColor: "#FFEE05"
 };
 
 describe('The constructor is supposed a proper AliTV object', function(){
