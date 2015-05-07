@@ -202,16 +202,30 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	for (i = 0; i < this.filters.karyo.order.length; i++) {
 		var key = this.filters.karyo.order[i];
 		var value = this.data.karyo.chromosomes[key];
-		var coord = {
-			'karyo': key,
-			'x': (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width,
-			'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
-			'width': (value.length / maxTotalSize) * conf.width,
-			'height': conf.linear.karyoHeight,
-			'genome': value.genome_id
-		};
-		current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
-		linearKaryoCoords.push(coord);
+		var coord = {};
+		if (this.filters.karyo.chromosomes[key].reverse === false) {
+			coord = {
+				'karyo': key,
+				'x': (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width,
+				'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
+				'width': (value.length / maxTotalSize) * conf.width,
+				'height': conf.linear.karyoHeight,
+				'genome': value.genome_id
+			};
+			current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
+			linearKaryoCoords.push(coord);
+		} else {
+			coord = {
+				'karyo': key,
+				'x': (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width + (value.length / maxTotalSize) * conf.width,
+				'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
+				'width': (value.length / maxTotalSize) * conf.width * (-1),
+				'height': conf.linear.karyoHeight,
+				'genome': value.genome_id
+			};
+			current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
+			linearKaryoCoords.push(coord);
+		}
 	}
 	return linearKaryoCoords;
 };
@@ -296,8 +310,9 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
  */
 AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 	var that = this;
-	this.svgD3.selectAll(".karyoGroup").remove();
-	this.svgD3.append("g")
+
+	that.svgD3.selectAll(".karyoGroup").remove();
+	that.svgD3.append("g")
 		.attr("class", "karyoGroup")
 		.selectAll("path")
 		.data(linearKaryoCoords)
@@ -305,13 +320,17 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		.append("rect")
 		.attr("class", "karyo")
 		.attr("x", function(d) {
-			return d.x;
+			if (d.width < 0) {
+				return d.x + d.width;
+			} else {
+				return d.x;
+			}
 		})
 		.attr("y", function(d) {
 			return d.y;
 		})
 		.attr("width", function(d) {
-			return d.width;
+			return Math.abs(d.width);
 		})
 		.attr("height", function(d) {
 			return d.height;
@@ -323,9 +342,10 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			that.fadeLinks(g, 1);
 		})
 		.on("click", function(g) {
-			that.svgD3.selectAll(".tickGroup").remove();
-			that.svgD3.selectAll(".linkGroup").remove();
 			that.filters.karyo.chromosomes[g.karyo].reverse = !that.filters.karyo.chromosomes[g.karyo].reverse;
+			//			var linearKaryoCoords = that.getLinearKaryoCoords();
+			//			var linearLinkCoords = that.getLinearLinkCoords(linearKaryoCoords);
+			//			that.drawLinearLinks(linearLinkCoords);
 			that.drawLinear();
 		})
 		.style("fill", function(d) {
