@@ -1201,7 +1201,7 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		                      {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight, 'genome': 0},
 		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
 		                      ];
-		
+		console.log(ali.svg.find('.karyo').eq(0).css("fill"));
 		setTimeout(function(){
 			expect(expectedCoords).toEqual(linearKaryoCoords);
 			done();
@@ -1212,9 +1212,7 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		ali.drawLinear();
 		ali.svg.find('.karyo').eq(0).d3Trigger("click");
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		console.log(linearKaryoCoords);
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-		console.log(linearLinkCoords);
 		var expectedLinks = [{ linkID: 'l1', source0: { x: 850, y: 40 }, source1: { x: 600, y: 40 }, target0: { x: 50, y: 290 }, target1: { x: 300, y: 290 }, adjacent: true }];
 		
 		setTimeout(function(){

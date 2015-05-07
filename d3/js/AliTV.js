@@ -310,7 +310,6 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
  */
 AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 	var that = this;
-	this.svgD3.selectAll(".karyoGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
 		.selectAll("path")
@@ -337,14 +336,14 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			that.fadeLinks(g, 1);
 		})
 		.on("click", function(g) {
+			that.svgD3.selectAll(".tickGroup").remove();
+			// that.svgD3.selectAll(".karyoGroup").remove();
+			that.svgD3.selectAll(".linkGroup").remove();
 			if (that.filters.karyo.chromosomes[g.karyo].reverse === true) {
 				that.filters.karyo.chromosomes[g.karyo].reverse = false;
 			} else {
 				that.filters.karyo.chromosomes[g.karyo].reverse = true;
 			}
-			that.svgD3.selectAll(".karyoGroup").remove();
-			that.svgD3.selectAll(".linkGroup").remove();
-			that.svgD3.selectAll(".tickGroup").remove();
 			that.drawLinear();
 		})
 		.style("fill", function(d) {
@@ -490,7 +489,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		return shape;
 	};
 
-	this.svgD3.selectAll(".linkGroup").remove();
+	//this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
 		.selectAll("path")
