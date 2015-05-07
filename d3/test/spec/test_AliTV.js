@@ -1158,11 +1158,15 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 	ali.setFilters(filters);
 	ali.drawLinear();
 	
-	it('if the current reverse information is false after the click event it should be true', function(done){	
+	it('if the current reverse information is false after the click event it should be true and after the second dlcik it should be false again', function(done){	
 		ali.svg.find('.karyo').eq(0).d3Trigger("click");
 		setTimeout(function(){
 			expect(ali.filters.karyo.chromosomes.c1.reverse).toEqual(true);
-			done();
+			ali.svg.find('.karyo').eq(2).d3Trigger("click");
+			setTimeout(function(){
+				expect(ali.filters.karyo.chromosomes.c1.reverse).toEqual(false);			
+				done();
+			}, 1000);
 		}, 1000);
 	});
 });
