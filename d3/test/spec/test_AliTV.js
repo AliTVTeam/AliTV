@@ -311,6 +311,7 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
+	
 });
 
 describe('The drawLinearKaryo method of AliTV objects is supposed to draw karyos', function(){
@@ -1150,4 +1151,19 @@ describe('The drawLinearTicks method is supposed to draw ticks in the linear lay
 //	
 //});
 
+describe('A left mouseclick on a chromosome should change the reverse information of this chromosome', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
+	ali.drawLinear();
+	
+	it('if the current reverse information is false after the click event it should be true', function(){	
+		ali.svg.find('.karyo').eq(0).d3Trigger("mouseclick");
+		setTimeout(function(){
+			expect(ali.filters.karyo.chromosomes.c1.reverse).toEqual(true);
+			done();
+		}, 1000);
+	});
+});
 
