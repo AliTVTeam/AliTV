@@ -692,6 +692,12 @@ AliTV.prototype.drawCircular = function() {
 	this.drawCircularLinks(linkCoords);
 };
 
-AliTV.prototype.reverseChromosome = function() {
-
-};
+///**
+// * This function reverse the orientation of a chromosome by clicking onto that chromosome in the linear Layout.
+// * It operates of the karyo and the link data of the clicked karyo. It changes the 
+// * @author Sonjah Hohlfeld 
+// */
+//
+//AliTV.prototype.reverseChromosome = function() {
+//
+//};
