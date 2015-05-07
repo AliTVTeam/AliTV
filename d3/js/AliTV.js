@@ -343,9 +343,6 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		})
 		.on("click", function(g) {
 			that.filters.karyo.chromosomes[g.karyo].reverse = !that.filters.karyo.chromosomes[g.karyo].reverse;
-			//			var linearKaryoCoords = that.getLinearKaryoCoords();
-			//			var linearLinkCoords = that.getLinearLinkCoords(linearKaryoCoords);
-			//			that.drawLinearLinks(linearLinkCoords);
 			that.drawLinear();
 		})
 		.style("fill", function(d) {
