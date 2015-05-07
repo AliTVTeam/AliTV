@@ -96,8 +96,10 @@ function AliTV(svg) {
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
+		midLinkIdentity: 60,
 		minLinkIdentityColor: "#D21414",
-		maxLinkIdentityColor: "#1DAD0A"
+		maxLinkIdentityColor: "#1DAD0A",
+		midLinkIdentityColor: "#FFEE05"
 	};
 	// Initialize svg size
 	svg.height(this.conf.height);
