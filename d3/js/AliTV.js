@@ -67,11 +67,13 @@ function AliTV(svg) {
 	 * @property {Number}  circular.linkKaryoDistance - The vertical distance between chromosomes and links in px.
 	 * @property {Number}  circular.outerRadius	      - The outer radius of the circle in px.
 	 * @property {Number}  circular.tickDistance      - The distance in bp of ticks on the drawn chromosomes.
-	 * @property {Number}  circular.tickSize          - The size of the ticks in pixels 
-	 * @property {Number}  minLinkIdentity            - The minimum of the link identity the user wants to color
-	 * @property {Number}  maxLinkIdentity            - The maximum of the link identity the user wants to color
-	 * @property {String}  minLinkIdentityColor       - The color of the minimum link
-	 * @property {String}  maxLinkIdentityColor       - The color of the maximum link  
+	 * @property {Number}  circular.tickSize          - The size of the ticks in pixels. 
+	 * @property {Number}  minLinkIdentity            - The minimum of the link identity the user wants to color.
+	 * @property {Number}  maxLinkIdentity            - The maximum of the link identity the user wants to color.
+	 * @property {Number}  maxLinkIdentity            - The middle of the link identity the user wants to color.
+	 * @property {String}  minLinkIdentityColor       - The color of the minimum link.
+	 * @property {String}  maxLinkIdentityColor       - The color of the maximum link.
+	 * @property {String}  maxLinkIdentityColor       - The color of the middle link.   
 	 */
 	this.conf = {
 		width: 1000,
