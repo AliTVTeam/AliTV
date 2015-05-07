@@ -1175,49 +1175,49 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 			done();
 		}, 1000);
 	});
-	it('if the current reverse information is false, after the click it should be true and in the karyoCoords the x-value and the width should be changed', function(done){
-		ali.filters.karyo.chromosomes.c1.reverse = false;
-		ali.drawLinear();
-		ali.svg.find('.karyo').eq(0).d3Trigger("click");		
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		
-		var expectedCoords = [
-		                      {'karyo': 'c1', 'x': 0 + defaultConf.width, 'y': 0, 'width': defaultConf.width * (-1), 'height': defaultConf.linear.karyoHeight, 'genome': 0},
-		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
-		                      ];
-		
-		setTimeout(function(){
-			expect(expectedCoords).toEqual(linearKaryoCoords);
-			done();
-		}, 1000);
-	});
-	it('if the current reverse information is true, after the click it should be false and in the karyoCoords the x-value and the width should be set back', function(done){
-		ali.filters.karyo.chromosomes.c1.reverse = true;
-		ali.drawLinear();
-		ali.svg.find('.karyo').eq(0).d3Trigger("click");		
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		
-		var expectedCoords = [
-		                      {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight, 'genome': 0},
-		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
-		                      ];
-		setTimeout(function(){
-			expect(expectedCoords).toEqual(linearKaryoCoords);
-			done();
-		}, 1000);
-	});
-	it('after the click event the reverse information is true and source0 and source1 should be changed', function(done){
-		ali.filters.karyo.chromosomes.c1.reverse = false;
-		ali.drawLinear();
-		ali.svg.find('.karyo').eq(0).d3Trigger("click");
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-		var expectedLinks = [{ linkID: 'l1', source0: { x: 850, y: 40 }, source1: { x: 600, y: 40 }, target0: { x: 50, y: 290 }, target1: { x: 300, y: 290 }, adjacent: true }];
-		
-		setTimeout(function(){
-			expect(expectedLinks).toEqual(linearLinkCoords);
-			done();
-		}, 1000);
-	});
+//	it('if the current reverse information is false, after the click it should be true and in the karyoCoords the x-value and the width should be changed', function(done){
+//		ali.filters.karyo.chromosomes.c1.reverse = false;
+//		ali.drawLinear();
+//		ali.svg.find('.karyo').eq(0).d3Trigger("click");		
+//		var linearKaryoCoords = ali.getLinearKaryoCoords();
+//		
+//		var expectedCoords = [
+//		                      {'karyo': 'c1', 'x': 0 + defaultConf.width, 'y': 0, 'width': defaultConf.width * (-1), 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+//		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
+//		                      ];
+//		
+//		setTimeout(function(){
+//			expect(expectedCoords).toEqual(linearKaryoCoords);
+//			done();
+//		}, 1000);
+//	});
+//	it('if the current reverse information is true, after the click it should be false and in the karyoCoords the x-value and the width should be set back', function(done){
+//		ali.filters.karyo.chromosomes.c1.reverse = true;
+//		ali.drawLinear();
+//		ali.svg.find('.karyo').eq(0).d3Trigger("click");		
+//		var linearKaryoCoords = ali.getLinearKaryoCoords();
+//		
+//		var expectedCoords = [
+//		                      {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+//		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
+//		                      ];
+//		setTimeout(function(){
+//			expect(expectedCoords).toEqual(linearKaryoCoords);
+//			done();
+//		}, 1000);
+//	});
+//	it('after the click event the reverse information is true and source0 and source1 should be changed', function(done){
+//		ali.filters.karyo.chromosomes.c1.reverse = false;
+//		ali.drawLinear();
+//		ali.svg.find('.karyo').eq(0).d3Trigger("click");
+//		var linearKaryoCoords = ali.getLinearKaryoCoords();
+//		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+//		var expectedLinks = [{ linkID: 'l1', source0: { x: 850, y: 40 }, source1: { x: 600, y: 40 }, target0: { x: 50, y: 290 }, target1: { x: 300, y: 290 }, adjacent: true }];
+//		
+//		setTimeout(function(){
+//			expect(expectedLinks).toEqual(linearLinkCoords);
+//			done();
+//		}, 1000);
+//	});
 });
 

@@ -202,30 +202,16 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	for (i = 0; i < this.filters.karyo.order.length; i++) {
 		var key = this.filters.karyo.order[i];
 		var value = this.data.karyo.chromosomes[key];
-		var coord = {};
-		if (this.filters.karyo.chromosomes[key].reverse === false) {
-			coord = {
-				'karyo': key,
-				'x': (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width,
-				'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
-				'width': (value.length / maxTotalSize) * conf.width,
-				'height': conf.linear.karyoHeight,
-				'genome': value.genome_id
-			};
-			current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
-			linearKaryoCoords.push(coord);
-		} else {
-			coord = {
-				'karyo': key,
-				'x': (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width + (value.length / maxTotalSize) * conf.width,
-				'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
-				'width': (value.length / maxTotalSize) * conf.width * (-1),
-				'height': conf.linear.karyoHeight,
-				'genome': value.genome_id
-			};
-			current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
-			linearKaryoCoords.push(coord);
-		}
+		var coord = {
+			'karyo': key,
+			'x': (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width,
+			'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
+			'width': (value.length / maxTotalSize) * conf.width,
+			'height': conf.linear.karyoHeight,
+			'genome': value.genome_id
+		};
+		current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
+		linearKaryoCoords.push(coord);
 	}
 	return linearKaryoCoords;
 };
