@@ -70,10 +70,10 @@ function AliTV(svg) {
 	 * @property {Number}  circular.tickSize          - The size of the ticks in pixels. 
 	 * @property {Number}  minLinkIdentity            - The minimum of the link identity the user wants to color.
 	 * @property {Number}  maxLinkIdentity            - The maximum of the link identity the user wants to color.
-	 * @property {Number}  maxLinkIdentity            - The middle of the link identity the user wants to color.
+	 * @property {Number}  midLinkIdentity            - The middle of the link identity the user wants to color.
 	 * @property {String}  minLinkIdentityColor       - The color of the minimum link.
 	 * @property {String}  maxLinkIdentityColor       - The color of the maximum link.
-	 * @property {String}  maxLinkIdentityColor       - The color of the middle link.   
+	 * @property {String}  midLinkIdentityColor       - The color of the middle link.   
 	 */
 	this.conf = {
 		width: 1000,
