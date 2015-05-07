@@ -362,8 +362,8 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
  */
 AliTV.prototype.colorLinksByIdentity = function(identity) {
 	var that = this;
-	var linkIdentityDomain = [0, that.conf.minLinkIdentity, that.conf.maxLinkIdentity, 100];
-	var linkIdentityColorRange = [that.conf.minLinkIdentityColor, that.conf.minLinkIdentityColor, that.conf.maxLinkIdentityColor, that.conf.maxLinkIdentityColor];
+	var linkIdentityDomain = [0, that.conf.minLinkIdentity, that.conf.midLinkIdentity, that.conf.maxLinkIdentity, 100];
+	var linkIdentityColorRange = [that.conf.minLinkIdentityColor, that.conf.minLinkIdentityColor, that.conf.midLinkIdentityColor, that.conf.maxLinkIdentityColor, that.conf.maxLinkIdentityColor];
 	var color = d3.scale.linear()
 		.domain(linkIdentityDomain)
 		.range(linkIdentityColorRange);
