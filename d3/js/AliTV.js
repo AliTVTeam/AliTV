@@ -304,12 +304,13 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 };
 
 /**
- * This function draws the karyos in the linear layout and color them according to their genome_id
+ * This function draws the karyos in the linear layout, color them according to their genome_id and add some events to the chromosome.
  * @author Markus Ankenbrand and Sonja Hohlfeld
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
  */
 AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 	var that = this;
+	this.svgD3.selectAll(".karyoGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
 		.selectAll("path")
@@ -337,7 +338,6 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		})
 		.on("click", function(g) {
 			that.svgD3.selectAll(".tickGroup").remove();
-			// that.svgD3.selectAll(".karyoGroup").remove();
 			that.svgD3.selectAll(".linkGroup").remove();
 			if (that.filters.karyo.chromosomes[g.karyo].reverse === true) {
 				that.filters.karyo.chromosomes[g.karyo].reverse = false;
@@ -489,7 +489,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		return shape;
 	};
 
-	//this.svgD3.selectAll(".linkGroup").remove();
+	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
 		.selectAll("path")
