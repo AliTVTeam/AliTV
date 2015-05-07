@@ -322,7 +322,12 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		.on("mouseout", function(g) {
 			that.fadeLinks(g, 1);
 		})
-		.on("click", function() {
+		.on("click", function(g) {
+			if (that.filters.karyo.chromosomes[g.karyo].reverse === true) {
+				that.filters.karyo.chromosomes[g.karyo].reverse = false;
+			} else {
+				that.filters.karyo.chromosomes[g.karyo].reverse = true;
+			}
 
 		})
 		.style("fill", function(d) {
