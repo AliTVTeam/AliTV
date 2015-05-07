@@ -1141,4 +1141,10 @@ describe('The drawLinearTicks method is supposed to draw ticks in the linear lay
 	
 });
 
+describe('The reverseChromosome method is supposed to alter the orientation of a chromosome by clicking onto that chromosome', function(){
+	it('reverseChromosome method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearTicks).toEqual('function');
+	});
+});
+
 
