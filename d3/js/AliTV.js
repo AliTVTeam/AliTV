@@ -339,11 +339,7 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		.on("click", function(g) {
 			that.svgD3.selectAll(".tickGroup").remove();
 			that.svgD3.selectAll(".linkGroup").remove();
-			if (that.filters.karyo.chromosomes[g.karyo].reverse === true) {
-				that.filters.karyo.chromosomes[g.karyo].reverse = false;
-			} else {
-				that.filters.karyo.chromosomes[g.karyo].reverse = true;
-			}
+			that.filters.karyo.chromosomes[g.karyo].reverse = !that.filters.karyo.chromosomes[g.karyo].reverse;
 			that.drawLinear();
 		})
 		.style("fill", function(d) {
