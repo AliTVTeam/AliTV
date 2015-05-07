@@ -67,11 +67,13 @@ function AliTV(svg) {
 	 * @property {Number}  circular.linkKaryoDistance - The vertical distance between chromosomes and links in px.
 	 * @property {Number}  circular.outerRadius	      - The outer radius of the circle in px.
 	 * @property {Number}  circular.tickDistance      - The distance in bp of ticks on the drawn chromosomes.
-	 * @property {Number}  circular.tickSize          - The size of the ticks in pixels 
-	 * @property {Number}  minLinkIdentity            - The minimum of the link identity the user wants to color
-	 * @property {Number}  maxLinkIdentity            - The maximum of the link identity the user wants to color
-	 * @property {String}  minLinkIdentityColor       - The color of the minimum link
-	 * @property {String}  maxLinkIdentityColor       - The color of the maximum link  
+	 * @property {Number}  circular.tickSize          - The size of the ticks in pixels. 
+	 * @property {Number}  minLinkIdentity            - The minimum of the link identity the user wants to color.
+	 * @property {Number}  maxLinkIdentity            - The maximum of the link identity the user wants to color.
+	 * @property {Number}  midLinkIdentity            - The middle of the link identity the user wants to color.
+	 * @property {String}  minLinkIdentityColor       - The color of the minimum link.
+	 * @property {String}  maxLinkIdentityColor       - The color of the maximum link.
+	 * @property {String}  midLinkIdentityColor       - The color of the middle link.   
 	 */
 	this.conf = {
 		width: 1000,
@@ -96,8 +98,10 @@ function AliTV(svg) {
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
+		midLinkIdentity: 60,
 		minLinkIdentityColor: "#D21414",
-		maxLinkIdentityColor: "#1DAD0A"
+		maxLinkIdentityColor: "#1DAD0A",
+		midLinkIdentityColor: "#FFEE05"
 	};
 	// Initialize svg size
 	svg.height(this.conf.height);
@@ -204,14 +208,21 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		var value = this.data.karyo.chromosomes[key];
 		var coord = {
 			'karyo': key,
-			'x': (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width,
 			'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
-			'width': (value.length / maxTotalSize) * conf.width,
 			'height': conf.linear.karyoHeight,
 			'genome': value.genome_id
 		};
+
+		if (this.filters.karyo.chromosomes[key].reverse === false) {
+			coord.width = (value.length / maxTotalSize) * conf.width;
+			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width;
+		} else {
+			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width + (value.length / maxTotalSize) * conf.width;
+			coord.width = (value.length / maxTotalSize) * conf.width * (-1);
+		}
 		current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
 		linearKaryoCoords.push(coord);
+
 	}
 	return linearKaryoCoords;
 };
@@ -290,14 +301,15 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 };
 
 /**
- * This function draws the karyos in the linear layout and color them according to their genome_id
+ * This function draws the karyos in the linear layout, color them according to their genome_id and add some events to the chromosome.
  * @author Markus Ankenbrand and Sonja Hohlfeld
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
  */
 AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 	var that = this;
-	this.svgD3.selectAll(".karyoGroup").remove();
-	this.svgD3.append("g")
+
+	that.svgD3.selectAll(".karyoGroup").remove();
+	that.svgD3.append("g")
 		.attr("class", "karyoGroup")
 		.selectAll("path")
 		.data(linearKaryoCoords)
@@ -305,13 +317,17 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		.append("rect")
 		.attr("class", "karyo")
 		.attr("x", function(d) {
-			return d.x;
+			if (d.width < 0) {
+				return d.x + d.width;
+			} else {
+				return d.x;
+			}
 		})
 		.attr("y", function(d) {
 			return d.y;
 		})
 		.attr("width", function(d) {
-			return d.width;
+			return Math.abs(d.width);
 		})
 		.attr("height", function(d) {
 			return d.height;
@@ -321,6 +337,10 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		})
 		.on("mouseout", function(g) {
 			that.fadeLinks(g, 1);
+		})
+		.on("click", function(g) {
+			that.filters.karyo.chromosomes[g.karyo].reverse = !that.filters.karyo.chromosomes[g.karyo].reverse;
+			that.drawLinear();
 		})
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
@@ -335,8 +355,8 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
  */
 AliTV.prototype.colorLinksByIdentity = function(identity) {
 	var that = this;
-	var linkIdentityDomain = [0, that.conf.minLinkIdentity, that.conf.maxLinkIdentity, 100];
-	var linkIdentityColorRange = [that.conf.minLinkIdentityColor, that.conf.minLinkIdentityColor, that.conf.maxLinkIdentityColor, that.conf.maxLinkIdentityColor];
+	var linkIdentityDomain = [0, that.conf.minLinkIdentity, that.conf.midLinkIdentity, that.conf.maxLinkIdentity, 100];
+	var linkIdentityColorRange = [that.conf.minLinkIdentityColor, that.conf.minLinkIdentityColor, that.conf.midLinkIdentityColor, that.conf.maxLinkIdentityColor, that.conf.maxLinkIdentityColor];
 	var color = d3.scale.linear()
 		.domain(linkIdentityDomain)
 		.range(linkIdentityColorRange);
@@ -401,6 +421,7 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 
 AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 	var that = this;
+	this.svgD3.selectAll(".tickGroup").remove();
 	that.svgD3.append("g")
 		.attr("class", "tickGroup")
 		.selectAll("path")
