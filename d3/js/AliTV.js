@@ -328,7 +328,6 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			} else {
 				that.filters.karyo.chromosomes[g.karyo].reverse = true;
 			}
-
 		})
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
