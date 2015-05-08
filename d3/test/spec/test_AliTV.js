@@ -1126,6 +1126,38 @@ describe('The fadeOutLinks method is called by a mouse pointer event and is supp
 	
 });
 
+describe('The fadeOutLinks method also works in the circular layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	beforeEach(function(done){
+		ali.setData({karyo:karyo5, features: features3, links: links4});
+		ali.setFilters(filters5);
+		ali.drawCircular();
+		done();
+	});
+	
+	it("if the mouse pointer enters a chromosome links are filtered and their opacity would be set on 0.1", function(done) {
+		ali.svg.find('.karyo').eq(2).d3Trigger("mouseover");
+		setTimeout(function(){
+			expect(ali.svg.find('.link').css("opacity")).toEqual("0.1");
+			done();
+		}, 1000);
+	 });
+	
+	it("if the mouse pointer leaves a chromsome the link opacity is set back to 1", function(done) {
+		ali.svg.find('.karyo').d3Trigger("mouseover");
+		setTimeout(function(){
+			expect(ali.svg.find('.link').css("opacity")).toEqual("0.1");
+			ali.svg.find('.karyo').eq(2).d3Trigger("mouseout");
+			setTimeout(function(){
+				expect(ali.svg.find('.link').css("opacity")).toEqual("1");			
+				done();
+			}, 1000);				
+		}, 1000);
+	 });
+	
+});
+
 describe('The drawLinearTicks method is supposed to draw ticks in the linear layout', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
