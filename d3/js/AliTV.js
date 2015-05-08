@@ -625,7 +625,7 @@ AliTV.prototype.getCircularTickCoords = function(coords) {
 };
 
 /**
- * This function draws the karyos in the circular layout
+ * This function draws the karyos in the circular layout, color them according to their genome_id and add some eventHandlers.
  * @author Markus Ankenbrand
  * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
  */
