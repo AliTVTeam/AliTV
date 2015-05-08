@@ -1,0 +1,16 @@
+.includepath
+.externalToolBuilders/
+.project
+.settings/
+tmp/
+.grunt/
+node_modules/
+d3/test/coverage/
+d3/js/wgaPipelineLinear.js
+d3/js/wgaPipelineCircular.js
+_SpecRunner.html
+_build/
+blib/
+MANIFEST*.bak
+Build
+MYMETA.*
