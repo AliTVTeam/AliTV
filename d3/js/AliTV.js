@@ -650,6 +650,10 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
 		})
 		.on("mouseout", function(g) {
 			that.fadeLinks(g, 1);
+		})
+		.on("click", function(g) {
+			that.filters.karyo.chromosomes[g.karyo].reverse = !that.filters.karyo.chromosomes[g.karyo].reverse;
+			that.drawCircular();
 		});
 };
 
