@@ -647,6 +647,9 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
 		})
 		.on("mouseover", function(g) {
 			that.fadeLinks(g, 0.1);
+		})
+		.on("mouseout", function(g) {
+			that.fadeLinks(g, 1);
 		});
 };
 
