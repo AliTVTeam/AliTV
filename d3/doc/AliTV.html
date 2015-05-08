@@ -135,7 +135,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line11">line 11</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line14">line 14</a>
     </li></ul></dd>
     
     
@@ -385,7 +385,7 @@ var wga = new AliTV(svg);</code></pre>
 	
         <tr>
             
-                <td class="name"><code>linkKaryoSpacer</code></td>
+                <td class="name"><code>linkKaryoDistance</code></td>
             
             
             <td class="type">
@@ -402,6 +402,98 @@ var wga = new AliTV(svg);</code></pre>
             
             
             <td class="description last">The vertical distance between chromosomes and links in px.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>drawAllLinks</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>startLineColor</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The start color of the color gradient for drawing karyos according to their genomeId</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>endLineColor</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The end color of the color gradient.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>tickDistance</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The distance in bp of ticks on the drawn chromosomes.</td>
         </tr>
 	
 	
@@ -501,6 +593,29 @@ var wga = new AliTV(svg);</code></pre>
 	
         <tr>
             
+                <td class="name"><code>linkKaryoDistance</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The vertical distance between chromosomes and links in px.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
                 <td class="name"><code>outerRadius</code></td>
             
             
@@ -521,9 +636,193 @@ var wga = new AliTV(svg);</code></pre>
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>tickDistance</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The distance in bp of ticks on the drawn chromosomes.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>tickSize</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The size of the ticks in pixels.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
             </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>minLinkIdentity</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The minimum of the link identity the user wants to color.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>maxLinkIdentity</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The maximum of the link identity the user wants to color.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>midLinkIdentity</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The middle of the link identity the user wants to color.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>minLinkIdentityColor</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The color of the minimum link.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>maxLinkIdentityColor</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The color of the maximum link.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>midLinkIdentityColor</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The color of the middle link.</td>
         </tr>
 	
 	
@@ -551,7 +850,7 @@ var wga = new AliTV(svg);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line62">line 62</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line78">line 78</a>
     </li></ul></dd>
     
     
@@ -1028,7 +1327,7 @@ var wga = new AliTV(svg);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line36">line 36</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line39">line 39</a>
     </li></ul></dd>
     
     
@@ -1343,7 +1642,7 @@ var wga = new AliTV(svg);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line47">line 47</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line50">line 50</a>
     </li></ul></dd>
     
     
@@ -1397,7 +1696,7 @@ var wga = new AliTV(svg);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line15">line 15</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line18">line 18</a>
     </li></ul></dd>
     
     
@@ -1451,7 +1750,7 @@ var wga = new AliTV(svg);</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line19">line 19</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line22">line 22</a>
     </li></ul></dd>
     
     
@@ -1473,6 +1772,162 @@ var wga = new AliTV(svg);</code></pre>
         <h3 class="subsection-title">Methods</h3>
         
         <dl>
+            
+<dt>
+    <h4 class="name" id="colorKaryoByGenomeId"><span class="type-signature"></span>colorKaryoByGenomeId<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        This function color karyos according to their genome_id and is called by drawLinearKaryo within the style attribute
+It operates on the genome_id of the links and therefore the genome_id should be assigned to the function
+The genome_id is assigned to a color which is used by the drawLinearKaryo function, so the returned value is the RGB farbcode
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Sonja Hohlfeld</li>
+        </ul>
+    </dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line373">line 373</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="colorLinksByIdentity"><span class="type-signature"></span>colorLinksByIdentity<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        This function color links according to their identity and is called by drawLinearLinks within the style attribute
+It operates on the identity value of the links and therefore the identity should be assigned to the function
+The identity is assigned to a color which is used by the drawLinearLinks function, so the returned value is the RGB farbcode
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Sonja Hohlfeld</li>
+        </ul>
+    </dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line356">line 356</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
             
 <dt>
     <h4 class="name" id="drawCircular"><span class="type-signature"></span>drawCircular<span class="signature">()</span><span class="type-signature"></span></h4>
@@ -1525,7 +1980,7 @@ It draws directly on the svg and therefore has no return value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line406">line 406</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line707">line 707</a>
     </li></ul></dd>
     
     
@@ -1561,7 +2016,7 @@ It draws directly on the svg and therefore has no return value.
     
     
     <div class="description">
-        This function draws the karyos in the circular layout
+        This function draws the karyos in the circular layout, color them according to their genome_id and add some eventHandlers.
     </div>
     
 
@@ -1649,7 +2104,255 @@ It draws directly on the svg and therefore has no return value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line386">line 386</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line632">line 632</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="drawCircularLinks"><span class="type-signature"></span>drawCircularLinks<span class="signature">(The)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        This function draws links in the circular layout
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">array circularLinkCoords containing the coordinates of all links as returned by getCircularLinkCoords()</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Markus Ankenbrand</li>
+        </ul>
+    </dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line684">line 684</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="drawCircularTicks"><span class="type-signature"></span>drawCircularTicks<span class="signature">(The)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        This function draws the ticks to the karyos in the circular layout
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">array containing the coordinates as returned by getCircularTickCoords()</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Markus Ankenbrand</li>
+        </ul>
+    </dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line655">line 655</a>
     </li></ul></dd>
     
     
@@ -1727,7 +2430,7 @@ It draws directly on the svg and therefore has no return value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line337">line 337</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line510">line 510</a>
     </li></ul></dd>
     
     
@@ -1763,7 +2466,7 @@ It draws directly on the svg and therefore has no return value.
     
     
     <div class="description">
-        This function draws the karyos in the linear layout
+        This function draws the karyos in the linear layout, color them according to their genome_id and add some events to the chromosome.
     </div>
     
 
@@ -1851,7 +2554,7 @@ It draws directly on the svg and therefore has no return value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line271">line 271</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line308">line 308</a>
     </li></ul></dd>
     
     
@@ -1975,7 +2678,250 @@ It draws directly on the svg and therefore has no return value.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line300">line 300</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line469">line 469</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="drawLinearTicks"><span class="type-signature"></span>drawLinearTicks<span class="signature">(The)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        This function draw the ticks in the linear layout.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">array containing the coordinates as returned by getLinearTickCoords()</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Sonja Hohlfeld</li>
+        </ul>
+    </dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line422">line 422</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="fadeLinks"><span class="type-signature"></span>fadeLinks<span class="signature">(The)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        This function is called by a mouse event.
+If the mouse pointer enters the area of a chromosome all links should be faded out except the the links of the chromosome the mouse points to.
+If the mouse pointer leaves the area of a chromosome all links should be faded in.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">opacity value is a number between 0 and 1 and indicates the degree of the colored link opacity.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line453">line 453</a>
     </li></ul></dd>
     
     
@@ -2053,7 +2999,7 @@ This function is primarily meant for internal usage, the user should not need to
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line351">line 351</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line526">line 526</a>
     </li></ul></dd>
     
     
@@ -2079,6 +3025,306 @@ This function is primarily meant for internal usage, the user should not need to
             
 <div class="param-desc">
     Array containing one Object for each element in data.karyo of the form {karyo: 'karyo_name', startAngle:0, endAngle:1}
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Array</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getCircularLinkCoords"><span class="type-signature"></span>getCircularLinkCoords<span class="signature">(The)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Calculate coordinates for the links to draw in the cirular layout and uses link-data and karyo-coordinates
+This function is primarily meant for internal usage, the user should not need to call this directly
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">array containing the coordinates as returned by getCircularKaryoCoords()</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Markus Ankenbrand</li>
+        </ul>
+    </dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line566">line 566</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Returns an Array which is presented in the following example
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Array</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code> [
+					{"linkID": "l1", "source": {"startAngle":1, "endAngle":3}, "target": {"startAngle":4, "endAngle":6}}
+			]</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getCircularTickCoords"><span class="type-signature"></span>getCircularTickCoords<span class="signature">(The)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        This function calculates the coordinates (angles) for the ticks in the circular layout
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">array containing the coordinates as returned by getCircularKaryoCoords()</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Markus Ankenbrand</li>
+        </ul>
+    </dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line612">line 612</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Returns an Array of angles
 </div>
 
 
@@ -2153,7 +3399,7 @@ This function is primarily meant for internal usage, the user should not need to
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line157">line 157</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line186">line 186</a>
     </li></ul></dd>
     
     
@@ -2301,7 +3547,7 @@ This function is primarily meant for internal usage, the user should not need to
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line205">line 205</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line242">line 242</a>
     </li></ul></dd>
     
     
@@ -2351,6 +3597,157 @@ This function is primarily meant for internal usage, the user should not need to
     <pre class="prettyprint"><code> [
 					{"linkID": "l1", "source0": {"x":0, "y":10}, "target0": {"x": 0, "y":20}, "source1": {"x":10, "y":10}, "target1": {"x":10, "y":20}, "adjacent": true}
 			]</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getLinearTickCoords"><span class="type-signature"></span>getLinearTickCoords<span class="signature">(The)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        This function calculates the tick coords and operates on the chromosomes and need the length in bp and the width in px of the karyo.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">array containing the coordinates as returned by getLinearKaryoCoords()</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Sonja Hohlfeld</li>
+        </ul>
+    </dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line392">line 392</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The array containing the tick coordinates as shown in the following example
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Array</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code> linearTickCoords = [[0, 50, 100, 150, 200], [0, 50, 100], [100, 150, 200]]</code></pre>
 
     
 </dd>
@@ -2455,7 +3852,7 @@ For the required format see the documentation of the data property
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line105">line 105</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line134">line 134</a>
     </li></ul></dd>
     
     
@@ -2601,7 +3998,7 @@ The filters are highly dependent on the data object and have to resemble its lay
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line146">line 146</a>
+        <a href="AliTV.js.html">AliTV.js</a>, <a href="AliTV.js.html#line175">line 175</a>
     </li></ul></dd>
     
     
@@ -2681,7 +4078,7 @@ wga.drawCircular();</code></pre>
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Tue Apr 28 2015 15:50:51 GMT+0200 (MESZ)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Fri May 08 2015 15:53:57 GMT+0200 (MESZ)
 </footer>
 
 <script> prettyPrint(); </script>
