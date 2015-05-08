@@ -644,6 +644,9 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
 		.attr("class", "karyo")
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
+		})
+		.on("mouseover", function(g) {
+			that.fadeLinks(g, 0.1);
 		});
 };
 
