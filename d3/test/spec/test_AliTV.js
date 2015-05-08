@@ -1249,7 +1249,7 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		}, 1000);
 	});
 	it('the click event should also work in the circular layout', function(done){
-		ali.filters.karyo.chromosomes.c1.reverse = true;
+		ali.filters.karyo.chromosomes.c1.reverse = false;
 		ali.drawCircular();
 		ali.svg.find('.karyo').eq(0).d3Trigger("click");
 		var circularKaryoCoords = ali.getCircularKaryoCoords();
