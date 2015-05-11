@@ -625,7 +625,7 @@ AliTV.prototype.getCircularTickCoords = function(coords) {
 };
 
 /**
- * This function draws the karyos in the circular layout
+ * This function draws the karyos in the circular layout, color them according to their genome_id and add some eventHandlers.
  * @author Markus Ankenbrand
  * @param {Array} The array containing the coordinates as returned by getCircularKaryoCoords()
  */
@@ -644,6 +644,16 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
 		.attr("class", "karyo")
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
+		})
+		.on("mouseover", function(g) {
+			that.fadeLinks(g, 0.1);
+		})
+		.on("mouseout", function(g) {
+			that.fadeLinks(g, 1);
+		})
+		.on("click", function(g) {
+			that.filters.karyo.chromosomes[g.karyo].reverse = !that.filters.karyo.chromosomes[g.karyo].reverse;
+			that.drawCircular();
 		});
 };
 
