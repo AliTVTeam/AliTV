@@ -1214,3 +1214,12 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 	});
 });
 
+describe('The getLinearSpacer method is supposed to get the information of the spacer between to karyos of the description field in the HTML page', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getLinearSpacer method is supposed to be a function', function(){
+		expect(typeof ali.getSpacer).toEqual('function');
+	});
+	
+});
+
