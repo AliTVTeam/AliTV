@@ -736,5 +736,5 @@ AliTV.prototype.getLinearSpacer = function() {
 
 AliTV.prototype.setLinearSpacer = function(spacer) {
 	this.conf.linear.karyoDistance = spacer;
-	this.drawLinear();
+	return this.conf.linear.karyoDistance;
 };
