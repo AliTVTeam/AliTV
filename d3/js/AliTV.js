@@ -722,7 +722,7 @@ AliTV.prototype.drawCircular = function() {
  */
 
 AliTV.prototype.getLinearSpacer = function() {
-	var spacer = ($("#linearSpacer").val());
+	var spacer = Number($("#linearSpacer").val());
 	return spacer;
 };
 
