@@ -1218,7 +1218,7 @@ describe('The getLinearSpacer method is supposed to get the information of the s
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	it('getLinearSpacer method is supposed to be a function', function(){
-		expect(typeof ali.getSpacer).toEqual('function');
+		expect(typeof ali.getLinearSpacer).toEqual('function');
 	});
 	
 });

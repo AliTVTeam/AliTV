@@ -712,3 +712,15 @@ AliTV.prototype.drawCircular = function() {
 	var linkCoords = this.getCircularLinkCoords(karyoCoords);
 	this.drawCircularLinks(linkCoords);
 };
+
+/**
+ * This function gets the information of the spacer wich can be set by the user and replaces the recent spacer.
+ * It is called by a blur()-event, when the decription field loses focus.
+ * If the user sets a non-valid spacer the function produces an error message.
+ * @returns {Number} It returns the new spacer.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getLinearSpacer = function() {
+
+};
