@@ -845,8 +845,16 @@ AliTV.prototype.getCanvasWidth = function() {
  */
 
 AliTV.prototype.setCanvasWidth = function(width) {
-	width = Number(width);
-	this.conf.width = width;
-	$('#wgaCanvas').width(this.conf.width);
-	return this.conf.width;
+	if (width === "") {
+		throw "empty";
+	} else if (isNaN(width)) {
+		throw "not a number";
+	} else if (width <= 0) {
+		throw "genome distance is to small, it should be > 0";
+	} else {
+		width = Number(width);
+		this.conf.width = width;
+		$('#wgaCanvas').width(this.conf.width);
+		return this.conf.width;
+	}
 };
