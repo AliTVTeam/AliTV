@@ -728,7 +728,11 @@ AliTV.prototype.getLinearSpacer = function() {
 /**
  * This function replaces the old spacer with the new spacer in the config-object.
  * It is called by a blur()-event, when the decription field loses focus.
- * When the user sets a wrong spacer the function throws an error message which is used by the function changeLinearSpacer in the HTML file.
+ * When the mehtod gets a wrong spacer it throws an error message.
+ * @param {Number} The function gets the spacer which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
  * @author Sonja Hohlfeld
  */
 
