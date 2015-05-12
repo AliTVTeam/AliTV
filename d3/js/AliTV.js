@@ -772,7 +772,17 @@ AliTV.prototype.getLinearGenomeSpacer = function() {
  */
 
 AliTV.prototype.setLinearGenomeSpacer = function(genomeSpacer) {
-	genomeSpacer = Number(genomeSpacer);
-	this.conf.linear.genomeDistance = genomeSpacer;
-	return this.conf.linear.genomeDistance;
+	if (genomeSpacer === "") {
+		throw "empty";
+	} else if (isNaN(genomeSpacer)) {
+		throw "not a number";
+	} else if (genomeSpacer <= 0) {
+		throw "genome distance is to small, it should be > 0";
+	} else if (genomeSpacer >= this.conf.height) {
+		throw "genome distance is to big for drawing, change the height first";
+	} else {
+		genomeSpacer = Number(genomeSpacer);
+		this.conf.linear.genomeDistance = genomeSpacer;
+		return this.conf.linear.genomeDistance;
+	}
 };
