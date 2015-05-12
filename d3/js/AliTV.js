@@ -728,7 +728,7 @@ AliTV.prototype.getLinearSpacer = function() {
 /**
  * This function replaces the old spacer with the new spacer in the config-object.
  * It is called by a blur()-event, when the decription field loses focus.
- * When the mehtod gets a wrong spacer it throws an error message.
+ * When the method gets a wrong spacer it throws an error message.
  * @param {Number} The function gets the spacer which can be set by the user.
  * @throws Will throw an error if the argument is empty.
  * @throws Will throw an error if the argument is not a number.
@@ -758,4 +758,19 @@ AliTV.prototype.setLinearSpacer = function(spacer) {
 
 AliTV.prototype.getLinearGenomeSpacer = function() {
 	return this.conf.linear.genomeDistance;
+};
+
+/**
+ * This function replaces the old spacer of the genomeDistance with the new value in the config-object.
+ * It is called by a blur()-event, when the decription field loses focus.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The function gets the genome distance which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setLinearGenomeSpacer = function(spacer) {
+
 };
