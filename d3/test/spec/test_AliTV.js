@@ -1378,4 +1378,13 @@ describe('The setkaryoHeight method is supposed to set the new height of chromos
 	});
 
 });
+
+describe('The getCanvasSize method is supposed to get the width and height of the svg drawing area', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getCanvasSize method is supposed to be a function', function(){
+		expect(typeof ali.getCanvasSize).toEqual('function');
+	});	
+});
 	
