@@ -1396,10 +1396,22 @@ describe('The getCanvasWidth method is supposed to get the width of the svg draw
 	});
 });
 	
-describe('The setCanvasSize method is supposed to set a new size of the svgDrawingArea', function(){
+describe('The setCanvasWidth method is supposed to set a new width of the svgDrawingArea', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('setCanvasSize method is supposed to be a function', function(){
-		expect(typeof ali.setCanvasSize).toEqual('function');
+	it('setCanvasWidth method is supposed to be a function', function(){
+		expect(typeof ali.setCanvasWidth).toEqual('function');
 	});	
+	it('the returned object of the getCanvasWidth method should be the same as the width which is set and returned by the setter-method', function(){
+		var width = 3000
+		expect(ali.setCanvasWidth(width)).toEqual(width);
+	});	
+//	it('when setKaryoHeight is called several times the height should have the same value as the returned height of getKaryoHeight method', function(){
+//		ali.setKaryoHeight(20);
+//		expect(ali.getKaryoHeight()).toEqual(20);
+//		ali.setKaryoHeight(40);
+//		expect(ali.getKaryoHeight()).toEqual(40);
+//		ali.setKaryoHeight(32);
+//		expect(ali.getKaryoHeight()).toEqual(32);
+//	});
 });
