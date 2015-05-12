@@ -1272,17 +1272,17 @@ describe('The getLinearGenomeSpacer method is supposed to get the information of
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	
-	it('getLinearSpacer method is supposed to be a function', function(){
+	it('getLinearGenomeSpacer method is supposed to be a function', function(){
 		expect(typeof ali.getLinearGenomeSpacer).toEqual('function');
 	});	
-//	it('the function should return a defined value', function(){
-//		var spacer = ali.getLinearSpacer();
-//		expect(spacer).toBeDefined();
-//	});
-//	it('the function should return the spacer of the defaultConf', function(){
-//		var spacer = ali.getLinearSpacer();
-//		expect(spacer).toEqual(defaultConf.linear.karyoDistance);
-//	});
+	it('the function should return a defined value', function(){
+		var genomeSpacer = ali.getLinearGenomeSpacer();
+		expect(genomeSpacer).toBeDefined();
+	});
+	it('the function should return the spacer between two genomes which is defined in the defaultConf', function(){
+		var genomeSpacer = ali.getLinearGenomeSpacer();
+		expect(genomeSpacer).toEqual(defaultConf.linear.genomeDistance);
+	});
 });
 	
 
