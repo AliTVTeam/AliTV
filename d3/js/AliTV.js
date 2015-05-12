@@ -768,6 +768,7 @@ AliTV.prototype.getLinearGenomeSpacer = function() {
  * @throws Will throw an error if the argument is empty.
  * @throws Will throw an error if the argument is not a number.
  * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @throws Will throw an error if the argument is greater than the height of the svg.
  * @author Sonja Hohlfeld
  */
 
