@@ -1408,10 +1408,10 @@ describe('The setCanvasWidth method is supposed to set a new width of the svgDra
 	});	
 	it('when setKaryoWidth is called several times the width should have the same value as the returned width of getCanvasWidth method', function(){
 		ali.setCanvasWidth(2000);
-		expect(ali.getCanvasWidth()).toEqual(20);
+		expect(ali.getCanvasWidth()).toEqual(2000);
 		ali.setCanvasWidth(1200);
-		expect(ali.getCanvasWidth()).toEqual(40);
+		expect(ali.getCanvasWidth()).toEqual(1200);
 		ali.setCanvasWidth(10000);
-		expect(ali.getCanvasWidth()).toEqual(32);
+		expect(ali.getCanvasWidth()).toEqual(10000);
 	});
 });
