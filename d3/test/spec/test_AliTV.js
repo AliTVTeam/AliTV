@@ -1231,7 +1231,6 @@ describe('The getLinearSpacer method is supposed to get the information of the s
 describe('The setLinearSpacer method is supposed to set the new information of the karyoDistance in the conf object', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	console.log(ali);
 	it('setLinearSpacer method is supposed to be a function', function(){
 		expect(typeof ali.setLinearSpacer).toEqual('function');
 	});	
@@ -1239,6 +1238,7 @@ describe('The setLinearSpacer method is supposed to set the new information of t
 		var returnedSpacer = 50;
 		expect(ali.setLinearSpacer(returnedSpacer)).toEqual(ali.conf.linear.karyoDistance);
 	});	
+
 });
 	
 
