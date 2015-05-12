@@ -716,7 +716,6 @@ AliTV.prototype.drawCircular = function() {
 
 /**
  * This function return the information of the spacer which is set in the configuration.
- * It is called, when the user sets a wrong spacer.
  * @returns {Number} The actual spacer.
  * @author Sonja Hohlfeld
  */
