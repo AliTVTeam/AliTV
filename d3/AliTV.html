@@ -55,6 +55,17 @@
 			$("#karyoHeight").val(wga.getKaryoHeight());
 		}
 	}
+	function changeCanvasWidth(){
+		var width = $("#canvasWidth").val(); 
+		try {
+		wga.setCanvasWidth(width); 
+		wga.drawLinear();	
+		}
+		catch(err){
+			alert(err);
+			$("#canvasWidth").val(wga.getCanvasWidth());
+		}
+	}
 </script>
 </head>
 
@@ -72,6 +83,9 @@ Spacer between genomes in the linear Layout:<br>
 <br>
 Height of the chromosomes:<br>
 <input type="text" id="karyoHeight" onblur="changeKaryoHeight();">
+<br>
+Width:<br>
+<input type="text" id="canvasWidth" onblur="changeCanvasWidth();">
 <br>
 </form> 
 </html>

@@ -847,6 +847,6 @@ AliTV.prototype.getCanvasWidth = function() {
 AliTV.prototype.setCanvasWidth = function(width) {
 	width = Number(width);
 	this.conf.width = width;
+	$('#wgaCanvas').width(this.conf.width);
 	return this.conf.width;
-
 };
