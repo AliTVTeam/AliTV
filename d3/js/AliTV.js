@@ -734,6 +734,13 @@ AliTV.prototype.getLinearSpacer = function() {
  */
 
 AliTV.prototype.setLinearSpacer = function(spacer) {
-	this.conf.linear.karyoDistance = spacer;
-	return this.conf.linear.karyoDistance;
+	if (spacer === "") {
+		throw "empty"
+	} else if (isNaN(spacer)) {
+		throw "not a number";
+	} else if (spacer <= 0) {
+		throw "spacer is to small, it should be > 0";
+	} else {
+		this.conf.linear.karyoDistance = spacer;
+	}
 };
