@@ -787,3 +787,13 @@ AliTV.prototype.setLinearGenomeSpacer = function(genomeSpacer) {
 		return this.conf.linear.genomeDistance;
 	}
 };
+
+/**
+ * This function returns the height of the chromosomes between two genomes which is set in the configuration.
+ * @returns {Number} The actual height of chromosomes.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getKaryoHeight = function() {
+
+};
