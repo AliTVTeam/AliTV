@@ -1238,9 +1238,9 @@ describe('The setLinearSpacer method is supposed to set the new information of t
 	it('setLinearSpacer method is supposed to be a function', function(){
 		expect(typeof ali.setLinearSpacer).toEqual('function');
 	});	
-	it('the returned Spacer of the getLinearSpacer method should be the new spacer in the conf-object', function(){
+	it('the returned spacer of the getLinearSpacer method should be the same as the spacer which is set and returned by the setter-method', function(){
 		var returnedSpacer = 50;
-		expect(ali.setLinearSpacer(returnedSpacer)).toEqual(ali.conf.linear.karyoDistance);
+		expect(ali.setLinearSpacer(returnedSpacer)).toEqual(49);
 	});	
 	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is empty', function(){
 		var returnedSpacer = "";
