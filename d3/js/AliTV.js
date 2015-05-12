@@ -830,5 +830,8 @@ AliTV.prototype.setKaryoHeight = function(height) {
  */
 
 AliTV.prototype.getCanvasSize = function() {
-
+	var size = {};
+	size.width = this.conf.width;
+	size.height = this.conf.height;
+	return size;
 };
