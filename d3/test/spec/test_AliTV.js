@@ -1238,7 +1238,10 @@ describe('The setLinearSpacer method is supposed to set the new information of t
 		var returnedSpacer = 50;
 		expect(ali.setLinearSpacer(returnedSpacer)).toEqual(ali.conf.linear.karyoDistance);
 	});	
-
+	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is empty', function(){
+		var returnedSpacer = "";
+		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("test");
+	});
 });
 	
 
