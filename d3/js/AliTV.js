@@ -1,5 +1,6 @@
 /* global d3: false */
 /* global $: false */
+/* global document: false */
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
