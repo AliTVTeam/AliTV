@@ -1342,3 +1342,11 @@ describe('The getkaryoHeight method is supposed to get the height of the chromos
 	});
 });
 
+describe('The setkaryoHeight method is supposed to set the new height of chromosomes in the conf object', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setKaryoHeight method is supposed to be a function', function(){
+		expect(typeof ali.setkaryoHeight).toEqual('function');
+	});	
+});
+	
