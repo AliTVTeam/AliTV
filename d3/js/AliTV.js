@@ -795,5 +795,5 @@ AliTV.prototype.setLinearGenomeSpacer = function(genomeSpacer) {
  */
 
 AliTV.prototype.getKaryoHeight = function() {
-
+	return this.conf.linear.karyoHeight;
 };
