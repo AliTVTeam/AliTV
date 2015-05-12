@@ -1303,6 +1303,26 @@ describe('The getLinearGenomeSpacer method is supposed to set the new informatio
 		ali.setLinearSpacer(1000);
 		expect(ali.getLinearSpacer()).toEqual(1000);
 	});	
+	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer has no value', function(){
+		var genomeSpacer = -2;
+		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("empty");
+	});
+	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer is not a number', function(){
+		var genomeSpacer = "";
+		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("empty");
+	});
+	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer is 0', function(){
+		var genomeSpacer = "";
+		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("empty");
+	});
+	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer is less than 0', function(){
+		var genomeSpacer = "";
+		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("empty");
+	});
+	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer is bigger than the length of the svg', function(){
+		var genomeSpacer = "";
+		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("empty");
+	});
 });
 	
 
