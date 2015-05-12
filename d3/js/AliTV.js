@@ -737,6 +737,7 @@ AliTV.prototype.getLinearSpacer = function() {
  */
 
 AliTV.prototype.setLinearSpacer = function(spacer) {
+	spacer = Number(spacer);
 	if (spacer === "") {
 		throw "empty";
 	} else if (isNaN(spacer)) {
