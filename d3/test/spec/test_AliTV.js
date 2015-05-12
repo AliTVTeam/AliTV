@@ -1225,6 +1225,10 @@ describe('The getLinearSpacer method is supposed to get the information of the s
 		var spacer = ali.getLinearSpacer();
 		expect(spacer).toBeDefined();
 	});
+	it('the function should return the spacer of the defaultConf', function(){
+		var spacer = ali.getLinearSpacer();
+		expect(spacer).toEqual(defaultConf.linear.karyoDistance);
+	});
 });
 	
 
