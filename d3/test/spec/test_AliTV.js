@@ -1379,22 +1379,19 @@ describe('The setkaryoHeight method is supposed to set the new height of chromos
 
 });
 
-describe('The getCanvasSize method is supposed to get the width and height of the svg drawing area', function(){
+describe('The getCanvasWidth method is supposed to get the width of the svg drawing area', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	
-	it('getCanvasSize method is supposed to be a function', function(){
-		expect(typeof ali.getCanvasSize).toEqual('function');
+	it('getCanvasWidth method is supposed to be a function', function(){
+		expect(typeof ali.getCanvasWidth).toEqual('function');
 	});	
 	it('the function should return a defined value', function(){
-		var size = ali.getCanvasSize();
+		var size = ali.getCanvasWidth();
 		expect(size).toBeDefined();
 	});
-	it('the function should return the width and the height of canvas which is defined in the defaultConf', function(){
-		var size = ali.getCanvasSize();
-		var width = size.width;
-		var height = size.height;
-		expect(height).toEqual(defaultConf.height);
+	it('the function should return the width of canvas which is defined in the defaultConf', function(){
+		var width = ali.getCanvasWidth();
 		expect(width).toEqual(defaultConf.width);
 	});
 });
