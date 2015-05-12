@@ -850,7 +850,7 @@ AliTV.prototype.setCanvasWidth = function(width) {
 	} else if (isNaN(width)) {
 		throw "not a number";
 	} else if (width <= 0) {
-		throw "genome distance is to small, it should be > 0";
+		throw "width is to small, it should be > 0";
 	} else {
 		width = Number(width);
 		this.conf.width = width;
