@@ -1348,5 +1348,17 @@ describe('The setkaryoHeight method is supposed to set the new height of chromos
 	it('setKaryoHeight method is supposed to be a function', function(){
 		expect(typeof ali.setKaryoHeight).toEqual('function');
 	});	
+	it('the returned value of the getKaryoHeight method should be the same as the height which is set and returned by the setter-method', function(){
+		var height = 40;
+		expect(ali.setKaryoHeight(height)).toEqual(400);
+	});	
+	it('when setKaryoHeight is called several times the height should have the same value as the returned height of getKaryoHeight method', function(){
+		ali.setKaryoHeight(20);
+		expect(ali.getKaryoHeight()).toEqual(500);
+		ali.setKaryoHeight(40);
+		expect(ali.getKaryoHeight()).toEqual(200);
+		ali.setKaryoHeight(32);
+		expect(ali.getLinearSpacer()).toEqual(1000);
+	});
 });
 	
