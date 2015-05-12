@@ -40,10 +40,11 @@
 <svg id='wgaCanvas'></svg>
 <button type="button" onclick="wga.drawCircular();">Draw Circular</button> 
 <button type="button" onclick="wga.drawLinear();">Draw Linear</button> 
+<p id="message" class="errorMessage"></p>
 </body>
  <form>
 Spacer between chromsomes in the linear Layout:<br>
-<input type="text" id="linearSpacer" onblur="var spacer = wga.getLinearSpacer(); wga.setLinearSpacer(spacer); wga.drawLinear()">
+<input type="text" id="linearSpacer" onblur="changeLinearSpacer();">
 <br>
 </form> 
 </html>
