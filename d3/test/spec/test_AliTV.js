@@ -1297,11 +1297,11 @@ describe('The getLinearGenomeSpacer method is supposed to set the new informatio
 	});	
 	it('when setLinearGenomeSpacer is called several times the spacer should have the same value as the returned spacer of getLinearGenomeSpacer method', function(){
 		ali.setLinearSpacer(500);
-		expect(ali.getLinearSpacer()).toEqual(12);
+		expect(ali.getLinearSpacer()).toEqual(500);
 		ali.setLinearSpacer(200);
-		expect(ali.getLinearSpacer()).toEqual(100);
+		expect(ali.getLinearSpacer()).toEqual(200);
 		ali.setLinearSpacer(1000);
-		expect(ali.getLinearSpacer()).toEqual(20);
+		expect(ali.getLinearSpacer()).toEqual(1000);
 	});	
 });
 	
