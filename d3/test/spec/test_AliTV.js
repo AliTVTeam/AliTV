@@ -1244,9 +1244,9 @@ describe('The setLinearSpacer method is supposed to set the new information of t
 	});	
 	it('when setLinearSpacer is called several times the spacer should have the same value as the returned spacer of getLinearSpacer method', function(){
 		ali.setLinearSpacer(12);
-		expect(ali.getLinearSpacer()).toEqual(50);
+		expect(ali.getLinearSpacer()).toEqual(12);
 		ali.setLinearSpacer(100);
-		expect(ali.getLinearSpacer()).toEqual(50);
+		expect(ali.getLinearSpacer()).toEqual(100);
 		ali.setLinearSpacer(20);
 		expect(ali.getLinearSpacer()).toEqual(20);
 	});	
