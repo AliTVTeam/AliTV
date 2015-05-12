@@ -1221,7 +1221,7 @@ describe('The getLinearSpacer method is supposed to get the information of the s
 	it('getLinearSpacer method is supposed to be a function', function(){
 		expect(typeof ali.getLinearSpacer).toEqual('function');
 	});	
-	it('the function should return the spacer which is set by the user', function(){
+	it('the function should return a defined value', function(){
 		var spacer = ali.getLinearSpacer();
 		expect(spacer).toBeDefined();
 	});
