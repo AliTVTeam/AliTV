@@ -33,6 +33,17 @@
 			$("#linearSpacer").val(wga.getLinearSpacer());
 		}
 	}
+	function changeLinearGenomeSpacer(){
+		var genomeSpacer = $("#linearGenomeSpacer").val(); 
+		try {
+		wga.setLinearGenomeSpacer(genomeSpacer); 
+		wga.drawLinear();	
+		}
+		catch(err){
+			alert(err);
+			$("#linearGenomeSpacer").val(wga.getLinearGenomeSpacer());
+		}
+	}
 </script>
 </head>
 
@@ -44,6 +55,9 @@
  <form>
 Spacer between chromsomes in the linear Layout:<br>
 <input type="text" id="linearSpacer" onblur="changeLinearSpacer();">
+<br>
+Spacer between genomes in the linear Layout:<br>
+<input type="text" id="linearGenomeSpacer" onblur="changeLinearGenomeSpacer();">
 <br>
 </form> 
 </html>
