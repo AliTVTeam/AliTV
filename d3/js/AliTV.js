@@ -825,8 +825,7 @@ AliTV.prototype.setKaryoHeight = function(height) {
 
 /**
  * This function returns the width and the height of the svg drawing area.
- * @returns {Number} The height of the svg.
- * @returns {Number} The width of the svg.
+ * @returns {Object} The array contains the width and the height of canvas.
  * @author Sonja Hohlfeld
  */
 
