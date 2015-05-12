@@ -797,3 +797,18 @@ AliTV.prototype.setLinearGenomeSpacer = function(genomeSpacer) {
 AliTV.prototype.getKaryoHeight = function() {
 	return this.conf.linear.karyoHeight;
 };
+
+/**
+ * This function replaces the old height of the chromosomes with the new value in the config-object.
+ * It is called by a blur()-event, when the decription field loses focus.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The function gets the height of chromosomes which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setKaryoHeight = function(height) {
+
+};
