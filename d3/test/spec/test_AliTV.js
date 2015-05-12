@@ -1414,4 +1414,20 @@ describe('The setCanvasWidth method is supposed to set a new width of the svgDra
 		ali.setCanvasWidth(10000);
 		expect(ali.getCanvasWidth()).toEqual(10000);
 	});
+	it('the setCanvasWidth method should throw an error message if the assigned width is empty', function(){
+		var width = "";
+		expect(function(){ali.setCanvasWidth(width);}).toThrow("empty");
+	});
+	it('the setCanvasWidth method should throw an error message if the assigned width is not a number', function(){
+		var width = "test";
+		expect(function(){ali.setCanvasWidth(width);}).toThrow("empty");
+	});
+	it('the setCanvasWidth method should throw an error message if the assigned width is 0', function(){
+		var width = 0;
+		expect(function(){ali.setCanvasWidth(width);}).toThrow("empty");
+	});
+	it('the setCanvasWidth method should throw an error message if the assigned width is less than 0', function(){
+		var width = -3000;
+		expect(function(){ali.setCanvasWidth(width);}).toThrow("empty");
+	});
 });
