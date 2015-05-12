@@ -834,17 +834,19 @@ AliTV.prototype.getCanvasWidth = function() {
 };
 
 /**
- * This function replaces the old size of the drawing area with the new size in the config-object.
+ * This function replaces the old width of the drawing area with the new width in the config-object.
  * It is called by a blur()-event, when the decription field loses focus.
  * When the method gets a wrong value it throws an error message.
- * @param {Object} The function gets the size of the svg drawing area which can be set by the user. Its structure is shown in the following example:
- * @example size = {width: 1000, height: 1000}
+ * @param {Number} The function gets the width of the svg drawing area which can be set by the user.
  * @throws Will throw an error if the argument is empty.
  * @throws Will throw an error if the argument is not a number.
  * @throws Will throw an error if the argument is less than 0 or equal to 0.
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.setCanvasSize = function(size) {
+AliTV.prototype.setCanvasWidth = function(width) {
+	width = Number(width);
+	this.conf.width = width;
+	return this.conf.width;
 
 };
