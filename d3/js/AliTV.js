@@ -749,3 +749,13 @@ AliTV.prototype.setLinearSpacer = function(spacer) {
 		return this.conf.linear.karyoDistance;
 	}
 };
+
+/**
+ * This function return the information of the spacer between two genomes which is set in the configuration.
+ * @returns {Number} The actual genome spacer.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getLinearGenomeSpacer = function() {
+
+};
