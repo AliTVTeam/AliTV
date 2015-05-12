@@ -1309,20 +1309,19 @@ describe('The getLinearGenomeSpacer method is supposed to set the new informatio
 	});
 	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer is not a number', function(){
 		var genomeSpacer = "test";
-		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("empty");
+		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("not a number");
 	});
 	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer is 0', function(){
 		var genomeSpacer = 0;
-		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("empty");
+		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("genome distance is to small, it should be > 0");
 	});
 	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer is less than 0', function(){
 		var genomeSpacer = -12;
-		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("empty");
+		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("genome distance is to small, it should be > 0");
 	});
 	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer is bigger than the length of the svg', function(){
 		var genomeSpacer = ali.conf.width + 200;
-		console.log(genomeSpacer);
-		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("empty");
+		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("genome distance is to big for drawing, change the height first");
 	});
 });
 	
