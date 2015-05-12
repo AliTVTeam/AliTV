@@ -22,6 +22,17 @@
 			});
 		});
 	});
+	function changeLinearSpacer(){
+		var spacer = Number($("#linearSpacer").val()); 
+		try {
+		wga.setLinearSpacer(spacer); 
+		wga.drawLinear();	
+		}
+		catch(err){
+			alert(err);
+			$("#linearSpacer").val(wga.getLinearSpacer());
+		}
+	}
 </script>
 </head>
 
