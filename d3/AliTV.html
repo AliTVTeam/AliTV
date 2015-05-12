@@ -44,6 +44,17 @@
 			$("#linearGenomeSpacer").val(wga.getLinearGenomeSpacer());
 		}
 	}
+	function changeKaryoHeight(){
+		var height = $("#karyoHeight").val(); 
+		try {
+		wga.setKaryoHeight(height); 
+		wga.drawLinear();	
+		}
+		catch(err){
+			alert(err);
+			$("#lkaryoHeight").val(wga.getKaryoHeight());
+		}
+	}
 </script>
 </head>
 
@@ -58,6 +69,9 @@ Spacer between chromsomes in the linear Layout:<br>
 <br>
 Spacer between genomes in the linear Layout:<br>
 <input type="text" id="linearGenomeSpacer" onblur="changeLinearGenomeSpacer();">
+<br>
+Height of the chromosomes:<br>
+<input type="text" id="karyoHeight" onblur="changeKaryoHeight();">
 <br>
 </form> 
 </html>
