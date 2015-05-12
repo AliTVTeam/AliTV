@@ -810,5 +810,7 @@ AliTV.prototype.getKaryoHeight = function() {
  */
 
 AliTV.prototype.setKaryoHeight = function(height) {
-
+	height = Number(height);
+	this.conf.linear.karyoHeight = height;
+	return this.conf.linear.karyoHeight;
 };
