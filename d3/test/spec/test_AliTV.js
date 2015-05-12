@@ -1325,5 +1325,12 @@ describe('The getLinearGenomeSpacer method is supposed to set the new informatio
 	});
 });
 	
-
+describe('The getkaryoHeight method is supposed to get the height of the chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getkaryoHeight method is supposed to be a function', function(){
+		expect(typeof ali.getKaryoHeight).toEqual('function');
+	});	
+});
 
