@@ -1258,6 +1258,14 @@ describe('The setLinearSpacer method is supposed to set the new information of t
 		var returnedSpacer = "test";
 		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("not a number");
 	});
+	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is less than 0', function(){
+		var returnedSpacer = -12;
+		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("not a number");
+	});
+	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is 0', function(){
+		var returnedSpacer = 0;
+		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("not a number");
+	});
 });
 	
 
