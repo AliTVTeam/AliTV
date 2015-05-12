@@ -1399,3 +1399,10 @@ describe('The getCanvasSize method is supposed to get the width and height of th
 	});
 });
 	
+describe('The setCanvasSize method is supposed to set a new size of the svgDrawingArea', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setCanvasSize method is supposed to be a function', function(){
+		expect(typeof ali.setCanvasSize).toEqual('function');
+	});	
+});
