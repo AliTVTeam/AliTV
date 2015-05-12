@@ -824,16 +824,13 @@ AliTV.prototype.setKaryoHeight = function(height) {
 };
 
 /**
- * This function returns the width and the height of the svg drawing area.
- * @returns {Object} The array contains the width and the height of canvas.
+ * This function returns the width of the svg drawing area.
+ * @returns {Number} The width of canvas.
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.getCanvasSize = function() {
-	var size = {};
-	size.width = this.conf.width;
-	size.height = this.conf.height;
-	return size;
+AliTV.prototype.getCanvasWidth = function() {
+	return this.conf.width;
 };
 
 /**
