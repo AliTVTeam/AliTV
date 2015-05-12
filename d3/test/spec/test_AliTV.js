@@ -1366,15 +1366,15 @@ describe('The setkaryoHeight method is supposed to set the new height of chromos
 	});
 	it('the setKaryoHeight method should throw an error message if the assigned height is not a number', function(){
 		var height = "test";
-		expect(function(){ali.setKaryoHeight(height);}).toThrow("empty");
+		expect(function(){ali.setKaryoHeight(height);}).toThrow("not a number");
 	});
 	it('the setKaryoHeight method should throw an error message if the assigned height is 0', function(){
 		var height = 0;
-		expect(function(){ali.setKaryoHeight(height);}).toThrow("empty");
+		expect(function(){ali.setKaryoHeight(height);}).toThrow("genome distance is to small, it should be > 0");
 	});
 	it('the setKaryoHeight method should throw an error message if the assigned height is less than 0', function(){
 		var height = -12;
-		expect(function(){ali.setKaryoHeight(height);}).toThrow("empty");
+		expect(function(){ali.setKaryoHeight(height);}).toThrow("genome distance is to small, it should be > 0");
 	});
 
 });
