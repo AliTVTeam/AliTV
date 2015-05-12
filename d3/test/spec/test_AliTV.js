@@ -1360,5 +1360,22 @@ describe('The setkaryoHeight method is supposed to set the new height of chromos
 		ali.setKaryoHeight(32);
 		expect(ali.getKaryoHeight()).toEqual(32);
 	});
+	it('the setKaryoHeight method should throw an error message if the assigned height has no value', function(){
+		var height = "";
+		expect(function(){ali.setKaryoHeight(height);}).toThrow("empty");
+	});
+	it('the setKaryoHeight method should throw an error message if the assigned height is not a number', function(){
+		var height = "test";
+		expect(function(){ali.setKaryoHeight(height);}).toThrow("empty");
+	});
+	it('the setKaryoHeight method should throw an error message if the assigned height is 0', function(){
+		var height = 0;
+		expect(function(){ali.setKaryoHeight(height);}).toThrow("empty");
+	});
+	it('the setKaryoHeight method should throw an error message if the assigned height is less than 0', function(){
+		var height = -12;
+		expect(function(){ali.setKaryoHeight(height);}).toThrow("empty");
+	});
+
 });
 	
