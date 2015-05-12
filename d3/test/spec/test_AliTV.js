@@ -1267,6 +1267,23 @@ describe('The setLinearSpacer method is supposed to set the new information of t
 		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("spacer is to small, it should be > 0");
 	});
 });
+
+describe('The getLinearGenomeSpacer method is supposed to get the information of the spacer between two genomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getLinearSpacer method is supposed to be a function', function(){
+		expect(typeof ali.getLinearGenomeSpacer).toEqual('function');
+	});	
+//	it('the function should return a defined value', function(){
+//		var spacer = ali.getLinearSpacer();
+//		expect(spacer).toBeDefined();
+//	});
+//	it('the function should return the spacer of the defaultConf', function(){
+//		var spacer = ali.getLinearSpacer();
+//		expect(spacer).toEqual(defaultConf.linear.karyoDistance);
+//	});
+});
 	
 
 
