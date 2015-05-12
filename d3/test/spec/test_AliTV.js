@@ -1332,5 +1332,13 @@ describe('The getkaryoHeight method is supposed to get the height of the chromos
 	it('getkaryoHeight method is supposed to be a function', function(){
 		expect(typeof ali.getKaryoHeight).toEqual('function');
 	});	
+	it('the function should return a defined value', function(){
+		var height = ali.getKaryoHeight();
+		expect(height).toBeDefined();
+	});
+	it('the function should return the height of chromosomes which is defined in the defaultConf', function(){
+		var height = ali.getKaryoHeight();
+		expect(height).toEqual(defaultConf.linear.karyoHeight);
+	});
 });
 
