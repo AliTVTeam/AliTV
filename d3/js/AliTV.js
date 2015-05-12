@@ -772,5 +772,6 @@ AliTV.prototype.getLinearGenomeSpacer = function() {
  */
 
 AliTV.prototype.setLinearGenomeSpacer = function(spacer) {
-
+	spacer = this.conf.linear.genomeDistance;
+	return this.conf.linear.genomeDistance;
 };
