@@ -1284,6 +1284,42 @@ describe('The getLinearGenomeSpacer method is supposed to get the information of
 		expect(genomeSpacer).toEqual(defaultConf.linear.genomeDistance);
 	});
 });
+
+describe('The getLinearGenomeSpacer method is supposed to set the new information of the genome distance in the conf object', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setLinearSpacer method is supposed to be a function', function(){
+		expect(typeof ali.setLinearGenomeSpacer).toEqual('function');
+	});	
+//	it('the returned spacer of the getLinearSpacer method should be the same as the spacer which is set and returned by the setter-method', function(){
+//		var returnedSpacer = 50;
+//		expect(ali.setLinearSpacer(returnedSpacer)).toEqual(50);
+//	});	
+//	it('when setLinearSpacer is called several times the spacer should have the same value as the returned spacer of getLinearSpacer method', function(){
+//		ali.setLinearSpacer(12);
+//		expect(ali.getLinearSpacer()).toEqual(12);
+//		ali.setLinearSpacer(100);
+//		expect(ali.getLinearSpacer()).toEqual(100);
+//		ali.setLinearSpacer(20);
+//		expect(ali.getLinearSpacer()).toEqual(20);
+//	});	
+//	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is empty', function(){
+//		var returnedSpacer = "";
+//		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("empty");
+//	});
+//	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is not a number', function(){
+//		var returnedSpacer = "test";
+//		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("not a number");
+//	});
+//	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is less than 0', function(){
+//		var returnedSpacer = -12;
+//		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("spacer is to small, it should be > 0");
+//	});
+//	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is 0', function(){
+//		var returnedSpacer = 0;
+//		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("spacer is to small, it should be > 0");
+//	});
+});
 	
 
 
