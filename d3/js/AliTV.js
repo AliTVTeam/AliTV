@@ -715,7 +715,7 @@ AliTV.prototype.drawCircular = function() {
 };
 
 /**
- * This function return the information of the spacer which is set in the configuration.
+ * This function return the information of the spacer between two chromosomes which is set in the configuration.
  * @returns {Number} The actual spacer.
  * @author Sonja Hohlfeld
  */
