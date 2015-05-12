@@ -715,16 +715,14 @@ AliTV.prototype.drawCircular = function() {
 };
 
 /**
- * This function gets the information of the spacer wich can be set by the user.
- * It is called by a blur()-event, when the decription field loses focus.
- * If the user sets a non-valid spacer the function produces an error message.
- * @returns {Number} It returns the new spacer.
+ * This function return the information of the spacer which is set in the configuration.
+ * It is called, when the user sets a wrong spacer.
+ * @returns {Number} The actual spacer.
  * @author Sonja Hohlfeld
  */
 
 AliTV.prototype.getLinearSpacer = function() {
-	var spacer = Number($("#linearSpacer").val());
-	return spacer;
+	return this.conf.linear.karyoDistance;
 };
 
 
