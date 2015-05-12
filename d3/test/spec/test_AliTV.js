@@ -1386,5 +1386,16 @@ describe('The getCanvasSize method is supposed to get the width and height of th
 	it('getCanvasSize method is supposed to be a function', function(){
 		expect(typeof ali.getCanvasSize).toEqual('function');
 	});	
+	it('the function should return a defined value', function(){
+		var size = ali.getCanvasSize();
+		expect(size).toBeDefined();
+	});
+	it('the function should return the width and the height of canvas which is defined in the defaultConf', function(){
+		var size = ali.getCanvasSize();
+		var width = size.width;
+		var height = size.height;
+		expect(height).toEqual(defaultConf.height);
+		expect(width).toEqual(defaultConf.width);
+	});
 });
 	
