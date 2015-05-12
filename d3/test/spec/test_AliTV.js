@@ -1240,7 +1240,7 @@ describe('The setLinearSpacer method is supposed to set the new information of t
 	});	
 	it('the returned spacer of the getLinearSpacer method should be the same as the spacer which is set and returned by the setter-method', function(){
 		var returnedSpacer = 50;
-		expect(ali.setLinearSpacer(returnedSpacer)).toEqual(49);
+		expect(ali.setLinearSpacer(returnedSpacer)).toEqual(50);
 	});	
 	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is empty', function(){
 		var returnedSpacer = "";
