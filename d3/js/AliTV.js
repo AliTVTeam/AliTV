@@ -729,13 +729,13 @@ AliTV.prototype.getLinearSpacer = function() {
 /**
  * This function replaces the old spacer with the new spacer in the config-object.
  * It is called by a blur()-event, when the decription field loses focus.
- * After setting the new spacer in the config-object it calls drawLinear() for redrawing.
+ * When the user sets a wrong spacer the function throws an error message which is used by the function changeLinearSpacer in the HTML file.
  * @author Sonja Hohlfeld
  */
 
 AliTV.prototype.setLinearSpacer = function(spacer) {
 	if (spacer === "") {
-		throw "empty"
+		throw "empty";
 	} else if (isNaN(spacer)) {
 		throw "not a number";
 	} else if (spacer <= 0) {
