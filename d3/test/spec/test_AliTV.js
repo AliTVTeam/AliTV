@@ -1252,8 +1252,8 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		ali.drawCircular();
 		ali.svg.find('.karyo').eq(0).d3Trigger("click");
 		var circularKaryoCoords = ali.getCircularKaryoCoords();
-		var expAnglePerBase = 2*Math.PI/(3000+2*defaultConf.circular.karyoDistance);
-		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
+		var expAnglePerBase = 2*Math.PI/(3000+2*defaultConf.graphicalParameters.karyoDistance);
+		var expAnglePerSpace = expAnglePerBase * defaultConf.graphicalParameters.karyoDistance;
 		var expectedCoords = [
             {'karyo': 'c1', 'endAngle': 0, 'startAngle': 2000*expAnglePerBase},
             {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace}
