@@ -1492,5 +1492,12 @@ describe('The getTcikFrequency method is supposed to get the distance of the chr
 	it('getTickFrequency method is supposed to be a function', function(){
 		expect(typeof ali.getTickDistance).toEqual('function');
 	});	
-
+	it('the function should return a defined value', function(){
+		var distance = ali.getTickDistance();
+		expect(distance).toBeDefined();
+	});
+	it('the function should return the tick distance which is defined in the defaultConf', function(){
+		var distance = ali.getTickDistance();
+		expect(distance).toEqual(defaultConf.linear.tickDistance);
+	});
 });
