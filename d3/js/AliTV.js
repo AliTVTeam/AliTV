@@ -918,5 +918,7 @@ AliTV.prototype.getTickDistance = function() {
  */
 
 AliTV.prototype.setTickDistance = function(distance) {
-
+	distance = Number(distance);
+	this.conf.linear.tickDistance = distance;
+	return this.conf.linear.tickDistance;
 };

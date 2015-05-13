@@ -1516,7 +1516,7 @@ describe('The setTickDistance method is supposed to set a new distance between t
 		ali.setTickDistance(20);
 		expect(ali.getTickDistance()).toEqual(20);
 		ali.setTickDistance(5);
-		expect(ali.getTickDistance()).toEqual(4242);
+		expect(ali.getTickDistance()).toEqual(5);
 		ali.setTickDistance(250);
 		expect(ali.getTickDistance()).toEqual(250);
 	});
