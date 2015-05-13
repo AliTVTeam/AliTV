@@ -336,7 +336,7 @@ describe('The drawLinearKaryo method of AliTV objects is supposed to draw karyos
 		linearKaryoCoords = ali.getLinearKaryoCoords();
 		ali.drawLinearKaryo(linearKaryoCoords);
 		// This test checks only the height attribute of the first selected element
-		expect(Number(ali.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.linear.karyoHeight);
+		expect(Number(ali.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.graphicalParameters.karyoHeight);
 	});
 	it('there should be exactly four karyos in the more complex test svg', function(){
 		ali.setData(data4);
@@ -372,7 +372,7 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 		
 		var totalTicks = 0;
 		$.each(karyoCoords, function(key, value){
-			var tickFrequency = wga.data.karyo.chromosomes[value.karyo].length / wga.conf.linear.tickDistance;
+			var tickFrequency = wga.data.karyo.chromosomes[value.karyo].length / wga.conf.graphicalParameters.tickDistance;
 			totalTicks += tickFrequency + 1;
 		});
 		
@@ -383,7 +383,7 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 	it('the drawn karyos have the expected height', function(){
 		wga.drawLinear();
 		// This test checks only the height attribute of the first selected element
-		expect(Number(wga.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.linear.karyoHeight);
+		expect(Number(wga.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.graphicalParameters.karyoHeight);
 	});
 });
 
@@ -430,8 +430,8 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 		wga.setData(data);
 		wga.setFilters(filters);
 		var circularKaryoCoords = wga.getCircularKaryoCoords();
-		var expAnglePerBase = 2*Math.PI/(3000+2*defaultConf.circular.karyoDistance);
-		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
+		var expAnglePerBase = 2*Math.PI/(3000+2*defaultConf.graphicalParameters.karyoDistance);
+		var expAnglePerSpace = expAnglePerBase * defaultConf.graphicalParameters.karyoDistance;
 		var expectedCoords = [
             {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
             {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace}
@@ -442,8 +442,8 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 		wga.setData(data2);
 		wga.setFilters(filters2);
 		var circularKaryoCoords = wga.getCircularKaryoCoords();
-		var expAnglePerBase = 2*Math.PI/(4000+3*defaultConf.circular.karyoDistance);
-		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
+		var expAnglePerBase = 2*Math.PI/(4000+3*defaultConf.graphicalParameters.karyoDistance);
+		var expAnglePerSpace = expAnglePerBase * defaultConf.graphicalParameters.karyoDistance;
 		var expectedCoords = [
 		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
 		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
@@ -455,8 +455,8 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 		wga.setData(data3);
 		wga.setFilters(filters3);
 		var circularKaryoCoords = wga.getCircularKaryoCoords();
-		var expAnglePerBase = 2*Math.PI/(4000+3*defaultConf.circular.karyoDistance);
-		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
+		var expAnglePerBase = 2*Math.PI/(4000+3*defaultConf.graphicalParameters.karyoDistance);
+		var expAnglePerSpace = expAnglePerBase * defaultConf.graphicalParameters.karyoDistance;
 		var expectedCoords = [
 		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
 		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
@@ -468,8 +468,8 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 		wga.setData(data4);
 		wga.setFilters(filters4);
 		var circularKaryoCoords = wga.getCircularKaryoCoords();
-		var expAnglePerBase = 2*Math.PI/(5000+4*defaultConf.circular.karyoDistance);
-		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
+		var expAnglePerBase = 2*Math.PI/(5000+4*defaultConf.graphicalParameters.karyoDistance);
+		var expAnglePerSpace = expAnglePerBase * defaultConf.graphicalParameters.karyoDistance;
 		var expectedCoords = [
 		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
 		    {'karyo': 'c2', 'startAngle': 2000*expAnglePerBase + expAnglePerSpace, 'endAngle': 3000*expAnglePerBase + expAnglePerSpace},
@@ -482,8 +482,8 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 		wga.setData(data4);
 		wga.setFilters(filters4_reverse);
 		var circularKaryoCoords = wga.getCircularKaryoCoords();
-		var expAnglePerBase = 2*Math.PI/(5000+4*defaultConf.circular.karyoDistance);
-		var expAnglePerSpace = expAnglePerBase * defaultConf.circular.karyoDistance;
+		var expAnglePerBase = 2*Math.PI/(5000+4*defaultConf.graphicalParameters.karyoDistance);
+		var expAnglePerSpace = expAnglePerBase * defaultConf.graphicalParameters.karyoDistance;
 		var expectedCoords = [
 		    {'karyo': 'c1', 'startAngle': 0, 'endAngle': 2000*expAnglePerBase},
 		    {'karyo': 'c2', 'endAngle': 2000*expAnglePerBase + expAnglePerSpace, 'startAngle': 3000*expAnglePerBase + expAnglePerSpace},
