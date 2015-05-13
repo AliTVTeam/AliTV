@@ -49,7 +49,6 @@
 	height:35px;
 }
 
-
 .form-style-5 input[type="submit"],
 .form-style-5 input[type="button"]
 {
@@ -95,7 +94,7 @@
 		});
 		
 		//Set default values for API of graphical parameters
-		$("#linearSpacer").val(wga.getLinearSpacer());
+		//$("#linearSpacer").val(wga.getLinearSpacer());
 		$("#linearGenomeSpacer").val(wga.getLinearGenomeSpacer());
 		$("#karyoHeight").val(wga.getKaryoHeight());
 		$("#canvasWidth").val(wga.getCanvasWidth());
@@ -175,12 +174,15 @@
 
 <body>
 <svg id='wgaCanvas'></svg>
-<button type="button" onclick="wga.drawCircular();">Draw Circular</button> 
-<button type="button" onclick="wga.drawLinear();">Draw Linear</button> 
 </body>
- <form>
+
+<div class="form-style-5">
+<button type="submit" onclick="wga.drawCircular();">Draw Circular</button> 
+<button type="submit" onclick="wga.drawLinear();">Draw Linear</button> 
+<form>
+<fieldset>
 Spacer between chromsomes in the linear Layout:<br>
-<input type="text" id="linearSpacer" onblur="changeLinearSpacer();">
+<input type="text" id="linearSpacer" placeholder="Enter a spacer" onblur="changeLinearSpacer();">
 <br>
 Spacer between genomes in the linear Layout:<br>
 <input type="text" id="linearGenomeSpacer" onblur="changeLinearGenomeSpacer();">
