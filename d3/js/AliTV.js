@@ -72,6 +72,7 @@ function AliTV(svg) {
 	 * @property {Number}  graphicalParameters.karyoDistance       - The horizontal distance between adjacent chromosomes of the same genome in bp.
 	 * @property {Number}  graphicalParameters.linkKaryoDistance   - The vertical distance between chromosomes and links in px.
 	 * @property {Number}  graphicalParameters.tickDistance        - The distance in bp of ticks on the drawn chromosomes.
+	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
 	 */
 	this.conf = {
 		linear: {
@@ -97,7 +98,8 @@ function AliTV(svg) {
 		midLinkIdentity: 60,
 		minLinkIdentityColor: "#D21414",
 		maxLinkIdentityColor: "#1DAD0A",
-		midLinkIdentityColor: "#FFEE05"
+		midLinkIdentityColor: "#FFEE05",
+		layout: "linear"
 	};
 	// Initialize svg size
 	svg.height(this.conf.graphicalParameters.height);
