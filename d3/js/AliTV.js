@@ -51,8 +51,6 @@ function AliTV(svg) {
 	this.filters = {};
 	/**
 	 * property to store configuration options
-	 * @property {Number}  width                      - The width of the svg in px.
-	 * @property {Number}  height                     - The height of the svg in px.
 	 * @property {Object}  linear                     - The configuration options for the linear layout.
 	 * @property {Number}  linear.genomeDistance      - The vertical distance between adjacent genomes in px.
 	 * @property {Number}  linear.karyoHeight         - The height of each chromosome in px.
@@ -74,7 +72,10 @@ function AliTV(svg) {
 	 * @property {Number}  midLinkIdentity            - The middle of the link identity the user wants to color.
 	 * @property {String}  minLinkIdentityColor       - The color of the minimum link.
 	 * @property {String}  maxLinkIdentityColor       - The color of the maximum link.
-	 * @property {String}  midLinkIdentityColor       - The color of the middle link.   
+	 * @property {String}  midLinkIdentityColor       - The color of the middle link.  
+	 * @property {Object}  graphicalParameters        - The configuration options for all graphical parameters.
+	 * @property {Number}  width                      - The width of the svg in px.
+	 * @property {Number}  height                     - The height of the svg in px.
 	 */
 	this.conf = {
 		linear: {
