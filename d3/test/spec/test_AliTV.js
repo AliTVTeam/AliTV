@@ -552,12 +552,12 @@ describe('The getCircularTickCoords method of AliTV objects is supposed to calcu
 		var chrpos = 0;
 		while (chrpos <= ali.data.karyo.chromosomes[circularKaryoCoords[0].karyo].length){
 			expectedCoords.push(c0start + c0total * (chrpos/2000));
-			chrpos += defaultConf.circular.tickDistance;
+			chrpos += defaultConf.graphicalParameters.tickDistance;
 		}
 		chrpos = 0;
 		while (chrpos <= ali.data.karyo.chromosomes[circularKaryoCoords[1].karyo].length){
 			expectedCoords.push(c1start + c1total * (chrpos/1000));
-			chrpos += defaultConf.circular.tickDistance;
+			chrpos += defaultConf.graphicalParameters.tickDistance;
 		}
 		expect(circularTickCoords).toHaveSameCoordinates(expectedCoords);
 	});
