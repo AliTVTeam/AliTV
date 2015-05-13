@@ -858,3 +858,13 @@ AliTV.prototype.setCanvasWidth = function(width) {
 		return this.conf.width;
 	}
 };
+
+/**
+ * This function returns the height of the svg drawing area.
+ * @returns {Number} The height of canvas.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getCanvasHeight = function() {
+
+};
