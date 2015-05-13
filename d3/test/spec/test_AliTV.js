@@ -1387,8 +1387,8 @@ describe('The getCanvasWidth method is supposed to get the width of the svg draw
 		expect(typeof ali.getCanvasWidth).toEqual('function');
 	});	
 	it('the function should return a defined value', function(){
-		var size = ali.getCanvasWidth();
-		expect(size).toBeDefined();
+		var width = ali.getCanvasWidth();
+		expect(width).toBeDefined();
 	});
 	it('the function should return the width of canvas which is defined in the defaultConf', function(){
 		var width = ali.getCanvasWidth();
@@ -1439,12 +1439,12 @@ describe('The getCanvasHeight method is supposed to get the height of the svg dr
 	it('getCanvasHeight method is supposed to be a function', function(){
 		expect(typeof ali.getCanvasHeight).toEqual('function');
 	});	
-//	it('the function should return a defined value', function(){
-//		var size = ali.getCanvasWidth();
-//		expect(size).toBeDefined();
-//	});
-//	it('the function should return the width of canvas which is defined in the defaultConf', function(){
-//		var width = ali.getCanvasWidth();
-//		expect(width).toEqual(defaultConf.width);
-//	});
+	it('the function should return a defined value', function(){
+		var height = ali.getCanvasHeight();
+		expect(height).toBeDefined();
+	});
+	it('the function should return the height of canvas which is defined in the defaultConf', function(){
+		var height = ali.getCanvasHeight();
+		expect(height).toEqual(defaultConf.height);
+	});
 });
