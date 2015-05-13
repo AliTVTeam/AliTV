@@ -1456,7 +1456,7 @@ describe('The setCanvasHeight method is supposed to set a new height of the svg 
 		expect(typeof ali.setCanvasHeight).toEqual('function');
 	});	
 	it('the returned object of the getCanvasHeight method should be the same as the height which is setted and returned by the setter-method', function(){
-		var height = 3000
+		var height = 3000;
 		expect(ali.setCanvasHeight(height)).toEqual(height);
 	});	
 	it('when setCanvasHeight is called several times the width should have the same value as the returned height of getCanvasHeight method', function(){
@@ -1508,4 +1508,16 @@ describe('The setTickDistance method is supposed to set a new distance between t
 	it('setTickDistance method is supposed to be a function', function(){
 		expect(typeof ali.setTickDistance).toEqual('function');
 	});	
+	it('the returned object of the getTickDistance method should be the same as the distance which is setted and returned by the setter-method', function(){
+		var distance = 200;
+		expect(ali.setTickDistance(distance)).toEqual(distance);
+	});	
+	it('when setTickDistance is called several times the distance should have the same value as the returned distance of getTickDistance method', function(){
+		ali.setTickDistance(20);
+		expect(ali.getTickDistance()).toEqual(20);
+		ali.setTickDistance(5);
+		expect(ali.getTickDistance()).toEqual(4242);
+		ali.setTickDistance(250);
+		expect(ali.getTickDistance()).toEqual(250);
+	});
 });
