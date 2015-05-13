@@ -77,6 +77,17 @@
 			$("#canvasHeight").val(wga.getCanvasHeight());
 		}
 	}
+	function changeTickDistance(){
+		var distance = $("#tickDistance").val(); 
+		try {
+		wga.setTickDistance(distance); 
+		wga.drawLinear();	
+		}
+		catch(err){
+			alert(err);
+			$("#tickDistance").val(wga.getTickDistance());
+		}
+	}
 </script>
 </head>
 
