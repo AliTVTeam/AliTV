@@ -927,3 +927,13 @@ AliTV.prototype.setTickDistance = function(distance) {
 		return this.conf.graphicalParameters.tickDistance;
 	}
 };
+
+/**
+ * This function returns the current layout.
+ * @returns {String} The current layout: linear or circular.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getLayout = function() {
+
+};
