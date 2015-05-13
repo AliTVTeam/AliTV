@@ -1569,6 +1569,6 @@ describe('The drawEqualLayout method is supposed to draw the layout which is equ
 		var layout = "circular";
 		ali.setData(data);
 		ali.setFilters(filters);
-		expect(ali.drawEqualLayout(layout)).toEqual("linear");
+		expect(ali.drawEqualLayout(layout)).toEqual("circular");
 	});	
 });
