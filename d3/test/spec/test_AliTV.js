@@ -1467,4 +1467,20 @@ describe('The setCanvasHeight method is supposed to set a new height of the svg 
 		ali.setCanvasHeight(10000);
 		expect(ali.getCanvasHeight()).toEqual(10000);
 	});
+	it('the setCanvasHeight method should throw an error message if the assigned height is empty', function(){
+		var height = "";
+		expect(function(){ali.setCanvasHeight(height);}).toThrow("empty");
+	});
+	it('the setCanvasHeight method should throw an error message if the assigned height is not a number', function(){
+		var height = "test";
+		expect(function(){ali.setCanvasHeight(height);}).toThrow("empty");
+	});
+	it('the setCanvasHeight method should throw an error message if the assigned height is 0', function(){
+		var height = 0;
+		expect(function(){ali.setCanvasHeight(height);}).toThrow("empty");
+	});
+	it('the setCanvasHeight method should throw an error message if the assigned height is less than 0', function(){
+		var height = -42;
+		expect(function(){ali.setCanvasHeight(height);}).toThrow("empty");
+	});
 });
