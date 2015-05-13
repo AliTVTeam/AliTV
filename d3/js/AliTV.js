@@ -107,8 +107,8 @@ function AliTV(svg) {
 		midLinkIdentityColor: "#FFEE05"
 	};
 	// Initialize svg size
-	svg.height(this.conf.height);
-	svg.width(this.conf.width);
+	svg.height(this.conf.graphicalParameters.height);
+	svg.width(this.conf.graphicalParameters.width);
 }
 
 /**
@@ -217,11 +217,11 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		};
 
 		if (this.filters.karyo.chromosomes[key].reverse === false) {
-			coord.width = (value.length / maxTotalSize) * conf.width;
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width;
+			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width;
+			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width;
 		} else {
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width + (value.length / maxTotalSize) * conf.width;
-			coord.width = (value.length / maxTotalSize) * conf.width * (-1);
+			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width + (value.length / maxTotalSize) * conf.graphicalParameters.width;
+			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width * (-1);
 		}
 		current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
 		linearKaryoCoords.push(coord);
@@ -638,7 +638,7 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
 	var outerRadius = this.conf.circular.outerRadius;
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
-		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.height / 2 + ")")
+		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
 		.selectAll("path")
 		.data(coords)
 		.enter()
@@ -661,7 +661,7 @@ AliTV.prototype.drawCircularTicks = function(coords) {
 
 	that.svgD3.append("g")
 		.attr("class", "tickGroup")
-		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.height / 2 + ")")
+		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
 		.selectAll("path")
 		.data(coords)
 		.enter()
@@ -781,7 +781,7 @@ AliTV.prototype.setLinearGenomeSpacer = function(genomeSpacer) {
 		throw "not a number";
 	} else if (genomeSpacer <= 0) {
 		throw "genome distance is to small, it should be > 0";
-	} else if (genomeSpacer >= this.conf.height) {
+	} else if (genomeSpacer >= this.conf.graphicalParameters.height) {
 		throw "genome distance is to big for drawing, change the height first";
 	} else {
 		genomeSpacer = Number(genomeSpacer);
@@ -832,7 +832,7 @@ AliTV.prototype.setKaryoHeight = function(height) {
  */
 
 AliTV.prototype.getCanvasWidth = function() {
-	return this.conf.width;
+	return this.conf.graphicalParameters.width;
 };
 
 /**
@@ -855,9 +855,9 @@ AliTV.prototype.setCanvasWidth = function(width) {
 		throw "width is to small, it should be > 0";
 	} else {
 		width = Number(width);
-		this.conf.width = width;
-		$('#wgaCanvas').width(this.conf.width);
-		return this.conf.width;
+		this.conf.graphicalParameters.width = width;
+		$('#wgaCanvas').width(this.conf.graphicalParameters.width);
+		return this.conf.graphicalParameters.width;
 	}
 };
 
@@ -868,7 +868,7 @@ AliTV.prototype.setCanvasWidth = function(width) {
  */
 
 AliTV.prototype.getCanvasHeight = function() {
-	return this.conf.height;
+	return this.conf.graphicalParameters.height;
 };
 
 
@@ -892,9 +892,9 @@ AliTV.prototype.setCanvasHeight = function(height) {
 		throw "height is to small, it should be > 0";
 	} else {
 		height = Number(height);
-		this.conf.height = height;
-		$('#wgaCanvas').height(this.conf.height);
-		return this.conf.height;
+		this.conf.graphicalParameters.height = height;
+		$('#wgaCanvas').height(this.conf.graphicalParameters.height);
+		return this.conf.graphicalParameters.height;
 	}
 };
 

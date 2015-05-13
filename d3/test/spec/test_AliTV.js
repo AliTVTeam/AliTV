@@ -1,6 +1,4 @@
 var defaultConf =  {
-		width: 1000,
-		height: 1000,
 		linear: {
 			genomeDistance: 300,
 			karyoHeight: 30,
@@ -18,6 +16,10 @@ var defaultConf =  {
 			outerRadius: 450,
 			tickDistance: 100,
 			tickSize: 5
+		},
+		graphicalParameters: {
+			width: 1000,
+			height: 1000
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -43,10 +45,10 @@ describe('The constructor is supposed a proper AliTV object', function(){
 		expect(wga.svg).toEqual(svg);
 	});
 	it('the height of the svg should be set to the configured height', function(){
-		expect(wga.svg.height()).toEqual(defaultConf.height);
+		expect(wga.svg.height()).toEqual(defaultConf.graphicalParameters.height);
 	});
 	it('the width of the svg should be set to the configured width', function(){
-		expect(wga.svg.width()).toEqual(defaultConf.width);
+		expect(wga.svg.width()).toEqual(defaultConf.graphicalParameters.width);
 	});
 	it('the svgD3 property should exist', function(){
 		expect(wga.svgD3).not.toBeNull();
@@ -274,8 +276,8 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		wga.setFilters(filters);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
-            {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight, 'genome': 0},
-            {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
+            {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width, 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+            {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
         ];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
@@ -284,9 +286,9 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		wga.setFilters(filters2);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
-		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/2000), 'height': defaultConf.linear.karyoHeight, 'genome': 0},
-		    {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 1},
-		    {'karyo': 'c3', 'x': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/(1000+defaultConf.linear.karyoDistance)), 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 1}
+		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.linear.karyoDistance)/2000), 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+		    {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': defaultConf.graphicalParameters.width/((2000+defaultConf.linear.karyoDistance)/(1000+defaultConf.linear.karyoDistance)), 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 1}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
@@ -295,9 +297,9 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		wga.setFilters(filters3);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
-		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight, 'genome': 0},
-            {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1},
-		    {'karyo': 'c3', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 2}
+		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width, 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+            {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 2}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
@@ -306,10 +308,10 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		wga.setFilters(filters4);
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
-		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/2000), 'height': defaultConf.linear.karyoHeight, 'genome': 0},
-		    {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 1},
-		    {'karyo': 'c3', 'x': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/(1000+defaultConf.linear.karyoDistance)), 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 1},
-		    {'karyo': 'c4', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 2}
+		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.linear.karyoDistance)/2000), 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+		    {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': defaultConf.graphicalParameters.width/((2000+defaultConf.linear.karyoDistance)/(1000+defaultConf.linear.karyoDistance)), 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 1},
+		    {'karyo': 'c4', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.linear.karyoDistance)/1000), 'height': defaultConf.linear.karyoHeight, 'genome': 2}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
@@ -597,7 +599,7 @@ describe('The drawCircularKaryo method of AliTV objects is supposed to draw kary
 	it('the karyo group should be translated to the center of the svg', function(){
 		circularKaryoCoords = ali.getCircularKaryoCoords();
 		ali.drawCircularKaryo(circularKaryoCoords);
-		expect(ali.svgD3.selectAll('.karyoGroup').attr("transform")).toEqual("translate(" + defaultConf.width / 2 + "," + defaultConf.height / 2 + ")");
+		expect(ali.svgD3.selectAll('.karyoGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.width / 2 + "," + defaultConf.graphicalParameters.height / 2 + ")");
 	});
 	it('there should be exactly two karyos in the simple test svg', function(){
 		circularKaryoCoords = ali.getCircularKaryoCoords();
@@ -1175,8 +1177,8 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		
 		var expectedCoords = [
-		                      {'karyo': 'c1', 'x': 0 + defaultConf.width, 'y': 0, 'width': defaultConf.width * (-1), 'height': defaultConf.linear.karyoHeight, 'genome': 0},
-		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
+		                      {'karyo': 'c1', 'x': 0 + defaultConf.graphicalParameters.width, 'y': 0, 'width': defaultConf.graphicalParameters.width * (-1), 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
 		                      ];
 		
 		setTimeout(function(){
@@ -1191,8 +1193,8 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		
 		var expectedCoords = [
-		                      {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.width, 'height': defaultConf.linear.karyoHeight, 'genome': 0},
-		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
+		                      {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width, 'height': defaultConf.linear.karyoHeight, 'genome': 0},
+		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
 		                      ];
 		setTimeout(function(){
 			expect(expectedCoords).toEqual(linearKaryoCoords);
@@ -1320,12 +1322,12 @@ describe('The getLinearGenomeSpacer method is supposed to set the new informatio
 		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("genome distance is to small, it should be > 0");
 	});
 	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer is bigger than the length of the svg', function(){
-		var genomeSpacer = ali.conf.width + 200;
+		var genomeSpacer = ali.conf.graphicalParameters.width + 200;
 		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("genome distance is to big for drawing, change the height first");
 	});
 });
 	
-describe('The getkaryoHeight method is supposed to get the height of the chromosomes', function(){
+describe('The getKaryoHeight method is supposed to get the height of the chromosomes', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	
@@ -1342,7 +1344,7 @@ describe('The getkaryoHeight method is supposed to get the height of the chromos
 	});
 });
 
-describe('The setkaryoHeight method is supposed to set the new height of chromosomes in the conf object', function(){
+describe('The setKaryoHeight method is supposed to set the new height of chromosomes in the conf object', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	it('setKaryoHeight method is supposed to be a function', function(){
@@ -1392,7 +1394,7 @@ describe('The getCanvasWidth method is supposed to get the width of the svg draw
 	});
 	it('the function should return the width of canvas which is defined in the defaultConf', function(){
 		var width = ali.getCanvasWidth();
-		expect(width).toEqual(defaultConf.width);
+		expect(width).toEqual(defaultConf.graphicalParameters.width);
 	});
 });
 	
@@ -1445,7 +1447,7 @@ describe('The getCanvasHeight method is supposed to get the height of the svg dr
 	});
 	it('the function should return the height of canvas which is defined in the defaultConf', function(){
 		var height = ali.getCanvasHeight();
-		expect(height).toEqual(defaultConf.height);
+		expect(height).toEqual(defaultConf.graphicalParameters.height);
 	});
 });
 
