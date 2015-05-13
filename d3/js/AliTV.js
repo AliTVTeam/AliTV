@@ -512,6 +512,7 @@ AliTV.prototype.drawLinear = function() {
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
+	this.conf.layout = "linear";
 };
 
 /**
@@ -709,6 +710,7 @@ AliTV.prototype.drawCircular = function() {
 	this.drawCircularKaryo(karyoCoords);
 	var linkCoords = this.getCircularLinkCoords(karyoCoords);
 	this.drawCircularLinks(linkCoords);
+	this.conf.layout = "circular";
 };
 
 /**
