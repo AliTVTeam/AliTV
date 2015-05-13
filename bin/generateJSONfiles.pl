@@ -171,8 +171,6 @@ sub create_dir_structure{
                              
                              css/AliTV.css
 
-                             d3.html
-                             d3_linear.html
                              AliTV.html
                             );
 
