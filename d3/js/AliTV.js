@@ -949,7 +949,9 @@ AliTV.prototype.getLayout = function() {
 AliTV.prototype.drawEqualLayout = function(layout) {
 	if (layout === "linear") {
 		this.drawLinear();
+		return this.conf.layout;
 	} else {
 		this.drawCircular();
+		return this.conf.layout;
 	}
 };

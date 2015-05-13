@@ -1559,4 +1559,10 @@ describe('The drawEqualLayout method is supposed to draw the layout which is equ
 	it('drawEqualLayout method is supposed to be a function', function(){
 		expect(typeof ali.drawEqualLayout).toEqual('function');
 	});	
+	it('if the current layout is "linear" after calling drawEqualLayout the returned layout is "linear" too', function(){
+		var layout = "linear";
+		ali.setData(data);
+		ali.setFilters(filters);
+		expect(ali.drawEqualLayout(layout)).toEqual("circular");
+	});	
 });
