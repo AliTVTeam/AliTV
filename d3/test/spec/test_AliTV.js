@@ -1552,3 +1552,12 @@ describe('The getLayout method is supposed to get the information of the current
 		expect(layout).toEqual("linear");
 	});
 });
+
+describe('The drawEqualLayout method is supposed to draw the layout which is equal to the current layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawEqualLayout method is supposed to be a function', function(){
+		expect(typeof ali.drawEqualLayout).toEqual('function');
+	});	
+
+});
