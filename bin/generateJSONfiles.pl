@@ -23,7 +23,7 @@ generateJSONfiles.pl
 
 =head1 DESCRIPTION
 
-Generates a karyo.json and a link.json file for use with the AliTV - d3.js component.
+Generates a data.json and a filters.json file for use with the AliTV - d3.js component.
 
 =head1 USAGE
 
