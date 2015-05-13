@@ -935,5 +935,5 @@ AliTV.prototype.setTickDistance = function(distance) {
  */
 
 AliTV.prototype.getLayout = function() {
-
+	return this.conf.layout;
 };
