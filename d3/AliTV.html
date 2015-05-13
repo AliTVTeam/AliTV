@@ -203,26 +203,26 @@
 <fieldset>
 <legend><span class="number">1</span> Change graphical parameters</legend>
 Spacer between chromsomes in the linear Layout:<br>
-<input type="text" id="linearSpacer" placeholder="Enter a spacer" onblur="changeLinearSpacer();">
+<input type="text" id="linearSpacer" placeholder="Enter a spacer">
 <br>
 Spacer between genomes in the linear Layout:<br>
-<input type="text" id="linearGenomeSpacer" onblur="changeLinearGenomeSpacer();">
+<input type="text" id="linearGenomeSpacer">
 <br>
 Height of the chromosomes:<br>
-<input type="text" id="karyoHeight" onblur="changeKaryoHeight();">
+<input type="text" id="karyoHeight">
 <br>
 Width:<br>
-<input type="text" id="canvasWidth" onblur="changeCanvasWidth();">
+<input type="text" id="canvasWidth">
 <br>
 Height:<br>
-<input type="text" id="canvasHeight" onblur="changeCanvasHeight();">
+<input type="text" id="canvasHeight">
 <br>
 Distance between ticks:<br>
-<input type="text" id="tickDistance" onblur="changeTickDistance();">
+<input type="text" id="tickDistance">
 <br>
 </form> 
 </fieldset>
-<button type="submit">Apply</button>
+<button type="submit" onclick="setNewParameters()">Apply</button>
 </div>
 </html>
 
