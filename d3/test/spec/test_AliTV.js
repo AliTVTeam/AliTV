@@ -1501,3 +1501,11 @@ describe('The getTcikFrequency method is supposed to get the distance of the chr
 		expect(distance).toEqual(defaultConf.linear.tickDistance);
 	});
 });
+
+describe('The setTickDistance method is supposed to set a new distance between the chromosome ticks', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setTickDistance method is supposed to be a function', function(){
+		expect(typeof ali.setTickDistance).toEqual('function');
+	});	
+});
