@@ -1406,7 +1406,7 @@ describe('The setCanvasWidth method is supposed to set a new width of the svgDra
 		var width = 3000
 		expect(ali.setCanvasWidth(width)).toEqual(width);
 	});	
-	it('when setKaryoWidth is called several times the width should have the same value as the returned width of getCanvasWidth method', function(){
+	it('when setCanvasWidth is called several times the width should have the same value as the returned width of getCanvasWidth method', function(){
 		ali.setCanvasWidth(2000);
 		expect(ali.getCanvasWidth()).toEqual(2000);
 		ali.setCanvasWidth(1200);
@@ -1455,4 +1455,16 @@ describe('The setCanvasHeight method is supposed to set a new height of the svg 
 	it('setCanvasHeight method is supposed to be a function', function(){
 		expect(typeof ali.setCanvasHeight).toEqual('function');
 	});	
+	it('the returned object of the getCanvasHeight method should be the same as the height which is setted and returned by the setter-method', function(){
+		var height = 3000
+		expect(ali.setCanvasHeight(height)).toEqual(height);
+	});	
+	it('when setCanvasHeight is called several times the width should have the same value as the returned height of getCanvasHeight method', function(){
+		ali.setCanvasHeight(1234);
+		expect(ali.getCanvasHeight()).toEqual(1234);
+		ali.setCanvasHeight(4242);
+		expect(ali.getCanvasHeight()).toEqual(4242);
+		ali.setCanvasHeight(10000);
+		expect(ali.getCanvasHeight()).toEqual(10000);
+	});
 });
