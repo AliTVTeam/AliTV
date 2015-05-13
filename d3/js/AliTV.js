@@ -189,12 +189,12 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	var i;
 	// Initialize total with the negative of one karyoDistance - as there is one space less then karyos per genome
 	for (i = 0; i < genome_order.length; i++) {
-		total.push(-conf.linear.karyoDistance);
+		total.push(-conf.graphicalParameters.karyoDistance);
 		current.push(0);
 	}
 
 	$.each(this.data.karyo.chromosomes, function(key, value) {
-		total[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
+		total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
 	});
 
 	var maxTotalSize = Math.max.apply(null, total);
@@ -205,7 +205,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		var coord = {
 			'karyo': key,
 			'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
-			'height': conf.linear.karyoHeight,
+			'height': conf.graphicalParameters.karyoHeight,
 			'genome': value.genome_id
 		};
 
@@ -216,7 +216,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width + (value.length / maxTotalSize) * conf.graphicalParameters.width;
 			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width * (-1);
 		}
-		current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
+		current[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
 		linearKaryoCoords.push(coord);
 
 	}
