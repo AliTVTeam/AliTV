@@ -1431,3 +1431,20 @@ describe('The setCanvasWidth method is supposed to set a new width of the svgDra
 		expect(function(){ali.setCanvasWidth(width);}).toThrow("width is to small, it should be > 0");
 	});
 });
+
+describe('The getCanvasHeight method is supposed to get the height of the svg drawing area', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getCanvasHeight method is supposed to be a function', function(){
+		expect(typeof ali.getCanvasHeight).toEqual('function');
+	});	
+//	it('the function should return a defined value', function(){
+//		var size = ali.getCanvasWidth();
+//		expect(size).toBeDefined();
+//	});
+//	it('the function should return the width of canvas which is defined in the defaultConf', function(){
+//		var width = ali.getCanvasWidth();
+//		expect(width).toEqual(defaultConf.width);
+//	});
+});
