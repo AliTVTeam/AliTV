@@ -903,5 +903,5 @@ AliTV.prototype.setCanvasHeight = function(height) {
  */
 
 AliTV.prototype.getTickDistance = function() {
-
+	return this.conf.linear.tickDistance;
 };
