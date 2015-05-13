@@ -905,3 +905,18 @@ AliTV.prototype.setCanvasHeight = function(height) {
 AliTV.prototype.getTickDistance = function() {
 	return this.conf.linear.tickDistance;
 };
+
+/**
+ * This function replaces the old distance between ticks with the new distance in the config-object.
+ * It is called by a blur()-event, when the decription field loses focus.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The function gets the distance between ticks which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setTickDistance = function(distance) {
+
+};
