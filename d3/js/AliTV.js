@@ -882,8 +882,16 @@ AliTV.prototype.getCanvasHeight = function() {
  */
 
 AliTV.prototype.setCanvasHeight = function(height) {
-	height = Number(height);
-	this.conf.height = height;
-	$('#wgaCanvas').height(this.conf.height);
-	return this.conf.height;
+	if (height === "") {
+		throw "empty";
+	} else if (isNaN(height)) {
+		throw "not a number";
+	} else if (height <= 0) {
+		throw "height is to small, it should be > 0";
+	} else {
+		height = Number(height);
+		this.conf.height = height;
+		$('#wgaCanvas').height(this.conf.height);
+		return this.conf.height;
+	}
 };

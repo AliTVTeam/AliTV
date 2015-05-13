@@ -1473,14 +1473,14 @@ describe('The setCanvasHeight method is supposed to set a new height of the svg 
 	});
 	it('the setCanvasHeight method should throw an error message if the assigned height is not a number', function(){
 		var height = "test";
-		expect(function(){ali.setCanvasHeight(height);}).toThrow("empty");
+		expect(function(){ali.setCanvasHeight(height);}).toThrow("not a number");
 	});
 	it('the setCanvasHeight method should throw an error message if the assigned height is 0', function(){
 		var height = 0;
-		expect(function(){ali.setCanvasHeight(height);}).toThrow("empty");
+		expect(function(){ali.setCanvasHeight(height);}).toThrow("height is to small, it should be > 0");
 	});
 	it('the setCanvasHeight method should throw an error message if the assigned height is less than 0', function(){
 		var height = -42;
-		expect(function(){ali.setCanvasHeight(height);}).toThrow("empty");
+		expect(function(){ali.setCanvasHeight(height);}).toThrow("height is to small, it should be > 0");
 	});
 });
