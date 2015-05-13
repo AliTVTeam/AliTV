@@ -1448,3 +1448,11 @@ describe('The getCanvasHeight method is supposed to get the height of the svg dr
 		expect(height).toEqual(defaultConf.height);
 	});
 });
+
+describe('The setCanvasHeight method is supposed to set a new height of the svg drawing area', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setCanvasHeight method is supposed to be a function', function(){
+		expect(typeof ali.setCanvasHeight).toEqual('function');
+	});	
+});
