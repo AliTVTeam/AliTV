@@ -166,6 +166,7 @@ sub create_dir_structure{
                              lib
                              data
                              js
+                             css
                         );
 
 	# the following list contains all files which have to be copied into the destination folder
@@ -178,6 +179,8 @@ sub create_dir_structure{
                              js/AliTV_linear.js
                              js/AliTV_circular.js
                              js/AliTV.js
+                             
+                             css/AliTV.css
 
                              d3.html
                              d3_linear.html
