@@ -189,5 +189,33 @@ var customMatchers = {
 				return result;
 			}
 		};
+	},
+	toHaveSameCircularTickCoordinates: function(util, customEqualityTesters) {
+		return { 
+			compare: function(actual, expected){
+				var compare = function(a,b){
+					return (a < b) ? -1 : 1;
+				};
+				actual.sort(compare);
+				expected.sort(compare);
+				var result = {pass: true};
+				if(actual.length !== expected.length){
+					result.pass = false;
+					result.message = "arrays do not have the same number of objects";
+				} else {
+					var precision = 8;
+					var factor = Math.pow(10, precision);
+					for(var i=0; i<actual.length; i++){
+						var a = Math.round(actual[i]*factor)/factor;
+						var e = Math.round(expected[i]*factor)/factor;
+						if(a !== e){
+							result.pass = false;
+							result.message = "mismatch at index " + i + ": " + a + " vs " + e;
+						}
+					}
+				}
+				return result;
+			}
+		};
 	}
 }

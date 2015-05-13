@@ -284,36 +284,7 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 
 describe('The getCircularTickCoords method of AliTV objects is supposed to calculate tick coordinates for the circular layout', function(){
 	beforeEach(function() {
-	    jasmine.addMatchers({
-	    	toHaveSameCoordinates: function(util, customEqualityTesters) {
-	    		return { 
-	    			compare: function(actual, expected){
-	    				var compare = function(a,b){
-	    					return (a < b) ? -1 : 1;
-	    				};
-	    				actual.sort(compare);
-	    				expected.sort(compare);
-	    				var result = {pass: true};
-	    				if(actual.length !== expected.length){
-	    					result.pass = false;
-	    					result.message = "arrays do not have the same number of objects";
-	    				} else {
-	    					var precision = 8;
-	    					var factor = Math.pow(10, precision);
-	    					for(var i=0; i<actual.length; i++){
-	    						var a = Math.round(actual[i]*factor)/factor;
-	    						var e = Math.round(expected[i]*factor)/factor;
-	    						if(a !== e){
-	    							result.pass = false;
-	    							result.message = "mismatch at index " + i + ": " + a + " vs " + e;
-	    						}
-	    					}
-	    				}
-	    				return result;
-	    			}
-	    		};
-	    	}
-	    });
+	    jasmine.addMatchers(customMatchers);
 	});
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
@@ -347,7 +318,7 @@ describe('The getCircularTickCoords method of AliTV objects is supposed to calcu
 			expectedCoords.push(c1start + c1total * (chrpos/1000));
 			chrpos += defaultConf.graphicalParameters.tickDistance;
 		}
-		expect(circularTickCoords).toHaveSameCoordinates(expectedCoords);
+		expect(circularTickCoords).toHaveSameCircularTickCoordinates(expectedCoords);
 	});
 });
 
