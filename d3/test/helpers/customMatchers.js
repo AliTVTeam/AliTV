@@ -151,5 +151,43 @@ var customMatchers = {
 				return result;
 			}
 		};
+	},
+	toHaveSameCircularLinkCoordinates: function(util, customEqualityTesters) {
+		return { 
+			compare: function(actual, expected){
+				var comp = function(a,b){
+					return (a < b) ? -1 : 1;
+				};
+				actual.sort(comp);
+				expected.sort(comp);
+				var result = {pass: true};
+				if(actual.length !== expected.length){
+					result.pass = false;
+					result.message = "arrays do not have the same number of objects";
+				} else {
+					var precision = 8;
+					var factor = Math.pow(10, precision);
+					for(var i=0; i<actual.length; i++){
+						if(actual[i].linkID !== expected[i].linkID){
+							result.pass = false;
+							result.message = "mismatch in linkID: " + actual[i].linkID + " vs " + expected[i].linkID;
+						}
+						var sourceActual = {startAngle: Math.round(actual[i].source.startAngle*factor)/factor, endAngle: Math.round(actual[i].source.endAngle*factor)/factor};
+						var sourceExpected = {startAngle: Math.round(expected[i].source.startAngle*factor)/factor, endAngle: Math.round(expected[i].source.endAngle*factor)/factor};
+						if((sourceActual.startAngle !== sourceExpected.startAngle) || (sourceActual.endAngle !== sourceExpected.endAngle)){
+							result.pass = false;
+							result.message = "mismatch in source of " + actual[i].linkID + ": (" +sourceActual.startAngle +", "+ sourceActual.endAngle +") vs ("+sourceExpected.startAngle +", "+  sourceExpected.endAngle+")";
+						}
+						var targetActual = {startAngle: Math.round(actual[i].target.startAngle*factor)/factor, endAngle: Math.round(actual[i].target.endAngle*factor)/factor};
+						var targetExpected = {startAngle: Math.round(expected[i].target.startAngle*factor)/factor, endAngle: Math.round(expected[i].target.endAngle*factor)/factor};
+						if((targetActual.startAngle !== targetExpected.startAngle) || (targetActual.endAngle !== targetExpected.endAngle)){
+							result.pass = false;
+							result.message = "mismatch in target of " + actual[i].linkID + ": (" +targetActual.startAngle +", "+ targetActual.endAngle +") vs ("+targetExpected.startAngle +", "+  targetExpected.endAngle+")";
+						}
+					}
+				}
+				return result;
+			}
+		};
 	}
 }
