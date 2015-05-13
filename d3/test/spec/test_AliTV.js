@@ -1536,3 +1536,11 @@ describe('The setTickDistance method is supposed to set a new distance between t
 		expect(function(){ali.setTickDistance(distance);}).toThrow("distance is to small, it should be > 0");
 	});
 });
+
+describe('The getLayout method is supposed to get the information of the current layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getLayout method is supposed to be a function', function(){
+		expect(typeof ali.getLayout).toEqual('function');
+	});	
+});
