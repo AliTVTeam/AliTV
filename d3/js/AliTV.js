@@ -866,5 +866,5 @@ AliTV.prototype.setCanvasWidth = function(width) {
  */
 
 AliTV.prototype.getCanvasHeight = function() {
-
+	return this.conf.width;
 };
