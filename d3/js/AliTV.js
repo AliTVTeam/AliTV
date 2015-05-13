@@ -77,8 +77,6 @@ function AliTV(svg) {
 	 * @property {String}  midLinkIdentityColor       - The color of the middle link.   
 	 */
 	this.conf = {
-		width: 1000,
-		height: 1000,
 		linear: {
 			genomeDistance: 300,
 			karyoHeight: 30,
@@ -96,6 +94,10 @@ function AliTV(svg) {
 			outerRadius: 450,
 			tickDistance: 100,
 			tickSize: 5
+		},
+		graphicalParameters: {
+			width: 1000,
+			height: 1000
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
