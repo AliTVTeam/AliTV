@@ -716,7 +716,7 @@ AliTV.prototype.drawCircular = function() {
  */
 
 AliTV.prototype.getLinearSpacer = function() {
-	return this.conf.linear.karyoDistance;
+	return this.conf.graphicalParameters.karyoDistance;
 };
 
 
@@ -740,8 +740,8 @@ AliTV.prototype.setLinearSpacer = function(spacer) {
 		throw "spacer is to small, it should be > 0";
 	} else {
 		spacer = Number(spacer);
-		this.conf.linear.karyoDistance = spacer;
-		return this.conf.linear.karyoDistance;
+		this.conf.graphicalParameters.karyoDistance = spacer;
+		return this.conf.graphicalParameters.karyoDistance;
 	}
 };
 
@@ -790,7 +790,7 @@ AliTV.prototype.setLinearGenomeSpacer = function(genomeSpacer) {
  */
 
 AliTV.prototype.getKaryoHeight = function() {
-	return this.conf.linear.karyoHeight;
+	return this.conf.graphicalParameters.karyoHeight;
 };
 
 /**
@@ -813,8 +813,8 @@ AliTV.prototype.setKaryoHeight = function(height) {
 		throw "genome distance is to small, it should be > 0";
 	} else {
 		height = Number(height);
-		this.conf.linear.karyoHeight = height;
-		return this.conf.linear.karyoHeight;
+		this.conf.graphicalParameters.karyoHeight = height;
+		return this.conf.graphicalParameters.karyoHeight;
 	}
 };
 
@@ -898,7 +898,7 @@ AliTV.prototype.setCanvasHeight = function(height) {
  */
 
 AliTV.prototype.getTickDistance = function() {
-	return this.conf.linear.tickDistance;
+	return this.conf.graphicalParameters.tickDistance;
 };
 
 /**
@@ -921,7 +921,7 @@ AliTV.prototype.setTickDistance = function(distance) {
 		throw "distance is to small, it should be > 0";
 	} else {
 		distance = Number(distance);
-		this.conf.linear.tickDistance = distance;
-		return this.conf.linear.tickDistance;
+		this.conf.graphicalParameters.tickDistance = distance;
+		return this.conf.graphicalParameters.tickDistance;
 	}
 };

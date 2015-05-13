@@ -1173,8 +1173,8 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		
 		var expectedCoords = [
-		                      {'karyo': 'c1', 'x': 0 + defaultConf.graphicalParameters.width, 'y': 0, 'width': defaultConf.graphicalParameters.width * (-1), 'height': defaultConf.linear.karyoHeight, 'genome': 0},
-		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
+		                      {'karyo': 'c1', 'x': 0 + defaultConf.graphicalParameters.width, 'y': 0, 'width': defaultConf.graphicalParameters.width * (-1), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
+		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
 		                      ];
 		
 		setTimeout(function(){
@@ -1189,8 +1189,8 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		
 		var expectedCoords = [
-		                      {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width, 'height': defaultConf.linear.karyoHeight, 'genome': 0},
-		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.linear.karyoHeight, 'genome': 1}
+		                      {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
+		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
 		                      ];
 		setTimeout(function(){
 			expect(expectedCoords).toEqual(linearKaryoCoords);
@@ -1225,7 +1225,7 @@ describe('The getLinearSpacer method is supposed to get the information of the s
 	});
 	it('the function should return the spacer of the defaultConf', function(){
 		var spacer = ali.getLinearSpacer();
-		expect(spacer).toEqual(defaultConf.linear.karyoDistance);
+		expect(spacer).toEqual(defaultConf.graphicalParameters.karyoDistance);
 	});
 });
 	
@@ -1336,7 +1336,7 @@ describe('The getKaryoHeight method is supposed to get the height of the chromos
 	});
 	it('the function should return the height of chromosomes which is defined in the defaultConf', function(){
 		var height = ali.getKaryoHeight();
-		expect(height).toEqual(defaultConf.linear.karyoHeight);
+		expect(height).toEqual(defaultConf.graphicalParameters.karyoHeight);
 	});
 });
 
@@ -1483,7 +1483,7 @@ describe('The setCanvasHeight method is supposed to set a new height of the svg 
 	});
 });
 
-describe('The getTcikFrequency method is supposed to get the distance of the chromosome ticks in bp', function(){
+describe('The getTickDistance method is supposed to get the distance of the chromosome ticks in bp', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	
@@ -1496,7 +1496,7 @@ describe('The getTcikFrequency method is supposed to get the distance of the chr
 	});
 	it('the function should return the tick distance which is defined in the defaultConf', function(){
 		var distance = ali.getTickDistance();
-		expect(distance).toEqual(defaultConf.linear.tickDistance);
+		expect(distance).toEqual(defaultConf.graphicalParameters.tickDistance);
 	});
 });
 
