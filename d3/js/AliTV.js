@@ -274,14 +274,14 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 			karyo2Coords = tmp;
 		}
 		link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
-		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.linear.linkKaryoDistance;
+		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
 		link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
-		link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.linear.linkKaryoDistance;
+		link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
 
 		link.target0.x = karyo2Coords.x + karyo2Coords.width * feature2.start / karyo2.length;
-		link.target0.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
+		link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
 		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
-		link.target1.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
+		link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
 
 		if (Math.abs(genomePosition2 - genomePosition1) === 1) {
 			link.adjacent = true;
