@@ -1484,3 +1484,13 @@ describe('The setCanvasHeight method is supposed to set a new height of the svg 
 		expect(function(){ali.setCanvasHeight(height);}).toThrow("height is to small, it should be > 0");
 	});
 });
+
+describe('The getTcikFrequency method is supposed to get the frequency of the ticks at the chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getTickFrequency method is supposed to be a function', function(){
+		expect(typeof ali.getTickFrequency).toEqual('function');
+	});	
+
+});
