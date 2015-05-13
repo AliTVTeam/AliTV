@@ -66,6 +66,17 @@
 			$("#canvasWidth").val(wga.getCanvasWidth());
 		}
 	}
+	function changeCanvasHeight(){
+		var height = $("#canvasHeight").val(); 
+		try {
+		wga.setCanvasHeight(height); 
+		wga.drawLinear();	
+		}
+		catch(err){
+			alert(err);
+			$("#canvasHeight").val(wga.getCanvasHeight());
+		}
+	}
 </script>
 </head>
 
@@ -86,6 +97,9 @@ Height of the chromosomes:<br>
 <br>
 Width:<br>
 <input type="text" id="canvasWidth" onblur="changeCanvasWidth();">
+<br>
+Height<br>
+<input type="text" id="canvasHeight" onblur="changeCanvasHeight();">
 <br>
 </form> 
 </html>
