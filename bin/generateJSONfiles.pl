@@ -167,8 +167,6 @@ sub create_dir_structure{
                              lib/jquery-ui.min.js
                              lib/jquery-ui.min.css
 
-                             js/AliTV_linear.js
-                             js/AliTV_circular.js
                              js/AliTV.js
                              
                              css/AliTV.css
