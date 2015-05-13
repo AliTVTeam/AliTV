@@ -1559,5 +1559,4 @@ describe('The drawEqualLayout method is supposed to draw the layout which is equ
 	it('drawEqualLayout method is supposed to be a function', function(){
 		expect(typeof ali.drawEqualLayout).toEqual('function');
 	});	
-
 });

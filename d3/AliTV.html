@@ -187,7 +187,9 @@
 		changeCanvasWidth();
 		changeCanvasHeight()
 		changeTickDistance();
-		wga.drawLinear();
+		
+		var layout = wga.getLayout();
+		wga.drawEqualLayout(layout);
 	}
 </script>
 </head>
