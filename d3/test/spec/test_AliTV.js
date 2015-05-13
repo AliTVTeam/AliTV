@@ -1526,14 +1526,14 @@ describe('The setTickDistance method is supposed to set a new distance between t
 	});
 	it('the setTickDistance method should throw an error message if the assigned distance is not a number', function(){
 		var distance = "test";
-		expect(function(){ali.setTickDistance(distance);}).toThrow("empty");
+		expect(function(){ali.setTickDistance(distance);}).toThrow("not a number");
 	});
 	it('the setTickDistance method should throw an error message if the assigned distance is 0', function(){
 		var distance = 0;
-		expect(function(){ali.setTickDistance(distance);}).toThrow("empty");
+		expect(function(){ali.setTickDistance(distance);}).toThrow("distance is to small, it should be > 0");
 	});
 	it('the setTickDistance method should throw an error message if the assigned distance is less than 0', function(){
 		var distance = -200;
-		expect(function(){ali.setTickDistance(distance);}).toThrow("empty");
+		expect(function(){ali.setTickDistance(distance);}).toThrow("distance is to small, it should be > 0");
 	});
 });

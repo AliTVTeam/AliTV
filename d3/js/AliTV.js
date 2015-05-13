@@ -918,7 +918,15 @@ AliTV.prototype.getTickDistance = function() {
  */
 
 AliTV.prototype.setTickDistance = function(distance) {
-	distance = Number(distance);
-	this.conf.linear.tickDistance = distance;
-	return this.conf.linear.tickDistance;
+	if (distance === "") {
+		throw "empty";
+	} else if (isNaN(distance)) {
+		throw "not a number";
+	} else if (distance <= 0) {
+		throw "distance is to small, it should be > 0";
+	} else {
+		distance = Number(distance);
+		this.conf.linear.tickDistance = distance;
+		return this.conf.linear.tickDistance;
+	}
 };
