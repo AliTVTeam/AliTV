@@ -32,7 +32,7 @@ var customMatchers = {
 			}
 		};
 	},
-	toHaveSameCoordinates : function(util, customEqualityTesters) {
+	toHaveSameLinearLinkCoordinates : function(util, customEqualityTesters) {
 		return {
 			compare : function(actual, expected) {
 				var compare = function(a, b) {

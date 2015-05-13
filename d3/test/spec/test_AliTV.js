@@ -429,7 +429,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
             	adjacent: true
             }           
         ];
-		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
+		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
 	});
 	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 3 chromosomes, 2 links)', function(){
 		ali.setData({karyo:karyo4,features:features2, links:links2});
@@ -454,7 +454,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
             	adjacent: true
 	        }  
 		];
-		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
+		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
 	});
 	it('getLinearLinkCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes, 2 links (one link is reverse complemented)', function(){
 		ali.setData({karyo:karyo4, links:links3, features:features2});
@@ -479,7 +479,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		    	adjacent: true
 		    }
 		];
-		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
+		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
 	});
 	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 2 chromosomes, 2 links (but one link is not between adjacent chromosomes, later it should not be drawn)', function(){
 		ali.setData({karyo:karyo4,features:features2, links:links4});
@@ -504,7 +504,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 	    	adjacent: true
 		}
 		];
-		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
+		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
 	});
 	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 2 chromosomes, 2 links (but one link is not between adjacent chromosomes, but it is drawn because the user set conf.drawAllLinks on true)', function(){
 		ali.setData({karyo:karyo4,features:features2, links:links4});
@@ -538,7 +538,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 			adjacent: false
 		}
 		];
-		expect(linearLinkCoords).toHaveSameCoordinates(expectedCoords);
+		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
 	});
 });
 
