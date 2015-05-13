@@ -614,7 +614,7 @@ AliTV.prototype.getCircularTickCoords = function(coords) {
 		var chromosomePosition = 0;
 		while (chromosomePosition <= karyoLength) {
 			circularTickCoords.push(baseToAngle(chromosomePosition));
-			chromosomePosition += that.conf.circular.tickDistance;
+			chromosomePosition += that.conf.graphicalParameters.tickDistance;
 		}
 	});
 	return circularTickCoords;
@@ -636,7 +636,7 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
 		.data(coords)
 		.enter()
 		.append("path")
-		.attr("d", d3.svg.arc().innerRadius(outerRadius - this.conf.circular.karyoHeight).outerRadius(outerRadius))
+		.attr("d", d3.svg.arc().innerRadius(outerRadius - this.conf.graphicalParameters.karyoHeight).outerRadius(outerRadius))
 		.attr("class", "karyo")
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
@@ -654,7 +654,7 @@ AliTV.prototype.drawCircularTicks = function(coords) {
 
 	that.svgD3.append("g")
 		.attr("class", "tickGroup")
-		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
+		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
 		.selectAll("path")
 		.data(coords)
 		.enter()
@@ -682,13 +682,13 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
-		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.height / 2 + ")")
+		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
 		.selectAll("path")
 		.data(circularLinkCoords)
 		.enter()
 		.append("path")
 		.attr("class", "link")
-		.attr("d", d3.svg.chord().radius(this.conf.circular.outerRadius - this.conf.circular.karyoHeight - this.conf.circular.linkKaryoDistance))
+		.attr("d", d3.svg.chord().radius(this.conf.circular.outerRadius - this.conf.graphicalParameters.karyoHeight - this.conf.graphicalParameters.linkKaryoDistance))
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
 		});
