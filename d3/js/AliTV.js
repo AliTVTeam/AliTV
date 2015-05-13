@@ -866,7 +866,7 @@ AliTV.prototype.setCanvasWidth = function(width) {
  */
 
 AliTV.prototype.getCanvasHeight = function() {
-	return this.conf.width;
+	return this.conf.height;
 };
 
 
@@ -882,5 +882,8 @@ AliTV.prototype.getCanvasHeight = function() {
  */
 
 AliTV.prototype.setCanvasHeight = function(height) {
-
+	height = Number(height);
+	this.conf.height = height;
+	$('#wgaCanvas').height(this.conf.height);
+	return this.conf.height;
 };
