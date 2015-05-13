@@ -1543,4 +1543,12 @@ describe('The getLayout method is supposed to get the information of the current
 	it('getLayout method is supposed to be a function', function(){
 		expect(typeof ali.getLayout).toEqual('function');
 	});	
+	it('the function should return a defined value', function(){
+		var layout = ali.getLayout();
+		expect(layout).toBeDefined();
+	});
+	it('the function should return "linear", because this is the default layout', function(){
+		var layout = ali.getLayout();
+		expect(layout).toEqual("linear");
+	});
 });
