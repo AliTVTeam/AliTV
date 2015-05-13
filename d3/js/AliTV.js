@@ -937,3 +937,17 @@ AliTV.prototype.setTickDistance = function(distance) {
 AliTV.prototype.getLayout = function() {
 	return this.conf.layout;
 };
+
+/**
+ * This function should draw the equal layout according to the current layout.
+ * @param {String} The current layout, this means circular or linear.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.drawEqualLayout = function(layout) {
+	if (layout === "linear") {
+		this.drawLinear();
+	} else {
+		this.drawCircular();
+	}
+};
