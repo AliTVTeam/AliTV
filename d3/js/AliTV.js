@@ -895,3 +895,13 @@ AliTV.prototype.setCanvasHeight = function(height) {
 		return this.conf.height;
 	}
 };
+
+/**
+ * This function returns the distance of the chromosome ticks in bp.
+ * @returns {Number} The tick distance in bp.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getTickDistance = function() {
+
+};
