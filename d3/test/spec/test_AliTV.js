@@ -1520,4 +1520,20 @@ describe('The setTickDistance method is supposed to set a new distance between t
 		ali.setTickDistance(250);
 		expect(ali.getTickDistance()).toEqual(250);
 	});
+	it('the setTickDistance method should throw an error message if the assigned distance is empty', function(){
+		var distance = "";
+		expect(function(){ali.setTickDistance(distance);}).toThrow("empty");
+	});
+	it('the setTickDistance method should throw an error message if the assigned distance is not a number', function(){
+		var distance = "test";
+		expect(function(){ali.setTickDistance(distance);}).toThrow("empty");
+	});
+	it('the setTickDistance method should throw an error message if the assigned distance is 0', function(){
+		var distance = 0;
+		expect(function(){ali.setTickDistance(distance);}).toThrow("empty");
+	});
+	it('the setTickDistance method should throw an error message if the assigned distance is less than 0', function(){
+		var distance = -200;
+		expect(function(){ali.setTickDistance(distance);}).toThrow("empty");
+	});
 });
