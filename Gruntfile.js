@@ -56,7 +56,7 @@ module.exports = function(grunt) {
 								functions: 90
 							}
 						},
-						helpers: ['d3/test/helpers/defaultConf.js', 'd3/test/helpers/eventHelper.js']
+						helpers: ['d3/test/helpers/defaultConf.js', 'd3/test/helpers/eventHelper.js', 'd3/test/helpers/customMatchers.js']
 							// keepRunner : true
 					}
 				}
