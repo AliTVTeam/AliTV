@@ -135,17 +135,17 @@ describe('The drawLinearKaryo method of AliTV objects is supposed to draw karyos
 		expect(typeof ali.drawLinearKaryo).toEqual('function');
 	});
 	it('there should be exactly one karyoGroup in the simple test svg', function(){
-		linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		ali.drawLinearKaryo(linearKaryoCoords);
 		expect(ali.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
 	});
 	it('there should be exactly two karyos in the simple test svg', function(){
-		linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		ali.drawLinearKaryo(linearKaryoCoords);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(2);
 	});
 	it('the drawn karyos have the expected height', function(){
-		linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		ali.drawLinearKaryo(linearKaryoCoords);
 		// This test checks only the height attribute of the first selected element
 		expect(Number(ali.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.graphicalParameters.karyoHeight);
@@ -153,7 +153,7 @@ describe('The drawLinearKaryo method of AliTV objects is supposed to draw karyos
 	it('there should be exactly four karyos in the more complex test svg', function(){
 		ali.setData(data4);
 		ali.setFilters(filters4);
-		linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		ali.drawLinearKaryo(linearKaryoCoords);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(4);
 	});
@@ -347,17 +347,17 @@ describe('The drawCircularKaryo method of AliTV objects is supposed to draw kary
 		expect(typeof ali.drawCircularKaryo).toEqual('function');
 	});
 	it('there should be exactly one karyoGroup in the simple test svg', function(){
-		circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
 		ali.drawCircularKaryo(circularKaryoCoords);
 		expect(ali.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
 	});
 	it('the karyo group should be translated to the center of the svg', function(){
-		circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
 		ali.drawCircularKaryo(circularKaryoCoords);
 		expect(ali.svgD3.selectAll('.karyoGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.width / 2 + "," + defaultConf.graphicalParameters.height / 2 + ")");
 	});
 	it('there should be exactly two karyos in the simple test svg', function(){
-		circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
 		ali.drawCircularKaryo(circularKaryoCoords);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(2);
 	});
@@ -378,7 +378,7 @@ describe('The drawCircularKaryo method of AliTV objects is supposed to draw kary
 	it('there should be exactly four karyos in the more complex test svg', function(){
 		ali.setData(data4);
 		ali.setFilters(filters4);
-		circularKaryoCoords = ali.getCircularKaryoCoords();
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
 		ali.drawCircularKaryo(circularKaryoCoords);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(4);
 	});	
