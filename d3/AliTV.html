@@ -31,7 +31,19 @@
 		$("#canvasHeight").val(wga.getCanvasHeight());
 		$("#tickDistance").val(wga.getTickDistance());
 		
+		});
+	$(function(){
+		$("#identity-slider").slider({
+			value: 0, 
+			min: 0,
+			max: 100,
+			step: 5,
+			slide: function(event, ui){
+				$("#identity-slider_value").val(ui.value);
+			}
+		});	
 	});
+	
 	function changeLinearSpacer(){
 		var spacer = $("#linearSpacer").val();
 		try {
