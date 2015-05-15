@@ -108,66 +108,53 @@
 </head>
 <body>
 
-<div id="table" style="width: 100%; overflow: hidden;">
-	<div id="tableFirstLine" class="form-style-5">
-		<div id="tableFirstLineColumn">
-			<legend><span class="number">1</span> Choose your layout</legend>
+<div style="width: 100%; overflow: hidden;">
+	<div id="table" class="form-style-5" style="float:left">
+		<div id="tableFirstLine" class="form-style-5" style="float:left">
+		<legend><span class="number">1</span> Choose your layout</legend>
 			<button type="submit" onclick="wga.drawCircular();">Draw Circular</button> 
 			<button type="submit" onclick="wga.drawLinear();">Draw Linear</button> 
 		</div>
-	</div>
-	<div id="tableSecondLine" class="form-style-5">
-		<form>
-			<div id="tableFirstColumn">
-				<legend><span class="number">2</span> Change graphical parameters</legend>
-				Spacer between chromsomes:<br>
-				<input type="text" id="linearSpacer" placeholder="Enter a spacer">
-				<br>
-				Spacer between genomes in the linear Layout:<br>
-				<input type="text" id="linearGenomeSpacer" placeholder="Enter a spacer">
-				<br>
-				Height of the chromosomes:<br>
-				<input type="text" id="karyoHeight" placeholder="Enter a height">
-				<br>
-				Width:<br>
-				<input type="text" id="canvasWidth" placeholder="Enter the svg-width">
-				<br>
-				Height:<br>
-				<input type="text" id="canvasHeight" placeholder="Enter the svg-height">
-				<br>
-				Distance between ticks:<br>
-				<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
-				<br>
-				<button type="submit" onclick="setNewParameters()">Apply</button>
+		<div id="tableSecondLine" class="form-style-5" style="float:center">
+			<form>
+				<div id="tableFirstColumn" class="form-style-5">
+					<fieldset>
+						<legend><span class="number">2</span> Change graphical parameters</legend>
+						Spacer between chromsomes:<br>
+						<input type="text" id="linearSpacer" placeholder="Enter a spacer">
+						<br>
+						Spacer between genomes in the linear Layout:<br>
+						<input type="text" id="linearGenomeSpacer" placeholder="Enter a spacer">
+						<br>
+						Height of chromosomes:<br>
+						<input type="text" id="karyoHeight" placeholder="Enter a height">
+						<br>
+						Width:<br>
+						<input type="text" id="canvasWidth" placeholder="Enter the svg-width">
+						<br>
+						Height:<br>
+						<input type="text" id="canvasHeight" placeholder="Enter the svg-height">
+						<br>
+						Distance between ticks:<br>
+						<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
+						<br>
+					</fieldset>
 				</div>
-				<div id="tableSecondColumn">
-					<legend><span class="number">3</span> Filtering</legend>
-					Spacer between chromsomes in the linear Layout:<br>
-					<input type="text" id="linearSpacer" placeholder="Enter a spacer">
-					<br>
-					Spacer between genomes in the linear Layout:<br>
-					<input type="text" id="linearGenomeSpacer" placeholder="Enter a spacer">
-					<br>
-					Height of the chromosomes:<br>
-					<input type="text" id="karyoHeight" placeholder="Enter a height">
-					<br>
-					Width:<br>
-					<input type="text" id="canvasWidth" placeholder="Enter the svg-width">
-					<br>
-					Height:<br>
-					<input type="text" id="canvasHeight" placeholder="Enter the svg-height">
-					<br>
-					Distance between ticks:<br>
-					<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
-					<br>
-					<button type="submit" onclick="setNewParameters()">Apply</button>
+
+				<div id="tableSecondColumn" class="form-style-5">
+					<fieldset>
+						<legend><span class="number">3</span> Filtering</legend>
+						Filter link identity:<br>		
+						<div id="identity-slider"></div>
+					</fieldset>
 				</div>
-		</form> 
+			</form> 
+			<button type="submit" onclick="setNewParameters()">Apply</button>
+	
+		</div>
 	</div>
 
-	<div id="tableThirdLine">
-		<svg id='wgaCanvas' style="margin:50px"></svg>
-	</div>
+	<svg id='wgaCanvas' style="margin:50px"></svg>
 </div>
 
 </body>
