@@ -1,5 +1,5 @@
 .form-style-5{
-	max-width: 500px;
+	max-width: 1000px;
 	padding: 10px 20px;
 	background: #f4f7f8;
 	margin: 10px auto;
@@ -81,4 +81,29 @@
 .form-style-5 button:hover
 {
 	background: #109177;
+}
+
+div#table {
+	display: table;	
+	border-spacing: 30px;
+}
+
+div#tableFirstLine {
+	display: table-row;
+}
+
+div#tableSecondLine {
+	display: table-row;
+}
+
+#tableFirstLineColumn {
+	display: table-cell;
+}
+
+#tableFirstColumn {
+	display: table-cell;
+}
+
+#tableSecondColumn {
+	display: table-cell;
 }
