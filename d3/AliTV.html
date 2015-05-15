@@ -108,10 +108,12 @@
 </head>
 <body>
 
-<div style="width: 100%; overflow: hidden;">
-	<div class="form-style-5" style="float:left">
+<div id="table" style="width: 100%; overflow: hidden;">
+	<div id="tableFirstLine" class="form-style-5" style="float:left">
 	<button type="submit" onclick="wga.drawCircular();">Draw Circular</button> 
 	<button type="submit" onclick="wga.drawLinear();">Draw Linear</button> 
+	</div>
+	<div id="tableSecondLine" class="form-style-5" style="float:left">
 	<form>
 		<fieldset>
 			<legend><span class="number">1</span> Change graphical parameters</legend>
@@ -138,7 +140,9 @@
 	<button type="submit" onclick="setNewParameters()">Apply</button>
 	</div>
 
-	<svg id='wgaCanvas' style="margin:50px"></svg>
+	<div id="tableThirdLine">
+		<svg id='wgaCanvas' style="margin:50px"></svg>
+	</div>
 </div>
 
 </body>
