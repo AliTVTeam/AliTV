@@ -23,7 +23,7 @@ generateJSONfiles.pl
 
 =head1 DESCRIPTION
 
-Generates a karyo.json and a link.json file for use with the AliTV - d3.js component.
+Generates a data.json and a filters.json file for use with the AliTV - d3.js component.
 
 =head1 USAGE
 
@@ -128,22 +128,13 @@ my $L = Log::Log4perl::get_logger();
 create_dir_structure();
 
 my ($karyo, $karyo_filters) = parse_karyo($opt_karyo);
-open(OUT, '>', "$opt_prefix.d3/data/karyo.json") or $L->logdie("Can not open file $opt_prefix.d3/data/karyo.json\n$!");
-print OUT encode_json $karyo;
-close OUT or die "$!";
 
 my $features = {};
 my $links = [];
 if($opt_bed){	
 	$features = parse_bed($opt_bed, $karyo);
-	open(OUT, '>', "$opt_prefix.d3/data/features.json") or $L->logdie("Can not open file $opt_prefix.d3/data/features.json\n$!");
-	print OUT encode_json $features;
-	close OUT or die "$!";
 	if($opt_link){
 		$links = parse_links($opt_link, $features);
-		open(OUT, '>', "$opt_prefix.d3/data/link.json") or $L->logdie("Can not open file $opt_prefix.d3/data/links.json\n$!");
-		print OUT encode_json $links;
-		close OUT or die "$!";
 	}
 }
 open(OUT, '>', "$opt_prefix.d3/data/data.json") or $L->logdie("Can not open file $opt_prefix.d3/data/data.json\n$!");
@@ -166,6 +157,7 @@ sub create_dir_structure{
                              lib
                              data
                              js
+                             css
                         );
 
 	# the following list contains all files which have to be copied into the destination folder
@@ -175,12 +167,10 @@ sub create_dir_structure{
                              lib/jquery-ui.min.js
                              lib/jquery-ui.min.css
 
-                             js/AliTV_linear.js
-                             js/AliTV_circular.js
                              js/AliTV.js
+                             
+                             css/AliTV.css
 
-                             d3.html
-                             d3_linear.html
                              AliTV.html
                             );
 

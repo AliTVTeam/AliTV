@@ -35,7 +35,7 @@ module.exports = function(grunt) {
 					src: ['d3/js/AliTV.js'],
 					options: {
 						'--local-to-remote-url-access': true,
-						specs: ['d3/test/spec/test_AliTV.js'],
+						specs: ['d3/test/spec/test_AliTV.js', 'd3/test/spec/test_getter_setter.js'],
 						vendor: ['d3/lib/jquery.min.js',
 							'd3/lib/d3.v3.min.js',
 							'd3/test/lib/jasmine-2.2.0/jasmine-jquery.js'
@@ -56,7 +56,11 @@ module.exports = function(grunt) {
 								functions: 90
 							}
 						},
-						helpers: 'd3/test/lib/helper.js'
+						helpers: ['d3/test/helpers/defaultConf.js',
+								'd3/test/helpers/eventHelper.js',
+								'd3/test/helpers/customMatchers.js',
+								'd3/test/data/testData.js'
+							]
 							// keepRunner : true
 					}
 				}
