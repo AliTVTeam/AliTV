@@ -949,29 +949,28 @@ describe('The drawEqualLayout method is supposed to draw the layout which is equ
 	});	
 });
 
-describe('The filterLinksByIdentity method is supposed to filter the drawn links according to their identity', function(){
+describe('The filterLinearLinksByIdentity method is supposed to filter the drawn links in the linear according to their identity', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('filterLinksByIdentity method is supposed to be a function', function(){
-		expect(typeof ali.filterLinksByIdentity).toEqual('function');
+	it('filterLinearLinksByIdentity method is supposed to be a function', function(){
+		expect(typeof ali.filterLinearLinksByIdentity).toEqual('function');
 	});	
 	it('the function should return a defined value', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
 		var identityRange = [75, 100];
-		var newLinks = ali.filterLinksByIdentity(identityRange);
+		var newLinks = ali.filterLinearLinksByIdentity(identityRange);
 		expect(newLinks).toBeDefined();
 	});
 	it('the function should filter the link data and return the expected links', function(){
 		var identityRange = [50, 80];
-		var expectedLinks = [
-				{'source': 'f2', 'target': 'f3', 'identity': 50},
-				{'source': 'f2', 'target': 'f4', 'identity': 60},
-				{'source': 'f1', 'target': 'f4', 'identity': 70}
+		var expectedLinks = [ 
+		                      { linkID: 'l2', source0: { x: 49.75124378109453, y: 340 }, source1: { x: 298.5074626865672, y: 340 }, target0: { x: 199.00497512437812, y: 590 }, target1: { x: 447.76119402985074, y: 590 }, adjacent: true }, 
+		                      { linkID: 'l3', source0: { x: 895.5223880597015, y: 40 }, source1: { x: 945.273631840796, y: 40 }, target0: { x: 49.75124378109453, y: 290 }, target1: { x: 298.5074626865672, y: 290 }, adjacent: true }
 		];
 		ali.setData({karyo: karyo4, features: features4, links:links7});
 		ali.setFilters(filters4);
-		var newLinks = ali.filterLinksByIdentity(identityRange);
+		var newLinks = ali.filterLinearLinksByIdentity(identityRange);
 		expect(newLinks).toEqual(expectedLinks);
 	});
 });
