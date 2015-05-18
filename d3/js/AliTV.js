@@ -1019,5 +1019,5 @@ AliTV.prototype.filterCircularLinksByIdentity = function(identityRange) {
  */
 
 AliTV.prototype.getMinimumLinkLength = function() {
-
+	return this.conf.minLinkLength;
 };

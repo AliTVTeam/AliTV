@@ -343,12 +343,12 @@ describe('The getMinimumLinkLength method is supposed to get the information of 
 	it('getMinimumLinkLength method is supposed to be a function', function(){
 		expect(typeof ali.getMinimumLinkLength).toEqual('function');
 	});	
-//	it('the function should return a defined value', function(){
-//		var layout = ali.getLayout();
-//		expect(layout).toBeDefined();
-//	});
-//	it('the function should return "linear", because this is the default layout', function(){
-//		var layout = ali.getLayout();
-//		expect(layout).toEqual("linear");
-//	});
+	it('the function should return a defined value', function(){
+		var minLinkLength = ali.getMinimumLinkLength();
+		expect(minLinkLength).toBeDefined();
+	});
+	it('the function should return 100, because this is the default value for the minimum link length', function(){
+		var minLinkLength = ali.getMinimumLinkLength();
+		expect(minLinkLength).toEqual(100);
+	});
 });
