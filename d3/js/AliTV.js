@@ -257,50 +257,54 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		karyoMap[value.karyo] = key;
 	});
 	$.each(this.data.links, function(key, value) {
+		var link = {};
+		link.linkID = key;
+		link.source0 = {};
+		link.source1 = {};
+		link.target0 = {};
+		link.target1 = {};
+		var feature1 = that.data.features[value.source];
+		var feature2 = that.data.features[value.target];
+		var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
+		var karyo2 = that.data.karyo.chromosomes[feature2.karyo];
+		var karyo1Coords = coords[karyoMap[feature1.karyo]];
+		var karyo2Coords = coords[karyoMap[feature2.karyo]];
+		var genomePosition1 = that.filters.karyo.genome_order.indexOf(karyo1.genome_id);
+		var genomePosition2 = that.filters.karyo.genome_order.indexOf(karyo2.genome_id);
+		var lengthOfFeature1 = that.data.features[value.source].end - that.data.features[value.source].start;
+		var lengthOfFeature2 = that.data.features[value.target].end - that.data.features[value.target].start;
+
 		if (value.identity >= that.filters.links.minLinkIdentity && value.identity <= that.filters.links.maxLinkIdentity) {
-			var link = {};
-			link.linkID = key;
-			link.source0 = {};
-			link.source1 = {};
-			link.target0 = {};
-			link.target1 = {};
-			var feature1 = that.data.features[value.source];
-			var feature2 = that.data.features[value.target];
-			var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
-			var karyo2 = that.data.karyo.chromosomes[feature2.karyo];
-			var karyo1Coords = coords[karyoMap[feature1.karyo]];
-			var karyo2Coords = coords[karyoMap[feature2.karyo]];
-			var genomePosition1 = that.filters.karyo.genome_order.indexOf(karyo1.genome_id);
-			var genomePosition2 = that.filters.karyo.genome_order.indexOf(karyo2.genome_id);
+			if ((lengthOfFeature1 >= that.filters.links.minLinkLength && lengthOfFeature1 <= that.filters.links.maxLinkLength) || (lengthOfFeature2 >= that.filters.links.minLinkLength && lengthOfFeature2 <= that.filters.links.maxLinkLength)) {
+				if (genomePosition1 > genomePosition2) {
+					var tmp = feature1;
+					feature1 = feature2;
+					feature2 = tmp;
+					tmp = karyo1;
+					karyo1 = karyo2;
+					karyo2 = tmp;
+					tmp = karyo1Coords;
+					karyo1Coords = karyo2Coords;
+					karyo2Coords = tmp;
+				}
+				link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
+				link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
+				link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
+				link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
 
-			if (genomePosition1 > genomePosition2) {
-				var tmp = feature1;
-				feature1 = feature2;
-				feature2 = tmp;
-				tmp = karyo1;
-				karyo1 = karyo2;
-				karyo2 = tmp;
-				tmp = karyo1Coords;
-				karyo1Coords = karyo2Coords;
-				karyo2Coords = tmp;
-			}
-			link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
-			link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
-			link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
-			link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
+				link.target0.x = karyo2Coords.x + karyo2Coords.width * feature2.start / karyo2.length;
+				link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
+				link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
+				link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
 
-			link.target0.x = karyo2Coords.x + karyo2Coords.width * feature2.start / karyo2.length;
-			link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
-			link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
-			link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
-
-			if (Math.abs(genomePosition2 - genomePosition1) === 1) {
-				link.adjacent = true;
-				linearLinkCoords.push(link);
-			} else {
-				link.adjacent = false;
-				if (conf.linear.drawAllLinks === true) {
+				if (Math.abs(genomePosition2 - genomePosition1) === 1) {
+					link.adjacent = true;
 					linearLinkCoords.push(link);
+				} else {
+					link.adjacent = false;
+					if (conf.linear.drawAllLinks === true) {
+						linearLinkCoords.push(link);
+					}
 				}
 			}
 		}
