@@ -39,7 +39,6 @@
 			values: [75, 100],
 			min: 0,
 			max: 100,
-			step: 5,
 			slide: function(event, ui){
 				identityRange = [ui.values[0], ui.values[1]];
 		
@@ -53,6 +52,13 @@
 				}
 			}
 		});	
+		$("#length-slider").slider({
+			range: true,
+			values: [75, 100],
+			min: 0,
+			max: 100,
+			step: 5
+		});
 	});
 	
 	$(function() {
@@ -174,6 +180,9 @@
 				<fieldset>
 					Filter link identity:<br>		
 					<div id="identity-slider"></div>
+					<br>
+					Filter link length:<br>
+					<div id="length-slider"></div>
 				</fieldset>
 			</form> 
 		</div>
