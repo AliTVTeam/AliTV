@@ -629,7 +629,7 @@ AliTV.prototype.getCircularTickCoords = function(coords) {
 AliTV.prototype.drawCircularKaryo = function(coords) {
 	var that = this;
 	this.svgD3.selectAll(".karyoGroup").remove();
-	var outerRadius = this.conf.circular.outerRadius;
+	var outerRadius = this.getOuterRadius();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
 		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
@@ -672,10 +672,10 @@ AliTV.prototype.drawCircularTicks = function(coords) {
 		.append("path")
 		.attr("d", function(d) {
 			var startPoint = d3.svg.line.radial()([
-				[that.conf.circular.outerRadius + that.conf.circular.tickSize, d]
+				[that.getOuterRadius() + that.conf.circular.tickSize, d]
 			]);
 			var endPoint = d3.svg.line.radial()([
-				[that.conf.circular.outerRadius, d]
+				[that.getOuterRadius(), d]
 			]);
 			endPoint = endPoint.replace(/^M/, 'L');
 			return startPoint + endPoint + "Z";
@@ -699,7 +699,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
 		.enter()
 		.append("path")
 		.attr("class", "link")
-		.attr("d", d3.svg.chord().radius(this.conf.circular.outerRadius - this.conf.graphicalParameters.karyoHeight - this.conf.graphicalParameters.linkKaryoDistance))
+		.attr("d", d3.svg.chord().radius(this.getOuterRadius() - this.conf.graphicalParameters.karyoHeight - this.conf.graphicalParameters.linkKaryoDistance))
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
 		});
