@@ -83,27 +83,3 @@
 	background: #109177;
 }
 
-div#table {
-	display: table;	
-	border-spacing: 30px;
-}
-
-div#tableFirstLine {
-	display: table-row;
-}
-
-div#tableSecondLine {
-	display: table-row;
-}
-
-#tableFirstLineColumn {
-	display: table-cell;
-}
-
-#tableFirstColumn {
-	display: table-cell;
-}
-
-#tableSecondColumn {
-	display: table-cell;
-} 
