@@ -65,6 +65,8 @@ function AliTV(svg) {
 	 * @property {String}  minLinkIdentityColor                    - The color of the minimum link.
 	 * @property {String}  maxLinkIdentityColor                    - The color of the maximum link.
 	 * @property {String}  midLinkIdentityColor                    - The color of the middle link.  
+	 * @property {Number}  minLinkLength						   - The minimum length of a link:
+	 * @property {Number}  maxLinkLength						   - The maximum length of a link.
 	 * @property {Object}  graphicalParameters                     - The configuration options for all graphical parameters.
 	 * @property {Number}  graphicalParameters.width               - The width of the svg in px.
 	 * @property {Number}  graphicalParameters.height              - The height of the svg in px.
@@ -99,6 +101,8 @@ function AliTV(svg) {
 		minLinkIdentityColor: "#D21414",
 		maxLinkIdentityColor: "#1DAD0A",
 		midLinkIdentityColor: "#FFEE05",
+		minLinkLength: 100,
+		maxLinkLength: 5000,
 		layout: "linear"
 	};
 	// Initialize svg size
