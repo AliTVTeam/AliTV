@@ -965,3 +965,14 @@ AliTV.prototype.drawEqualLayout = function(layout) {
 		return this.conf.layout;
 	}
 };
+
+/**
+ * This function should filter links according to their identity. 
+ * Only links which identity is greater than the first element of the identityRange or is less than the second element of the identityRange are returned.
+ * @param {Array} An identity range which can be set by the user for example by a slider.
+ * @return {Array} Returns the links which have the suitable identity.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterLinksByIdentity = function(identityRange) {
+
+};
