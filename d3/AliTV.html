@@ -33,8 +33,6 @@
 		
 		});
 	$(function(){
-		var identityRange;
-		var lengthRange;
 		$("#identity-slider").slider({
 			range: true,
 			values: [75, 100],
@@ -52,12 +50,18 @@
 		
 		$("#length-slider").slider({
 			range: true,
-			values: [75, 100],
-			min: 0,
-			max: 100,
-			step: 5
+			values: [100, 10000],
+			min: 5000,
+			max: 10000,
+			slide: function(event, ui){
+				$("#minlength-label").val(ui.values[0] + " bp - " + ui.values[1] + " bp");
+				wga.filters.links.minLinkLength = ui.values[0];
+				wga.filters.links.maxLinkLength = ui.values[1];
+				var layout = wga.getLayout();
+				wga.drawEqualLayout(layout);
+			}
 		});
-		$("#minlength-label").val($("#minlength-slider").slider("value") + " bp");
+		$("#minlength-label").val($("#minlength-slider").slider("values") + " bp");
 	});
 	
 	$(function() {
