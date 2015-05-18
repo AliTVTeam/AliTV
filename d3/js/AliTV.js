@@ -970,47 +970,47 @@ AliTV.prototype.drawEqualLayout = function(layout) {
 	}
 };
 
-/**
- * This function should filter the linear links according to their identity. 
- * Only links which identity is greater than the first element of the identityRange or is less than the second element of the identityRange are returned.
- * @param {Array} An identity range which can be set by the user for example by a slider.
- * @return {Array} Returns the linear link coords which have the suitable identity.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.filterLinearLinksByIdentity = function(identityRange) {
-	var filteredLinks = [];
-	var that = this;
-
-	var linearKaryoCoords = that.getLinearKaryoCoords();
-	var linearLinkCoords = that.getLinearLinkCoords(linearKaryoCoords);
-	$.each(linearLinkCoords, function(key, value) {
-		if (that.data.links[value.linkID].identity >= identityRange[0] && that.data.links[value.linkID].identity <= identityRange[1]) {
-			filteredLinks.push(value);
-		}
-	});
-	return filteredLinks;
-};
-
-/**
- * This function should filter the circular links according to their identity. 
- * Only links which identity is greater than the first element of the identityRange or is less than the second element of the identityRange are returned.
- * @param {Array} An identity range which can be set by the user for example by a slider.
- * @return {Array} Returns the circular link coords which have the suitable identity.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.filterCircularLinksByIdentity = function(identityRange) {
-	var filteredLinks = [];
-	var that = this;
-
-	var circularKaryoCoords = that.getCircularKaryoCoords();
-	var circularLinkCoords = that.getCircularLinkCoords(circularKaryoCoords);
-	$.each(circularLinkCoords, function(key, value) {
-		if (that.data.links[value.linkID].identity >= identityRange[0] && that.data.links[value.linkID].identity <= identityRange[1]) {
-			filteredLinks.push(value);
-		}
-	});
-	return filteredLinks;
-};
+///**
+// * This function should filter the linear links according to their identity. 
+// * Only links which identity is greater than the first element of the identityRange or is less than the second element of the identityRange are returned.
+// * @param {Array} An identity range which can be set by the user for example by a slider.
+// * @return {Array} Returns the linear link coords which have the suitable identity.
+// * @author Sonja Hohlfeld
+// */
+//AliTV.prototype.filterLinearLinksByIdentity = function(identityRange) {
+//	var filteredLinks = [];
+//	var that = this;
+//
+//	var linearKaryoCoords = that.getLinearKaryoCoords();
+//	var linearLinkCoords = that.getLinearLinkCoords(linearKaryoCoords);
+//	$.each(linearLinkCoords, function(key, value) {
+//		if (that.data.links[value.linkID].identity >= identityRange[0] && that.data.links[value.linkID].identity <= identityRange[1]) {
+//			filteredLinks.push(value);
+//		}
+//	});
+//	return filteredLinks;
+//};
+//
+///**
+// * This function should filter the circular links according to their identity. 
+// * Only links which identity is greater than the first element of the identityRange or is less than the second element of the identityRange are returned.
+// * @param {Array} An identity range which can be set by the user for example by a slider.
+// * @return {Array} Returns the circular link coords which have the suitable identity.
+// * @author Sonja Hohlfeld
+// */
+//AliTV.prototype.filterCircularLinksByIdentity = function(identityRange) {
+//	var filteredLinks = [];
+//	var that = this;
+//
+//	var circularKaryoCoords = that.getCircularKaryoCoords();
+//	var circularLinkCoords = that.getCircularLinkCoords(circularKaryoCoords);
+//	$.each(circularLinkCoords, function(key, value) {
+//		if (that.data.links[value.linkID].identity >= identityRange[0] && that.data.links[value.linkID].identity <= identityRange[1]) {
+//			filteredLinks.push(value);
+//		}
+//	});
+//	return filteredLinks;
+//};
 
 /**
  * This function returns the minimum length of the links, which should be drawn.
