@@ -960,4 +960,16 @@ describe('The filterLinksByIdentity method is supposed to filter the drawn links
 		var newLinks = ali.filterLinksByIdentity(identityRange);
 		expect(newLinks).toBeDefined();
 	});
+	it('the function should filter the link data and return the expected links', function(){
+		var identityRange = [50, 80];
+		var expectedLinks = {
+				"l2": {'source': 'f2', 'target': 'f3', 'identity': 50},
+				"l3": {'source': 'f2', 'target': 'f4', 'identity': 60},
+				"l4": {'source': 'f1', 'target': 'f4', 'identity': 90}
+		};
+		ali.setData({karyo: karyo4, features: features4, links:links7});
+		ali.setFilters(filters4);
+		var newLinks = ali.filterLinksByIdentity(identityRange);
+		expect(newLinks).toEqual(expectedLinks);
+	});
 });
