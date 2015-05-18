@@ -548,22 +548,6 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		var expectedCoords = [
 		{
-			linkID : "l1", 
-        	source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-        	target0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
-        	source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-        	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance},
-        	adjacent: true
-		},
-		{
-			linkID: "l2",
-	    	source0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.graphicalParameters.linkKaryoDistance},
-	    	target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
-	    	source1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.graphicalParameters.linkKaryoDistance},
-	    	target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
-	    	adjacent: true
-		},
-		{
 			linkID: "l3",
 			source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
 			target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
