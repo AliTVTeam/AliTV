@@ -975,5 +975,11 @@ AliTV.prototype.drawEqualLayout = function(layout) {
  */
 AliTV.prototype.filterLinksByIdentity = function(identityRange) {
 	var filteredLinks = [];
+	var that = this;
+	$.each(that.data.links, function(key, value) {
+		if (value.identity >= identityRange[0] && value.identity <= identityRange[1]) {
+			filteredLinks.push(value);
+		}
+	});
 	return filteredLinks;
 };
