@@ -969,3 +969,6 @@ AliTV.prototype.drawEqualLayout = function(layout) {
  * @returns {Number} outerRadius - the outer radius in px
  * @author Markus Ankenbrand
  */
+AliTV.prototype.getOuterRadius = function() {
+
+};
