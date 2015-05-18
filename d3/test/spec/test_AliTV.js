@@ -974,3 +974,11 @@ describe('The filterLinearLinksByIdentity method is supposed to filter the drawn
 		expect(newLinks).toEqual(expectedLinks);
 	});
 });
+
+describe('The filterCircularLinksByIdentity method is supposed to filter the drawn links in the circular according to their identity', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterCircularLinksByIdentity method is supposed to be a function', function(){
+		expect(typeof ali.filterCircularLinksByIdentity).toEqual('function');
+	});	
+});
