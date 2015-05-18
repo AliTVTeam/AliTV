@@ -268,6 +268,14 @@ describe('The setCanvasHeight method is supposed to set a new height of the svg 
 	});
 });
 
+describe('The getOuterRadius method is supposed to calculate the appropriate outerRadius for the circular layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getOuterRadius method is supposed to be a function', function(){
+		expect(typeof ali.getOuterRadius).toEqual('function');
+	});
+});
+
 describe('The getTickDistance method is supposed to get the distance of the chromosome ticks in bp', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
