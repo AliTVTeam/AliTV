@@ -274,6 +274,22 @@ describe('The getOuterRadius method is supposed to calculate the appropriate out
 	it('getOuterRadius method is supposed to be a function', function(){
 		expect(typeof ali.getOuterRadius).toEqual('function');
 	});
+	it('getOuterRadius method is supposed to return not null', function(){
+		expect(ali.getOuterRadius()).toBeDefined();
+	});
+	it('getOuterRadius method is supposed to return 450 if default width and height are used (45% of 1000)', function(){
+		expect(ali.getOuterRadius()).toEqual(450);
+	});
+	it('getOuterRadius method is supposed to return 45% of the smaller dimension (width or height)', function(){
+		ali.setHeight(500);
+		ali.setWidth(1000);
+		expect(ali.getOuterRadius()).toEqual(225);
+	});
+	it('getOuterRadius method is supposed to return 45% of the smaller dimension (width or height)', function(){
+		ali.setHeight(1000);
+		ali.setWidth(2000);
+		expect(ali.getOuterRadius()).toEqual(900);
+	});
 });
 
 describe('The getTickDistance method is supposed to get the distance of the chromosome ticks in bp', function(){
