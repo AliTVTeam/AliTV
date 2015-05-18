@@ -981,4 +981,23 @@ describe('The filterCircularLinksByIdentity method is supposed to filter the dra
 	it('filterCircularLinksByIdentity method is supposed to be a function', function(){
 		expect(typeof ali.filterCircularLinksByIdentity).toEqual('function');
 	});	
+	it('the function should return a defined value', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var identityRange = [75, 100];
+		var newLinks = ali.filterCircularLinksByIdentity(identityRange);
+		expect(newLinks).toBeDefined();
+	});
+	it('the function should filter the circular link coords and return the expected links', function(){
+		var identityRange = [50, 80];
+		var expectedLinks = [ 
+		                      { linkID: 'l2', source: { startAngle: 2.6304605155057397, endAngle: 3.253792391218 }, target: { startAngle: 5.5227204188106285, endAngle: 6.146052294522889 } }, 
+		                      { linkID: 'l3', source: { startAngle: 2.6304605155057397, endAngle: 3.253792391218 }, target: { startAngle: 2.2439947525641375, endAngle: 2.3686611277065897 } }, 
+		                      { linkID: 'l4', source: { startAngle: 0.37399912542735625, endAngle: 0.9973310011396168 }, target: { startAngle: 2.2439947525641375, endAngle: 2.3686611277065897 } } 
+		];
+		ali.setData({karyo: karyo4, features: features4, links:links7});
+		ali.setFilters(filters4);
+		var newLinks = ali.filterCircularLinksByIdentity(identityRange);
+		expect(newLinks).toEqual(expectedLinks);
+	});
 });

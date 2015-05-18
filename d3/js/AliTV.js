@@ -995,5 +995,15 @@ AliTV.prototype.filterLinearLinksByIdentity = function(identityRange) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterCircularLinksByIdentity = function(identityRange) {
+	var filteredLinks = [];
+	var that = this;
 
+	var circularKaryoCoords = that.getCircularKaryoCoords();
+	var circularLinkCoords = that.getCircularLinkCoords(circularKaryoCoords);
+	$.each(circularLinkCoords, function(key, value) {
+		if (that.data.links[value.linkID].identity >= identityRange[0] && that.data.links[value.linkID].identity <= identityRange[1]) {
+			filteredLinks.push(value);
+		}
+	});
+	return filteredLinks;
 };
