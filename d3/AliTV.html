@@ -34,12 +34,14 @@
 		});
 	$(function(){
 		var identityRange;
+		var lengthRange;
 		$("#identity-slider").slider({
 			range: true,
 			values: [75, 100],
 			min: 0,
 			max: 100,
 			slide: function(event, ui){
+				$("#identity-label").val(ui.values[0] + " % - " + ui.values[1] + " %");
 				identityRange = [ui.values[0], ui.values[1]];
 		
 				var layout = wga.getLayout();
@@ -52,6 +54,8 @@
 				}
 			}
 		});	
+		$("#identity-label").val($("#identity-slider").slider("values", 0) + " % - " + $("#identity-slider").slider("values", 1) + " %");
+		
 		$("#length-slider").slider({
 			range: true,
 			values: [75, 100],
@@ -178,7 +182,11 @@
 		<div>
 			<form>
 				<fieldset>
-					Filter link identity:<br>		
+					Filter link identity:
+					<p>
+						<label for="identity-label">Identity range:</label> 
+						<input type="text"id="identity-label" readonly>
+					</p>
 					<div id="identity-slider"></div>
 					<br>
 					Filter link length:<br>
