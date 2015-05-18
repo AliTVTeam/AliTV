@@ -281,13 +281,18 @@ describe('The getOuterRadius method is supposed to calculate the appropriate out
 		expect(ali.getOuterRadius()).toEqual(450);
 	});
 	it('getOuterRadius method is supposed to return 45% of the smaller dimension (width or height)', function(){
-		ali.setHeight(500);
-		ali.setWidth(1000);
+		ali.setCanvasHeight(500);
+		ali.setCanvasWidth(1000);
 		expect(ali.getOuterRadius()).toEqual(225);
 	});
 	it('getOuterRadius method is supposed to return 45% of the smaller dimension (width or height)', function(){
-		ali.setHeight(1000);
-		ali.setWidth(2000);
+		ali.setCanvasHeight(2000);
+		ali.setCanvasWidth(1000);
+		expect(ali.getOuterRadius()).toEqual(450);
+	});
+	it('getOuterRadius method is supposed to return 45% of the smaller dimension (width or height)', function(){
+		ali.setCanvasHeight(2000);
+		ali.setCanvasWidth(2000);
 		expect(ali.getOuterRadius()).toEqual(900);
 	});
 });
