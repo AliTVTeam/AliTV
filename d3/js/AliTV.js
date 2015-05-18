@@ -57,7 +57,6 @@ function AliTV(svg) {
 	 * @property {String}  linear.startLineColor                   - The start color of the color gradient for drawing karyos according to their genomeId
 	 * @property {String}  linear.endLineColor                     - The end color of the color gradient. 
 	 * @property {Object}  circular                                - The configuration options for the circular layout.
-	 * @property {Number}  circular.outerRadius	                   - The outer radius of the circle in px.
 	 * @property {Number}  circular.tickSize                       - The size of the ticks in pixels. 
 	 * @property {Number}  minLinkIdentity                         - The minimum of the link identity the user wants to color.
 	 * @property {Number}  maxLinkIdentity                         - The maximum of the link identity the user wants to color.
