@@ -336,3 +336,19 @@ describe('The getLayout method is supposed to get the information of the current
 		expect(layout).toEqual("linear");
 	});
 });
+
+describe('The getMinimumLinkLength method is supposed to get the information of the current minimum length of the links, which should be drawn', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getMinimumLinkLength method is supposed to be a function', function(){
+		expect(typeof ali.getMinimumLinkLength).toEqual('function');
+	});	
+//	it('the function should return a defined value', function(){
+//		var layout = ali.getLayout();
+//		expect(layout).toBeDefined();
+//	});
+//	it('the function should return "linear", because this is the default layout', function(){
+//		var layout = ali.getLayout();
+//		expect(layout).toEqual("linear");
+//	});
+});
