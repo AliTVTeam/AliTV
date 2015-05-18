@@ -1021,3 +1021,18 @@ AliTV.prototype.filterCircularLinksByIdentity = function(identityRange) {
 AliTV.prototype.getMinimumLinkLength = function() {
 	return this.conf.minLinkLength;
 };
+
+/**
+ * This function replaces the minimum length of links to the new one in the config-object.
+ * It is called by a blur()-event, when the decription field loses focus.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The function gets the minimum length of links which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setMinimumLinkLength = function(minLinkLength) {
+
+};
