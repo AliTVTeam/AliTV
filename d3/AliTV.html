@@ -42,7 +42,16 @@
 			step: 5,
 			slide: function(event, ui){
 				identityRange = [ui.values[0], ui.values[1]];
-				ali.filterLinksByIdentity(identityRange);
+		
+				var layout = wga.getLayout();
+				if(layout === "linear"){
+					var filteredLinks = wga.filterLinearLinksByIdentity(identityRange);
+					wga.drawLinearLinks(filteredLinks);
+				} else {
+					var circularKaryoCoords = wga.getCircularKaryoCoords();
+					var circularLinkCoords = wga.getCircularLinkCoords(circularKaryoCoords);
+					wga.drawCircularLinks(circularLinkCoords);
+				}
 			}
 		});	
 	});

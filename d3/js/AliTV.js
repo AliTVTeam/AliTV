@@ -967,17 +967,20 @@ AliTV.prototype.drawEqualLayout = function(layout) {
 };
 
 /**
- * This function should filter links according to their identity. 
+ * This function should filter the linear links according to their identity. 
  * Only links which identity is greater than the first element of the identityRange or is less than the second element of the identityRange are returned.
  * @param {Array} An identity range which can be set by the user for example by a slider.
- * @return {Array} Returns the links which have the suitable identity.
+ * @return {Array} Returns the linear link coords which have the suitable identity.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.filterLinksByIdentity = function(identityRange) {
+AliTV.prototype.filterLinearLinksByIdentity = function(identityRange) {
 	var filteredLinks = [];
 	var that = this;
-	$.each(that.data.links, function(key, value) {
-		if (value.identity >= identityRange[0] && value.identity <= identityRange[1]) {
+
+	var linearKaryoCoords = that.getLinearKaryoCoords();
+	var linearLinkCoords = that.getLinearLinkCoords(linearKaryoCoords);
+	$.each(linearLinkCoords, function(key, value) {
+		if (that.data.links[value.linkID].identity >= identityRange[0] && that.data.links[value.linkID].identity <= identityRange[1]) {
 			filteredLinks.push(value);
 		}
 	});
