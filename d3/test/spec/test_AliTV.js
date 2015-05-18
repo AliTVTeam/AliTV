@@ -585,42 +585,6 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		];
 		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
 	});
-//	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 2 chromosomes, 3 links (but 1 link is not calculated, because its length is less than the minLinkLength, which is defined in the filters)', function(){
-//		ali.setData({karyo:karyo4,features:features2, links:links5});
-//		ali.setFilters(filters4);
-//		console.log(ali);
-//		ali.filters.links.minLinkLength = 100;
-//		var linearKaryoCoords = ali.getLinearKaryoCoords();
-//		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-//		console.log(linearLinkCoords);
-//		var expectedCoords = [
-//			{
-//				linkID : "l1", 
-//				source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-//				target0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
-//				source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-//				target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance},
-//				adjacent: true
-//			},
-//			{
-//				linkID: "l2",
-//				source0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.graphicalParameters.linkKaryoDistance},
-//				target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
-//				source1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.graphicalParameters.linkKaryoDistance},
-//				target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
-//				adjacent: false
-//			},
-//			{
-//				linkID: "l3",
-//				source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-//				target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
-//				source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-//				target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
-//				adjacent: false
-//			}
-//		];
-//		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
-//	});
 });
 
 describe('The getCircularLinkCoords method of AliTV objects is supposed to calculate coordinates for the links in the circular layout', function(){
@@ -766,7 +730,6 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 		ali.setData({karyo:karyo5,features:features3, links:links5});
 		ali.setFilters(filters5);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		console.log(ali);
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		ali.drawLinearKaryo(linearKaryoCoords);
 		ali.drawLinearLinks(linearLinkCoords);
