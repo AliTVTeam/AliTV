@@ -955,4 +955,9 @@ describe('The filterLinksByIdentity method is supposed to filter the drawn links
 	it('filterLinksByIdentity method is supposed to be a function', function(){
 		expect(typeof ali.filterLinksByIdentity).toEqual('function');
 	});	
+	it('the function should return a defined value', function(){
+		var identityRange = [75, 100];
+		var newLinks = ali.filterLinksByIdentity(identityRange);
+		expect(newLinks).toBeDefined();
+	});
 });
