@@ -1011,3 +1011,13 @@ AliTV.prototype.filterCircularLinksByIdentity = function(identityRange) {
 	});
 	return filteredLinks;
 };
+
+/**
+ * This function returns the minimum length of the links, which should be drawn.
+ * @returns {Number} The current minimum link length.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getMinimumLinkLength = function() {
+
+};
