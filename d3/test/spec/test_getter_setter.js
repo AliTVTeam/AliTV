@@ -352,3 +352,11 @@ describe('The getMinimumLinkLength method is supposed to get the information of 
 		expect(minLinkLength).toEqual(100);
 	});
 });
+
+describe('The setMinimumLinkLength method is supposed to set a new minimum length of the links which should be drawn', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setMinimumLinkLength method is supposed to be a function', function(){
+		expect(typeof ali.setMinimumLinkLength).toEqual('function');
+	});	
+});
