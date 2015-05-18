@@ -63,6 +63,7 @@
 			max: 100,
 			step: 5
 		});
+		$("#minlength-label").val($("#minlength-slider").slider("value") + " bp");
 	});
 	
 	$(function() {
@@ -192,6 +193,10 @@
 					Filter link length for drawn links:<br>
 					<div id="length-slider"></div>
 					<br>
+						<p>
+							<label for="minlength-label">Min. length:</label>
+							 <input type="text" id="minlength-label" readonly>
+						</p>
 					Set minimum length for drawn links:
 					<input type="text" id="minimumLinkLength" placeholder="Enter the minimum length for links"><br>
 					Set maximum length:
