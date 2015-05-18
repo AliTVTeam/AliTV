@@ -47,8 +47,10 @@ function AliTV(svg) {
 	 * @property {Object}  filters.karyo.chromosomes            - the chromosome drawing details, karyo IDs as keys
 	 * @property {Boolean} filters.karyo.chromosomes.reverse    - should the sequence be treated as its reverse (complement)
 	 * @property {Boolean} filters.karyo.chromosomes.visible    - should the sequence be displayed at all
-	 * @property {Number}  filters.links.minIdentity			- The minimum identity of links which should be drawn.
-	 * @property {Number}  filters.links.maxIdentity    		- The maximum identity of links which should be drawn.
+	 * @property {Number}  filters.links.minLinkIdentity	    - The minimum identity of links which should be draw.
+	 * @property {Number}  filters.links.maxLinkIdentity    	- The maximum identity of links which should be draw.
+	 * @property {Number}  filters.links.minLinkLength  		- The minimum length of links, which should be draw in bp.
+	 * @property {Number}  filters.links.maxLinkLength  		- The maximum length of links, which should be draw in bp.
 	 */
 	this.filters = {};
 	/**
