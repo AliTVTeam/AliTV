@@ -55,6 +55,10 @@
 		});	
 	});
 	
+	$(function() {
+		$( "#accordion" ).accordion();
+	});
+	
 	function changeLinearSpacer(){
 		var spacer = $("#linearSpacer").val();
 		try {
@@ -132,51 +136,51 @@
 <body>
 
 <div style="width: 100%; overflow: hidden;">
-	<div id="table" class="form-style-5" style="float:left">
-		<div id="tableFirstLine" class="form-style-5" style="float:left">
-		<legend><span class="number">1</span> Choose your layout</legend>
+	<div id="accordion" class="form-style-5" style="float:left">
+		<h3><span class="number">1</span> Choose your layout</h3>
+		<div>
 			<button type="submit" onclick="wga.drawCircular();">Draw Circular</button> 
 			<button type="submit" onclick="wga.drawLinear();">Draw Linear</button> 
 		</div>
-		<div id="tableSecondLine" class="form-style-5" style="float:center">
+		<h3><span class="number">2</span> Change graphical parameters</h3>
+		<div>
 			<form>
-				<div id="tableFirstColumn" class="form-style-5">
-					<fieldset>
-						<legend><span class="number">2</span> Change graphical parameters</legend>
-						Spacer between chromsomes:<br>
-						<input type="text" id="linearSpacer" placeholder="Enter a spacer">
-						<br>
-						Spacer between genomes in the linear Layout:<br>
-						<input type="text" id="linearGenomeSpacer" placeholder="Enter a spacer">
-						<br>
-						Height of chromosomes:<br>
-						<input type="text" id="karyoHeight" placeholder="Enter a height">
-						<br>
-						Width:<br>
-						<input type="text" id="canvasWidth" placeholder="Enter the svg-width">
-						<br>
-						Height:<br>
-						<input type="text" id="canvasHeight" placeholder="Enter the svg-height">
-						<br>
-						Distance between ticks:<br>
-						<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
-						<br>
-					</fieldset>
-				</div>
-
-				<div id="tableSecondColumn" class="form-style-5">
-					<fieldset>
-						<legend><span class="number">3</span> Filtering</legend>
-						Filter link identity:<br>		
-						<div id="identity-slider"></div>
-					</fieldset>
-				</div>
+				<fieldset>
+					Spacer between chromsomes:<br>
+					<input type="text" id="linearSpacer" placeholder="Enter a spacer">
+					<br>
+					Spacer between genomes in the linear Layout:<br>
+					<input type="text" id="linearGenomeSpacer" placeholder="Enter a spacer">
+					<br>
+					Height of chromosomes:<br>
+					<input type="text" id="karyoHeight" placeholder="Enter a height">
+					<br>
+					Width:<br>
+					<input type="text" id="canvasWidth" placeholder="Enter the svg-width">
+					<br>
+					Height:<br>
+					<input type="text" id="canvasHeight" placeholder="Enter the svg-height">
+					<br>
+					Distance between ticks:<br>
+					<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
+					<br>
+				</fieldset>
+			</form>
+		</div>
+		<h3><span class="number">3</span> Filtering</h3>
+		<div>
+			<form>
+				<fieldset>
+					Filter link identity:<br>		
+					<div id="identity-slider"></div>
+				</fieldset>
 			</form> 
-			<button type="submit" onclick="setNewParameters()">Apply</button>
-	
+		</div>
+		<h3><span class="number">4</span> Set changes</h3>
+		<div>
+			<button type="submit" onclick="setNewParameters()">Apply</button>		
 		</div>
 	</div>
-
 	<svg id='wgaCanvas' style="margin:50px"></svg>
 </div>
 
