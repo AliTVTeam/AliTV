@@ -963,3 +963,9 @@ AliTV.prototype.drawEqualLayout = function(layout) {
 		return this.conf.layout;
 	}
 };
+
+/**
+ * This function calculates the appropriate outerRadius of the circular layout for the current svg dimensions.
+ * @returns {Number} outerRadius - the outer radius in px
+ * @author Markus Ankenbrand
+ */
