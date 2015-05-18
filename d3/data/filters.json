@@ -1,1 +1,1 @@
-{"karyo":{"chromosomes":{"c4":{"visible":true,"reverse":false},"c2":{"visible":true,"reverse":false},"c1":{"visible":true,"reverse":false},"c3":{"visible":true,"reverse":false}},"order":["c1","c2","c3","c4"],"genome_order":[0,1,2]}}
+{"karyo":{"chromosomes":{"c4":{"visible":true,"reverse":false},"c2":{"visible":true,"reverse":false},"c1":{"visible":true,"reverse":false},"c3":{"visible":true,"reverse":false}},"order":["c1","c2","c3","c4"],"genome_order":[0,1,2]}, "links": {"minLinkIdentity": 75, "maxLinkIdentity": 100}}
