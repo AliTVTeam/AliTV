@@ -337,26 +337,38 @@ describe('The getLayout method is supposed to get the information of the current
 	});
 });
 
-describe('The getMinimumLinkLength method is supposed to get the information of the current minimum length of the links, which should be drawn', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('getMinimumLinkLength method is supposed to be a function', function(){
-		expect(typeof ali.getMinimumLinkLength).toEqual('function');
-	});	
-	it('the function should return a defined value', function(){
-		var minLinkLength = ali.getMinimumLinkLength();
-		expect(minLinkLength).toBeDefined();
-	});
-	it('the function should return 100, because this is the default value for the minimum link length', function(){
-		var minLinkLength = ali.getMinimumLinkLength();
-		expect(minLinkLength).toEqual(100);
-	});
-});
-
-describe('The setMinimumLinkLength method is supposed to set a new minimum length of the links which should be drawn', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('setMinimumLinkLength method is supposed to be a function', function(){
-		expect(typeof ali.setMinimumLinkLength).toEqual('function');
-	});	
-});
+//describe('The getMinimumLinkLength method is supposed to get the information of the current minimum length of the links, which should be drawn', function(){
+//	var svg = $('<svg></svg>');
+//	var ali = new AliTV(svg);
+//	it('getMinimumLinkLength method is supposed to be a function', function(){
+//		expect(typeof ali.getMinimumLinkLength).toEqual('function');
+//	});	
+//	it('the function should return a defined value', function(){
+//		var minLinkLength = ali.getMinimumLinkLength();
+//		expect(minLinkLength).toBeDefined();
+//	});
+//	it('the function should return 100, because this is the default value for the minimum link length', function(){
+//		var minLinkLength = ali.getMinimumLinkLength();
+//		expect(minLinkLength).toEqual(100);
+//	});
+//});
+//
+//describe('The setMinimumLinkLength method is supposed to set a new minimum length of the links which should be drawn', function(){
+//	var svg = $('<svg></svg>');
+//	var ali = new AliTV(svg);
+//	it('setMinimumLinkLength method is supposed to be a function', function(){
+//		expect(typeof ali.setMinimumLinkLength).toEqual('function');
+//	});	
+//	it('the returned object of the setMinimumLinkLength method should be the same as the minimum length which is setted and returned by the setter-method', function(){
+//		var minLinkLength = 125;
+//		expect(ali.setMinimumLinkLength(minLinkLength)).toEqual(distance);
+//	});	
+//	it('when setTickDistance is called several times the distance should have the same value as the returned distance of getTickDistance method', function(){
+//		ali.setTickDistance(20);
+//		expect(ali.getTickDistance()).toEqual(20);
+//		ali.setTickDistance(5);
+//		expect(ali.getTickDistance()).toEqual(5);
+//		ali.setTickDistance(250);
+//		expect(ali.getTickDistance()).toEqual(250);
+//	});
+//});
