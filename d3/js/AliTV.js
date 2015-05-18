@@ -986,3 +986,14 @@ AliTV.prototype.filterLinearLinksByIdentity = function(identityRange) {
 	});
 	return filteredLinks;
 };
+
+/**
+ * This function should filter the circular links according to their identity. 
+ * Only links which identity is greater than the first element of the identityRange or is less than the second element of the identityRange are returned.
+ * @param {Array} An identity range which can be set by the user for example by a slider.
+ * @return {Array} Returns the circular link coords which have the suitable identity.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterCircularLinksByIdentity = function(identityRange) {
+
+};
