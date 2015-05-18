@@ -160,12 +160,6 @@ var links7 = {
 		"l4": {'source': 'f1', 'target': 'f4', 'identity': 70},
 		"l5": {'source': 'f4', 'target': 'f2', 'identity': 90}
 };
-var links5 = {
-    	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
-		 "l2": {'source': 'f2', 'target': 'f3', 'identity': 86},
-		 "l3": {'source': 'f1', 'target': 'f3', 'identity': 94},
-		 "l4": {'source': 'f4', 'target': 'f5', 'identity': 94}
-	 };
 
 var data = {'karyo': karyo, 'features': features, 'links': links};
 var data2 = {'karyo': karyo2, 'features': features, 'links': links};

@@ -687,6 +687,7 @@ describe('The drawCircularLinks method of AliTV objects is supposed to draw link
 	it('there should be exactly two links and three chromosomes in the simple test svg', function(){
 		ali.setData({karyo:karyo5,features:features3, links:links5});
 		ali.setFilters(filters5);
+		console.log(ali);
 		var circularKaryoCoords = ali.getCircularKaryoCoords();
 		var circularLinkCoords = ali.getCircularLinkCoords(circularKaryoCoords);
 		ali.drawCircularKaryo(circularKaryoCoords);
