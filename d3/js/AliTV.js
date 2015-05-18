@@ -970,5 +970,6 @@ AliTV.prototype.drawEqualLayout = function(layout) {
  * @author Markus Ankenbrand
  */
 AliTV.prototype.getOuterRadius = function() {
-
+	var outerRadius = 0.45 * Math.min(this.getCanvasHeight(), this.getCanvasWidth());
+	return outerRadius;
 };
