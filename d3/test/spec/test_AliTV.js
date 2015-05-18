@@ -561,8 +561,8 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 2 chromosomes, 3 links (but 2 links are not calculated, because the identity of one link is less than the minLinkIdentity and the identity of the other link is greater than the maxLinkIdentity)', function(){
 		ali.setData({karyo:karyo4,features:features2, links:links4});
 		ali.setFilters(filters4);
-		ali.filters.links.minLinkIdentity = 88;
-		ali.filters.links.minLinkIdentity = 93;
+		ali.filters.links.minLinkIdentity = 89;
+		ali.filters.links.maxLinkIdentity = 100;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		var expectedCoords = [
@@ -572,14 +572,6 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 				target0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
 				source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
 				target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance},
-				adjacent: true
-			},
-			{
-				linkID: "l2",
-				source0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.graphicalParameters.linkKaryoDistance},
-				target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
-				source1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.graphicalParameters.linkKaryoDistance},
-				target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
 				adjacent: true
 			},
 			{

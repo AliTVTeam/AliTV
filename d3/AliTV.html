@@ -50,9 +50,9 @@
 		
 		$("#length-slider").slider({
 			range: true,
-			values: [100, 10000],
-			min: 5000,
-			max: 10000,
+			values: [100, 1000],
+			min: 100,
+			max: 1000,
 			slide: function(event, ui){
 				$("#minlength-label").val(ui.values[0] + " bp - " + ui.values[1] + " bp");
 				wga.filters.links.minLinkLength = ui.values[0];
