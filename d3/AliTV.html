@@ -61,7 +61,7 @@
 				wga.drawEqualLayout(layout);
 			}
 		});
-		$("#minlength-label").val($("#minlength-slider").slider("values") + " bp");
+		$("#minlength-label").val($("#length-slider").slider("values", 0) + " bp - " + $("#length-slider").slider("values", 1) + " bp");
 	});
 	
 	$(function() {
@@ -189,12 +189,12 @@
 					<div id="identity-slider"></div>
 					<br>
 					Filter link length for drawn links:<br>
+					<p>
+						<label for="minlength-label">Length range:</label>
+						<input type="text" id="minlength-label" readonly>
+					</p>
 					<div id="length-slider"></div>
 					<br>
-						<p>
-							<label for="minlength-label">Min. length:</label>
-							 <input type="text" id="minlength-label" readonly>
-						</p>
 					Set minimum length for drawn links:
 					<input type="text" id="minimumLinkLength" placeholder="Enter the minimum length for links"><br>
 					Set maximum length:
