@@ -974,5 +974,6 @@ AliTV.prototype.drawEqualLayout = function(layout) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterLinksByIdentity = function(identityRange) {
-
+	var filteredLinks = [];
+	return filteredLinks;
 };
