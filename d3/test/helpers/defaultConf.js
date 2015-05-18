@@ -6,7 +6,6 @@ var defaultConf =  {
 			endLineColor: "#1d91c0",
 		},
 		circular: {
-			outerRadius: 450,
 			tickSize: 5
 		},
 		graphicalParameters: {
