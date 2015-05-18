@@ -153,6 +153,13 @@ var links6 = {
 		"l3": {'source': 'f1', 'target': 'f3', 'identity': 90},
 		"l5": {'source': 'f4', 'target': 'f2', 'identity': 86}
 };
+var links7 = {
+		"l1": {'source': 'f1', 'target': 'f3', 'identity': 40},
+		"l2": {'source': 'f2', 'target': 'f3', 'identity': 50},
+		"l3": {'source': 'f2', 'target': 'f4', 'identity': 60},
+		"l4": {'source': 'f1', 'target': 'f4', 'identity': 70},
+		"l5": {'source': 'f4', 'target': 'f2', 'identity': 90}
+};
 
 var data = {'karyo': karyo, 'features': features, 'links': links};
 var data2 = {'karyo': karyo2, 'features': features, 'links': links};
