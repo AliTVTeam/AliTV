@@ -304,7 +304,25 @@ describe('The getGenomeDistance method is supposed to calculate the appropriate 
 		expect(typeof ali.getGenomeDistance).toEqual('function');
 	});
 	it('getGenomeDistance method is supposed to return not null', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
 		expect(ali.getGenomeDistance()).toBeDefined();
+	});
+	it('getGenomeDistance method is supposed to return 500 if default height and 2 genomes are used (1000 * 1/2)', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		expect(ali.getGenomeDistance()).toEqual(450);
+	});
+	it('getGenomeDistance method is supposed to return 250 if default height and 4 genomes are used (1000 * 1/4)', function(){
+		ali.setData({karyo: karyo7});
+		ali.setFilters(filters8);
+		expect(ali.getOuterRadius()).toEqual(225);
+	});
+	it('getGenomeDistance method is supposed to return 1000 if the default height is set on 2000 and 2 genomes are used (2000 * 1/2)', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.setCanvasHeight(2000);
+		expect(ali.getGenomeDistance()).toEqual(450);
 	});
 });
 
