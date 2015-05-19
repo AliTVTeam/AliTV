@@ -24,16 +24,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.175"
-     inkscape:cx="-1771.4643"
-     inkscape:cy="-966.64246"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="177.39564"
+     inkscape:cy="242.62725"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g10072"
      showgrid="false"
-     inkscape:window-width="1916"
-     inkscape:window-height="1143"
-     inkscape:window-x="1920"
-     inkscape:window-y="36"
+     inkscape:window-width="1276"
+     inkscape:window-height="985"
+     inkscape:window-x="3840"
+     inkscape:window-y="18"
      inkscape:window-maximized="0"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -19517,30 +19517,6 @@
     <g
        id="g10072"
        transform="translate(-509.60111,-441.03989)">
-      <g
-         id="g1761-3"
-         style="display:inline"
-         transform="matrix(7.2262677,0,0,7.2262677,661.09498,497.67598)">
-        <path
-           inkscape:connector-curvature="0"
-           id="path1105-1"
-           style="fill:none;stroke:#ffffff;stroke-width:6.875"
-           d="M 28.754,21.397 16.913,6.656" />
-        <path
-           inkscape:connector-curvature="0"
-           id="path1106-9"
-           style="fill:none;stroke:#ffffff;stroke-width:6.875"
-           d="M 30.687,22.122 43.253,6.414" />
-        <rect
-           id="rect1109-7"
-           style="fill:none;stroke:#ffffff;stroke-width:8.125;stroke-linecap:round;stroke-linejoin:round"
-           rx="1.8990999"
-           ry="1.8990999"
-           height="35.402"
-           width="50.625"
-           y="19.009001"
-           x="4.6873002" />
-      </g>
       <path
          inkscape:connector-curvature="0"
          id="path791-3"
