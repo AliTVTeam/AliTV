@@ -208,27 +208,28 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	});
 
 	var maxTotalSize = Math.max.apply(null, total);
-
 	for (i = 0; i < this.filters.karyo.order.length; i++) {
 		var key = this.filters.karyo.order[i];
 		var value = this.data.karyo.chromosomes[key];
-		var coord = {
-			'karyo': key,
-			'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
-			'height': conf.graphicalParameters.karyoHeight,
-			'genome': value.genome_id
-		};
 
-		if (this.filters.karyo.chromosomes[key].reverse === false) {
-			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width;
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width;
-		} else {
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width + (value.length / maxTotalSize) * conf.graphicalParameters.width;
-			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width * (-1);
+		if (this.filters.karyo.chromosomes[key].visible === true) {
+			var coord = {
+				'karyo': key,
+				'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
+				'height': conf.graphicalParameters.karyoHeight,
+				'genome': value.genome_id
+			};
+
+			if (this.filters.karyo.chromosomes[key].reverse === false) {
+				coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width;
+				coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width;
+			} else {
+				coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width + (value.length / maxTotalSize) * conf.graphicalParameters.width;
+				coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width * (-1);
+			}
+			current[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
+			linearKaryoCoords.push(coord);
 		}
-		current[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
-		linearKaryoCoords.push(coord);
-
 	}
 	return linearKaryoCoords;
 };
