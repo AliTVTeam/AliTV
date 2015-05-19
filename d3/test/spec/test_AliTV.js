@@ -85,7 +85,7 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
             {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
-            {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
+            {'karyo': 'c2', 'x': 0, 'y': wga.getGenomeDistance(), 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
         ];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
@@ -95,8 +95,8 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
 		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/2000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
-		    {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
-		    {'karyo': 'c3', 'x': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/(1000+defaultConf.graphicalParameters.karyoDistance)), 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
+		    {'karyo': 'c2', 'x': 0, 'y': wga.getGenomeDistance(), 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/(1000+defaultConf.graphicalParameters.karyoDistance)), 'y': wga.getGenomeDistance(), 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
@@ -106,8 +106,8 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
 		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
-            {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
-		    {'karyo': 'c3', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 2}
+            {'karyo': 'c2', 'x': 0, 'y': wga.getGenomeDistance(), 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': 0, 'y': wga.getGenomeDistance()*2, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 2}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
@@ -117,9 +117,9 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		var linearKaryoCoords = wga.getLinearKaryoCoords();
 		var expectedCoords = [
 		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/2000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
-		    {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
-		    {'karyo': 'c3', 'x': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/(1000+defaultConf.graphicalParameters.karyoDistance)), 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
-		    {'karyo': 'c4', 'x': 0, 'y': defaultConf.linear.genomeDistance*2, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 2}
+		    {'karyo': 'c2', 'x': 0, 'y': wga.getGenomeDistance(), 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/(1000+defaultConf.graphicalParameters.karyoDistance)), 'y': wga.getGenomeDistance(), 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
+		    {'karyo': 'c4', 'x': 0, 'y': wga.getGenomeDistance()*2, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 2}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
@@ -874,7 +874,7 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		
 		var expectedCoords = [
 		                      {'karyo': 'c1', 'x': 0 + defaultConf.graphicalParameters.width, 'y': 0, 'width': defaultConf.graphicalParameters.width * (-1), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
-		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
+		                      {'karyo': 'c2', 'x': 0, 'y': ali.getGenomeDistance(), 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
 		                      ];
 		
 		setTimeout(function(){
@@ -890,7 +890,7 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		
 		var expectedCoords = [
 		                      {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
-		                      {'karyo': 'c2', 'x': 0, 'y': defaultConf.linear.genomeDistance, 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
+		                      {'karyo': 'c2', 'x': 0, 'y': ali.getGenomeDistance(), 'width': defaultConf.graphicalParameters.width/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
 		                      ];
 		setTimeout(function(){
 			expect(expectedCoords).toEqual(linearKaryoCoords);
@@ -903,7 +903,7 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		ali.svg.find('.karyo').eq(0).d3Trigger("click");
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-		var expectedLinks = [{ linkID: 'l1', source0: { x: 850, y: 40 }, source1: { x: 600, y: 40 }, target0: { x: 50, y: 290 }, target1: { x: 300, y: 290 }, adjacent: true }];
+		var expectedLinks = [{ linkID: 'l1', source0: { x: 850, y: 40 }, source1: { x: 600, y: 40 }, target0: { x: 50, y: 490 }, target1: { x: 300, y: 490 }, adjacent: true }];
 		
 		setTimeout(function(){
 			expect(expectedLinks).toEqual(linearLinkCoords);
