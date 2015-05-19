@@ -18,6 +18,8 @@ var defaultConf =  {
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
 		midLinkIdentity: 60,
+		minLinkLength: 100,
+		maxLinkLength: 5000,
 		minLinkIdentityColor: "#D21414",
 		maxLinkIdentityColor: "#1DAD0A",
 		midLinkIdentityColor: "#FFEE05",
