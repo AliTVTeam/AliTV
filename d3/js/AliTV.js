@@ -52,7 +52,6 @@ function AliTV(svg) {
 	/**
 	 * property to store configuration options
 	 * @property {Object}  linear                                  - The configuration options for the linear layout.
-	 * @property {Number}  linear.genomeDistance                   - The vertical distance between adjacent genomes in px.
 	 * @property {Boolean} linear.drawAllLinks                     - Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.
 	 * @property {String}  linear.startLineColor                   - The start color of the color gradient for drawing karyos according to their genomeId
 	 * @property {String}  linear.endLineColor                     - The end color of the color gradient. 
