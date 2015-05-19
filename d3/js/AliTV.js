@@ -205,10 +205,12 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	}
 
 	$.each(that.data.karyo.chromosomes, function(key, value) {
-		if (that.filters.karyo.chromosomes[key].visible === true) {
-			total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
-		}
+		//if (that.filters.karyo.chromosomes[key].visible === true) {
+		total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
+		//}
 	});
+	console.log(total);
+	console.log(current);
 	var maxTotalSize = Math.max.apply(null, total);
 	for (i = 0; i < this.filters.karyo.order.length; i++) {
 		var key = this.filters.karyo.order[i];
