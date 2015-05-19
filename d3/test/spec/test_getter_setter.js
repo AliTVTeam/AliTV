@@ -297,6 +297,14 @@ describe('The getOuterRadius method is supposed to calculate the appropriate out
 	});
 });
 
+describe('The getGenomeDistance method is supposed to calculate the appropriate genomeDistance for the linear layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getGenomeDistance method is supposed to be a function', function(){
+		expect(typeof ali.getGenomeDistance).toEqual('function');
+	});
+});
+
 describe('The getTickDistance method is supposed to get the distance of the chromosome ticks in bp', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
