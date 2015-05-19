@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset="utf-8">
-<link rel="stylesheet" href="lib/jquery-ui.min.css">
+<link rel="stylesheet" href="lib/jquery-ui-1.9.2.custom.min.css">
 <link rel="stylesheet" href="css/AliTV.css">
 
 <script src="lib/d3.v3.min.js"></script>
@@ -25,13 +25,48 @@
 		
 		//Set default values for API of graphical parameters
 		$("#linearSpacer").val(wga.getLinearSpacer());
-		$("#linearGenomeSpacer").val(wga.getLinearGenomeSpacer());
 		$("#karyoHeight").val(wga.getKaryoHeight());
 		$("#canvasWidth").val(wga.getCanvasWidth());
 		$("#canvasHeight").val(wga.getCanvasHeight());
 		$("#tickDistance").val(wga.getTickDistance());
 		
+		});
+	$(function(){
+		$("#identity-slider").slider({
+			range: true,
+			values: [75, 100],
+			min: 0,
+			max: 100,
+			slide: function(event, ui){
+				$("#identity-label").val(ui.values[0] + " % - " + ui.values[1] + " %");
+				wga.filters.links.minLinkIdentity = ui.values[0];
+				wga.filters.links.maxLinkIdentity = ui.values[1];
+				var layout = wga.getLayout();
+				wga.drawEqualLayout(layout);
+			}
+		});	
+		$("#identity-label").val($("#identity-slider").slider("values", 0) + " % - " + $("#identity-slider").slider("values", 1) + " %");
+		
+		$("#length-slider").slider({
+			range: true,
+			values: [100, 1000],
+			min: 100,
+			max: 1000,
+			slide: function(event, ui){
+				$("#minlength-label").val(ui.values[0] + " bp - " + ui.values[1] + " bp");
+				wga.filters.links.minLinkLength = ui.values[0];
+				wga.filters.links.maxLinkLength = ui.values[1];
+				var layout = wga.getLayout();
+				wga.drawEqualLayout(layout);
+			}
+		});
+		$("#minlength-label").val($("#length-slider").slider("values", 0) + " bp - " + $("#length-slider").slider("values", 1) + " bp");
 	});
+	
+	$(function() {
+		$( "#accordion" ).accordion();
+	});
+	
 	function changeLinearSpacer(){
 		var spacer = $("#linearSpacer").val();
 		try {
@@ -41,16 +76,6 @@
 		catch(err){
 			alert(err);
 			$("#linearSpacer").val(wga.getLinearSpacer());
-		}
-	}
-	function changeLinearGenomeSpacer(){
-		var genomeSpacer = $("#linearGenomeSpacer").val(); 
-		try {
-		wga.setLinearGenomeSpacer(genomeSpacer); 	
-		}
-		catch(err){
-			alert(err);
-			$("#linearGenomeSpacer").val(wga.getLinearGenomeSpacer());
 		}
 	}
 	function changeKaryoHeight(){
@@ -95,7 +120,6 @@
 	}
 	function setNewParameters(){
 		changeLinearSpacer();
-		changeLinearGenomeSpacer();
 		changeKaryoHeight();
 		changeCanvasWidth();
 		changeCanvasHeight()
@@ -109,35 +133,64 @@
 <body>
 
 <div style="width: 100%; overflow: hidden;">
-	<div class="form-style-5" style="float:left">
-	<button type="submit" onclick="wga.drawCircular();">Draw Circular</button> 
-	<button type="submit" onclick="wga.drawLinear();">Draw Linear</button> 
-	<form>
-		<fieldset>
-			<legend><span class="number">1</span> Change graphical parameters</legend>
-			Spacer between chromsomes in the linear Layout:<br>
-			<input type="text" id="linearSpacer" placeholder="Enter a spacer">
-			<br>
-			Spacer between genomes in the linear Layout:<br>
-			<input type="text" id="linearGenomeSpacer" placeholder="Enter a spacer">
-			<br>
-			Height of the chromosomes:<br>
-			<input type="text" id="karyoHeight" placeholder="Enter a height">
-			<br>
-			Width:<br>
-			<input type="text" id="canvasWidth" placeholder="Enter the svg-width">
-			<br>
-			Height:<br>
-			<input type="text" id="canvasHeight" placeholder="Enter the svg-height">
-			<br>
-			Distance between ticks:<br>
-			<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
-			<br>
-		</fieldset>
-	</form> 
-	<button type="submit" onclick="setNewParameters()">Apply</button>
+	<div id="accordion" class="form-style-5" style="float:left">
+		<h3><span class="number">1</span> Choose your layout</h3>
+		<div>
+			<button type="submit" onclick="wga.drawCircular();">Draw Circular</button> 
+			<button type="submit" onclick="wga.drawLinear();">Draw Linear</button> 
+		</div>
+		<h3><span class="number">2</span> Change graphical parameters</h3>
+		<div>
+			<form>
+				<fieldset>
+					Spacer between chromsomes:<br>
+					<input type="text" id="linearSpacer" placeholder="Enter a spacer">
+					<br>
+					Spacer between genomes in the linear Layout:<br>
+					<input type="text" id="linearGenomeSpacer" placeholder="Enter a spacer">
+					<br>
+					Height of chromosomes:<br>
+					<input type="text" id="karyoHeight" placeholder="Enter a height">
+					<br>
+					Width:<br>
+					<input type="text" id="canvasWidth" placeholder="Enter the svg-width">
+					<br>
+					Height:<br>
+					<input type="text" id="canvasHeight" placeholder="Enter the svg-height">
+					<br>
+					Distance between ticks:<br>
+					<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
+					<br>
+				</fieldset>
+			</form>
+			<button type="submit" onclick="setNewParameters()">Apply</button>		
+		</div>
+		<h3><span class="number">3</span> Filtering</h3>
+		<div>
+			<form>
+				<fieldset>
+					Filter link identity:
+					<p>
+						<label for="identity-label">Identity range:</label> 
+						<input type="text"id="identity-label" readonly>
+					</p>
+					<div id="identity-slider"></div>
+					<br>
+					Filter link length for drawn links:<br>
+					<p>
+						<label for="minlength-label">Length range:</label>
+						<input type="text" id="minlength-label" readonly>
+					</p>
+					<div id="length-slider"></div>
+					<br>
+				<!-- 	Set minimum length for drawn links:
+					<input type="text" id="minimumLinkLength" placeholder="Enter the minimum length for links"><br>
+					Set maximum length:
+					<input type="text" id="maximumLinkLength" placeholder="Enter the maximum length for links"><br> -->
+				</fieldset>
+			</form> 
+		</div>
 	</div>
-
 	<svg id='wgaCanvas' style="margin:50px"></svg>
 </div>
 

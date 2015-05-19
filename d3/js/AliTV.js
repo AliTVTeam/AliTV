@@ -47,12 +47,15 @@ function AliTV(svg) {
 	 * @property {Object}  filters.karyo.chromosomes            - the chromosome drawing details, karyo IDs as keys
 	 * @property {Boolean} filters.karyo.chromosomes.reverse    - should the sequence be treated as its reverse (complement)
 	 * @property {Boolean} filters.karyo.chromosomes.visible    - should the sequence be displayed at all
+	 * @property {Number}  filters.links.minLinkIdentity	    - The minimum identity of links which should be draw.
+	 * @property {Number}  filters.links.maxLinkIdentity    	- The maximum identity of links which should be draw.
+	 * @property {Number}  filters.links.minLinkLength  		- The minimum length of links, which should be draw in bp.
+	 * @property {Number}  filters.links.maxLinkLength  		- The maximum length of links, which should be draw in bp.
 	 */
 	this.filters = {};
 	/**
 	 * property to store configuration options
 	 * @property {Object}  linear                                  - The configuration options for the linear layout.
-	 * @property {Number}  linear.genomeDistance                   - The vertical distance between adjacent genomes in px.
 	 * @property {Boolean} linear.drawAllLinks                     - Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.
 	 * @property {String}  linear.startLineColor                   - The start color of the color gradient for drawing karyos according to their genomeId
 	 * @property {String}  linear.endLineColor                     - The end color of the color gradient. 
@@ -64,6 +67,8 @@ function AliTV(svg) {
 	 * @property {String}  minLinkIdentityColor                    - The color of the minimum link.
 	 * @property {String}  maxLinkIdentityColor                    - The color of the maximum link.
 	 * @property {String}  midLinkIdentityColor                    - The color of the middle link.  
+	 * @property {Number}  minLinkLength						   - The minimum length of a link:
+	 * @property {Number}  maxLinkLength						   - The maximum length of a link.
 	 * @property {Object}  graphicalParameters                     - The configuration options for all graphical parameters.
 	 * @property {Number}  graphicalParameters.width               - The width of the svg in px.
 	 * @property {Number}  graphicalParameters.height              - The height of the svg in px.
@@ -75,7 +80,6 @@ function AliTV(svg) {
 	 */
 	this.conf = {
 		linear: {
-			genomeDistance: 300,
 			drawAllLinks: false,
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
@@ -97,6 +101,8 @@ function AliTV(svg) {
 		minLinkIdentityColor: "#D21414",
 		maxLinkIdentityColor: "#1DAD0A",
 		midLinkIdentityColor: "#FFEE05",
+		minLinkLength: 100,
+		maxLinkLength: 5000,
 		layout: "linear"
 	};
 	// Initialize svg size
@@ -183,6 +189,9 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	var linearKaryoCoords = [];
 	var genome_order = this.filters.karyo.genome_order;
 	var conf = this.conf;
+	var genomeDistance = this.getGenomeDistance();
+	var that = this;
+
 
 	var total = [];
 	var current = [];
@@ -193,32 +202,34 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		current.push(0);
 	}
 
-	$.each(this.data.karyo.chromosomes, function(key, value) {
-		total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
+	$.each(that.data.karyo.chromosomes, function(key, value) {
+		if (that.filters.karyo.chromosomes[key].visible === true) {
+			total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
+		}
 	});
-
 	var maxTotalSize = Math.max.apply(null, total);
-
 	for (i = 0; i < this.filters.karyo.order.length; i++) {
 		var key = this.filters.karyo.order[i];
 		var value = this.data.karyo.chromosomes[key];
-		var coord = {
-			'karyo': key,
-			'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
-			'height': conf.graphicalParameters.karyoHeight,
-			'genome': value.genome_id
-		};
 
-		if (this.filters.karyo.chromosomes[key].reverse === false) {
-			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width;
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width;
-		} else {
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width + (value.length / maxTotalSize) * conf.graphicalParameters.width;
-			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width * (-1);
+		if (this.filters.karyo.chromosomes[key].visible === true) {
+			var coord = {
+				'karyo': key,
+				'y': genome_order.indexOf(value.genome_id) * genomeDistance,
+				'height': conf.graphicalParameters.karyoHeight,
+				'genome': value.genome_id
+			};
+
+			if (this.filters.karyo.chromosomes[key].reverse === false) {
+				coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width;
+				coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width;
+			} else {
+				coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width + (value.length / maxTotalSize) * conf.graphicalParameters.width;
+				coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width * (-1);
+			}
+			current[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
+			linearKaryoCoords.push(coord);
 		}
-		current[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
-		linearKaryoCoords.push(coord);
-
 	}
 	return linearKaryoCoords;
 };
@@ -261,35 +272,41 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		var karyo2Coords = coords[karyoMap[feature2.karyo]];
 		var genomePosition1 = that.filters.karyo.genome_order.indexOf(karyo1.genome_id);
 		var genomePosition2 = that.filters.karyo.genome_order.indexOf(karyo2.genome_id);
+		var lengthOfFeature1 = Math.abs(that.data.features[value.source].end - that.data.features[value.source].start);
+		var lengthOfFeature2 = Math.abs(that.data.features[value.target].end - that.data.features[value.target].start);
 
-		if (genomePosition1 > genomePosition2) {
-			var tmp = feature1;
-			feature1 = feature2;
-			feature2 = tmp;
-			tmp = karyo1;
-			karyo1 = karyo2;
-			karyo2 = tmp;
-			tmp = karyo1Coords;
-			karyo1Coords = karyo2Coords;
-			karyo2Coords = tmp;
-		}
-		link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
-		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
-		link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
-		link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
+		if (value.identity >= that.filters.links.minLinkIdentity && value.identity <= that.filters.links.maxLinkIdentity) {
+			if ((lengthOfFeature1 >= that.filters.links.minLinkLength && lengthOfFeature1 <= that.filters.links.maxLinkLength) || (lengthOfFeature2 >= that.filters.links.minLinkLength && lengthOfFeature2 <= that.filters.links.maxLinkLength)) {
+				if (genomePosition1 > genomePosition2) {
+					var tmp = feature1;
+					feature1 = feature2;
+					feature2 = tmp;
+					tmp = karyo1;
+					karyo1 = karyo2;
+					karyo2 = tmp;
+					tmp = karyo1Coords;
+					karyo1Coords = karyo2Coords;
+					karyo2Coords = tmp;
+				}
+				link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
+				link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
+				link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
+				link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
 
-		link.target0.x = karyo2Coords.x + karyo2Coords.width * feature2.start / karyo2.length;
-		link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
-		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
-		link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
+				link.target0.x = karyo2Coords.x + karyo2Coords.width * feature2.start / karyo2.length;
+				link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
+				link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
+				link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
 
-		if (Math.abs(genomePosition2 - genomePosition1) === 1) {
-			link.adjacent = true;
-			linearLinkCoords.push(link);
-		} else {
-			link.adjacent = false;
-			if (conf.linear.drawAllLinks === true) {
-				linearLinkCoords.push(link);
+				if (Math.abs(genomePosition2 - genomePosition1) === 1) {
+					link.adjacent = true;
+					linearLinkCoords.push(link);
+				} else {
+					link.adjacent = false;
+					if (conf.linear.drawAllLinks === true) {
+						linearLinkCoords.push(link);
+					}
+				}
 			}
 		}
 	});
@@ -758,44 +775,6 @@ AliTV.prototype.setLinearSpacer = function(spacer) {
 };
 
 /**
- * This function returns the information of the spacer between two genomes which is set in the configuration.
- * @returns {Number} The actual genome spacer.
- * @author Sonja Hohlfeld
- */
-
-AliTV.prototype.getLinearGenomeSpacer = function() {
-	return this.conf.linear.genomeDistance;
-};
-
-/**
- * This function replaces the old spacer of the genomeDistance with the new value in the config-object.
- * It is called by a blur()-event, when the decription field loses focus.
- * When the method gets a wrong value it throws an error message.
- * @param {Number} The function gets the genome distance which can be set by the user.
- * @throws Will throw an error if the argument is empty.
- * @throws Will throw an error if the argument is not a number.
- * @throws Will throw an error if the argument is less than 0 or equal to 0.
- * @throws Will throw an error if the argument is greater than the height of the svg.
- * @author Sonja Hohlfeld
- */
-
-AliTV.prototype.setLinearGenomeSpacer = function(genomeSpacer) {
-	if (genomeSpacer === "") {
-		throw "empty";
-	} else if (isNaN(genomeSpacer)) {
-		throw "not a number";
-	} else if (genomeSpacer <= 0) {
-		throw "genome distance is to small, it should be > 0";
-	} else if (genomeSpacer >= this.conf.graphicalParameters.height) {
-		throw "genome distance is to big for drawing, change the height first";
-	} else {
-		genomeSpacer = Number(genomeSpacer);
-		this.conf.linear.genomeDistance = genomeSpacer;
-		return this.conf.linear.genomeDistance;
-	}
-};
-
-/**
  * This function returns the height of the chromosomes between two genomes which is set in the configuration.
  * @returns {Number} The actual height of chromosomes.
  * @author Sonja Hohlfeld
@@ -972,4 +951,14 @@ AliTV.prototype.drawEqualLayout = function(layout) {
 AliTV.prototype.getOuterRadius = function() {
 	var outerRadius = 0.45 * Math.min(this.getCanvasHeight(), this.getCanvasWidth());
 	return outerRadius;
+};
+
+/**
+ * This function calculates the appropriate genomeDistance of the linear layout for the current svg height.
+ * @returns {Number} genomeDistance - the distance between genomes in the linear layout.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getGenomeDistance = function() {
+	var genomeDistance = this.getCanvasHeight() * 1 / this.filters.karyo.genome_order.length;
+	return genomeDistance;
 };
