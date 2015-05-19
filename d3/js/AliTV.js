@@ -57,7 +57,6 @@ function AliTV(svg) {
 	 * @property {String}  linear.startLineColor                   - The start color of the color gradient for drawing karyos according to their genomeId
 	 * @property {String}  linear.endLineColor                     - The end color of the color gradient. 
 	 * @property {Object}  circular                                - The configuration options for the circular layout.
-	 * @property {Number}  circular.outerRadius	                   - The outer radius of the circle in px.
 	 * @property {Number}  circular.tickSize                       - The size of the ticks in pixels. 
 	 * @property {Number}  minLinkIdentity                         - The minimum of the link identity the user wants to color.
 	 * @property {Number}  maxLinkIdentity                         - The maximum of the link identity the user wants to color.
@@ -82,7 +81,6 @@ function AliTV(svg) {
 			endLineColor: "#1d91c0",
 		},
 		circular: {
-			outerRadius: 450,
 			tickSize: 5
 		},
 		graphicalParameters: {
@@ -631,7 +629,7 @@ AliTV.prototype.getCircularTickCoords = function(coords) {
 AliTV.prototype.drawCircularKaryo = function(coords) {
 	var that = this;
 	this.svgD3.selectAll(".karyoGroup").remove();
-	var outerRadius = this.conf.circular.outerRadius;
+	var outerRadius = this.getOuterRadius();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
 		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
@@ -674,10 +672,10 @@ AliTV.prototype.drawCircularTicks = function(coords) {
 		.append("path")
 		.attr("d", function(d) {
 			var startPoint = d3.svg.line.radial()([
-				[that.conf.circular.outerRadius + that.conf.circular.tickSize, d]
+				[that.getOuterRadius() + that.conf.circular.tickSize, d]
 			]);
 			var endPoint = d3.svg.line.radial()([
-				[that.conf.circular.outerRadius, d]
+				[that.getOuterRadius(), d]
 			]);
 			endPoint = endPoint.replace(/^M/, 'L');
 			return startPoint + endPoint + "Z";
@@ -701,7 +699,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
 		.enter()
 		.append("path")
 		.attr("class", "link")
-		.attr("d", d3.svg.chord().radius(this.conf.circular.outerRadius - this.conf.graphicalParameters.karyoHeight - this.conf.graphicalParameters.linkKaryoDistance))
+		.attr("d", d3.svg.chord().radius(this.getOuterRadius() - this.conf.graphicalParameters.karyoHeight - this.conf.graphicalParameters.linkKaryoDistance))
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
 		});
@@ -964,4 +962,14 @@ AliTV.prototype.drawEqualLayout = function(layout) {
 		this.drawCircular();
 		return this.conf.layout;
 	}
+};
+
+/**
+ * This function calculates the appropriate outerRadius of the circular layout for the current svg dimensions.
+ * @returns {Number} outerRadius - the outer radius in px
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.getOuterRadius = function() {
+	var outerRadius = 0.45 * Math.min(this.getCanvasHeight(), this.getCanvasWidth());
+	return outerRadius;
 };

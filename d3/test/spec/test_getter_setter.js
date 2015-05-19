@@ -268,6 +268,35 @@ describe('The setCanvasHeight method is supposed to set a new height of the svg 
 	});
 });
 
+describe('The getOuterRadius method is supposed to calculate the appropriate outerRadius for the circular layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getOuterRadius method is supposed to be a function', function(){
+		expect(typeof ali.getOuterRadius).toEqual('function');
+	});
+	it('getOuterRadius method is supposed to return not null', function(){
+		expect(ali.getOuterRadius()).toBeDefined();
+	});
+	it('getOuterRadius method is supposed to return 450 if default width and height are used (45% of 1000)', function(){
+		expect(ali.getOuterRadius()).toEqual(450);
+	});
+	it('getOuterRadius method is supposed to return 45% of the smaller dimension (width or height)', function(){
+		ali.setCanvasHeight(500);
+		ali.setCanvasWidth(1000);
+		expect(ali.getOuterRadius()).toEqual(225);
+	});
+	it('getOuterRadius method is supposed to return 45% of the smaller dimension (width or height)', function(){
+		ali.setCanvasHeight(2000);
+		ali.setCanvasWidth(1000);
+		expect(ali.getOuterRadius()).toEqual(450);
+	});
+	it('getOuterRadius method is supposed to return 45% of the smaller dimension (width or height)', function(){
+		ali.setCanvasHeight(2000);
+		ali.setCanvasWidth(2000);
+		expect(ali.getOuterRadius()).toEqual(900);
+	});
+});
+
 describe('The getTickDistance method is supposed to get the distance of the chromosome ticks in bp', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
