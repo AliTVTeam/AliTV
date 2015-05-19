@@ -1,5 +1,6 @@
 /* global d3: false */
 /* global $: false */
+/* global document: false */
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
@@ -50,62 +51,57 @@ function AliTV(svg) {
 	this.filters = {};
 	/**
 	 * property to store configuration options
-	 * @property {Number}  width                      - The width of the svg in px.
-	 * @property {Number}  height                     - The height of the svg in px.
-	 * @property {Object}  linear                     - The configuration options for the linear layout.
-	 * @property {Number}  linear.genomeDistance      - The vertical distance between adjacent genomes in px.
-	 * @property {Number}  linear.karyoHeight         - The height of each chromosome in px.
-	 * @property {Number}  linear.karyoDistance       - The horizontal distance between adjacent chromosomes of the same genome in bp.
-	 * @property {Number}  linear.linkKaryoDistance   - The vertical distance between chromosomes and links in px.
-	 * @property {Boolean} linear.drawAllLinks        - Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.
-	 * @property {String}  linear.startLineColor      - The start color of the color gradient for drawing karyos according to their genomeId
-	 * @property {String}  linear.endLineColor        - The end color of the color gradient. 
-	 * @property {Number}  linear.tickDistance        - The distance in bp of ticks on the drawn chromosomes.
-	 * @property {Object}  circular                   - The configuration options for the circular layout.
-	 * @property {Number}  circular.karyoHeight       - The height of each chromosome in px.
-	 * @property {Number}  circular.karyoDistance     - The distance between adjacent chromosomes on the circle in bp.
-	 * @property {Number}  circular.linkKaryoDistance - The vertical distance between chromosomes and links in px.
-	 * @property {Number}  circular.outerRadius	      - The outer radius of the circle in px.
-	 * @property {Number}  circular.tickDistance      - The distance in bp of ticks on the drawn chromosomes.
-	 * @property {Number}  circular.tickSize          - The size of the ticks in pixels. 
-	 * @property {Number}  minLinkIdentity            - The minimum of the link identity the user wants to color.
-	 * @property {Number}  maxLinkIdentity            - The maximum of the link identity the user wants to color.
-	 * @property {Number}  midLinkIdentity            - The middle of the link identity the user wants to color.
-	 * @property {String}  minLinkIdentityColor       - The color of the minimum link.
-	 * @property {String}  maxLinkIdentityColor       - The color of the maximum link.
-	 * @property {String}  midLinkIdentityColor       - The color of the middle link.   
+	 * @property {Object}  linear                                  - The configuration options for the linear layout.
+	 * @property {Number}  linear.genomeDistance                   - The vertical distance between adjacent genomes in px.
+	 * @property {Boolean} linear.drawAllLinks                     - Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.
+	 * @property {String}  linear.startLineColor                   - The start color of the color gradient for drawing karyos according to their genomeId
+	 * @property {String}  linear.endLineColor                     - The end color of the color gradient. 
+	 * @property {Object}  circular                                - The configuration options for the circular layout.
+	 * @property {Number}  circular.tickSize                       - The size of the ticks in pixels. 
+	 * @property {Number}  minLinkIdentity                         - The minimum of the link identity the user wants to color.
+	 * @property {Number}  maxLinkIdentity                         - The maximum of the link identity the user wants to color.
+	 * @property {Number}  midLinkIdentity                         - The middle of the link identity the user wants to color.
+	 * @property {String}  minLinkIdentityColor                    - The color of the minimum link.
+	 * @property {String}  maxLinkIdentityColor                    - The color of the maximum link.
+	 * @property {String}  midLinkIdentityColor                    - The color of the middle link.  
+	 * @property {Object}  graphicalParameters                     - The configuration options for all graphical parameters.
+	 * @property {Number}  graphicalParameters.width               - The width of the svg in px.
+	 * @property {Number}  graphicalParameters.height              - The height of the svg in px.
+	 * @property {Number}  graphicalParameters.karyoHeight         - The height of each chromosome in px.
+	 * @property {Number}  graphicalParameters.karyoDistance       - The horizontal distance between adjacent chromosomes of the same genome in bp.
+	 * @property {Number}  graphicalParameters.linkKaryoDistance   - The vertical distance between chromosomes and links in px.
+	 * @property {Number}  graphicalParameters.tickDistance        - The distance in bp of ticks on the drawn chromosomes.
+	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
 	 */
 	this.conf = {
-		width: 1000,
-		height: 1000,
 		linear: {
 			genomeDistance: 300,
-			karyoHeight: 30,
-			karyoDistance: 10,
-			linkKaryoDistance: 10,
 			drawAllLinks: false,
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
-			tickDistance: 100
 		},
 		circular: {
+			tickSize: 5
+		},
+		graphicalParameters: {
+			width: 1000,
+			height: 1000,
 			karyoHeight: 30,
 			karyoDistance: 10,
 			linkKaryoDistance: 10,
-			outerRadius: 450,
-			tickDistance: 100,
-			tickSize: 5
+			tickDistance: 100
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
 		midLinkIdentity: 60,
 		minLinkIdentityColor: "#D21414",
 		maxLinkIdentityColor: "#1DAD0A",
-		midLinkIdentityColor: "#FFEE05"
+		midLinkIdentityColor: "#FFEE05",
+		layout: "linear"
 	};
 	// Initialize svg size
-	svg.height(this.conf.height);
-	svg.width(this.conf.width);
+	svg.height(this.conf.graphicalParameters.height);
+	svg.width(this.conf.graphicalParameters.width);
 }
 
 /**
@@ -193,12 +189,12 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	var i;
 	// Initialize total with the negative of one karyoDistance - as there is one space less then karyos per genome
 	for (i = 0; i < genome_order.length; i++) {
-		total.push(-conf.linear.karyoDistance);
+		total.push(-conf.graphicalParameters.karyoDistance);
 		current.push(0);
 	}
 
 	$.each(this.data.karyo.chromosomes, function(key, value) {
-		total[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
+		total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
 	});
 
 	var maxTotalSize = Math.max.apply(null, total);
@@ -209,18 +205,18 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		var coord = {
 			'karyo': key,
 			'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
-			'height': conf.linear.karyoHeight,
+			'height': conf.graphicalParameters.karyoHeight,
 			'genome': value.genome_id
 		};
 
 		if (this.filters.karyo.chromosomes[key].reverse === false) {
-			coord.width = (value.length / maxTotalSize) * conf.width;
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width;
+			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width;
+			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width;
 		} else {
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.width + (value.length / maxTotalSize) * conf.width;
-			coord.width = (value.length / maxTotalSize) * conf.width * (-1);
+			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width + (value.length / maxTotalSize) * conf.graphicalParameters.width;
+			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width * (-1);
 		}
-		current[genome_order.indexOf(value.genome_id)] += value.length + conf.linear.karyoDistance;
+		current[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
 		linearKaryoCoords.push(coord);
 
 	}
@@ -278,14 +274,14 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 			karyo2Coords = tmp;
 		}
 		link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
-		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.linear.linkKaryoDistance;
+		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
 		link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
-		link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.linear.linkKaryoDistance;
+		link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
 
 		link.target0.x = karyo2Coords.x + karyo2Coords.width * feature2.start / karyo2.length;
-		link.target0.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
+		link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
 		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
-		link.target1.y = karyo2Coords.y - conf.linear.linkKaryoDistance;
+		link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
 
 		if (Math.abs(genomePosition2 - genomePosition1) === 1) {
 			link.adjacent = true;
@@ -401,7 +397,7 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 		var chromosomePosition = 0;
 		while (chromosomePosition <= that.data.karyo.chromosomes[value.karyo].length) {
 			ticks.push(scale(chromosomePosition));
-			chromosomePosition += that.conf.linear.tickDistance;
+			chromosomePosition += that.conf.graphicalParameters.tickDistance;
 			var coords = {};
 			coords.x1 = ticks[ticks.length - 1];
 			coords.y1 = value.y - 5;
@@ -514,6 +510,7 @@ AliTV.prototype.drawLinear = function() {
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
+	this.conf.layout = "linear";
 };
 
 /**
@@ -526,7 +523,7 @@ AliTV.prototype.drawLinear = function() {
 AliTV.prototype.getCircularKaryoCoords = function() {
 	var circularKaryoCoords = [];
 	var total = 0;
-	var spacer = this.conf.circular.karyoDistance;
+	var spacer = this.conf.graphicalParameters.karyoDistance;
 	var chromosomes = this.data.karyo.chromosomes;
 	var order = this.filters.karyo.order;
 	var current = -spacer;
@@ -618,7 +615,7 @@ AliTV.prototype.getCircularTickCoords = function(coords) {
 		var chromosomePosition = 0;
 		while (chromosomePosition <= karyoLength) {
 			circularTickCoords.push(baseToAngle(chromosomePosition));
-			chromosomePosition += that.conf.circular.tickDistance;
+			chromosomePosition += that.conf.graphicalParameters.tickDistance;
 		}
 	});
 	return circularTickCoords;
@@ -632,15 +629,15 @@ AliTV.prototype.getCircularTickCoords = function(coords) {
 AliTV.prototype.drawCircularKaryo = function(coords) {
 	var that = this;
 	this.svgD3.selectAll(".karyoGroup").remove();
-	var outerRadius = this.conf.circular.outerRadius;
+	var outerRadius = this.getOuterRadius();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
-		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.height / 2 + ")")
+		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
 		.selectAll("path")
 		.data(coords)
 		.enter()
 		.append("path")
-		.attr("d", d3.svg.arc().innerRadius(outerRadius - this.conf.circular.karyoHeight).outerRadius(outerRadius))
+		.attr("d", d3.svg.arc().innerRadius(outerRadius - this.conf.graphicalParameters.karyoHeight).outerRadius(outerRadius))
 		.attr("class", "karyo")
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
@@ -668,17 +665,17 @@ AliTV.prototype.drawCircularTicks = function(coords) {
 
 	that.svgD3.append("g")
 		.attr("class", "tickGroup")
-		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.height / 2 + ")")
+		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
 		.selectAll("path")
 		.data(coords)
 		.enter()
 		.append("path")
 		.attr("d", function(d) {
 			var startPoint = d3.svg.line.radial()([
-				[that.conf.circular.outerRadius + that.conf.circular.tickSize, d]
+				[that.getOuterRadius() + that.conf.circular.tickSize, d]
 			]);
 			var endPoint = d3.svg.line.radial()([
-				[that.conf.circular.outerRadius, d]
+				[that.getOuterRadius(), d]
 			]);
 			endPoint = endPoint.replace(/^M/, 'L');
 			return startPoint + endPoint + "Z";
@@ -696,13 +693,13 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
-		.attr("transform", "translate(" + this.conf.width / 2 + "," + this.conf.height / 2 + ")")
+		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
 		.selectAll("path")
 		.data(circularLinkCoords)
 		.enter()
 		.append("path")
 		.attr("class", "link")
-		.attr("d", d3.svg.chord().radius(this.conf.circular.outerRadius - this.conf.circular.karyoHeight - this.conf.circular.linkKaryoDistance))
+		.attr("d", d3.svg.chord().radius(this.getOuterRadius() - this.conf.graphicalParameters.karyoHeight - this.conf.graphicalParameters.linkKaryoDistance))
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
 		});
@@ -721,4 +718,258 @@ AliTV.prototype.drawCircular = function() {
 	this.drawCircularKaryo(karyoCoords);
 	var linkCoords = this.getCircularLinkCoords(karyoCoords);
 	this.drawCircularLinks(linkCoords);
+	this.conf.layout = "circular";
+};
+
+/**
+ * This function returns the information of the spacer between two chromosomes which is set in the configuration.
+ * @returns {Number} The actual spacer.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getLinearSpacer = function() {
+	return this.conf.graphicalParameters.karyoDistance;
+};
+
+
+/**
+ * This function replaces the old spacer with the new spacer in the config-object.
+ * It is called by a blur()-event, when the decription field loses focus.
+ * When the method gets a wrong spacer it throws an error message.
+ * @param {Number} The function gets the spacer which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setLinearSpacer = function(spacer) {
+	if (spacer === "") {
+		throw "empty";
+	} else if (isNaN(spacer)) {
+		throw "not a number";
+	} else if (spacer <= 0) {
+		throw "spacer is to small, it should be > 0";
+	} else {
+		spacer = Number(spacer);
+		this.conf.graphicalParameters.karyoDistance = spacer;
+		return this.conf.graphicalParameters.karyoDistance;
+	}
+};
+
+/**
+ * This function returns the information of the spacer between two genomes which is set in the configuration.
+ * @returns {Number} The actual genome spacer.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getLinearGenomeSpacer = function() {
+	return this.conf.linear.genomeDistance;
+};
+
+/**
+ * This function replaces the old spacer of the genomeDistance with the new value in the config-object.
+ * It is called by a blur()-event, when the decription field loses focus.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The function gets the genome distance which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @throws Will throw an error if the argument is greater than the height of the svg.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setLinearGenomeSpacer = function(genomeSpacer) {
+	if (genomeSpacer === "") {
+		throw "empty";
+	} else if (isNaN(genomeSpacer)) {
+		throw "not a number";
+	} else if (genomeSpacer <= 0) {
+		throw "genome distance is to small, it should be > 0";
+	} else if (genomeSpacer >= this.conf.graphicalParameters.height) {
+		throw "genome distance is to big for drawing, change the height first";
+	} else {
+		genomeSpacer = Number(genomeSpacer);
+		this.conf.linear.genomeDistance = genomeSpacer;
+		return this.conf.linear.genomeDistance;
+	}
+};
+
+/**
+ * This function returns the height of the chromosomes between two genomes which is set in the configuration.
+ * @returns {Number} The actual height of chromosomes.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getKaryoHeight = function() {
+	return this.conf.graphicalParameters.karyoHeight;
+};
+
+/**
+ * This function replaces the old height of the chromosomes with the new value in the config-object.
+ * It is called by a blur()-event, when the decription field loses focus.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The function gets the height of chromosomes which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setKaryoHeight = function(height) {
+	if (height === "") {
+		throw "empty";
+	} else if (isNaN(height)) {
+		throw "not a number";
+	} else if (height <= 0) {
+		throw "genome distance is to small, it should be > 0";
+	} else {
+		height = Number(height);
+		this.conf.graphicalParameters.karyoHeight = height;
+		return this.conf.graphicalParameters.karyoHeight;
+	}
+};
+
+/**
+ * This function returns the width of the svg drawing area.
+ * @returns {Number} The width of canvas.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getCanvasWidth = function() {
+	return this.conf.graphicalParameters.width;
+};
+
+/**
+ * This function replaces the old width of the drawing area with the new width in the config-object.
+ * It is called by a blur()-event, when the decription field loses focus.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The function gets the width of the svg drawing area which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setCanvasWidth = function(width) {
+	if (width === "") {
+		throw "empty";
+	} else if (isNaN(width)) {
+		throw "not a number";
+	} else if (width <= 0) {
+		throw "width is to small, it should be > 0";
+	} else {
+		width = Number(width);
+		this.conf.graphicalParameters.width = width;
+		$('#wgaCanvas').width(this.conf.graphicalParameters.width);
+		return this.conf.graphicalParameters.width;
+	}
+};
+
+/**
+ * This function returns the height of the svg drawing area.
+ * @returns {Number} The height of canvas.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getCanvasHeight = function() {
+	return this.conf.graphicalParameters.height;
+};
+
+
+/**
+ * This function replaces the old height of the drawing area with the new height in the config-object.
+ * It is called by a blur()-event, when the decription field loses focus.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The function gets the height of the svg drawing area which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setCanvasHeight = function(height) {
+	if (height === "") {
+		throw "empty";
+	} else if (isNaN(height)) {
+		throw "not a number";
+	} else if (height <= 0) {
+		throw "height is to small, it should be > 0";
+	} else {
+		height = Number(height);
+		this.conf.graphicalParameters.height = height;
+		$('#wgaCanvas').height(this.conf.graphicalParameters.height);
+		return this.conf.graphicalParameters.height;
+	}
+};
+
+/**
+ * This function returns the distance of the chromosome ticks in bp.
+ * @returns {Number} The tick distance in bp.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getTickDistance = function() {
+	return this.conf.graphicalParameters.tickDistance;
+};
+
+/**
+ * This function replaces the old distance between ticks with the new distance in the config-object.
+ * It is called by a blur()-event, when the decription field loses focus.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The function gets the distance between ticks which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setTickDistance = function(distance) {
+	if (distance === "") {
+		throw "empty";
+	} else if (isNaN(distance)) {
+		throw "not a number";
+	} else if (distance <= 0) {
+		throw "distance is to small, it should be > 0";
+	} else {
+		distance = Number(distance);
+		this.conf.graphicalParameters.tickDistance = distance;
+		return this.conf.graphicalParameters.tickDistance;
+	}
+};
+
+/**
+ * This function returns the current layout.
+ * @returns {String} The current layout: linear or circular.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getLayout = function() {
+	return this.conf.layout;
+};
+
+/**
+ * This function should draw the equal layout according to the current layout.
+ * @param {String} The current layout, this means circular or linear.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.drawEqualLayout = function(layout) {
+	if (layout === "linear") {
+		this.drawLinear();
+		return this.conf.layout;
+	} else {
+		this.drawCircular();
+		return this.conf.layout;
+	}
+};
+
+/**
+ * This function calculates the appropriate outerRadius of the circular layout for the current svg dimensions.
+ * @returns {Number} outerRadius - the outer radius in px
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.getOuterRadius = function() {
+	var outerRadius = 0.45 * Math.min(this.getCanvasHeight(), this.getCanvasWidth());
+	return outerRadius;
 };
