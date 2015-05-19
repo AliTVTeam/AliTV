@@ -972,3 +972,12 @@ AliTV.prototype.getOuterRadius = function() {
 	var outerRadius = 0.45 * Math.min(this.getCanvasHeight(), this.getCanvasWidth());
 	return outerRadius;
 };
+
+/**
+ * This function calculates the appropriate genomeDistance of the linear layout for the current svg height.
+ * @returns {Number} genomeDistance - the distance between genomes in the linear layout.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getGenomeDistance = function() {
+
+};
