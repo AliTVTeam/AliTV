@@ -589,7 +589,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		ali.setData({karyo:karyo,features:features5, links:links8});
 		ali.setFilters(filters7);
 		ali.filters.links.minLinkLength = 50;
-		ali.filters.links.maxLinkLength = 150;
+		ali.filters.links.maxLinkLength = 95;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		var expectedCoords = [];
