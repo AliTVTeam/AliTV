@@ -209,8 +209,6 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 			total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
 		}
 	});
-	console.log(total);
-	console.log(current);
 	var maxTotalSize = Math.max.apply(null, total);
 	for (i = 0; i < this.filters.karyo.order.length; i++) {
 		var key = this.filters.karyo.order[i];
