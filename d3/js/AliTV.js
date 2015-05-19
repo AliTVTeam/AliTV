@@ -757,44 +757,6 @@ AliTV.prototype.setLinearSpacer = function(spacer) {
 };
 
 /**
- * This function returns the information of the spacer between two genomes which is set in the configuration.
- * @returns {Number} The actual genome spacer.
- * @author Sonja Hohlfeld
- */
-
-AliTV.prototype.getLinearGenomeSpacer = function() {
-	return this.conf.linear.genomeDistance;
-};
-
-/**
- * This function replaces the old spacer of the genomeDistance with the new value in the config-object.
- * It is called by a blur()-event, when the decription field loses focus.
- * When the method gets a wrong value it throws an error message.
- * @param {Number} The function gets the genome distance which can be set by the user.
- * @throws Will throw an error if the argument is empty.
- * @throws Will throw an error if the argument is not a number.
- * @throws Will throw an error if the argument is less than 0 or equal to 0.
- * @throws Will throw an error if the argument is greater than the height of the svg.
- * @author Sonja Hohlfeld
- */
-
-AliTV.prototype.setLinearGenomeSpacer = function(genomeSpacer) {
-	if (genomeSpacer === "") {
-		throw "empty";
-	} else if (isNaN(genomeSpacer)) {
-		throw "not a number";
-	} else if (genomeSpacer <= 0) {
-		throw "genome distance is to small, it should be > 0";
-	} else if (genomeSpacer >= this.conf.graphicalParameters.height) {
-		throw "genome distance is to big for drawing, change the height first";
-	} else {
-		genomeSpacer = Number(genomeSpacer);
-		this.conf.linear.genomeDistance = genomeSpacer;
-		return this.conf.linear.genomeDistance;
-	}
-};
-
-/**
  * This function returns the height of the chromosomes between two genomes which is set in the configuration.
  * @returns {Number} The actual height of chromosomes.
  * @author Sonja Hohlfeld
