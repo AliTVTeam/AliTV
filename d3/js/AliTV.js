@@ -205,9 +205,9 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	}
 
 	$.each(that.data.karyo.chromosomes, function(key, value) {
-		//if (that.filters.karyo.chromosomes[key].visible === true) {
-		total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
-		//}
+		if (that.filters.karyo.chromosomes[key].visible === true) {
+			total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
+		}
 	});
 	console.log(total);
 	console.log(current);
