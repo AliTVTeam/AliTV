@@ -25,7 +25,6 @@
 		
 		//Set default values for API of graphical parameters
 		$("#linearSpacer").val(wga.getLinearSpacer());
-		$("#linearGenomeSpacer").val(wga.getLinearGenomeSpacer());
 		$("#karyoHeight").val(wga.getKaryoHeight());
 		$("#canvasWidth").val(wga.getCanvasWidth());
 		$("#canvasHeight").val(wga.getCanvasHeight());
@@ -41,16 +40,6 @@
 		catch(err){
 			alert(err);
 			$("#linearSpacer").val(wga.getLinearSpacer());
-		}
-	}
-	function changeLinearGenomeSpacer(){
-		var genomeSpacer = $("#linearGenomeSpacer").val(); 
-		try {
-		wga.setLinearGenomeSpacer(genomeSpacer); 	
-		}
-		catch(err){
-			alert(err);
-			$("#linearGenomeSpacer").val(wga.getLinearGenomeSpacer());
 		}
 	}
 	function changeKaryoHeight(){
@@ -95,7 +84,6 @@
 	}
 	function setNewParameters(){
 		changeLinearSpacer();
-		changeLinearGenomeSpacer();
 		changeKaryoHeight();
 		changeCanvasWidth();
 		changeCanvasHeight()
@@ -117,9 +105,6 @@
 			<legend><span class="number">1</span> Change graphical parameters</legend>
 			Spacer between chromsomes in the linear Layout:<br>
 			<input type="text" id="linearSpacer" placeholder="Enter a spacer">
-			<br>
-			Spacer between genomes in the linear Layout:<br>
-			<input type="text" id="linearGenomeSpacer" placeholder="Enter a spacer">
 			<br>
 			Height of the chromosomes:<br>
 			<input type="text" id="karyoHeight" placeholder="Enter a height">

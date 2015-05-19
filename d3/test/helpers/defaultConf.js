@@ -1,6 +1,5 @@
 var defaultConf =  {
 		linear: {
-			genomeDistance: 300,
 			drawAllLinks: false,
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",

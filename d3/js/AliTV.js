@@ -52,7 +52,6 @@ function AliTV(svg) {
 	/**
 	 * property to store configuration options
 	 * @property {Object}  linear                                  - The configuration options for the linear layout.
-	 * @property {Number}  linear.genomeDistance                   - The vertical distance between adjacent genomes in px.
 	 * @property {Boolean} linear.drawAllLinks                     - Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.
 	 * @property {String}  linear.startLineColor                   - The start color of the color gradient for drawing karyos according to their genomeId
 	 * @property {String}  linear.endLineColor                     - The end color of the color gradient. 
@@ -75,7 +74,6 @@ function AliTV(svg) {
 	 */
 	this.conf = {
 		linear: {
-			genomeDistance: 300,
 			drawAllLinks: false,
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
@@ -183,6 +181,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	var linearKaryoCoords = [];
 	var genome_order = this.filters.karyo.genome_order;
 	var conf = this.conf;
+	var genomeDistance = this.getGenomeDistance();
 
 	var total = [];
 	var current = [];
@@ -204,7 +203,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		var value = this.data.karyo.chromosomes[key];
 		var coord = {
 			'karyo': key,
-			'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
+			'y': genome_order.indexOf(value.genome_id) * genomeDistance,
 			'height': conf.graphicalParameters.karyoHeight,
 			'genome': value.genome_id
 		};
@@ -758,44 +757,6 @@ AliTV.prototype.setLinearSpacer = function(spacer) {
 };
 
 /**
- * This function returns the information of the spacer between two genomes which is set in the configuration.
- * @returns {Number} The actual genome spacer.
- * @author Sonja Hohlfeld
- */
-
-AliTV.prototype.getLinearGenomeSpacer = function() {
-	return this.conf.linear.genomeDistance;
-};
-
-/**
- * This function replaces the old spacer of the genomeDistance with the new value in the config-object.
- * It is called by a blur()-event, when the decription field loses focus.
- * When the method gets a wrong value it throws an error message.
- * @param {Number} The function gets the genome distance which can be set by the user.
- * @throws Will throw an error if the argument is empty.
- * @throws Will throw an error if the argument is not a number.
- * @throws Will throw an error if the argument is less than 0 or equal to 0.
- * @throws Will throw an error if the argument is greater than the height of the svg.
- * @author Sonja Hohlfeld
- */
-
-AliTV.prototype.setLinearGenomeSpacer = function(genomeSpacer) {
-	if (genomeSpacer === "") {
-		throw "empty";
-	} else if (isNaN(genomeSpacer)) {
-		throw "not a number";
-	} else if (genomeSpacer <= 0) {
-		throw "genome distance is to small, it should be > 0";
-	} else if (genomeSpacer >= this.conf.graphicalParameters.height) {
-		throw "genome distance is to big for drawing, change the height first";
-	} else {
-		genomeSpacer = Number(genomeSpacer);
-		this.conf.linear.genomeDistance = genomeSpacer;
-		return this.conf.linear.genomeDistance;
-	}
-};
-
-/**
  * This function returns the height of the chromosomes between two genomes which is set in the configuration.
  * @returns {Number} The actual height of chromosomes.
  * @author Sonja Hohlfeld
@@ -972,4 +933,14 @@ AliTV.prototype.drawEqualLayout = function(layout) {
 AliTV.prototype.getOuterRadius = function() {
 	var outerRadius = 0.45 * Math.min(this.getCanvasHeight(), this.getCanvasWidth());
 	return outerRadius;
+};
+
+/**
+ * This function calculates the appropriate genomeDistance of the linear layout for the current svg height.
+ * @returns {Number} genomeDistance - the distance between genomes in the linear layout.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getGenomeDistance = function() {
+	var genomeDistance = this.getCanvasHeight() * 1 / this.filters.karyo.genome_order.length;
+	return genomeDistance;
 };

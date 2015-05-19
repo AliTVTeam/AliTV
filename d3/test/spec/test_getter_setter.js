@@ -51,62 +51,6 @@ describe('The setLinearSpacer method is supposed to set the new information of t
 	});
 });
 
-describe('The getLinearGenomeSpacer method is supposed to get the information of the spacer between two genomes', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	
-	it('getLinearGenomeSpacer method is supposed to be a function', function(){
-		expect(typeof ali.getLinearGenomeSpacer).toEqual('function');
-	});	
-	it('the function should return a defined value', function(){
-		var genomeSpacer = ali.getLinearGenomeSpacer();
-		expect(genomeSpacer).toBeDefined();
-	});
-	it('the function should return the spacer between two genomes which is defined in the defaultConf', function(){
-		var genomeSpacer = ali.getLinearGenomeSpacer();
-		expect(genomeSpacer).toEqual(defaultConf.linear.genomeDistance);
-	});
-});
-
-describe('The getLinearGenomeSpacer method is supposed to set the new information of the genome distance in the conf object', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('setLinearSpacer method is supposed to be a function', function(){
-		expect(typeof ali.setLinearGenomeSpacer).toEqual('function');
-	});	
-	it('the returned value of the getLinearGenomeSpacer method should be the same as the genomeSpacer which is set and returned by the setter-method', function(){
-		var returnedSpacer = 400;
-		expect(ali.setLinearGenomeSpacer(returnedSpacer)).toEqual(400);
-	});	
-	it('when setLinearGenomeSpacer is called several times the spacer should have the same value as the returned spacer of getLinearGenomeSpacer method', function(){
-		ali.setLinearSpacer(500);
-		expect(ali.getLinearSpacer()).toEqual(500);
-		ali.setLinearSpacer(200);
-		expect(ali.getLinearSpacer()).toEqual(200);
-		ali.setLinearSpacer(1000);
-		expect(ali.getLinearSpacer()).toEqual(1000);
-	});	
-	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer has no value', function(){
-		var genomeSpacer = "";
-		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("empty");
-	});
-	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer is not a number', function(){
-		var genomeSpacer = "test";
-		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("not a number");
-	});
-	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer is 0', function(){
-		var genomeSpacer = 0;
-		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("genome distance is to small, it should be > 0");
-	});
-	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer is less than 0', function(){
-		var genomeSpacer = -12;
-		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("genome distance is to small, it should be > 0");
-	});
-	it('the setLinearGenomeSpacer method should throw an error message if the assigned spacer is bigger than the length of the svg', function(){
-		var genomeSpacer = ali.conf.graphicalParameters.width + 200;
-		expect(function(){ali.setLinearGenomeSpacer(genomeSpacer);}).toThrow("genome distance is to big for drawing, change the height first");
-	});
-});
 	
 describe('The getKaryoHeight method is supposed to get the height of the chromosomes', function(){
 	var svg = $('<svg></svg>');
@@ -294,6 +238,35 @@ describe('The getOuterRadius method is supposed to calculate the appropriate out
 		ali.setCanvasHeight(2000);
 		ali.setCanvasWidth(2000);
 		expect(ali.getOuterRadius()).toEqual(900);
+	});
+});
+
+describe('The getGenomeDistance method is supposed to calculate the appropriate genomeDistance for the linear layout', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getGenomeDistance method is supposed to be a function', function(){
+		expect(typeof ali.getGenomeDistance).toEqual('function');
+	});
+	it('getGenomeDistance method is supposed to return not null', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		expect(ali.getGenomeDistance()).toBeDefined();
+	});
+	it('getGenomeDistance method is supposed to return 500 if default height and 2 genomes are used (1000 * 1/2)', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		expect(ali.getGenomeDistance()).toEqual(500);
+	});
+	it('getGenomeDistance method is supposed to return 250 if default height and 4 genomes are used (1000 * 1/4)', function(){
+		ali.setData({karyo: karyo7});
+		ali.setFilters(filters8);
+		expect(ali.getGenomeDistance()).toEqual(250);
+	});
+	it('getGenomeDistance method is supposed to return 1000 if the default height is set on 2000 and 2 genomes are used (2000 * 1/2)', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.setCanvasHeight(2000);
+		expect(ali.getGenomeDistance()).toEqual(1000);
 	});
 });
 
