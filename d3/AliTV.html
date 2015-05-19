@@ -1,7 +1,8 @@
 <html>
 <head>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset="utf-8">
 <link rel="stylesheet" href="lib/jquery-ui.min.css">
+<link rel="stylesheet" href="css/AliTV.css">
 
 <script src="lib/d3.v3.min.js"></script>
 <script src="lib/jquery.min.js"></script>
@@ -21,13 +22,127 @@
 				wga.drawLinear();
 			});
 		});
+		
+		//Set default values for API of graphical parameters
+		$("#linearSpacer").val(wga.getLinearSpacer());
+		$("#linearGenomeSpacer").val(wga.getLinearGenomeSpacer());
+		$("#karyoHeight").val(wga.getKaryoHeight());
+		$("#canvasWidth").val(wga.getCanvasWidth());
+		$("#canvasHeight").val(wga.getCanvasHeight());
+		$("#tickDistance").val(wga.getTickDistance());
+		
 	});
+	function changeLinearSpacer(){
+		var spacer = $("#linearSpacer").val();
+		try {
+		wga.setLinearSpacer(spacer); 
+		$("#linearSpacer").val(wga.getLinearSpacer());
+		}
+		catch(err){
+			alert(err);
+			$("#linearSpacer").val(wga.getLinearSpacer());
+		}
+	}
+	function changeLinearGenomeSpacer(){
+		var genomeSpacer = $("#linearGenomeSpacer").val(); 
+		try {
+		wga.setLinearGenomeSpacer(genomeSpacer); 	
+		}
+		catch(err){
+			alert(err);
+			$("#linearGenomeSpacer").val(wga.getLinearGenomeSpacer());
+		}
+	}
+	function changeKaryoHeight(){
+		var height = $("#karyoHeight").val(); 
+		try {
+		wga.setKaryoHeight(height); 	
+		}
+		catch(err){
+			alert(err);
+			$("#karyoHeight").val(wga.getKaryoHeight());
+		}
+	}
+	function changeCanvasWidth(){
+		var width = $("#canvasWidth").val(); 
+		try {
+		wga.setCanvasWidth(width); 	
+		}
+		catch(err){
+			alert(err);
+			$("#canvasWidth").val(wga.getCanvasWidth());
+		}
+	}
+	function changeCanvasHeight(){
+		var height = $("#canvasHeight").val(); 
+		try {
+		wga.setCanvasHeight(height); 
+		}
+		catch(err){
+			alert(err);
+			$("#canvasHeight").val(wga.getCanvasHeight());
+		}
+	}
+	function changeTickDistance(){
+		var distance = $("#tickDistance").val(); 
+		try {
+		wga.setTickDistance(distance); 	
+		}
+		catch(err){
+			alert(err);
+			$("#tickDistance").val(wga.getTickDistance());
+		}
+	}
+	function setNewParameters(){
+		changeLinearSpacer();
+		changeLinearGenomeSpacer();
+		changeKaryoHeight();
+		changeCanvasWidth();
+		changeCanvasHeight()
+		changeTickDistance();
+		
+		var layout = wga.getLayout();
+		wga.drawEqualLayout(layout);
+	}
 </script>
 </head>
-
 <body>
-<svg id='wgaCanvas'></svg>
-<button type="button" onclick="wga.drawCircular();">Draw Circular</button> 
-<button type="button" onclick="wga.drawLinear();">Draw Linear</button> 
+
+<div style="width: 100%; overflow: hidden;">
+	<div class="form-style-5" style="float:left">
+	<button type="submit" onclick="wga.drawCircular();">Draw Circular</button> 
+	<button type="submit" onclick="wga.drawLinear();">Draw Linear</button> 
+	<form>
+		<fieldset>
+			<legend><span class="number">1</span> Change graphical parameters</legend>
+			Spacer between chromsomes in the linear Layout:<br>
+			<input type="text" id="linearSpacer" placeholder="Enter a spacer">
+			<br>
+			Spacer between genomes in the linear Layout:<br>
+			<input type="text" id="linearGenomeSpacer" placeholder="Enter a spacer">
+			<br>
+			Height of the chromosomes:<br>
+			<input type="text" id="karyoHeight" placeholder="Enter a height">
+			<br>
+			Width:<br>
+			<input type="text" id="canvasWidth" placeholder="Enter the svg-width">
+			<br>
+			Height:<br>
+			<input type="text" id="canvasHeight" placeholder="Enter the svg-height">
+			<br>
+			Distance between ticks:<br>
+			<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
+			<br>
+		</fieldset>
+	</form> 
+	<button type="submit" onclick="setNewParameters()">Apply</button>
+	</div>
+
+	<svg id='wgaCanvas' style="margin:50px"></svg>
+</div>
+
 </body>
 </html>
+
+
+
