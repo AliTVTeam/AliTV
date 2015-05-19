@@ -303,6 +303,9 @@ describe('The getGenomeDistance method is supposed to calculate the appropriate 
 	it('getGenomeDistance method is supposed to be a function', function(){
 		expect(typeof ali.getGenomeDistance).toEqual('function');
 	});
+	it('getGenomeDistance method is supposed to return not null', function(){
+		expect(ali.getGenomeDistance()).toBeDefined();
+	});
 });
 
 describe('The getTickDistance method is supposed to get the distance of the chromosome ticks in bp', function(){
