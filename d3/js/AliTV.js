@@ -192,6 +192,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	var genomeDistance = this.getGenomeDistance();
 	var that = this;
 
+
 	var total = [];
 	var current = [];
 	var i;
@@ -214,7 +215,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		if (this.filters.karyo.chromosomes[key].visible === true) {
 			var coord = {
 				'karyo': key,
-				'y': genome_order.indexOf(value.genome_id) * conf.linear.genomeDistance,
+				'y': genome_order.indexOf(value.genome_id) * genomeDistance,
 				'height': conf.graphicalParameters.karyoHeight,
 				'genome': value.genome_id
 			};
