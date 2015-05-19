@@ -193,6 +193,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	var linearKaryoCoords = [];
 	var genome_order = this.filters.karyo.genome_order;
 	var conf = this.conf;
+	var that = this;
 
 	var total = [];
 	var current = [];
@@ -203,10 +204,11 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		current.push(0);
 	}
 
-	$.each(this.data.karyo.chromosomes, function(key, value) {
-		total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
+	$.each(that.data.karyo.chromosomes, function(key, value) {
+		if (that.filters.karyo.chromosomes[key].visible === true) {
+			total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
+		}
 	});
-
 	var maxTotalSize = Math.max.apply(null, total);
 	for (i = 0; i < this.filters.karyo.order.length; i++) {
 		var key = this.filters.karyo.order[i];
