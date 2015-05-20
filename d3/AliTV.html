@@ -70,6 +70,15 @@
 		$( "#accordion" ).accordion();
 	});
 	
+	$(function(){$('#skipChromosomesWithoutVisibleLinks').change(function() {
+			if($('#skipChromosomesWithoutVisibleLinks').is(':checked')){
+		     	wga.filters.skipChromosomesWithoutVisibleLinks = true;
+			} else {
+				wga.filters.skipChromosomesWithoutVisibleLinks = false;
+			}
+		});
+	});
+	
 	function changeLinearSpacer(){
 		var spacer = $("#linearSpacer").val();
 		try {
