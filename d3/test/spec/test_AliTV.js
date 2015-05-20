@@ -1016,3 +1016,11 @@ describe('The drawEqualLayout method is supposed to draw the layout which is equ
 		expect(ali.drawEqualLayout(layout)).toEqual("circular");
 	});	
 });
+
+describe('The skipChromosomesWithoutVisibleLinks method is supposed to skip all chromosomes without visible links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('skipChromosomesWithoutVisibleLinks method is supposed to be a function', function(){
+		expect(typeof ali.skipChromosomesWithoutVisibleLinks).toEqual('function');
+	});	
+});
