@@ -30,6 +30,8 @@
 		$("#canvasHeight").val(wga.getCanvasHeight());
 		$("#tickDistance").val(wga.getTickDistance());
 		
+		$('#skipChromosomesWithoutVisibleLinks').attr('checked', false);
+		
 		});
 	
 	$(function(){
@@ -183,6 +185,8 @@
 						<input type="text" id="minlength-label" readonly>
 					</p>
  					<div id="length-slider"></div>
+ 					<br>
+ 					Skip chromosomes without visible links: <input id="skipChromosomesWithoutVisibleLinks" type="checkbox">
  				</fieldset>
  			</form> 
  		</div>
