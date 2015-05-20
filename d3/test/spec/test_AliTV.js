@@ -123,6 +123,18 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
+
+	it('getLinearKaryoCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes), but only 2 chromosomes are calculated because the third one has no linkage information', function(){
+		wga.setData({karyo: karyo2, features: features6, links: links9});
+		wga.setFilters(filters9);
+		var linearKaryoCoords = wga.getLinearKaryoCoords();
+		var expectedCoords = [
+		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width/((2000/2000)), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
+		    {'karyo': 'c3', 'x': 1000, 'y': wga.getGenomeDistance(), 'width': 500, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
+		];
+		expect(linearKaryoCoords).toEqual(expectedCoords);
+	});
+	
 	
 });
 
