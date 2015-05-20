@@ -971,6 +971,30 @@ AliTV.prototype.getGenomeDistance = function() {
  * @return {Array} nonVisibleKaryos - returns all chromosomes without visible links at the moment.
  * @author {Sonja Hohlfeld}
  */
-AliTV.prototype.skipChromosomesWithoutVisibleLinks = function() {
+AliTV.prototype.skipChromosomesWithoutVisibleLinks = function(linkCoords) {
+	var that = this;
+	var visibleChromosomes = [];
 
+	$.each(linkCoords, function(key, value) {
+		var currentLink = that.data.links[value.linkID];
+		var currentLinkTarget = currentLink.target;
+		var currentLinkSource = currentLink.source;
+		var currentSourceKaryo = that.data.features[currentLinkTarget].karyo;
+		var currentTargetKaryo = that.data.features[currentLinkSource].karyo;
+
+		if (visibleChromosomes.indexOf(currentSourceKaryo) === -1) {
+			visibleChromosomes.push(currentSourceKaryo);
+		}
+		if (visibleChromosomes.indexOf(currentTargetKaryo) === -1) {
+			visibleChromosomes.push(currentTargetKaryo);
+		}
+	});
+
+	for (var i = 0; i < that.filters.karyo.order.length; i++) {
+		if (visibleChromosomes.indexOf(that.filters.karyo.order[i]) === -1) {
+			that.filters.karyo.chromosomes[that.filters.karyo.order[i]].visible = false;
+		} else {
+			that.filters.karyo.chromosomes[that.filters.karyo.order[i]].visible = true;
+		}
+	}
 };
