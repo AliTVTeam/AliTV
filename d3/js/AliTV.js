@@ -965,13 +965,14 @@ AliTV.prototype.getGenomeDistance = function() {
 };
 
 /**
- * This function filters all chromosomes without visible linkage information in the current configuration, this means the identity range and the lenght range of links.
- * It is called when skipChromosomesWithoutVisibleLinks in the configuration is true after filtering the links.
- * @param {Array} links - gets the current coordinates of all visible links.
- * @return {Array} nonVisibleKaryos - returns all chromosomes without visible links at the moment.
+ * This function filters all chromosomes with visible linkage information in the current configuration, this means the identity range and the lenght range of links.
+ * With the current visible chromosomes and the information about all chromosomes in filters.karyo.order the methos is supposed to calculate all not-visible chromosomes.
+ * The function is called when skipChromosomesWithoutVisibleLinks in the configuration is true after filtering the links.
+ * @param {Array} linkCoords - gets the current coordinates of all visible links.
+ * @return {Array} visibleChromosomes - returns all chromosomes without visible links at the moment.
  * @author {Sonja Hohlfeld}
  */
-AliTV.prototype.skipChromosomesWithoutVisibleLinks = function(linkCoords) {
+AliTV.prototype.filterCurrentVisibleChromosomes = function(linkCoords) {
 	var that = this;
 	var visibleChromosomes = [];
 
@@ -997,4 +998,6 @@ AliTV.prototype.skipChromosomesWithoutVisibleLinks = function(linkCoords) {
 			that.filters.karyo.chromosomes[that.filters.karyo.order[i]].visible = true;
 		}
 	}
+
+	return visibleChromosomes;
 };
