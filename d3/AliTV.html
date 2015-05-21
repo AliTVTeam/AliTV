@@ -50,7 +50,6 @@
 					var linearLinkCoords = wga.getLinearLinkCoords(linearKaryoCoords);
 					wga.filterCurrentVisibleChromosomes(linearLinkCoords);
 				}
-				
 				var layout = wga.getLayout();
 				wga.drawEqualLayout(layout);
 			}
@@ -203,6 +202,9 @@
  					<div id="length-slider"></div>
  					<br>
  					Skip chromosomes without visible links: <input id="skipChromosomesWithoutVisibleLinks" type="checkbox">
+ 					<br>
+ 					<br>
+ 					Skip chromosomes without linkage information: <input id="skipChromosomesWithoutLinkageInformation" type="checkbox">
  				</fieldset>
  			</form> 
  		</div>
