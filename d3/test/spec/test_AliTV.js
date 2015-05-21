@@ -1017,10 +1017,10 @@ describe('The drawEqualLayout method is supposed to draw the layout which is equ
 	});	
 });
 
-describe('The skipChromosomesWithoutVisibleLinks method is supposed to skip all chromosomes without visible links', function(){
+describe('The filterCurrentVisibleChromosomes method is supposed to skip all chromosomes without visible links', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('skipChromosomesWithoutVisibleLinks method is supposed to be a function', function(){
-		expect(typeof ali.skipChromosomesWithoutVisibleLinks).toEqual('function');
+	it('filterCurrentVisibleChromosomes method is supposed to be a function', function(){
+		expect(typeof ali.filterCurrentVisibleChromosomes).toEqual('function');
 	});	
 });
