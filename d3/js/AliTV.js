@@ -960,7 +960,7 @@ AliTV.prototype.getOuterRadius = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getGenomeDistance = function() {
-	var genomeDistance = (this.getCanvasHeight() - this.getKaryoHeight()) * 1 / (this.filters.karyo.genome_order.length - 1);
+	var genomeDistance = (this.getCanvasHeight() - this.getKaryoHeight()) / (this.filters.karyo.genome_order.length - 1);
 	return Math.round(genomeDistance);
 };
 
