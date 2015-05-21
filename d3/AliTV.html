@@ -85,8 +85,8 @@
 		});
 	});
 	
-	$(function(){$('#skipChromosomesWithoutLinkageInformation').change(function() {
-		if($('#skipChromosomesWithoutLinkageInformation').is(':checked')){
+	$(function(){$('#filterChromosomes').change(function() {
+		if($('#filterChromosomes').is(':checked')){
 	     	wga.filters.skipChromosomesWithoutLinkageInformation = true;
 		} else {
 			wga.filters.skipChromosomesWithoutLinkageInformation = false;
@@ -213,7 +213,7 @@
  					Skip chromosomes without visible links: <input id="skipChromosomesWithoutVisibleLinks" type="checkbox">
  					<br>
  					<br>
- 					Skip chromosomes without linkage information: <input id="skipChromosomesWithoutLinkageInformation" type="checkbox">
+ 					Show/Hide all chromosomes: <input id="filterChromosomes" type="checkbox">
  				</fieldset>
  			</form> 
  		</div>
