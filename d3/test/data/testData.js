@@ -169,8 +169,8 @@ var filters10 = {'karyo': {
 		'c5': {'reverse': false, 'visible': true},
 		'c6': {'reverse': false, 'visible': true},
 		'c7': {'reverse': false, 'visible': true}
-	}
-}
+	}},
+	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 50, "maxLinkLength": 1000}
 };
 var features = {
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
