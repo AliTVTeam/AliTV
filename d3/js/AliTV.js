@@ -1001,3 +1001,12 @@ AliTV.prototype.filterCurrentVisibleChromosomes = function(linkCoords) {
 
 	return visibleChromosomes;
 };
+
+
+/**
+ * This function should set all chromosomes visible.
+ * @author Sonja Hohlfeld 
+ */
+AliTV.prototype.setAllChromosomesVisible = function() {
+
+};
