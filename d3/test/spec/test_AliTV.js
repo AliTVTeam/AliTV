@@ -1049,5 +1049,10 @@ describe('The setAllChromosomesVisible method is supposed to set all chromosomes
 	it('setAllChromosomesVisible method is supposed to be a function', function(){
 		expect(typeof ali.setAllChromosomesVisible).toEqual('function');
 	});	
-
+	it('the method is supposed to set all chromosomes visible', function(){
+		ali.setData({karyo: karyo6});
+		ali.setFilters(filters11);
+		ali.setAllChromosomesVisible();
+		expect(ali.filters.karyo.chromosomes["c1"].visible).toEqual(false);
+	});
 });

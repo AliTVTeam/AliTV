@@ -172,6 +172,16 @@ var filters10 = {'karyo': {
 	}},
 	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 50, "maxLinkLength": 1000}
 };
+
+var filters11 = {'karyo': {
+	'order': ['c1'],
+	'genome_order': [0],
+	'chromosomes': {
+		'c1': {'reverse': false, 'visible': false}
+	}},
+	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 50, "maxLinkLength": 1000}
+};
+
 var features = {
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
