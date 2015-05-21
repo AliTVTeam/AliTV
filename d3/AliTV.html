@@ -44,14 +44,15 @@
 				$("#identity-label").val(ui.values[0] + " % - " + ui.values[1] + " %");
 				wga.filters.links.minLinkIdentity = ui.values[0];
 				wga.filters.links.maxLinkIdentity = ui.values[1];
-				var layout = wga.getLayout();
-				wga.drawEqualLayout(layout);
 				
 				if($('#skipChromosomesWithoutVisibleLinks').is(':checked')){
 					var linearKaryoCoords = wga.getLinearKaryoCoords();
 					var linearLinkCoords = wga.getLinearLinkCoords(linearKaryoCoords);
-					wga.skipChromosomesWithoutVisibleLinks(linearLinkCoords);
+					wga.filterCurrentVisibleChromosomes(linearLinkCoords);
 				}
+				
+				var layout = wga.getLayout();
+				wga.drawEqualLayout(layout);
 			}
 		});	
 		$("#identity-label").val($("#identity-slider").slider("values", 0) + " % - " + $("#identity-slider").slider("values", 1) + " %");
