@@ -1053,6 +1053,6 @@ describe('The setAllChromosomesVisible method is supposed to set all chromosomes
 		ali.setData({karyo: karyo6});
 		ali.setFilters(filters11);
 		ali.setAllChromosomesVisible();
-		expect(ali.filters.karyo.chromosomes["c1"].visible).toEqual(false);
+		expect(ali.filters.karyo.chromosomes["c1"].visible).toEqual(true);
 	});
 });
