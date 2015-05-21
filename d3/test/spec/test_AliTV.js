@@ -1031,5 +1031,14 @@ describe('The filterCurrentVisibleChromosomes method is supposed to skip all chr
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		var visibleChromosomes = ali.filterCurrentVisibleChromosomes(linearLinkCoords);
 		expect(visibleChromosomes).toEqual(expectedVisibleChromosomes);
+	});
+	it('filterCurrentVisibleChromosomes method is supposed to return the expected visible chromosomes in the linear layout for test data (3 genomes, 7 chromosomes, 5 links and 2 chromosomes are not visible)', function(){
+		ali.setData({karyo: karyo8, features: features8, links: links11});
+		ali.setFilters(filters10);
+		var expectedVisibleChromosomes = ["c2", "c1", "c4"];
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		var visibleChromosomes = ali.filterCurrentVisibleChromosomes(linearLinkCoords);
+		expect(visibleChromosomes).toEqual(expectedVisibleChromosomes);
 	})
 });
