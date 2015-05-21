@@ -178,7 +178,12 @@ var features6 = {
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 700},
 		'f3': {'karyo': 'c3', 'start': 600, 'end': 700}
 };
-
+var features7 = {
+		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
+		'f2': {'karyo': 'c2', 'start': 100, 'end': 600},
+		'f3': {'karyo': 'c3', 'start': 400, 'end': 900},
+		'f4': {'karyo': 'c4', 'start': 800, 'end': 900}
+};
 var links = {
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 };
@@ -218,6 +223,10 @@ var links9 = {
 		"l1": {'source': 'f1', 'target': 'f3', 'identity': 80}
 };
 
+var links10 = {
+		"l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
+		"l2": {'source': 'f2', 'target': 'f4', 'identity': 100}
+};
 
 var data = {'karyo': karyo, 'features': features, 'links': links};
 var data2 = {'karyo': karyo2, 'features': features, 'links': links};
