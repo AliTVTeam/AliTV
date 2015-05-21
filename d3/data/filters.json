@@ -46,6 +46,5 @@
     "minLinkLength": 100,
     "maxLinkLength": 10000
   },
-  "skipChromosomesWithoutVisibleLinks": false,
-  "skipChromosomesWithoutLinkageInformation" : false
+  "skipChromosomesWithoutVisibleLinks": false
 }
