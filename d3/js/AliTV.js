@@ -1008,5 +1008,8 @@ AliTV.prototype.filterCurrentVisibleChromosomes = function(linkCoords) {
  * @author Sonja Hohlfeld 
  */
 AliTV.prototype.setAllChromosomesVisible = function() {
-
+	$.each(this.filters.karyo.chromosomes, function(key, value) {
+		value.visible = true;
+	});
+	return this.filters;
 };
