@@ -85,6 +85,15 @@
 		});
 	});
 	
+	$(function(){$('#skipChromosomesWithoutLinkageInformation').change(function() {
+		if($('#skipChromosomesWithoutLinkageInformation').is(':checked')){
+	     	wga.filters.skipChromosomesWithoutLinkageInformation = true;
+		} else {
+			wga.filters.skipChromosomesWithoutLinkageInformation = false;
+		}
+	});
+});
+	
 	function changeLinearSpacer(){
 		var spacer = $("#linearSpacer").val();
 		try {
