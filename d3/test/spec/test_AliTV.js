@@ -1042,3 +1042,12 @@ describe('The filterCurrentVisibleChromosomes method is supposed to skip all chr
 		expect(visibleChromosomes).toEqual(expectedVisibleChromosomes);
 	})
 });
+
+describe('The setAllChromosomesVisible method is supposed to set all chromosomes visible', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setAllChromosomesVisible method is supposed to be a function', function(){
+		expect(typeof ali.setAllChromosomesVisible).toEqual('function');
+	});	
+
+});
