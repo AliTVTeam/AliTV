@@ -31,6 +31,7 @@
 		$("#tickDistance").val(wga.getTickDistance());
 		
 		$('#skipChromosomesWithoutVisibleLinks').attr('checked', false);
+		$('#filterChromosomes').attr('checked', false);
 		
 		});
 	
@@ -88,9 +89,8 @@
 	$(function(){$('#filterChromosomes').change(function() {
 		if($('#filterChromosomes').is(':checked')){
 	     	wga.filters.skipChromosomesWithoutLinkageInformation = true;
-		} else {
-			wga.filters.skipChromosomesWithoutLinkageInformation = false;
-		}
+	     	wga.setAllChromosomesVisible();
+		} 
 	});
 });
 	
@@ -213,7 +213,7 @@
  					Skip chromosomes without visible links: <input id="skipChromosomesWithoutVisibleLinks" type="checkbox">
  					<br>
  					<br>
- 					Show/Hide all chromosomes: <input id="filterChromosomes" type="checkbox">
+ 					Show all chromosomes: <input id="filterChromosomes" type="checkbox">
  				</fieldset>
  			</form> 
  		</div>
