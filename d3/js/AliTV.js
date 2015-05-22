@@ -1059,5 +1059,6 @@ AliTV.prototype.getGenomeDistance = function() {
  */
 AliTV.prototype.filterLinks = function() {
 	var visibleLinks = this.data.links;
+	ali.filterLinksByIdentity(visibleLinks);
 	return visibleLinks;
 };
