@@ -1091,4 +1091,11 @@ describe('The filterLinks method is supposed to filter links. ', function(){
 	it('filterLinks method is supposed to be a function', function(){
 		expect(typeof ali.filterLinks).toEqual('function');
 	});		
+	it('filterLinks method is supposed to return visible links, when no filters are setted the visible links are data.links', function() {
+		ali.setData(data);
+		ali.setFilters(filters);
+		var expectedVisibleLinks = that.data.links;
+		var visibleLinks = ali.filterLinks();
+		expect(visibleLinks).toEqual(expectedVisibleLinks);
+	});
 });
