@@ -1032,7 +1032,6 @@ AliTV.prototype.filterInvisibleChromosomes = function(visibleChromosomes) {
 			filteredVisibleChromosomes[key] = value;
 		}
 	});
-
 	return filteredVisibleChromosomes;
 };
 
@@ -1043,5 +1042,23 @@ AliTV.prototype.filterInvisibleChromosomes = function(visibleChromosomes) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterChromosomesWithoutLinks = function(visibleChromosomes) {
+	var that = this;
+	var filteredChromosomesWithLinks = {};
 
+	$.each(visibleChromosomes, function(key, value) {
+
+	});
+
+	return filteredChromosomesWithLinks;
+};
+
+/**
+ * This method should call functions in order to filter the links.
+ * @param links: gets all links 
+ * @returns visibleLinks: return all links which are visible
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterLinks = function(links) {
+	var visibleLinks = {};
+	return visibleLinks;
 };

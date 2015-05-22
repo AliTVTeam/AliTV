@@ -1084,3 +1084,11 @@ describe('The filterChromosomesWithoutLinks method is supposed to filter all chr
 		expect(typeof ali.filterChromosomesWithoutLinks).toEqual('function');
 	});		
 });
+
+describe('The filterLinks method is supposed to filter links. ', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterLinks method is supposed to be a function', function(){
+		expect(typeof ali.filterLinks).toEqual('function');
+	});		
+});
