@@ -109,6 +109,12 @@
         "length": 500,
         "seq": null,
         "genome_id": 2
+      },
+      ,
+      "c7": {
+        "length": 750,
+        "seq": null,
+        "genome_id": 3
       }
     }
   }
