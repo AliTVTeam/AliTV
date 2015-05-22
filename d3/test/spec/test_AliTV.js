@@ -1112,7 +1112,7 @@ describe('The filterLinksByIdentity method is supposed to filter links according
 		ali.filters.links.minLinkIdentity = 0;
 		ali.filters.links.maxLinkIdentity = 100;
 		var expectedLinks = ali.data.links;
-		var visibleLinks = that.data.links;
+		var visibleLinks = ali.data.links;
 		var expectedVisibleLinks = ali.filterLinksByIdentity(visibleLinks);
 		expect(visibleLinks).toEqual(expectedVisibleLinks);
 	});
