@@ -1117,3 +1117,11 @@ describe('The filterLinksByIdentity method is supposed to filter links according
 		expect(visibleLinks).toEqual(expectedVisibleLinks);
 	});
 });
+
+describe('The filterLinksByLength method is supposed to filter links according to their length. ', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterLinksByLength method is supposed to be a function', function(){
+		expect(typeof ali.filterLinksByLength).toEqual('function');
+	});	
+});
