@@ -1071,7 +1071,6 @@ describe('The filterInvisibleChromosomes method is supposed to filter all chromo
 		
 		var expectedVisibleChromosomes =  {
 			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
-			'c2': {'genome_id': 0, 'length': 1000, 'seq': null},
 			'c3': {'genome_id': 1, 'length': 1000, 'seq': null}
 		};
 		expect(visibleChromosmes).toEqual(expectedVisibleChromosomes);
