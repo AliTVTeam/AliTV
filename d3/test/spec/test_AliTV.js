@@ -1076,3 +1076,11 @@ describe('The filterInvisibleChromosomes method is supposed to filter all chromo
 		expect(visibleChromosmes).toEqual(expectedVisibleChromosomes);
 	});
 });
+
+describe('The filterChromosomesWithoutLinks method is supposed to filter all chromosomes which have no links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterChromosomesWithoutLinks method is supposed to be a function', function(){
+		expect(typeof ali.filterChromosomesWithoutLinks).toEqual('function');
+	});		
+});
