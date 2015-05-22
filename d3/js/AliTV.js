@@ -258,11 +258,13 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 	}
 	var that = this;
 	var conf = this.conf;
+
+	var visibleLinks = that.filterLinks();
 	var karyoMap = {};
 	$.each(coords, function(key, value) {
 		karyoMap[value.karyo] = key;
 	});
-	$.each(this.data.links, function(key, value) {
+	$.each(visibleLinks, function(key, value) {
 		var link = {};
 		link.linkID = key;
 		link.source0 = {};
@@ -1065,11 +1067,19 @@ AliTV.prototype.filterLinks = function() {
 
 /**
  * This method should filter links according to their identity.
- * @returns visibleLinks: return all links which are visible with the current configuration.
+ * @returns filteredLinks: return all links which are visible with the current configuration.
  * @param visibleLinks: gets all current visible links.
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
+	var filteredLinks = [];
+	var minIdentity = this.filters.links.minLinkIdentity;
+	var maxIdentity = this.filters.links.maxLinkIdentity;
 
-	return visibleLinks;
+	$.each(visibleLinks, function(key, value) {
+		if (value.identity >= minIdentity && value.identity <= maxIdentity) {
+			filteredLinks.push(value);
+		}
+	});
+	return filteredLinks;
 };
