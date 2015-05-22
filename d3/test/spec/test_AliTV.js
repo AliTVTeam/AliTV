@@ -1057,33 +1057,33 @@ describe('The drawEqualLayout method is supposed to draw the layout which is equ
 //	});
 //});
 
-describe('The filterInvisibleChromosomes method is supposed to filter all chromosomes which are set visible in the default filters', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('filterInvisibleChromosomes method is supposed to be a function', function(){
-		expect(typeof ali.filterInvisibleChromosomes).toEqual('function');
-	});		
-	it('the method only should return visible chromosmes (use 3 chromosmes on 2 genomes, only 2 chromosmes are visible', function(){
-		ali.setData({karyo: karyo2});
-		ali.setFilters(filters12);
-		var chromosomes = ali.data.karyo.chromosomes;
-		var visibleChromosmes = ali.filterInvisibleChromosomes(chromosomes);
-		
-		var expectedVisibleChromosomes =  {
-			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
-			'c3': {'genome_id': 1, 'length': 1000, 'seq': null}
-		};
-		expect(visibleChromosmes).toEqual(expectedVisibleChromosomes);
-	});
-});
-
-describe('The filterChromosomesWithoutLinks method is supposed to filter all chromosomes which have no links', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('filterChromosomesWithoutLinks method is supposed to be a function', function(){
-		expect(typeof ali.filterChromosomesWithoutLinks).toEqual('function');
-	});		
-});
+//describe('The filterInvisibleChromosomes method is supposed to filter all chromosomes which are set visible in the default filters', function(){
+//	var svg = $('<svg></svg>');
+//	var ali = new AliTV(svg);
+//	it('filterInvisibleChromosomes method is supposed to be a function', function(){
+//		expect(typeof ali.filterInvisibleChromosomes).toEqual('function');
+//	});		
+//	it('the method only should return visible chromosmes (use 3 chromosmes on 2 genomes, only 2 chromosmes are visible', function(){
+//		ali.setData({karyo: karyo2});
+//		ali.setFilters(filters12);
+//		var chromosomes = ali.data.karyo.chromosomes;
+//		var visibleChromosmes = ali.filterInvisibleChromosomes(chromosomes);
+//		
+//		var expectedVisibleChromosomes =  {
+//			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+//			'c3': {'genome_id': 1, 'length': 1000, 'seq': null}
+//		};
+//		expect(visibleChromosmes).toEqual(expectedVisibleChromosomes);
+//	});
+//});
+//
+//describe('The filterChromosomesWithoutLinks method is supposed to filter all chromosomes which have no links', function(){
+//	var svg = $('<svg></svg>');
+//	var ali = new AliTV(svg);
+//	it('filterChromosomesWithoutLinks method is supposed to be a function', function(){
+//		expect(typeof ali.filterChromosomesWithoutLinks).toEqual('function');
+//	});		
+//});
 
 describe('The filterLinks method is supposed to filter links. ', function(){
 	var svg = $('<svg></svg>');
@@ -1094,7 +1094,7 @@ describe('The filterLinks method is supposed to filter links. ', function(){
 	it('filterLinks method is supposed to return visible links, when no filters are setted the visible links are data.links', function() {
 		ali.setData(data);
 		ali.setFilters(filters);
-		var expectedVisibleLinks = that.data.links;
+		var expectedVisibleLinks = ali.data.links;
 		var visibleLinks = ali.filterLinks();
 		expect(visibleLinks).toEqual(expectedVisibleLinks);
 	});

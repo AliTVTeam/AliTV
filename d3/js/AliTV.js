@@ -197,8 +197,8 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	if (that.filters.showAllChromosomes === false) {
 		visibleChromosomes = that.filterInvisibleChromosomes(visibleChromosomes);
 	}
-	if (that.filters.skipChromosomesWithoutVisibleLinks === true) {
-		that.filterChromosomesWithoutVisibleLinks(visibleChromosomes);
+	if (that.filters.skipChromosomesWithoutLinks === true) {
+		that.filterChromosomesWithoutLinks(visibleChromosomes);
 	}
 
 
