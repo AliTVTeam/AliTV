@@ -1,5 +1,6 @@
 /* global d3: false */
 /* global $: false */
+/* global _: false */
 /* global document: false */
 
 /**
@@ -260,7 +261,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 	var that = this;
 	var conf = this.conf;
 	var allLinks = that.data.links;
-	visibleLinks = that.filterLinks(allLinks);
+	var visibleLinks = that.filterLinks(allLinks);
 
 	var karyoMap = {};
 	$.each(coords, function(key, value) {
