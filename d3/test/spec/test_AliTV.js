@@ -1105,5 +1105,15 @@ describe('The filterLinksByIdentity method is supposed to filter links according
 	var ali = new AliTV(svg);
 	it('filterLinksByIdentity method is supposed to be a function', function(){
 		expect(typeof ali.filterLinksByIdentity).toEqual('function');
-	});		
+	});	
+	it('if the identity range is between 0 and 100 the function should return all assigned links', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.filters.links.minLinkIdentity = 0;
+		ali.filters.links.maxLinkIdentity = 100;
+		var expectedLinks = ali.data.links;
+		var visibleLinks = that.data.links;
+		var expectedVisibleLinks = ali.filterLinksByIdentity(visibleLinks);
+		expect(visibleLinks).toEqual(expectedVisibleLinks);
+	});
 });
