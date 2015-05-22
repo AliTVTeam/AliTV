@@ -1063,4 +1063,16 @@ describe('The filterInvisibleChromosomes method is supposed to filter all chromo
 	it('filterInvisibleChromosomes method is supposed to be a function', function(){
 		expect(typeof ali.filterInvisibleChromosomes).toEqual('function');
 	});		
+	it('the method only should return visible chromosmes (use 3 chromosmes on 2 genomes, only 2 chromosmes are visible', function(){
+		ali.setData({karyo: karyo2});
+		ali.setFilters(filters12);
+		var visibleChromosmes = ali.filtersInvisibleChromosomes(ali.data.karyo.chromosomes);
+		
+		var expectedVisibleChromosomes =  {
+			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+			'c2': {'genome_id': 0, 'length': 1000, 'seq': null},
+			'c3': {'genome_id': 1, 'length': 1000, 'seq': null}
+		};
+		expect(visibleChromosmes).toEqual(expectedVisibleChromosomes);
+	});
 });
