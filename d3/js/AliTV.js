@@ -258,8 +258,9 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 	}
 	var that = this;
 	var conf = this.conf;
+	var allLinks = that.data.links;
+	visibleLinks = that.filterLinks(allLinks);
 
-	var visibleLinks = that.filterLinks();
 	var karyoMap = {};
 	$.each(coords, function(key, value) {
 		karyoMap[value.karyo] = key;
@@ -282,38 +283,35 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		var lengthOfFeature1 = Math.abs(that.data.features[value.source].end - that.data.features[value.source].start);
 		var lengthOfFeature2 = Math.abs(that.data.features[value.target].end - that.data.features[value.target].start);
 
-		if (value.identity >= that.filters.links.minLinkIdentity && value.identity <= that.filters.links.maxLinkIdentity) {
-			if ((lengthOfFeature1 >= that.filters.links.minLinkLength && lengthOfFeature1 <= that.filters.links.maxLinkLength) || (lengthOfFeature2 >= that.filters.links.minLinkLength && lengthOfFeature2 <= that.filters.links.maxLinkLength)) {
-				if (genomePosition1 > genomePosition2) {
-					var tmp = feature1;
-					feature1 = feature2;
-					feature2 = tmp;
-					tmp = karyo1;
-					karyo1 = karyo2;
-					karyo2 = tmp;
-					tmp = karyo1Coords;
-					karyo1Coords = karyo2Coords;
-					karyo2Coords = tmp;
-				}
-				link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
-				link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
-				link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
-				link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
 
-				link.target0.x = karyo2Coords.x + karyo2Coords.width * feature2.start / karyo2.length;
-				link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
-				link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
-				link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
+		if (genomePosition1 > genomePosition2) {
+			var tmp = feature1;
+			feature1 = feature2;
+			feature2 = tmp;
+			tmp = karyo1;
+			karyo1 = karyo2;
+			karyo2 = tmp;
+			tmp = karyo1Coords;
+			karyo1Coords = karyo2Coords;
+			karyo2Coords = tmp;
+		}
+		link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
+		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
+		link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
+		link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
 
-				if (Math.abs(genomePosition2 - genomePosition1) === 1) {
-					link.adjacent = true;
-					linearLinkCoords.push(link);
-				} else {
-					link.adjacent = false;
-					if (conf.linear.drawAllLinks === true) {
-						linearLinkCoords.push(link);
-					}
-				}
+		link.target0.x = karyo2Coords.x + karyo2Coords.width * feature2.start / karyo2.length;
+		link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
+		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
+		link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
+
+		if (Math.abs(genomePosition2 - genomePosition1) === 1) {
+			link.adjacent = true;
+			linearLinkCoords.push(link);
+		} else {
+			link.adjacent = false;
+			if (conf.linear.drawAllLinks === true) {
+				linearLinkCoords.push(link);
 			}
 		}
 	});
@@ -1056,14 +1054,14 @@ AliTV.prototype.getGenomeDistance = function() {
 
 /**
  * This method should call functions in order to filter the links.
+ * @param allLinks: gets all links
  * @returns visibleLinks: return all links which are visible
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.filterLinks = function() {
-	var visibleLinks = this.data.links;
-	visibleLinks = this.filterLinksByIdentity(visibleLinks);
-	visibleLinks = this.filterLinkyByLength(visibleLinks);
-	return visibleLinks;
+AliTV.prototype.filterLinks = function(allLinks) {
+	var filterVisibleLinksByIdentity = this.filterLinksByIdentity(allLinks);
+	var filterVisibleLinksByLength = this.filterLinksByLength(filterVisibleLinksByIdentity);
+	return filterVisibleLinksByLength;
 };
 
 /**
@@ -1072,10 +1070,10 @@ AliTV.prototype.filterLinks = function() {
  * @param visibleLinks: gets all current visible links.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
+AliTV.prototype.filterLinksByIdentity = function(allLinks) {
 	var minIdentity = this.filters.links.minLinkIdentity;
 	var maxIdentity = this.filters.links.maxLinkIdentity;
-	var filteredLinks = _.filter(visibleLinks, function(currentLink) {
+	var filteredLinks = _.filter(allLinks, function(currentLink) {
 		if (currentLink.identity >= minIdentity && currentLink.identity <= maxIdentity) {
 			return currentLink;
 		}
@@ -1089,6 +1087,18 @@ AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
  * @param visibleLinks: gets all current visible links.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.filterLinksByLength = function(visibleLinks) {
-
+AliTV.prototype.filterLinksByLength = function(filterVisibleLinksByIdentity) {
+	var minLength = this.filters.links.minLinkLength;
+	var maxLength = this.filters.links.maxLinkLength;
+	var that = this;
+	var filteredLinks = _.filter(filterVisibleLinksByIdentity, function(currentLink) {
+		var sourceFeature = currentLink.source;
+		var targetFeature = currentLink.target;
+		var lengthOfSourceFeature = Math.abs(that.data.features[sourceFeature].end - that.data.features[sourceFeature].start);
+		var lengthOfTargetFeature = Math.abs(that.data.features[targetFeature].end - that.data.features[targetFeature].start);
+		if (lengthOfSourceFeature >= minLength && lengthOfSourceFeature <= maxLength || lengthOfTargetFeature >= minLength && lengthOfTargetFeature <= maxLength) {
+			return currentLink;
+		}
+	});
+	return filteredLinks;
 };
