@@ -47,5 +47,6 @@
     "maxLinkLength": 10000
   },
   "skipChromosomesWithoutVisibleLinks": false,
-  "showAllChromosomes": true
+  "showAllChromosomes": true,
+  "skipChromosomesWithoutLinks": false
 }
