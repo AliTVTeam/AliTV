@@ -32,7 +32,8 @@
 		$("#tickDistance").val(wga.getTickDistance());
 		
 		$('#skipChromosomesWithoutVisibleLinks').attr('checked', false);
-		$('#filterChromosomes').attr('checked', true);
+		$('#showAllChromosomes').attr('checked', true);
+		$('#skipChromosomesWithoutLinks').attr('checked', false);
 		
 		});
 	
@@ -88,6 +89,15 @@
 			wga.filters.showAllChromosomes = false;
 		}
 	});
+	
+	$(function(){$('#skipChromosomesWithoutLinks').change(function() {
+		if($('#skipChromosomesWithoutLinks').is(':checked')){
+	     	wga.filters.skipChromosomesWithoutLinks = true;
+		} else {
+			wga.filters.skipChromosomesWithoutLinks = false;
+		}
+	});
+});
 });
 	
 	function changeLinearSpacer(){
@@ -204,8 +214,10 @@
  					<br>
  					Skip chromosomes without visible links: <input id="skipChromosomesWithoutVisibleLinks" type="checkbox">
  					<br>
+ 					Skip chromosomes without links: <input id="skipChromosomesWithoutLinks" type="checkbox">
  					<br>
  					Show all chromosomes: <input id="showAllChromosomes" type="checkbox">
+ 					<br>
  				</fieldset>
  			</form> 
  		</div>
