@@ -195,7 +195,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	var that = this;
 	var visibleChromosomes = that.data.karyo.chromosomes;
 	if (that.filters.showAllChromosomes === false) {
-		that.filterInvisibleChromosomes(visibleChromosomes);
+		visibleChromosomes = that.filterInvisibleChromosomes(visibleChromosomes);
 	}
 	if (that.filters.skipChromosomesWithoutVisibleLinks === true) {
 		that.filterChromosomesWithoutVisibleLinks(visibleChromosomes);
@@ -1021,7 +1021,7 @@ AliTV.prototype.getGenomeDistance = function() {
 /**
  * This method should filter all chromosomes which are set visible in the default filters.
  * @param{Object} visibleChromosomes: gets the data of all chromosomes which is set in data.karyo.chromosomes.
- * @return{Object} visibleChromosomes: returns only chromosomes which are visible.
+ * @return{Object} filteredVisibleChromosomes: returns only chromosomes which are visible.
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterInvisibleChromosomes = function(visibleChromosomes) {
@@ -1034,4 +1034,14 @@ AliTV.prototype.filterInvisibleChromosomes = function(visibleChromosomes) {
 	});
 
 	return filteredVisibleChromosomes;
+};
+
+/**
+ * This method should filter all chromosomes which has no links.
+ * @param{Object} visibleChromosomes: gets the data of the current visible chromosomes.
+ * @return{Object} filteredVisibleChromosomes: returns only chromosomes which has links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterChromosomesWithoutLinks = function(visibleChromosomes) {
+
 };
