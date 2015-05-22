@@ -42,7 +42,8 @@ function AliTV(svg) {
 	 * property to store data specific drawing options (structure highly dependent on data structure)
 	 * @property {Object}  filters                      				- the data dependent displaying information
 	 * @property {Object}  filters.karyo                        		- the chromosome dependent displaying information
-	 * @property {Boolean} filters.skipChromosomesWithoutVisibleLinks	- If a chromosome has no visible links, because they are filtered, the user have the possibility to skip this chromosome.
+	 * @property {Boolean} filters.skipChromosomesWithoutVisibleLinks	- If a chromosome has no visible links, because they are filtered, it is possible to skip this chromosome.
+	 * @property {Boolean} filters.showAllChromosomes					- Allows to show all chromosomes, even if when they are set not visible.
 	 * @property {Array}   filters.karyo.order                  		- array of chromosome IDs in the desired order (circular layout)
 	 * @property {Array}   filters.karyo.genome_order          			- array of genome IDs in the desired order (linear layout)
 	 * @property {Object}  filters.karyo.chromosomes           			- the chromosome drawing details, karyo IDs as keys
