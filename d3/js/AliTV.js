@@ -193,7 +193,6 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	var conf = this.conf;
 	var genomeDistance = this.getGenomeDistance();
 	var that = this;
-
 	var visibleChromosomes = that.data.karyo.chromosomes;
 	if (that.filters.showAllChromosomes === false) {
 		that.filterInvisibleChromosomes(visibleChromosomes);
@@ -1026,5 +1025,13 @@ AliTV.prototype.getGenomeDistance = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterInvisibleChromosomes = function(visibleChromosomes) {
+	var that = this;
+	var filteredVisibleChromosomes = {};
+	$.each(visibleChromosomes, function(key, value) {
+		if (that.filters.karyo.chromosomes[key].visible === true) {
+			filteredVisibleChromosomes[key] = value;
+		}
+	});
 
+	return filteredVisibleChromosomes;
 };

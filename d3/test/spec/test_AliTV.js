@@ -1066,7 +1066,8 @@ describe('The filterInvisibleChromosomes method is supposed to filter all chromo
 	it('the method only should return visible chromosmes (use 3 chromosmes on 2 genomes, only 2 chromosmes are visible', function(){
 		ali.setData({karyo: karyo2});
 		ali.setFilters(filters12);
-		var visibleChromosmes = ali.filtersInvisibleChromosomes(ali.data.karyo.chromosomes);
+		var chromosomes = ali.data.karyo.chromosomes;
+		var visibleChromosmes = ali.filterInvisibleChromosomes(chromosomes);
 		
 		var expectedVisibleChromosomes =  {
 			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
