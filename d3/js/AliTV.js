@@ -1018,47 +1018,46 @@ AliTV.prototype.getGenomeDistance = function() {
 //	return this.filters;
 //};
 
-/**
- * This method should filter all chromosomes which are set visible in the default filters.
- * @param{Object} visibleChromosomes: gets the data of all chromosomes which is set in data.karyo.chromosomes.
- * @return{Object} filteredVisibleChromosomes: returns only chromosomes which are visible.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.filterInvisibleChromosomes = function(visibleChromosomes) {
-	var that = this;
-	var filteredVisibleChromosomes = {};
-	$.each(visibleChromosomes, function(key, value) {
-		if (that.filters.karyo.chromosomes[key].visible === true) {
-			filteredVisibleChromosomes[key] = value;
-		}
-	});
-	return filteredVisibleChromosomes;
-};
-
-/**
- * This method should filter all chromosomes which has no links.
- * @param{Object} visibleChromosomes: gets the data of the current visible chromosomes.
- * @return{Object} filteredVisibleChromosomes: returns only chromosomes which has links.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.filterChromosomesWithoutLinks = function(visibleChromosomes) {
-	var that = this;
-	var filteredChromosomesWithLinks = {};
-
-	$.each(visibleChromosomes, function(key, value) {
-
-	});
-
-	return filteredChromosomesWithLinks;
-};
+///**
+// * This method should filter all chromosomes which are set visible in the default filters.
+// * @param{Object} visibleChromosomes: gets the data of all chromosomes which is set in data.karyo.chromosomes.
+// * @return{Object} filteredVisibleChromosomes: returns only chromosomes which are visible.
+// * @author Sonja Hohlfeld
+// */
+//AliTV.prototype.filterInvisibleChromosomes = function(visibleChromosomes) {
+//	var that = this;
+//	var filteredVisibleChromosomes = {};
+//	$.each(visibleChromosomes, function(key, value) {
+//		if (that.filters.karyo.chromosomes[key].visible === true) {
+//			filteredVisibleChromosomes[key] = value;
+//		}
+//	});
+//	return filteredVisibleChromosomes;
+//};
+//
+///**
+// * This method should filter all chromosomes which has no links.
+// * @param{Object} visibleChromosomes: gets the data of the current visible chromosomes.
+// * @return{Object} filteredVisibleChromosomes: returns only chromosomes which has links.
+// * @author Sonja Hohlfeld
+// */
+//AliTV.prototype.filterChromosomesWithoutLinks = function(visibleChromosomes) {
+//	var that = this;
+//	var filteredChromosomesWithLinks = {};
+//
+//	$.each(visibleChromosomes, function(key, value) {
+//
+//	});
+//
+//	return filteredChromosomesWithLinks;
+//};
 
 /**
  * This method should call functions in order to filter the links.
- * @param links: gets all links 
  * @returns visibleLinks: return all links which are visible
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.filterLinks = function(links) {
-	var visibleLinks = {};
+AliTV.prototype.filterLinks = function() {
+	var visibleLinks = this.data.links;
 	return visibleLinks;
 };
