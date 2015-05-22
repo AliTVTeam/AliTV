@@ -1073,13 +1073,11 @@ AliTV.prototype.filterLinks = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
-	var filteredLinks = {};
 	var minIdentity = this.filters.links.minLinkIdentity;
 	var maxIdentity = this.filters.links.maxLinkIdentity;
-
-	$.each(visibleLinks, function(key, value) {
-		if (value.identity >= minIdentity && value.identity <= maxIdentity) {
-			filteredLinks[key] = value;
+	var filteredLinks = _.filter(visibleLinks, function(currentLink) {
+		if (currentLink.identity >= minIdentity && currentLink.identity <= maxIdentity) {
+			return currentLink;
 		}
 	});
 	return filteredLinks;
