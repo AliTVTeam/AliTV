@@ -1099,3 +1099,11 @@ describe('The filterLinks method is supposed to filter links. ', function(){
 		expect(visibleLinks).toEqual(expectedVisibleLinks);
 	});
 });
+
+describe('The filterLinksByIdentity method is supposed to filter links according to theit identity. ', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterLinksByIdentity method is supposed to be a function', function(){
+		expect(typeof ali.filterLinksByIdentity).toEqual('function');
+	});		
+});
