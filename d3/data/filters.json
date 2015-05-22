@@ -24,10 +24,6 @@
       "c6": {
         "visible": true,
         "reverse": false
-      },
-      "c7": {
-        "visible": true,
-        "reverse": false
       }
     },
     "order": [
@@ -36,14 +32,12 @@
       "c3",
       "c4",
       "c5",
-      "c6",
-      "c7"
+      "c6"
     ],
     "genome_order": [
       0,
       1,
-      2,
-      3
+      2
     ]
   },
   "links": {
