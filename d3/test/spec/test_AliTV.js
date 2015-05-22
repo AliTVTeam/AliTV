@@ -1057,10 +1057,10 @@ describe('The drawEqualLayout method is supposed to draw the layout which is equ
 //	});
 //});
 
-describe('The filterInvisbleChromosomes method is supposed to filter all chromosomes which are set visible in the default filters', function(){
+describe('The filterInvisibleChromosomes method is supposed to filter all chromosomes which are set visible in the default filters', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('filterInvisbleChromosomes method is supposed to be a function', function(){
-		expect(typeof filterInvisbleChromosomes).toEqual('function');
+	it('filterInvisibleChromosomes method is supposed to be a function', function(){
+		expect(typeof ali.filterInvisibleChromosomes).toEqual('function');
 	});		
 });

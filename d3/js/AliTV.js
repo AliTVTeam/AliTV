@@ -196,10 +196,10 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 
 	var visibleChromosomes = that.data.karyo.chromosomes;
 	if (that.filters.showAllChromosomes === false) {
-		ali.filterInvisbleChromosomes(visibleChromosomes);
+		that.filterInvisibleChromosomes(visibleChromosomes);
 	}
 	if (that.filters.skipChromosomesWithoutVisibleLinks === true) {
-		ali.filterChromosomesWithoutVisibleLinks(visibleChromosomes);
+		that.filterChromosomesWithoutVisibleLinks(visibleChromosomes);
 	}
 
 
@@ -969,52 +969,62 @@ AliTV.prototype.getGenomeDistance = function() {
 	return Math.round(genomeDistance);
 };
 
+///**
+// * This function filters all chromosomes with visible linkage information in the current configuration, this means the identity range and the lenght range of links.
+// * With the current visible chromosomes and the information about all chromosomes in filters.karyo.order the methos is supposed to calculate all not-visible chromosomes.
+// * The function is called when skipChromosomesWithoutVisibleLinks in the configuration is true after filtering the links.
+// * @param {Array} linkCoords - gets the current coordinates of all visible links.
+// * @return {Array} visibleChromosomes - returns all chromosomes without visible links at the moment.
+// * @author {Sonja Hohlfeld}
+// */
+//AliTV.prototype.filterCurrentVisibleChromosomes = function(linkCoords) {
+//	var that = this;
+//	var visibleChromosomes = [];
+//
+//	$.each(linkCoords, function(key, value) {
+//		var currentLink = that.data.links[value.linkID];
+//		var currentLinkTarget = currentLink.target;
+//		var currentLinkSource = currentLink.source;
+//		var currentSourceKaryo = that.data.features[currentLinkTarget].karyo;
+//		var currentTargetKaryo = that.data.features[currentLinkSource].karyo;
+//
+//		if (visibleChromosomes.indexOf(currentSourceKaryo) === -1) {
+//			visibleChromosomes.push(currentSourceKaryo);
+//		}
+//		if (visibleChromosomes.indexOf(currentTargetKaryo) === -1) {
+//			visibleChromosomes.push(currentTargetKaryo);
+//		}
+//	});
+//
+//	for (var i = 0; i < that.filters.karyo.order.length; i++) {
+//		if (visibleChromosomes.indexOf(that.filters.karyo.order[i]) === -1) {
+//			that.filters.karyo.chromosomes[that.filters.karyo.order[i]].visible = false;
+//		} else {
+//			that.filters.karyo.chromosomes[that.filters.karyo.order[i]].visible = true;
+//		}
+//	}
+//
+//	return visibleChromosomes;
+//};
+//
+//
+///**
+// * This function should set all chromosomes visible.
+// * @author Sonja Hohlfeld 
+// */
+//AliTV.prototype.setAllChromosomesVisible = function() {
+//	$.each(this.filters.karyo.chromosomes, function(key, value) {
+//		value.visible = true;
+//	});
+//	return this.filters;
+//};
+
 /**
- * This function filters all chromosomes with visible linkage information in the current configuration, this means the identity range and the lenght range of links.
- * With the current visible chromosomes and the information about all chromosomes in filters.karyo.order the methos is supposed to calculate all not-visible chromosomes.
- * The function is called when skipChromosomesWithoutVisibleLinks in the configuration is true after filtering the links.
- * @param {Array} linkCoords - gets the current coordinates of all visible links.
- * @return {Array} visibleChromosomes - returns all chromosomes without visible links at the moment.
- * @author {Sonja Hohlfeld}
+ * This method should filter all chromosomes which are set visible in the default filters.
+ * @param{Object} visibleChromosomes: gets the data of all chromosomes which is set in data.karyo.chromosomes.
+ * @return{Object} visibleChromosomes: returns only chromosomes which are visible.
+ * @author Sonja Hohlfeld
  */
-AliTV.prototype.filterCurrentVisibleChromosomes = function(linkCoords) {
-	var that = this;
-	var visibleChromosomes = [];
+AliTV.prototype.filterInvisibleChromosomes = function(visibleChromosomes) {
 
-	$.each(linkCoords, function(key, value) {
-		var currentLink = that.data.links[value.linkID];
-		var currentLinkTarget = currentLink.target;
-		var currentLinkSource = currentLink.source;
-		var currentSourceKaryo = that.data.features[currentLinkTarget].karyo;
-		var currentTargetKaryo = that.data.features[currentLinkSource].karyo;
-
-		if (visibleChromosomes.indexOf(currentSourceKaryo) === -1) {
-			visibleChromosomes.push(currentSourceKaryo);
-		}
-		if (visibleChromosomes.indexOf(currentTargetKaryo) === -1) {
-			visibleChromosomes.push(currentTargetKaryo);
-		}
-	});
-
-	for (var i = 0; i < that.filters.karyo.order.length; i++) {
-		if (visibleChromosomes.indexOf(that.filters.karyo.order[i]) === -1) {
-			that.filters.karyo.chromosomes[that.filters.karyo.order[i]].visible = false;
-		} else {
-			that.filters.karyo.chromosomes[that.filters.karyo.order[i]].visible = true;
-		}
-	}
-
-	return visibleChromosomes;
-};
-
-
-/**
- * This function should set all chromosomes visible.
- * @author Sonja Hohlfeld 
- */
-AliTV.prototype.setAllChromosomesVisible = function() {
-	$.each(this.filters.karyo.chromosomes, function(key, value) {
-		value.visible = true;
-	});
-	return this.filters;
 };
