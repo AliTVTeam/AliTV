@@ -1059,6 +1059,17 @@ AliTV.prototype.getGenomeDistance = function() {
  */
 AliTV.prototype.filterLinks = function() {
 	var visibleLinks = this.data.links;
-	ali.filterLinksByIdentity(visibleLinks);
+	this.filterLinksByIdentity(visibleLinks);
+	return visibleLinks;
+};
+
+/**
+ * This method should filter links according to their identity.
+ * @returns visibleLinks: return all links which are visible with the current configuration.
+ * @param visibleLinks: gets all current visible links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
+
 	return visibleLinks;
 };
