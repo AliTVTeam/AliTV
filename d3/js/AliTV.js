@@ -1010,6 +1010,6 @@ AliTV.prototype.filterChromosomeOrder = function(visibleChromosomes) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterLinks = function() {
-	var visibleLinks = this.data.karyo.chromosomes;
+	var visibleLinks = this.filterVisibleLinks();
 	return visibleLinks;
 };
