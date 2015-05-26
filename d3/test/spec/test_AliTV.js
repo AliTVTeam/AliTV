@@ -1046,8 +1046,7 @@ describe('The filterChromosomeOrder method is supposed to create a new order arr
 		ali.setData({karyo: karyo8});
 		ali.setFilters(filters10);
 		var currentVisibleChromosomes = ali.filterChromosomes(ali.data.karyo.chromosomes);
-		console.log(currentVisibleChromosomes);
-		var expectedOrder = ['c1', 'c2', 'c4', 'c5', 'c6', 'c7'];
+		var expectedOrder = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7'];
 		expect(ali.filterChromosomeOrder(currentVisibleChromosomes)).toEqual(expectedOrder);
 	});
 	it('the filterVisibleChromosomes method is supposed to return the expected order of chromosomes, because two chromsomes are not set visible', function(){
@@ -1056,8 +1055,7 @@ describe('The filterChromosomeOrder method is supposed to create a new order arr
 		ali.setData({karyo: karyo8});
 		ali.setFilters(filters13);
 		var currentVisibleChromosomes = ali.filterChromosomes(ali.data.karyo.chromosomes);
-		console.log(currentVisibleChromosomes);
-		var expectedOrder = ['c1', 'c2', 'c4', 'c5', 'c6', 'c7'];
+		var expectedOrder = ['c1', 'c2', 'c4', 'c7'];
 		expect(ali.filterChromosomeOrder(currentVisibleChromosomes)).toEqual(expectedOrder);
 	});
 });
