@@ -1019,7 +1019,6 @@ AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosome
 	var allLinks = that.data.links;
 	var filteredLinks = that.filterLinksByIdentity();
 	filteredLinks = that.filterLinksByLength();
-
 	return filteredChromosomes;
 };
 
@@ -1083,5 +1082,12 @@ AliTV.prototype.filterVisibleLinks = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
-
+	var minIdentity = this.filters.links.minLinkIdentity;
+	var maxIdentity = this.filters.links.maxLinkIdentity;
+	var filteredLinks = _.filter(visibleLinks, function(currentLink) {
+		if (currentLink.identity >= minIdentity && currentLink.identity <= maxIdentity) {
+			return currentLink;
+		}
+	});
+	return filteredLinks;
 };

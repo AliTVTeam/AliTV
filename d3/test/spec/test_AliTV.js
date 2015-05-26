@@ -1115,4 +1115,15 @@ describe('The filterLinksByIdentity method is supposed to filter all links whose
 	it('filterLinksByIdentity method is supposed to be a function', function(){
 		expect(typeof ali.filterLinksByIdentity).toEqual('function');
 	});	
+	it('filterLinksByIdentity method is supposed to filter the assigned links according to the minLinkIdentity and the maxLinkIdentity', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({links: links7});
+		ali.setFilters(filters14);
+		ali.filters.links.minLinkIdentity = 50;
+		ali.filters.links.maxLinkIdentity = 70;
+		var expectedLinks = [];
+		var links = ali.data.links;
+		expect(ali.filterLinksByIdentity(links)).toEqual(expectedLinks);
+	});	
 });
