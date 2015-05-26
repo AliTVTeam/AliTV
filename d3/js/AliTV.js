@@ -994,7 +994,6 @@ AliTV.prototype.filterVisibleChromosomes = function(visibleChromosomes) {
 AliTV.prototype.filterChromosomeWithoutLinkageInformation = function(visibleChromosomes) {
 	var that = this;
 	var filteredChromosomes = {};
-	console.log(that);
 	$.each(visibleChromosomes, function(key, value) {
 		var currentChromosome = key;
 		var valueOfCurrentChromosome = value;
@@ -1047,7 +1046,6 @@ AliTV.prototype.filterVisibleLinks = function() {
 	var allLinks = this.data.links;
 	var that = this;
 	var filteredLinks = [];
-	console.log(allLinks);
 	var listOfVisibleChromosomes = [];
 	$.each(visibleChromosomes, function(key, value) {
 		listOfVisibleChromosomes.push(key);
