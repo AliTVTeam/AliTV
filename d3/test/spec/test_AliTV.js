@@ -1033,3 +1033,11 @@ describe('The filterVisibleChromosomes method is supposed to filter all chromoso
 		expect(ali.filterVisibleChromosomes(currentVisibleChromosomes)).toEqual(expectedChromosomes);
 	});
 });
+
+describe('The filterChromosomeOrder method is supposed to create a new order array, which contains the order of all visible chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterChromosomeOrder method is supposed to be a function', function(){
+		expect(typeof ali.filterChromosomeOrder).toEqual('function');
+	});	
+});
