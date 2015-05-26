@@ -196,6 +196,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	var genomeDistance = this.getGenomeDistance();
 	var that = this;
 	var visibleChromosomes = that.filterChromosomes();
+	var orderOfVisibleChromosomes = that.filterChromosomeOrder(visibleChromosomes);
 
 	var total = [];
 	var current = [];
@@ -211,8 +212,8 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	});
 	var maxTotalSize = Math.max.apply(null, total);
 
-	for (i = 0; i < this.filters.karyo.order.length; i++) {
-		var key = this.filters.karyo.order[i];
+	for (i = 0; i < orderOfVisibleChromosomes.length; i++) {
+		var key = orderOfVisibleChromosomes[i];
 		var value = visibleChromosomes[key];
 		var coord = {
 			'karyo': key,
