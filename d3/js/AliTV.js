@@ -1019,7 +1019,7 @@ AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosome
 	var allLinks = that.data.links;
 	var filteredLinks = that.filterLinksByIdentity();
 	filteredLinks = that.filterLinksByLength();
-	console.log(filteredLinks);
+
 	return filteredChromosomes;
 };
 
@@ -1075,4 +1075,13 @@ AliTV.prototype.filterVisibleLinks = function() {
 		}
 	});
 	return filteredLinks;
+};
+/**
+ * This method should filter links according to their identity.
+ * @returns filteredLinks: return all links which are visible with the current configuration.
+ * @param visibleLinks: gets all current visible links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
+
 };
