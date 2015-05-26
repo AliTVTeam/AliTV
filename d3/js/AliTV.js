@@ -254,7 +254,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 	}
 	var that = this;
 	var conf = this.conf;
-	var visibleLinks = that.data.links;
+	var visibleLinks = that.filterLinks();
 
 	var karyoMap = {};
 	$.each(coords, function(key, value) {
