@@ -1017,8 +1017,8 @@ AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosome
 	var that = this;
 	var filteredChromosomes = {};
 	var allLinks = that.data.links;
-	var filteredLinks = that.filterLinksByIdentity();
-	filteredLinks = that.filterLinksByLength();
+	var filteredLinks = that.filterLinksByIdentity(allLinks);
+	filteredLinks = that.filterLinksByLength(filteredLinks);
 	return filteredChromosomes;
 };
 
