@@ -1018,4 +1018,18 @@ describe('The filterVisibleChromosomes method is supposed to filter all chromoso
 	it('filterVisibleChromosomes method is supposed to be a function', function(){
 		expect(typeof ali.filterVisibleChromosomes).toEqual('function');
 	});	
+	it('the filterVisibleChromosomes method is supposed to return all chromosomes, because they are all set visible', function(){
+		ali.setData({karyo: karyo3});
+		ali.setFilters(filters3);
+		var currentVisibleChromosomes = ali.data.karyo.chromosomes;
+		var expectedChromosomes = { c7: { genome_id: 0, length: 2000, seq: null }, c2: { genome_id: 1, length: 1000, seq: null }, c3: { genome_id: 2, length: 1000, seq: null }};
+		expect(ali.filterVisibleChromosomes(currentVisibleChromosomes)).toEqual(expectedChromosomes);
+	});
+	it('the filterVisibleChromosomes method is supposed to return only two chromosomes, because they are set visible', function(){
+		ali.setData({karyo: karyo3});
+		ali.setFilters(filters9);
+		var currentVisibleChromosomes = ali.data.karyo.chromosomes;
+		var expectedChromosomes = { c1: { genome_id: 0, length: 2000, seq: null }, c2: { genome_id: 1, length: 1000, seq: null }, c3: { genome_id: 2, length: 1000, seq: null }};
+		expect(ali.filterVisibleChromosomes(currentVisibleChromosomes)).toEqual(expectedChromosomes);
+	});
 });
