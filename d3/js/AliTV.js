@@ -1059,6 +1059,9 @@ AliTV.prototype.filterChromosomeOrder = function(visibleChromosomes) {
  */
 AliTV.prototype.filterLinks = function() {
 	var visibleLinks = this.filterVisibleLinks();
+	visibleLinks = this.filterLinksByIdentity(visibleLinks);
+	visibleLinks = this.filterLinksByLength(visibleLinks);
+	visibleLinks = this.filterLinksByAdjacency(visibleLinks);
 	return visibleLinks;
 };
 
@@ -1135,5 +1138,19 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
-
+	var that = this;
+	var filteredLinks = [];
+	$.each(visibleLinks, function(key, value) {
+		var currentLink = value;
+		var targetFeature = that.data.features[currentLink.source];
+		var sourceFeature = that.data.features[currentLink.target];
+		var targetKaryo = that.data.karyo.chromosomes[targetFeature.karyo];
+		var sourceKaryo = that.data.karyo.chromosomes[sourceFeature.karyo];
+		var genomePositionOfTargetKaryo = that.filters.karyo.genome_order.indexOf(targetKaryo.genome_id);
+		var genomePositionOfSourceKaryo = that.filters.karyo.genome_order.indexOf(sourceKaryo.genome_id);
+		if (Math.abs(genomePositionOfTargetKaryo - genomePositionOfSourceKaryo) === 1) {
+			filteredLinks.push(currentLink);
+		}
+	});
+	return filteredLinks;
 };
