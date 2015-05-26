@@ -954,3 +954,12 @@ AliTV.prototype.getGenomeDistance = function() {
 	var genomeDistance = (this.getCanvasHeight() - this.getKaryoHeight()) / (this.filters.karyo.genome_order.length - 1);
 	return Math.round(genomeDistance);
 };
+
+/**
+ * This method should call other filter functions in order to filter the visible chromosomes.
+ * @returns visibleChromosomes: returns only chromosomes which are visible
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterChromosomes = function() {
+
+};
