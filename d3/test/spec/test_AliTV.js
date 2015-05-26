@@ -1127,3 +1127,11 @@ describe('The filterLinksByIdentity method is supposed to filter all links whose
 		expect(ali.filterLinksByIdentity(links)).toEqual(expectedLinks);
 	});	
 });
+
+describe('The filterLinksByLength method is supposed to filter all links whose length is greater than the maxLength oder less than the minLength', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterLinksByLength method is supposed to be a function', function(){
+		expect(typeof ali.filterLinksByLength).toEqual('function');
+	});		
+});
