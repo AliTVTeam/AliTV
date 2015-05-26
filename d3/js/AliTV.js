@@ -1019,6 +1019,7 @@ AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosome
 	var allLinks = that.data.links;
 	var filteredLinks = that.filterLinksByIdentity(allLinks);
 	filteredLinks = that.filterLinksByLength(filteredLinks);
+	filteredLinks = that.filterLinksByAdjacency(filteredLinks);
 	$.each(visibleChromosomes, function(key, value) {
 		var currentChromosome = key;
 		var valueOfCurrentChromosome = value;
