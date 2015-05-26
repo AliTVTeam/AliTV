@@ -1084,7 +1084,7 @@ AliTV.prototype.filterVisibleLinks = function() {
 AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
 	var minIdentity = this.filters.links.minLinkIdentity;
 	var maxIdentity = this.filters.links.maxLinkIdentity;
-	var filteredLinks = {};
+	var filteredLinks = [];
 	$.each(visibleLinks, function(key, value) {
 		var currentLink = value;
 		if (currentLink.identity >= minIdentity && currentLink.identity <= maxIdentity) {
@@ -1104,7 +1104,7 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 	var minLength = this.filters.links.minLinkLength;
 	var maxLength = this.filters.links.maxLinkLength;
 	var that = this;
-	var filteredLinks = {};
+	var filteredLinks = [];
 	$.each(visibleLinks, function(key, value) {
 		var currentLink = value;
 		var sourceFeature = currentLink.source;
