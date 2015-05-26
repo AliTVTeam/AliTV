@@ -1003,3 +1003,13 @@ AliTV.prototype.filterChromosomeOrder = function(visibleChromosomes) {
 	});
 	return orderOfVisibleChromosomes;
 };
+
+/**
+ * This method should call functions in order to filter the links.
+ * @returns visibleLinks: return all links which are visible
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterLinks = function() {
+	var visibleLinks = this.data.karyo.chromosomes;
+	return visibleLinks;
+};
