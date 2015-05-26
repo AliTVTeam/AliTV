@@ -1003,3 +1003,11 @@ describe('The drawEqualLayout method is supposed to draw the layout which is equ
 		expect(ali.drawEqualLayout(layout)).toEqual("circular");
 	});	
 });
+
+describe('The filterChromosomes method is supposed to filter all visible chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterChromosomes method is supposed to be a function', function(){
+		expect(typeof ali.filterChromosomes).toEqual('function');
+	});	
+});
