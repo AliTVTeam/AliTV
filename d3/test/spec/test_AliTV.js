@@ -1067,3 +1067,11 @@ describe('The filterLinks method is supposed to filter all visible links', funct
 		expect(typeof ali.filterLinks).toEqual('function');
 	});	
 });
+
+describe('The filterVisibleLinks method is supposed to filter links which have their source or target only on visible chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterVisibleLinks method is supposed to be a function', function(){
+		expect(typeof ali.filterVisibleLinks).toEqual('function');
+	});	
+});
