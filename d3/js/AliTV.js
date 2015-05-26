@@ -1127,3 +1127,13 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 	});
 	return filteredLinks;
 };
+
+/**
+ * This method should filter links according to their adjacency.
+ * @return filteredLinks: returns only links which are between adjacent chromosomes.
+ * @param visibleLinks: gets all current visible links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
+
+};
