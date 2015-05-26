@@ -1040,4 +1040,24 @@ describe('The filterChromosomeOrder method is supposed to create a new order arr
 	it('filterChromosomeOrder method is supposed to be a function', function(){
 		expect(typeof ali.filterChromosomeOrder).toEqual('function');
 	});	
+	it('the filterChromosomeOrder method is supposed to return the order of chromosomes which is set in the filters, because all chromosomes are set visible', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo8});
+		ali.setFilters(filters10);
+		var currentVisibleChromosomes = ali.filterChromosomes(ali.data.karyo.chromosomes);
+		console.log(currentVisibleChromosomes);
+		var expectedOrder = ['c1', 'c2', 'c4', 'c5', 'c6', 'c7'];
+		expect(ali.filterChromosomeOrder(currentVisibleChromosomes)).toEqual(expectedOrder);
+	});
+	it('the filterVisibleChromosomes method is supposed to return the expected order of chromosomes, because two chromsomes are not set visible', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo8});
+		ali.setFilters(filters13);
+		var currentVisibleChromosomes = ali.filterChromosomes(ali.data.karyo.chromosomes);
+		console.log(currentVisibleChromosomes);
+		var expectedOrder = ['c1', 'c2', 'c4', 'c5', 'c6', 'c7'];
+		expect(ali.filterChromosomeOrder(currentVisibleChromosomes)).toEqual(expectedOrder);
+	});
 });
