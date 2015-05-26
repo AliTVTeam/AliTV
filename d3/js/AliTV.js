@@ -1008,6 +1008,16 @@ AliTV.prototype.filterChromosomeWithoutLinkageInformation = function(visibleChro
 };
 
 /**
+ * This method should filter all chromosome which have no visible links with the current configurations
+ * @param visibleChromosomes: the method gets all current visible chromosomes.
+ * @returns filteredChromosomes: the method returns only chromosomes which have visible links
+ * @author Sonja Hohlfeld 
+ */
+AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosomes) {
+
+};
+
+/**
  * This method is supposed to filter the order of chromosomes according to all visible chromosomes.
  * @param visibleChromosomes: gets all visible chromosomes
  * @return chromosomeOrder: returns the order of the visible chromosomes
