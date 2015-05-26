@@ -1074,4 +1074,15 @@ describe('The filterVisibleLinks method is supposed to filter links which have t
 	it('filterVisibleLinks method is supposed to be a function', function(){
 		expect(typeof ali.filterVisibleLinks).toEqual('function');
 	});	
+	it('the filterVisibleLinks method is supposed to return the expected links, because some are on not visible chromosomes', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo2, features: features8, links: links12});
+		ali.setFilters(filters14);
+		var expectedLinks = {
+				"l1": {'source': 'f1', 'target': 'f2', 'identity': 75},
+				"l2": {'source': 'f3', 'target': 'f4', 'identity': 100}
+		};
+		expect(ali.filterVisibleLinks()).toEqual(expectedLinks);
+	});
 });
