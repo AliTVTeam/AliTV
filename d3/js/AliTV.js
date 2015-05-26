@@ -195,7 +195,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	var conf = this.conf;
 	var genomeDistance = this.getGenomeDistance();
 	var that = this;
-	var visibleChromosomes = that.data.karyo.chromosomes;
+	var visibleChromosomes = that.filterChromosomes();
 
 	var total = [];
 	var current = [];
