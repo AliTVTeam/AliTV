@@ -76,6 +76,11 @@
       "end": 400,
       "karyo": "c6",
       "start": 100
+    },
+    "f9": {
+      "end": 850,
+      "karyo": "c7",
+      "start": 950
     }
   },
   "karyo": {
@@ -109,6 +114,11 @@
         "length": 500,
         "seq": null,
         "genome_id": 2
+      },
+      "c7": {
+        "length": 750,
+        "seq": null,
+        "genome_id": 3
       }
     }
   }
