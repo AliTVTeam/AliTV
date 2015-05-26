@@ -1108,3 +1108,11 @@ describe('The filterChromosomeWithoutVisibleLinks method is supposed to filter a
 		expect(typeof ali.filterChromosomeWithoutVisibleLinks).toEqual('function');
 	});	
 });
+
+describe('The filterLinksByIdentity method is supposed to filter all links whose identity is greater than the maxIdentity oder less than the minIdentity', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterLinksByIdentity method is supposed to be a function', function(){
+		expect(typeof ali.filterLinksByIdentity).toEqual('function');
+	});	
+});
