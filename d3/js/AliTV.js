@@ -1101,5 +1101,19 @@ AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterLinksByLength = function(visibleLinks) {
-
+	var minLength = this.filters.links.minLinkLength;
+	var maxLength = this.filters.links.maxLinkLength;
+	var that = this;
+	var filteredLinks = {};
+	$.each(visibleLinks, function(key, value) {
+		var currentLink = value;
+		var sourceFeature = currentLink.source;
+		var targetFeature = currentLink.target;
+		var lengthOfSourceFeature = Math.abs(that.data.features[sourceFeature].end - that.data.features[sourceFeature].start);
+		var lengthOfTargetFeature = Math.abs(that.data.features[targetFeature].end - that.data.features[targetFeature].start);
+		if (lengthOfSourceFeature >= minLength && lengthOfSourceFeature <= maxLength || lengthOfTargetFeature >= minLength && lengthOfTargetFeature <= maxLength) {
+			filteredLinks[key] = currentLink;
+		}
+	});
+	return filteredLinks;
 };
