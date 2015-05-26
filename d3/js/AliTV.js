@@ -1093,3 +1093,13 @@ AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
 	});
 	return filteredLinks;
 };
+
+/**
+ * This method should filter links according to their length.
+ * @returns filteredLinks: return all links which are visible with the current configuration.
+ * @param visibleLinks: gets all current visible links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterLinksByLength = function(visibleLinks) {
+
+};
