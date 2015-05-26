@@ -84,7 +84,7 @@ function AliTV(svg) {
 	 */
 	this.conf = {
 		linear: {
-			drawAllLinks: false,
+			drawAllLinks: true,
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
 		},
@@ -1150,6 +1150,10 @@ AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
 		var genomePositionOfSourceKaryo = that.filters.karyo.genome_order.indexOf(sourceKaryo.genome_id);
 		if (Math.abs(genomePositionOfTargetKaryo - genomePositionOfSourceKaryo) === 1) {
 			filteredLinks.push(currentLink);
+		} else {
+			if (that.conf.linear.drawAllLinks === true) {
+				filteredLinks.push(currentLink);
+			}
 		}
 	});
 	return filteredLinks;
