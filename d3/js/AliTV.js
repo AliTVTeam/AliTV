@@ -986,6 +986,16 @@ AliTV.prototype.filterVisibleChromosomes = function(visibleChromosomes) {
 };
 
 /**
+ *This method should filter all chromosome which have no linkage information
+ * @param visibleChromosomes: the method gets all current visible chromosomes.
+ * @returns filteredChromosomes: the method returns only chromosomes which have linkage information
+ * @author Sonja Hohlfeld 
+ */
+AliTV.prototype.filterChromosomeWithoutLinkageInformation = function(visibleChromosomes) {
+
+};
+
+/**
  * This method is supposed to filter the order of chromosomes according to all visible chromosomes.
  * @param visibleChromosomes: gets all visible chromosomes
  * @return chromosomeOrder: returns the order of the visible chromosomes
