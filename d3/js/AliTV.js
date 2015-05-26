@@ -963,9 +963,15 @@ AliTV.prototype.getGenomeDistance = function() {
  */
 AliTV.prototype.filterChromosomes = function() {
 	var visibleChromosomes = this.data.karyo.chromosomes;
-	visibleChromosomes = this.filterVisibleChromosomes(visibleChromosomes);
-	visibleChromosomes = this.filterChromosomeWithoutLinkageInformation(visibleChromosomes);
-	visibleChromosomes = this.filterChromosomeWithoutVisibleLinks(visibleChromosomes);
+	if (this.filters.showAllChromosomes === false) {
+		visibleChromosomes = this.filterVisibleChromosomes(visibleChromosomes);
+	}
+	if (this.filters.skipChromosomesWithoutLinks === true) {
+		visibleChromosomes = this.filterChromosomeWithoutLinkageInformation(visibleChromosomes);
+	}
+	if (this.filters.skipChromosomesWithoutVisibleLinks === true) {
+		visibleChromosomes = this.filterChromosomeWithoutVisibleLinks(visibleChromosomes);
+	}
 	return visibleChromosomes;
 };
 
