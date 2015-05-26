@@ -6,7 +6,7 @@
         "reverse": false
       },
       "c2": {
-        "visible": false,
+        "visible": true,
         "reverse": false
       },
       "c1": {
@@ -18,7 +18,7 @@
         "reverse": false
       },
       "c5": {
-        "visible": false,
+        "visible": true,
         "reverse": false
       },
       "c6": {

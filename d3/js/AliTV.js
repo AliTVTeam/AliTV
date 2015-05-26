@@ -84,7 +84,7 @@ function AliTV(svg) {
 	 */
 	this.conf = {
 		linear: {
-			drawAllLinks: true,
+			drawAllLinks: false,
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
 		},
