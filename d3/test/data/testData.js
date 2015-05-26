@@ -149,7 +149,7 @@ var filters8 = {'karyo': {
 
 var filters9 = {'karyo': {
 	'order': ['c1', 'c2', 'c3'],
-	'genome_order': [0, 1],
+	'genome_order': [0, 1, 2],
 	'chromosomes': {
 		'c1': {'reverse': false, 'visible': true},
 		'c2': {'reverse': false, 'visible': false},
