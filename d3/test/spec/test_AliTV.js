@@ -1100,3 +1100,11 @@ describe('The filterChromosomeWithoutLinkageInformation method is supposed to fi
 		expect(ali.filterChromosomeWithoutLinkageInformation(visibleChromosomes)).toEqual(expectedChromosomes);
 	});
 });
+
+describe('The filterChromosomeWithoutVisibleLinks method is supposed to filter all chromosomes which have no visible links with the current configurations', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterChromosomeWithoutVisibleLinks method is supposed to be a function', function(){
+		expect(typeof ali.filterChromosomeWithoutVisibleLinks).toEqual('function');
+	});	
+});
