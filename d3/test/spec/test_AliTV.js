@@ -1059,3 +1059,11 @@ describe('The filterChromosomeOrder method is supposed to create a new order arr
 		expect(ali.filterChromosomeOrder(currentVisibleChromosomes)).toEqual(expectedOrder);
 	});
 });
+
+describe('The filterLinks method is supposed to filter all visible links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterLinks method is supposed to be a function', function(){
+		expect(typeof ali.filterLinks).toEqual('function');
+	});	
+});
