@@ -1011,3 +1011,11 @@ describe('The filterChromosomes method is supposed to filter all visible chromos
 		expect(typeof ali.filterChromosomes).toEqual('function');
 	});	
 });
+
+describe('The filterVisibleChromosomes method is supposed to filter all chromosomes which are set visible in the filters', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterVisibleChromosomes method is supposed to be a function', function(){
+		expect(typeof ali.filterVisibleChromosomes).toEqual('function');
+	});	
+});
