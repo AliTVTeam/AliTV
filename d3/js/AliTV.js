@@ -973,5 +973,14 @@ AliTV.prototype.filterChromosomes = function() {
  * @author Sonja Hohlfeld 
  */
 AliTV.prototype.filterVisibleChromosomes = function(visibleChromosomes) {
-
+	var that = this;
+	var filteredChromosomes = {};
+	$.each(visibleChromosomes, function(key, value) {
+		if (that.filters.karyo.chromosomes[key].visible === true) {
+			filteredChromosomes[key] = value;
+		}
+	});
+	console.log(visibleChromosomes);
+	console.log(filteredChromosomes);
+	return filteredChromosomes;
 };
