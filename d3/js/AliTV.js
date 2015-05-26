@@ -961,5 +961,7 @@ AliTV.prototype.getGenomeDistance = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterChromosomes = function() {
-
+	var visibleChromosomes = this.data.karyo.chromosomes;
+	console.log(visibleChromosomes);
+	return visibleChromosomes;
 };
