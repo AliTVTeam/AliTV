@@ -193,6 +193,21 @@ var filters12 = {'karyo': {
 	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000}
 }
 
+var filters13 = {'karyo': {
+	'order': ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7'],
+	'genome_order': [0, 1, 2],
+	'chromosomes': {
+		'c1': {'reverse': false, 'visible': true},
+		'c2': {'reverse': false, 'visible': true},
+		'c3': {'reverse': false, 'visible': false},
+		'c4': {'reverse': false, 'visible': true},
+		'c5': {'reverse': false, 'visible': false},
+		'c6': {'reverse': false, 'visible': false},
+		'c7': {'reverse': false, 'visible': true}
+	}},
+	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 50, "maxLinkLength": 1000}
+};
+
 var features = {
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
