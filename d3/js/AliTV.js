@@ -1084,9 +1084,11 @@ AliTV.prototype.filterVisibleLinks = function() {
 AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
 	var minIdentity = this.filters.links.minLinkIdentity;
 	var maxIdentity = this.filters.links.maxLinkIdentity;
-	var filteredLinks = _.filter(visibleLinks, function(currentLink) {
+	var filteredLinks = {};
+	$.each(visibleLinks, function(key, value) {
+		var currentLink = value;
 		if (currentLink.identity >= minIdentity && currentLink.identity <= maxIdentity) {
-			return currentLink;
+			filteredLinks[key] = currentLink;
 		}
 	});
 	return filteredLinks;
