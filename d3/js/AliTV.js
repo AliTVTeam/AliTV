@@ -1020,5 +1020,21 @@ AliTV.prototype.filterLinks = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterVisibleLinks = function() {
-
+	var visibleChromosomes = this.filterChromosomes();
+	var allLinks = this.data.links;
+	var that = this;
+	var filteredLinks = [];
+	console.log(allLinks);
+	var listOfVisibleChromosomes = [];
+	$.each(visibleChromosomes, function(key, value) {
+		listOfVisibleChromosomes.push(key);
+	});
+	$.each(allLinks, function(key, value) {
+		var targetKaryo = that.data.features[value.target].karyo;
+		var sourceKaryo = that.data.features[value.source].karyo;
+		if (listOfVisibleChromosomes.indexOf(targetKaryo) !== -1 && listOfVisibleChromosomes.indexOf(sourceKaryo) !== -1 && filteredLinks.indexOf(value) === -1) {
+			filteredLinks.push(value);
+		}
+	});
+	return filteredLinks;
 };
