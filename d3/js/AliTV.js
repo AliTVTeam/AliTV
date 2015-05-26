@@ -981,7 +981,15 @@ AliTV.prototype.filterVisibleChromosomes = function(visibleChromosomes) {
 			filteredChromosomes[key] = value;
 		}
 	});
-	console.log(visibleChromosomes);
-	console.log(filteredChromosomes);
 	return filteredChromosomes;
+};
+
+/**
+ * This method is supposed to filter the order of chromosomes according to all visible chromosomes.
+ * @param visibleChromosomes: gets all visible chromosomes
+ * @return chromosomeOrder: returns the order of the visible chromosomes
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterChromosomeOrder = function(visibleChromosomes) {
+
 };
