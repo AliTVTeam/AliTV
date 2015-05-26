@@ -1096,7 +1096,7 @@ describe('The filterChromosomeWithoutLinkageInformation method is supposed to fi
 		ali.setData({karyo: karyo4, links: links12, features: features9});
 		ali.setFilters(filters4);
 		var visibleChromosomes = ali.data.karyo.chromosomes;
-		var expectedChromosomes = { c1: { genome_id: 0, length: 2000, seq: null }, c2: { genome_id: 1, length: 1000, seq: null }, c3: { genome_id: 1, length: 1000, seq: null }, c4: { genome_id: 2, length: 1000, seq: null }}
+		var expectedChromosomes = { c1: { genome_id: 0, length: 2000, seq: null }, c2: { genome_id: 1, length: 1000, seq: null }, c3: { genome_id: 1, length: 1000, seq: null }}
 		expect(ali.filterChromosomeWithoutLinkageInformation(visibleChromosomes)).toEqual(expectedChromosomes);
 	});
 });
