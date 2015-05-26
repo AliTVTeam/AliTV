@@ -964,6 +964,7 @@ AliTV.prototype.getGenomeDistance = function() {
 AliTV.prototype.filterChromosomes = function() {
 	var visibleChromosomes = this.data.karyo.chromosomes;
 	visibleChromosomes = this.filterVisibleChromosomes(visibleChromosomes);
+	visibleChromosomes = this.filterChromosomesWithoutLinkageInformation(visibleChromosomes);
 	return visibleChromosomes;
 };
 
