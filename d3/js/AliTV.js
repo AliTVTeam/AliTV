@@ -991,5 +991,15 @@ AliTV.prototype.filterVisibleChromosomes = function(visibleChromosomes) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterChromosomeOrder = function(visibleChromosomes) {
-
+	var orderOfVisibleChromosomes = [];
+	var sortedChromosomes = [];
+	$.each(visibleChromosomes, function(key, value) {
+		sortedChromosomes.push(key);
+	});
+	$.each(this.filters.karyo.order, function(key, value) {
+		if (sortedChromosomes.indexOf(value) !== -1) {
+			orderOfVisibleChromosomes.push(value);
+		}
+	});
+	return orderOfVisibleChromosomes;
 };
