@@ -1146,3 +1146,11 @@ describe('The filterLinksByLength method is supposed to filter all links whose l
 //		expect(ali.filterLinksByIdentity(links)).toEqual(expectedLinks);
 //	});	
 });
+
+describe('The filterLinksByAdjacency method is supposed to filter all links which are adjacent', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterLinksByAdjacency method is supposed to be a function', function(){
+		expect(typeof ali.filterLinksByAdjacency).toEqual('function');
+	});	
+});
