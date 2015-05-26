@@ -965,3 +965,13 @@ AliTV.prototype.filterChromosomes = function() {
 	visibleChromosomes = this.filterVisibleChromosomes(visibleChromosomes);
 	return visibleChromosomes;
 };
+
+/**
+ *This method should filter all chromosome which are set visible in conf.filters.karyo.chromosomes[<chromosome>].visible
+ * @param visibleChromosomes: the method gets all current visible chromosomes.
+ * @returns filteredChromosomes: the method returns only chromosomes whose visibility is set true
+ * @author Sonja Hohlfeld 
+ */
+AliTV.prototype.filterVisibleChromosomes = function(visibleChromosomes) {
+
+};
