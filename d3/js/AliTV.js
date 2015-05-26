@@ -1014,7 +1014,13 @@ AliTV.prototype.filterChromosomeWithoutLinkageInformation = function(visibleChro
  * @author Sonja Hohlfeld 
  */
 AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosomes) {
-
+	var that = this;
+	var filteredChromosomes = {};
+	var allLinks = that.data.links;
+	var filteredLinks = that.filterLinksByIdentity();
+	filteredLinks = that.filterLinksByLength();
+	console.log(filteredLinks);
+	return filteredChromosomes;
 };
 
 /**
