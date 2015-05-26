@@ -196,13 +196,6 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	var genomeDistance = this.getGenomeDistance();
 	var that = this;
 	var visibleChromosomes = that.data.karyo.chromosomes;
-	if (that.filters.showAllChromosomes === false) {
-		visibleChromosomes = that.filterInvisibleChromosomes(visibleChromosomes);
-	}
-	if (that.filters.skipChromosomesWithoutLinks === true) {
-		that.filterChromosomesWithoutLinks(visibleChromosomes);
-	}
-
 
 	var total = [];
 	var current = [];
@@ -260,8 +253,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 	}
 	var that = this;
 	var conf = this.conf;
-	var allLinks = that.data.links;
-	var visibleLinks = that.filterLinks(allLinks);
+	var visibleLinks = that.data.links;
 
 	var karyoMap = {};
 	$.each(coords, function(key, value) {
@@ -307,15 +299,8 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
 		link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
 
-		if (Math.abs(genomePosition2 - genomePosition1) === 1) {
-			link.adjacent = true;
-			linearLinkCoords.push(link);
-		} else {
-			link.adjacent = false;
-			if (conf.linear.drawAllLinks === true) {
-				linearLinkCoords.push(link);
-			}
-		}
+		linearLinkCoords.push(link);
+
 	});
 	return linearLinkCoords;
 };
@@ -968,139 +953,4 @@ AliTV.prototype.getOuterRadius = function() {
 AliTV.prototype.getGenomeDistance = function() {
 	var genomeDistance = (this.getCanvasHeight() - this.getKaryoHeight()) / (this.filters.karyo.genome_order.length - 1);
 	return Math.round(genomeDistance);
-};
-
-///**
-// * This function filters all chromosomes with visible linkage information in the current configuration, this means the identity range and the lenght range of links.
-// * With the current visible chromosomes and the information about all chromosomes in filters.karyo.order the methos is supposed to calculate all not-visible chromosomes.
-// * The function is called when skipChromosomesWithoutVisibleLinks in the configuration is true after filtering the links.
-// * @param {Array} linkCoords - gets the current coordinates of all visible links.
-// * @return {Array} visibleChromosomes - returns all chromosomes without visible links at the moment.
-// * @author {Sonja Hohlfeld}
-// */
-//AliTV.prototype.filterCurrentVisibleChromosomes = function(linkCoords) {
-//	var that = this;
-//	var visibleChromosomes = [];
-//
-//	$.each(linkCoords, function(key, value) {
-//		var currentLink = that.data.links[value.linkID];
-//		var currentLinkTarget = currentLink.target;
-//		var currentLinkSource = currentLink.source;
-//		var currentSourceKaryo = that.data.features[currentLinkTarget].karyo;
-//		var currentTargetKaryo = that.data.features[currentLinkSource].karyo;
-//
-//		if (visibleChromosomes.indexOf(currentSourceKaryo) === -1) {
-//			visibleChromosomes.push(currentSourceKaryo);
-//		}
-//		if (visibleChromosomes.indexOf(currentTargetKaryo) === -1) {
-//			visibleChromosomes.push(currentTargetKaryo);
-//		}
-//	});
-//
-//	for (var i = 0; i < that.filters.karyo.order.length; i++) {
-//		if (visibleChromosomes.indexOf(that.filters.karyo.order[i]) === -1) {
-//			that.filters.karyo.chromosomes[that.filters.karyo.order[i]].visible = false;
-//		} else {
-//			that.filters.karyo.chromosomes[that.filters.karyo.order[i]].visible = true;
-//		}
-//	}
-//
-//	return visibleChromosomes;
-//};
-//
-//
-///**
-// * This function should set all chromosomes visible.
-// * @author Sonja Hohlfeld 
-// */
-//AliTV.prototype.setAllChromosomesVisible = function() {
-//	$.each(this.filters.karyo.chromosomes, function(key, value) {
-//		value.visible = true;
-//	});
-//	return this.filters;
-//};
-
-///**
-// * This method should filter all chromosomes which are set visible in the default filters.
-// * @param{Object} visibleChromosomes: gets the data of all chromosomes which is set in data.karyo.chromosomes.
-// * @return{Object} filteredVisibleChromosomes: returns only chromosomes which are visible.
-// * @author Sonja Hohlfeld
-// */
-//AliTV.prototype.filterInvisibleChromosomes = function(visibleChromosomes) {
-//	var that = this;
-//	var filteredVisibleChromosomes = {};
-//	$.each(visibleChromosomes, function(key, value) {
-//		if (that.filters.karyo.chromosomes[key].visible === true) {
-//			filteredVisibleChromosomes[key] = value;
-//		}
-//	});
-//	return filteredVisibleChromosomes;
-//};
-//
-///**
-// * This method should filter all chromosomes which has no links.
-// * @param{Object} visibleChromosomes: gets the data of the current visible chromosomes.
-// * @return{Object} filteredVisibleChromosomes: returns only chromosomes which has links.
-// * @author Sonja Hohlfeld
-// */
-//AliTV.prototype.filterChromosomesWithoutLinks = function(visibleChromosomes) {
-//	var that = this;
-//	var filteredChromosomesWithLinks = {};
-//
-//	$.each(visibleChromosomes, function(key, value) {
-//
-//	});
-//
-//	return filteredChromosomesWithLinks;
-//};
-
-/**
- * This method should call functions in order to filter the links.
- * @param allLinks: gets all links
- * @returns visibleLinks: return all links which are visible
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.filterLinks = function(allLinks) {
-	var filterVisibleLinksByIdentity = this.filterLinksByIdentity(allLinks);
-	var filterVisibleLinksByLength = this.filterLinksByLength(filterVisibleLinksByIdentity);
-	return filterVisibleLinksByLength;
-};
-
-/**
- * This method should filter links according to their identity.
- * @returns filteredLinks: return all links which are visible with the current configuration.
- * @param visibleLinks: gets all current visible links.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.filterLinksByIdentity = function(allLinks) {
-	var minIdentity = this.filters.links.minLinkIdentity;
-	var maxIdentity = this.filters.links.maxLinkIdentity;
-	var filteredLinks = _.filter(allLinks, function(currentLink) {
-		if (currentLink.identity >= minIdentity && currentLink.identity <= maxIdentity) {
-			return currentLink;
-		}
-	});
-	return filteredLinks;
-};
-
-/**
- * This method should filter links according to their length.
- * @returns filteredLinks: return all links which are visible with the current configuration.
- * @param visibleLinks: gets all current visible links.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.filterLinksByLength = function(filterVisibleLinksByIdentity) {
-	var minLength = this.filters.links.minLinkLength;
-	var maxLength = this.filters.links.maxLinkLength;
-	var that = this;
-	var filteredLinks = _.filter(filterVisibleLinksByIdentity, function(currentLink) {
-		var sourceFeature = currentLink.source;
-		var targetFeature = currentLink.target;
-		var lengthOfSourceFeature = Math.abs(that.data.features[sourceFeature].end - that.data.features[sourceFeature].start);
-		var lengthOfTargetFeature = Math.abs(that.data.features[targetFeature].end - that.data.features[targetFeature].start);
-		if (lengthOfSourceFeature >= minLength && lengthOfSourceFeature <= maxLength || lengthOfTargetFeature >= minLength && lengthOfTargetFeature <= maxLength) {
-			return currentLink;
-		}
-	});
-	return filteredLinks;
 };
