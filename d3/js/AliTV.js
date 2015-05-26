@@ -1019,6 +1019,15 @@ AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosome
 	var allLinks = that.data.links;
 	var filteredLinks = that.filterLinksByIdentity(allLinks);
 	filteredLinks = that.filterLinksByLength(filteredLinks);
+	$.each(visibleChromosomes, function(key, value) {
+		var currentChromosome = key;
+		var valueOfCurrentChromosome = value;
+		$.each(filteredLinks, function(key, value) {
+			if (that.data.features[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
+				filteredChromosomes[currentChromosome] = valueOfCurrentChromosome;
+			}
+		});
+	});
 	return filteredChromosomes;
 };
 
@@ -1088,7 +1097,7 @@ AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
 	$.each(visibleLinks, function(key, value) {
 		var currentLink = value;
 		if (currentLink.identity >= minIdentity && currentLink.identity <= maxIdentity) {
-			filteredLinks[key] = currentLink;
+			filteredLinks.push(currentLink);
 		}
 	});
 	return filteredLinks;
@@ -1112,7 +1121,7 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 		var lengthOfSourceFeature = Math.abs(that.data.features[sourceFeature].end - that.data.features[sourceFeature].start);
 		var lengthOfTargetFeature = Math.abs(that.data.features[targetFeature].end - that.data.features[targetFeature].start);
 		if (lengthOfSourceFeature >= minLength && lengthOfSourceFeature <= maxLength || lengthOfTargetFeature >= minLength && lengthOfTargetFeature <= maxLength) {
-			filteredLinks[key] = currentLink;
+			filteredLinks.push(currentLink);
 		}
 	});
 	return filteredLinks;
