@@ -964,7 +964,7 @@ AliTV.prototype.getGenomeDistance = function() {
 AliTV.prototype.filterChromosomes = function() {
 	var visibleChromosomes = this.data.karyo.chromosomes;
 	visibleChromosomes = this.filterVisibleChromosomes(visibleChromosomes);
-	visibleChromosomes = this.filterChromosomesWithoutLinkageInformation(visibleChromosomes);
+	visibleChromosomes = this.filterChromosomeWithoutLinkageInformation(visibleChromosomes);
 	return visibleChromosomes;
 };
 
@@ -992,7 +992,19 @@ AliTV.prototype.filterVisibleChromosomes = function(visibleChromosomes) {
  * @author Sonja Hohlfeld 
  */
 AliTV.prototype.filterChromosomeWithoutLinkageInformation = function(visibleChromosomes) {
-
+	var that = this;
+	var filteredChromosomes = {};
+	console.log(that);
+	$.each(visibleChromosomes, function(key, value) {
+		var currentChromosome = key;
+		var valueOfCurrentChromosome = value;
+		$.each(that.data.links, function(key, value) {
+			if (that.data.features[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
+				filteredChromosomes[currentChromosome] = valueOfCurrentChromosome;
+			}
+		});
+	});
+	return filteredChromosomes;
 };
 
 /**
