@@ -1013,3 +1013,12 @@ AliTV.prototype.filterLinks = function() {
 	var visibleLinks = this.filterVisibleLinks();
 	return visibleLinks;
 };
+
+/**
+ * This method should filter the visible links according to visible chromosomes
+ * @return visibleLinks: returns only links which source or target are in visible chromosomes
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterVisibleLinks = function() {
+
+};
