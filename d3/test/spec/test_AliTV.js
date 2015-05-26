@@ -122,20 +122,7 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		    {'karyo': 'c4', 'x': 0, 'y': wga.getGenomeDistance()*2, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 2}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
-	});
-
-	it('getLinearKaryoCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes), but only 2 chromosomes are calculated because the third one has no linkage information', function(){
-		wga.setData({karyo: karyo2, features: features6, links: links9});
-		wga.setFilters(filters9);
-		var linearKaryoCoords = wga.getLinearKaryoCoords();
-		var expectedCoords = [
-		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.width/((2000/2000)), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
-		    {'karyo': 'c3', 'x': 0, 'y': wga.getGenomeDistance(), 'width': 500, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
-		];
-		expect(linearKaryoCoords).toEqual(expectedCoords);
-	});
-	
-	
+	});	
 });
 
 describe('The drawLinearKaryo method of AliTV objects is supposed to draw karyos', function(){
@@ -1014,114 +1001,5 @@ describe('The drawEqualLayout method is supposed to draw the layout which is equ
 		ali.setData(data);
 		ali.setFilters(filters);
 		expect(ali.drawEqualLayout(layout)).toEqual("circular");
-	});	
-});
-
-//describe('The filterCurrentVisibleChromosomes method is supposed to skip all chromosomes without visible links', function(){
-//	var svg = $('<svg></svg>');
-//	var ali = new AliTV(svg);
-//	it('filterCurrentVisibleChromosomes method is supposed to be a function', function(){
-//		expect(typeof ali.filterCurrentVisibleChromosomes).toEqual('function');
-//	});	
-//	it('filterCurrentVisibleChromosomes method is supposed to return the expected visible chromosomes in the linear layout for simple test data (3 genomes, 4 chromosomes, 2 links and one chromosome is not visible)', function(){
-//		ali.setData({karyo: karyo4, features: features7, links: links10});
-//		ali.setFilters(filters4);
-//		var expectedVisibleChromosomes = ["c2", "c1", "c4"];
-//		var linearKaryoCoords = ali.getLinearKaryoCoords();
-//		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-//		var visibleChromosomes = ali.filterCurrentVisibleChromosomes(linearLinkCoords);
-//		expect(visibleChromosomes).toEqual(expectedVisibleChromosomes);
-//	});
-//	it('filterCurrentVisibleChromosomes method is supposed to return the expected visible chromosomes in the linear layout for test data (3 genomes, 7 chromosomes, 5 links and 2 chromosomes are not visible)', function(){
-//		ali.setData({karyo: karyo8, features: features8, links: links11});
-//		ali.setFilters(filters10);
-//		var expectedVisibleChromosomes = ["c3", "c1", "c4", "c2", "c7"];
-//		var linearKaryoCoords = ali.getLinearKaryoCoords();
-//		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-//		var visibleChromosomes = ali.filterCurrentVisibleChromosomes(linearLinkCoords);
-//		expect(visibleChromosomes).toEqual(expectedVisibleChromosomes);
-//	})
-//});
-//
-//describe('The setAllChromosomesVisible method is supposed to set all chromosomes visible', function(){
-//	var svg = $('<svg></svg>');
-//	var ali = new AliTV(svg);
-//	it('setAllChromosomesVisible method is supposed to be a function', function(){
-//		expect(typeof ali.setAllChromosomesVisible).toEqual('function');
-//	});	
-//	it('the method is supposed to set all chromosomes visible (simple test data with one chromosomes)', function(){
-//		ali.setData({karyo: karyo6});
-//		ali.setFilters(filters11);
-//		ali.setAllChromosomesVisible();
-//		expect(ali.filters.karyo.chromosomes["c1"].visible).toEqual(true);
-//	});
-//});
-
-//describe('The filterInvisibleChromosomes method is supposed to filter all chromosomes which are set visible in the default filters', function(){
-//	var svg = $('<svg></svg>');
-//	var ali = new AliTV(svg);
-//	it('filterInvisibleChromosomes method is supposed to be a function', function(){
-//		expect(typeof ali.filterInvisibleChromosomes).toEqual('function');
-//	});		
-//	it('the method only should return visible chromosmes (use 3 chromosmes on 2 genomes, only 2 chromosmes are visible', function(){
-//		ali.setData({karyo: karyo2});
-//		ali.setFilters(filters12);
-//		var chromosomes = ali.data.karyo.chromosomes;
-//		var visibleChromosmes = ali.filterInvisibleChromosomes(chromosomes);
-//		
-//		var expectedVisibleChromosomes =  {
-//			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
-//			'c3': {'genome_id': 1, 'length': 1000, 'seq': null}
-//		};
-//		expect(visibleChromosmes).toEqual(expectedVisibleChromosomes);
-//	});
-//});
-//
-//describe('The filterChromosomesWithoutLinks method is supposed to filter all chromosomes which have no links', function(){
-//	var svg = $('<svg></svg>');
-//	var ali = new AliTV(svg);
-//	it('filterChromosomesWithoutLinks method is supposed to be a function', function(){
-//		expect(typeof ali.filterChromosomesWithoutLinks).toEqual('function');
-//	});		
-//});
-
-describe('The filterLinks method is supposed to filter links. ', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('filterLinks method is supposed to be a function', function(){
-		expect(typeof ali.filterLinks).toEqual('function');
-	});		
-	it('filterLinks method is supposed to return visible links, when no filters are setted the visible links are data.links', function() {
-		ali.setData(data);
-		ali.setFilters(filters);
-		var expectedVisibleLinks = ali.data.links;
-		var visibleLinks = ali.filterLinks();
-		expect(visibleLinks).toEqual(expectedVisibleLinks);
-	});
-});
-
-describe('The filterLinksByIdentity method is supposed to filter links according to theit identity. ', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('filterLinksByIdentity method is supposed to be a function', function(){
-		expect(typeof ali.filterLinksByIdentity).toEqual('function');
-	});	
-	it('if the identity range is between 0 and 100 the function should return all assigned links', function(){
-		ali.setData(data);
-		ali.setFilters(filters);
-		ali.filters.links.minLinkIdentity = 0;
-		ali.filters.links.maxLinkIdentity = 100;
-		var expectedLinks = ali.data.links;
-		var visibleLinks = ali.data.links;
-		var expectedVisibleLinks = ali.filterLinksByIdentity(visibleLinks);
-		expect(visibleLinks).toEqual(expectedVisibleLinks);
-	});
-});
-
-describe('The filterLinksByLength method is supposed to filter links according to their length. ', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('filterLinksByLength method is supposed to be a function', function(){
-		expect(typeof ali.filterLinksByLength).toEqual('function');
 	});	
 });
