@@ -1133,5 +1133,16 @@ describe('The filterLinksByLength method is supposed to filter all links whose l
 	var ali = new AliTV(svg);
 	it('filterLinksByLength method is supposed to be a function', function(){
 		expect(typeof ali.filterLinksByLength).toEqual('function');
-	});		
+	});	
+//	it('filterLinksByLength method is supposed to filter the assigned links according to the minLinkLength and the maxLinkLength', function(){
+//		var svg = $('<svg></svg>');
+//		var ali = new AliTV(svg);
+//		ali.setData({links: links7});
+//		ali.setFilters(filters14);
+//		ali.filters.links.minLinkLength = 50;
+//		ali.filters.links.maxLinkLength = 200;
+//		var expectedLinks = {"l2": { source: 'f2', target: 'f3', identity: 50 },"l3": { source: 'f2', target: 'f4', identity: 60 }, "l4": { source: 'f1', target: 'f4', identity: 70 }};
+//		var links = ali.data.links;
+//		expect(ali.filterLinksByIdentity(links)).toEqual(expectedLinks);
+//	});	
 });
