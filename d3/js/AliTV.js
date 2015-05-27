@@ -255,7 +255,8 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 	}
 	var that = this;
 	var conf = this.conf;
-	var visibleLinks = that.filterLinks();
+	var visibleChromosomes = that.filterChromosomes();
+	var visibleLinks = that.filterLinks(visibleChromosomes);
 	var karyoMap = {};
 	$.each(coords, function(key, value) {
 		karyoMap[value.karyo] = key;
