@@ -1024,9 +1024,7 @@ AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosome
 	var that = this;
 	var filteredChromosomes = {};
 	var allLinks = that.data.links;
-	var filteredLinks = that.filterLinksByIdentity(allLinks);
-	filteredLinks = that.filterLinksByLength(filteredLinks);
-	filteredLinks = that.filterLinksByAdjacency(filteredLinks);
+	var filteredLinks = that.filterLinks(visibleChromosomes);
 	$.each(visibleChromosomes, function(key, value) {
 		var currentChromosome = key;
 		var valueOfCurrentChromosome = value;
@@ -1064,8 +1062,8 @@ AliTV.prototype.filterChromosomeOrder = function(visibleChromosomes) {
  * @returns visibleLinks: return all links which are visible
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.filterLinks = function() {
-	var visibleLinks = this.filterVisibleLinks();
+AliTV.prototype.filterLinks = function(visibleChromosomes) {
+	var visibleLinks = this.filterVisibleLinks(visibleChromosomes);
 	visibleLinks = this.filterLinksByIdentity(visibleLinks);
 	visibleLinks = this.filterLinksByLength(visibleLinks);
 	if (this.filters.onlyShowAdjacentLinks === true) {
@@ -1079,8 +1077,7 @@ AliTV.prototype.filterLinks = function() {
  * @return visibleLinks: returns only links which source or target are in visible chromosomes
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.filterVisibleLinks = function() {
-	var visibleChromosomes = this.filterChromosomes();
+AliTV.prototype.filterVisibleLinks = function(visibleChromosomes) {
 	var allLinks = this.data.links;
 	var that = this;
 	var filteredLinks = {};

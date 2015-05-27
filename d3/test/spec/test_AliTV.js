@@ -1092,8 +1092,9 @@ describe('The filterVisibleLinks method is supposed to filter links which have t
 		ali.setData({karyo: karyo2, features: features8, links: links12});
 		ali.setFilters(filters14);
 		ali.filters.showAllChromosomes = false;
+		var visibleChromosomes = ali.filterChromosomes();
 		var expectedLinks = {"l1": {'source': 'f1', 'target': 'f2', 'identity': 75}};
-		expect(ali.filterVisibleLinks()).toEqual(expectedLinks);
+		expect(ali.filterVisibleLinks(visibleChromosomes)).toEqual(expectedLinks);
 	});
 });
 
