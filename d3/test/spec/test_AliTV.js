@@ -1067,7 +1067,8 @@ describe('The filterVisibleLinks method is supposed to filter links which have t
 		var ali = new AliTV(svg);
 		ali.setData({karyo: karyo2, features: features8, links: links12});
 		ali.setFilters(filters14);
-		var expectedLinks = [{'source': 'f1', 'target': 'f2', 'identity': 75}];
+		ali.filters.showAllChromosomes = false;
+		var expectedLinks = {"l1": {'source': 'f1', 'target': 'f2', 'identity': 75}};
 		expect(ali.filterVisibleLinks()).toEqual(expectedLinks);
 	});
 });
