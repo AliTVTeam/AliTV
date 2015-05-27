@@ -1004,9 +1004,19 @@ describe('The filterChromosomes method is supposed to filter all visible chromos
 		ali.setFilters(filters15);
 		ali.filters.showAllChromosomes = false;
 		ali.filters.skipChromosomesWithoutVisibleLinks = true;
-		console.log(ali);
 		ali.filters.links.minLinkIdentity = 50;
 		ali.filters.links.maxLinkIdentity = 99;
+		var expectedChromosomes = { c2: { genome_id: 0, length: 1000, seq: null }, c3: { genome_id: 1, length: 1000, seq: null }, c4: { genome_id: 1, length: 1000, seq: null }, c5: { genome_id: 2, length: 500, seq: null }};
+		expect(ali.filterChromosomes()).toEqual(expectedChromosomes);
+	});
+	it('filterChromosomes method is supposed to return only chromosomes which have linkage information', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo4, links: links12, features: features9});
+		ali.setFilters(filters4);
+		console.log(ali);
+		ali.filters.showAllChromosomes = false;
+		ali.filters.skipChromosomesWithoutLinks = true;
 		var expectedChromosomes = { c2: { genome_id: 0, length: 1000, seq: null }, c3: { genome_id: 1, length: 1000, seq: null }, c4: { genome_id: 1, length: 1000, seq: null }, c5: { genome_id: 2, length: 500, seq: null }};
 		expect(ali.filterChromosomes()).toEqual(expectedChromosomes);
 	});
