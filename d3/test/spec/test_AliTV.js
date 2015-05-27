@@ -737,6 +737,7 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 	it('there should be exactly three karyos ad one links in the simple test svg (actual there are exactly two links, but only one is drawn because the second one is not an adjacent link)', function(){
 		ali.setData({karyo:karyo5,features:features4, links:links6});
 		ali.setFilters(filters5);
+		ali.filters.onlyShowAdjacentLinks = true;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		ali.drawLinearKaryo(linearKaryoCoords);
