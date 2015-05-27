@@ -1096,6 +1096,19 @@ describe('The filterChromosomeWithoutVisibleLinks method is supposed to filter a
 	it('filterChromosomeWithoutVisibleLinks method is supposed to be a function', function(){
 		expect(typeof ali.filterChromosomeWithoutVisibleLinks).toEqual('function');
 	});	
+	it('filterChromosomesWithoutVisibleLinks method is supposed to return three of five links, because two have the wrong identity and are filtered', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo9, links: links13, features: features10});
+		ali.setFilters(filters15);
+		ali.filters.showAllChromosomes = false;
+		ali.filters.skipChromosomesWithoutVisibleLinks = true;
+		ali.filters.links.minLinkIdentity = 50;
+		ali.filters.links.maxLinkIdentity = 99;
+		var visibleChromosomes = ali.data.karyo.chromosomes;
+		var expectedChromosomes = {};
+		expect(ali.filterChromosomeWithoutVisibleLinks(visibleChromosomes)).toEqual(expectedChromosomes);
+	});
 });
 
 describe('The filterLinksByIdentity method is supposed to filter all links whose identity is greater than the maxIdentity oder less than the minIdentity', function(){
