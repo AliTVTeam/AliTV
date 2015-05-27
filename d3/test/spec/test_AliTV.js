@@ -997,6 +997,20 @@ describe('The filterChromosomes method is supposed to filter all visible chromos
 	it('filterChromosomes method is supposed to be a function', function(){
 		expect(typeof ali.filterChromosomes).toEqual('function');
 	});	
+	it('filterChromosomes method is supposed to return all chromosomes, some links are filtered according to their identity, but the user does not want to skip chromosomes without visible links', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo9, links: links13, features: features10});
+		ali.setFilters(filters15);
+		ali.filters.showAllChromosomes = false;
+		ali.filters.skipChromosomesWithoutVisibleLinks = false;
+		ali.filters.skipChromosomesWithoutLinks = false;
+		console.log(ali);
+		ali.filters.links.minLinkIdentity = 50;
+		ali.filters.links.maxLinkIdentity = 99;
+		var expectedChromosomes = { };
+		expect(ali.filterChromosomes()).toEqual(expectedChromosomes);
+	});
 });
 
 describe('The filterVisibleChromosomes method is supposed to filter all chromosomes which are set visible in the filters', function(){
@@ -1096,7 +1110,7 @@ describe('The filterChromosomeWithoutVisibleLinks method is supposed to filter a
 	it('filterChromosomeWithoutVisibleLinks method is supposed to be a function', function(){
 		expect(typeof ali.filterChromosomeWithoutVisibleLinks).toEqual('function');
 	});	
-	it('filterChromosomesWithoutVisibleLinks method is supposed to return three of five links, because two have the wrong identity and are filtered', function(){
+	it('filterChromosomesWithoutVisibleLinks method is supposed to return four of six chromosomes, because two have no visible links and are filtered', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		ali.setData({karyo: karyo9, links: links13, features: features10});
