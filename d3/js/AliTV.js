@@ -1059,6 +1059,7 @@ AliTV.prototype.filterChromosomeOrder = function(visibleChromosomes) {
 
 /**
  * This method should call functions in order to filter the links.
+ * @param visibleChromosomes: gets the chromosomes which are visible in the current configurations.
  * @returns visibleLinks: return all links which are visible
  * @author Sonja Hohlfeld
  */
@@ -1074,6 +1075,7 @@ AliTV.prototype.filterLinks = function(visibleChromosomes) {
 
 /**
  * This method should filter the visible links according to visible chromosomes
+ * @param visibleChromosomes: gets the chromosomes, which are visible in the current configurations in order to filter all links, which have no target or source chromosome.
  * @return visibleLinks: returns only links which source or target are in visible chromosomes
  * @author Sonja Hohlfeld
  */
