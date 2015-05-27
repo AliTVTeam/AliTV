@@ -60,5 +60,6 @@
   },
   "skipChromosomesWithoutVisibleLinks": false,
   "showAllChromosomes": true,
-  "skipChromosomesWithoutLinks": false
+  "skipChromosomesWithoutLinks": false,
+  "onlyShowAdjacentLinks": true
 }

@@ -46,6 +46,7 @@ function AliTV(svg) {
 	 * @property {Boolean} filters.skipChromosomesWithoutVisibleLinks	- If a chromosome has no visible links, because they are filtered, it is possible to skip this chromosome.
 	 * @property {Boolean} filters.skipChromosomesWithoutLinks			- If a chromosome has no links, the user have the possibility to skip them.
 	 * @property {Boolean} filters.showAllChromosomes					- Allows to show all chromosomes, even if when they are set not visible.
+	 * @property {Boolean} filters.onlyShowAdjacentLinks				- Allows to show only adjacent links or all links.			
 	 * @property {Array}   filters.karyo.order                  		- array of chromosome IDs in the desired order (circular layout)
 	 * @property {Array}   filters.karyo.genome_order          			- array of genome IDs in the desired order (linear layout)
 	 * @property {Object}  filters.karyo.chromosomes           			- the chromosome drawing details, karyo IDs as keys
@@ -1066,7 +1067,9 @@ AliTV.prototype.filterLinks = function() {
 	var visibleLinks = this.filterVisibleLinks();
 	visibleLinks = this.filterLinksByIdentity(visibleLinks);
 	visibleLinks = this.filterLinksByLength(visibleLinks);
-	visibleLinks = this.filterLinksByAdjacency(visibleLinks);
+	if (this.filters.onlyShowAdjacentLinks === true) {
+		visibleLinks = this.filterLinksByAdjacency(visibleLinks);
+	}
 	return visibleLinks;
 };
 
