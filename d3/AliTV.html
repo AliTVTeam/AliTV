@@ -178,6 +178,12 @@
 		
 		var layout = wga.getLayout();
 		wga.drawEqualLayout(layout);
+		if(layout === "circular"){
+			$("#onlyShowAdjacentLinks").attr("disabled", true);
+		} else {
+			$("#onlyShowAdjacentLinks").attr("disabled", false);
+		}
+		
 	}
 </script>
 </head>
