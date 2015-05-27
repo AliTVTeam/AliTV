@@ -252,21 +252,24 @@ describe('The getGenomeDistance method is supposed to calculate the appropriate 
 		ali.setFilters(filters);
 		expect(ali.getGenomeDistance()).toBeDefined();
 	});
-	it('getGenomeDistance method is supposed to return 500 if default height and 2 genomes are used (1000 * 1/2)', function(){
+	it('getGenomeDistance method is supposed to return 970 if default height and 2 genomes are used (1000 * 1/2)', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
-		expect(ali.getGenomeDistance()).toEqual(500);
+		var distance = (1000 - 30) * 1/(2 - 1);
+		expect(ali.getGenomeDistance()).toEqual(distance);
 	});
-	it('getGenomeDistance method is supposed to return 250 if default height and 4 genomes are used (1000 * 1/4)', function(){
+	it('getGenomeDistance method is supposed to return 323 if default height and 4 genomes are used (1000 * 1/4)', function(){
 		ali.setData({karyo: karyo7});
 		ali.setFilters(filters8);
-		expect(ali.getGenomeDistance()).toEqual(250);
+		var distance = (1000 - 30) * 1/(4 - 1);
+		expect(ali.getGenomeDistance()).toEqual(Math.round(distance));
 	});
-	it('getGenomeDistance method is supposed to return 1000 if the default height is set on 2000 and 2 genomes are used (2000 * 1/2)', function(){
+	it('getGenomeDistance method is supposed to return 1970 if the default height is set on 2000 and 2 genomes are used (2000 * 1/2)', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
 		ali.setCanvasHeight(2000);
-		expect(ali.getGenomeDistance()).toEqual(1000);
+		var distance = (2000 - 30) * 1/(2 -1);
+		expect(ali.getGenomeDistance()).toEqual(distance);
 	});
 });
 

@@ -122,8 +122,7 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		    {'karyo': 'c4', 'x': 0, 'y': wga.getGenomeDistance()*2, 'width': defaultConf.graphicalParameters.width/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 2}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
-	});
-	
+	});	
 });
 
 describe('The drawLinearKaryo method of AliTV objects is supposed to draw karyos', function(){
@@ -425,8 +424,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
             	source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
             	target0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
             	source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-            	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance},
-            	adjacent: true
+            	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}
             }           
         ];
 		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
@@ -442,16 +440,14 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
             	source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
             	target0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
             	source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-            	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance},
-            	adjacent: true
+            	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}
 	        }, 
 		    {
 		    	linkID : "l2",
 		    	source0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.graphicalParameters.linkKaryoDistance},
             	target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
             	source1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.graphicalParameters.linkKaryoDistance},
-            	target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
-            	adjacent: true
+            	target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance}
 	        }  
 		];
 		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
@@ -467,16 +463,14 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
             	source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
             	target0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
             	source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-            	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance},
-            	adjacent: true
+            	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}
 		    },
 		    {
 		    	linkID: "l2",
 		    	source0: {x: 1800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
 		    	target0: {x: 900/1000 * linearKaryoCoords[2].width + linearKaryoCoords[2].x, y: linearKaryoCoords[2].y - defaultConf.graphicalParameters.linkKaryoDistance},
 		    	source1: {x: 1900/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-		    	target1: {x: 800/1000 * linearKaryoCoords[2].width + linearKaryoCoords[2].x, y: linearKaryoCoords[2].y - defaultConf.graphicalParameters.linkKaryoDistance},
-		    	adjacent: true
+		    	target1: {x: 800/1000 * linearKaryoCoords[2].width + linearKaryoCoords[2].x, y: linearKaryoCoords[2].y - defaultConf.graphicalParameters.linkKaryoDistance}
 		    }
 		];
 		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
@@ -484,6 +478,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 	it('getLinearLinkCoords method is supposed to work with simple test data (3 genomes, 2 chromosomes, 2 links (but one link is not between adjacent chromosomes, later it should not be drawn)', function(){
 		ali.setData({karyo:karyo4,features:features2, links:links4});
 		ali.setFilters(filters4);
+		ali.filters.onlyShowAdjacentLinks = true;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		var expectedCoords = [
@@ -492,16 +487,14 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
         	source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
         	target0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
         	source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-        	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance},
-        	adjacent: true
+        	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}
 		},
 		{
 			linkID: "l2",
 	    	source0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.graphicalParameters.linkKaryoDistance},
 	    	target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
 	    	source1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.graphicalParameters.linkKaryoDistance},
-	    	target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
-	    	adjacent: true
+	    	target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance}
 		}
 		];
 		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
@@ -518,24 +511,21 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
         	source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
         	target0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
         	source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-        	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance},
-        	adjacent: true
+        	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}
 		},
 		{
 			linkID: "l2",
 	    	source0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.graphicalParameters.linkKaryoDistance},
 	    	target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
 	    	source1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y + linearKaryoCoords[1].height + defaultConf.graphicalParameters.linkKaryoDistance},
-	    	target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
-	    	adjacent: true
+	    	target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance}
 		},
 		{
 			linkID: "l3",
 			source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
 			target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
 			source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-			target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
-			adjacent: false
+			target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance}
 		}
 		];
 		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
@@ -552,8 +542,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 			source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
 			target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
 			source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-			target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
-			adjacent: false
+			target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance}
 		}
 		];
 		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
@@ -571,16 +560,14 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 				source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
 				target0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
 				source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-				target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance},
-				adjacent: true
+				target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}
 			},
 			{
 				linkID: "l3",
 				source0: {x: 300/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
 				target0: {x: 400/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
 				source1: {x: 800/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-				target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance},
-				adjacent: false
+				target1: {x: 900/1000 * linearKaryoCoords[3].width, y: linearKaryoCoords[3].y - defaultConf.graphicalParameters.linkKaryoDistance}
 			}
 		];
 		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
@@ -750,6 +737,7 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 	it('there should be exactly three karyos ad one links in the simple test svg (actual there are exactly two links, but only one is drawn because the second one is not an adjacent link)', function(){
 		ali.setData({karyo:karyo5,features:features4, links:links6});
 		ali.setFilters(filters5);
+		ali.filters.onlyShowAdjacentLinks = true;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		ali.drawLinearKaryo(linearKaryoCoords);
@@ -796,12 +784,12 @@ describe('The getLinearTickCoords method is supposed to calculate coords for the
 	});
 	
 	it('getLinearTickCoords method is supposed to calculate the same coords as the expected coords', function(){
-		ali.setData({karyo:karyo6});
-		ali.setFilters(filters6);
+		ali.setData(data);
+		ali.setFilters(filters);
+		var ticks = ali.getGenomeDistance();
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
-		var expectedTicks = [{ x1: 0, y1: -5, x2: 0, y2: 35 }, { x1: 50, y1: -5, x2: 50, y2: 35 }, { x1: 100, y1: -5, x2: 100, y2: 35 }, { x1: 150, y1: -5, x2: 150, y2: 35 }, { x1: 200, y1: -5, x2: 200, y2: 35 }, { x1: 250, y1: -5, x2: 250, y2: 35 }, { x1: 300, y1: -5, x2: 300, y2: 35 }, { x1: 350, y1: -5, x2: 350, y2: 35 }, { x1: 400, y1: -5, x2: 400, y2: 35 }, { x1: 450, y1: -5, x2: 450, y2: 35 }, { x1: 500, y1: -5, x2: 500, y2: 35 }, { x1: 550, y1: -5, x2: 550, y2: 35 }, { x1: 600, y1: -5, x2: 600, y2: 35 }, { x1: 650, y1: -5, x2: 650, y2: 35 }, { x1: 700, y1: -5, x2: 700, y2: 35 }, { x1: 750, y1: -5, x2: 750, y2: 35 }, { x1: 800, y1: -5, x2: 800, y2: 35 }, { x1: 850, y1: -5, x2: 850, y2: 35 }, { x1: 900, y1: -5, x2: 900, y2: 35 }, { x1: 950, y1: -5, x2: 950, y2: 35 }, { x1: 1000, y1: -5, x2: 1000, y2: 35 }];
-		
+		var expectedTicks = [{ x1: 0, y1: -5, x2: 0, y2: 35 }, { x1: 50, y1: -5, x2: 50, y2: 35 }, { x1: 100, y1: -5, x2: 100, y2: 35 }, { x1: 150, y1: -5, x2: 150, y2: 35 }, { x1: 200, y1: -5, x2: 200, y2: 35 }, { x1: 250, y1: -5, x2: 250, y2: 35 }, { x1: 300, y1: -5, x2: 300, y2: 35 }, { x1: 350, y1: -5, x2: 350, y2: 35 }, { x1: 400, y1: -5, x2: 400, y2: 35 }, { x1: 450, y1: -5, x2: 450, y2: 35 }, { x1: 500, y1: -5, x2: 500, y2: 35 }, { x1: 550, y1: -5, x2: 550, y2: 35 }, { x1: 600, y1: -5, x2: 600, y2: 35 }, { x1: 650, y1: -5, x2: 650, y2: 35 }, { x1: 700, y1: -5, x2: 700, y2: 35 }, { x1: 750, y1: -5, x2: 750, y2: 35 }, { x1: 800, y1: -5, x2: 800, y2: 35 }, { x1: 850, y1: -5, x2: 850, y2: 35 }, { x1: 900, y1: -5, x2: 900, y2: 35 }, { x1: 950, y1: -5, x2: 950, y2: 35 }, { x1: 1000, y1: -5, x2: 1000, y2: 35 }, { x1: 0, y1: 965, x2: 0, y2: 1005 }, { x1: 50, y1: 965, x2: 50, y2: 1005 }, { x1: 100, y1: 965, x2: 100, y2: 1005 }, { x1: 150, y1: 965, x2: 150, y2: 1005 }, { x1: 200, y1: 965, x2: 200, y2: 1005 }, { x1: 250, y1: 965, x2: 250, y2: 1005 }, { x1: 300, y1: 965, x2: 300, y2: 1005 }, { x1: 350, y1: 965, x2: 350, y2: 1005 }, { x1: 400, y1: 965, x2: 400, y2: 1005 }, { x1: 450, y1: 965, x2: 450, y2: 1005 }, { x1: 500, y1: 965, x2: 500, y2: 1005 } ]
 		expect(ticks).toEqual(expectedTicks);		
 	});
 });
@@ -959,7 +947,7 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		ali.svg.find('.karyo').eq(0).d3Trigger("click");
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-		var expectedLinks = [{ linkID: 'l1', source0: { x: 850, y: 40 }, source1: { x: 600, y: 40 }, target0: { x: 50, y: 490 }, target1: { x: 300, y: 490 }, adjacent: true }];
+		var expectedLinks = [{ linkID: 'l1', source0: { x: 850, y: 40 }, source1: { x: 600, y: 40 }, target0: { x: 50, y: 960 }, target1: { x: 300, y: 960 }}];
 		
 		setTimeout(function(){
 			expect(expectedLinks).toEqual(linearLinkCoords);
@@ -1002,5 +990,183 @@ describe('The drawEqualLayout method is supposed to draw the layout which is equ
 		ali.setData(data);
 		ali.setFilters(filters);
 		expect(ali.drawEqualLayout(layout)).toEqual("circular");
+	});	
+});
+
+describe('The filterChromosomes method is supposed to filter all visible chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterChromosomes method is supposed to be a function', function(){
+		expect(typeof ali.filterChromosomes).toEqual('function');
+	});	
+	it('filterChromosomes method is supposed to return only four chromosomes, because some links are filtered according to their identity and the user wants to skip chromosomes without visible links', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo9, links: links13, features: features10});
+		ali.setFilters(filters15);
+		ali.filters.showAllChromosomes = false;
+		ali.filters.skipChromosomesWithoutVisibleLinks = true;
+		ali.filters.links.minLinkIdentity = 50;
+		ali.filters.links.maxLinkIdentity = 99;
+		var expectedChromosomes = { c2: { genome_id: 0, length: 1000, seq: null }, c3: { genome_id: 1, length: 1000, seq: null }, c4: { genome_id: 1, length: 1000, seq: null }, c5: { genome_id: 2, length: 500, seq: null }};
+		expect(ali.filterChromosomes()).toEqual(expectedChromosomes);
+	});
+	it('filterChromosomes method is supposed to return only chromosomes which have linkage information', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo4, links: links12, features: features9});
+		ali.setFilters(filters4);
+		ali.filters.showAllChromosomes = false;
+		ali.filters.skipChromosomesWithoutLinks = true;
+		var expectedChromosomes = { c1: { genome_id: 0, length: 2000, seq: null }, c2: { genome_id: 1, length: 1000, seq: null }, c3: { genome_id: 1, length: 1000, seq: null }};
+		expect(ali.filterChromosomes()).toEqual(expectedChromosomes);
+	});
+});
+
+describe('The filterVisibleChromosomes method is supposed to filter all chromosomes which are set visible in the filters', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterVisibleChromosomes method is supposed to be a function', function(){
+		expect(typeof ali.filterVisibleChromosomes).toEqual('function');
+	});	
+	it('the filterVisibleChromosomes method is supposed to return all chromosomes, because they are all set visible', function(){
+		ali.setData({karyo: karyo3});
+		ali.setFilters(filters3);
+		var currentVisibleChromosomes = ali.data.karyo.chromosomes;
+		var expectedChromosomes = { c1: { genome_id: 0, length: 2000, seq: null }, c2: { genome_id: 1, length: 1000, seq: null }, c3: { genome_id: 2, length: 1000, seq: null }};
+		expect(ali.filterVisibleChromosomes(currentVisibleChromosomes)).toEqual(expectedChromosomes);
+	});
+	it('the filterVisibleChromosomes method is supposed to return only two chromosomes, because they are set visible', function(){
+		ali.setData({karyo: karyo3});
+		ali.setFilters(filters9);
+		var currentVisibleChromosomes = ali.data.karyo.chromosomes;
+		var expectedChromosomes = { c1: { genome_id: 0, length: 2000, seq: null }, c3: { genome_id: 2, length: 1000, seq: null }};
+		expect(ali.filterVisibleChromosomes(currentVisibleChromosomes)).toEqual(expectedChromosomes);
+	});
+});
+
+describe('The filterChromosomeOrder method is supposed to create a new order array, which contains the order of all visible chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterChromosomeOrder method is supposed to be a function', function(){
+		expect(typeof ali.filterChromosomeOrder).toEqual('function');
+	});	
+	it('the filterChromosomeOrder method is supposed to return the order of chromosomes which is set in the filters, because all chromosomes are set visible', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo8});
+		ali.setFilters(filters10);
+		var currentVisibleChromosomes = ali.filterChromosomes(ali.data.karyo.chromosomes);
+		var expectedOrder = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7'];
+		expect(ali.filterChromosomeOrder(currentVisibleChromosomes)).toEqual(expectedOrder);
+	});
+	it('the filterChromosomesOrder method is supposed to return the expected order of chromosomes, because two chromsomes are not set visible', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo8});
+		ali.setFilters(filters13);
+		ali.filters.showAllChromosomes = false;
+		var currentVisibleChromosomes = ali.filterChromosomes(ali.data.karyo.chromosomes);
+		var expectedOrder = ['c1', 'c2', 'c4', 'c7'];
+		expect(ali.filterChromosomeOrder(currentVisibleChromosomes)).toEqual(expectedOrder);
+	});
+});
+
+describe('The filterLinks method is supposed to filter all visible links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterLinks method is supposed to be a function', function(){
+		expect(typeof ali.filterLinks).toEqual('function');
+	});	
+});
+
+describe('The filterVisibleLinks method is supposed to filter links which have their source or target only on visible chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterVisibleLinks method is supposed to be a function', function(){
+		expect(typeof ali.filterVisibleLinks).toEqual('function');
+	});	
+	it('the filterVisibleLinks method is supposed to return the expected links, because some are on not visible chromosomes', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo2, features: features8, links: links12});
+		ali.setFilters(filters14);
+		ali.filters.showAllChromosomes = false;
+		var visibleChromosomes = ali.filterChromosomes();
+		var expectedLinks = {"l1": {'source': 'f1', 'target': 'f2', 'identity': 75}};
+		expect(ali.filterVisibleLinks(visibleChromosomes)).toEqual(expectedLinks);
+	});
+});
+
+describe('The filterChromosomeWithoutLinkageInformation method is supposed to filter all chromosomes which have no links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterChromosomeWithoutLinkageInformation method is supposed to be a function', function(){
+		expect(typeof ali.filterChromosomeWithoutLinkageInformation).toEqual('function');
+	});	
+	it('The filterChromosomeWithoutLinkageInformation method is supposed to return only chromosome which have links', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo4, links: links12, features: features9});
+		ali.setFilters(filters4);
+		var visibleChromosomes = ali.data.karyo.chromosomes;
+		var expectedChromosomes = { c1: { genome_id: 0, length: 2000, seq: null }, c2: { genome_id: 1, length: 1000, seq: null }, c3: { genome_id: 1, length: 1000, seq: null }}
+		expect(ali.filterChromosomeWithoutLinkageInformation(visibleChromosomes)).toEqual(expectedChromosomes);
+	});
+});
+
+describe('The filterChromosomeWithoutVisibleLinks method is supposed to filter all chromosomes which have no visible links with the current configurations', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterChromosomeWithoutVisibleLinks method is supposed to be a function', function(){
+		expect(typeof ali.filterChromosomeWithoutVisibleLinks).toEqual('function');
+	});	
+	it('filterChromosomesWithoutVisibleLinks method is supposed to return four of six chromosomes, because two have no visible links and are filtered', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo9, links: links13, features: features10});
+		ali.setFilters(filters15);
+		ali.filters.showAllChromosomes = false;
+		ali.filters.skipChromosomesWithoutVisibleLinks = true;
+		ali.filters.links.minLinkIdentity = 50;
+		ali.filters.links.maxLinkIdentity = 99;
+		var visibleChromosomes = ali.data.karyo.chromosomes;
+		var expectedChromosomes = { c2: { genome_id: 0, length: 1000, seq: null }, c3: { genome_id: 1, length: 1000, seq: null }, c4: { genome_id: 1, length: 1000, seq: null }, c5: { genome_id: 2, length: 500, seq: null }};
+		expect(ali.filterChromosomeWithoutVisibleLinks(visibleChromosomes)).toEqual(expectedChromosomes);
+	});
+});
+
+describe('The filterLinksByIdentity method is supposed to filter all links whose identity is greater than the maxIdentity oder less than the minIdentity', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterLinksByIdentity method is supposed to be a function', function(){
+		expect(typeof ali.filterLinksByIdentity).toEqual('function');
+	});	
+	it('filterLinksByIdentity method is supposed to filter the assigned links according to the minLinkIdentity and the maxLinkIdentity', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({links: links7});
+		ali.setFilters(filters14);
+		ali.filters.links.minLinkIdentity = 50;
+		ali.filters.links.maxLinkIdentity = 70;
+		var expectedLinks = {"l2": { source: 'f2', target: 'f3', identity: 50 },"l3": { source: 'f2', target: 'f4', identity: 60 }, "l4": { source: 'f1', target: 'f4', identity: 70 }};
+		var links = ali.data.links;
+		expect(ali.filterLinksByIdentity(links)).toEqual(expectedLinks);
+	});	
+});
+
+describe('The filterLinksByLength method is supposed to filter all links whose length is greater than the maxLength oder less than the minLength', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterLinksByLength method is supposed to be a function', function(){
+		expect(typeof ali.filterLinksByLength).toEqual('function');
+	});		
+});
+
+describe('The filterLinksByAdjacency method is supposed to filter all links which are adjacent', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('filterLinksByAdjacency method is supposed to be a function', function(){
+		expect(typeof ali.filterLinksByAdjacency).toEqual('function');
 	});	
 });

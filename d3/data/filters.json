@@ -18,11 +18,19 @@
         "reverse": false
       },
       "c5": {
-        "visible": false,
+        "visible": true,
         "reverse": false
       },
       "c6": {
         "visible": true,
+        "reverse": false
+      },
+      "c7": {
+        "visible": true,
+        "reverse": false
+      },
+      "c8": {
+        "visible": false,
         "reverse": false
       }
     },
@@ -32,12 +40,16 @@
       "c3",
       "c4",
       "c5",
-      "c6"
+      "c6",
+      "c7",
+      "c8"
     ],
     "genome_order": [
       0,
       1,
-      2
+      2,
+      3,
+      4
     ]
   },
   "links": {
@@ -45,5 +57,9 @@
     "maxLinkIdentity": 100,
     "minLinkLength": 100,
     "maxLinkLength": 10000
-  }
+  },
+  "skipChromosomesWithoutVisibleLinks": false,
+  "showAllChromosomes": true,
+  "skipChromosomesWithoutLinks": false,
+  "onlyShowAdjacentLinks": true
 }

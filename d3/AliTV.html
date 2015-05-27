@@ -30,11 +30,17 @@
 		$("#canvasHeight").val(wga.getCanvasHeight());
 		$("#tickDistance").val(wga.getTickDistance());
 		
+		$('#skipChromosomesWithoutVisibleLinks').attr('checked', false);
+		$('#showAllChromosomes').attr('checked', true);
+		$('#skipChromosomesWithoutLinks').attr('checked', false);
+		$('#onlyShowAdjacentLinks').attr('checked', true);
+		
 		});
+	
 	$(function(){
 		$("#identity-slider").slider({
 			range: true,
-			values: [75, 100],
+			values: [0, 100],
 			min: 0,
 			max: 100,
 			slide: function(event, ui){
@@ -58,7 +64,7 @@
 				wga.filters.links.maxLinkLength = ui.values[1];
 				var layout = wga.getLayout();
 				wga.drawEqualLayout(layout);
-			}
+				}
 		});
 		$("#minlength-label").val($("#length-slider").slider("values", 0) + " bp - " + $("#length-slider").slider("values", 1) + " bp");
 	});
@@ -66,6 +72,51 @@
 	$(function() {
 		$( "#accordion" ).accordion();
 	});
+	
+	$(function(){$('#skipChromosomesWithoutVisibleLinks').change(function() {
+			if($('#skipChromosomesWithoutVisibleLinks').is(':checked')){
+		     	wga.filters.skipChromosomesWithoutVisibleLinks = true;
+		     	$("#showAllChromosomes").attr("disabled", true);
+			} else {
+				wga.filters.skipChromosomesWithoutVisibleLinks = false;
+				$("#showAllChromosomes").attr("disabled", false);
+			}
+		});
+	});
+	
+	$(function(){$('#showAllChromosomes').change(function() {
+		if($('#showAllChromosomes').is(':checked')){
+	     	wga.filters.showAllChromosomes = true;
+	     	$("#skipChromosomesWithoutVisibleLinks").attr("disabled", true);
+	     	$("#skipChromosomesWithoutLinks").attr("disabled", true);
+		} else {
+			wga.filters.showAllChromosomes = false;
+			$("#skipChromosomesWithoutVisibleLinks").attr("disabled", false);
+			$("#skipChromosomesWithoutLinks").attr("disabled", false);
+		}
+	});
+	
+	$(function(){$('#skipChromosomesWithoutLinks').change(function() {
+		if($('#skipChromosomesWithoutLinks').is(':checked')){
+	     	wga.filters.skipChromosomesWithoutLinks = true;
+	     	$("#showAllChromosomes").attr("disabled", true);
+		} else {
+			wga.filters.skipChromosomesWithoutLinks = false;
+			$("#showAllChromosomes").attr("disabled", false);
+		}
+	});
+	
+	$(function(){$('#onlyShowAdjacentLinks').change(function() {
+		if($('#onlyShowAdjacentLinks').is(':checked')){
+	     	wga.filters.onlyShowAdjacentLinks = true;
+		} else {
+			wga.filters.onlyShowAdjacentLinks = false;
+		}
+	});	
+	});
+	
+});
+});
 	
 	function changeLinearSpacer(){
 		var spacer = $("#linearSpacer").val();
@@ -127,75 +178,82 @@
 		
 		var layout = wga.getLayout();
 		wga.drawEqualLayout(layout);
+		if(layout === "circular"){
+			$("#onlyShowAdjacentLinks").attr("disabled", true);
+		} else {
+			$("#onlyShowAdjacentLinks").attr("disabled", false);
+		}
+		
 	}
 </script>
 </head>
 <body>
 
 <div style="width: 100%; overflow: hidden;">
-	<div id="accordion" class="form-style-5" style="float:left">
-		<h3><span class="number">1</span> Choose your layout</h3>
-		<div>
-			<button type="submit" onclick="wga.drawCircular();">Draw Circular</button> 
-			<button type="submit" onclick="wga.drawLinear();">Draw Linear</button> 
-		</div>
-		<h3><span class="number">2</span> Change graphical parameters</h3>
-		<div>
-			<form>
-				<fieldset>
-					Spacer between chromsomes:<br>
-					<input type="text" id="linearSpacer" placeholder="Enter a spacer">
-					<br>
-					Spacer between genomes in the linear Layout:<br>
-					<input type="text" id="linearGenomeSpacer" placeholder="Enter a spacer">
-					<br>
-					Height of chromosomes:<br>
-					<input type="text" id="karyoHeight" placeholder="Enter a height">
-					<br>
-					Width:<br>
-					<input type="text" id="canvasWidth" placeholder="Enter the svg-width">
-					<br>
-					Height:<br>
-					<input type="text" id="canvasHeight" placeholder="Enter the svg-height">
-					<br>
-					Distance between ticks:<br>
-					<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
-					<br>
-				</fieldset>
-			</form>
-			<button type="submit" onclick="setNewParameters()">Apply</button>		
-		</div>
-		<h3><span class="number">3</span> Filtering</h3>
-		<div>
-			<form>
-				<fieldset>
-					Filter link identity:
-					<p>
-						<label for="identity-label">Identity range:</label> 
-						<input type="text"id="identity-label" readonly>
-					</p>
-					<div id="identity-slider"></div>
-					<br>
-					Filter link length for drawn links:<br>
+ 	<div id="accordion" class="form-style-5" style="float:left">
+ 		<h3><span class="number">1</span> Choose your layout</h3>
+ 		<div>
+ 			<button type="submit" onclick="wga.drawCircular();">Draw Circular</button> 
+ 			<button type="submit" onclick="wga.drawLinear();">Draw Linear</button> 
+ 		</div>
+ 		<h3><span class="number">2</span> Change graphical parameters</h3>
+ 		<div>
+ 			<form>
+ 				<fieldset>
+ 					Spacer between chromsomes:<br>
+ 					<input type="text" id="linearSpacer" placeholder="Enter a spacer">
+ 					<br>
+ 					Height of chromosomes:<br>
+ 					<input type="text" id="karyoHeight" placeholder="Enter a height">
+ 					<br>
+ 					Width:<br>
+ 					<input type="text" id="canvasWidth" placeholder="Enter the svg-width">
+ 					<br>
+ 					Height:<br>
+ 					<input type="text" id="canvasHeight" placeholder="Enter the svg-height">
+ 					<br>
+ 					Distance between ticks:<br>
+ 					<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
+ 					<br>
+ 				</fieldset>
+ 			</form>
+ 		</div>
+ 		<h3><span class="number">3</span> Filtering</h3>
+ 		<div>
+ 			<form>
+ 				<fieldset>
+ 					Filter link identity:
+ 					<p>
+ 						<label for="identity-label">Identity range:</label> 
+ 						<input type="text"id="identity-label" readonly>
+ 					</p>
+ 					<div id="identity-slider"></div>
+ 					<br>
+ 					Filter link length for drawn links:<br>
 					<p>
 						<label for="minlength-label">Length range:</label>
 						<input type="text" id="minlength-label" readonly>
 					</p>
-					<div id="length-slider"></div>
-					<br>
-				<!-- 	Set minimum length for drawn links:
-					<input type="text" id="minimumLinkLength" placeholder="Enter the minimum length for links"><br>
-					Set maximum length:
-					<input type="text" id="maximumLinkLength" placeholder="Enter the maximum length for links"><br> -->
-				</fieldset>
-			</form> 
-		</div>
-	</div>
-	<svg id='wgaCanvas' style="margin:50px"></svg>
-</div>
-
-</body>
-</html>
+ 					<div id="length-slider"></div>
+ 					<br>
+ 					Skip chromosomes without visible links: <input id="skipChromosomesWithoutVisibleLinks" type="checkbox">
+ 					<br>
+ 					Skip chromosomes without links: <input id="skipChromosomesWithoutLinks" type="checkbox">
+ 					<br>
+ 					Show all chromosomes (even if they are set invisible): <input id="showAllChromosomes" type="checkbox">
+ 					<br>
+ 					Only show adjacent links: <input id="onlyShowAdjacentLinks" type="checkbox">
+ 					<br>
+ 				</fieldset>
+ 			</form> 
+ 		</div>
+		<button type="submit" onclick="setNewParameters()">Apply</button>		
+ 	</div>
+ 	<svg id='wgaCanvas' style="margin:50px"></svg>
+ </div>
+ 
+ </body>
+ </html>
 
 
 
