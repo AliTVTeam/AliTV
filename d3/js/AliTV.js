@@ -255,12 +255,12 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 	var that = this;
 	var conf = this.conf;
 	var visibleLinks = that.filterLinks();
-
 	var karyoMap = {};
 	$.each(coords, function(key, value) {
 		karyoMap[value.karyo] = key;
 	});
 	$.each(visibleLinks, function(key, value) {
+		console.log(key);
 		var link = {};
 		link.linkID = key;
 		link.source0 = {};
@@ -1080,7 +1080,7 @@ AliTV.prototype.filterVisibleLinks = function() {
 	var visibleChromosomes = this.filterChromosomes();
 	var allLinks = this.data.links;
 	var that = this;
-	var filteredLinks = [];
+	var filteredLinks = {};
 	var listOfVisibleChromosomes = [];
 	$.each(visibleChromosomes, function(key, value) {
 		listOfVisibleChromosomes.push(key);
@@ -1088,8 +1088,8 @@ AliTV.prototype.filterVisibleLinks = function() {
 	$.each(allLinks, function(key, value) {
 		var targetKaryo = that.data.features[value.target].karyo;
 		var sourceKaryo = that.data.features[value.source].karyo;
-		if (listOfVisibleChromosomes.indexOf(targetKaryo) !== -1 && listOfVisibleChromosomes.indexOf(sourceKaryo) !== -1 && filteredLinks.indexOf(value) === -1) {
-			filteredLinks.push(value);
+		if (listOfVisibleChromosomes.indexOf(targetKaryo) !== -1 && listOfVisibleChromosomes.indexOf(sourceKaryo) !== -1 && (value in filteredLinks) === false) {
+			filteredLinks[key] = value;
 		}
 	});
 	return filteredLinks;
@@ -1103,11 +1103,11 @@ AliTV.prototype.filterVisibleLinks = function() {
 AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
 	var minIdentity = this.filters.links.minLinkIdentity;
 	var maxIdentity = this.filters.links.maxLinkIdentity;
-	var filteredLinks = [];
+	var filteredLinks = {};
 	$.each(visibleLinks, function(key, value) {
 		var currentLink = value;
 		if (currentLink.identity >= minIdentity && currentLink.identity <= maxIdentity) {
-			filteredLinks.push(currentLink);
+			filteredLinks[key] = currentLink;
 		}
 	});
 	return filteredLinks;
@@ -1123,7 +1123,7 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 	var minLength = this.filters.links.minLinkLength;
 	var maxLength = this.filters.links.maxLinkLength;
 	var that = this;
-	var filteredLinks = [];
+	var filteredLinks = {};
 	$.each(visibleLinks, function(key, value) {
 		var currentLink = value;
 		var sourceFeature = currentLink.source;
@@ -1131,7 +1131,7 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 		var lengthOfSourceFeature = Math.abs(that.data.features[sourceFeature].end - that.data.features[sourceFeature].start);
 		var lengthOfTargetFeature = Math.abs(that.data.features[targetFeature].end - that.data.features[targetFeature].start);
 		if (lengthOfSourceFeature >= minLength && lengthOfSourceFeature <= maxLength || lengthOfTargetFeature >= minLength && lengthOfTargetFeature <= maxLength) {
-			filteredLinks.push(currentLink);
+			filteredLinks[key] = currentLink;
 		}
 	});
 	return filteredLinks;
@@ -1145,7 +1145,7 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
  */
 AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
 	var that = this;
-	var filteredLinks = [];
+	var filteredLinks = {};
 	$.each(visibleLinks, function(key, value) {
 		var currentLink = value;
 		var targetFeature = that.data.features[currentLink.source];
@@ -1155,10 +1155,10 @@ AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
 		var genomePositionOfTargetKaryo = that.filters.karyo.genome_order.indexOf(targetKaryo.genome_id);
 		var genomePositionOfSourceKaryo = that.filters.karyo.genome_order.indexOf(sourceKaryo.genome_id);
 		if (Math.abs(genomePositionOfTargetKaryo - genomePositionOfSourceKaryo) === 1) {
-			filteredLinks.push(currentLink);
+			filteredLinks[key] = currentLink;
 		} else {
 			if (that.conf.linear.drawAllLinks === true) {
-				filteredLinks.push(currentLink);
+				filteredLinks[key] = currentLink;
 			}
 		}
 	});

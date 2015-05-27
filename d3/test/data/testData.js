@@ -28,7 +28,10 @@ var filters2 = {'karyo': {
 			'c2': {'reverse': false, 'visible': true},
 			'c3': {'reverse': false, 'visible': true}
 		}},
-		"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000}
+		"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000},
+		  "skipChromosomesWithoutVisibleLinks": false,
+		  "showAllChromosomes": true,
+		  "skipChromosomesWithoutLinks": false
 }
 var karyo3 = {
 		'chromosomes': {
