@@ -535,15 +535,13 @@ AliTV.prototype.getCircularKaryoCoords = function() {
 	var circularKaryoCoords = [];
 	var total = 0;
 	var spacer = this.conf.graphicalParameters.karyoDistance;
-	var visibleChromosomes = this.filterChromosomes();
-	var orderOfVisibleChromosomes = this.filterChromosomeOrder(visibleChromosomes);
 	var current = -spacer;
-	$.each(visibleChromosomes, function(key, value) {
+	$.each(this.data.karyo.chromosomes, function(key, value) {
 		total += value.length + spacer;
 	});
-	for (var i = 0; i < orderOfVisibleChromosomes.length; i++) {
-		var key = orderOfVisibleChromosomes[i];
-		var value = visibleChromosomes[key];
+	for (var i = 0; i < this.filters.karyo.order.length; i++) {
+		var key = this.filters.karyo.order[i];
+		var value = this.data.karyo.chromosomes[key];
 		var data = {
 			"karyo": key,
 			"startAngle": ((current + spacer) / total) * (2 * Math.PI),
@@ -578,12 +576,11 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
 	}
 	var that = this;
 	var karyoMap = {};
-	var visibleLinks = that.filterLinks();
 	$.each(coords, function(key, value) {
 		karyoMap[value.karyo] = key;
 	});
 
-	$.each(visibleLinks, function(key, value) {
+	$.each(that.data.links, function(key, value) {
 		var link = {};
 		link.linkID = key;
 
