@@ -260,7 +260,6 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		karyoMap[value.karyo] = key;
 	});
 	$.each(visibleLinks, function(key, value) {
-		console.log(key);
 		var link = {};
 		link.linkID = key;
 		link.source0 = {};
