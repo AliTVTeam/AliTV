@@ -965,6 +965,8 @@ AliTV.prototype.filterChromosomes = function() {
 	var visibleChromosomes = this.data.karyo.chromosomes;
 	if (this.filters.showAllChromosomes === false) {
 		visibleChromosomes = this.filterVisibleChromosomes(visibleChromosomes);
+	} else {
+		return visibleChromosomes;
 	}
 	if (this.filters.skipChromosomesWithoutLinks === true) {
 		visibleChromosomes = this.filterChromosomeWithoutLinkageInformation(visibleChromosomes);
