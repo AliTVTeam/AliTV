@@ -33,6 +33,7 @@
 		$('#skipChromosomesWithoutVisibleLinks').attr('checked', false);
 		$('#showAllChromosomes').attr('checked', true);
 		$('#skipChromosomesWithoutLinks').attr('checked', false);
+		$('#onlyShowAdjacentLinks').attr('checked', true);
 		
 		});
 	
@@ -75,8 +76,10 @@
 	$(function(){$('#skipChromosomesWithoutVisibleLinks').change(function() {
 			if($('#skipChromosomesWithoutVisibleLinks').is(':checked')){
 		     	wga.filters.skipChromosomesWithoutVisibleLinks = true;
+		     	$("#showAllChromosomes").attr("disabled", true);
 			} else {
 				wga.filters.skipChromosomesWithoutVisibleLinks = false;
+				$("#showAllChromosomes").attr("disabled", false);
 			}
 		});
 	});
@@ -84,18 +87,34 @@
 	$(function(){$('#showAllChromosomes').change(function() {
 		if($('#showAllChromosomes').is(':checked')){
 	     	wga.filters.showAllChromosomes = true;
+	     	$("#skipChromosomesWithoutVisibleLinks").attr("disabled", true);
+	     	$("#skipChromosomesWithoutLinks").attr("disabled", true);
 		} else {
 			wga.filters.showAllChromosomes = false;
+			$("#skipChromosomesWithoutVisibleLinks").attr("disabled", false);
+			$("#skipChromosomesWithoutLinks").attr("disabled", false);
 		}
 	});
 	
 	$(function(){$('#skipChromosomesWithoutLinks').change(function() {
 		if($('#skipChromosomesWithoutLinks').is(':checked')){
 	     	wga.filters.skipChromosomesWithoutLinks = true;
+	     	$("#showAllChromosomes").attr("disabled", true);
 		} else {
 			wga.filters.skipChromosomesWithoutLinks = false;
+			$("#showAllChromosomes").attr("disabled", false);
 		}
 	});
+	
+	$(function(){$('#onlyShowAdjacentLinks').change(function() {
+		if($('#onlyShowAdjacentLinks').is(':checked')){
+	     	wga.filters.onlyShowAdjacentLinks = true;
+		} else {
+			wga.filters.onlyShowAdjacentLinks = false;
+		}
+	});	
+	});
+	
 });
 });
 	
@@ -216,6 +235,8 @@
  					Skip chromosomes without links: <input id="skipChromosomesWithoutLinks" type="checkbox">
  					<br>
  					Show all chromosomes (even if they are set invisible): <input id="showAllChromosomes" type="checkbox">
+ 					<br>
+ 					Only show adjacent links: <input id="onlyShowAdjacentLinks" type="checkbox">
  					<br>
  				</fieldset>
  			</form> 
