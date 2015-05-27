@@ -997,19 +997,17 @@ describe('The filterChromosomes method is supposed to filter all visible chromos
 	it('filterChromosomes method is supposed to be a function', function(){
 		expect(typeof ali.filterChromosomes).toEqual('function');
 	});	
-	it('filterChromosomes method is supposed to return all chromosomes, some links are filtered according to their identity, but the user does not want to skip chromosomes without visible links', function(){
+	it('filterChromosomes method is supposed to return only four chromosomes, because some links are filtered according to their identity and the user wants to skip chromosomes without visible links', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		ali.setData({karyo: karyo9, links: links13, features: features10});
 		ali.setFilters(filters15);
 		ali.filters.showAllChromosomes = false;
-		ali.filters.skipChromosomesWithoutVisibleLinks = false;
-		ali.filters.skipChromosomesWithoutLinks = false;
+		ali.filters.skipChromosomesWithoutVisibleLinks = true;
 		console.log(ali);
 		ali.filters.links.minLinkIdentity = 50;
 		ali.filters.links.maxLinkIdentity = 99;
-		var expectedChromosomes = { };
-		expect(ali.filterChromosomes()).toEqual(expectedChromosomes);
+		expect(ali.filterChromosomes()).toEqual(ali.data.karyo.chromosomes);
 	});
 });
 
