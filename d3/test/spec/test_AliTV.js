@@ -1007,7 +1007,8 @@ describe('The filterChromosomes method is supposed to filter all visible chromos
 		console.log(ali);
 		ali.filters.links.minLinkIdentity = 50;
 		ali.filters.links.maxLinkIdentity = 99;
-		expect(ali.filterChromosomes()).toEqual(ali.data.karyo.chromosomes);
+		var expectedChromosomes = { c2: { genome_id: 0, length: 1000, seq: null }, c3: { genome_id: 1, length: 1000, seq: null }, c4: { genome_id: 1, length: 1000, seq: null }, c5: { genome_id: 2, length: 500, seq: null }};
+		expect(ali.filterChromosomes()).toEqual(expectedChromosomes);
 	});
 });
 
