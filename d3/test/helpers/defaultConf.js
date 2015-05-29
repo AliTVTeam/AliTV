@@ -23,5 +23,8 @@ var defaultConf =  {
 		minLinkIdentityColor: "#D21414",
 		maxLinkIdentityColor: "#1DAD0A",
 		midLinkIdentityColor: "#FFEE05",
-		layout: "linear"
+		layout: "linear",
+		tree: {
+			drawTree: true
+		}
 };
