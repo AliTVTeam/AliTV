@@ -118,8 +118,12 @@ function AliTV(svg) {
 		}
 	};
 	// Initialize svg size
+	if (this.conf.tree.drawTree === true) {
+		svg.width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth);
+	} else {
+		svg.width(this.conf.graphicalParameters.width);
+	}
 	svg.height(this.conf.graphicalParameters.height);
-	svg.width(this.conf.graphicalParameters.width);
 }
 
 /**
@@ -359,6 +363,10 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
 		});
+
+	if (that.conf.tree.drawTree === true) {
+		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
 };
 
 /**
@@ -456,6 +464,10 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 			return d.y2;
 		})
 		.style("stroke", "#000");
+
+	if (that.conf.tree.drawTree === true) {
+		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
 };
 
 /**
@@ -512,6 +524,10 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
 		});
+
+	if (that.conf.tree.drawTree === true) {
+		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
 };
 
 
@@ -528,7 +544,7 @@ AliTV.prototype.drawLinear = function() {
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
-	if (this.conf.tree === true) {
+	if (this.conf.tree.drawTree === true) {
 		this.getPhylogeneticTree();
 	}
 	this.conf.layout = "linear";
@@ -1183,5 +1199,105 @@ AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
  * @author {Sonja Hohlfeld}
  */
 AliTV.prototype.getPhylogeneticTree = function() {
+	var that = this;
 
+	var treeData = {
+		"children": [{
+			"children": [{
+				"children": [{
+					"children": [{
+						"children": [{
+							"name": "Genome 1"
+						}, {
+							"name": "Genome 2"
+						}]
+					}, {
+						"children": [{
+							"name": "Genome 3"
+						}]
+					}]
+				}]
+			}, {
+				"children": [{
+					"children": [{
+						"children": [{
+							"name": "Genome 4"
+						}]
+					}]
+				}]
+			}]
+		}, {
+			"children": [{
+				"children": [{
+					"children": [{
+						"children": [{
+							"name": "Genome 5"
+						}]
+					}]
+				}]
+			}]
+		}]
+	};
+
+	// Create a tree "canvas"
+	var genomeDistance = that.getGenomeDistance();
+	var tree = d3.layout.tree()
+		.size([that.conf.graphicalParameters.height + genomeDistance - that.conf.graphicalParameters.karyoHeight, that.conf.graphicalParameters.treeWidth])
+		.separation(function() {
+			return 1;
+		});
+
+	// Preparing the data for the tree layout, convert data into an array of nodes
+	var nodes = tree.nodes(treeData);
+	// Create an array with all the links
+	var links = tree.links(nodes);
+
+	var i = 0;
+	nodes.forEach(function(d) {
+		console.log(d);
+		//		if (d.name !== undefined) {
+		//			var genomeDistance = that.getGenomeDistance();
+		//			d.x = i * genomeDistance;
+		//			i++;
+		//		}
+	});
+
+	var branch = that.svgD3.selectAll("pathbranch")
+		.data(links)
+		.enter().append("svg:path")
+		.attr("class", "branch")
+		.attr("d", elbow)
+		.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")")
+
+	var node = that.svgD3.selectAll("g.node")
+		.data(nodes)
+		.enter().append("svg:g")
+		.attr("transform", function(d) {
+			return "translate(" + d.y + "," + d.x + ")";
+		})
+
+
+	//	// Add the dot at every node
+	//	node.append("svg:circle")
+	//		.attr("r", 3.5)
+	//		.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
+
+	// place the name atribute left or right depending if children
+	node.append("svg:text")
+		.attr("dx", function(d) {
+			return d.children ? -8 : 8;
+		})
+		.attr("dy", 3)
+		.attr("text-anchor", function(d) {
+			return d.children ? "end" : "start";
+		})
+		.text(function(d) {
+			return d.name;
+		})
+		.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
+
+
+	function elbow(d, i) {
+		return "M" + d.source.y + "," + d.source.x + "H" + d.target.y + "V" + d.target.x;
+	}
 };
