@@ -82,6 +82,8 @@ function AliTV(svg) {
 	 * @property {Number}  graphicalParameters.linkKaryoDistance   - The vertical distance between chromosomes and links in px.
 	 * @property {Number}  graphicalParameters.tickDistance        - The distance in bp of ticks on the drawn chromosomes.
 	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
+	 * @property {Object}  tree									   - Contains the configuration objects for drawing a tree.
+	 * @property {Boolean} tree.drawTree						   - With this option it is possible to draw a phylogenetic tree ext to the chromosomes.
 	 */
 	this.conf = {
 		linear: {
@@ -108,7 +110,10 @@ function AliTV(svg) {
 		midLinkIdentityColor: "#FFEE05",
 		minLinkLength: 100,
 		maxLinkLength: 5000,
-		layout: "linear"
+		layout: "linear",
+		tree: {
+			drawTree: true
+		}
 	};
 	// Initialize svg size
 	svg.height(this.conf.graphicalParameters.height);
