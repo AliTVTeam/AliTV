@@ -13,7 +13,8 @@ var defaultConf =  {
 			karyoHeight: 30,
 			karyoDistance: 10,
 			linkKaryoDistance: 10,
-			tickDistance: 100
+			tickDistance: 100, 
+			treeWidth: 300
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
