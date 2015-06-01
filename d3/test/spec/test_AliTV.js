@@ -1178,6 +1178,9 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 		expect(typeof ali.drawPhylogeneticTree).toEqual('function');
 	});	
 	it('if the function is called we should have exactly one tree group', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data5);
 		ali.setFilters(filters);
 		ali.drawPhylogeneticTree();
 		expect(ali.svgD3.selectAll('.treeGroup').size()).toEqual(1);
@@ -1185,7 +1188,7 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 	it('if the user wants to draw a tree he sets drawTree equal true, then one tree is drawn', function(){
 			var svg = $('<svg></svg>');
 			var ali = new AliTV(svg);
-			ali.setData(data);
+			ali.setData(data5);
 			ali.setFilters(filters);
 			ali.conf.tree.drawTree = true;
 			ali.drawLinear();
@@ -1194,7 +1197,7 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 		it('then the user wants to remove the tree, therefore he sets drawTree equal false and the tree should be removed', function(){
 			var svg = $('<svg></svg>');
 			var ali = new AliTV(svg);
-			ali.setData(data);
+			ali.setData(data5);
 			ali.setFilters(filters);
 			ali.conf.tree.drawTree = false;
 			ali.drawLinear();
