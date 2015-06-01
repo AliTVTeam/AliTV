@@ -377,4 +377,20 @@ describe('The setTreeWidth method is supposed to set a new tree width', function
 		ali.setTreeWidth(888);
 		expect(ali.getTreeWidth()).toEqual(888);
 	});
+	it('the setTreeWidth method should throw an error message if the assigned tree width is empty', function(){
+		var treeWidth = "";
+		expect(function(){ali.setTickDistance(treeWidth);}).toThrow("empty");
+	});
+	it('the setTreeWidth method should throw an error message if the assigned tree width is not a number', function(){
+		var treeWidth = "test";
+		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("not a number");
+	});
+	it('the setTreeWidth method should throw an error message if the assigned treeWidth is 0', function(){
+		var treeWidth = 0;
+		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("distance is to small, it should be > 0");
+	});
+	it('the setTreeWidth method should throw an error message if the assigned distance is less than 0', function(){
+		var treeWidth = -200;
+		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("distance is to small, it should be > 0");
+	});
 });
