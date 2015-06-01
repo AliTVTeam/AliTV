@@ -26,6 +26,8 @@ var defaultConf =  {
 		midLinkIdentityColor: "#FFEE05",
 		layout: "linear",
 		tree: {
-			drawTree: false
+			drawTree: false,
+			left: true,
+			right: false
 		}
 };

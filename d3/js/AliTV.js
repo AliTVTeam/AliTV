@@ -85,6 +85,8 @@ function AliTV(svg) {
 	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
 	 * @property {Object}  tree									   - Contains the configuration objects for drawing a tree.
 	 * @property {Boolean} tree.drawTree						   - With this option it is possible to draw a phylogenetic tree ext to the chromosomes.
+	 * @property {Boolean} tree.left							   - Draws the tree on the left side of the chromosomes.
+	 * @property {Boolean} tree.right							   - Draws the tree on the right side of the chromosomes.
 	 */
 	this.conf = {
 		linear: {
@@ -114,7 +116,9 @@ function AliTV(svg) {
 		maxLinkLength: 5000,
 		layout: "linear",
 		tree: {
-			drawTree: false
+			drawTree: false,
+			left: true,
+			right: false
 		}
 	};
 	// Initialize svg size
