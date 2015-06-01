@@ -1234,43 +1234,7 @@ AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
 AliTV.prototype.drawPhylogeneticTree = function() {
 	var that = this;
 
-	var treeData = {
-		"children": [{
-			"children": [{
-				"children": [{
-					"children": [{
-						"children": [{
-							"name": "Genome 1"
-						}, {
-							"name": "Genome 2"
-						}]
-					}, {
-						"children": [{
-							"name": "Genome 3"
-						}]
-					}]
-				}]
-			}, {
-				"children": [{
-					"children": [{
-						"children": [{
-							"name": "Genome 4"
-						}]
-					}]
-				}]
-			}]
-		}, {
-			"children": [{
-				"children": [{
-					"children": [{
-						"children": [{
-							"name": "Genome 5"
-						}]
-					}]
-				}]
-			}]
-		}]
-	};
+	console.log(that);
 
 	// Create a tree "canvas"
 	var genomeDistance = that.getGenomeDistance();
