@@ -89,3 +89,7 @@
   stroke-width: 2px;
 }
 
+input[type=text]:disabled {
+    background: #D11919;
+}
+

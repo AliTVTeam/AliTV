@@ -29,6 +29,7 @@
 		$("#canvasWidth").val(wga.getCanvasWidth());
 		$("#canvasHeight").val(wga.getCanvasHeight());
 		$("#tickDistance").val(wga.getTickDistance());
+		$("#treeWidth").val(wga.getTreeWidth());
 		
 		$('#skipChromosomesWithoutVisibleLinks').attr('checked', false);
 		$('#showAllChromosomes').attr('checked', true);
@@ -119,8 +120,10 @@
 	$(function(){$('#drawTree').change(function() {
 		if($('#drawTree').is(':checked')){
 	     	wga.conf.tree.drawTree = true;
+	     	$("#treeWidth").attr("disabled", false);
 		} else {
 			wga.conf.tree.drawTree = false;
+			$("#treeWidth").attr("disabled", true);
 		}
 	});	
 	});
@@ -178,12 +181,23 @@
 			$("#tickDistance").val(wga.getTickDistance());
 		}
 	}
+	function changeTreeWidth(){
+		var treeWidth = $("#treeWidth").val(); 
+		try {
+		wga.setTreeWidth(treeWidth); 	
+		}
+		catch(err){
+			alert(err);
+			$("#treeWidth").val(wga.getTreeWidth());
+		}
+	}
 	function setNewParameters(){
 		changeLinearSpacer();
 		changeKaryoHeight();
 		changeCanvasWidth();
 		changeCanvasHeight()
 		changeTickDistance();
+		changeTreeWidth();
 		
 		var layout = wga.getLayout();
 		wga.drawEqualLayout(layout);
