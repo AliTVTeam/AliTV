@@ -981,9 +981,17 @@ AliTV.prototype.getTreeWidth = function() {
  */
 
 AliTV.prototype.setTreeWidth = function(treeWidth) {
-	treeWidth = Number(treeWidth);
-	this.conf.graphicalParameters.treeWidth = treeWidth;
-	return this.conf.graphicalParameters.treeWidth;
+	if (treeWidth === "") {
+		throw "empty";
+	} else if (isNaN(treeWidth)) {
+		throw "not a number";
+	} else if (treeWidth <= 0) {
+		throw "the tree width is to small, it should be > 0";
+	} else {
+		treeWidth = Number(treeWidth);
+		this.conf.graphicalParameters.treeWidth = treeWidth;
+		return this.conf.graphicalParameters.treeWidth;
+	}
 };
 
 /**
