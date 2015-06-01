@@ -27,7 +27,6 @@ var defaultConf =  {
 		layout: "linear",
 		tree: {
 			drawTree: false,
-			left: true,
-			right: false
+			orientation: "left"
 		}
 };
