@@ -116,6 +116,15 @@
 	});	
 	});
 	
+	$(function(){$('#drawTree').change(function() {
+		if($('#drawTree').is(':checked')){
+	     	wga.conf.tree.drawTree = true;
+		} else {
+			wga.conf.tree.drawTree = false;
+		}
+		console.log(wga.conf.tree.drawTree);
+	});	
+	});
 });
 });
 	
