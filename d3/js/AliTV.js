@@ -961,6 +961,16 @@ AliTV.prototype.drawEqualLayout = function(layout) {
 };
 
 /**
+ * This function returns the current width of the phylogenetic tree.
+ * @returns {Number} The current tree width.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getTreeWidth = function() {
+
+};
+
+/**
  * This function calculates the appropriate outerRadius of the circular layout for the current svg dimensions.
  * @returns {Number} outerRadius - the outer radius in px
  * @author Markus Ankenbrand
