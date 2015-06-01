@@ -971,6 +971,20 @@ AliTV.prototype.getTreeWidth = function() {
 };
 
 /**
+ * This function replaces the old tree width with the new tree width in the config-object.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The function gets the width of a phylogenetic tree which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setTreeWidth = function(treeWidth) {
+
+};
+
+/**
  * This function calculates the appropriate outerRadius of the circular layout for the current svg dimensions.
  * @returns {Number} outerRadius - the outer radius in px
  * @author Markus Ankenbrand
