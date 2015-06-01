@@ -341,3 +341,56 @@ describe('The getLayout method is supposed to get the information of the current
 		expect(layout).toEqual("linear");
 	});
 });
+
+describe('The getTreeWidth method is supposed to get the current width of the phylogenetic tree', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getLayout method is supposed to be a function', function(){
+		expect(typeof ali.getTreeWidth).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var treeWidth = ali.getTreeWidth();
+		expect(treeWidth).toBeDefined();
+	});
+	it('the function should return the tree width which is defined in the defaultConf', function(){
+		var treeWidth = ali.getTreeWidth();
+		expect(treeWidth).toEqual(defaultConf.graphicalParameters.treeWidth);
+	});
+	
+});
+
+describe('The setTreeWidth method is supposed to set a new tree width', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setTreeWidth method is supposed to be a function', function(){
+		expect(typeof ali.setTreeWidth).toEqual('function');
+	});	
+	it('the returned object of the getTreeWidth method should be the same as the tree width which is setted and returned by the setter-method', function(){
+		var treeWidth = 400;
+		expect(ali.setTreeWidth(treeWidth)).toEqual(treeWidth);
+	});	
+	it('when setTreeWidth is called several times the width of the tree should have the same value as the returned width of getTreeWidth method', function(){
+		ali.setTreeWidth(250);
+		expect(ali.getTreeWidth()).toEqual(250);
+		ali.setTreeWidth(1000);
+		expect(ali.getTreeWidth()).toEqual(1000);
+		ali.setTreeWidth(888);
+		expect(ali.getTreeWidth()).toEqual(888);
+	});
+	it('the setTreeWidth method should throw an error message if the assigned tree width is empty', function(){
+		var treeWidth = "";
+		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("empty");
+	});
+	it('the setTreeWidth method should throw an error message if the assigned tree width is not a number', function(){
+		var treeWidth = "test";
+		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("not a number");
+	});
+	it('the setTreeWidth method should throw an error message if the assigned treeWidth is 0', function(){
+		var treeWidth = 0;
+		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("the tree width is to small, it should be > 0");
+	});
+	it('the setTreeWidth method should throw an error message if the assigned distance is less than 0', function(){
+		var treeWidth = -200;
+		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("the tree width is to small, it should be > 0");
+	});
+});

@@ -16,7 +16,7 @@ describe('The constructor is supposed a proper AliTV object', function(){
 	it('the height of the svg should be set to the configured height', function(){
 		expect(wga.svg.height()).toEqual(defaultConf.graphicalParameters.height);
 	});
-	it('the width of the svg should be set to the configured width', function(){
+	it('the width of the svg should be set to the configured width if the tree is not set', function(){
 		expect(wga.svg.width()).toEqual(defaultConf.graphicalParameters.width);
 	});
 	it('the svgD3 property should exist', function(){
@@ -1169,4 +1169,76 @@ describe('The filterLinksByAdjacency method is supposed to filter all links whic
 	it('filterLinksByAdjacency method is supposed to be a function', function(){
 		expect(typeof ali.filterLinksByAdjacency).toEqual('function');
 	});	
+});
+
+describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tree next to the genomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawPhylogeneticTree method is supposed to be a function', function(){
+		expect(typeof ali.drawPhylogeneticTree).toEqual('function');
+	});	
+	it('if the function is called we should have exactly one tree group', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data5);
+		ali.setFilters(filters);
+		ali.drawPhylogeneticTree();
+		expect(ali.svgD3.selectAll('.treeGroup').size()).toEqual(1);
+	});	
+	it('if the user wants to draw a tree he sets drawTree equal true, then one tree is drawn', function(){
+			var svg = $('<svg></svg>');
+			var ali = new AliTV(svg);
+			ali.setData(data5);
+			ali.setFilters(filters);
+			ali.conf.tree.drawTree = true;
+			ali.drawLinear();
+			expect(ali.svgD3.selectAll('.treeGroup').size()).toEqual(1);
+	});
+	it('then the user wants to remove the tree, therefore he sets drawTree equal false and the tree should be removed', function(){
+			var svg = $('<svg></svg>');
+			var ali = new AliTV(svg);
+			ali.setData(data5);
+			ali.setFilters(filters);
+			ali.conf.tree.drawTree = false;
+			ali.drawLinear();
+			expect(ali.svgD3.selectAll('.treeGroup').size()).toEqual(0);
+	});
+	it('if the tree is drawn on the right side the tree drawing area is transformed', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data5);
+		ali.setFilters(filters);
+		ali.conf.tree.drawTree = true;
+		ali.conf.tree.orientation = "right";
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(1000, 0)");
+});
+});
+
+describe('The hasTree method should check if the user provides tree data', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('hasTree method is supposed to be a function', function(){
+		expect(typeof ali.hasTree).toEqual('function');
+	});	
+	it('if there is no tree data the method should return false', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		expect(ali.hasTree()).toEqual(false);
+	});
+	it('if the tree object exists but it is empty the method should return false', function(){
+		ali.setData(data6);
+		ali.setFilters(filters);
+		expect(ali.hasTree()).toEqual(false);
+	});
+	it('if the tree object exists but it is null the method should return false', function(){
+		ali.setData(data7);
+		ali.setFilters(filters);
+		expect(ali.hasTree()).toEqual(false);
+	});
+	it('if the tree data exists the method should return true', function(){
+		ali.setData(data5);
+		ali.setFilters(filters);
+		expect(ali.hasTree()).toEqual(true);
+	});
 });

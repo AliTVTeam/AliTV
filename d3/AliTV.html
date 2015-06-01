@@ -29,11 +29,13 @@
 		$("#canvasWidth").val(wga.getCanvasWidth());
 		$("#canvasHeight").val(wga.getCanvasHeight());
 		$("#tickDistance").val(wga.getTickDistance());
+		$("#treeWidth").val(wga.getTreeWidth());
 		
 		$('#skipChromosomesWithoutVisibleLinks').attr('checked', false);
 		$('#showAllChromosomes').attr('checked', true);
 		$('#skipChromosomesWithoutLinks').attr('checked', false);
 		$('#onlyShowAdjacentLinks').attr('checked', true);
+		$('#drawTree').attr('checked', false);
 		
 		});
 	
@@ -115,6 +117,43 @@
 	});	
 	});
 	
+	$(function(){$('#drawTree').change(function() {
+		if($('#drawTree').is(':checked')){
+			if(wga.hasTree() === false){
+				alert("there is no tree data");
+				$("#treeWidth").attr("disabled", true);
+				$("#treeLeft").attr("disabled", true);
+				$("#treeRight").attr("disabled", true);
+			} else {
+	     	wga.conf.tree.drawTree = true;
+	     	$("#treeWidth").attr("disabled", false);
+			$("#treeLeft").attr("disabled", false);
+			$("#treeRight").attr("disabled", false);				
+			}
+		} else {
+			wga.conf.tree.drawTree = false;
+			$("#treeWidth").attr("disabled", true);
+			$("#treeLeft").attr("disabled", true);
+			$("#treeRight").attr("disabled", true);
+		}
+	});	
+	});
+	
+	$(function(){$('#treeLeft').change(function() {
+		if($('#treeLeft').is(':checked')){
+			wga.conf.tree.orientation = "left";
+		} 
+	});	
+	});
+	
+	$(function(){$('#treeRight').change(function() {
+		if($('#treeRight').is(':checked')){
+			wga.conf.tree.orientation = "right";
+		} 
+	});	
+	});
+	
+
 });
 });
 	
@@ -169,12 +208,23 @@
 			$("#tickDistance").val(wga.getTickDistance());
 		}
 	}
+	function changeTreeWidth(){
+		var treeWidth = $("#treeWidth").val(); 
+		try {
+		wga.setTreeWidth(treeWidth); 	
+		}
+		catch(err){
+			alert(err);
+			$("#treeWidth").val(wga.getTreeWidth());
+		}
+	}
 	function setNewParameters(){
 		changeLinearSpacer();
 		changeKaryoHeight();
 		changeCanvasWidth();
 		changeCanvasHeight()
 		changeTickDistance();
+		changeTreeWidth();
 		
 		var layout = wga.getLayout();
 		wga.drawEqualLayout(layout);
@@ -215,6 +265,9 @@
  					Distance between ticks:<br>
  					<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
  					<br>
+ 					Width of the phylogenetic tree:<br>
+ 					<input type="text" id="treeWidth" placeholder="Enter the tree-width">
+ 					<br>
  				</fieldset>
  			</form>
  		</div>
@@ -247,11 +300,25 @@
  				</fieldset>
  			</form> 
  		</div>
+ 		<h3><span class="number">4</span>Add a phylogenetic tree</h3>
+ 		<div>
+ 			<form>
+ 				<fieldset>
+ 					Draw a phylogenetic tree: <input id="drawTree" type="checkbox">
+ 					<br>
+ 					<br>
+ 					Tree orientation:
+ 					<br>
+	 				<input id="treeLeft" type="radio" value="left" name="treeOrientation">Left
+	 				<input id="treeRight" type="radio" value="right" name="treeOrientation">Right
+ 					<br>
+ 				</fieldset>
+ 			</form> 
+ 		</div>
 		<button type="submit" onclick="setNewParameters()">Apply</button>		
  	</div>
  	<svg id='wgaCanvas' style="margin:50px"></svg>
  </div>
- 
  </body>
  </html>
 

@@ -81,7 +81,11 @@ function AliTV(svg) {
 	 * @property {Number}  graphicalParameters.karyoDistance       - The horizontal distance between adjacent chromosomes of the same genome in bp.
 	 * @property {Number}  graphicalParameters.linkKaryoDistance   - The vertical distance between chromosomes and links in px.
 	 * @property {Number}  graphicalParameters.tickDistance        - The distance in bp of ticks on the drawn chromosomes.
+	 * @property {Number}  graphicalParameters.treeWidth		   - The width of the svg drawing area, where the tree should be shown.
 	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
+	 * @property {Object}  tree									   - Contains the configuration objects for drawing a tree.
+	 * @property {Boolean} tree.drawTree						   - With this option it is possible to draw a phylogenetic tree ext to the chromosomes.
+	 * @property {Boolean} tree.orientation						   - Defines where the tree should be drawn.
 	 */
 	this.conf = {
 		linear: {
@@ -98,7 +102,8 @@ function AliTV(svg) {
 			karyoHeight: 30,
 			karyoDistance: 10,
 			linkKaryoDistance: 10,
-			tickDistance: 100
+			tickDistance: 100,
+			treeWidth: 300
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -108,11 +113,15 @@ function AliTV(svg) {
 		midLinkIdentityColor: "#FFEE05",
 		minLinkLength: 100,
 		maxLinkLength: 5000,
-		layout: "linear"
+		layout: "linear",
+		tree: {
+			drawTree: false,
+			orientation: "left"
+		}
 	};
 	// Initialize svg size
-	svg.height(this.conf.graphicalParameters.height);
 	svg.width(this.conf.graphicalParameters.width);
+	svg.height(this.conf.graphicalParameters.height);
 }
 
 /**
@@ -352,6 +361,10 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
 		});
+
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
 };
 
 /**
@@ -449,6 +462,10 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 			return d.y2;
 		})
 		.style("stroke", "#000");
+
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
 };
 
 /**
@@ -505,6 +522,10 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
 		});
+
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
 };
 
 
@@ -515,12 +536,17 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
 AliTV.prototype.drawLinear = function() {
+	this.svgD3.selectAll(".treeGroup").remove();
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
+	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
+		this.drawPhylogeneticTree();
+		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth);
+	}
 	this.conf.layout = "linear";
 };
 
@@ -721,6 +747,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
 AliTV.prototype.drawCircular = function() {
+	this.svgD3.selectAll(".treeGroup").remove();
 	var karyoCoords = this.getCircularKaryoCoords();
 	var tickCoords = this.getCircularTickCoords(karyoCoords);
 	this.drawCircularTicks(tickCoords);
@@ -932,6 +959,40 @@ AliTV.prototype.drawEqualLayout = function(layout) {
 	} else {
 		this.drawCircular();
 		return this.conf.layout;
+	}
+};
+
+/**
+ * This function returns the current width of the phylogenetic tree.
+ * @returns {Number} The current tree width.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getTreeWidth = function() {
+	return this.conf.graphicalParameters.treeWidth;
+};
+
+/**
+ * This function replaces the old tree width with the new tree width in the config-object.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The function gets the width of a phylogenetic tree which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setTreeWidth = function(treeWidth) {
+	if (treeWidth === "") {
+		throw "empty";
+	} else if (isNaN(treeWidth)) {
+		throw "not a number";
+	} else if (treeWidth <= 0) {
+		throw "the tree width is to small, it should be > 0";
+	} else {
+		treeWidth = Number(treeWidth);
+		this.conf.graphicalParameters.treeWidth = treeWidth;
+		return this.conf.graphicalParameters.treeWidth;
 	}
 };
 
@@ -1165,4 +1226,71 @@ AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
 		}
 	});
 	return filteredLinks;
+};
+
+/**
+ * This method is supposed to draw a phylogenetic tree next to the chromosomes.
+ * In the default configuration the tree is not drawn, but the user can set drawTree equal true and this method wil be called.
+ * @author {Sonja Hohlfeld}
+ */
+AliTV.prototype.drawPhylogeneticTree = function() {
+	var that = this;
+	var treeData = that.data.tree;
+	// Create a tree "canvas"
+	var genomeDistance = that.getGenomeDistance();
+
+	//Initialize the tree size. Every node of the tree has its own "spacer", therefore it is important not only use the canvas height, but you need
+	// the canveas height and the genome distance - the heigth of one karyo in order to draw the branches in the right position. So we have exactly 6 branches, but one is not in the drawing area.
+	var tree = d3.layout.tree()
+		.size([that.conf.graphicalParameters.height + genomeDistance - that.conf.graphicalParameters.karyoHeight, that.conf.graphicalParameters.treeWidth])
+		.separation(function() {
+			return 1;
+		});
+
+	// Preparing the data for the tree layout, convert data into an array of nodes
+	var nodes = tree.nodes(treeData);
+	// Create an array with all the links
+	var links = tree.links(nodes);
+
+	//Now you want to draw every branch in the middle of a chromosome. Therefore you must move it the negative half of a chromosome height and negative the half of the genome distance in y direction.
+	if (this.conf.tree.orientation === "left") {
+		that.svgD3.append("g")
+			.attr("class", "treeGroup")
+			.selectAll("path")
+			.data(links)
+			.enter()
+			.append("path")
+			.attr("class", "branch")
+			.attr("d", function(d) {
+				return "M" + d.source.y + "," + d.source.x + "H" + d.target.y + "V" + d.target.x;
+			})
+			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
+	} else {
+		that.svgD3.append("g")
+			.attr("class", "treeGroup")
+			.attr("transform", "translate(" + that.conf.graphicalParameters.width + ", 0)")
+			.selectAll("path")
+			.data(links)
+			.enter()
+			.append("path")
+			.attr("class", "branch")
+			.attr("d", function(d) {
+				return "M" + (that.conf.graphicalParameters.treeWidth - d.source.y) + "," + d.source.x + "H" + (that.conf.graphicalParameters.treeWidth - d.target.y) + "V" + d.target.x;
+			})
+			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
+	}
+
+};
+
+/**
+ * This method should check if the user provides tree data.
+ * @returns {Boolean} Returns true when tree data exists and false when there is no tree data.
+ * @author {Sonja Hohlfeld}
+ */
+AliTV.prototype.hasTree = function() {
+	if (typeof this.data.tree === "undefined" || $.isEmptyObject(this.data.tree) === true || this.data.tree === null) {
+		return false;
+	} else {
+		return true;
+	}
 };
