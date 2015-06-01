@@ -430,3 +430,5 @@ var data2 = {'karyo': karyo2, 'features': features, 'links': links};
 var data3 = {'karyo': karyo3, 'features': features, 'links': links};
 var data4 = {'karyo': karyo4, 'features': features, 'links': links};
 var data5 = {'karyo': karyo, 'features': features, 'links': links, "tree": tree};
+var data6 = {'karyo': karyo, 'features': features, 'links': links, "tree": {}};
+var data7 = {'karyo': karyo, 'features': features, 'links': links, "tree": null};

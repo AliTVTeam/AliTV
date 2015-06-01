@@ -1288,5 +1288,9 @@ AliTV.prototype.drawPhylogeneticTree = function() {
  * @author {Sonja Hohlfeld}
  */
 AliTV.prototype.hasTree = function() {
-
+	if (typeof this.data.tree === "undefined" || $.isEmptyObject(this.data.tree) === true || this.data.tree === null) {
+		return false;
+	} else {
+		return true;
+	}
 };

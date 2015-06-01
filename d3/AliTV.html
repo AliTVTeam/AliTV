@@ -119,6 +119,7 @@
 	
 	$(function(){$('#drawTree').change(function() {
 		if($('#drawTree').is(':checked')){
+			wga.hasTree();
 	     	wga.conf.tree.drawTree = true;
 	     	$("#treeWidth").attr("disabled", false);
 			$("#treeLeft").attr("disabled", false);
@@ -312,6 +313,10 @@
  	</div>
  	<svg id='wgaCanvas' style="margin:50px"></svg>
  </div>
+ <div class="alert alert-warning alert-dismissible" role="alert">
+ <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+ <strong>Warning!</strong> Better check yourself, you're not looking too good.
+</div>
  
  </body>
  </html>
