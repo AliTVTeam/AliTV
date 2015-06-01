@@ -16,7 +16,7 @@ describe('The constructor is supposed a proper AliTV object', function(){
 	it('the height of the svg should be set to the configured height', function(){
 		expect(wga.svg.height()).toEqual(defaultConf.graphicalParameters.height);
 	});
-	it('the width of the svg should be set to the configured width of 1000 if the tree is not set', function(){
+	it('the width of the svg should be set to the configured width if the tree is not set', function(){
 		expect(wga.svg.width()).toEqual(defaultConf.graphicalParameters.width);
 	});
 	it('the svgD3 property should exist', function(){
@@ -1168,5 +1168,13 @@ describe('The filterLinksByAdjacency method is supposed to filter all links whic
 	var ali = new AliTV(svg);
 	it('filterLinksByAdjacency method is supposed to be a function', function(){
 		expect(typeof ali.filterLinksByAdjacency).toEqual('function');
+	});	
+});
+
+describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tree next to the genomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawPhylogeneticTree method is supposed to be a function', function(){
+		expect(typeof ali.phylogeneticTree).toEqual('function');
 	});	
 });
