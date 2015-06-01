@@ -1254,7 +1254,6 @@ AliTV.prototype.getPhylogeneticTree = function() {
 
 	var i = 0;
 	nodes.forEach(function(d) {
-		console.log(d);
 		//		if (d.name !== undefined) {
 		//			var genomeDistance = that.getGenomeDistance();
 		//			d.x = i * genomeDistance;
@@ -1267,14 +1266,14 @@ AliTV.prototype.getPhylogeneticTree = function() {
 		.enter().append("svg:path")
 		.attr("class", "branch")
 		.attr("d", elbow)
-		.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")")
+		.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
 
 	var node = that.svgD3.selectAll("g.node")
 		.data(nodes)
 		.enter().append("svg:g")
 		.attr("transform", function(d) {
 			return "translate(" + d.y + "," + d.x + ")";
-		})
+		});
 
 
 	//	// Add the dot at every node
