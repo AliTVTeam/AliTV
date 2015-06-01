@@ -1239,6 +1239,9 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 
 	// Create a tree "canvas"
 	var genomeDistance = that.getGenomeDistance();
+
+	//Initialize the tree size. Every node of the tree has its own "spacer", therefore it is important not only use the canvas height, but you need
+	// the canveas height and the genome distance - the heigth of one karyo in order to draw the branches in the right position. So we have exactly 6 branches, but one is not in the drawing area.
 	var tree = d3.layout.tree()
 		.size([that.conf.graphicalParameters.height + genomeDistance - that.conf.graphicalParameters.karyoHeight, that.conf.graphicalParameters.treeWidth])
 		.separation(function() {
@@ -1250,6 +1253,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 	// Create an array with all the links
 	var links = tree.links(nodes);
 
+	//Now you want to draw every branch in the middle of a chromosome. Therefore you must move it the negative half of a chromosome height and negative the half of the genome distance in y direction. 
 	that.svgD3.append("g")
 		.attr("class", "treeGroup")
 		.selectAll("path")
