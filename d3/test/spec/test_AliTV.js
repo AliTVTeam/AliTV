@@ -1175,6 +1175,6 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	it('drawPhylogeneticTree method is supposed to be a function', function(){
-		expect(typeof ali.phylogeneticTree).toEqual('function');
+		expect(typeof ali.drawPhylogeneticTree).toEqual('function');
 	});	
 });
