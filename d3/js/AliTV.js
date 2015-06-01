@@ -534,6 +534,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
 AliTV.prototype.drawLinear = function() {
+	this.svgD3.selectAll(".treeGroup").remove();
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
@@ -743,6 +744,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
 AliTV.prototype.drawCircular = function() {
+	this.svgD3.selectAll(".treeGroup").remove();
 	var karyoCoords = this.getCircularKaryoCoords();
 	var tickCoords = this.getCircularTickCoords(karyoCoords);
 	this.drawCircularTicks(tickCoords);
@@ -1259,18 +1261,4 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 			return "M" + d.source.y + "," + d.source.x + "H" + d.target.y + "V" + d.target.x;
 		})
 		.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
-
-	//	that.svgD3.append("g")
-	//		.attr("class", "nodeGroup")
-	//		.selectAll("path")
-	//		.data(nodes)
-	//		.enter()
-	//		.append("path")
-	//		.attr("class", "node")
-	//		.attr("transform", function(d) {
-	//			return "translate(" + d.y + "," + d.x + ")";
-	//		})
-	//		.attr("r", 3.5)
-	//		.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
-
 };
