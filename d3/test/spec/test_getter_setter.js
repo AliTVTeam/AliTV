@@ -365,4 +365,16 @@ describe('The setTreeWidth method is supposed to set a new tree width', function
 	it('setTreeWidth method is supposed to be a function', function(){
 		expect(typeof ali.setTreeWidth).toEqual('function');
 	});	
+	it('the returned object of the getTreeWidth method should be the same as the tree width which is setted and returned by the setter-method', function(){
+		var treeWidth = 400;
+		expect(ali.setTreeWidth(treeWidth)).toEqual(treeWidth);
+	});	
+	it('when setTreeWidth is called several times the width of the tree should have the same value as the returned width of getTreeWidth method', function(){
+		ali.setTreeWidth(250);
+		expect(ali.getTreeWidth()).toEqual(250);
+		ali.setTreeWidth(1000);
+		expect(ali.getTickDistance()).toEqual(1000);
+		ali.setTreeWidth(888);
+		expect(ali.getTreeWidth()).toEqual(888);
+	});
 });
