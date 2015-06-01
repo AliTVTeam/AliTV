@@ -1281,3 +1281,12 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 	}
 
 };
+
+/**
+ * This method should check if the user provides tree data.
+ * @returns {Boolean} Returns true when tree data exists and false when there is no tree data.
+ * @author {Sonja Hohlfeld}
+ */
+AliTV.prototype.hasTree = function() {
+
+};
