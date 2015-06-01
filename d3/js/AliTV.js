@@ -541,7 +541,7 @@ AliTV.prototype.drawLinear = function() {
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
 	if (this.conf.tree.drawTree === true) {
-		this.getPhylogeneticTree();
+		this.drawPhylogeneticTree();
 	}
 	this.conf.layout = "linear";
 };
@@ -1194,7 +1194,7 @@ AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
  * In the default configuration the tree is not drawn, but the user can set drawTree equal true and this method wil be called.
  * @author {Sonja Hohlfeld}
  */
-AliTV.prototype.getPhylogeneticTree = function() {
+AliTV.prototype.drawPhylogeneticTree = function() {
 	var that = this;
 
 	var treeData = {
