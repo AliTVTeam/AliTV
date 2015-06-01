@@ -543,6 +543,7 @@ AliTV.prototype.drawLinear = function() {
 	this.drawLinearLinks(linkCoords);
 	if (this.conf.tree.drawTree === true) {
 		this.drawPhylogeneticTree();
+		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth);
 	}
 	this.conf.layout = "linear";
 };
