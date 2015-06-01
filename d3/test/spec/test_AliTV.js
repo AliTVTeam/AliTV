@@ -1214,3 +1214,11 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(1000, 0)");
 });
 });
+
+describe('The hasTree method should check if the user provides tree data', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('hasTree method is supposed to be a function', function(){
+		expect(typeof ali.hasTree).toEqual('function');
+	});	
+});
