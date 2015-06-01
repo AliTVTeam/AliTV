@@ -121,12 +121,32 @@
 		if($('#drawTree').is(':checked')){
 	     	wga.conf.tree.drawTree = true;
 	     	$("#treeWidth").attr("disabled", false);
+			$("#treeLeft").attr("disabled", false);
+			$("#treeRight").attr("disabled", false);
 		} else {
 			wga.conf.tree.drawTree = false;
 			$("#treeWidth").attr("disabled", true);
+			$("#treeLeft").attr("disabled", true);
+			$("#treeRight").attr("disabled", true);
 		}
 	});	
 	});
+	
+	$(function(){$('#treeLeft').change(function() {
+		if($('#treeLeft').is(':checked')){
+			wga.conf.tree.orientation = "left";
+		} 
+	});	
+	});
+	
+	$(function(){$('#treeRight').change(function() {
+		if($('#treeRight').is(':checked')){
+			wga.conf.tree.orientation = "right";
+		} 
+	});	
+	});
+	
+
 });
 });
 	
@@ -278,6 +298,12 @@
  			<form>
  				<fieldset>
  					Draw a phylogenetic tree: <input id="drawTree" type="checkbox">
+ 					<br>
+ 					<br>
+ 					Tree orientation:
+ 					<br>
+	 				<input id="treeLeft" type="radio" value="left" name="treeOrientation">Left
+	 				<input id="treeRight" type="radio" value="right" name="treeOrientation">Right
  					<br>
  				</fieldset>
  			</form> 

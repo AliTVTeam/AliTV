@@ -85,8 +85,7 @@ function AliTV(svg) {
 	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
 	 * @property {Object}  tree									   - Contains the configuration objects for drawing a tree.
 	 * @property {Boolean} tree.drawTree						   - With this option it is possible to draw a phylogenetic tree ext to the chromosomes.
-	 * @property {Boolean} tree.left							   - Draws the tree on the left side of the chromosomes.
-	 * @property {Boolean} tree.right							   - Draws the tree on the right side of the chromosomes.
+	 * @property {Boolean} tree.orientation						   - Defines where the tree should be drawn.
 	 */
 	this.conf = {
 		linear: {
@@ -117,8 +116,7 @@ function AliTV(svg) {
 		layout: "linear",
 		tree: {
 			drawTree: false,
-			left: false,
-			right: true
+			orientation: "left"
 		}
 	};
 	// Initialize svg size
@@ -364,7 +362,7 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
 		});
 
-	if (that.conf.tree.drawTree === true && that.conf.tree.left === true) {
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
 };
@@ -465,7 +463,7 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 		})
 		.style("stroke", "#000");
 
-	if (that.conf.tree.drawTree === true && that.conf.tree.left === true) {
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
 };
@@ -525,7 +523,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
 		});
 
-	if (that.conf.tree.drawTree === true && that.conf.tree.left === true) {
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
 };
@@ -1255,7 +1253,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 	var links = tree.links(nodes);
 
 	//Now you want to draw every branch in the middle of a chromosome. Therefore you must move it the negative half of a chromosome height and negative the half of the genome distance in y direction.
-	if (this.conf.tree.left === true) {
+	if (this.conf.tree.orientation === "left") {
 		that.svgD3.append("g")
 			.attr("class", "treeGroup")
 			.selectAll("path")
