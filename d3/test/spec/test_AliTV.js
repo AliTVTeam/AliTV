@@ -1229,12 +1229,12 @@ describe('The hasTree method should check if the user provides tree data', funct
 	it('if the tree object exists but it is empty the method should return false', function(){
 		ali.setData(data6);
 		ali.setFilters(filters);
-		expect(ali.hasTree()).toEqual(true);
+		expect(ali.hasTree()).toEqual(false);
 	});
 	it('if the tree object exists but it is null the method should return false', function(){
 		ali.setData(data7);
 		ali.setFilters(filters);
-		expect(ali.hasTree()).toEqual(true);
+		expect(ali.hasTree()).toEqual(false);
 	});
 	it('if the tree data exists the method should return true', function(){
 		ali.setData(data5);
