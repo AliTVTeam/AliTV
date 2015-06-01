@@ -114,7 +114,7 @@ function AliTV(svg) {
 		maxLinkLength: 5000,
 		layout: "linear",
 		tree: {
-			drawTree: true
+			drawTree: false
 		}
 	};
 	// Initialize svg size

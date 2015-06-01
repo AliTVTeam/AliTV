@@ -16,7 +16,7 @@ describe('The constructor is supposed a proper AliTV object', function(){
 	it('the height of the svg should be set to the configured height', function(){
 		expect(wga.svg.height()).toEqual(defaultConf.graphicalParameters.height);
 	});
-	it('the width of the svg should be set to the configured width', function(){
+	it('the width of the svg should be set to the configured width of 1000 if the tree is not set', function(){
 		expect(wga.svg.width()).toEqual(defaultConf.graphicalParameters.width);
 	});
 	it('the svgD3 property should exist', function(){
