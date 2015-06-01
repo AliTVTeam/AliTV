@@ -379,7 +379,7 @@ describe('The setTreeWidth method is supposed to set a new tree width', function
 	});
 	it('the setTreeWidth method should throw an error message if the assigned tree width is empty', function(){
 		var treeWidth = "";
-		expect(function(){ali.setTickDistance(treeWidth);}).toThrow("empty");
+		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("empty");
 	});
 	it('the setTreeWidth method should throw an error message if the assigned tree width is not a number', function(){
 		var treeWidth = "test";
