@@ -373,7 +373,7 @@ describe('The setTreeWidth method is supposed to set a new tree width', function
 		ali.setTreeWidth(250);
 		expect(ali.getTreeWidth()).toEqual(250);
 		ali.setTreeWidth(1000);
-		expect(ali.getTickDistance()).toEqual(1000);
+		expect(ali.getTreeWidth()).toEqual(1000);
 		ali.setTreeWidth(888);
 		expect(ali.getTreeWidth()).toEqual(888);
 	});
