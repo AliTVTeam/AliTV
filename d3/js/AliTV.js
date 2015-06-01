@@ -1248,51 +1248,29 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 	// Create an array with all the links
 	var links = tree.links(nodes);
 
-	var i = 0;
-	nodes.forEach(function(d) {
-		//		if (d.name !== undefined) {
-		//			var genomeDistance = that.getGenomeDistance();
-		//			d.x = i * genomeDistance;
-		//			i++;
-		//		}
-	});
-
-	var branch = that.svgD3.selectAll("pathbranch")
+	that.svgD3.append("g")
+		.attr("class", "treeGroup")
+		.selectAll("path")
 		.data(links)
-		.enter().append("svg:path")
+		.enter()
+		.append("path")
 		.attr("class", "branch")
-		.attr("d", elbow)
+		.attr("d", function(d) {
+			return "M" + d.source.y + "," + d.source.x + "H" + d.target.y + "V" + d.target.x;
+		})
 		.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
 
-	var node = that.svgD3.selectAll("g.node")
-		.data(nodes)
-		.enter().append("svg:g")
-		.attr("transform", function(d) {
-			return "translate(" + d.y + "," + d.x + ")";
-		});
-
-
-	//	// Add the dot at every node
-	//	node.append("svg:circle")
+	//	that.svgD3.append("g")
+	//		.attr("class", "nodeGroup")
+	//		.selectAll("path")
+	//		.data(nodes)
+	//		.enter()
+	//		.append("path")
+	//		.attr("class", "node")
+	//		.attr("transform", function(d) {
+	//			return "translate(" + d.y + "," + d.x + ")";
+	//		})
 	//		.attr("r", 3.5)
 	//		.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
 
-	// place the name atribute left or right depending if children
-	node.append("svg:text")
-		.attr("dx", function(d) {
-			return d.children ? -8 : 8;
-		})
-		.attr("dy", 3)
-		.attr("text-anchor", function(d) {
-			return d.children ? "end" : "start";
-		})
-		.text(function(d) {
-			return d.name;
-		})
-		.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
-
-
-	function elbow(d, i) {
-		return "M" + d.source.y + "," + d.source.x + "H" + d.target.y + "V" + d.target.x;
-	}
 };
