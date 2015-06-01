@@ -358,3 +358,11 @@ describe('The getTreeWidth method is supposed to get the current width of the ph
 	});
 	
 });
+
+describe('The setTreeWidth method is supposed to set a new tree width', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setTreeWidth method is supposed to be a function', function(){
+		expect(typeof ali.setTreeWidth).toEqual('function');
+	});	
+});
