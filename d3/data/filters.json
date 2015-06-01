@@ -1,1 +1,65 @@
-{"karyo":{"chromosomes":{"c4":{"visible":true,"reverse":false},"c2":{"visible":true,"reverse":false},"c1":{"visible":true,"reverse":false},"c3":{"visible":true,"reverse":false}},"order":["c1","c2","c3","c4"],"genome_order":[0,1,2]}}
+{
+  "karyo": {
+    "chromosomes": {
+      "c4": {
+        "visible": true,
+        "reverse": false
+      },
+      "c2": {
+        "visible": true,
+        "reverse": false
+      },
+      "c1": {
+        "visible": true,
+        "reverse": false
+      },
+      "c3": {
+        "visible": true,
+        "reverse": false
+      },
+      "c5": {
+        "visible": true,
+        "reverse": false
+      },
+      "c6": {
+        "visible": true,
+        "reverse": false
+      },
+      "c7": {
+        "visible": true,
+        "reverse": false
+      },
+      "c8": {
+        "visible": false,
+        "reverse": false
+      }
+    },
+    "order": [
+      "c1",
+      "c2",
+      "c3",
+      "c4",
+      "c5",
+      "c6",
+      "c7",
+      "c8"
+    ],
+    "genome_order": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "links": {
+    "minLinkIdentity": 0,
+    "maxLinkIdentity": 100,
+    "minLinkLength": 100,
+    "maxLinkLength": 10000
+  },
+  "skipChromosomesWithoutVisibleLinks": false,
+  "showAllChromosomes": true,
+  "skipChromosomesWithoutLinks": false,
+  "onlyShowAdjacentLinks": true
+}

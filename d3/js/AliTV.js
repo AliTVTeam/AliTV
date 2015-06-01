@@ -1,5 +1,6 @@
 /* global d3: false */
 /* global $: false */
+/* global _: false */
 /* global document: false */
 
 /**
@@ -40,17 +41,21 @@ function AliTV(svg) {
 	this.data = {};
 	/**
 	 * property to store data specific drawing options (structure highly dependent on data structure)
-	 * @property {Object}  filters                      - the data dependent displaying information
-	 * @property {Object}  filters.karyo                        - the chromosome dependent displaying information
-	 * @property {Array}   filters.karyo.order                  - array of chromosome IDs in the desired order (circular layout)
-	 * @property {Array}   filters.karyo.genome_order           - array of genome IDs in the desired order (linear layout)
-	 * @property {Object}  filters.karyo.chromosomes            - the chromosome drawing details, karyo IDs as keys
-	 * @property {Boolean} filters.karyo.chromosomes.reverse    - should the sequence be treated as its reverse (complement)
-	 * @property {Boolean} filters.karyo.chromosomes.visible    - should the sequence be displayed at all
-	 * @property {Number}  filters.links.minLinkIdentity	    - The minimum identity of links which should be draw.
-	 * @property {Number}  filters.links.maxLinkIdentity    	- The maximum identity of links which should be draw.
-	 * @property {Number}  filters.links.minLinkLength  		- The minimum length of links, which should be draw in bp.
-	 * @property {Number}  filters.links.maxLinkLength  		- The maximum length of links, which should be draw in bp.
+	 * @property {Object}  filters                      				- the data dependent displaying information
+	 * @property {Object}  filters.karyo                        		- the chromosome dependent displaying information
+	 * @property {Boolean} filters.skipChromosomesWithoutVisibleLinks	- If a chromosome has no visible links, because they are filtered, it is possible to skip this chromosome.
+	 * @property {Boolean} filters.skipChromosomesWithoutLinks			- If a chromosome has no links, the user have the possibility to skip them.
+	 * @property {Boolean} filters.showAllChromosomes					- Allows to show all chromosomes, even if when they are set not visible.
+	 * @property {Boolean} filters.onlyShowAdjacentLinks				- Allows to show only adjacent links or all links.			
+	 * @property {Array}   filters.karyo.order                  		- array of chromosome IDs in the desired order (circular layout)
+	 * @property {Array}   filters.karyo.genome_order          			- array of genome IDs in the desired order (linear layout)
+	 * @property {Object}  filters.karyo.chromosomes           			- the chromosome drawing details, karyo IDs as keys
+	 * @property {Boolean} filters.karyo.chromosomes.reverse    		- should the sequence be treated as its reverse (complement)
+	 * @property {Boolean} filters.karyo.chromosomes.visible    		- should the sequence be displayed at all
+	 * @property {Number}  filters.links.minLinkIdentity	    		- The minimum identity of links which should be draw.
+	 * @property {Number}  filters.links.maxLinkIdentity    			- The maximum identity of links which should be draw.
+	 * @property {Number}  filters.links.minLinkLength  				- The minimum length of links, which should be draw in bp.
+	 * @property {Number}  filters.links.maxLinkLength  				- The maximum length of links, which should be draw in bp.
 	 */
 	this.filters = {};
 	/**
@@ -76,7 +81,11 @@ function AliTV(svg) {
 	 * @property {Number}  graphicalParameters.karyoDistance       - The horizontal distance between adjacent chromosomes of the same genome in bp.
 	 * @property {Number}  graphicalParameters.linkKaryoDistance   - The vertical distance between chromosomes and links in px.
 	 * @property {Number}  graphicalParameters.tickDistance        - The distance in bp of ticks on the drawn chromosomes.
+	 * @property {Number}  graphicalParameters.treeWidth		   - The width of the svg drawing area, where the tree should be shown.
 	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
+	 * @property {Object}  tree									   - Contains the configuration objects for drawing a tree.
+	 * @property {Boolean} tree.drawTree						   - With this option it is possible to draw a phylogenetic tree ext to the chromosomes.
+	 * @property {Boolean} tree.orientation						   - Defines where the tree should be drawn.
 	 */
 	this.conf = {
 		linear: {
@@ -93,7 +102,8 @@ function AliTV(svg) {
 			karyoHeight: 30,
 			karyoDistance: 10,
 			linkKaryoDistance: 10,
-			tickDistance: 100
+			tickDistance: 100,
+			treeWidth: 300
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -103,11 +113,15 @@ function AliTV(svg) {
 		midLinkIdentityColor: "#FFEE05",
 		minLinkLength: 100,
 		maxLinkLength: 5000,
-		layout: "linear"
+		layout: "linear",
+		tree: {
+			drawTree: false,
+			orientation: "left"
+		}
 	};
 	// Initialize svg size
-	svg.height(this.conf.graphicalParameters.height);
 	svg.width(this.conf.graphicalParameters.width);
+	svg.height(this.conf.graphicalParameters.height);
 }
 
 /**
@@ -191,7 +205,8 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	var conf = this.conf;
 	var genomeDistance = this.getGenomeDistance();
 	var that = this;
-
+	var visibleChromosomes = that.filterChromosomes();
+	var orderOfVisibleChromosomes = that.filterChromosomeOrder(visibleChromosomes);
 
 	var total = [];
 	var current = [];
@@ -202,34 +217,30 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		current.push(0);
 	}
 
-	$.each(that.data.karyo.chromosomes, function(key, value) {
-		if (that.filters.karyo.chromosomes[key].visible === true) {
-			total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
-		}
+	$.each(visibleChromosomes, function(key, value) {
+		total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
 	});
 	var maxTotalSize = Math.max.apply(null, total);
-	for (i = 0; i < this.filters.karyo.order.length; i++) {
-		var key = this.filters.karyo.order[i];
-		var value = this.data.karyo.chromosomes[key];
 
-		if (this.filters.karyo.chromosomes[key].visible === true) {
-			var coord = {
-				'karyo': key,
-				'y': genome_order.indexOf(value.genome_id) * genomeDistance,
-				'height': conf.graphicalParameters.karyoHeight,
-				'genome': value.genome_id
-			};
+	for (i = 0; i < orderOfVisibleChromosomes.length; i++) {
+		var key = orderOfVisibleChromosomes[i];
+		var value = visibleChromosomes[key];
+		var coord = {
+			'karyo': key,
+			'y': genome_order.indexOf(value.genome_id) * genomeDistance,
+			'height': conf.graphicalParameters.karyoHeight,
+			'genome': value.genome_id
+		};
 
-			if (this.filters.karyo.chromosomes[key].reverse === false) {
-				coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width;
-				coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width;
-			} else {
-				coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width + (value.length / maxTotalSize) * conf.graphicalParameters.width;
-				coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width * (-1);
-			}
-			current[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
-			linearKaryoCoords.push(coord);
+		if (this.filters.karyo.chromosomes[key].reverse === false) {
+			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width;
+			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width;
+		} else {
+			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width + (value.length / maxTotalSize) * conf.graphicalParameters.width;
+			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width * (-1);
 		}
+		current[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
+		linearKaryoCoords.push(coord);
 	}
 	return linearKaryoCoords;
 };
@@ -253,11 +264,13 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 	}
 	var that = this;
 	var conf = this.conf;
+	var visibleChromosomes = that.filterChromosomes();
+	var visibleLinks = that.filterLinks(visibleChromosomes);
 	var karyoMap = {};
 	$.each(coords, function(key, value) {
 		karyoMap[value.karyo] = key;
 	});
-	$.each(this.data.links, function(key, value) {
+	$.each(visibleLinks, function(key, value) {
 		var link = {};
 		link.linkID = key;
 		link.source0 = {};
@@ -275,40 +288,30 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		var lengthOfFeature1 = Math.abs(that.data.features[value.source].end - that.data.features[value.source].start);
 		var lengthOfFeature2 = Math.abs(that.data.features[value.target].end - that.data.features[value.target].start);
 
-		if (value.identity >= that.filters.links.minLinkIdentity && value.identity <= that.filters.links.maxLinkIdentity) {
-			if ((lengthOfFeature1 >= that.filters.links.minLinkLength && lengthOfFeature1 <= that.filters.links.maxLinkLength) || (lengthOfFeature2 >= that.filters.links.minLinkLength && lengthOfFeature2 <= that.filters.links.maxLinkLength)) {
-				if (genomePosition1 > genomePosition2) {
-					var tmp = feature1;
-					feature1 = feature2;
-					feature2 = tmp;
-					tmp = karyo1;
-					karyo1 = karyo2;
-					karyo2 = tmp;
-					tmp = karyo1Coords;
-					karyo1Coords = karyo2Coords;
-					karyo2Coords = tmp;
-				}
-				link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
-				link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
-				link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
-				link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
 
-				link.target0.x = karyo2Coords.x + karyo2Coords.width * feature2.start / karyo2.length;
-				link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
-				link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
-				link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
-
-				if (Math.abs(genomePosition2 - genomePosition1) === 1) {
-					link.adjacent = true;
-					linearLinkCoords.push(link);
-				} else {
-					link.adjacent = false;
-					if (conf.linear.drawAllLinks === true) {
-						linearLinkCoords.push(link);
-					}
-				}
-			}
+		if (genomePosition1 > genomePosition2) {
+			var tmp = feature1;
+			feature1 = feature2;
+			feature2 = tmp;
+			tmp = karyo1;
+			karyo1 = karyo2;
+			karyo2 = tmp;
+			tmp = karyo1Coords;
+			karyo1Coords = karyo2Coords;
+			karyo2Coords = tmp;
 		}
+		link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
+		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
+		link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
+		link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
+
+		link.target0.x = karyo2Coords.x + karyo2Coords.width * feature2.start / karyo2.length;
+		link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
+		link.target1.x = karyo2Coords.x + karyo2Coords.width * feature2.end / karyo2.length;
+		link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
+
+		linearLinkCoords.push(link);
+
 	});
 	return linearLinkCoords;
 };
@@ -358,6 +361,10 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
 		});
+
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
 };
 
 /**
@@ -455,6 +462,10 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 			return d.y2;
 		})
 		.style("stroke", "#000");
+
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
 };
 
 /**
@@ -511,6 +522,10 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
 		});
+
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
 };
 
 
@@ -521,12 +536,17 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
 AliTV.prototype.drawLinear = function() {
+	this.svgD3.selectAll(".treeGroup").remove();
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
+	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
+		this.drawPhylogeneticTree();
+		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth);
+	}
 	this.conf.layout = "linear";
 };
 
@@ -541,15 +561,13 @@ AliTV.prototype.getCircularKaryoCoords = function() {
 	var circularKaryoCoords = [];
 	var total = 0;
 	var spacer = this.conf.graphicalParameters.karyoDistance;
-	var chromosomes = this.data.karyo.chromosomes;
-	var order = this.filters.karyo.order;
 	var current = -spacer;
-	$.each(chromosomes, function(key, value) {
+	$.each(this.data.karyo.chromosomes, function(key, value) {
 		total += value.length + spacer;
 	});
-	for (var i = 0; i < order.length; i++) {
-		var key = order[i];
-		var value = chromosomes[key];
+	for (var i = 0; i < this.filters.karyo.order.length; i++) {
+		var key = this.filters.karyo.order[i];
+		var value = this.data.karyo.chromosomes[key];
 		var data = {
 			"karyo": key,
 			"startAngle": ((current + spacer) / total) * (2 * Math.PI),
@@ -588,7 +606,7 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
 		karyoMap[value.karyo] = key;
 	});
 
-	$.each(this.data.links, function(key, value) {
+	$.each(that.data.links, function(key, value) {
 		var link = {};
 		link.linkID = key;
 
@@ -729,6 +747,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
 AliTV.prototype.drawCircular = function() {
+	this.svgD3.selectAll(".treeGroup").remove();
 	var karyoCoords = this.getCircularKaryoCoords();
 	var tickCoords = this.getCircularTickCoords(karyoCoords);
 	this.drawCircularTicks(tickCoords);
@@ -944,6 +963,40 @@ AliTV.prototype.drawEqualLayout = function(layout) {
 };
 
 /**
+ * This function returns the current width of the phylogenetic tree.
+ * @returns {Number} The current tree width.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getTreeWidth = function() {
+	return this.conf.graphicalParameters.treeWidth;
+};
+
+/**
+ * This function replaces the old tree width with the new tree width in the config-object.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The function gets the width of a phylogenetic tree which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setTreeWidth = function(treeWidth) {
+	if (treeWidth === "") {
+		throw "empty";
+	} else if (isNaN(treeWidth)) {
+		throw "not a number";
+	} else if (treeWidth <= 0) {
+		throw "the tree width is to small, it should be > 0";
+	} else {
+		treeWidth = Number(treeWidth);
+		this.conf.graphicalParameters.treeWidth = treeWidth;
+		return this.conf.graphicalParameters.treeWidth;
+	}
+};
+
+/**
  * This function calculates the appropriate outerRadius of the circular layout for the current svg dimensions.
  * @returns {Number} outerRadius - the outer radius in px
  * @author Markus Ankenbrand
@@ -959,6 +1012,285 @@ AliTV.prototype.getOuterRadius = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getGenomeDistance = function() {
-	var genomeDistance = this.getCanvasHeight() * 1 / this.filters.karyo.genome_order.length;
-	return genomeDistance;
+	var genomeDistance = (this.getCanvasHeight() - this.getKaryoHeight()) / (this.filters.karyo.genome_order.length - 1);
+	return Math.round(genomeDistance);
+};
+
+/**
+ * This method should call other filter functions in order to filter the visible chromosomes.
+ * @returns visibleChromosomes: returns only chromosomes which are visible
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterChromosomes = function() {
+	var visibleChromosomes = this.data.karyo.chromosomes;
+	if (this.filters.showAllChromosomes === false) {
+		visibleChromosomes = this.filterVisibleChromosomes(visibleChromosomes);
+	} else {
+		return visibleChromosomes;
+	}
+	if (this.filters.skipChromosomesWithoutLinks === true) {
+		visibleChromosomes = this.filterChromosomeWithoutLinkageInformation(visibleChromosomes);
+	}
+	if (this.filters.skipChromosomesWithoutVisibleLinks === true) {
+		visibleChromosomes = this.filterChromosomeWithoutVisibleLinks(visibleChromosomes);
+	}
+	return visibleChromosomes;
+};
+
+/**
+ *This method should filter all chromosome which are set visible in conf.filters.karyo.chromosomes[<chromosome>].visible
+ * @param visibleChromosomes: the method gets all current visible chromosomes.
+ * @returns filteredChromosomes: the method returns only chromosomes whose visibility is set true
+ * @author Sonja Hohlfeld 
+ */
+AliTV.prototype.filterVisibleChromosomes = function(visibleChromosomes) {
+	var that = this;
+	var filteredChromosomes = {};
+	$.each(visibleChromosomes, function(key, value) {
+		if (that.filters.karyo.chromosomes[key].visible === true) {
+			filteredChromosomes[key] = value;
+		}
+	});
+	return filteredChromosomes;
+};
+
+/**
+ *This method should filter all chromosome which have no linkage information
+ * @param visibleChromosomes: the method gets all current visible chromosomes.
+ * @returns filteredChromosomes: the method returns only chromosomes which have linkage information
+ * @author Sonja Hohlfeld 
+ */
+AliTV.prototype.filterChromosomeWithoutLinkageInformation = function(visibleChromosomes) {
+	var that = this;
+	var filteredChromosomes = {};
+	$.each(visibleChromosomes, function(key, value) {
+		var currentChromosome = key;
+		var valueOfCurrentChromosome = value;
+		$.each(that.data.links, function(key, value) {
+			if (that.data.features[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
+				filteredChromosomes[currentChromosome] = valueOfCurrentChromosome;
+			}
+		});
+	});
+	return filteredChromosomes;
+};
+
+/**
+ * This method should filter all chromosome which have no visible links with the current configurations
+ * @param visibleChromosomes: the method gets all current visible chromosomes.
+ * @returns filteredChromosomes: the method returns only chromosomes which have visible links
+ * @author Sonja Hohlfeld 
+ */
+AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosomes) {
+	var that = this;
+	var filteredChromosomes = {};
+	var allLinks = that.data.links;
+	var filteredLinks = that.filterLinks(visibleChromosomes);
+	$.each(visibleChromosomes, function(key, value) {
+		var currentChromosome = key;
+		var valueOfCurrentChromosome = value;
+		$.each(filteredLinks, function(key, value) {
+			if (that.data.features[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
+				filteredChromosomes[currentChromosome] = valueOfCurrentChromosome;
+			}
+		});
+	});
+	return filteredChromosomes;
+};
+
+/**
+ * This method is supposed to filter the order of chromosomes according to all visible chromosomes.
+ * @param visibleChromosomes: gets all visible chromosomes
+ * @return chromosomeOrder: returns the order of the visible chromosomes
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterChromosomeOrder = function(visibleChromosomes) {
+	var orderOfVisibleChromosomes = [];
+	var keysOfVisibleChromosomes = [];
+	$.each(visibleChromosomes, function(key, value) {
+		keysOfVisibleChromosomes.push(key);
+	});
+	$.each(this.filters.karyo.order, function(key, value) {
+		if (keysOfVisibleChromosomes.indexOf(value) !== -1) {
+			orderOfVisibleChromosomes.push(value);
+		}
+	});
+	return orderOfVisibleChromosomes;
+};
+
+/**
+ * This method should call functions in order to filter the links.
+ * @param visibleChromosomes: gets the chromosomes which are visible in the current configurations.
+ * @returns visibleLinks: return all links which are visible
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterLinks = function(visibleChromosomes) {
+	var visibleLinks = this.filterVisibleLinks(visibleChromosomes);
+	visibleLinks = this.filterLinksByIdentity(visibleLinks);
+	visibleLinks = this.filterLinksByLength(visibleLinks);
+	if (this.filters.onlyShowAdjacentLinks === true) {
+		visibleLinks = this.filterLinksByAdjacency(visibleLinks);
+	}
+	return visibleLinks;
+};
+
+/**
+ * This method should filter the visible links according to visible chromosomes
+ * @param visibleChromosomes: gets the chromosomes, which are visible in the current configurations in order to filter all links, which have no target or source chromosome.
+ * @return visibleLinks: returns only links which source or target are in visible chromosomes
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterVisibleLinks = function(visibleChromosomes) {
+	var allLinks = this.data.links;
+	var that = this;
+	var filteredLinks = {};
+	var listOfVisibleChromosomes = [];
+	$.each(visibleChromosomes, function(key, value) {
+		listOfVisibleChromosomes.push(key);
+	});
+	$.each(allLinks, function(key, value) {
+		var targetKaryo = that.data.features[value.target].karyo;
+		var sourceKaryo = that.data.features[value.source].karyo;
+		if (listOfVisibleChromosomes.indexOf(targetKaryo) !== -1 && listOfVisibleChromosomes.indexOf(sourceKaryo) !== -1 && (value in filteredLinks) === false) {
+			filteredLinks[key] = value;
+		}
+	});
+	return filteredLinks;
+};
+/**
+ * This method should filter links according to their identity.
+ * @returns filteredLinks: return all links which are visible with the current configuration.
+ * @param visibleLinks: gets all current visible links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
+	var minIdentity = this.filters.links.minLinkIdentity;
+	var maxIdentity = this.filters.links.maxLinkIdentity;
+	var filteredLinks = {};
+	$.each(visibleLinks, function(key, value) {
+		var currentLink = value;
+		if (currentLink.identity >= minIdentity && currentLink.identity <= maxIdentity) {
+			filteredLinks[key] = currentLink;
+		}
+	});
+	return filteredLinks;
+};
+
+/**
+ * This method should filter links according to their length.
+ * @returns filteredLinks: return all links which are visible with the current configuration.
+ * @param visibleLinks: gets all current visible links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterLinksByLength = function(visibleLinks) {
+	var minLength = this.filters.links.minLinkLength;
+	var maxLength = this.filters.links.maxLinkLength;
+	var that = this;
+	var filteredLinks = {};
+	$.each(visibleLinks, function(key, value) {
+		var currentLink = value;
+		var sourceFeature = currentLink.source;
+		var targetFeature = currentLink.target;
+		var lengthOfSourceFeature = Math.abs(that.data.features[sourceFeature].end - that.data.features[sourceFeature].start);
+		var lengthOfTargetFeature = Math.abs(that.data.features[targetFeature].end - that.data.features[targetFeature].start);
+		if (lengthOfSourceFeature >= minLength && lengthOfSourceFeature <= maxLength || lengthOfTargetFeature >= minLength && lengthOfTargetFeature <= maxLength) {
+			filteredLinks[key] = currentLink;
+		}
+	});
+	return filteredLinks;
+};
+
+/**
+ * This method should filter links according to their adjacency.
+ * @return filteredLinks: returns only links which are between adjacent chromosomes.
+ * @param visibleLinks: gets all current visible links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
+	var that = this;
+	var filteredLinks = {};
+	$.each(visibleLinks, function(key, value) {
+		var currentLink = value;
+		var targetFeature = that.data.features[currentLink.source];
+		var sourceFeature = that.data.features[currentLink.target];
+		var targetKaryo = that.data.karyo.chromosomes[targetFeature.karyo];
+		var sourceKaryo = that.data.karyo.chromosomes[sourceFeature.karyo];
+		var genomePositionOfTargetKaryo = that.filters.karyo.genome_order.indexOf(targetKaryo.genome_id);
+		var genomePositionOfSourceKaryo = that.filters.karyo.genome_order.indexOf(sourceKaryo.genome_id);
+		if (Math.abs(genomePositionOfTargetKaryo - genomePositionOfSourceKaryo) === 1) {
+			filteredLinks[key] = currentLink;
+		} else {
+			if (that.conf.linear.drawAllLinks === true) {
+				filteredLinks[key] = currentLink;
+			}
+		}
+	});
+	return filteredLinks;
+};
+
+/**
+ * This method is supposed to draw a phylogenetic tree next to the chromosomes.
+ * In the default configuration the tree is not drawn, but the user can set drawTree equal true and this method wil be called.
+ * @author {Sonja Hohlfeld}
+ */
+AliTV.prototype.drawPhylogeneticTree = function() {
+	var that = this;
+	var treeData = that.data.tree;
+	// Create a tree "canvas"
+	var genomeDistance = that.getGenomeDistance();
+
+	//Initialize the tree size. Every node of the tree has its own "spacer", therefore it is important not only use the canvas height, but you need
+	// the canveas height and the genome distance - the heigth of one karyo in order to draw the branches in the right position. So we have exactly 6 branches, but one is not in the drawing area.
+	var tree = d3.layout.tree()
+		.size([that.conf.graphicalParameters.height + genomeDistance - that.conf.graphicalParameters.karyoHeight, that.conf.graphicalParameters.treeWidth])
+		.separation(function() {
+			return 1;
+		});
+
+	// Preparing the data for the tree layout, convert data into an array of nodes
+	var nodes = tree.nodes(treeData);
+	// Create an array with all the links
+	var links = tree.links(nodes);
+
+	//Now you want to draw every branch in the middle of a chromosome. Therefore you must move it the negative half of a chromosome height and negative the half of the genome distance in y direction.
+	if (this.conf.tree.orientation === "left") {
+		that.svgD3.append("g")
+			.attr("class", "treeGroup")
+			.selectAll("path")
+			.data(links)
+			.enter()
+			.append("path")
+			.attr("class", "branch")
+			.attr("d", function(d) {
+				return "M" + d.source.y + "," + d.source.x + "H" + d.target.y + "V" + d.target.x;
+			})
+			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
+	} else {
+		that.svgD3.append("g")
+			.attr("class", "treeGroup")
+			.attr("transform", "translate(" + that.conf.graphicalParameters.width + ", 0)")
+			.selectAll("path")
+			.data(links)
+			.enter()
+			.append("path")
+			.attr("class", "branch")
+			.attr("d", function(d) {
+				return "M" + (that.conf.graphicalParameters.treeWidth - d.source.y) + "," + d.source.x + "H" + (that.conf.graphicalParameters.treeWidth - d.target.y) + "V" + d.target.x;
+			})
+			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
+	}
+
+};
+
+/**
+ * This method should check if the user provides tree data.
+ * @returns {Boolean} Returns true when tree data exists and false when there is no tree data.
+ * @author {Sonja Hohlfeld}
+ */
+AliTV.prototype.hasTree = function() {
+	if (typeof this.data.tree === "undefined" || $.isEmptyObject(this.data.tree) === true || this.data.tree === null) {
+		return false;
+	} else {
+		return true;
+	}
 };

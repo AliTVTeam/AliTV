@@ -1,1 +1,167 @@
-{"links":[{"identity":90,"target":"f2","source":"f1"},{"source":"f2","target":"f3","identity":80},{"source":"f1","target":"f3","identity":95},{"source":"f4","target":"f5","identity":50},{"source":"f4","target":"f6","identity":60},{"source":"f5","target":"f6","identity":100}],"features":{"f2":{"start":100,"karyo":"c2","end":600},"f5":{"start":0,"end":100,"karyo":"c4"},"f4":{"start":200,"karyo":"c3","end":300},"f3":{"end":400,"karyo":"c4","start":250},"f6":{"start":1700,"end":1850,"karyo":"c1"},"f1":{"end":800,"karyo":"c1","start":300}},"karyo":{"chromosomes":{"c4":{"genome_id":2,"seq":null,"length":1000},"c3":{"length":1000,"seq":null,"genome_id":1},"c1":{"genome_id":0,"seq":null,"length":2000},"c2":{"length":1000,"seq":null,"genome_id":1}}}}
+{
+  "links": [
+    {
+      "identity": 90,
+      "target": "f2",
+      "source": "f1"
+    },
+    {
+      "source": "f2",
+      "target": "f3",
+      "identity": 80
+    },
+    {
+      "source": "f1",
+      "target": "f3",
+      "identity": 95
+    },
+    {
+      "source": "f4",
+      "target": "f5",
+      "identity": 50
+    },
+    {
+      "source": "f4",
+      "target": "f6",
+      "identity": 60
+    },
+    {
+      "source": "f5",
+      "target": "f6",
+      "identity": 100
+    },
+    {
+      "source": "f4",
+      "target": "f8",
+      "identity": 40
+    }
+  ],
+  "features": {
+    "f2": {
+      "start": 100,
+      "karyo": "c2",
+      "end": 600
+    },
+    "f5": {
+      "start": 0,
+      "end": 100,
+      "karyo": "c4"
+    },
+    "f4": {
+      "start": 200,
+      "karyo": "c3",
+      "end": 300
+    },
+    "f3": {
+      "end": 400,
+      "karyo": "c4",
+      "start": 250
+    },
+    "f6": {
+      "start": 1700,
+      "end": 1850,
+      "karyo": "c1"
+    },
+    "f1": {
+      "end": 800,
+      "karyo": "c1",
+      "start": 300
+    },
+    "f7": {
+      "end": 375,
+      "karyo": "c5",
+      "start": 150
+    },
+    "f8": {
+      "end": 400,
+      "karyo": "c6",
+      "start": 100
+    },
+    "f9": {
+      "end": 850,
+      "karyo": "c7",
+      "start": 950
+    }
+  },
+  "karyo": {
+    "chromosomes": {
+      "c4": {
+        "genome_id": 2,
+        "seq": null,
+        "length": 1000
+      },
+      "c3": {
+        "length": 1000,
+        "seq": null,
+        "genome_id": 1
+      },
+      "c1": {
+        "genome_id": 0,
+        "seq": null,
+        "length": 2000
+      },
+      "c2": {
+        "length": 1000,
+        "seq": null,
+        "genome_id": 1
+      },
+      "c5": {
+        "length": 1000,
+        "seq": null,
+        "genome_id": 2
+      },
+      "c6": {
+        "length": 500,
+        "seq": null,
+        "genome_id": 2
+      },
+      "c7": {
+        "length": 750,
+        "seq": null,
+        "genome_id": 3
+      },
+      "c8": {
+        "length": 2500,
+        "seq": null,
+        "genome_id": 4
+      }
+    }
+  },
+  "tree": {
+		"children": [{
+			"children": [{
+				"children": [{
+					"children": [{
+						"children": [{
+							"name": "Genome 1"
+						}, {
+							"name": "Genome 2"
+						}]
+					}, {
+						"children": [{
+							"name": "Genome 3"
+						}]
+					}]
+				}]
+			}, {
+				"children": [{
+					"children": [{
+						"children": [{
+							"name": "Genome 4"
+						}]
+					}]
+				}]
+			}]
+		}, {
+			"children": [{
+				"children": [{
+					"children": [{
+						"children": [{
+							"name": "Genome 5"
+						}]
+					}]
+				}]
+			}]
+		}]
+	}
+}
