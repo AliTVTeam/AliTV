@@ -348,4 +348,13 @@ describe('The getTreeWidth method is supposed to get the current width of the ph
 	it('getLayout method is supposed to be a function', function(){
 		expect(typeof ali.getTreeWidth).toEqual('function');
 	});	
+	it('the function should return a defined value', function(){
+		var treeWidth = ali.getTreeWidth();
+		expect(treeWidth).toBeDefined();
+	});
+	it('the function should return the tree width which is defined in the defaultConf', function(){
+		var treeWidth = ali.getTreeWidth();
+		expect(treeWidth).toEqual(defaultConf.graphicalParameters.treeWidth);
+	});
+	
 });
