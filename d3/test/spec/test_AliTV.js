@@ -1177,4 +1177,9 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 	it('drawPhylogeneticTree method is supposed to be a function', function(){
 		expect(typeof ali.drawPhylogeneticTree).toEqual('function');
 	});	
+	it('if the function is called we should have exactly one tree group', function(){
+		ali.setFilters(filters);
+		ali.drawPhylogeneticTree();
+		expect(ali.svgD3.selectAll('.treeGroup').size()).toEqual(0);
+	});	
 });
