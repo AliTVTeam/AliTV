@@ -117,8 +117,8 @@ function AliTV(svg) {
 		layout: "linear",
 		tree: {
 			drawTree: false,
-			left: true,
-			right: false
+			left: false,
+			right: true
 		}
 	};
 	// Initialize svg size
@@ -364,7 +364,7 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
 		});
 
-	if (that.conf.tree.drawTree === true) {
+	if (that.conf.tree.drawTree === true && that.conf.tree.left === true) {
 		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
 };
@@ -465,7 +465,7 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 		})
 		.style("stroke", "#000");
 
-	if (that.conf.tree.drawTree === true) {
+	if (that.conf.tree.drawTree === true && that.conf.tree.left === true) {
 		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
 };
@@ -525,7 +525,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
 		});
 
-	if (that.conf.tree.drawTree === true) {
+	if (that.conf.tree.drawTree === true && that.conf.tree.left === true) {
 		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
 };
@@ -1254,16 +1254,32 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 	// Create an array with all the links
 	var links = tree.links(nodes);
 
-	//Now you want to draw every branch in the middle of a chromosome. Therefore you must move it the negative half of a chromosome height and negative the half of the genome distance in y direction. 
-	that.svgD3.append("g")
-		.attr("class", "treeGroup")
-		.selectAll("path")
-		.data(links)
-		.enter()
-		.append("path")
-		.attr("class", "branch")
-		.attr("d", function(d) {
-			return "M" + d.source.y + "," + d.source.x + "H" + d.target.y + "V" + d.target.x;
-		})
-		.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
+	//Now you want to draw every branch in the middle of a chromosome. Therefore you must move it the negative half of a chromosome height and negative the half of the genome distance in y direction.
+	if (this.conf.tree.left === true) {
+		that.svgD3.append("g")
+			.attr("class", "treeGroup")
+			.selectAll("path")
+			.data(links)
+			.enter()
+			.append("path")
+			.attr("class", "branch")
+			.attr("d", function(d) {
+				return "M" + d.source.y + "," + d.source.x + "H" + d.target.y + "V" + d.target.x;
+			})
+			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
+	} else {
+		that.svgD3.append("g")
+			.attr("class", "treeGroup")
+			.attr("transform", "translate(" + that.conf.graphicalParameters.width + ", 0)")
+			.selectAll("path")
+			.data(links)
+			.enter()
+			.append("path")
+			.attr("class", "branch")
+			.attr("d", function(d) {
+				return "M" + (that.conf.graphicalParameters.treeWidth - d.source.y) + "," + d.source.x + "H" + (that.conf.graphicalParameters.treeWidth - d.target.y) + "V" + d.target.x;
+			})
+			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")")
+	}
+
 };
