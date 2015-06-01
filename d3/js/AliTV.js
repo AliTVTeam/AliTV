@@ -967,7 +967,7 @@ AliTV.prototype.drawEqualLayout = function(layout) {
  */
 
 AliTV.prototype.getTreeWidth = function() {
-
+	return this.conf.graphicalParameters.treeWidth;
 };
 
 /**
