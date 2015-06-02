@@ -1311,7 +1311,7 @@ AliTV.prototype.hasTree = function() {
  * This function is primarily meant for internal usage, the user should not need to call this directly.
  * @author Sonja Hohlfeld
  * @param {Array} linearKaryoCoords: contains the coordinates for all chromosomes of the form: {karyo: 'karyo_name', x:0, y:0, width:10, height:10}.
- * @returns {Array} linearFeatureCoords: contains the coordinates for feature classes of the form: {id: "featureId", x:0, y:0,
+ * @returns {Array} linearFeatureCoords: contains the coordinates for feature classes of the form: {id: "featureId", x:0, y:0, width: 45, height: 10}
  */
 AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 	var that = this;
