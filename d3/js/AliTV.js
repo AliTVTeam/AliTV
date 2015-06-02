@@ -545,6 +545,7 @@ AliTV.prototype.drawLinear = function() {
 	this.svgD3.selectAll(".treeGroup").remove();
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
+	var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
