@@ -1347,3 +1347,12 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 	});
 	return linearFeatureCoords;
 };
+
+/**
+ * This function draws the features on the karyos in the linear layout, color them according to the configuration.
+ * @author Sonja Hohlfeld
+ * @param {Array} The array containing the coordinates of the features as returned by getLinearFeatureCoords()
+ */
+AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
+
+};
