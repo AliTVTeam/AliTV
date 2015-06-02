@@ -1280,13 +1280,13 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		ali.drawLinearFeatures(linearFeatureCoords);
-		expect(ali.svgD3.selectAll('.featureGroup').size()).toEqual(0);
+		expect(ali.svgD3.selectAll('.featureGroup').size()).toEqual(1);
 	});
-	it('there should be exactly five features in the simple test svg', function(){
+	it('there should be exactly three features in the simple test svg', function(){
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		ali.drawLinearFeatures(linearFeatureCoords);
-		expect(ali.svgD3.selectAll('.feature').size()).toEqual(2);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(3);
 	});
 	it('the drawn features have the expected height', function(){
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
