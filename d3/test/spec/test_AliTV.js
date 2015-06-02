@@ -1315,6 +1315,6 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		ali.drawLinearFeatures(linearFeatureCoords);
-		expect(ali.svg.find('.feature').css("fill")).toEqual("#E2EDFF");
+		expect(ali.svg.find('.feature').css("fill")).toEqual("#e2edff");
 	});
 });
