@@ -1335,9 +1335,8 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 		$.each(linearKaryoCoords, function(key, value) {
 			if (featureKaryo === value.karyo) {
 				currentY = value.y;
-				currentX = value.x,
-					currentWidth = value.width;
-				console.log(currentWidth);
+				currentX = value.x;
+				currentWidth = value.width;
 			}
 		});
 		var currentFeature = {
@@ -1345,8 +1344,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 			"y": currentY,
 			"x": currentX,
 			"height": that.conf.features[value.group].height
-		}
-		console.log(that.filters.karyo.chromosomes[featureKaryo].reverse);
+		};
 		if (that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
 			currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length * (-1);
 			currentFeature.x = (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
