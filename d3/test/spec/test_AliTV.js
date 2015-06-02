@@ -1267,3 +1267,13 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
 	});
 });
+
+describe('The drawLinearFeatures method of AliTV objects is supposed to draw features on the chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	ali.setData({karyo: karyo3, features: features11});
+	ali.setFilters(filters3);
+	it('drawLinearFeatures method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearFeatures).toEqual('function');
+	});
+});
