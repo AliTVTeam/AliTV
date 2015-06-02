@@ -1312,6 +1312,38 @@ AliTV.prototype.hasTree = function() {
  * @param {Array} linearKaryoCoords: contains the coordinates for all chromosomes of the form: {karyo: 'karyo_name', x:0, y:0, width:10, height:10}.
  * @returns {Array} linearFeatureCoords: contains the coordinates for feature classes of the form: {id: "featureId", x:0, y:0,
  */
-AliTV.prototype.getLinearFeatureCoords = function() {
+AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
+	var that = this;
+	var linearFeatureCoords = [];
+	var supportedFeatures = [];
+	var features = {};
+	$.each(that.conf.features, function(key, value) {
+		supportedFeatures.push(key);
+	});
+	$.each(that.data.features, function(key, value) {
+		if (supportedFeatures.indexOf(value.group) !== -1) {
+			features[key] = value;
+		}
+	});
 
+	$.each(features, function(key, value) {
+		var featureKaryo = value.karyo;
+		var currentY;
+		var currentWidth;
+		$.each(linearKaryoCoords, function(key, value) {
+			if (featureKaryo === value.karyo) {
+				currentY = value.y;
+				currentWidth = value.width;
+			}
+		});
+		var currentFeature = {
+			"id": key,
+			"y": currentY,
+			"width": (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+			"x": (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+			"height": that.conf.features[value.group].height
+		};
+		linearFeatureCoords.push(currentFeature);
+	});
+	return linearFeatureCoords;
 };
