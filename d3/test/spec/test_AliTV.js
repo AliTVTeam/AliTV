@@ -1276,4 +1276,23 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 	it('drawLinearFeatures method is supposed to be a function', function(){
 		expect(typeof ali.drawLinearFeatures).toEqual('function');
 	});
+	it('there should be exactly one featureGroup in the simple test svg', function(){
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		expect(ali.svgD3.selectAll('.featureGroup').size()).toEqual(0);
+	});
+	it('there should be exactly five features in the simple test svg', function(){
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(2);
+	});
+	it('the drawn features have the expected height', function(){
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		// This test checks only the height attribute of the first selected element
+		expect(Number(ali.svgD3.selectAll('.feature').attr("height"))).toEqual(defaultConf.features.gen.height);
+	});
 });
