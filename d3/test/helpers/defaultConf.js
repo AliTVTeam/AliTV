@@ -28,5 +28,11 @@ var defaultConf =  {
 		tree: {
 			drawTree: false,
 			orientation: "left"
+		},
+		features: {
+			genes: {
+				form: "rect",
+				color: "#E2EDFF"
+			}
 		}
 };
