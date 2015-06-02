@@ -1292,7 +1292,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 /**
  * This method should check if the user provides tree data.
  * @returns {Boolean} Returns true when tree data exists and false when there is no tree data.
- * @author {Sonja Hohlfeld}
+ * @author Sonja Hohlfeld
  */
 AliTV.prototype.hasTree = function() {
 	if (typeof this.data.tree === "undefined" || $.isEmptyObject(this.data.tree) === true || this.data.tree === null) {
@@ -1300,4 +1300,17 @@ AliTV.prototype.hasTree = function() {
 	} else {
 		return true;
 	}
+};
+
+
+/**
+ * Calculates coordinates for different feature classes to draw in the linear layout.
+ * This function operates on the linearKaryoCoords.
+ * This function is primarily meant for internal usage, the user should not need to call this directly.
+ * @author Sonja Hohlfeld
+ * @param {Array} linearKaryoCoords: contains the coordinates for all chromosomes of the form: {karyo: 'karyo_name', x:0, y:0, width:10, height:10}.
+ * @returns {Array} linearFeatureCoords: contains the coordinates for feature classes of the form: {id: "featureId", x:0, y:0,
+ */
+AliTV.prototype.getLinearFeatureCoords = function() {
+
 };
