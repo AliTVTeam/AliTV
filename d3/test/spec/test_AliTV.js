@@ -1245,14 +1245,25 @@ describe('The hasTree method should check if the user provides tree data', funct
 
 describe('The getLinearFeatureCoords method is supposed to calculate coordinates for feature classes in the linear layout', function(){
 	var svg = $('<svg></svg>');
-	var wga = new AliTV(svg);
+	var ali = new AliTV(svg);
 	it('getLinearFeatureCoords method is supposed to be a function', function(){
-		expect(typeof wga.getLinearFeatureCoords).toEqual('function');
+		expect(typeof ali.getLinearFeatureCoords).toEqual('function');
 	});
 	it('getLinearFeatureCoords method is supposed to return linearFeatureCoords', function(){
-		wga.setData(data);
-		wga.setFilters(filters);
-		var linearFeatureCoords = wga.getLinearFeatureCoords();
+		ali.setData({karyo: karyo3, features: features11});
+		ali.setFilters(filters3);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toBeDefined();
+	});
+	it('getLinearFeatureCoords method is supposed to return the expected coordinates for three features on three chromosomes', function(){
+		ali.setData({karyo: karyo3, features: features11});
+		ali.setFilters(filters3);
+		var expectedFeatures = [{"id": "f1", "height": defaultConf.features.gen.height, "x": ali.data.features["f1"].start * 2000 / 2000, "width": Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, "y": 0},
+		                        {"id": "f2", "height": defaultConf.features.gen.height, "x": ali.data.features["f2"].start * 500 / 1000, "width": Math.abs(ali.data.features["f2"].end - ali.data.features["f2"].start) * 500 / 1000, "y": 485},
+		                        {"id": "f3", "height": defaultConf.features.gen.height, "x": ali.data.features["f3"].start * 500 / 1000, "width": Math.abs(ali.data.features["f3"].end - ali.data.features["f3"].start) * 500 / 1000, "y": 970}];
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		expect(linearFeatureCoords).toEqual(expectedFeatures);
 	});
 });

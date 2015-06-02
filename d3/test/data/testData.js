@@ -322,6 +322,12 @@ var features10 = {
 		'f9': {'karyo': 'c5', 'start': 100, 'end': 300},
 		'f10': {'karyo': 'c6', 'start': 100, 'end': 150}
 };
+
+var features11 = {
+		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
+		'f2': {'karyo': 'c2', 'start': 300, 'end': 400, 'group': "gen"},
+		'f3': {'karyo': 'c3', 'start': 500, 'end': 600, 'group': "gen"}
+};
 var links = {
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 };
