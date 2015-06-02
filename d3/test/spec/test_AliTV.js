@@ -1277,18 +1277,32 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		expect(typeof ali.drawLinearFeatures).toEqual('function');
 	});
 	it('there should be exactly one featureGroup in the simple test svg', function(){
+		ali.setData({karyo: karyo3, features: features11});
+		ali.setFilters(filters3);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		ali.drawLinearFeatures(linearFeatureCoords);
 		expect(ali.svgD3.selectAll('.featureGroup').size()).toEqual(1);
 	});
 	it('there should be exactly three features in the simple test svg', function(){
+		ali.setData({karyo: karyo3, features: features11});
+		ali.setFilters(filters3);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(3);
+	});
+	it('there should be exactly six features in a more complex test svg, two features are on a reverse chromosome', function(){
+		ali.setData({karyo: karyo10, features: features12});
+		ali.setFilters(filters16);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		ali.drawLinearFeatures(linearFeatureCoords);
 		expect(ali.svgD3.selectAll('.feature').size()).toEqual(3);
 	});
 	it('the drawn features have the expected height', function(){
+		ali.setData({karyo: karyo3, features: features11});
+		ali.setFilters(filters3);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		ali.drawLinearFeatures(linearFeatureCoords);
