@@ -30,9 +30,10 @@ var defaultConf =  {
 			orientation: "left"
 		},
 		features: {
-			genes: {
+			gen: {
 				form: "rect",
-				color: "#E2EDFF"
+				color: "#E2EDFF", 
+				height: 30
 			}
 		}
 };
