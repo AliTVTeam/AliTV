@@ -117,6 +117,12 @@ function AliTV(svg) {
 		tree: {
 			drawTree: false,
 			orientation: "left"
+		},
+		features: {
+			genes: {
+				form: "rect",
+				color: "#E2EDFF"
+			}
 		}
 	};
 	// Initialize svg size
