@@ -1381,7 +1381,8 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.attr("height", function(d) {
 			return d.height;
 		})
-		.style("fill", function() {
-			return "#E2EDFF";
+		.style("fill", function(d) {
+			var color = that.conf.features[that.data.features[d.id].group].color;
+			return color;
 		});
 };

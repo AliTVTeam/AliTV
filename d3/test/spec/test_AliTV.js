@@ -1309,4 +1309,12 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		// This test checks only the height attribute of the first selected element
 		expect(Number(ali.svgD3.selectAll('.feature').attr("height"))).toEqual(defaultConf.features.gen.height);
 	});
+	it('the drawn features should have the expected color which is defined in the default configuration', function(){
+		ali.setData({karyo: karyo3, features: features11});
+		ali.setFilters(filters3);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		expect(ali.svg.find('.feature').css("fill")).toEqual("#E2EDFF");
+	});
 });
