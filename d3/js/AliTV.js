@@ -1331,19 +1331,29 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 		var featureKaryo = value.karyo;
 		var currentY;
 		var currentWidth;
+		var currentX;
 		$.each(linearKaryoCoords, function(key, value) {
 			if (featureKaryo === value.karyo) {
 				currentY = value.y;
-				currentWidth = value.width;
+				currentX = value.x,
+					currentWidth = value.width;
+				console.log(currentWidth);
 			}
 		});
 		var currentFeature = {
 			"id": key,
 			"y": currentY,
-			"width": (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-			"x": (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+			"x": currentX,
 			"height": that.conf.features[value.group].height
-		};
+		}
+		console.log(that.filters.karyo.chromosomes[featureKaryo].reverse);
+		if (that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
+			currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length * (-1);
+			currentFeature.x = (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+		} else {
+			currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+			currentFeature.x = currentX - (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+		}
 		linearFeatureCoords.push(currentFeature);
 	});
 	return linearFeatureCoords;

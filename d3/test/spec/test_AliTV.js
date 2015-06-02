@@ -156,7 +156,7 @@ describe('The drawLinearKaryo method of AliTV objects is supposed to draw karyos
 		ali.drawLinearKaryo(linearKaryoCoords);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(4);
 	});
-	it('the karyo belongs to the genome_id = 1 and therefore the color should be "rgb(84, 48, 5)"', function(){
+	it('the karyo belongs to the genome_id = 1 and therefore the color should be "#49006a"', function(){
 		ali.setData({karyo:karyo,features:features, links:links});
 		ali.setFilters(filters);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
