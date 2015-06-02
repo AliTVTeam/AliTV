@@ -549,6 +549,7 @@ AliTV.prototype.drawLinear = function() {
 	var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
 	this.drawLinearKaryo(karyoCoords);
+	this.drawLinearFeatures(linearFeatureCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
 	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
@@ -1354,5 +1355,33 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
  * @param {Array} The array containing the coordinates of the features as returned by getLinearFeatureCoords()
  */
 AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
+	var that = this;
 
+	that.svgD3.selectAll(".featureGroup").remove();
+	that.svgD3.append("g")
+		.attr("class", "featureGroup")
+		.selectAll("path")
+		.data(linearFeatureCoords)
+		.enter()
+		.append("rect")
+		.attr("class", "feature")
+		.attr("x", function(d) {
+			if (d.width < 0) {
+				return d.x + d.width;
+			} else {
+				return d.x;
+			}
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.attr("width", function(d) {
+			return Math.abs(d.width);
+		})
+		.attr("height", function(d) {
+			return d.height;
+		})
+		.style("fill", function() {
+			return "#E2EDFF";
+		});
 };
