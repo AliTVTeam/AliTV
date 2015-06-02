@@ -1242,3 +1242,17 @@ describe('The hasTree method should check if the user provides tree data', funct
 		expect(ali.hasTree()).toEqual(true);
 	});
 });
+
+describe('The getLinearFeatureCoords method is supposed to calculate coordinates for feature classes in the linear layout', function(){
+	var svg = $('<svg></svg>');
+	var wga = new AliTV(svg);
+	it('getLinearFeatureCoords method is supposed to be a function', function(){
+		expect(typeof wga.getLinearFeatureCoords).toEqual('function');
+	});
+	it('getLinearFeatureCoords method is supposed to return linearFeatureCoords', function(){
+		wga.setData(data);
+		wga.setFilters(filters);
+		var linearFeatureCoords = wga.getLinearFeatureCoords();
+		expect(linearFeatureCoords).toBeDefined();
+	});
+});
