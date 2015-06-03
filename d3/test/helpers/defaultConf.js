@@ -34,6 +34,11 @@ var defaultConf =  {
 				form: "rect",
 				color: "#E2EDFF", 
 				height: 30
+			},
+			invertedRepeat: {
+				form: "arrow",
+				color: "#E2EDFF",
+				height: 30
 			}
 		}
 };
