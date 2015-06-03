@@ -566,12 +566,16 @@ AliTV.prototype.drawLinear = function() {
 	this.svgD3.selectAll(".treeGroup").remove();
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
-	var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
 	this.drawLinearKaryo(karyoCoords);
-	this.drawLinearFeatures(linearFeatureCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
+
+	if (this.conf.features.showAllFeatures === true) {
+		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
+		this.drawLinearFeatures(linearFeatureCoords);
+	}
+
 	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
 		this.drawPhylogeneticTree();
 		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth);
@@ -1360,7 +1364,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				currentWidth = value.width;
 			}
 		});
-		if (value.group === "gen") {
+		if (value.group === "gen" && that.conf.features.gen.visible === true) {
 			currentFeature = {
 				"id": key,
 				"y": currentY,
@@ -1376,7 +1380,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 			}
 			linearFeatureCoords.push(currentFeature);
 
-		} else if (value.group === "invertedRepeat") {
+		} else if (value.group === "invertedRepeat" && that.conf.features.gen.invertedRepeat.visible === true) {
 			currentFeature = {
 				"id": key
 			};
@@ -1424,53 +1428,56 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.data(linearFeatureCoords)
 		.enter();
 
-	shapes.append("rect")
-		.filter(function(d) {
-			return that.data.features[d.id].group === "gen";
-		})
-		.attr("class", "feature")
-		.attr("x", function(d) {
-			if (d.width < 0) {
-				return d.x + d.width;
-			} else {
+	if (that.conf.features.gen.visible === true) {
+		shapes.append("rect")
+			.filter(function(d) {
+				return that.data.features[d.id].group === "gen";
+			})
+			.attr("class", "feature")
+			.attr("x", function(d) {
+				if (d.width < 0) {
+					return d.x + d.width;
+				} else {
+					return d.x;
+				}
+			})
+			.attr("y", function(d) {
+				return d.y;
+			})
+			.attr("width", function(d) {
+				return Math.abs(d.width);
+			})
+			.attr("height", function(d) {
+				return d.height;
+			})
+			.style("fill", function(d) {
+				var color = that.conf.features[that.data.features[d.id].group].color;
+				return color;
+			});
+	}
+
+	if (that.conf.features.invertedRepeats.visible === true) {
+		var lineFunction = d3.svg.line()
+			.x(function(d) {
 				return d.x;
-			}
-		})
-		.attr("y", function(d) {
-			return d.y;
-		})
-		.attr("width", function(d) {
-			return Math.abs(d.width);
-		})
-		.attr("height", function(d) {
-			return d.height;
-		})
-		.style("fill", function(d) {
-			var color = that.conf.features[that.data.features[d.id].group].color;
-			return color;
-		});
-
-
-	var lineFunction = d3.svg.line()
-		.x(function(d) {
-			return d.x;
-		})
-		.y(function(d) {
-			return d.y;
-		})
-		.interpolate("linear");
-	shapes.append("path")
-		.filter(function(d) {
-			return that.data.features[d.id].group === "invertedRepeat";
-		})
-		.each(function(d, i) {
-			d3.select(this)
-				.attr("d", lineFunction(d.arrowData))
-				.attr("fill", function(d) {
-					var color = that.conf.features[that.data.features[d.id].group].color;
-					return color;
-				});
-		});
+			})
+			.y(function(d) {
+				return d.y;
+			})
+			.interpolate("linear");
+		shapes.append("path")
+			.filter(function(d) {
+				return that.data.features[d.id].group === "invertedRepeat";
+			})
+			.each(function(d, i) {
+				d3.select(this)
+					.attr("d", lineFunction(d.arrowData))
+					.attr("fill", function(d) {
+						var color = that.conf.features[that.data.features[d.id].group].color;
+						return color;
+					});
+			});
+	}
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
