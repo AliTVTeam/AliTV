@@ -106,6 +106,11 @@ var karyo10 = {
 			'c3': {'genome_id': 1, 'length': 1000, 'seq': null}
 		}
 };
+var karyo11 = {
+		'chromosomes': {
+			'c1': {'genome_id': 0, 'length': 1000, 'seq': null}
+		}
+};
 var filters4 = {'karyo': {
 		'order': ['c1', 'c2', 'c3', 'c4'],
 		'genome_order': [0, 1, 2],
@@ -354,6 +359,11 @@ var features12 = {
 		'f4': {'karyo': 'c2', 'start': 401, 'end': 420, 'group': "gen"},
 		'f5': {'karyo': 'c3', 'start': 45, 'end': 870, 'group': "gen"},
 		'f6': {'karyo': 'c3', 'start': 902, 'end': 976, 'group': "gen"}
+};
+
+var features13 = {
+		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
+		'f2': {'karyo': 'c1', 'start': 300, 'end': 400, 'group': "gen"}
 };
 
 var links = {
