@@ -86,6 +86,15 @@ function AliTV(svg) {
 	 * @property {Object}  tree									   - Contains the configuration objects for drawing a tree.
 	 * @property {Boolean} tree.drawTree						   - With this option it is possible to draw a phylogenetic tree ext to the chromosomes.
 	 * @property {Boolean} tree.orientation						   - Defines where the tree should be drawn.
+	 * @property {Object}  features								   - Contains the configuration for feature groups.
+	 * @property {Object}  features.gen							   - Contains the configuration for genes.
+	 * @property {String}  features.gen.form					   - Defines the shape of a gen.
+	 * @property {String}  features.gen.color					   - Defines the color of a gen.
+	 * @property {Number}  features.gen.height					   - Defines the height of the drawn gen onto the chromosome.
+	 * @property {Object}  features.invertedRepeat				   - Contains the configuration for inverted repeats.
+	 * @property {String}  features.invertedRepeat.form					   - Defines the shape of an inverted repeat.
+	 * @property {String}  features.invertedRepeat.color					   - Defines the color of an inverted repeat.
+	 * @property {Number}  features.invertedRepeat.height					   - Defines the height of the drawn inverted repeat onto the chromosome.
 	 */
 	this.conf = {
 		linear: {
@@ -121,6 +130,11 @@ function AliTV(svg) {
 		features: {
 			gen: {
 				form: "rect",
+				color: "#E2EDFF",
+				height: 30
+			},
+			invertedRepeat: {
+				form: "arrow",
 				color: "#E2EDFF",
 				height: 30
 			}
