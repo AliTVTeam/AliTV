@@ -93,45 +93,51 @@
       "group": "link"
     },
     "f10": {
-      "end": 123,
-      "karyo": "c7",
-      "start": 157,
+      "end": 300,
+      "karyo": "c1",
+      "start": 200,
       "group": "gen"
     },
     "f11": {
-      "end": 543,
-      "karyo": "c2",
-      "start": 702,
+      "end": 900,
+      "karyo": "c1",
+      "start": 880,
       "group": "gen"
     },
     "f12": {
-      "end": 12,
-      "karyo": "c2",
-      "start": 89,
+      "end": 42,
+      "karyo": "c1",
+      "start": 22,
       "group": "gen"
     },
     "f13": {
-      "end": 302,
-      "karyo": "c4",
-      "start": 400,
+      "end": 900,
+      "karyo": "c2",
+      "start": 700,
       "group": "gen"
     },
     "f14": {
-      "end": 217,
-      "karyo": "c4",
-      "start": 234,
+      "end": 345,
+      "karyo": "c2",
+      "start": 102,
       "group": "gen"
     },
     "f15": {
-      "end": 250,
-      "karyo": "c6",
-      "start": 270,
+      "end": 600,
+      "karyo": "c4",
+      "start": 555,
       "group": "gen"
     },
     "f16": {
-      "end": 111,
-      "karyo": "c3",
-      "start": 257,
+      "end": 156,
+      "karyo": "c4",
+      "start": 102,
+      "group": "gen"
+    },
+    "f17": {
+      "end": 345,
+      "karyo": "c4",
+      "start": 300,
       "group": "gen"
     }
   },

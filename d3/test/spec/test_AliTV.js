@@ -1259,9 +1259,9 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 	it('getLinearFeatureCoords method is supposed to return the expected coordinates for three features on three chromosomes', function(){
 		ali.setData({karyo: karyo3, features: features11});
 		ali.setFilters(filters3);
-		var expectedFeatures = [{"id": "f1", "height": defaultConf.features.gen.height, "x": ali.data.features["f1"].start * 1000 / 2000, "width": Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000 * (-1), "y": 0},
-		                        {"id": "f2", "height": defaultConf.features.gen.height, "x": ali.data.features["f2"].start * 500 / 1000, "width": Math.abs(ali.data.features["f2"].end - ali.data.features["f2"].start) * 500 / 1000 * (-1), "y": 485},
-		                        {"id": "f3", "height": defaultConf.features.gen.height, "x": ali.data.features["f3"].start * 500 / 1000, "width": Math.abs(ali.data.features["f3"].end - ali.data.features["f3"].start) * 500 / 1000 * (-1), "y": 970}];
+		var expectedFeatures = [{"id": "f1", "height": defaultConf.features.gen.height, "x": ali.data.features["f1"].start * 1000 / 2000, "width": Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, "y": 0},
+		                        {"id": "f2", "height": defaultConf.features.gen.height, "x": ali.data.features["f2"].start * 500 / 1000, "width": Math.abs(ali.data.features["f2"].end - ali.data.features["f2"].start) * 500 / 1000, "y": 485},
+		                        {"id": "f3", "height": defaultConf.features.gen.height, "x": ali.data.features["f3"].start * 500 / 1000, "width": Math.abs(ali.data.features["f3"].end - ali.data.features["f3"].start) * 500 / 1000, "y": 970}];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
