@@ -30,15 +30,18 @@ var defaultConf =  {
 			orientation: "left"
 		},
 		features: {
+			showAllFeatures: false,
 			gen: {
 				form: "rect",
-				color: "#E2EDFF", 
-				height: 30
+				color: "#E2EDFF",
+				height: 30,
+				visible: false
 			},
 			invertedRepeat: {
 				form: "arrow",
-				color: "#E2EDFF",
-				height: 30
+				color: "#e7d3e2",
+				height: 30,
+				visible: false
 			}
 		}
 };

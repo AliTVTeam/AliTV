@@ -87,14 +87,17 @@ function AliTV(svg) {
 	 * @property {Boolean} tree.drawTree						   - With this option it is possible to draw a phylogenetic tree ext to the chromosomes.
 	 * @property {Boolean} tree.orientation						   - Defines where the tree should be drawn.
 	 * @property {Object}  features								   - Contains the configuration for feature groups.
+	 * @property {Boolean} features.showAllFeatures				   - Defines if all features are drawn or not.
 	 * @property {Object}  features.gen							   - Contains the configuration for genes.
 	 * @property {String}  features.gen.form					   - Defines the shape of a gen.
 	 * @property {String}  features.gen.color					   - Defines the color of a gen.
 	 * @property {Number}  features.gen.height					   - Defines the height of the drawn gen onto the chromosome.
+	 * @property {Boolean} features.gen.visible					   - Defines if a gen is drawn or not.
 	 * @property {Object}  features.invertedRepeat				   - Contains the configuration for inverted repeats.
-	 * @property {String}  features.invertedRepeat.form					   - Defines the shape of an inverted repeat.
-	 * @property {String}  features.invertedRepeat.color					   - Defines the color of an inverted repeat.
-	 * @property {Number}  features.invertedRepeat.height					   - Defines the height of the drawn inverted repeat onto the chromosome.
+	 * @property {String}  features.invertedRepeat.form			   - Defines the shape of an inverted repeat.
+	 * @property {String}  features.invertedRepeat.color		   - Defines the color of an inverted repeat.
+	 * @property {Number}  features.invertedRepeat.height		   - Defines the height of the drawn inverted repeat onto the chromosome.
+	 * @property {Boolean} features.invertedRepeats.visible		   - Defines if an inverted repeat is drawn or not.
 	 */
 	this.conf = {
 		linear: {
@@ -128,15 +131,18 @@ function AliTV(svg) {
 			orientation: "left"
 		},
 		features: {
+			showAllFeatures: false,
 			gen: {
 				form: "rect",
 				color: "#E2EDFF",
-				height: 30
+				height: 30,
+				visible: false
 			},
 			invertedRepeat: {
 				form: "arrow",
 				color: "#e7d3e2",
-				height: 30
+				height: 30,
+				visible: false
 			}
 		}
 	};
