@@ -571,7 +571,7 @@ AliTV.prototype.drawLinear = function() {
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
 
-	if (this.conf.features.showAllFeatures === true) {
+	if (this.conf.features.showAllFeatures === true || this.conf.features.gen.visible === true || this.conf.features.invertedRepeat.visible === true) {
 		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 		this.drawLinearFeatures(linearFeatureCoords);
 	}
@@ -1364,7 +1364,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				currentWidth = value.width;
 			}
 		});
-		if (value.group === "gen" && that.conf.features.gen.visible === true) {
+		if (value.group === "gen" && (that.conf.features.gen.visible === true || that.conf.features.showAllFeatures === true)) {
 			currentFeature = {
 				"id": key,
 				"y": currentY,
@@ -1380,7 +1380,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 			}
 			linearFeatureCoords.push(currentFeature);
 
-		} else if (value.group === "invertedRepeat" && that.conf.features.gen.invertedRepeat.visible === true) {
+		} else if (value.group === "invertedRepeat" && (that.conf.features.invertedRepeat.visible === true || that.conf.features.showAllFeatures === true)) {
 			currentFeature = {
 				"id": key
 			};
@@ -1428,7 +1428,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.data(linearFeatureCoords)
 		.enter();
 
-	if (that.conf.features.gen.visible === true) {
+	if (that.conf.features.gen.visible === true || that.conf.features.showAllFeatures === true) {
 		shapes.append("rect")
 			.filter(function(d) {
 				return that.data.features[d.id].group === "gen";
@@ -1456,7 +1456,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			});
 	}
 
-	if (that.conf.features.invertedRepeats.visible === true) {
+	if (that.conf.features.invertedRepeat.visible === true || that.conf.features.showAllFeatures === true) {
 		var lineFunction = d3.svg.line()
 			.x(function(d) {
 				return d.x;

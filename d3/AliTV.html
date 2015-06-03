@@ -38,6 +38,9 @@
 		$('#showAllChromosomes').attr('checked', true);
 		$('#skipChromosomesWithoutLinks').attr('checked', false);
 		$('#onlyShowAdjacentLinks').attr('checked', true);
+		$('#showFeatures').attr('checked', false);
+		$('#showGenes').attr('checked', false);
+		$('#showInvertedRepeats').attr('checked', false);
 		$('#drawTree').attr('checked', false);
 		
 		});
@@ -154,6 +157,41 @@
 		if($('#treeRight').is(':checked')){
 			wga.conf.tree.orientation = "right";
 		} 
+	});	
+	});
+	
+	$(function(){$('#showFeatures').change(function() {
+		if($('#showFeatures').is(':checked')){
+			wga.conf.features.showAllFeatures = true;
+			$("#showGenes").attr("disabled", true);
+			$("#showInvertedRepeats").attr("disabled", true);
+		} else {
+			wga.conf.features.showAllFeatures = false;
+			$("#showGenes").attr("disabled", false);
+			$("#showInvertedRepeats").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showGenes').change(function() {
+		if($('#showGenes').is(':checked')){
+			wga.conf.features.gen.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			wga.conf.features.gen.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showInvertedRepeats').change(function() {
+		if($('#showInvertedRepeats').is(':checked')){
+			wga.conf.features.invertedRepeat.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			wga.conf.features.invertedRepeat.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
 	});	
 	});
 
