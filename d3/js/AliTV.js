@@ -1321,7 +1321,7 @@ AliTV.prototype.hasTree = function() {
 
 
 /**
- * Calculates coordinates for different feature classes to draw in the linear layout.
+ * Calculates coordinates for different shapes according to the different feature classes in order to draw in the linear layout.
  * This function operates on the linearKaryoCoords.
  * This function is primarily meant for internal usage, the user should not need to call this directly.
  * @author Sonja Hohlfeld
