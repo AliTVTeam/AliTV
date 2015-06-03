@@ -135,7 +135,7 @@ function AliTV(svg) {
 			},
 			invertedRepeat: {
 				form: "arrow",
-				color: "#E2EDFF",
+				color: "#e7d3e2",
 				height: 30
 			}
 		}
