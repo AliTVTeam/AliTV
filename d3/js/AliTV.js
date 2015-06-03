@@ -1471,7 +1471,10 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.each(function(d, i) {
 			d3.select(this)
 				.attr("d", lineFunction(d.arrowData))
-				.attr("fill", "#e7d3e2");
+				.attr("fill", function(d) {
+					var color = that.conf.features[that.data.features[d.id].group].color;
+					return color;
+				});
 		});
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
