@@ -1423,12 +1423,16 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 	var that = this;
 
 	that.svgD3.selectAll(".featureGroup").remove();
-	that.svgD3.append("g")
+	var shapes = that.svgD3.append("g")
 		.attr("class", "featureGroup")
 		.selectAll("path")
 		.data(linearFeatureCoords)
-		.enter()
-		.append("rect")
+		.enter();
+
+	shapes.append("rect")
+		.filter(function(d) {
+			return that.data.features[d.id].group === "gen";
+		})
 		.attr("class", "feature")
 		.attr("x", function(d) {
 			if (d.width < 0) {
@@ -1451,7 +1455,27 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			return color;
 		});
 
+
+	var lineFunction = d3.svg.line()
+		.x(function(d) {
+			return d.x;
+		})
+		.y(function(d) {
+			return d.y;
+		})
+		.interpolate("linear");
+	shapes.append("path")
+		.filter(function(d) {
+			return that.data.features[d.id].group === "invertedRepeat";
+		})
+		.each(function(d, i) {
+			d3.select(this)
+				.attr("d", lineFunction(d.arrowData))
+				.attr("fill", "#e7d3e2");
+		});
+
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
+
 };
