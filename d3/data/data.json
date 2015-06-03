@@ -139,6 +139,12 @@
       "karyo": "c4",
       "start": 300,
       "group": "gen"
+    },
+    "f18": {
+      "end": 950,
+      "karyo": "c8",
+      "start": 300,
+      "group": "inverted repeat"
     }
   },
   "karyo": {

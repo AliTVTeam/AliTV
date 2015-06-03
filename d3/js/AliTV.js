@@ -757,6 +757,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
  */
 AliTV.prototype.drawCircular = function() {
 	this.svgD3.selectAll(".treeGroup").remove();
+	this.svgD3.selectAll(".featureGroup").remove();
 	var karyoCoords = this.getCircularKaryoCoords();
 	var tickCoords = this.getCircularTickCoords(karyoCoords);
 	this.drawCircularTicks(tickCoords);
@@ -1393,4 +1394,8 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			var color = that.conf.features[that.data.features[d.id].group].color;
 			return color;
 		});
+
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
 };
