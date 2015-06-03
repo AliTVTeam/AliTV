@@ -1341,34 +1341,76 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 			features[key] = value;
 		}
 	});
-
 	$.each(features, function(key, value) {
-		var featureKaryo = value.karyo;
-		var currentY;
-		var currentWidth;
-		var currentX;
-		$.each(linearKaryoCoords, function(key, value) {
-			if (featureKaryo === value.karyo) {
-				currentY = value.y;
-				currentX = value.x;
-				currentWidth = value.width;
+		if (value.group === "gen") {
+			var featureKaryo = value.karyo;
+			var currentY;
+			var currentWidth;
+			var currentX;
+			$.each(linearKaryoCoords, function(key, value) {
+				if (featureKaryo === value.karyo) {
+					currentY = value.y;
+					currentX = value.x;
+					currentWidth = value.width;
+				}
+			});
+			var currentFeature = {
+				"id": key,
+				"y": currentY,
+				"x": currentX,
+				"height": that.conf.features[value.group].height
+			};
+			if (that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
+				currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+				currentFeature.x = (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+			} else {
+				currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+				currentFeature.x = currentX - (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length * (-1);
 			}
-		});
-		var currentFeature = {
-			"id": key,
-			"y": currentY,
-			"x": currentX,
-			"height": that.conf.features[value.group].height
-		};
-		if (that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
-			currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
-			currentFeature.x = (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
-		} else {
-			currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
-			currentFeature.x = currentX - (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length * (-1);
+			linearFeatureCoords.push(currentFeature);
+
+		} else if (value.group === "invertedRepeat") {
+			var featureKaryo = value.karyo;
+			var currentY;
+			var currentWidth;
+			var currentX;
+			$.each(linearKaryoCoords, function(key, value) {
+				if (featureKaryo === value.karyo) {
+					currentY = value.y;
+					currentX = value.x;
+					currentWidth = value.width;
+				}
+			});
+			var currentFeature = {
+				"id": key
+			};
+			currentFeature.arrowData = [];
+			currentFeature.arrowData.push({
+				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+				y: currentY + 1 / 5 * that.conf.features[value.group].height
+			}, {
+				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+				y: currentY + 1 / 5 * that.conf.features[value.group].height
+			}, {
+				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+				y: currentY
+			}, {
+				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+				y: currentY + 1 / 2 * that.conf.features[value.group].height
+			}, {
+				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+				y: currentY + that.conf.features[value.group].height
+			}, {
+				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+				y: currentY + that.conf.features[value.group].height - 1 / 5 * that.conf.features[value.group].height
+			}, {
+				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+				y: currentY + that.conf.features[value.group].height - 1 / 5 * that.conf.features[value.group].height
+			});
+			linearFeatureCoords.push(currentFeature);
 		}
-		linearFeatureCoords.push(currentFeature);
 	});
+	console.log(linearFeatureCoords);
 	return linearFeatureCoords;
 };
 
