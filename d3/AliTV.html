@@ -133,6 +133,7 @@
 			$("#treeLeft").attr("disabled", false);
 			$("#treeRight").attr("disabled", false);				
 			}
+			
 		} else {
 			wga.conf.tree.drawTree = false;
 			$("#treeWidth").attr("disabled", true);
@@ -155,10 +156,9 @@
 		} 
 	});	
 	});
-	
 
 });
-});
+}); 
 	
 	function changeLinearSpacer(){
 		var spacer = $("#linearSpacer").val();
@@ -317,6 +317,10 @@
  					<br>
  				</fieldset>
  			</form> 
+ 		</div>
+ 		 		<h3><span class="number">5</span>Add features</h3>
+ 		<div>
+ 			
  		</div>
 		<button type="submit" onclick="setNewParameters()">Apply</button>		
  	</div>
