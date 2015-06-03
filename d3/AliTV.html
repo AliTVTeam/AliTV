@@ -318,11 +318,22 @@
  				</fieldset>
  			</form> 
  		</div>
- 		 		<h3><span class="number">5</span>Add features</h3>
+ 		<h3><span class="number">5</span>Draw provided features</h3>
  		<div>
- 			
+			<form>
+ 				<fieldset>
+ 					 Show all features: <input id="showFeatures" type="checkbox">
+ 					<br>
+ 					 Show genes: <input id="showGenes" type="checkbox">
+ 					<br>
+ 		 			Show inverted repeats: <input id="showInvertedRepeats" type="checkbox">
+ 					<br>
+ 				</fieldset>
+ 			</form> 
  		</div>
-		<button type="submit" onclick="setNewParameters()">Apply</button>		
+ 		<div>
+		<button type="submit" onclick="setNewParameters()">Apply</button>					
+ 		</div>
  	</div>
  	<svg id='wgaCanvas' style="margin:50px"></svg>
  </div>
