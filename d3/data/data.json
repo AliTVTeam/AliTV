@@ -141,9 +141,27 @@
       "group": "gen"
     },
     "f18": {
-      "end": 950,
+      "end": 400,
+      "karyo": "c7",
+      "start": 100,
+      "group": "invertedRepeat"
+    },
+    "f19": {
+      "end": 400,
+      "karyo": "c6",
+      "start": 100,
+      "group": "invertedRepeat"
+    },
+    "f20": {
+      "end": 1985,
+      "karyo": "c1",
+      "start": 1700,
+      "group": "invertedRepeat"
+    },
+    "f21": {
+      "end": 1942,
       "karyo": "c8",
-      "start": 300,
+      "start": 42,
       "group": "invertedRepeat"
     }
   },
