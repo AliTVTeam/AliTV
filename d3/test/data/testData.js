@@ -370,6 +370,13 @@ var features14 = {
 		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "invertedRepeat"}
 };
 
+var features15 = {
+		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
+		'f2': {'karyo': 'c1', 'start': 442, 'end': 488, 'group': "gen"},
+		'f3': {'karyo': 'c2', 'start': 43, 'end': 50, 'group': "invertedRepeat"},
+		'f4': {'karyo': 'c2', 'start': 401, 'end': 420, 'group': "invertedRepeat"}
+};
+
 var links = {
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 };
