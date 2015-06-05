@@ -1357,6 +1357,8 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 		var currentWidth;
 		var currentX;
 		var currentFeature = {};
+		var featureId = key;
+
 		$.each(linearKaryoCoords, function(key, value) {
 			if (featureKaryo === value.karyo) {
 				currentY = value.y;
@@ -1364,7 +1366,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				currentWidth = value.width;
 			}
 		});
-		if (value.group === "gen" && (that.conf.features.gen.visible === true || that.conf.features.showAllFeatures === true)) {
+		if (that.conf.features[that.data.features[featureId].group].form === "rect" && (that.conf.features[that.data.features[featureId].group].form === true || that.conf.features.showAllFeatures === true)) {
 			currentFeature = {
 				"id": key,
 				"y": currentY,
@@ -1380,7 +1382,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 			}
 			linearFeatureCoords.push(currentFeature);
 
-		} else if (value.group === "invertedRepeat" && (that.conf.features.invertedRepeat.visible === true || that.conf.features.showAllFeatures === true)) {
+		} else if (that.conf.features[that.data.features[featureId].group].form === "arrow" && (that.conf.features[that.data.features[featureId].group].visible === true || that.conf.features.showAllFeatures === true)) {
 			currentFeature = {
 				"id": key
 			};
