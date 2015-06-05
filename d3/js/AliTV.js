@@ -1366,7 +1366,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				currentWidth = value.width;
 			}
 		});
-		if (that.conf.features[that.data.features[featureId].group].form === "rect" && (that.conf.features[that.data.features[featureId].group].form === true || that.conf.features.showAllFeatures === true)) {
+		if (that.conf.features[that.data.features[featureId].group].form === "rect" && (that.conf.features[that.data.features[featureId].group].visible === true || that.conf.features.showAllFeatures === true)) {
 			currentFeature = {
 				"id": key,
 				"y": currentY,
@@ -1430,62 +1430,55 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.data(linearFeatureCoords)
 		.enter();
 
-	if (that.conf.features.gen.visible === true || that.conf.features.showAllFeatures === true) {
-		shapes.append("rect")
-			.filter(function(d) {
-				return that.data.features[d.id].group === "gen";
-			})
-			.attr("class", "feature")
-			.attr("x", function(d) {
-				if (d.width < 0) {
-					return d.x + d.width;
-				} else {
-					return d.x;
-				}
-			})
-			.attr("y", function(d) {
-				return d.y;
-			})
-			.attr("width", function(d) {
-				return Math.abs(d.width);
-			})
-			.attr("height", function(d) {
-				return d.height;
-			})
-			.style("fill", function(d) {
-				var color = that.conf.features[that.data.features[d.id].group].color;
-				return color;
-			});
-		if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
-			that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
-		}
-
-	}
-
-	if (that.conf.features.invertedRepeat.visible === true || that.conf.features.showAllFeatures === true) {
-		var lineFunction = d3.svg.line()
-			.x(function(d) {
+	shapes.append("rect")
+		.filter(function(d) {
+			return that.conf.features[that.data.features[d.id].group].form === "rect" && (that.conf.features[that.data.features[d.id].group].visible === true || that.conf.features.showAllFeatures === true);
+		})
+		.attr("class", "feature")
+		.attr("x", function(d) {
+			if (d.width < 0) {
+				return d.x + d.width;
+			} else {
 				return d.x;
-			})
-			.y(function(d) {
-				return d.y;
-			})
-			.interpolate("linear");
-		shapes.append("path")
-			.filter(function(d) {
-				return that.data.features[d.id].group === "invertedRepeat";
-			})
-			.each(function(d, i) {
-				d3.select(this)
-					.attr("d", lineFunction(d.arrowData))
-					.attr("fill", function(d) {
-						var color = that.conf.features[that.data.features[d.id].group].color;
-						return color;
-					});
-			});
-		if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
-			that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
-		}
+			}
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.attr("width", function(d) {
+			return Math.abs(d.width);
+		})
+		.attr("height", function(d) {
+			return d.height;
+		})
+		.style("fill", function(d) {
+			var color = that.conf.features[that.data.features[d.id].group].color;
+			return color;
+		});
+
+
+	var lineFunction = d3.svg.line()
+		.x(function(d) {
+			return d.x;
+		})
+		.y(function(d) {
+			return d.y;
+		})
+		.interpolate("linear");
+	shapes.append("path")
+		.filter(function(d) {
+			return that.conf.features[that.data.features[d.id].group].form === "arrow" && (that.conf.features[that.data.features[d.id].group].visible === true || that.conf.features.showAllFeatures === true);
+		})
+		.each(function(d, i) {
+			d3.select(this)
+				.attr("d", lineFunction(d.arrowData))
+				.attr("fill", function(d) {
+					var color = that.conf.features[that.data.features[d.id].group].color;
+					return color;
+				});
+		});
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
 
 
