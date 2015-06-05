@@ -1273,7 +1273,13 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
 		console.log(ali);
-		var expectedFeatures = [{"id": "f1", arrowData: [{x: ali.data.features["f1"].start * 1000/2000, y: 0 +  1/5 * defaultConf.features.invertedRepeat.height}, {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 +  1/5 * defaultConf.features.invertedRepeat.height}, {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: defaultConf.features.invertedRepeat.height}]}];
+		var expectedFeatures = [{"id": "f1", arrowData: [{x: ali.data.features["f1"].start * 1000/2000, y: 0 +  1/5 * defaultConf.features.invertedRepeat.height}, 
+		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + 1/5 * defaultConf.features.invertedRepeat.height}, 
+		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0}, 
+		                                                 {x: ali.data.features["f1"].start * 1000/2000 + Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 +  1/2 * defaultConf.features.invertedRepeat.height}, 
+		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + defaultConf.features.invertedRepeat.height},
+		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + 4/5 * defaultConf.features.invertedRepeat.height},
+		                                                 {x: ali.data.features["f1"].start * 1000/2000, y: 0 + 4/5 * defaultConf.features.invertedRepeat.height}]}];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
