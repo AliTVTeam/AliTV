@@ -1387,28 +1387,53 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				"id": key
 			};
 			currentFeature.arrowData = [];
-			currentFeature.arrowData.push({
-				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-				y: currentY + 1 / 5 * that.conf.features[value.group].height
-			}, {
-				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-				y: currentY + 1 / 5 * that.conf.features[value.group].height
-			}, {
-				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-				y: currentY
-			}, {
-				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-				y: currentY + 1 / 2 * that.conf.features[value.group].height
-			}, {
-				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-				y: currentY + that.conf.features[value.group].height
-			}, {
-				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-				y: currentY + that.conf.features[value.group].height - 1 / 5 * that.conf.features[value.group].height
-			}, {
-				x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-				y: currentY + that.conf.features[value.group].height - 1 / 5 * that.conf.features[value.group].height
-			});
+			if (that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
+				currentFeature.arrowData.push({
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 5 * that.conf.features[value.group].height
+				}, {
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 5 * that.conf.features[value.group].height
+				}, {
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY
+				}, {
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 2 * that.conf.features[value.group].height
+				}, {
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + that.conf.features[value.group].height
+				}, {
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + that.conf.features[value.group].height - 1 / 5 * that.conf.features[value.group].height
+				}, {
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + that.conf.features[value.group].height - 1 / 5 * that.conf.features[value.group].height
+				});
+			} else {
+				currentFeature.arrowData.push({
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 5 * that.conf.features[value.group].height
+				}, {
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 5 * that.conf.features[value.group].height
+				}, {
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY
+				}, {
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 2 * that.conf.features[value.group].height
+				}, {
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + that.conf.features[value.group].height
+				}, {
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + that.conf.features[value.group].height - 1 / 5 * that.conf.features[value.group].height
+				}, {
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + that.conf.features[value.group].height - 1 / 5 * that.conf.features[value.group].height
+				});
+			}
 			linearFeatureCoords.push(currentFeature);
 		}
 	});
