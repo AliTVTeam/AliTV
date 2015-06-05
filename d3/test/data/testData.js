@@ -366,6 +366,10 @@ var features13 = {
 		'f2': {'karyo': 'c1', 'start': 300, 'end': 400, 'group': "gen"}
 };
 
+var features14 = {
+		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "invertedRepeat"}
+};
+
 var links = {
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 };
