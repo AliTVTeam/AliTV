@@ -1496,6 +1496,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		})
 		.each(function(d, i) {
 			d3.select(this)
+				.attr("class", "feature")
 				.attr("d", lineFunction(d.arrowData))
 				.attr("fill", function(d) {
 					var color = that.conf.features[that.data.features[d.id].group].color;
