@@ -1456,6 +1456,10 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 				var color = that.conf.features[that.data.features[d.id].group].color;
 				return color;
 			});
+		if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+			that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+		}
+
 	}
 
 	if (that.conf.features.invertedRepeat.visible === true || that.conf.features.showAllFeatures === true) {
@@ -1479,10 +1483,10 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 						return color;
 					});
 			});
+		if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+			that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+		}
 	}
 
-	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
-		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
-	}
 
 };
