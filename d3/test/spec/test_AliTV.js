@@ -1328,6 +1328,13 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		// This test checks only the height attribute of the first selected element
 		expect(Number(ali.svgD3.selectAll('.feature').attr("height"))).toEqual(defaultConf.features.gen.height);
 	});
+	it('if a tree is drawn the feature group should be transformed', function(){
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.tree.drawTree = true;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.featureGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
+	});
 //	it('the drawn features should have the expected color which is defined in the default configuration', function(){
 //		ali.setData({karyo: karyo3, features: features11});
 //		ali.setFilters(filters3);
