@@ -1259,6 +1259,8 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 	it('getLinearFeatureCoords method is supposed to return the expected coordinates for three features on three chromosomes', function(){
 		ali.setData({karyo: karyo3, features: features11});
 		ali.setFilters(filters3);
+		ali.conf.features.showAllFeatures = true;
+		console.log(ali);
 		var expectedFeatures = [{"id": "f1", "height": defaultConf.features.gen.height, "x": ali.data.features["f1"].start * 1000 / 2000, "width": Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, "y": 0},
 		                        {"id": "f2", "height": defaultConf.features.gen.height, "x": ali.data.features["f2"].start * 500 / 1000, "width": Math.abs(ali.data.features["f2"].end - ali.data.features["f2"].start) * 500 / 1000, "y": 485},
 		                        {"id": "f3", "height": defaultConf.features.gen.height, "x": ali.data.features["f3"].start * 500 / 1000, "width": Math.abs(ali.data.features["f3"].end - ali.data.features["f3"].start) * 500 / 1000, "y": 970}];
@@ -1273,6 +1275,7 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 	var ali = new AliTV(svg);
 	ali.setData({karyo: karyo3, features: features11});
 	ali.setFilters(filters3);
+	ali.conf.features.showAllFeatures = true;
 	it('drawLinearFeatures method is supposed to be a function', function(){
 		expect(typeof ali.drawLinearFeatures).toEqual('function');
 	});
