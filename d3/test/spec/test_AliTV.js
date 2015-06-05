@@ -1309,8 +1309,8 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		ali.drawLinearFeatures(linearFeatureCoords);
 		expect(ali.svgD3.selectAll('.feature').size()).toEqual(4);
 	});
-	it('there should be exactly six features in a more complex test svg, two features are on a reverse chromosome', function(){
-		ali.setData({karyo: karyo10, features: features12});
+	it('there should be exactly four features in a more complex test svg, two features are on a reverse chromosome', function(){
+		ali.setData({karyo: karyo10, features: features15});
 		ali.setFilters(filters16);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
