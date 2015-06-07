@@ -99,6 +99,18 @@ var karyo9 = {
 			'c6': {'genome_id': 2, 'length': 250, 'seq': null}
 		}
 };
+var karyo10 = {
+		'chromosomes': {
+			'c1': {'genome_id': 0, 'length': 500, 'seq': null},
+			'c2': {'genome_id': 0, 'length': 500, 'seq': null},
+			'c3': {'genome_id': 1, 'length': 1000, 'seq': null}
+		}
+};
+var karyo11 = {
+		'chromosomes': {
+			'c1': {'genome_id': 0, 'length': 1000, 'seq': null}
+		}
+};
 var filters4 = {'karyo': {
 		'order': ['c1', 'c2', 'c3', 'c4'],
 		'genome_order': [0, 1, 2],
@@ -247,6 +259,17 @@ var filters15 = {'karyo': {
 	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000}
 }
 
+var filters16 = {'karyo': {
+	'order': ['c1', 'c2', 'c3'],
+	'genome_order': [0, 1],
+	'chromosomes': {
+		'c1': {'reverse': false, 'visible': true},
+		'c2': {'reverse': true, 'visible': true},
+		'c3': {'reverse': false, 'visible': true}
+	}},
+	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000}
+};
+
 var features = {
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
@@ -322,6 +345,47 @@ var features10 = {
 		'f9': {'karyo': 'c5', 'start': 100, 'end': 300},
 		'f10': {'karyo': 'c6', 'start': 100, 'end': 150}
 };
+
+var features11 = {
+		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
+		'f2': {'karyo': 'c2', 'start': 300, 'end': 400, 'group': "gen"},
+		'f3': {'karyo': 'c3', 'start': 500, 'end': 600, 'group': "gen"}
+};
+
+var features12 = {
+		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
+		'f2': {'karyo': 'c1', 'start': 442, 'end': 488, 'group': "gen"},
+		'f3': {'karyo': 'c2', 'start': 43, 'end': 50, 'group': "gen"},
+		'f4': {'karyo': 'c2', 'start': 401, 'end': 420, 'group': "gen"},
+		'f5': {'karyo': 'c3', 'start': 45, 'end': 870, 'group': "gen"},
+		'f6': {'karyo': 'c3', 'start': 902, 'end': 976, 'group': "gen"}
+};
+
+var features13 = {
+		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
+		'f2': {'karyo': 'c1', 'start': 300, 'end': 400, 'group': "gen"}
+};
+
+var features14 = {
+		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "invertedRepeat"}
+};
+
+var features15 = {
+		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
+		'f2': {'karyo': 'c1', 'start': 442, 'end': 488, 'group': "gen"},
+		'f3': {'karyo': 'c2', 'start': 43, 'end': 50, 'group': "invertedRepeat"},
+		'f4': {'karyo': 'c2', 'start': 401, 'end': 420, 'group': "invertedRepeat"}
+};
+
+var features16 = {
+		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
+		'f2': {'karyo': 'c1', 'start': 442, 'end': 488, 'group': "gen"},
+		'f3': {'karyo': 'c2', 'start': 43, 'end': 50, 'group': "invertedRepeat"},
+		'f4': {'karyo': 'c2', 'start': 401, 'end': 420, 'group': "invertedRepeat"},
+		'f5': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "link"},
+		'f6': {'karyo': 'c2', 'start': 50, 'end': 250, 'group': "link"}
+};
+
 var links = {
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 };
@@ -387,6 +451,10 @@ var links13 = {
 		"l5": {'source': 'f8', 'target': 'f10', 'identity': 100}
 };
 
+var links14 = {
+   	 "l1": {'source': 'f5', 'target': 'f6', 'identity': 90}
+	 };
+
 var tree = {
 		"children": [{
 			"children": [{
@@ -432,3 +500,4 @@ var data4 = {'karyo': karyo4, 'features': features, 'links': links};
 var data5 = {'karyo': karyo, 'features': features, 'links': links, "tree": tree};
 var data6 = {'karyo': karyo, 'features': features, 'links': links, "tree": {}};
 var data7 = {'karyo': karyo, 'features': features, 'links': links, "tree": null};
+var data8 = {'karyo': karyo, 'features': features16, "links": links14, "tree": tree};

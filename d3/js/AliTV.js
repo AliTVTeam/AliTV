@@ -86,6 +86,18 @@ function AliTV(svg) {
 	 * @property {Object}  tree									   - Contains the configuration objects for drawing a tree.
 	 * @property {Boolean} tree.drawTree						   - With this option it is possible to draw a phylogenetic tree ext to the chromosomes.
 	 * @property {Boolean} tree.orientation						   - Defines where the tree should be drawn.
+	 * @property {Object}  features								   - Contains the configuration for feature groups.
+	 * @property {Boolean} features.showAllFeatures				   - Defines if all features are drawn or not.
+	 * @property {Object}  features.gen							   - Contains the configuration for genes.
+	 * @property {String}  features.gen.form					   - Defines the shape of a gen.
+	 * @property {String}  features.gen.color					   - Defines the color of a gen.
+	 * @property {Number}  features.gen.height					   - Defines the height of the drawn gen onto the chromosome.
+	 * @property {Boolean} features.gen.visible					   - Defines if a gen is drawn or not.
+	 * @property {Object}  features.invertedRepeat				   - Contains the configuration for inverted repeats.
+	 * @property {String}  features.invertedRepeat.form			   - Defines the shape of an inverted repeat.
+	 * @property {String}  features.invertedRepeat.color		   - Defines the color of an inverted repeat.
+	 * @property {Number}  features.invertedRepeat.height		   - Defines the height of the drawn inverted repeat onto the chromosome.
+	 * @property {Boolean} features.invertedRepeats.visible		   - Defines if an inverted repeat is drawn or not.
 	 */
 	this.conf = {
 		linear: {
@@ -117,6 +129,21 @@ function AliTV(svg) {
 		tree: {
 			drawTree: false,
 			orientation: "left"
+		},
+		features: {
+			showAllFeatures: false,
+			gen: {
+				form: "rect",
+				color: "#E2EDFF",
+				height: 30,
+				visible: false
+			},
+			invertedRepeat: {
+				form: "arrow",
+				color: "#e7d3e2",
+				height: 30,
+				visible: false
+			}
 		}
 	};
 	// Initialize svg size
@@ -543,6 +570,12 @@ AliTV.prototype.drawLinear = function() {
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
+
+	if (this.conf.features.showAllFeatures === true || this.conf.features.gen.visible === true || this.conf.features.invertedRepeat.visible === true) {
+		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
+		this.drawLinearFeatures(linearFeatureCoords);
+	}
+
 	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
 		this.drawPhylogeneticTree();
 		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth);
@@ -748,6 +781,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
  */
 AliTV.prototype.drawCircular = function() {
 	this.svgD3.selectAll(".treeGroup").remove();
+	this.svgD3.selectAll(".featureGroup").remove();
 	var karyoCoords = this.getCircularKaryoCoords();
 	var tickCoords = this.getCircularTickCoords(karyoCoords);
 	this.drawCircularTicks(tickCoords);
@@ -1285,7 +1319,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 /**
  * This method should check if the user provides tree data.
  * @returns {Boolean} Returns true when tree data exists and false when there is no tree data.
- * @author {Sonja Hohlfeld}
+ * @author Sonja Hohlfeld
  */
 AliTV.prototype.hasTree = function() {
 	if (typeof this.data.tree === "undefined" || $.isEmptyObject(this.data.tree) === true || this.data.tree === null) {
@@ -1293,4 +1327,185 @@ AliTV.prototype.hasTree = function() {
 	} else {
 		return true;
 	}
+};
+
+
+/**
+ * Calculates coordinates for different shapes according to the different feature classes in order to draw in the linear layout.
+ * This function operates on the linearKaryoCoords.
+ * This function is primarily meant for internal usage, the user should not need to call this directly.
+ * @author Sonja Hohlfeld
+ * @param {Array} linearKaryoCoords: contains the coordinates for all chromosomes of the form: {karyo: 'karyo_name', x:0, y:0, width:10, height:10}.
+ * @returns {Array} linearFeatureCoords: contains the coordinates for feature classes of the form: {id: "featureId", x:0, y:0, width: 45, height: 10}
+ */
+AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
+	var that = this;
+	var linearFeatureCoords = [];
+	var supportedFeatures = [];
+	var features = {};
+	$.each(that.conf.features, function(key, value) {
+		supportedFeatures.push(key);
+	});
+	$.each(that.data.features, function(key, value) {
+		if (supportedFeatures.indexOf(value.group) !== -1) {
+			features[key] = value;
+		}
+	});
+	$.each(features, function(key, value) {
+		var featureKaryo = value.karyo;
+		var currentY;
+		var currentWidth;
+		var currentX;
+		var currentFeature = {};
+		var featureId = key;
+
+		$.each(linearKaryoCoords, function(key, value) {
+			if (featureKaryo === value.karyo) {
+				currentY = value.y;
+				currentX = value.x;
+				currentWidth = value.width;
+			}
+		});
+		if (that.conf.features[that.data.features[featureId].group].form === "rect" && (that.conf.features[that.data.features[featureId].group].visible === true || that.conf.features.showAllFeatures === true)) {
+			currentFeature = {
+				"id": key,
+				"y": currentY,
+				"x": currentX,
+				"height": that.conf.features[value.group].height
+			};
+			if (that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
+				currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+				currentFeature.x = (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+			} else {
+				currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+				currentFeature.x = currentX - (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length * (-1);
+			}
+			linearFeatureCoords.push(currentFeature);
+
+		} else if (that.conf.features[that.data.features[featureId].group].form === "arrow" && (that.conf.features[that.data.features[featureId].group].visible === true || that.conf.features.showAllFeatures === true)) {
+			currentFeature = {
+				"id": key
+			};
+			currentFeature.arrowData = [];
+			if (that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
+				currentFeature.arrowData.push({
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 5 * that.conf.features[value.group].height
+				}, {
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 5 * that.conf.features[value.group].height
+				}, {
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY
+				}, {
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 2 * that.conf.features[value.group].height
+				}, {
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + that.conf.features[value.group].height
+				}, {
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + that.conf.features[value.group].height - 1 / 5 * that.conf.features[value.group].height
+				}, {
+					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + that.conf.features[value.group].height - 1 / 5 * that.conf.features[value.group].height
+				});
+			} else {
+				currentFeature.arrowData.push({
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 5 * that.conf.features[value.group].height
+				}, {
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 5 * that.conf.features[value.group].height
+				}, {
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY
+				}, {
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 2 * that.conf.features[value.group].height
+				}, {
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + that.conf.features[value.group].height
+				}, {
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + that.conf.features[value.group].height - 1 / 5 * that.conf.features[value.group].height
+				}, {
+					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + that.conf.features[value.group].height - 1 / 5 * that.conf.features[value.group].height
+				});
+			}
+			linearFeatureCoords.push(currentFeature);
+		}
+	});
+	return linearFeatureCoords;
+};
+
+/**
+ * This function draws the features on the karyos in the linear layout, color them according to the configuration.
+ * @author Sonja Hohlfeld
+ * @param {Array} The array containing the coordinates of the features as returned by getLinearFeatureCoords()
+ */
+AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
+	var that = this;
+
+	that.svgD3.selectAll(".featureGroup").remove();
+	var shapes = that.svgD3.append("g")
+		.attr("class", "featureGroup")
+		.selectAll("path")
+		.data(linearFeatureCoords)
+		.enter();
+
+	shapes.append("rect")
+		.filter(function(d) {
+			return that.conf.features[that.data.features[d.id].group].form === "rect" && (that.conf.features[that.data.features[d.id].group].visible === true || that.conf.features.showAllFeatures === true);
+		})
+		.attr("class", "feature")
+		.attr("x", function(d) {
+			if (d.width < 0) {
+				return d.x + d.width;
+			} else {
+				return d.x;
+			}
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.attr("width", function(d) {
+			return Math.abs(d.width);
+		})
+		.attr("height", function(d) {
+			return d.height;
+		})
+		.style("fill", function(d) {
+			var color = that.conf.features[that.data.features[d.id].group].color;
+			return color;
+		});
+
+
+	var lineFunction = d3.svg.line()
+		.x(function(d) {
+			return d.x;
+		})
+		.y(function(d) {
+			return d.y;
+		})
+		.interpolate("linear");
+	shapes.append("path")
+		.filter(function(d) {
+			return that.conf.features[that.data.features[d.id].group].form === "arrow" && (that.conf.features[that.data.features[d.id].group].visible === true || that.conf.features.showAllFeatures === true);
+		})
+		.each(function(d, i) {
+			d3.select(this)
+				.attr("class", "feature")
+				.attr("d", lineFunction(d.arrowData))
+				.attr("fill", function(d) {
+					var color = that.conf.features[that.data.features[d.id].group].color;
+					return color;
+				});
+		});
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
+
+
 };

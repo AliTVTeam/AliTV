@@ -1,15 +1,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" href="lib/jquery-ui-1.9.2.custom.min.css">
 <link rel="stylesheet" href="css/AliTV.css">
+<link href="lib/bootstrap.min.css" rel="stylesheet">
 
 <script src="lib/d3.v3.min.js"></script>
 <script src="lib/jquery.min.js"></script>
 <script src="lib/jquery-ui.min.js"></script>
 
 <script src="js/AliTV.js"></script>
-
+ <script src="lib/bootstrap.min.js"></script>
 <script type="text/javascript">
 	var wga;
 	$(document).ready(function() {
@@ -35,6 +38,9 @@
 		$('#showAllChromosomes').attr('checked', true);
 		$('#skipChromosomesWithoutLinks').attr('checked', false);
 		$('#onlyShowAdjacentLinks').attr('checked', true);
+		$('#showFeatures').attr('checked', false);
+		$('#showGenes').attr('checked', false);
+		$('#showInvertedRepeats').attr('checked', false);
 		$('#drawTree').attr('checked', false);
 		
 		});
@@ -130,6 +136,7 @@
 			$("#treeLeft").attr("disabled", false);
 			$("#treeRight").attr("disabled", false);				
 			}
+			
 		} else {
 			wga.conf.tree.drawTree = false;
 			$("#treeWidth").attr("disabled", true);
@@ -153,9 +160,43 @@
 	});	
 	});
 	
+	$(function(){$('#showFeatures').change(function() {
+		if($('#showFeatures').is(':checked')){
+			wga.conf.features.showAllFeatures = true;
+			$("#showGenes").attr("disabled", true);
+			$("#showInvertedRepeats").attr("disabled", true);
+		} else {
+			wga.conf.features.showAllFeatures = false;
+			$("#showGenes").attr("disabled", false);
+			$("#showInvertedRepeats").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showGenes').change(function() {
+		if($('#showGenes').is(':checked')){
+			wga.conf.features.gen.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			wga.conf.features.gen.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showInvertedRepeats').change(function() {
+		if($('#showInvertedRepeats').is(':checked')){
+			wga.conf.features.invertedRepeat.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			wga.conf.features.invertedRepeat.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
 
 });
-});
+}); 
 	
 	function changeLinearSpacer(){
 		var spacer = $("#linearSpacer").val();
@@ -315,7 +356,22 @@
  				</fieldset>
  			</form> 
  		</div>
-		<button type="submit" onclick="setNewParameters()">Apply</button>		
+ 		<h3><span class="number">5</span>Draw provided features</h3>
+ 		<div>
+			<form>
+ 				<fieldset>
+ 					 Show all features: <input id="showFeatures" type="checkbox">
+ 					<br>
+ 					 Show genes: <input id="showGenes" type="checkbox">
+ 					<br>
+ 		 			Show inverted repeats: <input id="showInvertedRepeats" type="checkbox">
+ 					<br>
+ 				</fieldset>
+ 			</form> 
+ 		</div>
+ 		<div>
+		<button type="submit" onclick="setNewParameters()">Apply</button>					
+ 		</div>
  	</div>
  	<svg id='wgaCanvas' style="margin:50px"></svg>
  </div>

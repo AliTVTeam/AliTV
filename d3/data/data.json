@@ -40,47 +40,123 @@
     "f2": {
       "start": 100,
       "karyo": "c2",
-      "end": 600
+      "end": 600,
+      "group": "link"
     },
     "f5": {
       "start": 0,
       "end": 100,
-      "karyo": "c4"
+      "karyo": "c4",
+      "group": "link"
     },
     "f4": {
       "start": 200,
       "karyo": "c3",
-      "end": 300
+      "end": 300,
+      "group": "link"
     },
     "f3": {
       "end": 400,
       "karyo": "c4",
-      "start": 250
+      "start": 250,
+      "group": "link"
     },
     "f6": {
       "start": 1700,
       "end": 1850,
-      "karyo": "c1"
+      "karyo": "c1",
+      "group": "link"
     },
     "f1": {
       "end": 800,
       "karyo": "c1",
-      "start": 300
+      "start": 300,
+      "group": "link"
     },
     "f7": {
       "end": 375,
       "karyo": "c5",
-      "start": 150
+      "start": 150,
+      "group": "link"
     },
     "f8": {
       "end": 400,
       "karyo": "c6",
-      "start": 100
+      "start": 100,
+      "group": "link"
+      
     },
     "f9": {
       "end": 850,
       "karyo": "c7",
-      "start": 950
+      "start": 950,
+      "group": "link"
+    },
+    "f10": {
+      "end": 300,
+      "karyo": "c1",
+      "start": 200,
+      "group": "gen"
+    },
+    "f11": {
+      "end": 900,
+      "karyo": "c1",
+      "start": 880,
+      "group": "gen"
+    },
+    "f12": {
+      "end": 42,
+      "karyo": "c1",
+      "start": 22,
+      "group": "gen"
+    },
+    "f13": {
+      "end": 900,
+      "karyo": "c2",
+      "start": 700,
+      "group": "gen"
+    },
+    "f14": {
+      "end": 345,
+      "karyo": "c2",
+      "start": 102,
+      "group": "gen"
+    },
+    "f15": {
+      "end": 600,
+      "karyo": "c4",
+      "start": 555,
+      "group": "gen"
+    },
+    "f16": {
+      "end": 156,
+      "karyo": "c4",
+      "start": 102,
+      "group": "gen"
+    },
+    "f17": {
+      "end": 345,
+      "karyo": "c4",
+      "start": 300,
+      "group": "gen"
+    },
+    "f18": {
+      "end": 400,
+      "karyo": "c7",
+      "start": 100,
+      "group": "invertedRepeat"
+    },
+    "f20": {
+      "end": 1985,
+      "karyo": "c1",
+      "start": 1700,
+      "group": "invertedRepeat"
+    },
+    "f21": {
+      "end": 1942,
+      "karyo": "c8",
+      "start": 42,
+      "group": "invertedRepeat"
     }
   },
   "karyo": {
