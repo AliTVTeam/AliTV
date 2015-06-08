@@ -1597,7 +1597,7 @@ AliTV.prototype.drawLinearGenomeLabels = function(linearGenomeLabelCoords) {
 		.style("text-anchor", "middle");
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
-		that.svgD3.selectAll(".genomeLabelgroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+		that.svgD3.selectAll(".genomeLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
 
 
