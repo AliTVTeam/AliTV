@@ -1223,7 +1223,7 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 		ali.conf.labels.showAllLabels = false;
 		ali.conf.labels.genome.showGenomeLabels = false;
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(" + (ali.conf.graphicalParameters.width + ali.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(" + ali.conf.graphicalParameters.width + ", 0)");
 	});
 });
 
