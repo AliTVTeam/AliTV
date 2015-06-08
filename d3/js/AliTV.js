@@ -1573,10 +1573,10 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
-	if (that.conf.labels.showAllLabels === true) {
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
 		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
 	}
-	if (that.conf.labels.showAllLabels === true && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
 
@@ -1752,10 +1752,10 @@ AliTV.prototype.drawLinearFeatureLabels = function(linearFeatureLabelCoords) {
 		.attr("fill", "red")
 		.style("text-anchor", "middle");
 
-	if (that.conf.labels.showAllLabels === true) {
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
 		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
 	}
-	if (that.conf.labels.showAllLabels === true && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
 };
