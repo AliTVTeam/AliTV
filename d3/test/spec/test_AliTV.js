@@ -1211,7 +1211,7 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 		ali.conf.tree.drawTree = true;
 		ali.conf.tree.orientation = "right";
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(1000, 0)");
+		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(" + (ali.conf.graphicalParameters.width + ali.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 });
 });
 
