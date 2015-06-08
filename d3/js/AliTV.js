@@ -1618,7 +1618,14 @@ AliTV.prototype.drawLinearGenomeLabels = function(linearGenomeLabelCoords) {
 AliTV.prototype.getChromosomeLabelCoords = function(linearKaryoCoords) {
 	var that = this;
 	var linearChromosomeLabelCoords = [];
-
+	$.each(linearKaryoCoords, function(key, value) {
+		var genome = {
+			name: value.karyo,
+			x: value.x + 1 / 2 * value.width,
+			y: value.y + 0.85 * that.conf.graphicalParameters.karyoHeight
+		};
+		linearChromosomeLabelCoords.push(genome);
+	});
 	return linearChromosomeLabelCoords;
 };
 
