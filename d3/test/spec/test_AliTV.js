@@ -1212,7 +1212,19 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 		ali.conf.tree.orientation = "right";
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(" + (ali.conf.graphicalParameters.width + ali.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
-});
+	});
+	it('if the tree is drawn on the right side and no genome labels are set, the tree should not be transformed', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data5);
+		ali.setFilters(filters);
+		ali.conf.tree.drawTree = true;
+		ali.conf.tree.orientation = "right";
+		ali.conf.labels.showAllLabels = false;
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(" + (ali.conf.graphicalParameters.width + ali.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	});
 });
 
 describe('The hasTree method should check if the user provides tree data', function(){
