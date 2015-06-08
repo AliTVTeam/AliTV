@@ -1436,3 +1436,12 @@ describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to 
 		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(0);
 	});
 });
+
+describe('The getFeatureLabelCoords method is supposed to calculate the coords for adding labels to the features', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getFeatureLabelCoords method is supposed to be a function', function(){
+		expect(typeof ali.getFeatureLabelCoords).toEqual('function');
+	});
+
+});
