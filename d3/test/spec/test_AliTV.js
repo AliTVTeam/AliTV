@@ -1387,3 +1387,11 @@ describe('The drawLinearGenomeLabels method of AliTV objects is supposed to draw
 		expect(ali.svgD3.selectAll('.genomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
 	});
 });
+
+describe('The getChromosomeLabelCoords method is supposed to calculate the coords for adding labels to the chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getGChromosomeLabelCoords method is supposed to be a function', function(){
+		expect(typeof ali.getChromosomeLabelCoords).toEqual('function');
+	});
+});
