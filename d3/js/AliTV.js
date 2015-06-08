@@ -1673,3 +1673,15 @@ AliTV.prototype.drawLinearChromosomeLabels = function(linearChromosomeLabelCoord
 		that.svgD3.selectAll(".chromosomeLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
 };
+
+/**
+ * This method is supposed to calculate the coordinates for feature labels.
+ * This method is called if the configuration of addFeatureLabels or showAllLabels is true.
+ * @param gets the coordinates of the drawn features.
+ * @returns featureLabelCoords: returns an array which contains the coords for the feature labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getFeatureLabelCoords = function(linearKaryoCoords) {
+	var that = this;
+
+};
