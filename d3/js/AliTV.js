@@ -1524,5 +1524,47 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getGenomeLabelCoords = function() {
+	var that = this;
+	var linearGenomeLabelCoords = [];
+	var genomeDistance = that.getGenomeDistance();
+	$.each(that.filters.karyo.genome_order, function(key, value) {
+		var genome = {
+			name: value,
+			x: 1 / 2 * that.conf.graphicalParameters.genomeLabelWidth,
+			y: key * genomeDistance + 0.9 * that.conf.graphicalParameters.karyoHeight
+		};
+		linearGenomeLabelCoords.push(genome);
+	});
+	return linearGenomeLabelCoords;
+};
+
+AliTV.prototype.drawLinearGenomeLabels = function(linearGenomeLabelCoords) {
+	var that = this;
+	this.svgD3.selectAll(".genomeLabelGroup").remove();
+	that.svgD3.append("g")
+		.attr("class", "genomeLabelGroup")
+		.selectAll("path")
+		.data(linearGenomeLabelCoords)
+		.enter()
+		.append("text")
+		.attr("class", "genomeLabel")
+		.attr("x", function(d) {
+			return d.x;
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.text(function(d) {
+			return d.name;
+		})
+		.attr("font-family", "sans-serif")
+		.attr("font-size", that.conf.graphicalParameters.karyoHeight + "px")
+		.attr("fill", "red")
+		.style("text-anchor", "middle");
+
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".genomeLabelgroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
+
 
 };

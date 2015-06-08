@@ -1343,6 +1343,8 @@ describe('The getGenomeLabelCoords method is supposed to calculate the coords fo
 		expect(typeof ali.getGenomeLabelCoords).toEqual('function');
 	});
 	it('getGenomeLabelCoords method is supposed to return the array linearGenomeLabelCoords, which should be defined', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
 		var linearGenomeLabelCoords = ali.getGenomeLabelCoords()
 		expect(linearGenomeLabelCoords).toBeDefined();
 	});
