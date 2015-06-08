@@ -1423,7 +1423,7 @@ describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to 
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearChromosomeLabelCoords = ali.getChromosomeLabelCoords(linearKaryoCoords);
 		ali.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
-		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(2);
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(1);
 	});
 	it('if the default configuration of showChromosomeLabels is false no chromosomes are drawn', function(){
 		var svg = $('<svg></svg>');
@@ -1433,6 +1433,6 @@ describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to 
 		ali.conf.labels.chromosome.showChromosomeLabels = false;
 		ali.conf.labels.showAllLabels = false;
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(2);
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(0);
 	});
 });
