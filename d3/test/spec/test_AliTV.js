@@ -1452,7 +1452,7 @@ describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to 
 		ali.setFilters(filters);
 		ali.conf.labels.showAllLabels = true;
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.genomeLabelWidth + ", 0)");
 	});
 });
 
