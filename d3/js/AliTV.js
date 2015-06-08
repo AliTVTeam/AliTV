@@ -640,7 +640,7 @@ AliTV.prototype.drawLinear = function() {
 		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth);
 	}
 
-	if (this.conf.tree.drawTree === true && this.conf.labels.showAllLabels === true) {
+	if (this.conf.tree.drawTree === true && (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels)) {
 		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 	this.conf.layout = "linear";
@@ -1362,6 +1362,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 				return "M" + d.source.y + "," + d.source.x + "H" + d.target.y + "V" + d.target.x;
 			})
 			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
+
 	} else {
 		that.svgD3.append("g")
 			.attr("class", "treeGroup")
@@ -1375,10 +1376,10 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 				return "M" + (that.conf.graphicalParameters.treeWidth - d.source.y) + "," + d.source.x + "H" + (that.conf.graphicalParameters.treeWidth - d.target.y) + "V" + d.target.x;
 			})
 			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
-
 		if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
 			that.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.width + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 		}
+
 	}
 
 };
