@@ -1683,7 +1683,52 @@ AliTV.prototype.drawLinearChromosomeLabels = function(linearChromosomeLabelCoord
  * @returns featureLabelCoords: returns an array which contains the coords for the feature labels.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.getFeatureLabelCoords = function(linearKaryoCoords) {
+AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
 	var that = this;
+	var linearFeatureLabelCoords = [];
+	$.each(linearFeatureCoords, function(key, value) {
+		var feature = {
+			name: value.id
+		};
+		if (that.conf.features[that.data.features[value.id].group].form === "rect") {
+			feature.x = value.x + 1 / 2 * value.width;
+			feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
+		} else if (that.conf.features[that.data.features[value.id].group].form === "arrow") {
+			if (that.filters.karyo.chromosomes[that.data.features[value.id].karyo].reverse === false) {
+				feature.x = value.arrowData[0].x + 1 / 2 * Math.abs(value.arrowData[3].x - value.arrowData[0].x);
+				feature.y = value.arrowData[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
+			} else {
+				feature.x = value.arrowData[3].x + 1 / 2 * Math.abs(value.arrowData[0].x - value.arrowData[3].x);
+				feature.y = value.arrowData[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
+			}
+		}
+		linearFeatureLabelCoords.push(feature);
+	});
+	return linearFeatureLabelCoords;
+};
+
+AliTV.prototype.drawLinearFeatureLabels = function(linearFeatureLabelCoords) {
+	var that = this;
+	this.svgD3.selectAll(".featureLabelGroup").remove();
+	that.svgD3.append("g")
+		.attr("class", "featureLabelGroup")
+		.selectAll("path")
+		.data(linearFeatureLabelCoords)
+		.enter()
+		.append("text")
+		.attr("class", "featureLabel")
+		.attr("x", function(d) {
+			return d.x;
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.text(function(d) {
+			return d.name;
+		})
+		.attr("font-family", "sans-serif")
+		.attr("font-size", 2 / 3 * that.conf.graphicalParameters.karyoHeight + "px")
+		.attr("fill", "red")
+		.style("text-anchor", "middle");
 
 };
