@@ -1461,7 +1461,9 @@ describe('The drawLinearFeatureLabels method of AliTV objects is supposed to dra
 		expect(typeof ali.drawLinearFeatureLabels).toEqual('function');
 	});
 	it('there should be exactly one featureLabelGroup in the simple test svg', function(){
-		ali.setData(data8);
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo, features: features17});
 		ali.setFilters(filters);
 		ali.conf.features.showAllFeatures = true;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
@@ -1470,9 +1472,11 @@ describe('The drawLinearFeatureLabels method of AliTV objects is supposed to dra
 		ali.drawLinearFeatureLabels(linearFeatureLabelCoords);
 		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(1);
 	});
-	it('if there are features which are configurate in the default configuration no labels are drawn', function(){
+	it('there should be exactly one featureLabelGroup in a more complex test svg', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo, features: features18});
+		ali.setFilters(filters);
 		ali.conf.features.showAllFeatures = true;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
