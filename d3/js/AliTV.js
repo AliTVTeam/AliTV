@@ -595,6 +595,8 @@ AliTV.prototype.drawLinear = function() {
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
+	var linearChromosomeLabelCoords = this.getChromosomeLabelCoords(karyoCoords);
+	this.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
 
 	if (this.conf.labels.showAllLabels === true) {
 		var linearGenomeLabelCoords = this.getGenomeLabelCoords();
@@ -1604,6 +1606,52 @@ AliTV.prototype.drawLinearGenomeLabels = function(linearGenomeLabelCoords) {
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".genomeLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
+};
 
+/**
+ * This method is supposed to calculate the coordinates for chromosome labels.
+ * This is called if the configuration of addChromosomeLabels or showAllLabels is true.
+ * @param gets the coordinates of the drawn chromosomes.
+ * @returns chromosomeLabelCoords: returns an array which contains the coords for the chromosome labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getChromosomeLabelCoords = function(linearKaryoCoords) {
+	var that = this;
+	var linearChromosomeLabelCoords = [];
 
+	return linearChromosomeLabelCoords;
+};
+
+/**
+ * This function is supposed to draw the text labels for chromosome.
+ * @param linearChromosomeLabelCoords: gets the coords of the chromosome labels which is returned by getChromosomeLabelCoords.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.drawLinearChromosomeLabels = function(linearChromosomeLabelCoords) {
+	var that = this;
+	this.svgD3.selectAll(".chromosomeLabelGroup").remove();
+	that.svgD3.append("g")
+		.attr("class", "chromosomeLabelGroup")
+		.selectAll("path")
+		.data(linearChromosomeLabelCoords)
+		.enter()
+		.append("text")
+		.attr("class", "chromosomeLabel")
+		.attr("x", function(d) {
+			return d.x;
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.text(function(d) {
+			return d.name;
+		})
+		.attr("font-family", "sans-serif")
+		.attr("font-size", that.conf.graphicalParameters.karyoHeight + "px")
+		.attr("fill", "red")
+		.style("text-anchor", "middle");
+
+	if (that.conf.labels.showAllLabels === true) {
+		that.svgD3.selectAll(".chromosomeLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
 };
