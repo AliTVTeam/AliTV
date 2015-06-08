@@ -601,10 +601,6 @@ AliTV.prototype.drawLinear = function() {
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
 
-	if (this.conf.labels.showAllLabels === true || this.conf.labels.chromosome.showChromosomeLabels === true) {
-		var linearChromosomeLabelCoords = this.getChromosomeLabelCoords(karyoCoords);
-		this.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
-	}
 
 	if (this.conf.labels.showAllLabels === true) {
 		var linearGenomeLabelCoords = this.getGenomeLabelCoords();
@@ -615,6 +611,10 @@ AliTV.prototype.drawLinear = function() {
 	if (this.conf.features.showAllFeatures === true || this.conf.features.gen.visible === true || this.conf.features.invertedRepeat.visible === true) {
 		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 		this.drawLinearFeatures(linearFeatureCoords);
+	}
+	if (this.conf.labels.showAllLabels === true || this.conf.labels.chromosome.showChromosomeLabels === true) {
+		var linearChromosomeLabelCoords = this.getChromosomeLabelCoords(karyoCoords);
+		this.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
 	}
 
 	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
