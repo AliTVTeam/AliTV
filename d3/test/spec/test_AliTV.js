@@ -1394,7 +1394,7 @@ describe('The drawLinearGenomeLabels method of AliTV objects is supposed to draw
 		ali.conf.labels.showAllLabels = false;
 		ali.conf.labels.genome.showGenomeLabels = false;
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.genomeLabelGroup').size()).toEqual(1);
+		expect(ali.svgD3.selectAll('.genomeLabelGroup').size()).toEqual(0);
 	});
 });
 
