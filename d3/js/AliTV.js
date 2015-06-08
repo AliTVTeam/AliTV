@@ -601,7 +601,7 @@ AliTV.prototype.drawLinear = function() {
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
 
-	if (this.conf.labels.showAllLabels === true || this.conf.labels.chromosomes.showChromosomeLabels === true) {
+	if (this.conf.labels.showAllLabels === true || this.conf.labels.chromosome.showChromosomeLabels === true) {
 		var linearChromosomeLabelCoords = this.getChromosomeLabelCoords(karyoCoords);
 		this.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
 	}
@@ -1668,5 +1668,8 @@ AliTV.prototype.drawLinearChromosomeLabels = function(linearChromosomeLabelCoord
 
 	if (that.conf.labels.showAllLabels === true) {
 		that.svgD3.selectAll(".chromosomeLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if (that.conf.labels.showAllLabels === true && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".chromosomeLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
 };

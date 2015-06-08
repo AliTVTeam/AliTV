@@ -1410,3 +1410,29 @@ describe('The getChromosomeLabelCoords method is supposed to calculate the coord
 		expect(linearChromosomeLabelCoords).toEqual(expectedCoords);
 	});
 });
+
+describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to draw chromosome labels next to the chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawLinearChromosomeLabels method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearChromosomeLabels).toEqual('function');
+	});
+	it('there should be exactly one chromosomeLabelGroup in the simple test svg', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearChromosomeLabelCoords = ali.getChromosomeLabelCoords(linearKaryoCoords);
+		ali.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(2);
+	});
+	it('if the default configuration of showChromosomeLabels is false no chromosomes are drawn', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.conf.labels.chromosome.showChromosomeLabels = false;
+		ali.conf.labels.showAllLabels = false;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(2);
+	});
+});
