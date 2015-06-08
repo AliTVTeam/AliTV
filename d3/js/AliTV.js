@@ -1509,3 +1509,13 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 
 
 };
+
+/**
+ * This method is supposed to calculate the coordinates for genome labels.
+ * This is called if the configuration of addGenomeLables is true.
+ * @returns genomeLabelCoords: returns an array which contains the coords for the genome labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getGenomeLabelCoords = function() {
+
+};
