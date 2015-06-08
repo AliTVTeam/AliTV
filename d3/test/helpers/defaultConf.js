@@ -46,6 +46,9 @@ var defaultConf =  {
 			}
 		},
 		labels: {
-			showAllLabels: true
+			showAllLabels: true,
+			chromosome: {
+				showChromosomeLabels: true
+			}
 		}
 };
