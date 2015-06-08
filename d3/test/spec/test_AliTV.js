@@ -1460,5 +1460,25 @@ describe('The drawLinearFeatureLabels method of AliTV objects is supposed to dra
 	it('drawLinearFeatureLabels method is supposed to be a function', function(){
 		expect(typeof ali.drawLinearFeatureLabels).toEqual('function');
 	});
+	it('there should be exactly one featureLabelGroup in the simple test svg', function(){
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.features.showAllFeatures = true;
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
+		ali.drawLinearFeatureLabels(linearFeatureLabelCoords);
+		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(0);
+	});
+//	it('if the default configuration of showChromosomeLabels is false no chromosomes are drawn', function(){
+//		var svg = $('<svg></svg>');
+//		var ali = new AliTV(svg);
+//		ali.setData(data);
+//		ali.setFilters(filters);
+//		ali.conf.labels.chromosome.showChromosomeLabels = false;
+//		ali.conf.labels.showAllLabels = false;
+//		ali.drawLinear();
+//		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(0);
+//	});
 
 });
