@@ -1445,6 +1445,15 @@ describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to 
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(0);
 	});
+	it('if genome labels are drawn the chromosome labels should be transformed', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.conf.labels.showAllLabels = true;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
+	});
 });
 
 describe('The getFeatureLabelCoords method is supposed to calculate the coords for adding labels to the features', function(){
