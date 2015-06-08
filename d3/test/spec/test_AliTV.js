@@ -1452,14 +1452,13 @@ describe('The getFeatureLabelCoords method is supposed to calculate the coords f
 		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
 		expect(linearFeatureLabelCoords).toBeDefined();
 	});
-	it('getChromsomeLabelCoords method is supposed to return the expected linearChromsomeLabelCoords', function(){
-		ali.setData(data8);
-		ali.setFilters(filters);
-		ali.conf.features.showAllFeatures = true;
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
-		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
-		var expectedCoords = [];
-		expect(linearFeatureLabelCoords).toEqual(expectedCoords);
+});
+
+describe('The drawLinearFeatureLabels method of AliTV objects is supposed to draw feature labels onto the chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawLinearFeatureLabels method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearFeatureLabels).toEqual('function');
 	});
+
 });
