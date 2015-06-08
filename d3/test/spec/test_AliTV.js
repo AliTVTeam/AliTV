@@ -1334,6 +1334,14 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.featureGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
 	});
+	it('if a tree is drawn and all labels should be shown the feature group is transformed', function(){
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.labels.showAllLabels = true;
+		ali.conf.tree.drawTree = true;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.featureGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
+	});
 });
 
 describe('The getGenomeLabelCoords method is supposed to calculate the coords for adding genome labels', function(){
