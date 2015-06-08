@@ -612,7 +612,7 @@ AliTV.prototype.drawLinear = function() {
 	this.drawLinearLinks(linkCoords);
 
 
-	if (this.conf.labels.showAllLabels === true) {
+	if (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels === true) {
 		var linearGenomeLabelCoords = this.getGenomeLabelCoords();
 		this.drawLinearGenomeLabels(linearGenomeLabelCoords);
 		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.genomeLabelWidth);
