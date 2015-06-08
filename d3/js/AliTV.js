@@ -1572,6 +1572,11 @@ AliTV.prototype.getGenomeLabelCoords = function() {
 	return linearGenomeLabelCoords;
 };
 
+/**
+ * This function is supposed to draw the text labels for genomes.
+ * @param linearGenomeLabelCoords: gets the coords of the genome labels whcih is returned by getGenomeLabelCoords.
+ * @author Sonja Hohlfeld
+ */
 AliTV.prototype.drawLinearGenomeLabels = function(linearGenomeLabelCoords) {
 	var that = this;
 	this.svgD3.selectAll(".genomeLabelGroup").remove();
