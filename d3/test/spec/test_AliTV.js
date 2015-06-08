@@ -1493,6 +1493,6 @@ describe('The drawLinearFeatureLabels method of AliTV objects is supposed to dra
 		ali.conf.labels.features.showFeatureLabels = false;
 		ali.conf.labels.showAllLabels = false;
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(1);
+		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(0);
 	});
 });
