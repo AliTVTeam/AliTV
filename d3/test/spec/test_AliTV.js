@@ -1368,6 +1368,6 @@ describe('The drawLinearGenomeLabels method of AliTV objects is supposed to draw
 		ali.setFilters(filters);
 		var linearGenomeLabelCoords = ali.getGenomeLabelCoords();
 		ali.drawLinearGenomeLabels(linearGenomeLabelCoords);
-		expect(ali.svgD3.selectAll('.genomeLabelGroup').size()).toEqual(2);
+		expect(ali.svgD3.selectAll('.genomeLabelGroup').size()).toEqual(1);
 	});
 });
