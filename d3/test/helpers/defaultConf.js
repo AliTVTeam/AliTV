@@ -14,7 +14,8 @@ var defaultConf =  {
 			karyoDistance: 10,
 			linkKaryoDistance: 10,
 			tickDistance: 100, 
-			treeWidth: 300
+			treeWidth: 300,
+			genomeLabelWidth: 150
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -43,5 +44,8 @@ var defaultConf =  {
 				height: 30,
 				visible: false
 			}
+		},
+		labels: {
+			showAllLabels: true
 		}
 };

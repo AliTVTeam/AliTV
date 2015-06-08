@@ -82,6 +82,7 @@ function AliTV(svg) {
 	 * @property {Number}  graphicalParameters.linkKaryoDistance   - The vertical distance between chromosomes and links in px.
 	 * @property {Number}  graphicalParameters.tickDistance        - The distance in bp of ticks on the drawn chromosomes.
 	 * @property {Number}  graphicalParameters.treeWidth		   - The width of the svg drawing area, where the tree should be shown.
+	 * @property {Number}  graphicalParameters.genomeLabelWidth    - The width of the svg drawing area, where the genome labels should be shown.
 	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
 	 * @property {Object}  tree									   - Contains the configuration objects for drawing a tree.
 	 * @property {Boolean} tree.drawTree						   - With this option it is possible to draw a phylogenetic tree ext to the chromosomes.
@@ -98,6 +99,8 @@ function AliTV(svg) {
 	 * @property {String}  features.invertedRepeat.color		   - Defines the color of an inverted repeat.
 	 * @property {Number}  features.invertedRepeat.height		   - Defines the height of the drawn inverted repeat onto the chromosome.
 	 * @property {Boolean} features.invertedRepeats.visible		   - Defines if an inverted repeat is drawn or not.
+	 * @property {Object}  labels								   - The configuration options for the text labels.
+	 * @property {Boolean} labels.showAllLabels					   - With this option it is possible to set labels to genomes, chromosomes and all features.
 	 */
 	this.conf = {
 		linear: {
@@ -115,7 +118,8 @@ function AliTV(svg) {
 			karyoDistance: 10,
 			linkKaryoDistance: 10,
 			tickDistance: 100,
-			treeWidth: 300
+			treeWidth: 300,
+			genomeLabelWidth: 150
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -144,6 +148,9 @@ function AliTV(svg) {
 				height: 30,
 				visible: false
 			}
+		},
+		labels: {
+			showAllLabels: true
 		}
 	};
 	// Initialize svg size
