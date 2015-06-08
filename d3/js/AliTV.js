@@ -396,8 +396,14 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
 		});
 
+	if (that.conf.labels.showAllLabels === true) {
+		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
+	if (that.conf.labels.showAllLabels === true && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
 };
 
@@ -500,6 +506,12 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
+	if (that.conf.labels.showAllLabels === true) {
+		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if (that.conf.labels.showAllLabels === true && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
 };
 
 /**
@@ -560,6 +572,12 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
+	if (that.conf.labels.showAllLabels === true) {
+		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if (that.conf.labels.showAllLabels === true && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
 };
 
 
@@ -578,6 +596,12 @@ AliTV.prototype.drawLinear = function() {
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
 
+	if (this.conf.labels.showAllLabels === true) {
+		var linearGenomeLabelCoords = this.getGenomeLabelCoords();
+		this.drawLinearGenomeLabels(linearGenomeLabelCoords);
+		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.genomeLabelWidth);
+	}
+
 	if (this.conf.features.showAllFeatures === true || this.conf.features.gen.visible === true || this.conf.features.invertedRepeat.visible === true) {
 		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 		this.drawLinearFeatures(linearFeatureCoords);
@@ -586,6 +610,10 @@ AliTV.prototype.drawLinear = function() {
 	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
 		this.drawPhylogeneticTree();
 		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth);
+	}
+
+	if (this.conf.tree.drawTree === true && this.conf.labels.showAllLabels === true) {
+		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 	this.conf.layout = "linear";
 };
@@ -1512,6 +1540,12 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		});
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
+	if (that.conf.labels.showAllLabels === true) {
+		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if (that.conf.labels.showAllLabels === true && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
 
 
