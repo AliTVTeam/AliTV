@@ -103,6 +103,10 @@ function AliTV(svg) {
 	 * @property {Boolean} labels.showAllLabels					   - With this option it is possible to set labels to genomes, chromosomes and all features.
 	 * @property {Object}  labels.chromosomes					   - Contains the configurations for the chromosome labels.
 	 * @property {Boolean} labels.chromosomes.showChromosomeLabels - Defines if chromosome labels are shown or not.
+	 * @property {Object}  labels.genome					   	   - Contains the configurations for the genome labels.
+	 * @property {Boolean} labels.genome.showGenomeLabels 		   - Defines if genome labels are shown or not.
+	 * @property {Object}  labels.features					   	   - Contains the configurations for the feature labels.
+	 * @property {Boolean} labels.features.showFeatureLabels 	   - Defines if feature labels are shown or not.
 	 */
 	this.conf = {
 		linear: {
@@ -155,6 +159,12 @@ function AliTV(svg) {
 			showAllLabels: true,
 			chromosome: {
 				showChromosomeLabels: true
+			},
+			genome: {
+				showGenomeLabels: true
+			},
+			features: {
+				showFeatureLabels: true
 			}
 		}
 	};
@@ -1693,7 +1703,8 @@ AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
 		if (that.conf.features[that.data.features[value.id].group].form === "rect") {
 			feature.x = value.x + 1 / 2 * value.width;
 			feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
-		} else if (that.conf.features[that.data.features[value.id].group].form === "arrow") {
+		}
+		if (that.conf.features[that.data.features[value.id].group].form === "arrow") {
 			if (that.filters.karyo.chromosomes[that.data.features[value.id].karyo].reverse === false) {
 				feature.x = value.arrowData[0].x + 1 / 2 * Math.abs(value.arrowData[3].x - value.arrowData[0].x);
 				feature.y = value.arrowData[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
@@ -1731,4 +1742,10 @@ AliTV.prototype.drawLinearFeatureLabels = function(linearFeatureLabelCoords) {
 		.attr("fill", "red")
 		.style("text-anchor", "middle");
 
+	if (that.conf.labels.showAllLabels === true) {
+		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if (that.conf.labels.showAllLabels === true && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
 };

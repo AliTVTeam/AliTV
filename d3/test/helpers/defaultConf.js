@@ -49,6 +49,12 @@ var defaultConf =  {
 			showAllLabels: true,
 			chromosome: {
 				showChromosomeLabels: true
+			},
+			genome: {
+				showGenomeLabels: true
+			},
+			features: {
+				showFeatureLabels: true
 			}
 		}
 };
