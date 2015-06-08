@@ -604,6 +604,10 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  */
 AliTV.prototype.drawLinear = function() {
 	this.svgD3.selectAll(".treeGroup").remove();
+	this.svgD3.selectAll(".chromosomeLabelGroup").remove();
+	this.svgD3.selectAll(".featureLabelGroup").remove();
+	this.svgD3.selectAll(".genomeLabelGroup").remove();
+
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
