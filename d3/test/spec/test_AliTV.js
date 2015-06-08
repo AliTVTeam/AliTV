@@ -1340,7 +1340,7 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		ali.conf.labels.showAllLabels = true;
 		ali.conf.tree.drawTree = true;
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.featureGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
+		expect(ali.svgD3.selectAll('.featureGroup').attr("transform")).toEqual("translate(" + (defaultConf.graphicalParameters.treeWidth + defaultConf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	});
 });
 
