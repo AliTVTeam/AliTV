@@ -1339,7 +1339,11 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 describe('The getGenomeLabelCoords method is supposed to calculate the coords for adding genome labels', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('drawLinearFeatures method is supposed to be a function', function(){
+	it('getGenomeLabelCoords method is supposed to be a function', function(){
 		expect(typeof ali.getGenomeLabelCoords).toEqual('function');
+	});
+	it('getGenomeLabelCoords method is supposed to return the array linearGenomeLabelCoords, which should be defined', function(){
+		var linearGenomeLabelCoords = ali.getGenomeLabelCoords()
+		expect(linearGenomeLabelCoords).toBeDefined();
 	});
 });
