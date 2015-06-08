@@ -1484,5 +1484,15 @@ describe('The drawLinearFeatureLabels method of AliTV objects is supposed to dra
 		ali.drawLinearFeatureLabels(linearFeatureLabelCoords);
 		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(1);
 	});
-
+	it('no feature labels are drawn because the default configuration for them are equal false', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.features.showAllFeatures = true;
+		ali.conf.labels.features.showFeatureLabels = false;
+		ali.conf.labels.showAllLabels = false;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(1);
+	});
 });

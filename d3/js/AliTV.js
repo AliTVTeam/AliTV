@@ -621,8 +621,10 @@ AliTV.prototype.drawLinear = function() {
 	if (this.conf.features.showAllFeatures === true || this.conf.features.gen.visible === true || this.conf.features.invertedRepeat.visible === true) {
 		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 		this.drawLinearFeatures(linearFeatureCoords);
-		var linearFeatureLabelCoords = this.getFeatureLabelCoords(linearFeatureCoords);
-		this.drawLinearFeatureLabels(linearFeatureLabelCoords);
+		if (this.conf.labels.showAllLabels === true || this.conf.labels.features.showFeatureLabels === true) {
+			var linearFeatureLabelCoords = this.getFeatureLabelCoords(linearFeatureCoords);
+			this.drawLinearFeatureLabels(linearFeatureLabelCoords);
+		}
 	}
 	if (this.conf.labels.showAllLabels === true || this.conf.labels.chromosome.showChromosomeLabels === true) {
 		var linearChromosomeLabelCoords = this.getChromosomeLabelCoords(karyoCoords);
