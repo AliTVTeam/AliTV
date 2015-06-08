@@ -600,8 +600,11 @@ AliTV.prototype.drawLinear = function() {
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
-	var linearChromosomeLabelCoords = this.getChromosomeLabelCoords(karyoCoords);
-	this.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
+
+	if (this.conf.labels.showAllLabels === true || this.conf.labels.chromosomes.showChromosomeLabels === true) {
+		var linearChromosomeLabelCoords = this.getChromosomeLabelCoords(karyoCoords);
+		this.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
+	}
 
 	if (this.conf.labels.showAllLabels === true) {
 		var linearGenomeLabelCoords = this.getGenomeLabelCoords();
