@@ -1535,6 +1535,6 @@ describe('The drawLinearFeatureLabels method of AliTV objects is supposed to dra
 		ali.conf.labels.genome.showGenomeLabels = false;
 		ali.conf.labels.features.showFeatureLabels = true;
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.featureLabelGroup').attr("transform")).toEqual(20);
+		expect(ali.svgD3.selectAll('.featureLabelGroup').attr("transform")).toEqual(null);
 	});
 });
