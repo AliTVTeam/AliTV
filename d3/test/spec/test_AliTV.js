@@ -1348,4 +1348,11 @@ describe('The getGenomeLabelCoords method is supposed to calculate the coords fo
 		var linearGenomeLabelCoords = ali.getGenomeLabelCoords()
 		expect(linearGenomeLabelCoords).toBeDefined();
 	});
+	it('getGenomeLabelCoords method is supposed to return the expected linearGenomeLabelCoords', function(){
+		ali.setData({karyo:karyo7});
+		ali.setFilters(filters4);		
+		var expectedCoords = [{}];
+		var linearGenomeLabelCoords = ali.getGenomeLabelCoords()
+		expect(linearGenomeLabelCoords).toEqual(expectedCoords);
+	});
 });
