@@ -44,6 +44,12 @@ var defaultConf =  {
 					color: "#e7d3e2",
 					height: 30,
 					visible: false
+				},
+				nStretch: {
+					form: "triangleLine",
+					color: "#000000",
+					height: 30,
+					visible: false
 				}
 			}
 		},

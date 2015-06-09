@@ -154,6 +154,12 @@ function AliTV(svg) {
 					color: "#e7d3e2",
 					height: 30,
 					visible: false
+				},
+				nStretch: {
+					form: "triangleLine",
+					color: "#000000",
+					height: 30,
+					visible: false
 				}
 			}
 		},
@@ -1421,6 +1427,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 			features[key] = value;
 		}
 	});
+	console.log(supportedFeatures);
 	$.each(features, function(key, value) {
 		var featureKaryo = value.karyo;
 		var currentY;
