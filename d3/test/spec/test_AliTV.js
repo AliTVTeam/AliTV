@@ -1488,7 +1488,7 @@ describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to 
 		ali.conf.labels.chromosome.showChromosomeLabels = true;
 		console.log(ali);
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.genomeLabelWidth + ", 0)");
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
 	});
 });
 
