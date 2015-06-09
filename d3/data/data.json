@@ -157,12 +157,6 @@
       "karyo": "c8",
       "start": 42,
       "group": "invertedRepeat"
-    },
-    "f22": {
-      "end": 1942,
-      "karyo": "c8",
-      "start": 42,
-      "group": "repeat"
     }
   },
   "karyo": {
