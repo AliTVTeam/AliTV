@@ -1477,6 +1477,19 @@ describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to 
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual(null);
 	});
+	it('if no genome labels are drawn, but the tree is drawn, the chromosomes whould be transformed', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.labels.showAllLabels = false;
+		ali.conf.tree.drawTree = true;
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.conf.labels.chromosome.showChromosomeLabels = true;
+		console.log(ali);
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.genomeLabelWidth + ", 0)");
+	});
 });
 
 describe('The getFeatureLabelCoords method is supposed to calculate the coords for adding labels to the features', function(){
