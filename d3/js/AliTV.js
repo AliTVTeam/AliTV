@@ -1732,6 +1732,11 @@ AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
 	return linearFeatureLabelCoords;
 };
 
+/**
+ * This method is supposed to draw labels to all features.
+ * @param linearFeatureLabelCoords: get the coords for the feature labels which are returned by getFeatureLabelCoords.
+ * @author Sonja Hohlfeld
+ */
 AliTV.prototype.drawLinearFeatureLabels = function(linearFeatureLabelCoords) {
 	var that = this;
 	this.svgD3.selectAll(".featureLabelGroup").remove();
