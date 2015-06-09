@@ -156,12 +156,12 @@ function AliTV(svg) {
 			}
 		},
 		labels: {
-			showAllLabels: true,
+			showAllLabels: false,
 			chromosome: {
-				showChromosomeLabels: false
+				showChromosomeLabels: true
 			},
 			genome: {
-				showGenomeLabels: false
+				showGenomeLabels: true
 			},
 			features: {
 				showFeatureLabels: false
