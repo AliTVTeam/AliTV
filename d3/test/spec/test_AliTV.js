@@ -1272,9 +1272,9 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setData({karyo: karyo3, features: features11});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		var expectedFeatures = [{"id": "f1", "height": defaultConf.features.gen.height, "x": ali.data.features["f1"].start * 1000 / 2000, "width": Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, "y": 0},
-		                        {"id": "f2", "height": defaultConf.features.gen.height, "x": ali.data.features["f2"].start * 500 / 1000, "width": Math.abs(ali.data.features["f2"].end - ali.data.features["f2"].start) * 500 / 1000, "y": 485},
-		                        {"id": "f3", "height": defaultConf.features.gen.height, "x": ali.data.features["f3"].start * 500 / 1000, "width": Math.abs(ali.data.features["f3"].end - ali.data.features["f3"].start) * 500 / 1000, "y": 970}];
+		var expectedFeatures = [{"id": "f1", "height": defaultConf.features.supportedFeatures.gen.height, "x": ali.data.features["f1"].start * 1000 / 2000, "width": Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, "y": 0},
+		                        {"id": "f2", "height": defaultConf.features.supportedFeatures.gen.height, "x": ali.data.features["f2"].start * 500 / 1000, "width": Math.abs(ali.data.features["f2"].end - ali.data.features["f2"].start) * 500 / 1000, "y": 485},
+		                        {"id": "f3", "height": defaultConf.features.supportedFeatures.gen.height, "x": ali.data.features["f3"].start * 500 / 1000, "width": Math.abs(ali.data.features["f3"].end - ali.data.features["f3"].start) * 500 / 1000, "y": 970}];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
@@ -1283,13 +1283,13 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setData({karyo: karyo3, features: features14});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		var expectedFeatures = [{"id": "f1", arrowData: [{x: ali.data.features["f1"].start * 1000/2000, y: 0 +  1/5 * defaultConf.features.invertedRepeat.height}, 
-		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + 1/5 * defaultConf.features.invertedRepeat.height}, 
+		var expectedFeatures = [{"id": "f1", arrowData: [{x: ali.data.features["f1"].start * 1000/2000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
 		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0}, 
-		                                                 {x: ali.data.features["f1"].start * 1000/2000 + Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 +  1/2 * defaultConf.features.invertedRepeat.height}, 
-		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + defaultConf.features.invertedRepeat.height},
-		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + 4/5 * defaultConf.features.invertedRepeat.height},
-		                                                 {x: ali.data.features["f1"].start * 1000/2000, y: 0 + 4/5 * defaultConf.features.invertedRepeat.height}]}];
+		                                                 {x: ali.data.features["f1"].start * 1000/2000 + Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 +  1/2 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + defaultConf.features.supportedFeatures.invertedRepeat.height},
+		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
+		                                                 {x: ali.data.features["f1"].start * 1000/2000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}]}];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
@@ -1336,7 +1336,7 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		ali.drawLinearFeatures(linearFeatureCoords);
 		// This test checks only the height attribute of the first selected element
-		expect(Number(ali.svgD3.selectAll('.feature').attr("height"))).toEqual(defaultConf.features.gen.height);
+		expect(Number(ali.svgD3.selectAll('.feature').attr("height"))).toEqual(defaultConf.features.supportedFeatures.gen.height);
 	});
 	it('if a tree is drawn the feature group should be transformed', function(){
 		ali.setData(data8);

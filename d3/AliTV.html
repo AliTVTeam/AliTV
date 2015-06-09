@@ -179,10 +179,10 @@
 	
 	$(function(){$('#showGenes').change(function() {
 		if($('#showGenes').is(':checked')){
-			wga.conf.features.gen.visible = true;
+			wga.conf.features.supportedFeatures.gen.visible = true;
 			$("#showFeatures").attr("disabled", true);
 		} else {
-			wga.conf.features.gen.visible = false;
+			wga.conf.features.supportedFeatures.gen.visible = false;
 			$("#showFeatures").attr("disabled", false);
 		}
 	});	
@@ -190,10 +190,10 @@
 	
 	$(function(){$('#showInvertedRepeats').change(function() {
 		if($('#showInvertedRepeats').is(':checked')){
-			wga.conf.features.invertedRepeat.visible = true;
+			wga.conf.features.supportedFeatures.invertedRepeat.visible = true;
 			$("#showFeatures").attr("disabled", true);
 		} else {
-			wga.conf.features.invertedRepeat.visible = false;
+			wga.conf.features.supportedFeatures.invertedRepeat.visible = false;
 			$("#showFeatures").attr("disabled", false);
 		}
 	});	
