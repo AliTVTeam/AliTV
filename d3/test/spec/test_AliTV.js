@@ -1211,8 +1211,20 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 		ali.conf.tree.drawTree = true;
 		ali.conf.tree.orientation = "right";
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(1000, 0)");
-});
+		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(" + (ali.conf.graphicalParameters.width + ali.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	});
+	it('if the tree is drawn on the right side and no genome labels are set, the tree should not be transformed', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data5);
+		ali.setFilters(filters);
+		ali.conf.tree.drawTree = true;
+		ali.conf.tree.orientation = "right";
+		ali.conf.labels.showAllLabels = false;
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(" + ali.conf.graphicalParameters.width + ", 0)");
+	});
 });
 
 describe('The hasTree method should check if the user provides tree data', function(){
@@ -1329,16 +1341,227 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 	it('if a tree is drawn the feature group should be transformed', function(){
 		ali.setData(data8);
 		ali.setFilters(filters);
+		ali.conf.labels.showAllLabels = false;
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.conf.labels.chromosome.showChromosomeLabels = false;
+		ali.conf.labels.features.showFeatureLabels = false;
 		ali.conf.tree.drawTree = true;
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.featureGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
 	});
-//	it('the drawn features should have the expected color which is defined in the default configuration', function(){
-//		ali.setData({karyo: karyo3, features: features11});
-//		ali.setFilters(filters3);
-//		var linearKaryoCoords = ali.getLinearKaryoCoords();
-//		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
-//		ali.drawLinearFeatures(linearFeatureCoords);
-//		expect(ali.svg.find('.feature').css("fill")).toEqual("#e2edff");
-//	});
+	it('if a tree is drawn and all labels should be shown the feature group is transformed', function(){
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.labels.showAllLabels = true;
+		ali.conf.tree.drawTree = true;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.featureGroup').attr("transform")).toEqual("translate(" + (defaultConf.graphicalParameters.treeWidth + defaultConf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	});
+});
+
+describe('The getGenomeLabelCoords method is supposed to calculate the coords for adding genome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getGenomeLabelCoords method is supposed to be a function', function(){
+		expect(typeof ali.getGenomeLabelCoords).toEqual('function');
+	});
+	it('getGenomeLabelCoords method is supposed to return the array linearGenomeLabelCoords, which should be defined', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearGenomeLabelCoords = ali.getGenomeLabelCoords()
+		expect(linearGenomeLabelCoords).toBeDefined();
+	});
+	it('getGenomeLabelCoords method is supposed to return the expected linearGenomeLabelCoords', function(){
+		ali.setData({karyo:karyo7});
+		ali.setFilters(filters4);		
+		var expectedCoords = [{name: 0, x: 1/2 * defaultConf.graphicalParameters.genomeLabelWidth, y: 0 * ali.getGenomeDistance() + 0.9 * defaultConf.graphicalParameters.karyoHeight}, {name: 1, x: 1/2 * defaultConf.graphicalParameters.genomeLabelWidth, y: 1 * ali.getGenomeDistance() + 0.9 * defaultConf.graphicalParameters.karyoHeight}, {name: 2, x: 1/2 * defaultConf.graphicalParameters.genomeLabelWidth, y: 2 * ali.getGenomeDistance() + 0.9 * defaultConf.graphicalParameters.karyoHeight}];
+		var linearGenomeLabelCoords = ali.getGenomeLabelCoords()
+		expect(linearGenomeLabelCoords).toEqual(expectedCoords);
+	});
+});
+
+describe('The drawLinearGenomeLabels method of AliTV objects is supposed to draw genome labels next to the chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawLinearFeatures method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearGenomeLabels).toEqual('function');
+	});
+	it('there should be exactly one genomeLabelGroup in the simple test svg', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearGenomeLabelCoords = ali.getGenomeLabelCoords();
+		ali.drawLinearGenomeLabels(linearGenomeLabelCoords);
+		expect(ali.svgD3.selectAll('.genomeLabelGroup').size()).toEqual(1);
+	});
+	it('if a tree is drawn the genomeLabel group should be transformed', function(){
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.labels.showAllLabels = true;
+		ali.conf.tree.drawTree = true;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.genomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
+	});
+	it('no genome labels are drawn when the configuration for showAllLabels and showGenomeLabels are both false', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.conf.labels.showAllLabels = false;
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.genomeLabelGroup').size()).toEqual(0);
+	});
+});
+
+describe('The getChromosomeLabelCoords method is supposed to calculate the coords for adding labels to the chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getChromosomeLabelCoords method is supposed to be a function', function(){
+		expect(typeof ali.getChromosomeLabelCoords).toEqual('function');
+	});
+	it('getChromsomeLabelCoords method is supposed to return the array linearChromosomeLabelCoords, which should be defined', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearChromosomeLabelCoords = ali.getChromosomeLabelCoords(linearKaryoCoords);
+		expect(linearChromosomeLabelCoords).toBeDefined();
+	});
+	it('getChromsomeLabelCoords method is supposed to return the expected linearChromsomeLabelCoords', function(){
+		ali.setData(data);
+		ali.setFilters(filters);	
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearChromosomeLabelCoords = ali.getChromosomeLabelCoords(linearKaryoCoords);
+		var expectedCoords = [{name: "c1", y: 0 + 0.85 * defaultConf.graphicalParameters.karyoHeight, x: 0 + 1/2 * 1000}, {name: "c2", x: 0 + 1/2 * 500, y: 970 + 0.85 * defaultConf.graphicalParameters.karyoHeight}];
+		expect(linearChromosomeLabelCoords).toEqual(expectedCoords);
+	});
+});
+
+describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to draw chromosome labels next to the chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawLinearChromosomeLabels method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearChromosomeLabels).toEqual('function');
+	});
+	it('there should be exactly one chromosomeLabelGroup in the simple test svg', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearChromosomeLabelCoords = ali.getChromosomeLabelCoords(linearKaryoCoords);
+		ali.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(1);
+	});
+	it('if the default configuration of showChromosomeLabels is false no chromosomes are drawn', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.conf.labels.chromosome.showChromosomeLabels = false;
+		ali.conf.labels.showAllLabels = false;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(0);
+	});
+	it('if genome labels are drawn the chromosome labels should be transformed', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.conf.labels.showAllLabels = true;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.genomeLabelWidth + ", 0)");
+	});
+	it('if there are no genome labels drawn the chromosome labels are not transformed', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.conf.labels.showAllLabels = false;
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.conf.labels.chromosome.showChromosomeLabels = true;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual(null);
+	});
+	it('if no genome labels are drawn, but the tree is drawn, the chromosomes whould be transformed', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.labels.showAllLabels = false;
+		ali.conf.tree.drawTree = true;
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.conf.labels.chromosome.showChromosomeLabels = true;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
+	});
+});
+
+describe('The getFeatureLabelCoords method is supposed to calculate the coords for adding labels to the features', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getFeatureLabelCoords method is supposed to be a function', function(){
+		expect(typeof ali.getFeatureLabelCoords).toEqual('function');
+	});
+	it('getFeatureLabelCoords method is supposed to return the array linearFeatureLabelCoords, which should be defined', function(){
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.features.showAllFeatures = true;
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
+		expect(linearFeatureLabelCoords).toBeDefined();
+	});
+});
+
+describe('The drawLinearFeatureLabels method of AliTV objects is supposed to draw feature labels onto the chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawLinearFeatureLabels method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearFeatureLabels).toEqual('function');
+	});
+	it('there should be exactly one featureLabelGroup in the simple test svg', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo, features: features17});
+		ali.setFilters(filters);
+		ali.conf.features.showAllFeatures = true;
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
+		ali.drawLinearFeatureLabels(linearFeatureLabelCoords);
+		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(1);
+	});
+	it('there should be exactly one featureLabelGroup in a more complex test svg', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo, features: features18});
+		ali.setFilters(filters);
+		ali.conf.features.showAllFeatures = true;
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
+		ali.drawLinearFeatureLabels(linearFeatureLabelCoords);
+		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(1);
+	});
+	it('no feature labels are drawn because the default configuration for them are equal false', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.features.showAllFeatures = true;
+		ali.conf.labels.features.showFeatureLabels = false;
+		ali.conf.labels.showAllLabels = false;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(0);
+	});
+	it('if there are no genome labels drawn the feature labels are not transformed', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.features.showAllFeatures = true;
+		ali.conf.labels.showAllLabels = false;
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.conf.labels.features.showFeatureLabels = true;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.featureLabelGroup').attr("transform")).toEqual(null);
+	});
 });

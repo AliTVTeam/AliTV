@@ -386,6 +386,18 @@ var features16 = {
 		'f6': {'karyo': 'c2', 'start': 50, 'end': 250, 'group': "link"}
 };
 
+
+var features17 = {
+		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
+		'f2': {'karyo': 'c1', 'start': 300, 'end': 400, 'group': "invertedRepeat"},
+		'f3': {'karyo': 'c1', 'start': 500, 'end': 600, 'group': "n-stretch"}
+};
+
+var features18 = {
+		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "repeat"},
+		'f2': {'karyo': 'c1', 'start': 300, 'end': 400, 'group': "transposon"},
+		'f3': {'karyo': 'c1', 'start': 500, 'end': 600, 'group': "n-stretch"}
+};
 var links = {
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 };
@@ -501,3 +513,4 @@ var data5 = {'karyo': karyo, 'features': features, 'links': links, "tree": tree}
 var data6 = {'karyo': karyo, 'features': features, 'links': links, "tree": {}};
 var data7 = {'karyo': karyo, 'features': features, 'links': links, "tree": null};
 var data8 = {'karyo': karyo, 'features': features16, "links": links14, "tree": tree};
+var data9 = {'karyo': karyo, 'features': features17, "links": links14, "tree": tree};

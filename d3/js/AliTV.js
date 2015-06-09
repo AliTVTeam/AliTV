@@ -82,6 +82,7 @@ function AliTV(svg) {
 	 * @property {Number}  graphicalParameters.linkKaryoDistance   - The vertical distance between chromosomes and links in px.
 	 * @property {Number}  graphicalParameters.tickDistance        - The distance in bp of ticks on the drawn chromosomes.
 	 * @property {Number}  graphicalParameters.treeWidth		   - The width of the svg drawing area, where the tree should be shown.
+	 * @property {Number}  graphicalParameters.genomeLabelWidth    - The width of the svg drawing area, where the genome labels should be shown.
 	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
 	 * @property {Object}  tree									   - Contains the configuration objects for drawing a tree.
 	 * @property {Boolean} tree.drawTree						   - With this option it is possible to draw a phylogenetic tree ext to the chromosomes.
@@ -98,6 +99,14 @@ function AliTV(svg) {
 	 * @property {String}  features.invertedRepeat.color		   - Defines the color of an inverted repeat.
 	 * @property {Number}  features.invertedRepeat.height		   - Defines the height of the drawn inverted repeat onto the chromosome.
 	 * @property {Boolean} features.invertedRepeats.visible		   - Defines if an inverted repeat is drawn or not.
+	 * @property {Object}  labels								   - The configuration options for the text labels.
+	 * @property {Boolean} labels.showAllLabels					   - With this option it is possible to set labels to genomes, chromosomes and all features.
+	 * @property {Object}  labels.chromosomes					   - Contains the configurations for the chromosome labels.
+	 * @property {Boolean} labels.chromosomes.showChromosomeLabels - Defines if chromosome labels are shown or not.
+	 * @property {Object}  labels.genome					   	   - Contains the configurations for the genome labels.
+	 * @property {Boolean} labels.genome.showGenomeLabels 		   - Defines if genome labels are shown or not.
+	 * @property {Object}  labels.features					   	   - Contains the configurations for the feature labels.
+	 * @property {Boolean} labels.features.showFeatureLabels 	   - Defines if feature labels are shown or not.
 	 */
 	this.conf = {
 		linear: {
@@ -115,7 +124,8 @@ function AliTV(svg) {
 			karyoDistance: 10,
 			linkKaryoDistance: 10,
 			tickDistance: 100,
-			treeWidth: 300
+			treeWidth: 300,
+			genomeLabelWidth: 150
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -143,6 +153,18 @@ function AliTV(svg) {
 				color: "#e7d3e2",
 				height: 30,
 				visible: false
+			}
+		},
+		labels: {
+			showAllLabels: false,
+			chromosome: {
+				showChromosomeLabels: true
+			},
+			genome: {
+				showGenomeLabels: true
+			},
+			features: {
+				showFeatureLabels: false
 			}
 		}
 	};
@@ -389,8 +411,14 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
 		});
 
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
 };
 
@@ -493,6 +521,12 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
 };
 
 /**
@@ -553,6 +587,12 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
 };
 
 
@@ -564,6 +604,10 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  */
 AliTV.prototype.drawLinear = function() {
 	this.svgD3.selectAll(".treeGroup").remove();
+	this.svgD3.selectAll(".chromosomeLabelGroup").remove();
+	this.svgD3.selectAll(".featureLabelGroup").remove();
+	this.svgD3.selectAll(".genomeLabelGroup").remove();
+
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
@@ -571,14 +615,33 @@ AliTV.prototype.drawLinear = function() {
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
 
+
+	if (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels === true) {
+		var linearGenomeLabelCoords = this.getGenomeLabelCoords();
+		this.drawLinearGenomeLabels(linearGenomeLabelCoords);
+		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.genomeLabelWidth);
+	}
+
 	if (this.conf.features.showAllFeatures === true || this.conf.features.gen.visible === true || this.conf.features.invertedRepeat.visible === true) {
 		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 		this.drawLinearFeatures(linearFeatureCoords);
+		if (this.conf.labels.showAllLabels === true || this.conf.labels.features.showFeatureLabels === true) {
+			var linearFeatureLabelCoords = this.getFeatureLabelCoords(linearFeatureCoords);
+			this.drawLinearFeatureLabels(linearFeatureLabelCoords);
+		}
+	}
+	if (this.conf.labels.showAllLabels === true || this.conf.labels.chromosome.showChromosomeLabels === true) {
+		var linearChromosomeLabelCoords = this.getChromosomeLabelCoords(karyoCoords);
+		this.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
 	}
 
 	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
 		this.drawPhylogeneticTree();
 		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth);
+	}
+
+	if (this.conf.tree.drawTree === true && (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels)) {
+		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 	this.conf.layout = "linear";
 };
@@ -1299,6 +1362,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 				return "M" + d.source.y + "," + d.source.x + "H" + d.target.y + "V" + d.target.x;
 			})
 			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
+
 	} else {
 		that.svgD3.append("g")
 			.attr("class", "treeGroup")
@@ -1312,6 +1376,10 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 				return "M" + (that.conf.graphicalParameters.treeWidth - d.source.y) + "," + d.source.x + "H" + (that.conf.graphicalParameters.treeWidth - d.target.y) + "V" + d.target.x;
 			})
 			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
+		if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+			that.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.width + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+		}
+
 	}
 
 };
@@ -1506,6 +1574,197 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
 
 
+};
+
+/**
+ * This method is supposed to calculate the coordinates for genome labels.
+ * This is called if the configuration of addGenomeLables is true.
+ * @returns genomeLabelCoords: returns an array which contains the coords for the genome labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getGenomeLabelCoords = function() {
+	var that = this;
+	var linearGenomeLabelCoords = [];
+	var genomeDistance = that.getGenomeDistance();
+	$.each(that.filters.karyo.genome_order, function(key, value) {
+		var genome = {
+			name: value,
+			x: 1 / 2 * that.conf.graphicalParameters.genomeLabelWidth,
+			y: key * genomeDistance + 0.9 * that.conf.graphicalParameters.karyoHeight
+		};
+		linearGenomeLabelCoords.push(genome);
+	});
+	return linearGenomeLabelCoords;
+};
+
+/**
+ * This function is supposed to draw the text labels for genomes.
+ * @param linearGenomeLabelCoords: gets the coords of the genome labels whcih is returned by getGenomeLabelCoords.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.drawLinearGenomeLabels = function(linearGenomeLabelCoords) {
+	var that = this;
+	this.svgD3.selectAll(".genomeLabelGroup").remove();
+	that.svgD3.append("g")
+		.attr("class", "genomeLabelGroup")
+		.selectAll("path")
+		.data(linearGenomeLabelCoords)
+		.enter()
+		.append("text")
+		.attr("class", "genomeLabel")
+		.attr("x", function(d) {
+			return d.x;
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.text(function(d) {
+			return d.name;
+		})
+		.attr("font-family", "sans-serif")
+		.attr("font-size", that.conf.graphicalParameters.karyoHeight + "px")
+		.attr("fill", "red")
+		.style("text-anchor", "middle");
+
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".genomeLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
+};
+
+/**
+ * This method is supposed to calculate the coordinates for chromosome labels.
+ * This is called if the configuration of addChromosomeLabels or showAllLabels is true.
+ * @param gets the coordinates of the drawn chromosomes.
+ * @returns chromosomeLabelCoords: returns an array which contains the coords for the chromosome labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getChromosomeLabelCoords = function(linearKaryoCoords) {
+	var that = this;
+	var linearChromosomeLabelCoords = [];
+	$.each(linearKaryoCoords, function(key, value) {
+		var genome = {
+			name: value.karyo,
+			x: value.x + 1 / 2 * value.width,
+			y: value.y + 0.85 * that.conf.graphicalParameters.karyoHeight
+		};
+		linearChromosomeLabelCoords.push(genome);
+	});
+	return linearChromosomeLabelCoords;
+};
+
+/**
+ * This function is supposed to draw the text labels for chromosome.
+ * @param linearChromosomeLabelCoords: gets the coords of the chromosome labels which is returned by getChromosomeLabelCoords.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.drawLinearChromosomeLabels = function(linearChromosomeLabelCoords) {
+	var that = this;
+	this.svgD3.selectAll(".chromosomeLabelGroup").remove();
+	that.svgD3.append("g")
+		.attr("class", "chromosomeLabelGroup")
+		.selectAll("path")
+		.data(linearChromosomeLabelCoords)
+		.enter()
+		.append("text")
+		.attr("class", "chromosomeLabel")
+		.attr("x", function(d) {
+			return d.x;
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.text(function(d) {
+			return d.name;
+		})
+		.attr("font-family", "sans-serif")
+		.attr("font-size", that.conf.graphicalParameters.karyoHeight + "px")
+		.attr("fill", "red")
+		.style("text-anchor", "middle");
+
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".chromosomeLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".chromosomeLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === false && that.conf.labels.genome.showGenomeLabels === false) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".chromosomeLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
+};
+
+/**
+ * This method is supposed to calculate the coordinates for feature labels.
+ * This method is called if the configuration of addFeatureLabels or showAllLabels is true.
+ * @param gets the coordinates of the drawn features.
+ * @returns featureLabelCoords: returns an array which contains the coords for the feature labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
+	var that = this;
+	var linearFeatureLabelCoords = [];
+	$.each(linearFeatureCoords, function(key, value) {
+		var feature = {
+			name: value.id
+		};
+		if (that.conf.features[that.data.features[value.id].group].form === "rect") {
+			feature.x = value.x + 1 / 2 * value.width;
+			feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
+		}
+		if (that.conf.features[that.data.features[value.id].group].form === "arrow") {
+			if (that.filters.karyo.chromosomes[that.data.features[value.id].karyo].reverse === false) {
+				feature.x = value.arrowData[0].x + 1 / 2 * Math.abs(value.arrowData[3].x - value.arrowData[0].x);
+				feature.y = value.arrowData[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
+			} else {
+				feature.x = value.arrowData[3].x + 1 / 2 * Math.abs(value.arrowData[0].x - value.arrowData[3].x);
+				feature.y = value.arrowData[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
+			}
+		}
+		linearFeatureLabelCoords.push(feature);
+	});
+	return linearFeatureLabelCoords;
+};
+
+/**
+ * This method is supposed to draw labels to all features.
+ * @param linearFeatureLabelCoords: get the coords for the feature labels which are returned by getFeatureLabelCoords.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.drawLinearFeatureLabels = function(linearFeatureLabelCoords) {
+	var that = this;
+	this.svgD3.selectAll(".featureLabelGroup").remove();
+	that.svgD3.append("g")
+		.attr("class", "featureLabelGroup")
+		.selectAll("path")
+		.data(linearFeatureLabelCoords)
+		.enter()
+		.append("text")
+		.attr("class", "featureLabel")
+		.attr("x", function(d) {
+			return d.x;
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.text(function(d) {
+			return d.name;
+		})
+		.attr("font-family", "sans-serif")
+		.attr("font-size", 2 / 3 * that.conf.graphicalParameters.karyoHeight + "px")
+		.attr("fill", "red")
+		.style("text-anchor", "middle");
+
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
 };

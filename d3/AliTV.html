@@ -42,6 +42,10 @@
 		$('#showGenes').attr('checked', false);
 		$('#showInvertedRepeats').attr('checked', false);
 		$('#drawTree').attr('checked', false);
+		$('#showAllLabels').attr('checked', false);
+		$('#showGenomeLabels').attr('checked', true);
+		$('#showChromosomeLabels').attr('checked', true);
+		$('#showFeatureLabels').attr('checked', false);
 		
 		});
 	
@@ -191,6 +195,54 @@
 		} else {
 			wga.conf.features.invertedRepeat.visible = false;
 			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showAllLabels').change(function() {
+		if($('#showAllLabels').is(':checked')){
+			wga.conf.labels.showAllLabels = true;
+			$("#showChromosomeLabels").attr("disabled", true);
+			$("#showGenomeLabels").attr("disabled", true);
+			$("#showFeatureLabels").attr("disabled", true);
+		} else {
+			wga.conf.labels.showAllLabels = false;
+			$("#showChromosomeLabels").attr("disabled", false);
+			$("#showGenomeLabels").attr("disabled", false);
+			$("#showFeatureLabels").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showGenomeLabels').change(function() {
+		if($('#showGenomeLabels').is(':checked')){
+			wga.conf.labels.genome.showGenomeLabels = true;
+			$("#showAllLabels").attr("disabled", true);
+		} else {
+			wga.conf.labels.genome.showGenomeLabels = false;
+			$("#showAllLabels").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showFeatureLabels').change(function() {
+		if($('#showFeatureLabels').is(':checked')){
+			wga.conf.labels.features.showFeatureLabels = true;
+			$("#showAllLabels").attr("disabled", true);
+		} else {
+			wga.conf.labels.features.showFeatureLabels = false;
+			$("#showAllLabels").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showChromosomeLabels').change(function() {
+		if($('#showChromosomeLabels').is(':checked')){
+			wga.conf.labels.chromosome.showChromosomeLabels = true;
+			$("#showAllLabels").attr("disabled", true);
+		} else {
+			wga.conf.labels.chromosome.showChromosomeLabels = false;
+			$("#showAllLabels").attr("disabled", false);
 		}
 	});	
 	});
@@ -365,6 +417,21 @@
  					 Show genes: <input id="showGenes" type="checkbox">
  					<br>
  		 			Show inverted repeats: <input id="showInvertedRepeats" type="checkbox">
+ 					<br>
+ 				</fieldset>
+ 			</form> 
+ 		</div>
+ 		<h3><span class="number">6</span>Labeling</h3>
+ 		<div>
+			<form>
+ 				<fieldset>
+ 					Show all labels: <input id="showAllLabels" type="checkbox">
+ 					<br>
+ 					Show genome labels: <input id="showGenomeLabels" type="checkbox">
+ 					<br>
+ 		 			Show chromosome labels: <input id="showChromosomeLabels" type="checkbox">
+ 					<br>
+ 					Show feature labels: <input id="showFeatureLabels" type="checkbox">
  					<br>
  				</fieldset>
  			</form> 
