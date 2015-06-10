@@ -1434,13 +1434,9 @@ AliTV.prototype.hasTree = function() {
 AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 	var that = this;
 	var linearFeatureCoords = [];
-	var supportedFeatures = [];
 	var features = {};
-	$.each(that.conf.features.supportedFeatures, function(key, value) {
-		supportedFeatures.push(key);
-	});
 	$.each(that.data.features, function(key, value) {
-		if (supportedFeatures.indexOf(value.group) !== -1) {
+		if (value.group !== "link") {
 			features[key] = value;
 		}
 	});
@@ -1451,7 +1447,6 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 		var currentX;
 		var currentFeature = {};
 		var featureId = key;
-
 		$.each(linearKaryoCoords, function(key, value) {
 			if (featureKaryo === value.karyo) {
 				currentY = value.y;
