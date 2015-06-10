@@ -1678,8 +1678,6 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.filter(function(d) {
 			if (that.data.features[d.id].group in that.conf.features.supportedFeatures === true) {
 				return that.conf.features.supportedFeatures[that.data.features[d.id].group].form === "arrow" && (that.conf.features.supportedFeatures[that.data.features[d.id].group].visible === true || that.conf.features.showAllFeatures === true);
-			} else {
-				return that.conf.features.fallbackStyle.form === "arrow";
 			}
 		})
 		.each(function(d, i) {
@@ -1697,20 +1695,6 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 							return crosslines.url();
 						} else {
 							color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
-							return color;
-						}
-					} else {
-						pattern = that.conf.features.fallbackStyle.pattern;
-						if (pattern === "lines") {
-							return lines.url();
-						} else if (pattern === "circles") {
-							return circles.url();
-						} else if (pattern === "woven") {
-							return woven.url();
-						} else if (pattern === "crosslines") {
-							return crosslines.url();
-						} else {
-							color = that.conf.features.fallbackStyle.color;
 							return color;
 						}
 					}
