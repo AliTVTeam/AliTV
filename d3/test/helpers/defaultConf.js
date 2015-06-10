@@ -60,6 +60,12 @@ var defaultConf =  {
 					visible: false,
 					pattern: "crosslines"
 				}
+			},
+			fallbackStyle: {
+				form: "rect",
+				color: "#787878",
+				height: 30,
+				visible: false
 			}
 		},
 		labels: {
