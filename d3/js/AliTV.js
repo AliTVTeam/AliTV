@@ -1569,6 +1569,15 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 
 	shapes.call(crosslines);
 
+	var circles = textures.circles()
+		.background(function(d) {
+			var color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
+			return color;
+		})
+		.complement();
+
+	shapes.call(circles);
+
 	shapes.append("rect")
 		.filter(function(d) {
 			return that.conf.features.supportedFeatures[that.data.features[d.id].group].form === "rect" && (that.conf.features.supportedFeatures[that.data.features[d.id].group].visible === true || that.conf.features.showAllFeatures === true);
