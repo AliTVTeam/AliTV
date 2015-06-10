@@ -159,16 +159,28 @@
       "group": "invertedRepeat"
     },
     "f22": {
-      "end": 200,
+      "end": 350,
       "karyo": "c5",
-      "start": 350,
+      "start": 200,
       "group": "nStretch"
     },
     "f23": {
-      "end": 1100,
+      "end": 1500,
       "karyo": "c1",
-      "start": 1500,
+      "start": 1100,
       "group": "nStretch"
+    },
+    "f24": {
+      "end": 400,
+      "karyo": "c5",
+      "start": 200,
+      "group": "repeat"
+    },
+    "f25": {
+      "end": 700,
+      "karyo": "c7",
+      "start": 600,
+      "group": "repeat"
     }
   },
   "karyo": {
