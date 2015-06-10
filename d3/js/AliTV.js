@@ -1687,16 +1687,14 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 				.attr("fill", function(d) {
 					var pattern;
 					var color;
-					if (that.data.features[d.id].group in that.conf.features.supportedFeatures === true) {
-						pattern = that.conf.features.supportedFeatures[that.data.features[d.id].group].pattern;
-						if (pattern === "circles") {
-							return circles.url();
-						} else if (pattern === "crosslines") {
-							return crosslines.url();
-						} else {
-							color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
-							return color;
-						}
+					pattern = that.conf.features.supportedFeatures[that.data.features[d.id].group].pattern;
+					if (pattern === "circles") {
+						return circles.url();
+					} else if (pattern === "crosslines") {
+						return crosslines.url();
+					} else {
+						color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
+						return color;
 					}
 				});
 		});
@@ -1860,19 +1858,8 @@ AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
 				}
 			}
 		} else {
-			if (that.conf.features.fallbackStyle.form === "rect") {
-				feature.x = value.x + 1 / 2 * value.width;
-				feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
-			}
-			if (that.conf.features.fallbackStyle.form === "arrow") {
-				if (that.filters.karyo.chromosomes[that.data.features[value.id].karyo].reverse === false) {
-					feature.x = value.path[0].x + 1 / 2 * Math.abs(value.path[3].x - value.path[0].x);
-					feature.y = value.path[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
-				} else {
-					feature.x = value.path[3].x + 1 / 2 * Math.abs(value.path[0].x - value.path[3].x);
-					feature.y = value.path[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
-				}
-			}
+			feature.x = value.x + 1 / 2 * value.width;
+			feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
 		}
 		linearFeatureLabelCoords.push(feature);
 	});

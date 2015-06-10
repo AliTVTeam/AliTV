@@ -1379,6 +1379,42 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		ali.drawLinearFeatures(linearFeatureCoords);
 		expect(ali.svgD3.selectAll('.feature').size()).toEqual(1);
 	});
+	it('there should be exactly one feature of a non-supported feature group, which should be drawn as a rect with the circles pattern (the fallback style is changed via the configuration)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo12, features: features20});
+		ali.setFilters(filters17);
+		ali.conf.features.showAllFeatures = true;
+		ali.conf.features.fallbackStyle.pattern = "circles";
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(1);
+	});
+	it('there should be exactly one feature of a non-supported feature group, which should be drawn as a rect with the woven pattern (the fallback style is changed via the configuration)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo12, features: features20});
+		ali.setFilters(filters17);
+		ali.conf.features.showAllFeatures = true;
+		ali.conf.features.fallbackStyle.pattern = "woven";
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(1);
+	});
+	it('there should be exactly one feature of a non-supported feature group, which should be drawn as a rect with the crosslines pattern (the fallback style is changed via the configuration)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo12, features: features20});
+		ali.setFilters(filters17);
+		ali.conf.features.showAllFeatures = true;
+		ali.conf.features.fallbackStyle.pattern = "crosslines";
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(1);
+	});
 	it('the drawn features have the expected height', function(){
 		ali.setData({karyo: karyo3, features: features11});
 		ali.setFilters(filters3);
