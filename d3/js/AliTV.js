@@ -147,19 +147,28 @@ function AliTV(svg) {
 					form: "rect",
 					color: "#E2EDFF",
 					height: 30,
-					visible: false
+					visible: false,
+					pattern: "lines"
 				},
 				invertedRepeat: {
 					form: "arrow",
 					color: "#e7d3e2",
 					height: 30,
-					visible: false
+					visible: false,
 				},
 				nStretch: {
 					form: "rect",
 					color: "#000000",
 					height: 30,
-					visible: false
+					visible: false,
+					pattern: "woven"
+				},
+				repeat: {
+					form: "arrow",
+					color: "#56cd0f",
+					height: 30,
+					visible: false,
+					pattern: "crosslines"
 				}
 			}
 		},
@@ -1531,14 +1540,33 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.data(linearFeatureCoords)
 		.enter();
 
-	var t = textures.lines()
+	var lines = textures.lines()
 		.background(function(d) {
 			var color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
 			return color;
 		})
 		.thicker();
 
-	shapes.call(t);
+	shapes.call(lines);
+
+
+	var woven = textures.paths()
+		.d("woven")
+		.background("orange")
+		.thicker();
+
+	shapes.call(woven);
+
+	var crosslines = textures.lines()
+		.orientation("2/8", "6/8")
+		.background(function(d) {
+			var color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
+			console.log(color);
+			return color;
+		})
+		.stroke("#000000");
+
+	shapes.call(crosslines);
 
 	shapes.append("rect")
 		.filter(function(d) {
@@ -1561,7 +1589,21 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.attr("height", function(d) {
 			return d.height;
 		})
-		.style("fill", t.url());
+		.style("fill", function(d) {
+			var pattern = that.conf.features.supportedFeatures[that.data.features[d.id].group].pattern;
+			if (pattern === "lines") {
+				return lines.url();
+			} else if (pattern === "circles") {
+				return circles.url();
+			} else if (pattern === "woven") {
+				return woven.url();
+			} else if (pattern === "crosslines") {
+				return crosslines.url();
+			} else {
+				var color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
+				return color;
+			}
+		});
 
 
 	var lineFunction = d3.svg.line()
@@ -1582,8 +1624,15 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 				.attr("class", "feature")
 				.attr("d", lineFunction(d.path))
 				.attr("fill", function(d) {
-					var color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
-					return color;
+					var pattern = that.conf.features.supportedFeatures[that.data.features[d.id].group].pattern;
+					if (pattern === "circles") {
+						return circles.url();
+					} else if (pattern === "crosslines") {
+						return crosslines.url();
+					} else {
+						var color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
+						return color;
+					}
 				});
 		});
 
