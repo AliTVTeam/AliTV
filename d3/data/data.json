@@ -181,6 +181,18 @@
       "karyo": "c7",
       "start": 600,
       "group": "repeat"
+    },
+    "f26": {
+      "end": 400,
+      "karyo": "c1",
+      "start": 200,
+      "group": "transposon"
+    },
+    "f27": {
+      "end": 700,
+      "karyo": "c8",
+      "start": 600,
+      "group": "transposon"
     }
   },
   "karyo": {
