@@ -1427,7 +1427,6 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 			features[key] = value;
 		}
 	});
-	console.log(supportedFeatures);
 	$.each(features, function(key, value) {
 		var featureKaryo = value.karyo;
 		var currentY;
@@ -1463,9 +1462,9 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 			currentFeature = {
 				"id": key
 			};
-			currentFeature.arrowData = [];
+			currentFeature.path = [];
 			if (that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
-				currentFeature.arrowData.push({
+				currentFeature.path.push({
 					x: (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
 					y: currentY + 1 / 5 * that.conf.features.supportedFeatures[value.group].height
 				}, {
@@ -1488,7 +1487,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 					y: currentY + that.conf.features.supportedFeatures[value.group].height - 1 / 5 * that.conf.features.supportedFeatures[value.group].height
 				});
 			} else {
-				currentFeature.arrowData.push({
+				currentFeature.path.push({
 					x: currentX - (-1) * (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
 					y: currentY + 1 / 5 * that.conf.features.supportedFeatures[value.group].height
 				}, {
@@ -1567,6 +1566,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			return d.y;
 		})
 		.interpolate("linear");
+
 	shapes.append("path")
 		.filter(function(d) {
 			return that.conf.features.supportedFeatures[that.data.features[d.id].group].form === "arrow" && (that.conf.features.supportedFeatures[that.data.features[d.id].group].visible === true || that.conf.features.showAllFeatures === true);
@@ -1574,12 +1574,13 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.each(function(d, i) {
 			d3.select(this)
 				.attr("class", "feature")
-				.attr("d", lineFunction(d.arrowData))
+				.attr("d", lineFunction(d.path))
 				.attr("fill", function(d) {
 					var color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
 					return color;
 				});
 		});
+
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
