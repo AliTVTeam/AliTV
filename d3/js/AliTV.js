@@ -647,7 +647,7 @@ AliTV.prototype.drawLinear = function() {
 		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 
-	if (this.conf.features.showAllFeatures === true || this.conf.features.supportedFeatures.gen.visible === true || this.conf.features.supportedFeatures.invertedRepeat.visible === true) {
+	if (this.conf.features.showAllFeatures === true || this.conf.features.supportedFeatures.gen.visible === true || this.conf.features.supportedFeatures.invertedRepeat.visible === true || this.conf.features.supportedFeatures.repeat.visible === true || this.conf.features.supportedFeatures.nStretch.visible === true || this.conf.features.fallbackStyle.visible === true) {
 		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 		this.drawLinearFeatures(linearFeatureCoords);
 		if (this.conf.labels.showAllLabels === true || this.conf.labels.features.showFeatureLabels === true) {

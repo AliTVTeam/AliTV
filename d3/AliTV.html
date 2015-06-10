@@ -42,6 +42,9 @@
 		$('#showFeatures').attr('checked', false);
 		$('#showGenes').attr('checked', false);
 		$('#showInvertedRepeats').attr('checked', false);
+		$('#showRepeats').attr('checked', false);
+		$('#showNstretch').attr('checked', false);
+		$('#showFallback').attr('checked', false);
 		$('#drawTree').attr('checked', false);
 		$('#showAllLabels').attr('checked', false);
 		$('#showGenomeLabels').attr('checked', true);
@@ -85,7 +88,7 @@
 	$(function() {
 		$( "#accordion" ).accordion();
 	});
-	
+
 	$(function(){$('#skipChromosomesWithoutVisibleLinks').change(function() {
 			if($('#skipChromosomesWithoutVisibleLinks').is(':checked')){
 		     	wga.filters.skipChromosomesWithoutVisibleLinks = true;
@@ -195,6 +198,39 @@
 			$("#showFeatures").attr("disabled", true);
 		} else {
 			wga.conf.features.supportedFeatures.invertedRepeat.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showRepeats').change(function() {
+		if($('#showRepeats').is(':checked')){
+			wga.conf.features.supportedFeatures.repeat.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			wga.conf.features.supportedFeatures.repeat.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showNstretch').change(function() {
+		if($('#showNstretch').is(':checked')){
+			wga.conf.features.supportedFeatures.nStretch.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			wga.conf.features.supportedFeatures.nStretch.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showFallback').change(function() {
+		if($('#showFallback').is(':checked')){
+			wga.conf.features.fallbackStyle.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			wga.conf.features.fallbackStyle.visible = false;
 			$("#showFeatures").attr("disabled", false);
 		}
 	});	
@@ -410,18 +446,28 @@
  			</form> 
  		</div>
  		<h3><span class="number">5</span>Draw provided features</h3>
- 		<div>
-			<form>
- 				<fieldset>
- 					 Show all features: <input id="showFeatures" type="checkbox">
- 					<br>
- 					 Show genes: <input id="showGenes" type="checkbox">
- 					<br>
- 		 			Show inverted repeats: <input id="showInvertedRepeats" type="checkbox">
- 					<br>
- 				</fieldset>
- 			</form> 
- 		</div>
+	 		<div>
+				<form>
+	 				<fieldset>
+	 					Show all features: <input id="showFeatures" type="checkbox">
+	 					<br>
+	 					<h3>Genes</h3>
+	 					Show genes: <input id="showGenes" type="checkbox">
+	 					<br>
+	 					<h3>Inverted repeats</h3>
+	 		 			Show inverted repeats: <input id="showInvertedRepeats" type="checkbox">
+	 					<br>
+	 					<h3>Repeats</h3>
+	 		 			Show repeats: <input id="showRepeats" type="checkbox">
+	 					<br>
+	 					<h3>N stretch</h3>
+	 		 			Show n stretches: <input id="showNstretch" type="checkbox">
+	 					<br>
+	 					<br>
+	 					Show non-supported feature groups: <input id="showFallback" type="checkbox">
+	 				</fieldset>
+	 			</form> 
+	 		</div>
  		<h3><span class="number">6</span>Labeling</h3>
  		<div>
 			<form>
