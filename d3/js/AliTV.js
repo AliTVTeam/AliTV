@@ -1531,6 +1531,12 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.data(linearFeatureCoords)
 		.enter();
 
+	var t = textures.lines()
+		.background("#E2EDFF")
+		.thicker();
+
+	shapes.call(t);
+
 	shapes.append("rect")
 		.filter(function(d) {
 			return that.conf.features.supportedFeatures[that.data.features[d.id].group].form === "rect" && (that.conf.features.supportedFeatures[that.data.features[d.id].group].visible === true || that.conf.features.showAllFeatures === true);
@@ -1552,10 +1558,11 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.attr("height", function(d) {
 			return d.height;
 		})
-		.style("fill", function(d) {
-			var color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
-			return color;
-		});
+		//		.style("fill", function(d) {
+		//			var color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
+		//			return color;
+		//		})
+		.style("fill", t.url());
 
 
 	var lineFunction = d3.svg.line()
