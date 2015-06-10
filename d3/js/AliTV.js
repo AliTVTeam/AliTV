@@ -1563,7 +1563,6 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.orientation("2/8", "6/8")
 		.background(function(d) {
 			var color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
-			console.log(color);
 			return color;
 		})
 		.stroke("#000000");

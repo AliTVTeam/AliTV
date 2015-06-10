@@ -37,19 +37,28 @@ var defaultConf =  {
 					form: "rect",
 					color: "#E2EDFF",
 					height: 30,
-					visible: false
+					visible: false,
+					pattern: "lines"
 				},
 				invertedRepeat: {
 					form: "arrow",
 					color: "#e7d3e2",
 					height: 30,
-					visible: false
+					visible: false,
 				},
 				nStretch: {
-					form: "triangleLine",
+					form: "rect",
 					color: "#000000",
 					height: 30,
-					visible: false
+					visible: false,
+					pattern: "woven"
+				},
+				repeat: {
+					form: "arrow",
+					color: "#56cd0f",
+					height: 30,
+					visible: false,
+					pattern: "crosslines"
 				}
 			}
 		},
