@@ -429,6 +429,10 @@ var features19 = {
 		'f5': {'karyo': 'c5', 'start': 100, 'end': 200, 'group': "link"}
 };
 
+var features20 = {
+		'f6': {'karyo': 'c5', 'start': 100, 'end': 200, 'group': "tRNA"}
+};
+
 var links = {
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 };
