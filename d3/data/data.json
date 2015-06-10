@@ -162,7 +162,13 @@
       "end": 200,
       "karyo": "c5",
       "start": 350,
-      "group": "n stretch"
+      "group": "nStretch"
+    },
+    "f23": {
+      "end": 1100,
+      "karyo": "c1",
+      "start": 1500,
+      "group": "nStretch"
     }
   },
   "karyo": {
