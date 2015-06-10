@@ -1532,7 +1532,10 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.enter();
 
 	var t = textures.lines()
-		.background("#E2EDFF")
+		.background(function(d) {
+			var color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
+			return color;
+		})
 		.thicker();
 
 	shapes.call(t);
@@ -1558,10 +1561,6 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.attr("height", function(d) {
 			return d.height;
 		})
-		//		.style("fill", function(d) {
-		//			var color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
-		//			return color;
-		//		})
 		.style("fill", t.url());
 
 
