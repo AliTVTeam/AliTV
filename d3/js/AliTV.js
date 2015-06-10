@@ -1787,11 +1787,11 @@ AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
 		}
 		if (that.conf.features.supportedFeatures[that.data.features[value.id].group].form === "arrow") {
 			if (that.filters.karyo.chromosomes[that.data.features[value.id].karyo].reverse === false) {
-				feature.x = value.arrowData[0].x + 1 / 2 * Math.abs(value.arrowData[3].x - value.arrowData[0].x);
-				feature.y = value.arrowData[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
+				feature.x = value.path[0].x + 1 / 2 * Math.abs(value.path[3].x - value.path[0].x);
+				feature.y = value.path[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
 			} else {
-				feature.x = value.arrowData[3].x + 1 / 2 * Math.abs(value.arrowData[0].x - value.arrowData[3].x);
-				feature.y = value.arrowData[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
+				feature.x = value.path[3].x + 1 / 2 * Math.abs(value.path[0].x - value.path[3].x);
+				feature.y = value.path[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
 			}
 		}
 		linearFeatureLabelCoords.push(feature);
