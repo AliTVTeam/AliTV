@@ -156,7 +156,7 @@ function AliTV(svg) {
 					visible: false
 				},
 				nStretch: {
-					form: "triangleLine",
+					form: "rect",
 					color: "#000000",
 					height: 30,
 					visible: false
@@ -1590,6 +1590,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
+
 
 
 };
