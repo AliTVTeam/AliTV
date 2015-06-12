@@ -871,8 +871,7 @@ describe('The drawLinearTicks method is supposed to draw ticks in the linear lay
 	var ali = new AliTV(svg);
 	it('drawLinearTicks method is supposed to be a function', function(){
 		expect(typeof ali.drawLinearTicks).toEqual('function');
-	});
-	
+	});	
 	it('the svg should contain exactly 21 ticks', function(){
 		ali.setData({karyo:karyo6});
 		ali.setFilters(filters6);
@@ -881,7 +880,6 @@ describe('The drawLinearTicks method is supposed to draw ticks in the linear lay
 		ali.drawLinearTicks(ticks, linearKaryoCoords);
 		expect(ali.svgD3.selectAll('.tick').size()).toEqual(21);
 	});
-	
 });
 
 describe('A left mouseclick on a chromosome should change the reverse information of this chromosome', function(){
@@ -1658,5 +1656,15 @@ describe('The drawLinearTickLabels method is supposed to add labels to the ticks
 	var ali = new AliTV(svg);
 	it('drawLinearTickLabels method is supposed to be a function', function(){
 		expect(typeof ali.drawLinearTickLabels).toEqual('function');
+	});
+	it('the svg should contain exactly 21 ticks', function(){
+		ali.setData({karyo:karyo6});
+		ali.setFilters(filters6);
+		ali.conf.labels.ticks.showTickLabels = true;
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
+		ali.drawLinearTicks(ticks, linearKaryoCoords);
+		ali.drawLinearTickLabels(ticks);
+		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(21);
 	});
 });
