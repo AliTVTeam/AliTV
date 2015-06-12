@@ -555,6 +555,62 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 };
 
 /**
+ * This method is supposed to label the ticks with configurable tick labels.
+ * @author Sonja Hohlfeld
+ * @param linearTickCoords
+ */
+AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
+	var that = this;
+
+	this.svgD3.selectAll(".tickLabelGroup").remove();
+	var labels = that.svgD3.append("g")
+		.attr("class", "tickLabelGroup")
+		.selectAll("path")
+		.data(linearTickCoords)
+		.enter();
+
+	labels.append("text")
+		.each(function(d) {
+			d3.select(this)
+				.attr("class", "tickLabel")
+				.attr("x", function(d) {
+					return d.x1 - 4;
+				})
+				.attr("y", function(d) {
+					return d.y1;
+				})
+				.text(function(d) {
+					return 1;
+				});
+		});
+
+	labels.append("text")
+		.each(function(d) {
+			d3.select(this)
+				.attr("class", "tickLabel")
+				.attr("x", function(d) {
+					return d.x2 - 4;
+				})
+				.attr("y", function(d) {
+					return d.y2;
+				})
+				.text(function(d) {
+					return 0;
+				});
+		});
+
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
+};
+
+/**
  * This function is called by a mouse event.
  * If the mouse pointer enters the area of a chromosome all links should be faded out except the the links of the chromosome the mouse points to.
  * If the mouse pointer leaves the area of a chromosome all links should be faded in.
@@ -636,6 +692,7 @@ AliTV.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
+	this.drawLinearTickLabels(linearTickCoords);
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
