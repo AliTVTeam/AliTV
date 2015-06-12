@@ -359,6 +359,16 @@
 			$("#treeWidth").val(wga.getTreeWidth());
 		}
 	}
+	function changeTickLabelFrequency(){
+		var frequency = $("#tickLabelFrequency").val(); 
+		try {
+		wga.setTickLabelFrequency(frequency); 	
+		}
+		catch(err){
+			alert(err);
+			$("#tickLabelFrequency").val(wga.getTickLabelFrequency());
+		}
+	}
 	function setNewParameters(){
 		changeLinearSpacer();
 		changeKaryoHeight();
@@ -366,6 +376,7 @@
 		changeCanvasHeight()
 		changeTickDistance();
 		changeTreeWidth();
+		changeTickLabelFrequency();
 		
 		var layout = wga.getLayout();
 		wga.drawEqualLayout(layout);
@@ -403,7 +414,7 @@
  					Height:<br>
  					<input type="text" id="canvasHeight" placeholder="Enter the svg-height">
  					<br>
- 					Distance between ticks:<br>
+ 					Distance between ticks in bp:<br>
  					<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
  					<br>
  					Width of the phylogenetic tree:<br>
