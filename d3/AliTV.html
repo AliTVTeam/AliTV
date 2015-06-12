@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="lib/jquery-ui-1.9.2.custom.min.css">
 <link rel="stylesheet" href="css/AliTV.css">
 <link href="lib/bootstrap.min.css" rel="stylesheet">
+<link href="lib/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
 
 <script src="lib/d3.v3.min.js"></script>
 <script src="lib/jquery.min.js"></script>
@@ -13,6 +14,7 @@
 
 <script src="js/AliTV.js"></script>
 <script src="lib/bootstrap.min.js"></script>
+<script src="lib/colorpicker/bootstrap-colorpicker.min.js"></script>
 <script src="lib/textures.min.js"></script> 
 <script type="text/javascript">
 	var wga;
@@ -88,6 +90,10 @@
 	$(function() {
 		$( "#accordion" ).accordion();
 	});
+	
+  $(function(){
+        $('.demo2').colorpicker();
+    });
 
 	$(function(){$('#skipChromosomesWithoutVisibleLinks').change(function() {
 			if($('#skipChromosomesWithoutVisibleLinks').is(':checked')){
@@ -475,6 +481,10 @@
 	 					<br>
 	 					<h3>Genes</h3>
 	 					Show genes: <input id="showGenes" type="checkbox">
+	 					<div class="input-group demo2">
+	    					<input type="text" value="" class="form-control" />
+	    					<span class="input-group-addon"><i></i></span>
+						</div>
 	 					<br>
 	 					<h3>Inverted repeats</h3>
 	 		 			Show inverted repeats: <input id="showInvertedRepeats" type="checkbox">
