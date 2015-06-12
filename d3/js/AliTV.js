@@ -1578,30 +1578,6 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 
 	shapes.call(woven);
 
-	var crosslines = textures.lines()
-		.orientation("2/8", "6/8")
-		.background(function(d) {
-			if (that.data.features[d.id].group in that.conf.features.supportedFeatures === true) {
-				return that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
-			} else {
-				return that.conf.features.fallbackStyle.color;
-			}
-		})
-		.stroke("#000000");
-
-	shapes.call(crosslines);
-
-	var circles = textures.circles()
-		.background(function(d) {
-			if (that.data.features[d.id].group in that.conf.features.supportedFeatures === true) {
-				return that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
-			} else {
-				return that.conf.features.fallbackStyle.color;
-			}
-		})
-		.complement();
-
-	shapes.call(circles);
 
 	shapes.append("rect")
 		.filter(function(d) {
@@ -1635,12 +1611,8 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 				pattern = that.conf.features.supportedFeatures[that.data.features[d.id].group].pattern;
 				if (pattern === "lines") {
 					return lines.url();
-				} else if (pattern === "circles") {
-					return circles.url();
 				} else if (pattern === "woven") {
 					return woven.url();
-				} else if (pattern === "crosslines") {
-					return crosslines.url();
 				} else {
 					color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
 					return color;
@@ -1649,12 +1621,8 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 				pattern = that.conf.features.fallbackStyle.pattern;
 				if (pattern === "lines") {
 					return lines.url();
-				} else if (pattern === "circles") {
-					return circles.url();
 				} else if (pattern === "woven") {
 					return woven.url();
-				} else if (pattern === "crosslines") {
-					return crosslines.url();
 				} else {
 					color = that.conf.features.fallbackStyle.color;
 					return color;
@@ -1686,10 +1654,10 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 					var pattern;
 					var color;
 					pattern = that.conf.features.supportedFeatures[that.data.features[d.id].group].pattern;
-					if (pattern === "circles") {
-						return circles.url();
-					} else if (pattern === "crosslines") {
-						return crosslines.url();
+					if (pattern === "lines") {
+						return lines.url();
+					} else if (pattern === "woven") {
+						return woven.url();
 					} else {
 						color = that.conf.features.supportedFeatures[that.data.features[d.id].group].color;
 						return color;
