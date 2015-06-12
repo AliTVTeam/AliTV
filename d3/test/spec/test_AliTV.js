@@ -1657,7 +1657,7 @@ describe('The drawLinearTickLabels method is supposed to add labels to the ticks
 	it('drawLinearTickLabels method is supposed to be a function', function(){
 		expect(typeof ali.drawLinearTickLabels).toEqual('function');
 	});
-	it('the svg should contain exactly 21 ticks', function(){
+	it('the ticks should be labeled and because every 10th tick is labeled, the svg contains 6 labels, 3 labels on each strand', function(){
 		ali.setData({karyo:karyo6});
 		ali.setFilters(filters6);
 		ali.conf.labels.ticks.showTickLabels = true;
@@ -1665,6 +1665,6 @@ describe('The drawLinearTickLabels method is supposed to add labels to the ticks
 		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
 		ali.drawLinearTicks(ticks, linearKaryoCoords);
 		ali.drawLinearTickLabels(ticks);
-		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(21);
+		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(6);
 	});
 });
