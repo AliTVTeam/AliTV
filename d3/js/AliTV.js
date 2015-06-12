@@ -127,7 +127,7 @@ function AliTV(svg) {
 			height: 1000,
 			karyoHeight: 30,
 			karyoDistance: 10,
-			linkKaryoDistance: 15,
+			linkKaryoDistance: 20,
 			tickLabelFrequency: 10,
 			tickDistance: 100,
 			treeWidth: 300,
@@ -602,7 +602,7 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 						.text(function(d) {
 							return labelPosition * that.conf.graphicalParameters.tickDistance + " bp";
 						})
-						.attr("font-size", (that.conf.graphicalParameters.linkKaryoDistance - 5) + "px");
+						.attr("font-size", 10 + "px");
 				}
 			});
 
@@ -624,7 +624,7 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 						.text(function(d) {
 							return labelPosition * that.conf.graphicalParameters.tickDistance + " bp";
 						})
-						.attr("font-size", (that.conf.graphicalParameters.linkKaryoDistance - 5) + "px");
+						.attr("font-size", 10 + "px");
 				}
 			});
 	});
