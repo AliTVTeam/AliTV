@@ -464,3 +464,23 @@ describe('The getGeneColor method is supposed to get the current color of genes'
 	});
 	
 });
+
+describe('The setGeneColor method is supposed to set a new color for genes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setGeneColor method is supposed to be a function', function(){
+		expect(typeof ali.setGeneColor).toEqual('function');
+	});	
+	it('the returned value of the setGeneColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = "#000000";
+		expect(ali.setGeneColor(color)).toEqual(color);
+	});	
+	it('when setGeneColor is called several times the color should have the same value as the returned color of getGeneColor method', function(){
+		ali.setGeneColor("#000000");
+		expect(ali.getGeneColor()).toEqual("#000000");
+		ali.setGeneColor("#36b6cd");
+		expect(ali.getGeneColor()).toEqual("#36b6cd");
+		ali.setGeneColor("#334e53");
+		expect(ali.getGeneColor()).toEqual("#334e53");
+	});
+});

@@ -1272,6 +1272,16 @@ AliTV.prototype.getGeneColor = function() {
 };
 
 /**
+ * This function replaces the old color of genes with the new gene color in the config-object.
+ * @param color: the color of genes which is returned by getGeneColor.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setGeneColor = function(color) {
+	this.conf.features.supportedFeatures.gen.color = color;
+	return this.conf.features.supportedFeatures.gen.color;
+};
+
+/**
  * This method should call other filter functions in order to filter the visible chromosomes.
  * @returns visibleChromosomes: returns only chromosomes which are visible
  * @author Sonja Hohlfeld

@@ -39,7 +39,8 @@ module.exports = function(grunt) {
 						vendor: ['d3/lib/jquery.min.js',
 							'd3/lib/d3.v3.min.js',
 							'd3/test/lib/jasmine-2.2.0/jasmine-jquery.js',
-							'd3/lib/textures.min.js'
+							'd3/lib/textures.min.js',
+							'd3/lib/colorpicker/bootstrap-colorpicker.min.js'
 						],
 						template: require('grunt-template-jasmine-istanbul'),
 						templateOptions: {
