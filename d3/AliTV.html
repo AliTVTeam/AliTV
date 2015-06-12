@@ -283,6 +283,17 @@
 		}
 	});	
 	});
+	
+	$(function(){$('#showTickLabels').change(function() {
+		if($('#showTickLabels').is(':checked')){
+			wga.conf.labels.ticks.showTickLabels = true;
+			$("#showAllLabels").attr("disabled", true);
+		} else {
+			wga.conf.labels.ticks.showTickLabels = false;
+			$("#showAllLabels").attr("disabled", false);
+		}
+	});	
+	});
 
 });
 }); 
@@ -474,11 +485,18 @@
  				<fieldset>
  					Show all labels: <input id="showAllLabels" type="checkbox">
  					<br>
+ 					<br>
  					Show genome labels: <input id="showGenomeLabels" type="checkbox">
  					<br>
  		 			Show chromosome labels: <input id="showChromosomeLabels" type="checkbox">
  					<br>
  					Show feature labels: <input id="showFeatureLabels" type="checkbox">
+ 					<br>
+ 					<br>
+ 					Show tick labels: <input id="showTickLabels" type="checkbox">
+ 					<br>
+ 					<br>
+ 					Set tick label frequency: <input type="text" id="tickLabelFrequency" placeholder="Enter the tick label frequency">
  					<br>
  				</fieldset>
  			</form> 

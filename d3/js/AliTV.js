@@ -515,7 +515,7 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 			coords.x1 = ticks[ticks.length - 1];
 			coords.x2 = ticks[ticks.length - 1];
 
-			if (i % that.conf.graphicalParameters.tickLabelFrequency === 0 && that.conf.labels.ticks.showTickLabels === true) {
+			if (i % that.conf.graphicalParameters.tickLabelFrequency === 0 && (that.conf.labels.ticks.showTickLabels === true || that.conf.labels.showAllLabels === true)) {
 				coords.y1 = value.y - 10;
 				coords.y2 = value.y + value.height + 10;
 			} else {
@@ -576,8 +576,6 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
  */
 AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 	var that = this;
-
-	this.svgD3.selectAll(".tickLabelGroup").remove();
 
 	var labels = that.svgD3.append("g")
 		.attr("class", "tickLabelGroup")
@@ -720,6 +718,7 @@ AliTV.prototype.drawLinear = function() {
 	this.svgD3.selectAll(".chromosomeLabelGroup").remove();
 	this.svgD3.selectAll(".featureLabelGroup").remove();
 	this.svgD3.selectAll(".genomeLabelGroup").remove();
+	this.svgD3.selectAll(".tickLabelGroup").remove();
 
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
@@ -727,7 +726,10 @@ AliTV.prototype.drawLinear = function() {
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
-	this.drawLinearTickLabels(linearTickCoords);
+
+	if (this.conf.labels.ticks.showTickLabels === true || this.conf.labels.showAllLabels === true) {
+		this.drawLinearTickLabels(linearTickCoords);
+	}
 
 
 	if (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels === true) {
