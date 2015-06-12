@@ -1230,6 +1230,16 @@ AliTV.prototype.getGenomeDistance = function() {
 };
 
 /**
+ * This function returns the current frequency of tick labels.
+ * @returns {Number} Returns the frequency of the tick labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getTickLabelFrequency = function() {
+	var tickLabelFrequency = this.conf.graphicalParameters.tickLabelFrequency;
+	return tickLabelFrequency;
+};
+
+/**
  * This method should call other filter functions in order to filter the visible chromosomes.
  * @returns visibleChromosomes: returns only chromosomes which are visible
  * @author Sonja Hohlfeld
