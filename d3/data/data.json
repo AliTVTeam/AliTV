@@ -120,25 +120,25 @@
       "end": 800,
       "karyo": "c5",
       "start": 500,
-      "group": "gen"
+      "group": "repeat"
     },
     "f15": {
       "end": 400,
       "karyo": "c6",
       "start": 200,
-      "group": "gen"
+      "group": "repeat"
     },
     "f16": {
       "end": 700,
       "karyo": "c7",
       "start": 100,
-      "group": "gen"
+      "group": "repeat"
     },
     "f17": {
       "end": 1500,
       "karyo": "c8",
       "start": 500,
-      "group": "gen"
+      "group": "repeat"
     }
   },
   "karyo": {

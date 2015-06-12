@@ -146,31 +146,31 @@ function AliTV(svg) {
 			showAllFeatures: false,
 			supportedFeatures: {
 				gen: {
-					form: "arrow",
+					form: "rect",
 					color: "#E2EDFF",
 					height: 30,
 					visible: false,
-					pattern: "lines"
 				},
 				invertedRepeat: {
 					form: "arrow",
 					color: "#e7d3e2",
 					height: 30,
 					visible: false,
+					pattern: "woven"
 				},
 				nStretch: {
 					form: "rect",
 					color: "#000000",
 					height: 30,
 					visible: false,
-					pattern: "woven"
+					pattern: "lines"
 				},
 				repeat: {
 					form: "arrow",
 					color: "#56cd0f",
 					height: 30,
 					visible: false,
-					pattern: "crosslines"
+					pattern: "woven"
 				}
 			},
 			fallbackStyle: {
@@ -1706,9 +1706,6 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
-
-
-
 };
 
 /**
