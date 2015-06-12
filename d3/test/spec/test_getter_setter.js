@@ -411,3 +411,39 @@ describe('The getTickLabelFrequency method is supposed to get the current freque
 	});
 	
 });
+
+describe('The setTickLabelFrequency method is supposed to set a new frequency of tick labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setTickLabelFrequency method is supposed to be a function', function(){
+		expect(typeof ali.setTickLabelFrequency).toEqual('function');
+	});	
+	it('the returned value of the setTickLabelFrequency method should be the same as the label frequency which is setted and returned by the setter-method', function(){
+		var tickLabelFrequency = 15;
+		expect(ali.setTickLabelFrequency(tickLabelFrequency)).toEqual(tickLabelFrequency);
+	});	
+	it('when setTickLabelFrequency is called several times the width of the tree should have the same value as the returned frequency of getTickLabelFrequency method', function(){
+		ali.setTickLabelFrequency(5);
+		expect(ali.getTickLabelFrequency()).toEqual(250);
+		ali.setTickLabelFrequency(100);
+		expect(getTickLabelFrequency()).toEqual(1000);
+		ali.setTickLabelFrequency(22);
+		expect(getTickLabelFrequency()).toEqual(888);
+	});
+	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is empty', function(){
+		var tickLabelFrequency = "";
+		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("empty");
+	});
+	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is not a number', function(){
+		var tickLabelFrequency = "test";
+		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("not a number");
+	});
+	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is 0', function(){
+		var tickLabelFrequency = 0;
+		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("the frequency is to small, it should be > 0");
+	});
+	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is less than 0', function(){
+		var tickLabelFrequency = -200;
+		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("the frequency is to small, it should be > 0");
+	});
+});
