@@ -724,10 +724,10 @@ AliTV.prototype.drawLinear = function() {
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
-	this.drawLinearTickLabels(linearTickCoords);
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
+	this.drawLinearTickLabels(linearTickCoords);
 
 
 	if (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels === true) {
