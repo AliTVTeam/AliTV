@@ -565,46 +565,58 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 	var that = this;
 
 	this.svgD3.selectAll(".tickLabelGroup").remove();
+
 	var labels = that.svgD3.append("g")
 		.attr("class", "tickLabelGroup")
 		.selectAll("path")
 		.data(linearTickCoords)
 		.enter();
 
-	labels.append("text")
-		.filter(function(d, i) {
-			console.log(i);
-		})
-		.each(function(d, i) {
-			d3.select(this)
-				.attr("class", "tickLabel")
-				.attr("x", function(d) {
-					return d.x1 - 3;
-				})
-				.attr("y", function(d) {
-					return d.y1;
-				})
-				.text(function(d) {
-					return 1;
-				})
-				.attr("font-size", (that.conf.graphicalParameters.linkKaryoDistance - 5) + "px");
-		});
+	$.each(that.filters.karyo.order, function(key, value) {
+		labels.append("text")
+			.filter(function(d) {
+				return d.id === value;
+			})
+			.each(function(d, i) {
+				if (i % that.conf.graphicalParameters.tickLabelFrequency === 0) {
+					var labelPosition = i;
+					d3.select(this)
+						.attr("class", "tickLabel")
+						.attr("x", function(d) {
+							return d.x1 - 3;
+						})
+						.attr("y", function(d) {
+							return d.y1;
+						})
+						.text(function(d) {
+							return labelPosition * that.conf.graphicalParameters.tickDistance + " bp";
+						})
+						.attr("font-size", (that.conf.graphicalParameters.linkKaryoDistance - 5) + "px");
+				}
+			});
 
-	labels.append("text")
-		.each(function(d) {
-			d3.select(this)
-				.attr("class", "tickLabel")
-				.attr("x", function(d) {
-					return d.x2 - 3;
-				})
-				.attr("y", function(d) {
-					return d.y2;
-				})
-				.text(function(d) {
-					return 0;
-				})
-				.attr("font-size", (that.conf.graphicalParameters.linkKaryoDistance - 5) + "px");
-		});
+		labels.append("text")
+			.filter(function(d) {
+				return d.id === value;
+			})
+			.each(function(d, i) {
+				if (i % that.conf.graphicalParameters.tickLabelFrequency === 0) {
+					var labelPosition = i;
+					d3.select(this)
+						.attr("class", "tickLabel")
+						.attr("x", function(d) {
+							return d.x2 - 3;
+						})
+						.attr("y", function(d) {
+							return d.y2 + 6;
+						})
+						.text(function(d) {
+							return labelPosition * that.conf.graphicalParameters.tickDistance + " bp";
+						})
+						.attr("font-size", (that.conf.graphicalParameters.linkKaryoDistance - 5) + "px");
+				}
+			});
+	});
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
