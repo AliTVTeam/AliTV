@@ -1648,4 +1648,12 @@ describe('The drawLinearTickLabels method is supposed to add labels to the ticks
 		ali.drawLinearTickLabels(ticks);
 		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(6);
 	});
+	it('the ticks should be labeled and because every 10th tick is labeled, the svg contains 6 labels, 3 labels on each strand', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.conf.labels.ticks.showTickLabels = false;
+		ali.conf.labels.showAllLabels = true;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(6);
+	});
 });
