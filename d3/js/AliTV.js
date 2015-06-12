@@ -507,15 +507,21 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 			.range([value.x, value.x + value.width]);
 
 		var chromosomePosition = 0;
-		while (chromosomePosition <= that.data.karyo.chromosomes[value.karyo].length) {
+		for (var i = 0; chromosomePosition <= that.data.karyo.chromosomes[value.karyo].length; i++) {
 			ticks.push(scale(chromosomePosition));
 			chromosomePosition += that.conf.graphicalParameters.tickDistance;
 			var coords = {};
 			coords.id = value.karyo;
 			coords.x1 = ticks[ticks.length - 1];
-			coords.y1 = value.y - 5;
 			coords.x2 = ticks[ticks.length - 1];
-			coords.y2 = value.y + value.height + 5;
+
+			if (i % that.conf.graphicalParameters.tickLabelFrequency === 0 && that.conf.labels.ticks.showTickLabels === true) {
+				coords.y1 = value.y - 10;
+				coords.y2 = value.y + value.height + 10;
+			} else {
+				coords.y1 = value.y - 5;
+				coords.y2 = value.y + value.height + 5;
+			}
 			linearTickCoords.push(coords);
 		}
 	});
