@@ -1459,12 +1459,11 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				currentFeature = {
 					"id": key,
 					"y": currentY,
-					"x": currentX,
 					"height": that.conf.features.supportedFeatures[value.group].height
 				};
 				if (that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
 					currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
-					currentFeature.x = (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+					currentFeature.x = currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
 				} else {
 					currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
 					currentFeature.x = currentX - (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length * (-1);
