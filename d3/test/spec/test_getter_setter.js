@@ -447,3 +447,20 @@ describe('The setTickLabelFrequency method is supposed to set a new frequency of
 		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("the frequency is to small, it should be > 0");
 	});
 });
+
+describe('The getGeneColor method is supposed to get the current color of genes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getGeneColor method is supposed to be a function', function(){
+		expect(typeof ali.getGeneColory).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getGeneColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color of genomes which is defined in the defaultConf', function(){
+		var color = ali.getGeneColor();
+		expect(color).toEqual(defaultConf.features.supportedFeatures.gen.color);
+	});
+	
+});
