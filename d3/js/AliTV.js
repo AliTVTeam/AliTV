@@ -103,6 +103,9 @@ function AliTV(svg) {
 	 * @property {Boolean} features.invertedRepeats.visible		   - Defines if an inverted repeat is drawn or not.
 	 * @property {Object}  labels								   - The configuration options for the text labels.
 	 * @property {Boolean} labels.showAllLabels					   - With this option it is possible to set labels to genomes, chromosomes and all features.
+	 * @property {Boolean} labels.ticks							   - Contains the configuration for the labeling of the chromosome scale.
+	 * @property {Boolean} labels.ticks.showTicks				   - Defines if ticks are drawn.
+	 * @property {Boolean} labels.ticks.showTickLabels			   - Defines if tick labels are drawn.
 	 * @property {Object}  labels.chromosomes					   - Contains the configurations for the chromosome labels.
 	 * @property {Boolean} labels.chromosomes.showChromosomeLabels - Defines if chromosome labels are shown or not.
 	 * @property {Object}  labels.genome					   	   - Contains the configurations for the genome labels.
@@ -123,7 +126,7 @@ function AliTV(svg) {
 			width: 1000,
 			height: 1000,
 			karyoHeight: 30,
-			karyoDistance: 10,
+			karyoDistance: 250,
 			linkKaryoDistance: 15,
 			tickLabelFrequency: 10,
 			tickDistance: 100,
@@ -183,6 +186,10 @@ function AliTV(svg) {
 		},
 		labels: {
 			showAllLabels: false,
+			ticks: {
+				showTicks: true,
+				showTickLabels: true
+			},
 			chromosome: {
 				showChromosomeLabels: true
 			},

@@ -11,8 +11,9 @@ var defaultConf =  {
 			width: 1000,
 			height: 1000,
 			karyoHeight: 30,
-			karyoDistance: 10,
-			linkKaryoDistance: 10,
+			karyoDistance: 250,
+			linkKaryoDistance: 15,
+			tickLabelFrequency: 10,
 			tickDistance: 100,
 			treeWidth: 300,
 			genomeLabelWidth: 150
@@ -70,6 +71,10 @@ var defaultConf =  {
 		},
 		labels: {
 			showAllLabels: false,
+			ticks: {
+				showTicks: true,
+				showTickLabels: true
+			},
 			chromosome: {
 				showChromosomeLabels: true
 			},
