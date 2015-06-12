@@ -12,7 +12,7 @@ var defaultConf =  {
 			height: 1000,
 			karyoHeight: 30,
 			karyoDistance: 10,
-			linkKaryoDistance: 15,
+			linkKaryoDistance: 20,
 			tickLabelFrequency: 10,
 			tickDistance: 100,
 			treeWidth: 300,

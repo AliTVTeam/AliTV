@@ -946,7 +946,7 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		ali.svg.find('.karyo').eq(0).d3Trigger("click");
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-		var expectedLinks = [{ linkID: 'l1', source0: { x: 850, y: 45 }, source1: { x: 600, y: 45 }, target0: { x: 50, y: 955 }, target1: { x: 300, y: 955 }}];
+		var expectedLinks = [{ linkID: 'l1', source0: { x: 850, y: 50 }, source1: { x: 600, y: 50 }, target0: { x: 50, y: 950 }, target1: { x: 300, y: 950 }}];
 		
 		setTimeout(function(){
 			expect(expectedLinks).toEqual(linearLinkCoords);
