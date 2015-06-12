@@ -571,7 +571,10 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 		.enter();
 
 	labels.append("text")
-		.each(function(d) {
+		.filter(function(d, i) {
+			console.log(i);
+		})
+		.each(function(d, i) {
 			d3.select(this)
 				.attr("class", "tickLabel")
 				.attr("x", function(d) {
