@@ -1651,3 +1651,11 @@ describe('The drawLinearFeatureLabels method of AliTV objects is supposed to dra
 		expect(ali.svgD3.selectAll('.featureLabelGroup').attr("transform")).toEqual(null);
 	});
 });
+
+describe('The drawLinearTickLabels method is supposed to add labels to the ticks', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawLinearTickLabels method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearTickLabels).toEqual('function');
+	});
+});
