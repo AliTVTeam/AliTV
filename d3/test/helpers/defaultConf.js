@@ -38,27 +38,27 @@ var defaultConf =  {
 					color: "#E2EDFF",
 					height: 30,
 					visible: false,
-					pattern: "lines"
 				},
 				invertedRepeat: {
 					form: "arrow",
 					color: "#e7d3e2",
 					height: 30,
 					visible: false,
+					pattern: "woven"
 				},
 				nStretch: {
 					form: "rect",
 					color: "#000000",
 					height: 30,
 					visible: false,
-					pattern: "woven"
+					pattern: "lines"
 				},
 				repeat: {
 					form: "arrow",
 					color: "#56cd0f",
 					height: 30,
 					visible: false,
-					pattern: "crosslines"
+					pattern: "woven"
 				}
 			},
 			fallbackStyle: {
