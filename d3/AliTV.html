@@ -92,7 +92,9 @@
 	});
 	
   $(function(){
-        $('.demo2').colorpicker();
+        $('.demo2').colorpicker().on('changeColor.colorpicker', function(){
+        	changeGeneColor();
+        });
     });
 
 	$(function(){$('#skipChromosomesWithoutVisibleLinks').change(function() {
@@ -375,6 +377,16 @@
 			$("#tickLabelFrequency").val(wga.getTickLabelFrequency());
 		}
 	}
+	function changeGeneColor(){
+		var color = ($("#geneColor").val());
+		try {
+			wga.setGeneColor(color); 	
+			}
+			catch(err){
+				alert(err);
+				$("#geneColor").val(wga.getGeneColor());
+			}
+	}
 	function setNewParameters(){
 		changeLinearSpacer();
 		changeKaryoHeight();
@@ -383,6 +395,7 @@
 		changeTickDistance();
 		changeTreeWidth();
 		changeTickLabelFrequency();
+		changeGeneColor();
 		
 		var layout = wga.getLayout();
 		wga.drawEqualLayout(layout);
@@ -484,7 +497,7 @@
 	 					<br><br>
 	 					Change color:
 	 					<div class="input-group demo2">
-	    					<input type="text" value="" class="form-control" />
+	    					<input id="geneColor" type="text" value="" class="form-control" />
 	    					<span class="input-group-addon"><i></i></span>
 						</div>
 	 					<h3>Inverted repeats</h3>
