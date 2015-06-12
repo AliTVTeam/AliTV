@@ -1261,6 +1261,15 @@ AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
 	}
 };
 
+/**
+ * This function returns the current color of genes.
+ * @returns {String} The color of genes.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getGeneColor = function() {
+	var color = this.conf.features.supportedFeatures.gen.color;
+	return color;
+};
 
 /**
  * This method should call other filter functions in order to filter the visible chromosomes.

@@ -452,7 +452,7 @@ describe('The getGeneColor method is supposed to get the current color of genes'
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	it('getGeneColor method is supposed to be a function', function(){
-		expect(typeof ali.getGeneColory).toEqual('function');
+		expect(typeof ali.getGeneColor).toEqual('function');
 	});	
 	it('the function should return a defined value', function(){
 		var color = ali.getGeneColor();
