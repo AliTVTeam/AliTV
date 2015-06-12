@@ -124,7 +124,8 @@ function AliTV(svg) {
 			height: 1000,
 			karyoHeight: 30,
 			karyoDistance: 10,
-			linkKaryoDistance: 10,
+			linkKaryoDistance: 15,
+			tickLabelFrequency: 10,
 			tickDistance: 100,
 			treeWidth: 300,
 			genomeLabelWidth: 150
@@ -574,14 +575,15 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 			d3.select(this)
 				.attr("class", "tickLabel")
 				.attr("x", function(d) {
-					return d.x1 - 4;
+					return d.x1 - 3;
 				})
 				.attr("y", function(d) {
 					return d.y1;
 				})
 				.text(function(d) {
 					return 1;
-				});
+				})
+				.attr("font-size", (that.conf.graphicalParameters.linkKaryoDistance - 5) + "px");
 		});
 
 	labels.append("text")
@@ -589,14 +591,15 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 			d3.select(this)
 				.attr("class", "tickLabel")
 				.attr("x", function(d) {
-					return d.x2 - 4;
+					return d.x2 - 3;
 				})
 				.attr("y", function(d) {
 					return d.y2;
 				})
 				.text(function(d) {
 					return 0;
-				});
+				})
+				.attr("font-size", (that.conf.graphicalParameters.linkKaryoDistance - 5) + "px");
 		});
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
