@@ -504,6 +504,7 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 			ticks.push(scale(chromosomePosition));
 			chromosomePosition += that.conf.graphicalParameters.tickDistance;
 			var coords = {};
+			coords.id = value.karyo;
 			coords.x1 = ticks[ticks.length - 1];
 			coords.y1 = value.y - 5;
 			coords.x2 = ticks[ticks.length - 1];
