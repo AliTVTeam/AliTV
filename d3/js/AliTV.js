@@ -1240,6 +1240,29 @@ AliTV.prototype.getTickLabelFrequency = function() {
 };
 
 /**
+ * This function replaces the old frequency of tick labels with the new tick label frequency in the config-object.
+ * @param tickLabelFrequency: the frequency of tick labels which is returned by getTickLabelFrequency.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
+	if (tickLabelFrequency === "") {
+		throw "empty";
+	} else if (isNaN(tickLabelFrequency)) {
+		throw "not a number";
+	} else if (tickLabelFrequency <= 0) {
+		throw "the frequency is to small, it should be > 0";
+	} else {
+		tickLabelFrequency = Number(tickLabelFrequency);
+		this.conf.graphicalParameters.tickLabelFrequency = tickLabelFrequency;
+		return this.conf.graphicalParameters.tickLabelFrequency;
+	}
+};
+
+
+/**
  * This method should call other filter functions in order to filter the visible chromosomes.
  * @returns visibleChromosomes: returns only chromosomes which are visible
  * @author Sonja Hohlfeld

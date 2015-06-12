@@ -424,11 +424,11 @@ describe('The setTickLabelFrequency method is supposed to set a new frequency of
 	});	
 	it('when setTickLabelFrequency is called several times the width of the tree should have the same value as the returned frequency of getTickLabelFrequency method', function(){
 		ali.setTickLabelFrequency(5);
-		expect(ali.getTickLabelFrequency()).toEqual(250);
+		expect(ali.getTickLabelFrequency()).toEqual(5);
 		ali.setTickLabelFrequency(100);
-		expect(getTickLabelFrequency()).toEqual(1000);
+		expect(ali.getTickLabelFrequency()).toEqual(100);
 		ali.setTickLabelFrequency(22);
-		expect(getTickLabelFrequency()).toEqual(888);
+		expect(ali.getTickLabelFrequency()).toEqual(22);
 	});
 	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is empty', function(){
 		var tickLabelFrequency = "";
