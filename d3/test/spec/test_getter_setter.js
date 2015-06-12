@@ -394,3 +394,20 @@ describe('The setTreeWidth method is supposed to set a new tree width', function
 		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("the tree width is to small, it should be > 0");
 	});
 });
+
+describe('The getTickLabelFrequency method is supposed to get the current frequency of tick labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getTickLabelFrequency method is supposed to be a function', function(){
+		expect(typeof ali.getTickLabelFrequency).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var tickLabelFrequency = ali.getTickLabelFrequency();
+		expect(tickLabelFrequency).toBeDefined();
+	});
+	it('the function should return the tick label frequency which is defined in the defaultConf', function(){
+		var tickLabelFrequency = ali.getTickLabelFrequency();
+		expect(tickLabelFrequency).toEqual(defaultConf.graphicalParameters.tickLabelFrequency);
+	});
+	
+});
