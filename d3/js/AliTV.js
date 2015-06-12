@@ -126,7 +126,7 @@ function AliTV(svg) {
 			width: 1000,
 			height: 1000,
 			karyoHeight: 30,
-			karyoDistance: 250,
+			karyoDistance: 10,
 			linkKaryoDistance: 15,
 			tickLabelFrequency: 10,
 			tickDistance: 100,
