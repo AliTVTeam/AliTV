@@ -766,10 +766,8 @@ AliTV.prototype.drawLinear = function() {
 	if (this.conf.features.showAllFeatures === true || this.conf.features.supportedFeatures.gen.visible === true || this.conf.features.supportedFeatures.invertedRepeat.visible === true || this.conf.features.supportedFeatures.repeat.visible === true || this.conf.features.supportedFeatures.nStretch.visible === true || this.conf.features.fallbackStyle.visible === true) {
 		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 		this.drawLinearFeatures(linearFeatureCoords);
-		if (this.conf.labels.showAllLabels === true || this.conf.labels.features.showFeatureLabels === true) {
-			var linearFeatureLabelCoords = this.getFeatureLabelCoords(linearFeatureCoords);
-			this.drawLinearFeatureLabels(linearFeatureLabelCoords);
-		}
+		var linearFeatureLabelCoords = this.getFeatureLabelCoords(linearFeatureCoords);
+		this.drawLinearFeatureLabels(linearFeatureLabelCoords);
 	}
 	if (this.conf.labels.showAllLabels === true || this.conf.labels.chromosome.showChromosomeLabels === true) {
 		var linearChromosomeLabelCoords = this.getChromosomeLabelCoords(karyoCoords);
@@ -1980,11 +1978,11 @@ AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
 			name: value.id
 		};
 		if (that.data.features[value.id].group in that.conf.features.supportedFeatures === true) {
-			if (that.conf.features.supportedFeatures[that.data.features[value.id].group].form === "rect" && that.conf.features.supportedFeatures[that.data.features[value.id].group].labeling === true) {
+			if (that.conf.features.supportedFeatures[that.data.features[value.id].group].form === "rect" && (that.conf.labels.showAllLabels === true || that.conf.labels.features.showFeatureLabels === true || that.conf.features.supportedFeatures[that.data.features[value.id].group].labeling === true)) {
 				feature.x = value.x + 1 / 2 * value.width;
 				feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
 			}
-			if (that.conf.features.supportedFeatures[that.data.features[value.id].group].form === "arrow" && that.conf.features.supportedFeatures[that.data.features[value.id].group].labeling === true) {
+			if (that.conf.features.supportedFeatures[that.data.features[value.id].group].form === "arrow" && (that.conf.labels.showAllLabels === true || that.conf.labels.features.showFeatureLabels === true || that.conf.features.supportedFeatures[that.data.features[value.id].group].labeling === true)) {
 				if (that.filters.karyo.chromosomes[that.data.features[value.id].karyo].reverse === false) {
 					feature.x = value.path[0].x + 1 / 2 * Math.abs(value.path[3].x - value.path[0].x);
 					feature.y = value.path[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
@@ -1994,10 +1992,8 @@ AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
 				}
 			}
 		} else {
-			if (that.conf.features.supportedFeatures[that.data.features[value.id].group].labeling === true) {
-				feature.x = value.x + 1 / 2 * value.width;
-				feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
-			}
+			feature.x = value.x + 1 / 2 * value.width;
+			feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
 		}
 		linearFeatureLabelCoords.push(feature);
 	});
