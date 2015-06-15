@@ -177,7 +177,7 @@ function AliTV(svg) {
 					labeling: false
 				},
 				invertedRepeat: {
-					form: "rect",
+					form: "arrow",
 					color: "#e7d3e2",
 					height: 30,
 					visible: false,
@@ -619,7 +619,7 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 					d3.select(this)
 						.attr("class", "tickLabel")
 						.attr("x", function(d) {
-							return d.x1 - 3;
+							return d.x1;
 						})
 						.attr("y", function(d) {
 							return d.y1;
@@ -641,7 +641,7 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 					d3.select(this)
 						.attr("class", "tickLabel")
 						.attr("x", function(d) {
-							return d.x2 - 3;
+							return d.x2;
 						})
 						.attr("y", function(d) {
 							return d.y2 + 6;

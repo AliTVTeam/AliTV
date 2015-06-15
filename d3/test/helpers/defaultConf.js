@@ -42,7 +42,7 @@ var defaultConf =  {
 					labeling: false
 				},
 				invertedRepeat: {
-					form: "rect",
+					form: "arrow",
 					color: "#e7d3e2",
 					height: 30,
 					visible: false,
