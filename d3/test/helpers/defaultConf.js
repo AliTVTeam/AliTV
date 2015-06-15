@@ -39,34 +39,39 @@ var defaultConf =  {
 					color: "#E2EDFF",
 					height: 30,
 					visible: false,
+					labeling: true
 				},
 				invertedRepeat: {
 					form: "arrow",
 					color: "#e7d3e2",
 					height: 30,
 					visible: false,
-					pattern: "woven"
+					pattern: "woven",
+					labeling: true
 				},
 				nStretch: {
 					form: "rect",
 					color: "#000000",
 					height: 30,
 					visible: false,
-					pattern: "lines"
+					pattern: "lines",
+					labeling: true
 				},
 				repeat: {
 					form: "arrow",
 					color: "#56cd0f",
 					height: 30,
 					visible: false,
-					pattern: "woven"
+					pattern: "woven",
+					labeling: true
 				}
 			},
 			fallbackStyle: {
 				form: "rect",
 				color: "#787878",
 				height: 30,
-				visible: false
+				visible: false,
+				labeling: true
 			}
 		},
 		labels: {
