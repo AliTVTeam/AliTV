@@ -1274,11 +1274,16 @@ AliTV.prototype.getGeneColor = function() {
 /**
  * This function replaces the old color of genes with the new gene color in the config-object.
  * @param color: the color of genes which is returned by getGeneColor.
+ * @throws Will throw an error if the argument is empty.
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.setGeneColor = function(color) {
-	this.conf.features.supportedFeatures.gen.color = color;
-	return this.conf.features.supportedFeatures.gen.color;
+	if (color === "") {
+		throw "test";
+	} else {
+		this.conf.features.supportedFeatures.gen.color = color;
+		return this.conf.features.supportedFeatures.gen.color;
+	}
 };
 
 /**

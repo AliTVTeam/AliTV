@@ -483,4 +483,8 @@ describe('The setGeneColor method is supposed to set a new color for genes', fun
 		ali.setGeneColor("#334e53");
 		expect(ali.getGeneColor()).toEqual("#334e53");
 	});
+	it('the setGeneColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setGeneColor(color);}).toThrow("empty");
+	});
 });
