@@ -1279,7 +1279,7 @@ AliTV.prototype.getGeneColor = function() {
  */
 AliTV.prototype.setGeneColor = function(color) {
 	if (color === "") {
-		throw "test";
+		throw "empty";
 	} else {
 		this.conf.features.supportedFeatures.gen.color = color;
 		return this.conf.features.supportedFeatures.gen.color;
