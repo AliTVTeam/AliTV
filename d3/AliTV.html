@@ -281,6 +281,71 @@
 	});	
 	});
 	
+	$(function(){$('#showGeneLabels').change(function() {
+		if($('#showGeneLabels').is(':checked')){
+			wga.conf.features.supportedFeatures.gen.labeling = true;
+			$("#showAllLabels").attr("disabled", true);
+			$("#showFeatureLabels").attr("disabled", true);
+		} else {
+			wga.conf.features.supportedFeatures.gen.labeling = false;
+			$("#showAllLabels").attr("disabled", false);
+			$("#showFeatureLabels").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showInvertedRepeatLabels').change(function() {
+		if($('#showInvertedRepeatLabels').is(':checked')){
+			wga.conf.features.supportedFeatures.invertedRepeat.labeling = true;
+			$("#showAllLabels").attr("disabled", true);
+			$("#showFeatureLabels").attr("disabled", true);
+		} else {
+			wga.conf.features.supportedFeatures.invertedRepeat.labeling = false;
+			$("#showAllLabels").attr("disabled", false);
+			$("#showFeatureLabels").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showRepeatLabels').change(function() {
+		if($('#showRepeatLabels').is(':checked')){
+			wga.conf.features.supportedFeatures.repeat.labeling = true;
+			$("#showAllLabels").attr("disabled", true);
+			$("#showFeatureLabels").attr("disabled", true);
+		} else {
+			wga.conf.features.supportedFeatures.repeat.labeling = false;
+			$("#showAllLabels").attr("disabled", false);
+			$("#showFeatureLabels").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showNStretchLabels').change(function() {
+		if($('#showNStretchLabels').is(':checked')){
+			wga.conf.features.supportedFeatures.nStretch.labeling = true;
+			$("#showAllLabels").attr("disabled", true);
+			$("#showFeatureLabels").attr("disabled", true);
+		} else {
+			wga.conf.features.supportedFeatures.nStretch.labeling = false;
+			$("#showAllLabels").attr("disabled", false);
+			$("#showFeatureLabels").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showFallbackLabels').change(function() {
+		if($('#showFallbackLabels').is(':checked')){
+			wga.conf.features.fallbackStyle.labeling = true;
+			$("#showAllLabels").attr("disabled", true);
+			$("#showFeatureLabels").attr("disabled", true);
+		} else {
+			wga.conf.features.fallbackStyle.labeling = false;
+			$("#showAllLabels").attr("disabled", false);
+			$("#showFeatureLabels").attr("disabled", false);
+		}
+	});	
+	});
+	
 	$(function(){$('#showChromosomeLabels').change(function() {
 		if($('#showChromosomeLabels').is(':checked')){
 			wga.conf.labels.chromosome.showChromosomeLabels = true;

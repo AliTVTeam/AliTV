@@ -39,15 +39,15 @@ var defaultConf =  {
 					color: "#E2EDFF",
 					height: 30,
 					visible: false,
-					labeling: true
+					labeling: false
 				},
 				invertedRepeat: {
-					form: "arrow",
+					form: "rect",
 					color: "#e7d3e2",
 					height: 30,
 					visible: false,
 					pattern: "woven",
-					labeling: true
+					labeling: false
 				},
 				nStretch: {
 					form: "rect",
@@ -55,15 +55,15 @@ var defaultConf =  {
 					height: 30,
 					visible: false,
 					pattern: "lines",
-					labeling: true
+					labeling: false
 				},
 				repeat: {
-					form: "arrow",
+					form: "rect",
 					color: "#56cd0f",
 					height: 30,
 					visible: false,
 					pattern: "woven",
-					labeling: true
+					labeling: false
 				}
 			},
 			fallbackStyle: {
@@ -71,7 +71,7 @@ var defaultConf =  {
 				color: "#787878",
 				height: 30,
 				visible: false,
-				labeling: true
+				labeling: false
 			}
 		},
 		labels: {
