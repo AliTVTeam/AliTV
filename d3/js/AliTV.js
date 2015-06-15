@@ -96,11 +96,31 @@ function AliTV(svg) {
 	 * @property {String}  features.gen.color					   - Defines the color of a gen.
 	 * @property {Number}  features.gen.height					   - Defines the height of the drawn gen onto the chromosome.
 	 * @property {Boolean} features.gen.visible					   - Defines if a gen is drawn or not.
-	 * @property {Object}  features.invertedRepeat				   - Contains the configuration for inverted repeats.
+	 * @property {Boolean} features.gen.labeling				   - Defines if the label for a gen is shown or not.
+	 * @property {Object}  features.invertedRepeat				   - Contains the configuration for n stretch.
 	 * @property {String}  features.invertedRepeat.form			   - Defines the shape of an inverted repeat.
 	 * @property {String}  features.invertedRepeat.color		   - Defines the color of an inverted repeat.
 	 * @property {Number}  features.invertedRepeat.height		   - Defines the height of the drawn inverted repeat onto the chromosome.
-	 * @property {Boolean} features.invertedRepeats.visible		   - Defines if an inverted repeat is drawn or not.
+	 * @property {Boolean} features.invertedRepeat.visible		   - Defines if an inverted repeat is drawn or not.
+	 * @property {Boolean} features.invertedRepeat.labeling		   - Defines if the label for a inverted repeat is shown or not.
+	 * @property {Object}  features.nStretch				   	   - Contains the configuration for n stretch.
+	 * @property {String}  features.nStretch.form			   	   - Defines the shape of a n stretch.
+	 * @property {String}  features.nStretch.color		   		   - Defines the color of a n stretch.
+	 * @property {Number}  features.nStretch.height		   		   - Defines the height of the drawn n stretch onto the chromosome.
+	 * @property {Boolean} features.nStretch.visible		   	   - Defines if an inverted n stretch is drawn or not.
+	 * @property {Boolean} features.nStretch.labeling		       - Defines if the label for a n stretch is shown or not.
+	 * @property {Object}  features.repeat				   		   - Contains the configuration for inverted repeats.
+	 * @property {String}  features.repeat.form			   		   - Defines the shape of a repeat.
+	 * @property {String}  features.repeat.color		   		   - Defines the color of a repeat.
+	 * @property {Number}  features.repeat.height		   		   - Defines the height of the drawn repeat onto the chromosome.
+	 * @property {Boolean} features.repeat.visible		   		   - Defines if an repeat is drawn or not.
+	 * @property {Boolean} features.repeat.labeling		   		   - Defines if the label for a repeat is shown or not.
+	 * @property {Object}  features.fallback				   	   - Contains the configuration for non-supported feature classes.
+	 * @property {String}  features.fallback.form			   	   - Defines the shape of a non-supported feature groups.
+	 * @property {String}  features.fallback.color		   		   - Defines the color of a non-supported feature group.
+	 * @property {Number}  features.fallback.height		   		   - Defines the height of the drawn non-supported feature group onto the chromosome.
+	 * @property {Boolean} features.fallback.visible		   	   - Defines if an non-supported feature group is drawn or not.
+	 * @property {Boolean} features.fallback.labeling		   	   - Defines if the label for a non-supported feature group is shown or not.
 	 * @property {Object}  labels								   - The configuration options for the text labels.
 	 * @property {Boolean} labels.showAllLabels					   - With this option it is possible to set labels to genomes, chromosomes and all features.
 	 * @property {Boolean} labels.ticks							   - Contains the configuration for the labeling of the chromosome scale.
@@ -154,34 +174,39 @@ function AliTV(svg) {
 					color: "#E2EDFF",
 					height: 30,
 					visible: false,
+					labeling: true
 				},
 				invertedRepeat: {
 					form: "arrow",
 					color: "#e7d3e2",
 					height: 30,
 					visible: false,
-					pattern: "woven"
+					pattern: "woven",
+					labeling: true
 				},
 				nStretch: {
 					form: "rect",
 					color: "#000000",
 					height: 30,
 					visible: false,
-					pattern: "lines"
+					pattern: "lines",
+					labeling: true
 				},
 				repeat: {
 					form: "arrow",
 					color: "#56cd0f",
 					height: 30,
 					visible: false,
-					pattern: "woven"
+					pattern: "woven",
+					labeling: true
 				}
 			},
 			fallbackStyle: {
 				form: "rect",
 				color: "#787878",
 				height: 30,
-				visible: false
+				visible: false,
+				labeling: true
 			}
 		},
 		labels: {
