@@ -141,7 +141,7 @@ open(OUT, '>', "$opt_prefix.d3/data/data.json") or $L->logdie("Can not open file
 print OUT encode_json {'karyo' => $karyo, 'features' => $features, 'links' => $links};
 close OUT or die "$!";
 open(OUT, '>', "$opt_prefix.d3/data/filters.json") or $L->logdie("Can not open file $opt_prefix.d3/data/filters.json\n$!");
-print OUT encode_json {'karyo' => $karyo_filters};
+print OUT encode_json $karyo_filters;
 close OUT or die "$!";
 
 =head2 create_dir_structure
@@ -155,6 +155,7 @@ sub create_dir_structure{
         # the following list contains all directories which have to be created inside the destination folder
         my @dirlist = map { $opt_prefix.".d3/".$_ } qw(
                              lib
+                             lib/colorpicker
                              data
                              js
                              css
@@ -166,6 +167,12 @@ sub create_dir_structure{
                              lib/jquery.min.js
                              lib/jquery-ui.min.js
                              lib/jquery-ui.min.css
+                             lib/jquery-ui-1.9.2.custom.min.css
+                             lib/bootstrap.min.css
+                             lib/bootstrap.min.js
+                             lib/colorpicker/bootstrap-colorpicker.min.css
+                             lib/colorpicker/bootstrap-colorpicker.min.js
+                             lib/textures.min.js
 
                              js/AliTV.js
                              
@@ -206,18 +213,24 @@ Output: \%karyo of the form {chromosomes => {$id => {genome_id => $genome_id, le
 sub parse_karyo{
 	my $file = $_[0];
 	my %karyo = ('chromosomes' => {});
-	my %filters = ('chromosomes' => {}, 'order' => [], 'genome_order' => []);
+	my %filters = ('karyo' => {'chromosomes' => {}, 'order' => [], 'genome_order' => []}, 
+		       'links' => {'minLinkIdentity' => 70, 'maxLinkIdentity' => 100, 'minLinkLength' => 0, 'maxLinkLength' => 1000000},
+		       'onlyShowAdjacentLinks' => JSON::true,
+		       'showAllChromosomes' => JSON::false,
+		       'skipChromosomesWithoutLinks' => JSON::false,
+		       'skipChromosomesWithoutVisibleLinks' => JSON::false,
+);
 	my %genome_ids = ();
 	open(IN, '<', $file) or $L->logdie("Can not open file $file\n$!");
 	while(<IN>){
 		chomp;
 		my($id, $gid, $len, $seq) = split(/\t/);
 		$karyo{'chromosomes'}{$id} = {"genome_id" => $gid+0, "length" => $len+0, "seq" => $seq};
-		$filters{'chromosomes'}{$id} = {'reverse' => JSON::false, 'visible' => JSON::true};
-		push(@{$filters{'order'}}, $id);
+		$filters{'karyo'}{'chromosomes'}{$id} = {'reverse' => JSON::false, 'visible' => JSON::true};
+		push(@{$filters{'karyo'}{'order'}}, $id);
 		$genome_ids{$gid+0} = 1;
 	}
-	$filters{'genome_order'} = [sort {$a <=> $b} map {$_+0} keys %genome_ids];
+	$filters{'karyo'}{'genome_order'} = [sort {$a <=> $b} map {$_+0} keys %genome_ids];
 	close IN or $L->logdie("Can not close file $file\n$!");
 	return (\%karyo, \%filters);
 	print Dumper(\%karyo);
@@ -285,7 +298,7 @@ sub parse_links{
 sub parse_link_line{
 	my $line = $_[0];
 	my @header = @{$_[1]};
-	my %features = %{$_[2]};
+	my $features = $_[2];
 	chomp($line);
 	my @elements = split(/\t/, $line);
 	my ($fida, $fidb);
@@ -300,9 +313,9 @@ sub parse_link_line{
 			$properties{$header[$i]} = $elements[$i];
 		}
 	}
-	$L->warn("There is no feature id $fida in the bed file (but used in link file)") unless(exists $features{$fida});
+	$L->warn("There is no feature id $fida in the bed file (but used in link file)") unless(exists $features->{$fida});
 	$properties{'source'} = $fida;
-	$L->warn("There is no feature id $fidb in the bed file (but used in link file)") unless(exists $features{$fidb});
+	$L->warn("There is no feature id $fidb in the bed file (but used in link file)") unless(exists $features->{$fidb});
 	$properties{'target'} = $fidb;
 	return \%properties;
 }
