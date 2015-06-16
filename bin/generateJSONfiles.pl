@@ -155,6 +155,7 @@ sub create_dir_structure{
         # the following list contains all directories which have to be created inside the destination folder
         my @dirlist = map { $opt_prefix.".d3/".$_ } qw(
                              lib
+                             lib/colorpicker
                              data
                              js
                              css
@@ -169,7 +170,8 @@ sub create_dir_structure{
                              lib/jquery-ui-1.9.2.custom.min.css
                              lib/bootstrap.min.css
                              lib/bootstrap.min.js
-                             lib/colorpicker
+                             lib/colorpicker/bootstrap-colorpicker.min.css
+                             lib/colorpicker/bootstrap-colorpicker.min.js
                              lib/textures.min.js
 
                              js/AliTV.js
