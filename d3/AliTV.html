@@ -28,6 +28,8 @@
 			$.getJSON('data/filters.json', function(filters) {
 				wga.setFilters(filters);
 				wga.drawLinear();
+				// set json
+		        editor.set({conf: wga.conf, filters: wga.filters, data: wga.data});
 			});
 		});
 		
