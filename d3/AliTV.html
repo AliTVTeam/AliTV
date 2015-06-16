@@ -20,9 +20,12 @@
 <script src="lib/textures.min.js"></script> 
 <script type="text/javascript">
 	var wga;
+	var editor;
 	$(document).ready(function() {
 		var svg = $('#wgaCanvas');
 		wga = new AliTV(svg);
+		var container = document.getElementById("jsoneditor");
+		editor = new JSONEditor(container)
 		$.getJSON('data/data.json', function(data) {
 			wga.setData(data);
 			$.getJSON('data/filters.json', function(filters) {
@@ -56,9 +59,6 @@
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showChromosomeLabels').attr('checked', true);
 		$('#showFeatureLabels').attr('checked', false);
-        
-		var container = document.getElementById("jsoneditor");
-        var editor = new JSONEditor(container);
 	});
 	
 	$(function(){
