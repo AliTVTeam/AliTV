@@ -285,7 +285,7 @@ sub parse_links{
 sub parse_link_line{
 	my $line = $_[0];
 	my @header = @{$_[1]};
-	my %features = %{$_[2]};
+	my $features = $_[2];
 	chomp($line);
 	my @elements = split(/\t/, $line);
 	my ($fida, $fidb);
@@ -300,9 +300,9 @@ sub parse_link_line{
 			$properties{$header[$i]} = $elements[$i];
 		}
 	}
-	$L->warn("There is no feature id $fida in the bed file (but used in link file)") unless(exists $features{$fida});
+	$L->warn("There is no feature id $fida in the bed file (but used in link file)") unless(exists $features->{$fida});
 	$properties{'source'} = $fida;
-	$L->warn("There is no feature id $fidb in the bed file (but used in link file)") unless(exists $features{$fidb});
+	$L->warn("There is no feature id $fidb in the bed file (but used in link file)") unless(exists $features->{$fidb});
 	$properties{'target'} = $fidb;
 	return \%properties;
 }
