@@ -54,8 +54,10 @@
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showChromosomeLabels').attr('checked', true);
 		$('#showFeatureLabels').attr('checked', false);
-		
-		});
+        
+		var container = document.getElementById("jsoneditor");
+        var editor = new JSONEditor(container);
+	});
 	
 	$(function(){
 		$("#identity-slider").slider({
