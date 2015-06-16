@@ -93,70 +93,52 @@
       "group": "link"
     },
     "f10": {
-      "end": 300,
+      "end": 1500,
       "karyo": "c1",
-      "start": 200,
+      "start": 500,
       "group": "gen"
     },
     "f11": {
-      "end": 900,
-      "karyo": "c1",
-      "start": 880,
+      "end": 800,
+      "karyo": "c2",
+      "start": 500,
       "group": "gen"
     },
     "f12": {
-      "end": 42,
-      "karyo": "c1",
-      "start": 22,
+      "end": 800,
+      "karyo": "c3",
+      "start": 500,
       "group": "gen"
     },
     "f13": {
-      "end": 900,
-      "karyo": "c2",
-      "start": 700,
+      "end": 800,
+      "karyo": "c4",
+      "start": 500,
       "group": "gen"
     },
     "f14": {
-      "end": 345,
-      "karyo": "c2",
-      "start": 102,
-      "group": "gen"
+      "end": 800,
+      "karyo": "c5",
+      "start": 500,
+      "group": "repeat"
     },
     "f15": {
-      "end": 600,
-      "karyo": "c4",
-      "start": 555,
-      "group": "gen"
+      "end": 400,
+      "karyo": "c6",
+      "start": 200,
+      "group": "repeat"
     },
     "f16": {
-      "end": 156,
-      "karyo": "c4",
-      "start": 102,
-      "group": "gen"
-    },
-    "f17": {
-      "end": 345,
-      "karyo": "c4",
-      "start": 300,
-      "group": "gen"
-    },
-    "f18": {
-      "end": 400,
+      "end": 700,
       "karyo": "c7",
       "start": 100,
-      "group": "invertedRepeat"
+      "group": "repeat"
     },
-    "f20": {
-      "end": 1985,
-      "karyo": "c1",
-      "start": 1700,
-      "group": "invertedRepeat"
-    },
-    "f21": {
-      "end": 1942,
+    "f17": {
+      "end": 1500,
       "karyo": "c8",
-      "start": 42,
-      "group": "invertedRepeat"
+      "start": 500,
+      "group": "repeat"
     }
   },
   "karyo": {
@@ -197,6 +179,11 @@
         "genome_id": 3
       },
       "c8": {
+        "length": 2500,
+        "seq": null,
+        "genome_id": 4
+      },
+      "c9": {
         "length": 2500,
         "seq": null,
         "genome_id": 4

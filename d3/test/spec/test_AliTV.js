@@ -786,10 +786,11 @@ describe('The getLinearTickCoords method is supposed to calculate coords for the
 	it('getLinearTickCoords method is supposed to calculate the same coords as the expected coords', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
+		ali.conf.labels.ticks.showTickLabels = false;
 		var ticks = ali.getGenomeDistance();
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
-		var expectedTicks = [{ x1: 0, y1: -5, x2: 0, y2: 35 }, { x1: 50, y1: -5, x2: 50, y2: 35 }, { x1: 100, y1: -5, x2: 100, y2: 35 }, { x1: 150, y1: -5, x2: 150, y2: 35 }, { x1: 200, y1: -5, x2: 200, y2: 35 }, { x1: 250, y1: -5, x2: 250, y2: 35 }, { x1: 300, y1: -5, x2: 300, y2: 35 }, { x1: 350, y1: -5, x2: 350, y2: 35 }, { x1: 400, y1: -5, x2: 400, y2: 35 }, { x1: 450, y1: -5, x2: 450, y2: 35 }, { x1: 500, y1: -5, x2: 500, y2: 35 }, { x1: 550, y1: -5, x2: 550, y2: 35 }, { x1: 600, y1: -5, x2: 600, y2: 35 }, { x1: 650, y1: -5, x2: 650, y2: 35 }, { x1: 700, y1: -5, x2: 700, y2: 35 }, { x1: 750, y1: -5, x2: 750, y2: 35 }, { x1: 800, y1: -5, x2: 800, y2: 35 }, { x1: 850, y1: -5, x2: 850, y2: 35 }, { x1: 900, y1: -5, x2: 900, y2: 35 }, { x1: 950, y1: -5, x2: 950, y2: 35 }, { x1: 1000, y1: -5, x2: 1000, y2: 35 }, { x1: 0, y1: 965, x2: 0, y2: 1005 }, { x1: 50, y1: 965, x2: 50, y2: 1005 }, { x1: 100, y1: 965, x2: 100, y2: 1005 }, { x1: 150, y1: 965, x2: 150, y2: 1005 }, { x1: 200, y1: 965, x2: 200, y2: 1005 }, { x1: 250, y1: 965, x2: 250, y2: 1005 }, { x1: 300, y1: 965, x2: 300, y2: 1005 }, { x1: 350, y1: 965, x2: 350, y2: 1005 }, { x1: 400, y1: 965, x2: 400, y2: 1005 }, { x1: 450, y1: 965, x2: 450, y2: 1005 }, { x1: 500, y1: 965, x2: 500, y2: 1005 } ]
+		var expectedTicks = [{ id: 'c1', x1: 0, x2: 0, y1: -5, y2: 35 }, { id: 'c1', x1: 50, x2: 50, y1: -5, y2: 35 }, { id: 'c1', x1: 100, x2: 100, y1: -5, y2: 35 }, { id: 'c1', x1: 150, x2: 150, y1: -5, y2: 35 }, { id: 'c1', x1: 200, x2: 200, y1: -5, y2: 35 }, { id: 'c1', x1: 250, x2: 250, y1: -5, y2: 35 }, { id: 'c1', x1: 300, x2: 300, y1: -5, y2: 35 }, { id: 'c1', x1: 350, x2: 350, y1: -5, y2: 35 }, { id: 'c1', x1: 400, x2: 400, y1: -5, y2: 35 }, { id: 'c1', x1: 450, x2: 450, y1: -5, y2: 35 }, { id: 'c1', x1: 500, x2: 500, y1: -5, y2: 35 }, { id: 'c1', x1: 550, x2: 550, y1: -5, y2: 35 }, { id: 'c1', x1: 600, x2: 600, y1: -5, y2: 35 }, { id: 'c1', x1: 650, x2: 650, y1: -5, y2: 35 }, { id: 'c1', x1: 700, x2: 700, y1: -5, y2: 35 }, { id: 'c1', x1: 750, x2: 750, y1: -5, y2: 35 }, { id: 'c1', x1: 800, x2: 800, y1: -5, y2: 35 }, { id: 'c1', x1: 850, x2: 850, y1: -5, y2: 35 }, { id: 'c1', x1: 900, x2: 900, y1: -5, y2: 35 }, { id: 'c1', x1: 950, x2: 950, y1: -5, y2: 35 }, { id: 'c1', x1: 1000, x2: 1000, y1: -5, y2: 35 }, { id: 'c2', x1: 0, x2: 0, y1: 965, y2: 1005 }, { id: 'c2', x1: 50, x2: 50, y1: 965, y2: 1005 }, { id: 'c2', x1: 100, x2: 100, y1: 965, y2: 1005 }, { id: 'c2', x1: 150, x2: 150, y1: 965, y2: 1005 }, { id: 'c2', x1: 200, x2: 200, y1: 965, y2: 1005 }, { id: 'c2', x1: 250, x2: 250, y1: 965, y2: 1005 }, { id: 'c2', x1: 300, x2: 300, y1: 965, y2: 1005 }, { id: 'c2', x1: 350, x2: 350, y1: 965, y2: 1005 }, { id: 'c2', x1: 400, x2: 400, y1: 965, y2: 1005 }, { id: 'c2', x1: 450, x2: 450, y1: 965, y2: 1005 }, { id: 'c2', x1: 500, x2: 500, y1: 965, y2: 1005 } ]
 		expect(ticks).toEqual(expectedTicks);		
 	});
 });
@@ -870,8 +871,7 @@ describe('The drawLinearTicks method is supposed to draw ticks in the linear lay
 	var ali = new AliTV(svg);
 	it('drawLinearTicks method is supposed to be a function', function(){
 		expect(typeof ali.drawLinearTicks).toEqual('function');
-	});
-	
+	});	
 	it('the svg should contain exactly 21 ticks', function(){
 		ali.setData({karyo:karyo6});
 		ali.setFilters(filters6);
@@ -880,7 +880,6 @@ describe('The drawLinearTicks method is supposed to draw ticks in the linear lay
 		ali.drawLinearTicks(ticks, linearKaryoCoords);
 		expect(ali.svgD3.selectAll('.tick').size()).toEqual(21);
 	});
-	
 });
 
 describe('A left mouseclick on a chromosome should change the reverse information of this chromosome', function(){
@@ -947,7 +946,7 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		ali.svg.find('.karyo').eq(0).d3Trigger("click");
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-		var expectedLinks = [{ linkID: 'l1', source0: { x: 850, y: 40 }, source1: { x: 600, y: 40 }, target0: { x: 50, y: 960 }, target1: { x: 300, y: 960 }}];
+		var expectedLinks = [{ linkID: 'l1', source0: { x: 850, y: 50 }, source1: { x: 600, y: 50 }, target0: { x: 50, y: 950 }, target1: { x: 300, y: 950 }}];
 		
 		setTimeout(function(){
 			expect(expectedLinks).toEqual(linearLinkCoords);
@@ -1272,9 +1271,9 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setData({karyo: karyo3, features: features11});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		var expectedFeatures = [{"id": "f1", "height": defaultConf.features.gen.height, "x": ali.data.features["f1"].start * 1000 / 2000, "width": Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, "y": 0},
-		                        {"id": "f2", "height": defaultConf.features.gen.height, "x": ali.data.features["f2"].start * 500 / 1000, "width": Math.abs(ali.data.features["f2"].end - ali.data.features["f2"].start) * 500 / 1000, "y": 485},
-		                        {"id": "f3", "height": defaultConf.features.gen.height, "x": ali.data.features["f3"].start * 500 / 1000, "width": Math.abs(ali.data.features["f3"].end - ali.data.features["f3"].start) * 500 / 1000, "y": 970}];
+		var expectedFeatures = [{"id": "f1", "height": defaultConf.features.supportedFeatures.gen.height, "x": ali.data.features["f1"].start * 1000 / 2000, "width": Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, "y": 0},
+		                        {"id": "f2", "height": defaultConf.features.supportedFeatures.gen.height, "x": ali.data.features["f2"].start * 500 / 1000, "width": Math.abs(ali.data.features["f2"].end - ali.data.features["f2"].start) * 500 / 1000, "y": 485},
+		                        {"id": "f3", "height": defaultConf.features.supportedFeatures.gen.height, "x": ali.data.features["f3"].start * 500 / 1000, "width": Math.abs(ali.data.features["f3"].end - ali.data.features["f3"].start) * 500 / 1000, "y": 970}];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
@@ -1283,13 +1282,13 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setData({karyo: karyo3, features: features14});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		var expectedFeatures = [{"id": "f1", arrowData: [{x: ali.data.features["f1"].start * 1000/2000, y: 0 +  1/5 * defaultConf.features.invertedRepeat.height}, 
-		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + 1/5 * defaultConf.features.invertedRepeat.height}, 
+		var expectedFeatures = [{"id": "f1", path: [{x: ali.data.features["f1"].start * 1000/2000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
 		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0}, 
-		                                                 {x: ali.data.features["f1"].start * 1000/2000 + Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 +  1/2 * defaultConf.features.invertedRepeat.height}, 
-		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + defaultConf.features.invertedRepeat.height},
-		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + 4/5 * defaultConf.features.invertedRepeat.height},
-		                                                 {x: ali.data.features["f1"].start * 1000/2000, y: 0 + 4/5 * defaultConf.features.invertedRepeat.height}]}];
+		                                                 {x: ali.data.features["f1"].start * 1000/2000 + Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 +  1/2 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + defaultConf.features.supportedFeatures.invertedRepeat.height},
+		                                                 {x: ali.data.features["f1"].start * 1000/2000 + 5/6 * Math.abs(ali.data.features["f1"].end - ali.data.features["f1"].start) * 1000 / 2000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
+		                                                 {x: ali.data.features["f1"].start * 1000/2000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}]}];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
@@ -1329,14 +1328,81 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		ali.drawLinearFeatures(linearFeatureCoords);
 		expect(ali.svgD3.selectAll('.feature').size()).toEqual(4);
 	});
-	it('the drawn features have the expected height', function(){
-		ali.setData({karyo: karyo3, features: features11});
-		ali.setFilters(filters3);
+	it('there should be exactly four features of different feature groups in a test svg', function(){
+		ali.setData({karyo: karyo12, features: features19});
+		ali.setFilters(filters17);
+		ali.conf.features.showAllFeatures = true;
+		ali.conf.features.supportedFeatures.gen.form = "arrow";
+		ali.conf.features.supportedFeatures.gen.pattern = "lines";
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		ali.drawLinearFeatures(linearFeatureCoords);
-		// This test checks only the height attribute of the first selected element
-		expect(Number(ali.svgD3.selectAll('.feature').attr("height"))).toEqual(defaultConf.features.gen.height);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(4);
+	});
+	it('there should be exactly four features of different feature groups in a test svg, the patterns and forms of them are changed via the configuration', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo12, features: features19});
+		ali.setFilters(filters17);
+		ali.conf.features.showAllFeatures = true;
+		ali.conf.features.supportedFeatures.gen.pattern = "";
+		ali.conf.features.supportedFeatures.nStretch.pattern = "lines";
+		ali.conf.features.supportedFeatures.repeat.pattern = "";
+		ali.conf.features.supportedFeatures.invertedRepeat.form = "rect";
+		ali.conf.features.supportedFeatures.invertedRepeat.pattern = "woven";
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(4);
+	});
+	// The next few tests are important for the coverage but a specific testing on the style is not possible, because grunt and SpecRunner have different results.
+	// Therefore there are only tests which check if the feature exists in the DOM.
+	it('there should be exactly one feature of a non-supported feature group, which should be drawn as it is set in the default configuration of the fallback style', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo12, features: features20});
+		ali.setFilters(filters17);
+		ali.conf.features.showAllFeatures = true;
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(1);
+	});
+	it('there should be exactly one feature of a non-supported feature group, which should be drawn as a rect with the line pattern (the fallback style is changed via the configuration)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo12, features: features20});
+		ali.setFilters(filters17);
+		ali.conf.features.showAllFeatures = true;
+		ali.conf.features.fallbackStyle.pattern = "lines";
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(1);
+	});
+	it('there should be exactly one feature of a non-supported feature group, which should be drawn as a rect with the circles pattern (the fallback style is changed via the configuration)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo12, features: features20});
+		ali.setFilters(filters17);
+		ali.conf.features.showAllFeatures = true;
+		ali.conf.features.fallbackStyle.pattern = "woven";
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(1);
+	});
+	it('there should be exactly one feature of a non-supported feature group, which should be drawn as a rect with the crosslines pattern (the fallback style is changed via the configuration)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo12, features: features20});
+		ali.setFilters(filters17);
+		ali.conf.features.showAllFeatures = true;
+		ali.conf.features.fallbackStyle.pattern = "crosslines";
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(1);
 	});
 	it('if a tree is drawn the feature group should be transformed', function(){
 		ali.setData(data8);
@@ -1563,5 +1629,39 @@ describe('The drawLinearFeatureLabels method of AliTV objects is supposed to dra
 		ali.conf.labels.features.showFeatureLabels = true;
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.featureLabelGroup').attr("transform")).toEqual(null);
+	});
+});
+
+describe('The drawLinearTickLabels method is supposed to add labels to the ticks', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawLinearTickLabels method is supposed to be a function', function(){
+		expect(typeof ali.drawLinearTickLabels).toEqual('function');
+	});
+	it('the ticks should be labeled and because every 10th tick is labeled, the svg contains 6 labels, 3 labels on each strand', function(){
+		ali.setData({karyo:karyo6});
+		ali.setFilters(filters6);
+		ali.conf.labels.ticks.showTickLabels = false;
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
+		ali.drawLinearTicks(ticks, linearKaryoCoords);
+		ali.drawLinearTickLabels(ticks);
+		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(6);
+	});
+	it('the ticks should be labeled', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.conf.labels.ticks.showTickLabels = false;
+		ali.conf.labels.showAllLabels = true;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(10);
+	});
+	it('the ticks are not labeled because the default value is set in false', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.conf.labels.ticks.showTickLabels = false;
+		ali.conf.labels.showAllLabels = false;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(0);
 	});
 });

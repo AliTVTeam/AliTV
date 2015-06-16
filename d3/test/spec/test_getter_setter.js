@@ -394,3 +394,97 @@ describe('The setTreeWidth method is supposed to set a new tree width', function
 		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("the tree width is to small, it should be > 0");
 	});
 });
+
+describe('The getTickLabelFrequency method is supposed to get the current frequency of tick labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getTickLabelFrequency method is supposed to be a function', function(){
+		expect(typeof ali.getTickLabelFrequency).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var tickLabelFrequency = ali.getTickLabelFrequency();
+		expect(tickLabelFrequency).toBeDefined();
+	});
+	it('the function should return the tick label frequency which is defined in the defaultConf', function(){
+		var tickLabelFrequency = ali.getTickLabelFrequency();
+		expect(tickLabelFrequency).toEqual(defaultConf.graphicalParameters.tickLabelFrequency);
+	});
+	
+});
+
+describe('The setTickLabelFrequency method is supposed to set a new frequency of tick labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setTickLabelFrequency method is supposed to be a function', function(){
+		expect(typeof ali.setTickLabelFrequency).toEqual('function');
+	});	
+	it('the returned value of the setTickLabelFrequency method should be the same as the label frequency which is setted and returned by the setter-method', function(){
+		var tickLabelFrequency = 15;
+		expect(ali.setTickLabelFrequency(tickLabelFrequency)).toEqual(tickLabelFrequency);
+	});	
+	it('when setTickLabelFrequency is called several times the width of the tree should have the same value as the returned frequency of getTickLabelFrequency method', function(){
+		ali.setTickLabelFrequency(5);
+		expect(ali.getTickLabelFrequency()).toEqual(5);
+		ali.setTickLabelFrequency(100);
+		expect(ali.getTickLabelFrequency()).toEqual(100);
+		ali.setTickLabelFrequency(22);
+		expect(ali.getTickLabelFrequency()).toEqual(22);
+	});
+	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is empty', function(){
+		var tickLabelFrequency = "";
+		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("empty");
+	});
+	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is not a number', function(){
+		var tickLabelFrequency = "test";
+		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("not a number");
+	});
+	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is 0', function(){
+		var tickLabelFrequency = 0;
+		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("the frequency is to small, it should be > 0");
+	});
+	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is less than 0', function(){
+		var tickLabelFrequency = -200;
+		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("the frequency is to small, it should be > 0");
+	});
+});
+
+describe('The getGeneColor method is supposed to get the current color of genes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getGeneColor method is supposed to be a function', function(){
+		expect(typeof ali.getGeneColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getGeneColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color of genomes which is defined in the defaultConf', function(){
+		var color = ali.getGeneColor();
+		expect(color).toEqual(defaultConf.features.supportedFeatures.gen.color);
+	});
+	
+});
+
+describe('The setGeneColor method is supposed to set a new color for genes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setGeneColor method is supposed to be a function', function(){
+		expect(typeof ali.setGeneColor).toEqual('function');
+	});	
+	it('the returned value of the setGeneColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = "#000000";
+		expect(ali.setGeneColor(color)).toEqual(color);
+	});	
+	it('when setGeneColor is called several times the color should have the same value as the returned color of getGeneColor method', function(){
+		ali.setGeneColor("#000000");
+		expect(ali.getGeneColor()).toEqual("#000000");
+		ali.setGeneColor("#36b6cd");
+		expect(ali.getGeneColor()).toEqual("#36b6cd");
+		ali.setGeneColor("#334e53");
+		expect(ali.getGeneColor()).toEqual("#334e53");
+	});
+	it('the setGeneColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setGeneColor(color);}).toThrow("empty");
+	});
+});
