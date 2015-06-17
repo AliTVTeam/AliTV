@@ -409,8 +409,14 @@
 			$("#onlyShowAdjacentLinks").attr("disabled", true);
 		} else {
 			$("#onlyShowAdjacentLinks").attr("disabled", false);
-		}
-		
+		}		
+	}
+	function setAliFromJSONEditor(){
+		var json = editor.get();
+		wga.conf = json.conf;
+		wga.data = json.data;
+		wga.filters = json.filters;
+		wga.drawEqualLayout(wga.getLayout());
 	}
 </script>
 </head>
