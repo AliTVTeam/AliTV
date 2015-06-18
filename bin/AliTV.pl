@@ -49,6 +49,15 @@ Name of the tool to use for the alignment. Possible values are: lastz (default)
 
 $options{'aligner=s'} = \( my $opt_aligner="lastz" );
 
+=item [--output <TYPE>]
+
+Type of the desired output (comma separated list). 
+Possible values are: files, json (default)
+
+=cut
+
+$options{'output=s'} = \( my $opt_output="json" );
+
 =back
 
 
