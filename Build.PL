@@ -5,7 +5,7 @@
      license  => 'perl',
      requires => {
                   # 'perl'          => '>=5.10.0',
-                  'Log::Log4perl'  => '>=1.43',
+                  'Log::Log4perl'  => '>=1.40',
                  },
       dist_version => '0.1',
       dist_abstract => 'Alignment Toolbox and Visualization',
