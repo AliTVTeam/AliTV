@@ -99,6 +99,7 @@ $options{'help|?'} = \( my $opt_help );
 =cut
 
 GetOptions(%options) or pod2usage(1);
+$opt_output = [split(",",join(",", @{$opt_output}))];
 pod2usage(1) if ($opt_help);
 
 # init a root logger in exec mode
