@@ -17,7 +17,7 @@ Wrapper to produce whole genome alignments and visualizations.
 
 =head1 USAGE
 
-  $ perl AliTV.pl --fasta human=>human.fa,mouse=>mouse.fa
+  $ perl AliTV.pl --fasta human=>human.fa,mouse=>mouse.fa [options]
 
 =head1 OPTIONS
 
@@ -57,6 +57,14 @@ Possible values are: files, json (default)
 =cut
 
 $options{'output=s'} = \( my $opt_output="json" );
+
+=item [--[no]force]
+
+Force execution over problems such as non unique IDs (default: noforce).
+
+=cut
+
+$options{'force!'} = \( my $opt_force=0 );
 
 =back
 
