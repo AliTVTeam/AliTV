@@ -77,11 +77,11 @@ $options{'force!'} = \( my $opt_force=0 );
 
 =item [--prefix <STRING>]
 
-prefix for the generated output files
+prefix for the generated output files (default: alitv)
 
 =cut
 
-$options{'prefix=s'} = \( my $opt_prefix );
+$options{'prefix=s'} = \( my $opt_prefix="alitv" );
 
 =item [--help] 
 
