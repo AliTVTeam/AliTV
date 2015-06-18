@@ -76,6 +76,22 @@ Force execution over problems such as non unique IDs (default: noforce).
 
 $options{'force!'} = \( my $opt_force=0 );
 
+=item [--prefix <STRING>]
+
+prefix for the generated output files
+
+=cut
+
+$options{'prefix=s'} = \( my $opt_prefix );
+
+=item [--help] 
+
+show help
+
+=cut
+
+$options{'help|?'} = \( my $opt_help );
+
 =back
 
 
@@ -84,6 +100,7 @@ $options{'force!'} = \( my $opt_force=0 );
 =cut
 
 GetOptions(%options) or pod2usage(1);
+pod2usage(1) if ($opt_help);
 
 # init a root logger in exec mode
 Log::Log4perl->init(
