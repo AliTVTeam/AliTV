@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use Getopt::Long;
 use Pod::Usage;
+use Log::Log4perl qw(:no_extra_logdie_message);
 
 my %options;
 
@@ -30,7 +31,7 @@ A comma separated list of genome, fasta pairs. Each genome is separated from its
 
 $options{'fasta|f=s'} = \( my $opt_fasta );
 
-=item [--aligner=<TOOL>]
+=item [--aligner <TOOL>]
 
 Name of the tool to use for the alignment. Possible values are: lastz (default)
 
@@ -46,6 +47,19 @@ $options{'aligner=s'} = \( my $opt_aligner="lastz" );
 =cut
 
 GetOptions(%options) or pod2usage(1);
+
+# init a root logger in exec mode
+Log::Log4perl->init(
+	\q(
+                log4perl.rootLogger                     = DEBUG, Screen
+                log4perl.appender.Screen                = Log::Log4perl::Appender::Screen
+                log4perl.appender.Screen.stderr         = 1
+                log4perl.appender.Screen.layout         = PatternLayout
+                log4perl.appender.Screen.layout.ConversionPattern = [%d{MM-dd HH:mm:ss}] [%C] %m%n
+        )
+);
+
+my $L = Log::Log4perl::get_logger();
 
 
 =head1 AUTHORS
