@@ -23,13 +23,23 @@ Wrapper to produce whole genome alignments and visualizations.
 
 =over 25
 
-=item --fasta <GENOME>=><FASTA>[,<GENOME>=><FASTA>...]
+=item --fasta <GENOME>=><FASTA>[,<GENOME>=><FASTA>..]
 
 A comma separated list of genome, fasta pairs. Each genome is separated from its fasta file path by =>
 
 =cut
 
 $options{'fasta|f=s'} = \( my $opt_fasta );
+
+=item [--annotation <GENOME>=><TYPE>,<BED>[,<TYPE>,<BED>..][;<GENOME>=><TYPE>,<BED>[,..]..]
+
+A comma separated list of genome, annotation pairs. 
+Each genome is separated from its annotation file list by =>
+Each annotation consists of a comma separated list of alterating annotation type and path to the according bed file. 
+
+=cut
+
+$options{'annotation=s'} = \( my $opt_annotation );
 
 =item [--aligner <TOOL>]
 
