@@ -58,14 +58,14 @@ Leaves must correspond to the GENOMEs in --fasta option.
 
 $options{'tree=s'} = \( my $opt_tree );
 
-=item [--output <TYPE>]
+=item [--output <TYPE>[,<TYPE>] or --output <TYPE> --output <TYPE>]
 
 Type of the desired output (comma separated list). 
 Possible values are: files, json (default)
 
 =cut
 
-$options{'output=s'} = \( my $opt_output="json" );
+$options{'output=s@'} = \( my $opt_output=["json"] );
 
 =item [--[no]force]
 
