@@ -28,7 +28,15 @@ A comma separated list of genome, fasta pairs. Each genome is separated from its
 
 =cut
 
-$options{'fasta|f=s'} = \( my $opt_man );
+$options{'fasta|f=s'} = \( my $opt_fasta );
+
+=item [--aligner=<TOOL>]
+
+Name of the tool to use for the alignment. Possible values are: lastz (default)
+
+=cut
+
+$options{'aligner=s'} = \( my $opt_aligner="lastz" );
 
 =back
 
