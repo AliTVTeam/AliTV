@@ -35,7 +35,8 @@ $options{'fasta|f=s'} = \( my $opt_fasta );
 
 A comma separated list of genome, annotation pairs. 
 Each genome is separated from its annotation file list by =>
-Each annotation consists of a comma separated list of alterating annotation type and path to the according bed file. 
+Each annotation consists of a comma separated list of alterating annotation type and path to the according bed file.
+Only GENOMEs present in --fasta option are allowed.
 
 =cut
 
@@ -48,6 +49,15 @@ Name of the tool to use for the alignment. Possible values are: lastz (default)
 =cut
 
 $options{'aligner=s'} = \( my $opt_aligner="lastz" );
+
+=item [--tree <FILE>]
+
+Path to a tree file in newick format. 
+Leaves must correspond to the GENOMEs in --fasta option.
+
+=cut
+
+$options{'tree=s'} = \( my $opt_tree );
 
 =item [--output <TYPE>]
 
