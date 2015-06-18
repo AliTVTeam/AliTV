@@ -17,30 +17,29 @@ Wrapper to produce whole genome alignments and visualizations.
 
 =head1 USAGE
 
-  $ perl AliTV.pl --fasta human=>human.fa,mouse=>mouse.fa [options]
+  $ perl AliTV.pl --fasta human=>human.fa --fasta mouse=>mouse.fa [options]
 
 =head1 OPTIONS
 
 =over 25
 
-=item --fasta <GENOME>=><FASTA>[,<GENOME>=><FASTA>..]
+=item --fasta <GENOME>=<FASTA> [--fasta <GENOME>=><FASTA> ..]
 
-A comma separated list of genome, fasta pairs. Each genome is separated from its fasta file path by =>
+Multiple pairs of genome and fasta file paths
 
 =cut
 
-$options{'fasta|f=s'} = \( my $opt_fasta );
+$options{'fasta|f=s%'} = \( my $opt_fasta );
 
-=item [--annotation <GENOME>=><TYPE>,<BED>[,<TYPE>,<BED>..][;<GENOME>=><TYPE>,<BED>[,..]..]
+=item [--annotation <GENOME>=<TYPE>,<BED>[,<TYPE>,<BED>..] [--annotation <GENOME>=<TYPE>,<BED>[,..]..]
 
-A comma separated list of genome, annotation pairs. 
-Each genome is separated from its annotation file list by =>
+Multiple genome, annotation pairs. 
 Each annotation consists of a comma separated list of alterating annotation type and path to the according bed file.
 Only GENOMEs present in --fasta option are allowed.
 
 =cut
 
-$options{'annotation=s'} = \( my $opt_annotation );
+$options{'annotation=s%'} = \( my $opt_annotation );
 
 =item [--aligner <TOOL>]
 
