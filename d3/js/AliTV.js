@@ -486,7 +486,7 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 		.domain(genomeOrder)
 		.range(colorRange);
 
-	return color(genomeId);
+	return color(that.filters.karyo.genome_order.indexOf(genomeId));
 };
 
 /**
