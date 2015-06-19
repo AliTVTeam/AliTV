@@ -225,12 +225,12 @@ sub parse_karyo{
 	while(<IN>){
 		chomp;
 		my($id, $gid, $len, $seq) = split(/\t/);
-		$karyo{'chromosomes'}{$id} = {"genome_id" => $gid+0, "length" => $len+0, "seq" => $seq};
+		$karyo{'chromosomes'}{$id} = {"genome_id" => $gid, "length" => $len+0, "seq" => $seq};
 		$filters{'karyo'}{'chromosomes'}{$id} = {'reverse' => JSON::false, 'visible' => JSON::true};
 		push(@{$filters{'karyo'}{'order'}}, $id);
-		$genome_ids{$gid+0} = 1;
+		$genome_ids{$gid} = 1;
 	}
-	$filters{'karyo'}{'genome_order'} = [sort {$a <=> $b} map {$_+0} keys %genome_ids];
+	$filters{'karyo'}{'genome_order'} = [sort map {$_} keys %genome_ids];
 	close IN or $L->logdie("Can not close file $file\n$!");
 	return (\%karyo, \%filters);
 	print Dumper(\%karyo);
