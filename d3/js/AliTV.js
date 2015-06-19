@@ -1584,7 +1584,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 	var linearFeatureCoords = [];
 	var features = {};
 	$.each(that.data.features, function(key, value) {
-		if (value.group !== "link") {
+		if ((typeof value.group !== 'undefined') && value.group !== "link") {
 			features[key] = value;
 		}
 	});
