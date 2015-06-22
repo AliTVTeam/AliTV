@@ -207,6 +207,15 @@ function AliTV(svg) {
 }
 
 /**
+ * Extends the existing conf of the AliTV object.
+ * New features override the existing ones if conflicting. Non-conflicting configuration values are kept.
+ * For the required format see the documentation of the conf property.
+ * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
+ * @param {Object} conf - Object containing conf values
+ */
+
+
+/**
  * Sets the data of the AliTV object.
  * For the required format see the documentation of the data property
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
