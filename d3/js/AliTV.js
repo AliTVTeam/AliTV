@@ -1611,10 +1611,10 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				};
 				if (that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
 					currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
-					currentFeature.x = currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+					currentFeature.x = currentX + (Math.min(value.start, value.end) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
 				} else {
 					currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
-					currentFeature.x = currentX - (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length * (-1);
+					currentFeature.x = currentX - (Math.min(value.start, value.end) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length * (-1);
 				}
 				linearFeatureCoords.push(currentFeature);
 
