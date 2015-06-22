@@ -370,7 +370,7 @@ var features10 = {
 
 var features11 = {
 		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
-		'f2': {'karyo': 'c2', 'start': 300, 'end': 400, 'group': "gen"},
+		'f2': {'karyo': 'c2', 'start': 400, 'end': 300, 'group': "gen"},
 		'f3': {'karyo': 'c3', 'start': 500, 'end': 600, 'group': "gen"}
 };
 
