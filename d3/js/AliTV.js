@@ -210,10 +210,14 @@ function AliTV(svg) {
  * Extends the existing conf of the AliTV object.
  * New features override the existing ones if conflicting. Non-conflicting configuration values are kept.
  * For the required format see the documentation of the conf property.
+ * If you need to override the entire conf object write directly to the conf property of your AliTV object.
+ * This is not recommended as AliTV will not function properly if some conf values are not set.
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  * @param {Object} conf - Object containing conf values
  */
+AliTV.prototype.setConf = function(conf) {
 
+};
 
 /**
  * Sets the data of the AliTV object.
