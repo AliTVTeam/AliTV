@@ -500,12 +500,14 @@ describe('The setConfig method is supposed to extend the existing config values'
 		expect(ali.conf).toEqual(defaultConf);
 	});
 	it('setConf method should overwrite existing/conflicting conf value', function(){
+		ali.conf = defaultConf;
 		ali.setConf({linear: {drawAllLinks: true}});
 		var confClone = jQuery.extend(true, {}, defaultConf);
 		confClone.linear.drawAllLinks = true;
 		expect(ali.conf).toEqual(confClone);
 	});
 	it('setConf method should add non-existent conf value', function(){
+		ali.conf = defaultConf;
 		ali.setConf({custom: "customstring"});
 		var confClone = jQuery.extend(true, {}, defaultConf);
 		confClone.custom = "customstring";
