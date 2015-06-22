@@ -495,4 +495,8 @@ describe('The setConfig method is supposed to extend the existing config values'
 	it('setConf method is supposed to be a function', function(){
 		expect(typeof ali.setConf).toEqual('function');
 	});
+	it('setConf method should not alter the defaultConf if an empty object is passed', function(){
+		ali.setConf({});
+		expect(ali.conf).toEqual(defaultConf);
+	});
 });
