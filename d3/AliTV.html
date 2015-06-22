@@ -25,7 +25,14 @@
 			wga.setData(data);
 			$.getJSON('data/filters.json', function(filters) {
 				wga.setFilters(filters);
-				wga.drawLinear();
+				$.getJSON('data/conf.json', function(conf) {
+					wga.setConf(conf)
+					wga.drawLinear();
+				}).fail(function(data) {
+				    console.log( "could not load custom conf.json - using default values" );
+				    console.log(data);
+				    wga.drawLinear();
+				});
 			});
 		});
 		
