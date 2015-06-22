@@ -488,3 +488,11 @@ describe('The setGeneColor method is supposed to set a new color for genes', fun
 		expect(function(){ali.setGeneColor(color);}).toThrow("empty");
 	});
 });
+
+describe('The setConfig method is supposed to extend the existing config values', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setConf method is supposed to be a function', function(){
+		expect(typeof ali.setConf).toEqual('function');
+	});
+});
