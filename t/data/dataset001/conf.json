@@ -13,4 +13,4 @@
 "ndh":{"form":"rect","color":"#0000FF","height":30,"visible":true},
 "ycf":{"form":"rect","color":"#FF0000","height":30,"visible":true}}
 ,"fallbackStyle":{"form":"rect","color":"#787878","height":30,"visible":false}},
- "labels":{"showAllLabels":false,"ticks":{"showTicks":true,"showTickLabels":true},"chromosome":{"showChromosomeLabels":true},"genome":{"showGenomeLabels":true},"features":{"showFeatureLabels":false}}}
+ "labels":{"showAllLabels":false,"ticks":{"showTicks":true,"showTickLabels":true},"chromosome":{"showChromosomeLabels":false},"genome":{"showGenomeLabels":true},"features":{"showFeatureLabels":false}}}
