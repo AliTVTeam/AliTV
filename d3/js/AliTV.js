@@ -216,7 +216,7 @@ function AliTV(svg) {
  * @param {Object} conf - Object containing conf values
  */
 AliTV.prototype.setConf = function(conf) {
-
+	jQuery.extend(true, this.conf, conf);
 };
 
 /**
