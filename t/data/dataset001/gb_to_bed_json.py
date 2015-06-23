@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
+# original version from https://gist.github.com/brantfaircloth/893580
 """
 gb_to_bed.py file.gb file.bed genome_name
 
