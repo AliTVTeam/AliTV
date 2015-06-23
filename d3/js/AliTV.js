@@ -202,8 +202,8 @@ function AliTV(svg) {
 		}
 	};
 	// Initialize svg size
-	svg.attr("width", this.conf.graphicalParameters.width);
-	svg.attr("height", this.conf.graphicalParameters.height);
+	this.setCanvasWidth(this.conf.graphicalParameters.width);
+	this.setCanvasHeight(this.conf.graphicalParameters.height);
 }
 
 /**
@@ -748,7 +748,7 @@ AliTV.prototype.drawLinear = function() {
 	if (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels === true) {
 		var linearGenomeLabelCoords = this.getGenomeLabelCoords();
 		this.drawLinearGenomeLabels(linearGenomeLabelCoords);
-		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.genomeLabelWidth);
+		this.setCanvasWidth(this.conf.graphicalParameters.width + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 
 	if (this.conf.features.showAllFeatures === true || this.conf.features.supportedFeatures.gen.visible === true || this.conf.features.supportedFeatures.invertedRepeat.visible === true || this.conf.features.supportedFeatures.repeat.visible === true || this.conf.features.supportedFeatures.nStretch.visible === true || this.conf.features.fallbackStyle.visible === true) {
@@ -766,11 +766,11 @@ AliTV.prototype.drawLinear = function() {
 
 	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
 		this.drawPhylogeneticTree();
-		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth);
+		this.setCanvasWidth(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth);
 	}
 
 	if (this.conf.tree.drawTree === true && (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels)) {
-		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth);
+		this.setCanvasWidth(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 	this.conf.layout = "linear";
 };
