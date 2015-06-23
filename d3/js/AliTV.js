@@ -1085,7 +1085,7 @@ AliTV.prototype.setCanvasWidth = function(width) {
 	} else {
 		width = Number(width);
 		this.conf.graphicalParameters.width = width;
-		$('#wgaCanvas').width(this.conf.graphicalParameters.width);
+		this.svg.attr("width", this.conf.graphicalParameters.width);
 		return this.conf.graphicalParameters.width;
 	}
 };
@@ -1122,7 +1122,7 @@ AliTV.prototype.setCanvasHeight = function(height) {
 	} else {
 		height = Number(height);
 		this.conf.graphicalParameters.height = height;
-		$('#wgaCanvas').height(this.conf.graphicalParameters.height);
+		this.svg.attr("height", this.conf.graphicalParameters.height);
 		return this.conf.graphicalParameters.height;
 	}
 };
