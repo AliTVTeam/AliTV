@@ -11,6 +11,7 @@
 <script src="lib/d3.v3.min.js"></script>
 <script src="lib/jquery.min.js"></script>
 <script src="lib/jquery-ui.min.js"></script>
+<script src="lib/FileSaver.min.js"></script>
 
 <script src="js/AliTV.js"></script>
 <script src="lib/bootstrap.min.js"></script>
@@ -413,6 +414,10 @@
 		}
 		
 	}
+	function saveSVG(){
+	    var blob = new Blob([$('#wgaCanvas')[0].outerHTML], {type: "text/plain;charset=utf-8"});
+	    saveAs(blob, "AliTV.svg");
+	}
 </script>
 </head>
 <body>
@@ -543,9 +548,11 @@
  				</fieldset>
  			</form> 
  		</div>
- 		<div>
-		<button type="submit" onclick="setNewParameters()">Apply</button>					
- 		</div>
+		<h3><span class="number">7</span>Export</h3>
+                <div>
+		  <button onclick="saveSVG()">Save SVG</button>		
+		</div>
+		<button type="submit" onclick="setNewParameters()">Apply</button>		
  	</div>
  	<svg id='wgaCanvas' style="margin:50px"></svg>
  </div>
