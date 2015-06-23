@@ -14,10 +14,10 @@ describe('The constructor is supposed a proper AliTV object', function(){
 		expect(wga.svg).toEqual(svg);
 	});
 	it('the height of the svg should be set to the configured height', function(){
-		expect(wga.svg.height()).toEqual(defaultConf.graphicalParameters.height);
+		expect(Number(wga.svg.attr("height"))).toEqual(defaultConf.graphicalParameters.height);
 	});
 	it('the width of the svg should be set to the configured width if the tree is not set', function(){
-		expect(wga.svg.width()).toEqual(defaultConf.graphicalParameters.width);
+		expect(Number(wga.svg.attr("width"))).toEqual(defaultConf.graphicalParameters.width);
 	});
 	it('the svgD3 property should exist', function(){
 		expect(wga.svgD3).not.toBeNull();
