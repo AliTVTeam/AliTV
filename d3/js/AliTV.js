@@ -202,8 +202,8 @@ function AliTV(svg) {
 		}
 	};
 	// Initialize svg size
-	svg.width(this.conf.graphicalParameters.width);
-	svg.height(this.conf.graphicalParameters.height);
+	svg.attr("width", this.conf.graphicalParameters.width);
+	svg.attr("height", this.conf.graphicalParameters.height);
 }
 
 /**
