@@ -2121,3 +2121,14 @@ AliTV.prototype.getJSON = function() {
  * @author Markus Ankenbrand
  */
 
+AliTV.prototype.setJSON = function(json) {
+	if (typeof json.data !== 'undefined') {
+		this.setData(json.data);
+	}
+	if (typeof json.filters !== 'undefined') {
+		this.setFilters(json.filters);
+	}
+	if (typeof json.conf !== 'undefined') {
+		this.setConf(json.conf);
+	}
+};
