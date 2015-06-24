@@ -612,3 +612,18 @@ describe('The setSvgHeight method is supposed to set a new height of the svg dra
 		expect(function(){ali.setSvgHeight(height);}).toThrow("height is to small, it should be > 0");
 	});
 });
+
+describe('The getSvgAsText method is supposed to get the content of the svg as a text string', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getSvgAsText method is supposed to be a function', function(){
+		expect(typeof ali.getSvgAsText).toEqual('function');
+	});	
+	it('the function should return a empty svg with defined size if no data is provided', function(){
+		var svgText = "<svg width=\""+defaultConf.graphicalParameters.canvasWidth+"\"></svg>";
+		expect(ali.getSvgAsText).toEqual(svgText);
+	});
+	// more complex test cases are too difficult right now as there would be a hard constraint on the order of elements
+	// therefore a customMatcher has to be written that can decide if two svg strings are semantically equivalent.
+});
