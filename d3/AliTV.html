@@ -418,6 +418,10 @@
 	    var blob = new Blob([wga.getSvgAsText()], {type: "image/svg+xml;charset=utf-8"});
 	    saveAs(blob, "AliTV.svg");
 	}
+	function saveJSON(){
+	    var blob = new Blob([JSON.stringify(wga.getJSON())], {type: "plain/text;charset=utf-8"});
+	    saveAs(blob, "AliTV.json");
+	}
 </script>
 </head>
 <body>
@@ -550,7 +554,8 @@
  		</div>
 		<h3><span class="number">7</span>Export</h3>
                 <div>
-		  <button onclick="saveSVG()">Save SVG</button>		
+		  <button onclick="saveSVG()">Save SVG</button>
+		  <button onclick="saveJSON()">Save JSON</button>
 		</div>
 		<button type="submit" onclick="setNewParameters()">Apply</button>		
  	</div>
