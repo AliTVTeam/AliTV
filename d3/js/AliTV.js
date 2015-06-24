@@ -2026,3 +2026,71 @@ AliTV.prototype.drawLinearFeatureLabels = function(linearFeatureLabelCoords) {
 		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
 };
+
+
+/**
+ * This function returns the width of the svg.
+ * @returns {Number} The width of svg.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.getSvgWidth = function() {
+	return Number(this.svg.attr("width"));
+};
+
+/**
+ * This function sets the width of the svg - it does not effect the size of the canvas, tree, etc.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} width - the desired width of the svg set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.setSvgWidth = function(width) {
+	if (width === "") {
+		throw "empty";
+	} else if (isNaN(width)) {
+		throw "not a number";
+	} else if (width <= 0) {
+		throw "width is to small, it should be > 0";
+	} else {
+		width = Number(width);
+		this.svg.attr("width", width);
+	}
+};
+
+/**
+ * This function returns the height of the svg.
+ * @returns {Number} The height of svg.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.getSvgHeight = function() {
+	return Number(this.svg.attr("height"));
+};
+
+
+/**
+ * This function sets the height of the svg - it does not effect the size of the canvas, tree, etc.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} height - the desired height of the svg set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.setSvgHeight = function(height) {
+	if (height === "") {
+		throw "empty";
+	} else if (isNaN(height)) {
+		throw "not a number";
+	} else if (height <= 0) {
+		throw "height is to small, it should be > 0";
+	} else {
+		height = Number(height);
+		this.svg.attr("height", height);
+	}
+};
