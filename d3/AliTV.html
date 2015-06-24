@@ -415,7 +415,7 @@
 		
 	}
 	function saveSVG(){
-	    var blob = new Blob([wga.getSvgAsText()], {type: "text/plain;charset=utf-8"});
+	    var blob = new Blob([wga.getSvgAsText()], {type: "image/svg+xml;charset=utf-8"});
 	    saveAs(blob, "AliTV.svg");
 	}
 </script>
