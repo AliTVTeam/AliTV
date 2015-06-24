@@ -452,6 +452,9 @@
 	function setJSONEditorFromAli(){
 		editor.set(wga.getJSON());
 	}
+	function toggleJSONEditor(){
+		$('#jsoneditor').toggle();
+	}
 	function saveSVG(){
 	    var blob = new Blob([wga.getSvgAsText()], {type: "image/svg+xml;charset=utf-8"});
 	    saveAs(blob, "AliTV.svg");
@@ -606,7 +609,7 @@
  	</div>
  	<svg id='wgaCanvas'></svg>
  </div>
- <div id="jsoneditor"></div>
+ <div id="jsoneditor" style="display:none"></div>
  </body>
  </html>
 
