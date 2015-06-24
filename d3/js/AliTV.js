@@ -1535,6 +1535,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 	if (this.conf.tree.orientation === "left") {
 		that.svgD3.append("g")
 			.attr("class", "treeGroup")
+			.attr("style", "fill:none;stroke:#000;stroke-width:2px;")
 			.selectAll("path")
 			.data(links)
 			.enter()
