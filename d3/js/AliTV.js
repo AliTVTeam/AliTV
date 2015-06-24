@@ -2090,3 +2090,13 @@ AliTV.prototype.setSvgHeight = function(height) {
 		this.svg.attr("height", height);
 	}
 };
+
+/**
+ * This function returns the content of the svg as a text string.
+ * @returns {String} The content of the svg.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.getSvgAsText = function() {
+
+};
