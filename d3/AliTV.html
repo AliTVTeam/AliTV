@@ -31,7 +31,6 @@
 					wga.drawLinear();
 				}).fail(function(data) {
 				    console.log( "could not load custom conf.json - using default values" );
-				    console.log(data);
 				    wga.drawLinear();
 				});
 			});
@@ -311,6 +310,21 @@
 	});	
 	});
 
+	console.log(document.getElementById('loadJSON'));
+	$('#loadJSON').on('change', function(evt) {
+		var files = evt.target.files; // FileList object
+	    // files is a FileList of File objects.
+	    var output = [];
+	    for (var i = 0, f; f = files[i]; i++) {
+	    	var fr = new FileReader();
+	    	fr.onload = function(x){
+	    		wga.setJSON(JSON.parse(x.target.result));
+	    		wga.drawLinear();
+	    	}
+	    	fr.readAsText(f);
+	    }
+	});
+
 });
 }); 
 	
@@ -556,6 +570,7 @@
                 <div>
 		  <button onclick="saveSVG()">Save SVG</button>
 		  <button onclick="saveJSON()">Save JSON</button>
+		  <input type="file" id="loadJSON" name="files[]" multiple>Load JSON</button>
 		</div>
 		<button type="submit" onclick="setNewParameters()">Apply</button>		
  	</div>
