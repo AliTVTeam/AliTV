@@ -622,7 +622,7 @@ describe('The getSvgAsText method is supposed to get the content of the svg as a
 	});	
 	it('the function should return a empty svg with defined size if no data is provided', function(){
 		var svgText = "<svg width=\""+defaultConf.graphicalParameters.canvasWidth+"\"></svg>";
-		expect(ali.getSvgAsText).toEqual(svgText);
+		expect(ali.getSvgAsText()).toEqual(svgText);
 	});
 	// more complex test cases are too difficult right now as there would be a hard constraint on the order of elements
 	// therefore a customMatcher has to be written that can decide if two svg strings are semantically equivalent.
