@@ -2114,3 +2114,10 @@ AliTV.prototype.getJSON = function() {
 		filters: this.filters
 	};
 };
+
+/**
+ * This is a convenience function to set data, filters and conf of the AliTV object with a single call.
+ * @param {Object} json - Object containing any of data, filters and conf.
+ * @author Markus Ankenbrand
+ */
+
