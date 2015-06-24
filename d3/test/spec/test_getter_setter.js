@@ -647,3 +647,17 @@ describe('The getJSON method is supposed to return the internal data, filters an
 		expect(ali.getJSON()).toEqual(expectedJSON);
 	});
 });
+
+describe('The setJSON method is supposed to set the internal data, filters and conf objects', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('setJSON method is supposed to be a function', function(){
+		expect(typeof ali.getJSON).toEqual('function');
+	});
+	it('the function should return the set values in the JSON object', function(){
+		var expectedJSON = {conf: defaultConf, data: data, filters: filters};
+		ali.setJSON(expectedJSON);
+		expect(ali.getJSON()).toEqual(expectedJSON);
+	});
+});
