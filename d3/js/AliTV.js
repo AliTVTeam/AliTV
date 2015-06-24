@@ -2098,5 +2098,5 @@ AliTV.prototype.setSvgHeight = function(height) {
  */
 
 AliTV.prototype.getSvgAsText = function() {
-
+	return this.svg[0].outerHTML;
 };
