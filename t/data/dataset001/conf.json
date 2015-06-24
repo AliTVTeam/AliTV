@@ -1,4 +1,4 @@
-{"linear":{"drawAllLinks":false,"startLineColor":"#49006a","endLineColor":"#1d91c0"},
+{"conf":{"linear":{"drawAllLinks":false,"startLineColor":"#49006a","endLineColor":"#1d91c0"},
 "circular":{"tickSize":5},
 "graphicalParameters":{"width":900,"height":800,"karyoHeight":30,"karyoDistance":100,"linkKaryoDistance":20,"tickLabelFrequency":10,"tickDistance":1000,"treeWidth":200,"genomeLabelWidth":150},
 "minLinkIdentity":40,"maxLinkIdentity":100,"midLinkIdentity":60,"minLinkIdentityColor":"#D21414",
@@ -13,4 +13,4 @@
 "ndh":{"form":"rect","color":"#0000FF","height":30,"visible":true},
 "ycf":{"form":"rect","color":"#FF0000","height":30,"visible":true}}
 ,"fallbackStyle":{"form":"rect","color":"#787878","height":30,"visible":false}},
- "labels":{"showAllLabels":false,"ticks":{"showTicks":true,"showTickLabels":true},"chromosome":{"showChromosomeLabels":false},"genome":{"showGenomeLabels":true},"features":{"showFeatureLabels":false}}}
+"labels":{"showAllLabels":false,"ticks":{"showTicks":true,"showTickLabels":true},"chromosome":{"showChromosomeLabels":false},"genome":{"showGenomeLabels":true},"features":{"showFeatureLabels":false}}}}

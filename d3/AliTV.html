@@ -23,13 +23,13 @@
 		var svg = $('#wgaCanvas');
 		wga = new AliTV(svg);
 		$.getJSON('data/data.json', function(data) {
-			wga.setData(data);
+			wga.setData(data.data);
 			$.getJSON('data/filters.json', function(filters) {
-				wga.setFilters(filters);
+				wga.setFilters(filters.filters);
 				$.getJSON('data/conf.json', function(conf) {
-					wga.setConf(conf)
+					wga.setConf(conf.conf)
 					wga.drawLinear();
-				}).fail(function(data) {
+				}).fail(function() {
 				    console.log( "could not load custom conf.json - using default values" );
 				    wga.drawLinear();
 				});

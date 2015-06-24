@@ -1,4 +1,4 @@
-{
+{"filters":{
   "karyo": {
     "chromosomes": {
       "c4": {
@@ -67,4 +67,4 @@
   "showAllChromosomes": true,
   "skipChromosomesWithoutLinks": false,
   "onlyShowAdjacentLinks": true
-}
+}}
