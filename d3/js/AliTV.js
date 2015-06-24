@@ -123,8 +123,8 @@ function AliTV(svg) {
 			tickSize: 5
 		},
 		graphicalParameters: {
-			width: 1000,
-			height: 1000,
+			canvasWidth: 1000,
+			canvasHeight: 1000,
 			karyoHeight: 30,
 			karyoDistance: 10,
 			linkKaryoDistance: 20,
@@ -202,8 +202,8 @@ function AliTV(svg) {
 		}
 	};
 	// Initialize svg size
-	this.setCanvasWidth(this.conf.graphicalParameters.canvasWidth);
-	this.setCanvasHeight(this.conf.graphicalParameters.canvasHeight);
+	this.setSvgWidth(this.getCanvasWidth());
+	this.setSvgHeight(this.getCanvasHeight());
 }
 
 /**

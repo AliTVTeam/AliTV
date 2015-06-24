@@ -119,7 +119,7 @@ describe('The getCanvasWidth method is supposed to get the width of the svg draw
 	});
 	it('the function should return the width of canvas which is defined in the defaultConf', function(){
 		var width = ali.getCanvasWidth();
-		expect(width).toEqual(defaultConf.graphicalParameters.width);
+		expect(width).toEqual(defaultConf.graphicalParameters.canvasWidth);
 	});
 });
 	
@@ -172,7 +172,7 @@ describe('The getCanvasHeight method is supposed to get the height of the svg dr
 	});
 	it('the function should return the height of canvas which is defined in the defaultConf', function(){
 		var height = ali.getCanvasHeight();
-		expect(height).toEqual(defaultConf.graphicalParameters.height);
+		expect(height).toEqual(defaultConf.graphicalParameters.canvasHeight);
 	});
 });
 

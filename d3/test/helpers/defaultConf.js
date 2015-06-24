@@ -8,8 +8,8 @@ var defaultConf =  {
 			tickSize: 5
 		},
 		graphicalParameters: {
-			width: 1000,
-			height: 1000,
+			canvasWidth: 1000,
+			canvasHeight: 1000,
 			karyoHeight: 30,
 			karyoDistance: 10,
 			linkKaryoDistance: 20,
