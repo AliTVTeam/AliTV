@@ -1,17 +1,19 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="lib/jquery-ui-1.9.2.custom.min.css">
 <link rel="stylesheet" href="css/AliTV.css">
 <link href="lib/bootstrap.min.css" rel="stylesheet">
 <link href="lib/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
+<link href="lib/jsoneditor.min.css" rel="stylesheet" type="text/css">
+    
 <script src="lib/d3.v3.min.js"></script>
 <script src="lib/jquery.min.js"></script>
 <script src="lib/jquery-ui.min.js"></script>
 <script src="lib/FileSaver.min.js"></script>
+<script src="lib/jsoneditor.min.js"></script>
 
 <script src="js/AliTV.js"></script>
 <script src="lib/bootstrap.min.js"></script>
@@ -19,18 +21,23 @@
 <script src="lib/textures.min.js"></script> 
 <script type="text/javascript">
 	var wga;
+	var editor;
 	$(document).ready(function() {
 		var svg = $('#wgaCanvas');
 		wga = new AliTV(svg);
+		var container = document.getElementById("jsoneditor");
+		editor = new JSONEditor(container)
 		$.getJSON('data/data.json', function(data) {
 			wga.setData(data.data);
 			$.getJSON('data/filters.json', function(filters) {
 				wga.setFilters(filters.filters);
 				$.getJSON('data/conf.json', function(conf) {
 					wga.setConf(conf.conf)
+					editor.set({conf: wga.conf, filters: wga.filters, data: wga.data});
 					wga.drawLinear();
 				}).fail(function() {
 				    console.log( "could not load custom conf.json - using default values" );
+		        	editor.set({conf: wga.conf, filters: wga.filters, data: wga.data});
 				    wga.drawLinear();
 				});
 			});
@@ -59,8 +66,7 @@
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showChromosomeLabels').attr('checked', true);
 		$('#showFeatureLabels').attr('checked', false);
-		
-		});
+	});
 	
 	$(function(){
 		$("#identity-slider").slider({
@@ -424,8 +430,14 @@
 			$("#onlyShowAdjacentLinks").attr("disabled", true);
 		} else {
 			$("#onlyShowAdjacentLinks").attr("disabled", false);
-		}
-		
+		}		
+	}
+	function setAliFromJSONEditor(){
+		var json = editor.get();
+		wga.conf = json.conf;
+		wga.data = json.data;
+		wga.filters = json.filters;
+		wga.drawEqualLayout(wga.getLayout());
 	}
 	function saveSVG(){
 	    var blob = new Blob([wga.getSvgAsText()], {type: "image/svg+xml;charset=utf-8"});
@@ -570,12 +582,13 @@
 		  <button onclick="saveSVG()">Save SVG</button>
 		  <button onclick="saveJSON()">Save JSON</button>
 		  <button onclick="$('#loadJSON').click()">Load JSON</button>
-		  <input type="file" id="loadJSON" name="files[]" style="display:none" multiple></button>
+		  <input type="file" id="loadJSON" name="files[]" style="display:none" multiple></input>
 		</div>
 		<button type="submit" onclick="setNewParameters()">Apply</button>		
  	</div>
  	<svg id='wgaCanvas'></svg>
  </div>
+ <div id="jsoneditor"></div>
  </body>
  </html>
 
