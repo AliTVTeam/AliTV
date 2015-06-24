@@ -514,3 +514,109 @@ describe('The setConfig method is supposed to extend the existing config values'
 		expect(ali.conf).toEqual(confClone);
 	});
 });
+
+describe('The getSvgWidth method is supposed to get the width of the svg', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getSvgWidth method is supposed to be a function', function(){
+		expect(typeof ali.getSvgWidth).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var width = ali.getSvgWidth();
+		expect(width).toBeDefined();
+	});
+	it('the function should return the width of canvas which is defined in the defaultConf', function(){
+		var width = ali.getSvgWidth();
+		expect(width).toEqual(Number(ali.svg.attr("width")));
+	});
+});
+	
+describe('The setSvgWidth method is supposed to set a new width of the svg', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setSvgWidth method is supposed to be a function', function(){
+		expect(typeof ali.setSvgWidth).toEqual('function');
+	});	
+	it('the returned value of the getSvgWidth method should be the same as the width which is set and returned by the setter-method', function(){
+		var width = 3000
+		expect(ali.setSvgWidth(width)).toEqual(width);
+	});	
+	it('when setSvgWidth is called several times the width should have the same value as the returned width of getSvgWidth method', function(){
+		ali.setSvgWidth(2000);
+		expect(ali.getSvgWidth()).toEqual(2000);
+		ali.setSvgWidth(1200);
+		expect(ali.getSvgWidth()).toEqual(1200);
+		ali.setSvgWidth(10000);
+		expect(ali.getSvgWidth()).toEqual(10000);
+	});
+	it('the setSvgWidth method should throw an error message if the assigned width is empty', function(){
+		var width = "";
+		expect(function(){ali.setSvgWidth(width);}).toThrow("empty");
+	});
+	it('the setSvgWidth method should throw an error message if the assigned width is not a number', function(){
+		var width = "test";
+		expect(function(){ali.setSvgWidth(width);}).toThrow("not a number");
+	});
+	it('the setSvgWidth method should throw an error message if the assigned width is 0', function(){
+		var width = 0;
+		expect(function(){ali.setSvgWidth(width);}).toThrow("width is to small, it should be > 0");
+	});
+	it('the setSvgWidth method should throw an error message if the assigned width is less than 0', function(){
+		var width = -3000;
+		expect(function(){ali.setSvgWidth(width);}).toThrow("width is to small, it should be > 0");
+	});
+});
+
+describe('The getSvgHeight method is supposed to get the height of the svg drawing area', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getSvgHeight method is supposed to be a function', function(){
+		expect(typeof ali.getSvgHeight).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var height = ali.getSvgHeight();
+		expect(height).toBeDefined();
+	});
+	it('the function should return the height of canvas which is defined in the defaultConf', function(){
+		var height = ali.getSvgHeight();
+		expect(height).toEqual(Number(ali.svg.attr("height")));
+	});
+});
+
+describe('The setSvgHeight method is supposed to set a new height of the svg drawing area', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setSvgHeight method is supposed to be a function', function(){
+		expect(typeof ali.setSvgHeight).toEqual('function');
+	});	
+	it('the returned value of the getSvgHeight method should be the same as the height which is setted and returned by the setter-method', function(){
+		var height = 3000;
+		expect(ali.setSvgHeight(height)).toEqual(height);
+	});	
+	it('when setSvgHeight is called several times the width should have the same value as the returned height of getSvgHeight method', function(){
+		ali.setSvgHeight(1234);
+		expect(ali.getSvgHeight()).toEqual(1234);
+		ali.setSvgHeight(4242);
+		expect(ali.getSvgHeight()).toEqual(4242);
+		ali.setSvgHeight(10000);
+		expect(ali.getSvgHeight()).toEqual(10000);
+	});
+	it('the setSvgHeight method should throw an error message if the assigned height is empty', function(){
+		var height = "";
+		expect(function(){ali.setSvgHeight(height);}).toThrow("empty");
+	});
+	it('the setSvgHeight method should throw an error message if the assigned height is not a number', function(){
+		var height = "test";
+		expect(function(){ali.setSvgHeight(height);}).toThrow("not a number");
+	});
+	it('the setSvgHeight method should throw an error message if the assigned height is 0', function(){
+		var height = 0;
+		expect(function(){ali.setSvgHeight(height);}).toThrow("height is to small, it should be > 0");
+	});
+	it('the setSvgHeight method should throw an error message if the assigned height is less than 0', function(){
+		var height = -42;
+		expect(function(){ali.setSvgHeight(height);}).toThrow("height is to small, it should be > 0");
+	});
+});
