@@ -2100,3 +2100,17 @@ AliTV.prototype.setSvgHeight = function(height) {
 AliTV.prototype.getSvgAsText = function() {
 	return this.svg[0].outerHTML;
 };
+
+/**
+ * This function returns the content of the AliTV object as a single object containing data, filters and conf.
+ * @returns {Object} The content of the AliTV object.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.getJSON = function() {
+	return {
+		data: this.data,
+		conf: this.conf,
+		filters: this.filters
+	};
+};
