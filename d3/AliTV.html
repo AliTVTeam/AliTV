@@ -33,11 +33,11 @@
 				wga.setFilters(filters.filters);
 				$.getJSON('data/conf.json', function(conf) {
 					wga.setConf(conf.conf)
-					editor.set({conf: wga.conf, filters: wga.filters, data: wga.data});
+					setJSONEditorFromAli();
 					wga.drawLinear();
 				}).fail(function() {
 				    console.log( "could not load custom conf.json - using default values" );
-		        	editor.set({conf: wga.conf, filters: wga.filters, data: wga.data});
+				    setJSONEditorFromAli();
 				    wga.drawLinear();
 				});
 			});
@@ -326,6 +326,7 @@
 	    	var fr = new FileReader();
 	    	fr.onload = function(x){
 	    		wga.setJSON(JSON.parse(x.target.result));
+	    		setJSONEditorFromAli();
 	    		wga.drawLinear();
 	    	}
 	    	fr.readAsText(f);
@@ -435,6 +436,7 @@
 		changeGeneColor();
 		
 		var layout = wga.getLayout();
+		setJSONEditorFromAli();
 		wga.drawEqualLayout(layout);
 		if(layout === "circular"){
 			$("#onlyShowAdjacentLinks").attr("disabled", true);
@@ -444,10 +446,11 @@
 	}
 	function setAliFromJSONEditor(){
 		var json = editor.get();
-		wga.conf = json.conf;
-		wga.data = json.data;
-		wga.filters = json.filters;
+		wga.setJSON(json);
 		wga.drawEqualLayout(wga.getLayout());
+	}
+	function setJSONEditorFromAli(){
+		editor.set(wga.getJSON());
 	}
 	function saveSVG(){
 	    var blob = new Blob([wga.getSvgAsText()], {type: "image/svg+xml;charset=utf-8"});
@@ -588,11 +591,16 @@
  			</form> 
  		</div>
 		<h3><span class="number">7</span>Import/Export</h3>
-                <div>
+        <div>
 		  <button onclick="saveSVG()">Save SVG</button>
 		  <button onclick="saveJSON()">Save JSON</button>
 		  <button onclick="$('#loadJSON').click()">Load JSON</button>
 		  <input type="file" id="loadJSON" name="files[]" style="display:none" multiple></input>
+		</div>
+		<h3><span class="number">8</span>Advanced</h3>
+        <div>
+		  <button onclick="toggleJSONEditor()">Toggle JSON Editor</button>
+		  <button onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
 		</div>
 		<button id="applyChanges">Apply</button>		
  	</div>
