@@ -20,36 +20,36 @@
 <script src="lib/colorpicker/bootstrap-colorpicker.min.js"></script>
 <script src="lib/textures.min.js"></script> 
 <script type="text/javascript">
-	var wga;
+	var ali;
 	var editor;
 	$(document).ready(function() {
 		var svg = $('#wgaCanvas');
-		wga = new AliTV(svg);
+		ali = new AliTV(svg);
 		var container = document.getElementById("jsoneditor");
 		editor = new JSONEditor(container)
 		$.getJSON('data/data.json', function(data) {
-			wga.setData(data.data);
+			ali.setData(data.data);
 			$.getJSON('data/filters.json', function(filters) {
-				wga.setFilters(filters.filters);
+				ali.setFilters(filters.filters);
 				$.getJSON('data/conf.json', function(conf) {
-					wga.setConf(conf.conf)
+					ali.setConf(conf.conf)
 					setJSONEditorFromAli();
-					wga.drawLinear();
+					ali.drawLinear();
 				}).fail(function() {
 				    console.log( "could not load custom conf.json - using default values" );
 				    setJSONEditorFromAli();
-				    wga.drawLinear();
+				    ali.drawLinear();
 				});
 			});
 		});
 		
 		//Set default values for API of graphical parameters
-		$("#linearSpacer").val(wga.getLinearSpacer());
-		$("#karyoHeight").val(wga.getKaryoHeight());
-		$("#canvasWidth").val(wga.getCanvasWidth());
-		$("#canvasHeight").val(wga.getCanvasHeight());
-		$("#tickDistance").val(wga.getTickDistance());
-		$("#treeWidth").val(wga.getTreeWidth());
+		$("#linearSpacer").val(ali.getLinearSpacer());
+		$("#karyoHeight").val(ali.getKaryoHeight());
+		$("#canvasWidth").val(ali.getCanvasWidth());
+		$("#canvasHeight").val(ali.getCanvasHeight());
+		$("#tickDistance").val(ali.getTickDistance());
+		$("#treeWidth").val(ali.getTreeWidth());
 		
 		$('#skipChromosomesWithoutVisibleLinks').attr('checked', false);
 		$('#showAllChromosomes').attr('checked', true);
@@ -76,10 +76,10 @@
 			max: 100,
 			slide: function(event, ui){
 				$("#identity-label").val(ui.values[0] + " % - " + ui.values[1] + " %");
-				wga.filters.links.minLinkIdentity = ui.values[0];
-				wga.filters.links.maxLinkIdentity = ui.values[1];
-				var layout = wga.getLayout();
-				wga.drawEqualLayout(layout);
+				ali.filters.links.minLinkIdentity = ui.values[0];
+				ali.filters.links.maxLinkIdentity = ui.values[1];
+				var layout = ali.getLayout();
+				ali.drawEqualLayout(layout);
 			}
 		});	
 		$("#identity-label").val($("#identity-slider").slider("values", 0) + " % - " + $("#identity-slider").slider("values", 1) + " %");
@@ -91,10 +91,10 @@
 			max: 1000,
 			slide: function(event, ui){
 				$("#minlength-label").val(ui.values[0] + " bp - " + ui.values[1] + " bp");
-				wga.filters.links.minLinkLength = ui.values[0];
-				wga.filters.links.maxLinkLength = ui.values[1];
-				var layout = wga.getLayout();
-				wga.drawEqualLayout(layout);
+				ali.filters.links.minLinkLength = ui.values[0];
+				ali.filters.links.maxLinkLength = ui.values[1];
+				var layout = ali.getLayout();
+				ali.drawEqualLayout(layout);
 				}
 		});
 		$("#minlength-label").val($("#length-slider").slider("values", 0) + " bp - " + $("#length-slider").slider("values", 1) + " bp");
@@ -114,10 +114,10 @@
 
 	$(function(){$('#skipChromosomesWithoutVisibleLinks').change(function() {
 			if($('#skipChromosomesWithoutVisibleLinks').is(':checked')){
-		     	wga.filters.skipChromosomesWithoutVisibleLinks = true;
+		     	ali.filters.skipChromosomesWithoutVisibleLinks = true;
 		     	$("#showAllChromosomes").attr("disabled", true);
 			} else {
-				wga.filters.skipChromosomesWithoutVisibleLinks = false;
+				ali.filters.skipChromosomesWithoutVisibleLinks = false;
 				$("#showAllChromosomes").attr("disabled", false);
 			}
 		});
@@ -125,11 +125,11 @@
 	
 	$(function(){$('#showAllChromosomes').change(function() {
 		if($('#showAllChromosomes').is(':checked')){
-	     	wga.filters.showAllChromosomes = true;
+	     	ali.filters.showAllChromosomes = true;
 	     	$("#skipChromosomesWithoutVisibleLinks").attr("disabled", true);
 	     	$("#skipChromosomesWithoutLinks").attr("disabled", true);
 		} else {
-			wga.filters.showAllChromosomes = false;
+			ali.filters.showAllChromosomes = false;
 			$("#skipChromosomesWithoutVisibleLinks").attr("disabled", false);
 			$("#skipChromosomesWithoutLinks").attr("disabled", false);
 		}
@@ -137,39 +137,39 @@
 	
 	$(function(){$('#skipChromosomesWithoutLinks').change(function() {
 		if($('#skipChromosomesWithoutLinks').is(':checked')){
-	     	wga.filters.skipChromosomesWithoutLinks = true;
+	     	ali.filters.skipChromosomesWithoutLinks = true;
 	     	$("#showAllChromosomes").attr("disabled", true);
 		} else {
-			wga.filters.skipChromosomesWithoutLinks = false;
+			ali.filters.skipChromosomesWithoutLinks = false;
 			$("#showAllChromosomes").attr("disabled", false);
 		}
 	});
 	
 	$(function(){$('#onlyShowAdjacentLinks').change(function() {
 		if($('#onlyShowAdjacentLinks').is(':checked')){
-	     	wga.filters.onlyShowAdjacentLinks = true;
+	     	ali.filters.onlyShowAdjacentLinks = true;
 		} else {
-			wga.filters.onlyShowAdjacentLinks = false;
+			ali.filters.onlyShowAdjacentLinks = false;
 		}
 	});	
 	});
 	
 	$(function(){$('#drawTree').change(function() {
 		if($('#drawTree').is(':checked')){
-			if(wga.hasTree() === false){
+			if(ali.hasTree() === false){
 				alert("there is no tree data");
 				$("#treeWidth").attr("disabled", true);
 				$("#treeLeft").attr("disabled", true);
 				$("#treeRight").attr("disabled", true);
 			} else {
-	     	wga.conf.tree.drawTree = true;
+	     	ali.conf.tree.drawTree = true;
 	     	$("#treeWidth").attr("disabled", false);
 			$("#treeLeft").attr("disabled", false);
 			$("#treeRight").attr("disabled", false);				
 			}
 			
 		} else {
-			wga.conf.tree.drawTree = false;
+			ali.conf.tree.drawTree = false;
 			$("#treeWidth").attr("disabled", true);
 			$("#treeLeft").attr("disabled", true);
 			$("#treeRight").attr("disabled", true);
@@ -179,25 +179,25 @@
 	
 	$(function(){$('#treeLeft').change(function() {
 		if($('#treeLeft').is(':checked')){
-			wga.conf.tree.orientation = "left";
+			ali.conf.tree.orientation = "left";
 		} 
 	});	
 	});
 	
 	$(function(){$('#treeRight').change(function() {
 		if($('#treeRight').is(':checked')){
-			wga.conf.tree.orientation = "right";
+			ali.conf.tree.orientation = "right";
 		} 
 	});	
 	});
 	
 	$(function(){$('#showFeatures').change(function() {
 		if($('#showFeatures').is(':checked')){
-			wga.conf.features.showAllFeatures = true;
+			ali.conf.features.showAllFeatures = true;
 			$("#showGenes").attr("disabled", true);
 			$("#showInvertedRepeats").attr("disabled", true);
 		} else {
-			wga.conf.features.showAllFeatures = false;
+			ali.conf.features.showAllFeatures = false;
 			$("#showGenes").attr("disabled", false);
 			$("#showInvertedRepeats").attr("disabled", false);
 		}
@@ -206,10 +206,10 @@
 	
 	$(function(){$('#showGenes').change(function() {
 		if($('#showGenes').is(':checked')){
-			wga.conf.features.supportedFeatures.gen.visible = true;
+			ali.conf.features.supportedFeatures.gen.visible = true;
 			$("#showFeatures").attr("disabled", true);
 		} else {
-			wga.conf.features.supportedFeatures.gen.visible = false;
+			ali.conf.features.supportedFeatures.gen.visible = false;
 			$("#showFeatures").attr("disabled", false);
 		}
 	});	
@@ -217,10 +217,10 @@
 	
 	$(function(){$('#showInvertedRepeats').change(function() {
 		if($('#showInvertedRepeats').is(':checked')){
-			wga.conf.features.supportedFeatures.invertedRepeat.visible = true;
+			ali.conf.features.supportedFeatures.invertedRepeat.visible = true;
 			$("#showFeatures").attr("disabled", true);
 		} else {
-			wga.conf.features.supportedFeatures.invertedRepeat.visible = false;
+			ali.conf.features.supportedFeatures.invertedRepeat.visible = false;
 			$("#showFeatures").attr("disabled", false);
 		}
 	});	
@@ -228,10 +228,10 @@
 	
 	$(function(){$('#showRepeats').change(function() {
 		if($('#showRepeats').is(':checked')){
-			wga.conf.features.supportedFeatures.repeat.visible = true;
+			ali.conf.features.supportedFeatures.repeat.visible = true;
 			$("#showFeatures").attr("disabled", true);
 		} else {
-			wga.conf.features.supportedFeatures.repeat.visible = false;
+			ali.conf.features.supportedFeatures.repeat.visible = false;
 			$("#showFeatures").attr("disabled", false);
 		}
 	});	
@@ -239,10 +239,10 @@
 	
 	$(function(){$('#showNstretch').change(function() {
 		if($('#showNstretch').is(':checked')){
-			wga.conf.features.supportedFeatures.nStretch.visible = true;
+			ali.conf.features.supportedFeatures.nStretch.visible = true;
 			$("#showFeatures").attr("disabled", true);
 		} else {
-			wga.conf.features.supportedFeatures.nStretch.visible = false;
+			ali.conf.features.supportedFeatures.nStretch.visible = false;
 			$("#showFeatures").attr("disabled", false);
 		}
 	});	
@@ -250,10 +250,10 @@
 	
 	$(function(){$('#showFallback').change(function() {
 		if($('#showFallback').is(':checked')){
-			wga.conf.features.fallbackStyle.visible = true;
+			ali.conf.features.fallbackStyle.visible = true;
 			$("#showFeatures").attr("disabled", true);
 		} else {
-			wga.conf.features.fallbackStyle.visible = false;
+			ali.conf.features.fallbackStyle.visible = false;
 			$("#showFeatures").attr("disabled", false);
 		}
 	});	
@@ -261,12 +261,12 @@
 	
 	$(function(){$('#showAllLabels').change(function() {
 		if($('#showAllLabels').is(':checked')){
-			wga.conf.labels.showAllLabels = true;
+			ali.conf.labels.showAllLabels = true;
 			$("#showChromosomeLabels").attr("disabled", true);
 			$("#showGenomeLabels").attr("disabled", true);
 			$("#showFeatureLabels").attr("disabled", true);
 		} else {
-			wga.conf.labels.showAllLabels = false;
+			ali.conf.labels.showAllLabels = false;
 			$("#showChromosomeLabels").attr("disabled", false);
 			$("#showGenomeLabels").attr("disabled", false);
 			$("#showFeatureLabels").attr("disabled", false);
@@ -276,10 +276,10 @@
 	
 	$(function(){$('#showGenomeLabels').change(function() {
 		if($('#showGenomeLabels').is(':checked')){
-			wga.conf.labels.genome.showGenomeLabels = true;
+			ali.conf.labels.genome.showGenomeLabels = true;
 			$("#showAllLabels").attr("disabled", true);
 		} else {
-			wga.conf.labels.genome.showGenomeLabels = false;
+			ali.conf.labels.genome.showGenomeLabels = false;
 			$("#showAllLabels").attr("disabled", false);
 		}
 	});	
@@ -287,10 +287,10 @@
 	
 	$(function(){$('#showFeatureLabels').change(function() {
 		if($('#showFeatureLabels').is(':checked')){
-			wga.conf.labels.features.showFeatureLabels = true;
+			ali.conf.labels.features.showFeatureLabels = true;
 			$("#showAllLabels").attr("disabled", true);
 		} else {
-			wga.conf.labels.features.showFeatureLabels = false;
+			ali.conf.labels.features.showFeatureLabels = false;
 			$("#showAllLabels").attr("disabled", false);
 		}
 	});	
@@ -298,10 +298,10 @@
 	
 	$(function(){$('#showChromosomeLabels').change(function() {
 		if($('#showChromosomeLabels').is(':checked')){
-			wga.conf.labels.chromosome.showChromosomeLabels = true;
+			ali.conf.labels.chromosome.showChromosomeLabels = true;
 			$("#showAllLabels").attr("disabled", true);
 		} else {
-			wga.conf.labels.chromosome.showChromosomeLabels = false;
+			ali.conf.labels.chromosome.showChromosomeLabels = false;
 			$("#showAllLabels").attr("disabled", false);
 		}
 	});	
@@ -309,10 +309,10 @@
 	
 	$(function(){$('#showTickLabels').change(function() {
 		if($('#showTickLabels').is(':checked')){
-			wga.conf.labels.ticks.showTickLabels = true;
+			ali.conf.labels.ticks.showTickLabels = true;
 			$("#showAllLabels").attr("disabled", true);
 		} else {
-			wga.conf.labels.ticks.showTickLabels = false;
+			ali.conf.labels.ticks.showTickLabels = false;
 			$("#showAllLabels").attr("disabled", false);
 		}
 	});	
@@ -325,9 +325,9 @@
 	    for (var i = 0, f; f = files[i]; i++) {
 	    	var fr = new FileReader();
 	    	fr.onload = function(x){
-	    		wga.setJSON(JSON.parse(x.target.result));
+	    		ali.setJSON(JSON.parse(x.target.result));
 	    		setJSONEditorFromAli();
-	    		wga.drawLinear();
+	    		ali.drawLinear();
 	    	}
 	    	fr.readAsText(f);
 	    }
@@ -347,82 +347,82 @@
 	function changeLinearSpacer(){
 		var spacer = $("#linearSpacer").val();
 		try {
-		wga.setLinearSpacer(spacer); 
-		$("#linearSpacer").val(wga.getLinearSpacer());
+		ali.setLinearSpacer(spacer); 
+		$("#linearSpacer").val(ali.getLinearSpacer());
 		}
 		catch(err){
 			alert(err);
-			$("#linearSpacer").val(wga.getLinearSpacer());
+			$("#linearSpacer").val(ali.getLinearSpacer());
 		}
 	}
 	function changeKaryoHeight(){
 		var height = $("#karyoHeight").val(); 
 		try {
-		wga.setKaryoHeight(height); 	
+		ali.setKaryoHeight(height); 	
 		}
 		catch(err){
 			alert(err);
-			$("#karyoHeight").val(wga.getKaryoHeight());
+			$("#karyoHeight").val(ali.getKaryoHeight());
 		}
 	}
 	function changeCanvasWidth(){
 		var width = $("#canvasWidth").val(); 
 		try {
-		wga.setCanvasWidth(width); 	
+		ali.setCanvasWidth(width); 	
 		}
 		catch(err){
 			alert(err);
-			$("#canvasWidth").val(wga.getCanvasWidth());
+			$("#canvasWidth").val(ali.getCanvasWidth());
 		}
 	}
 	function changeCanvasHeight(){
 		var height = $("#canvasHeight").val(); 
 		try {
-		wga.setCanvasHeight(height); 
+		ali.setCanvasHeight(height); 
 		}
 		catch(err){
 			alert(err);
-			$("#canvasHeight").val(wga.getCanvasHeight());
+			$("#canvasHeight").val(ali.getCanvasHeight());
 		}
 	}
 	function changeTickDistance(){
 		var distance = $("#tickDistance").val(); 
 		try {
-		wga.setTickDistance(distance); 	
+		ali.setTickDistance(distance); 	
 		}
 		catch(err){
 			alert(err);
-			$("#tickDistance").val(wga.getTickDistance());
+			$("#tickDistance").val(ali.getTickDistance());
 		}
 	}
 	function changeTreeWidth(){
 		var treeWidth = $("#treeWidth").val(); 
 		try {
-		wga.setTreeWidth(treeWidth); 	
+		ali.setTreeWidth(treeWidth); 	
 		}
 		catch(err){
 			alert(err);
-			$("#treeWidth").val(wga.getTreeWidth());
+			$("#treeWidth").val(ali.getTreeWidth());
 		}
 	}
 	function changeTickLabelFrequency(){
 		var frequency = $("#tickLabelFrequency").val(); 
 		try {
-		wga.setTickLabelFrequency(frequency); 	
+		ali.setTickLabelFrequency(frequency); 	
 		}
 		catch(err){
 			alert(err);
-			$("#tickLabelFrequency").val(wga.getTickLabelFrequency());
+			$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
 		}
 	}
 	function changeGeneColor(){
 		var color = ($("#geneColor").val());
 		try {
-			wga.setGeneColor(color); 	
+			ali.setGeneColor(color); 	
 			}
 			catch(err){
 				alert(err);
-				$("#geneColor").val(wga.getGeneColor());
+				$("#geneColor").val(ali.getGeneColor());
 			}
 	}
 	function setNewParameters(){
@@ -435,9 +435,9 @@
 		changeTickLabelFrequency();
 		changeGeneColor();
 		
-		var layout = wga.getLayout();
+		var layout = ali.getLayout();
 		setJSONEditorFromAli();
-		wga.drawEqualLayout(layout);
+		ali.drawEqualLayout(layout);
 		if(layout === "circular"){
 			$("#onlyShowAdjacentLinks").attr("disabled", true);
 		} else {
@@ -446,21 +446,21 @@
 	}
 	function setAliFromJSONEditor(){
 		var json = editor.get();
-		wga.setJSON(json);
-		wga.drawEqualLayout(wga.getLayout());
+		ali.setJSON(json);
+		ali.drawEqualLayout(ali.getLayout());
 	}
 	function setJSONEditorFromAli(){
-		editor.set(wga.getJSON());
+		editor.set(ali.getJSON());
 	}
 	function toggleJSONEditor(){
 		$('#jsoneditor').toggle();
 	}
 	function saveSVG(){
-	    var blob = new Blob([wga.getSvgAsText()], {type: "image/svg+xml;charset=utf-8"});
+	    var blob = new Blob([ali.getSvgAsText()], {type: "image/svg+xml;charset=utf-8"});
 	    saveAs(blob, "AliTV.svg");
 	}
 	function saveJSON(){
-	    var blob = new Blob([JSON.stringify(wga.getJSON())], {type: "plain/text;charset=utf-8"});
+	    var blob = new Blob([JSON.stringify(ali.getJSON())], {type: "plain/text;charset=utf-8"});
 	    saveAs(blob, "AliTV.json");
 	}
 </script>
@@ -471,8 +471,8 @@
  	<div id="accordion" class="form-style-5" style="float:left">
  		<h3><span class="number">1</span> Choose your layout</h3>
  		<div>
- 			<button type="submit" onclick="wga.drawCircular();">Draw Circular</button> 
- 			<button type="submit" onclick="wga.drawLinear();">Draw Linear</button> 
+ 			<button type="submit" onclick="ali.drawCircular();">Draw Circular</button> 
+ 			<button type="submit" onclick="ali.drawLinear();">Draw Linear</button> 
  		</div>
  		<h3><span class="number">2</span> Change graphical parameters</h3>
  		<div>
