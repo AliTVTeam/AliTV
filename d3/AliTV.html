@@ -331,6 +331,14 @@
 	    	fr.readAsText(f);
 	    }
 	});
+	
+	//prevent folding of accordion on click on apply
+	$("#applyChanges").unbind("click");
+	$('#applyChanges').on('click', function(evt) {
+		evt.stopPropagation();
+		evt.preventDefault();
+		setNewParameters();
+	});
 
 });
 }); 
@@ -586,7 +594,7 @@
 		  <button onclick="$('#loadJSON').click()">Load JSON</button>
 		  <input type="file" id="loadJSON" name="files[]" style="display:none" multiple></input>
 		</div>
-		<button type="submit" onclick="setNewParameters()">Apply</button>		
+		<button id="applyChanges">Apply</button>		
  	</div>
  	<svg id='wgaCanvas'></svg>
  </div>
