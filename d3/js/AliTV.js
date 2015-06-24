@@ -1514,7 +1514,7 @@ AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
  */
 AliTV.prototype.drawPhylogeneticTree = function() {
 	var that = this;
-	var treeData = that.data.tree;
+	var treeData = $.extend(true, {}, that.data.tree);
 	// Create a tree "canvas"
 	var genomeDistance = that.getGenomeDistance();
 
