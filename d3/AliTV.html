@@ -565,11 +565,12 @@
  				</fieldset>
  			</form> 
  		</div>
-		<h3><span class="number">7</span>Export</h3>
+		<h3><span class="number">7</span>Import/Export</h3>
                 <div>
 		  <button onclick="saveSVG()">Save SVG</button>
 		  <button onclick="saveJSON()">Save JSON</button>
-		  <input type="file" id="loadJSON" name="files[]" multiple>Load JSON</button>
+		  <button onclick="$('#loadJSON').click()">Load JSON</button>
+		  <input type="file" id="loadJSON" name="files[]" style="display:none" multiple></button>
 		</div>
 		<button type="submit" onclick="setNewParameters()">Apply</button>		
  	</div>
