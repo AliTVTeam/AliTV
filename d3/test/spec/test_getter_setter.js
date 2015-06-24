@@ -620,11 +620,30 @@ describe('The getSvgAsText method is supposed to get the content of the svg as a
 	it('getSvgAsText method is supposed to be a function', function(){
 		expect(typeof ali.getSvgAsText).toEqual('function');
 	});	
-	it('the function should return a empty svg with defined size if no data is provided', function(){
+	it('the function should return an empty svg with defined size if no data is provided', function(){
 		var svgText = "<svg width=\""+defaultConf.graphicalParameters.canvasWidth+"\" height=\""+defaultConf.graphicalParameters.canvasHeight+"\"></svg>";
 		svgText += "<svg height=\""+defaultConf.graphicalParameters.canvasHeight+"\" width=\""+defaultConf.graphicalParameters.canvasWidth+"\"></svg>";
 		expect(svgText).toContain(ali.getSvgAsText());
 	});
 	// more complex test cases are too difficult right now as there would be a hard constraint on the order of elements
 	// therefore a customMatcher has to be written that can decide if two svg strings are semantically equivalent.
+});
+
+describe('The getJSON method is supposed to return the internal data, filters and conf as one JSON object', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getJSON method is supposed to be a function', function(){
+		expect(typeof ali.getJSON).toEqual('function');
+	});	
+	it('the function should return the defaultConf and two empty objects if nothing is set', function(){
+		var expectedJSON = {conf: defaultConf, data: {}, filters: {}};
+		expect(ali.getJSON()).toEqual(expectedJSON);
+	});
+	it('the function should return the set values in the JSON object', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var expectedJSON = {conf: defaultConf, data: data, filters: filters};
+		expect(ali.getJSON()).toEqual(expectedJSON);
+	});
 });
