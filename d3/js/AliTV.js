@@ -748,7 +748,7 @@ AliTV.prototype.drawLinear = function() {
 	if (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels === true) {
 		var linearGenomeLabelCoords = this.getGenomeLabelCoords();
 		this.drawLinearGenomeLabels(linearGenomeLabelCoords);
-		this.setCanvasWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.genomeLabelWidth);
+		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 
 	if (this.conf.features.showAllFeatures === true || this.conf.features.supportedFeatures.gen.visible === true || this.conf.features.supportedFeatures.invertedRepeat.visible === true || this.conf.features.supportedFeatures.repeat.visible === true || this.conf.features.supportedFeatures.nStretch.visible === true || this.conf.features.fallbackStyle.visible === true) {
@@ -766,11 +766,11 @@ AliTV.prototype.drawLinear = function() {
 
 	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
 		this.drawPhylogeneticTree();
-		this.setCanvasWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.treeWidth);
+		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.treeWidth);
 	}
 
 	if (this.conf.tree.drawTree === true && (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels)) {
-		this.setCanvasWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth);
+		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 	this.conf.layout = "linear";
 };
