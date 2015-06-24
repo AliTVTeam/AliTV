@@ -77,8 +77,8 @@ function AliTV(svg) {
 	 * @property {Number}  minLinkLength						   - The minimum length of a link:
 	 * @property {Number}  maxLinkLength						   - The maximum length of a link.
 	 * @property {Object}  graphicalParameters                     - The configuration options for all graphical parameters.
-	 * @property {Number}  graphicalParameters.width               - The width of the svg in px.
-	 * @property {Number}  graphicalParameters.height              - The height of the svg in px.
+	 * @property {Number}  graphicalParameters.canvasWidth         - The width of the alignment drawing area in px.
+	 * @property {Number}  graphicalParameters.canvasHeight        - The height of the alignment drawing area in px.
 	 * @property {Number}  graphicalParameters.karyoHeight         - The height of each chromosome in px.
 	 * @property {Number}  graphicalParameters.karyoDistance       - The horizontal distance between adjacent chromosomes of the same genome in bp.
 	 * @property {Number}  graphicalParameters.linkKaryoDistance   - The vertical distance between chromosomes and links in px.
@@ -202,8 +202,8 @@ function AliTV(svg) {
 		}
 	};
 	// Initialize svg size
-	this.setCanvasWidth(this.conf.graphicalParameters.width);
-	this.setCanvasHeight(this.conf.graphicalParameters.height);
+	this.setCanvasWidth(this.conf.graphicalParameters.canvasWidth);
+	this.setCanvasHeight(this.conf.graphicalParameters.canvasHeight);
 }
 
 /**
@@ -328,11 +328,11 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		};
 
 		if (this.filters.karyo.chromosomes[key].reverse === false) {
-			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width;
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width;
+			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.canvasWidth;
+			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.canvasWidth;
 		} else {
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width + (value.length / maxTotalSize) * conf.graphicalParameters.width;
-			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width * (-1);
+			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.canvasWidth + (value.length / maxTotalSize) * conf.graphicalParameters.canvasWidth;
+			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.canvasWidth * (-1);
 		}
 		current[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
 		linearKaryoCoords.push(coord);
@@ -748,7 +748,7 @@ AliTV.prototype.drawLinear = function() {
 	if (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels === true) {
 		var linearGenomeLabelCoords = this.getGenomeLabelCoords();
 		this.drawLinearGenomeLabels(linearGenomeLabelCoords);
-		this.setCanvasWidth(this.conf.graphicalParameters.width + this.conf.graphicalParameters.genomeLabelWidth);
+		this.setCanvasWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 
 	if (this.conf.features.showAllFeatures === true || this.conf.features.supportedFeatures.gen.visible === true || this.conf.features.supportedFeatures.invertedRepeat.visible === true || this.conf.features.supportedFeatures.repeat.visible === true || this.conf.features.supportedFeatures.nStretch.visible === true || this.conf.features.fallbackStyle.visible === true) {
@@ -766,11 +766,11 @@ AliTV.prototype.drawLinear = function() {
 
 	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
 		this.drawPhylogeneticTree();
-		this.setCanvasWidth(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth);
+		this.setCanvasWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.treeWidth);
 	}
 
 	if (this.conf.tree.drawTree === true && (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels)) {
-		this.setCanvasWidth(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth);
+		this.setCanvasWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 	this.conf.layout = "linear";
 };
@@ -892,7 +892,7 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
 	var outerRadius = this.getOuterRadius();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
-		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
+		.attr("transform", "translate(" + this.conf.graphicalParameters.canvasWidth / 2 + "," + this.conf.graphicalParameters.canvasHeight / 2 + ")")
 		.selectAll("path")
 		.data(coords)
 		.enter()
@@ -925,7 +925,7 @@ AliTV.prototype.drawCircularTicks = function(coords) {
 
 	that.svgD3.append("g")
 		.attr("class", "tickGroup")
-		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
+		.attr("transform", "translate(" + this.conf.graphicalParameters.canvasWidth / 2 + "," + this.conf.graphicalParameters.canvasHeight / 2 + ")")
 		.selectAll("path")
 		.data(coords)
 		.enter()
@@ -953,7 +953,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
-		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
+		.attr("transform", "translate(" + this.conf.graphicalParameters.canvasWidth / 2 + "," + this.conf.graphicalParameters.canvasHeight / 2 + ")")
 		.selectAll("path")
 		.data(circularLinkCoords)
 		.enter()
@@ -1061,12 +1061,11 @@ AliTV.prototype.setKaryoHeight = function(height) {
  */
 
 AliTV.prototype.getCanvasWidth = function() {
-	return this.conf.graphicalParameters.width;
+	return this.conf.graphicalParameters.canvasWidth;
 };
 
 /**
- * This function replaces the old width of the drawing area with the new width in the config-object.
- * It is called by a blur()-event, when the decription field loses focus.
+ * This function replaces the old width of the drawing area for the alignment.
  * When the method gets a wrong value it throws an error message.
  * @param {Number} The function gets the width of the svg drawing area which can be set by the user.
  * @throws Will throw an error if the argument is empty.
@@ -1084,9 +1083,8 @@ AliTV.prototype.setCanvasWidth = function(width) {
 		throw "width is to small, it should be > 0";
 	} else {
 		width = Number(width);
-		this.conf.graphicalParameters.width = width;
-		this.svg.attr("width", this.conf.graphicalParameters.width);
-		return this.conf.graphicalParameters.width;
+		this.conf.graphicalParameters.canvasWidth = width;
+		return this.conf.graphicalParameters.canvasWidth;
 	}
 };
 
@@ -1097,13 +1095,12 @@ AliTV.prototype.setCanvasWidth = function(width) {
  */
 
 AliTV.prototype.getCanvasHeight = function() {
-	return this.conf.graphicalParameters.height;
+	return this.conf.graphicalParameters.canvasHeight;
 };
 
 
 /**
- * This function replaces the old height of the drawing area with the new height in the config-object.
- * It is called by a blur()-event, when the decription field loses focus.
+ * This function replaces the old height of the drawing area for the alignment.
  * When the method gets a wrong value it throws an error message.
  * @param {Number} The function gets the height of the svg drawing area which can be set by the user.
  * @throws Will throw an error if the argument is empty.
@@ -1121,9 +1118,8 @@ AliTV.prototype.setCanvasHeight = function(height) {
 		throw "height is to small, it should be > 0";
 	} else {
 		height = Number(height);
-		this.conf.graphicalParameters.height = height;
-		this.svg.attr("height", this.conf.graphicalParameters.height);
-		return this.conf.graphicalParameters.height;
+		this.conf.graphicalParameters.canvasHeight = height;
+		return this.conf.graphicalParameters.canvasHeight;
 	}
 };
 
@@ -1525,7 +1521,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 	//Initialize the tree size. Every node of the tree has its own "spacer", therefore it is important not only use the canvas height, but you need
 	// the canveas height and the genome distance - the heigth of one karyo in order to draw the branches in the right position. So we have exactly 6 branches, but one is not in the drawing area.
 	var tree = d3.layout.tree()
-		.size([that.conf.graphicalParameters.height + genomeDistance - that.conf.graphicalParameters.karyoHeight, that.conf.graphicalParameters.treeWidth])
+		.size([that.conf.graphicalParameters.canvasHeight + genomeDistance - that.conf.graphicalParameters.karyoHeight, that.conf.graphicalParameters.treeWidth])
 		.separation(function() {
 			return 1;
 		});
@@ -1552,7 +1548,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 	} else {
 		that.svgD3.append("g")
 			.attr("class", "treeGroup")
-			.attr("transform", "translate(" + that.conf.graphicalParameters.width + ", 0)")
+			.attr("transform", "translate(" + that.conf.graphicalParameters.canvasWidth + ", 0)")
 			.selectAll("path")
 			.data(links)
 			.enter()
@@ -1563,7 +1559,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 			})
 			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
 		if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
-			that.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.width + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+			that.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.canvasWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 		}
 
 	}
