@@ -138,10 +138,10 @@ if($opt_bed){
 	}
 }
 open(OUT, '>', "$opt_prefix.d3/data/data.json") or $L->logdie("Can not open file $opt_prefix.d3/data/data.json\n$!");
-print OUT encode_json {'karyo' => $karyo, 'features' => $features, 'links' => $links};
+print OUT encode_json {'data' => {'karyo' => $karyo, 'features' => $features, 'links' => $links}};
 close OUT or die "$!";
 open(OUT, '>', "$opt_prefix.d3/data/filters.json") or $L->logdie("Can not open file $opt_prefix.d3/data/filters.json\n$!");
-print OUT encode_json $karyo_filters;
+print OUT {'filters' => $karyo_filters};
 close OUT or die "$!";
 
 =head2 create_dir_structure
