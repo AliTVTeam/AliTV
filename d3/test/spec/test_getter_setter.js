@@ -537,11 +537,7 @@ describe('The setSvgWidth method is supposed to set a new width of the svg', fun
 	var ali = new AliTV(svg);
 	it('setSvgWidth method is supposed to be a function', function(){
 		expect(typeof ali.setSvgWidth).toEqual('function');
-	});	
-	it('the returned value of the getSvgWidth method should be the same as the width which is set and returned by the setter-method', function(){
-		var width = 3000
-		expect(ali.setSvgWidth(width)).toEqual(width);
-	});	
+	});
 	it('when setSvgWidth is called several times the width should have the same value as the returned width of getSvgWidth method', function(){
 		ali.setSvgWidth(2000);
 		expect(ali.getSvgWidth()).toEqual(2000);
@@ -590,11 +586,7 @@ describe('The setSvgHeight method is supposed to set a new height of the svg dra
 	var ali = new AliTV(svg);
 	it('setSvgHeight method is supposed to be a function', function(){
 		expect(typeof ali.setSvgHeight).toEqual('function');
-	});	
-	it('the returned value of the getSvgHeight method should be the same as the height which is setted and returned by the setter-method', function(){
-		var height = 3000;
-		expect(ali.setSvgHeight(height)).toEqual(height);
-	});	
+	});
 	it('when setSvgHeight is called several times the width should have the same value as the returned height of getSvgHeight method', function(){
 		ali.setSvgHeight(1234);
 		expect(ali.getSvgHeight()).toEqual(1234);
