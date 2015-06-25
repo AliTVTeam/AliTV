@@ -36,110 +36,100 @@
       "identity": 40
     }
   ],
-  "features": {
+    "features": {"link":{
     "f2": {
       "start": 100,
       "karyo": "c2",
-      "end": 600,
-      "group": "link"
+      "end": 600
     },
     "f5": {
       "start": 0,
       "end": 100,
-      "karyo": "c4",
-      "group": "link"
+      "karyo": "c4"
     },
     "f4": {
       "start": 200,
       "karyo": "c3",
-      "end": 300,
-      "group": "link"
+      "end": 300
     },
     "f3": {
       "end": 400,
       "karyo": "c4",
-      "start": 250,
-      "group": "link"
+      "start": 250
     },
     "f6": {
       "start": 1700,
       "end": 1850,
-      "karyo": "c1",
-      "group": "link"
+      "karyo": "c1"
     },
     "f1": {
       "end": 800,
       "karyo": "c1",
-      "start": 300,
-      "group": "link"
+      "start": 300
     },
     "f7": {
       "end": 375,
       "karyo": "c5",
-      "start": 150,
-      "group": "link"
+      "start": 150
     },
     "f8": {
       "end": 400,
       "karyo": "c6",
-      "start": 100,
-      "group": "link"
-      
+      "start": 100      
     },
     "f9": {
       "end": 850,
       "karyo": "c7",
-      "start": 950,
-      "group": "link"
-    },
-    "f10": {
+      "start": 950
+    }}, "gene":[
+    {
       "end": 1500,
       "karyo": "c1",
       "start": 500,
-      "group": "gen"
+      "name": "f10"
     },
-    "f11": {
+    {
       "end": 800,
       "karyo": "c2",
       "start": 500,
-      "group": "gen"
+      "name": "f11"
     },
-    "f12": {
+    {
       "end": 800,
       "karyo": "c3",
       "start": 500,
-      "group": "gen"
+      "name": "f12"
     },
-    "f13": {
+    {
       "end": 800,
       "karyo": "c4",
       "start": 500,
-      "group": "gen"
-    },
-    "f14": {
+      "name": "f13"
+    }], "repeat": [
+    {
       "end": 800,
       "karyo": "c5",
       "start": 500,
-      "group": "repeat"
+      "name": "f14"
     },
-    "f15": {
+    {
       "end": 400,
       "karyo": "c6",
       "start": 200,
-      "group": "repeat"
+      "name": "f15"
     },
-    "f16": {
+    {
       "end": 700,
       "karyo": "c7",
       "start": 100,
-      "group": "repeat"
+      "name": "f16"
     },
-    "f17": {
+    {
       "end": 1500,
       "karyo": "c8",
       "start": 500,
-      "group": "repeat"
-    }
+      "name": "f17"
+    }]
   },
   "karyo": {
     "chromosomes": {
