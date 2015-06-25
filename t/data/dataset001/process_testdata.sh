@@ -36,3 +36,12 @@ cat *_NC_*.bed | grep -i ycf | perl -F"\t" -ane 'BEGIN{print "\"ycf\":[";}chomp 
 cat ir.json ndh.json ycf.json gene.json >features.json
 
 # Add features.json to data.json -> features
+
+# manually remove genes that cover up huge regions (most likely due to errors)
+perl -F"\t" -ane 'print if(abs($F[1]-$F[2]) > 10000)' *_NC_*.bed
+#Cphe_gi	23688	0	PS35_p01
+#Cphe_gi	94380	49166	PS35_p01
+#Cphe_gi	23574	77863	PS35_p34
+#Ogra_gi	26534	56952	rps12
+
+# rps12 is split in multiple exons (CDS has join region, but gene only start and end)
