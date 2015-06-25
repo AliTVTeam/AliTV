@@ -34,7 +34,7 @@ var defaultConf =  {
 		features: {
 			showAllFeatures: false,
 			supportedFeatures: {
-				gen: {
+				gene: {
 					form: "rect",
 					color: "#E2EDFF",
 					height: 30,

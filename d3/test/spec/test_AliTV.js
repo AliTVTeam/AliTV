@@ -1271,9 +1271,9 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setData({karyo: karyo3, features: features11});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		var expectedFeatures = [{"id": "f1", "type": "gene", "height": defaultConf.features.supportedFeatures.gen.height, "x": 100 * 1000 / 2000, "width": Math.abs(200 - 100) * 1000 / 2000, "y": 0},
-		                        {"id": "f2", "type": "gene", "height": defaultConf.features.supportedFeatures.gen.height, "x": 300 * 500 / 1000, "width": Math.abs(300 - 400) * 500 / 1000, "y": 485},
-		                        {"id": "f3", "type": "gene", "height": defaultConf.features.supportedFeatures.gen.height, "x": 500 * 500 / 1000, "width": Math.abs(600 - 500) * 500 / 1000, "y": 970}];
+		var expectedFeatures = [{"id": "f1", "type": "gene", "height": defaultConf.features.supportedFeatures.gene.height, "x": 100 * 1000 / 2000, "width": Math.abs(200 - 100) * 1000 / 2000, "y": 0},
+		                        {"id": "f2", "type": "gene", "height": defaultConf.features.supportedFeatures.gene.height, "x": 300 * 500 / 1000, "width": Math.abs(300 - 400) * 500 / 1000, "y": 485},
+		                        {"id": "f3", "type": "gene", "height": defaultConf.features.supportedFeatures.gene.height, "x": 500 * 500 / 1000, "width": Math.abs(600 - 500) * 500 / 1000, "y": 970}];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
@@ -1347,8 +1347,8 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		ali.setData({karyo: karyo12, features: features19});
 		ali.setFilters(filters17);
 		ali.conf.features.showAllFeatures = true;
-		ali.conf.features.supportedFeatures.gen.form = "arrow";
-		ali.conf.features.supportedFeatures.gen.pattern = "lines";
+		ali.conf.features.supportedFeatures.gene.form = "arrow";
+		ali.conf.features.supportedFeatures.gene.pattern = "lines";
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		ali.drawLinearFeatures(linearFeatureCoords);
@@ -1360,7 +1360,7 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		ali.setData({karyo: karyo12, features: features19});
 		ali.setFilters(filters17);
 		ali.conf.features.showAllFeatures = true;
-		ali.conf.features.supportedFeatures.gen.pattern = "";
+		ali.conf.features.supportedFeatures.gene.pattern = "";
 		ali.conf.features.supportedFeatures.nStretch.pattern = "lines";
 		ali.conf.features.supportedFeatures.repeat.pattern = "";
 		ali.conf.features.supportedFeatures.invertedRepeat.form = "rect";

@@ -97,11 +97,11 @@ function AliTV(svg) {
 	 * @property {Boolean} tree.orientation						   - Defines where the tree should be drawn.
 	 * @property {Object}  features								   - Contains the configuration for feature groups.
 	 * @property {Boolean} features.showAllFeatures				   - Defines if all features are drawn or not.
-	 * @property {Object}  features.gen							   - Contains the configuration for genes.
-	 * @property {String}  features.gen.form					   - Defines the shape of a gen.
-	 * @property {String}  features.gen.color					   - Defines the color of a gen.
-	 * @property {Number}  features.gen.height					   - Defines the height of the drawn gen onto the chromosome.
-	 * @property {Boolean} features.gen.visible					   - Defines if a gen is drawn or not.
+	 * @property {Object}  features.gene						   - Contains the configuration for genes.
+	 * @property {String}  features.gene.form					   - Defines the shape of a gene.
+	 * @property {String}  features.gene.color					   - Defines the color of a gene.
+	 * @property {Number}  features.gene.height					   - Defines the height of the drawn gene onto the chromosome.
+	 * @property {Boolean} features.gene.visible				   - Defines if a gene is drawn or not.
 	 * @property {Object}  features.invertedRepeat				   - Contains the configuration for inverted repeats.
 	 * @property {String}  features.invertedRepeat.form			   - Defines the shape of an inverted repeat.
 	 * @property {String}  features.invertedRepeat.color		   - Defines the color of an inverted repeat.
@@ -155,7 +155,7 @@ function AliTV(svg) {
 		features: {
 			showAllFeatures: false,
 			supportedFeatures: {
-				gen: {
+				gene: {
 					form: "rect",
 					color: "#E2EDFF",
 					height: 30,
@@ -757,7 +757,7 @@ AliTV.prototype.drawLinear = function() {
 		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 
-	if (this.conf.features.showAllFeatures === true || this.conf.features.supportedFeatures.gen.visible === true || this.conf.features.supportedFeatures.invertedRepeat.visible === true || this.conf.features.supportedFeatures.repeat.visible === true || this.conf.features.supportedFeatures.nStretch.visible === true || this.conf.features.fallbackStyle.visible === true) {
+	if (this.conf.features.showAllFeatures === true || this.conf.features.supportedFeatures.gene.visible === true || this.conf.features.supportedFeatures.invertedRepeat.visible === true || this.conf.features.supportedFeatures.repeat.visible === true || this.conf.features.supportedFeatures.nStretch.visible === true || this.conf.features.fallbackStyle.visible === true) {
 		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 		this.drawLinearFeatures(linearFeatureCoords);
 		if (this.conf.labels.showAllLabels === true || this.conf.labels.features.showFeatureLabels === true) {
@@ -1282,7 +1282,7 @@ AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getGeneColor = function() {
-	var color = this.conf.features.supportedFeatures.gen.color;
+	var color = this.conf.features.supportedFeatures.gene.color;
 	return color;
 };
 
@@ -1296,8 +1296,8 @@ AliTV.prototype.setGeneColor = function(color) {
 	if (color === "") {
 		throw "empty";
 	} else {
-		this.conf.features.supportedFeatures.gen.color = color;
-		return this.conf.features.supportedFeatures.gen.color;
+		this.conf.features.supportedFeatures.gene.color = color;
+		return this.conf.features.supportedFeatures.gene.color;
 	}
 };
 
