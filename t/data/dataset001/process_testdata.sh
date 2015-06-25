@@ -18,20 +18,21 @@ cut -f1,4 *.txt | sort -u | grep -v "^#" | perl -pe 's/^(....)_gi/$1_gi\t$1/' >k
 perl ../../../bin/generateJSONfiles.pl --karyo karyo.tsv --bed link.bed --link link.tsv --prefix tmp
 
 # Add manually created conf.json to data folder
-# Manually set genome_order in filters.json to ["Oeur","Lphi","Cphe","Evir","Ogra","Same","Ntab"]
+# Manually set genome_order in filters.json to ["O.europaea","L.philippensis","C.phelypaea","E.virginiana","O.gracilis","S.americana","N.tabacum"]
 
 # Add manually created tree.json to data.json -> tree
 
 for i in *.fa; do makeblastdb -dbtype nucl -in $i; done
-for i in *.fa; do genome=$(echo $i | head -c5); blastn -query $i -db $i -outfmt 6 -evalue 1e-40 | perl -pe 's/^[^\t]+\t[^\t]+/'$genome'gi\t'$genome'gi/' | perl -F"\t" -ane 'print "$F[0]\t$F[6]\t$F[7]\t$F[0]_irA\n$F[0]\t$F[8]\t$F[9]\t$F[0]_irB\n" if($F[6]<$F[9] && $F[8]>$F[9])'; done >ir.bed
+for i in *.fa; do genome=$(echo $i | head -c5); blastn -query $i -db $i -outfmt 6 -evalue 1e-40 | perl -pe 's/^[^\t]+\t[^\t]+/'$genome'gi\t'$genome'gi/' | perl -F"\t" -ane 'print "$F[0]\t$F[6]\t$F[7]\tirA\n$F[0]\t$F[8]\t$F[9]\tirB\n" if($F[6]<$F[9] && $F[8]>$F[9])'; done >ir.bed
 
-perl -F"\t" -ane 'chomp $F[3]; print "\"$F[3]\":{\"karyo\":\"$F[0]\",\"start\":$F[1],\"end\":$F[2],\"group\":\"invertedRepeat\"},"' ir.bed >ir.json
+perl -F"\t" -ane 'BEGIN{print "\"invertedRepeat\":[";}chomp $F[3]; print "{\"karyo\":\"$F[0]\",\"start\":$F[1],\"end\":$F[2],\"name\":\"$F[3]\"},"' ir.bed | perl -pe 's/,$/],\n/' >ir.json
 
 for i in *.gb; do PREFIX=$(echo $i | head -c4); BASE=$(basename $i .gb); python gb_to_bed_json.py $i $BASE.bed $PREFIX >${PREFIX}_gene.json; done
+(echo -n '"gene":['; cat *_gene.json | perl -pe 's/,$/],\n/') >gene.json
 
-cat *_NC_*.bed | grep -i ndh | perl -F"\t" -ane 'chomp $F[3]; print "\"$F[3]_\":{\"karyo\":\"$F[0]\",\"start\":$F[1],\"end\":$F[2],\"group\":\"ndh\"},"' >ndh.json
-cat *_NC_*.bed | grep -i ycf | perl -F"\t" -ane 'chomp $F[3]; print "\"$F[3]_\":{\"karyo\":\"$F[0]\",\"start\":$F[1],\"end\":$F[2],\"group\":\"ycf\"},"' >ycf.json
+cat *_NC_*.bed | grep -i ndh | perl -F"\t" -ane 'BEGIN{print "\"ndh\":[";}chomp $F[3]; print "{\"karyo\":\"$F[0]\",\"start\":$F[1],\"end\":$F[2],\"name\":\"$F[3]\"},"' | perl -pe 's/,$/],\n/' >ndh.json
+cat *_NC_*.bed | grep -i ycf | perl -F"\t" -ane 'BEGIN{print "\"ycf\":[";}chomp $F[3]; print "{\"karyo\":\"$F[0]\",\"start\":$F[1],\"end\":$F[2],\"name\":\"$F[3]\"},"' | perl -pe 's/,$/],\n/' >ycf.json
 
-cat ir.json ndh.json ycf.json *_gene.json >features.json
+cat ir.json ndh.json ycf.json gene.json >features.json
 
 # Add features.json to data.json -> features

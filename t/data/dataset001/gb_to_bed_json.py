@@ -22,22 +22,20 @@ def main():
     for record in SeqIO.parse(open(sys.argv[1], "rU"), "genbank") :
         for feature in record.features:
             if feature.type == 'gene':
-                counter = 0;
                 for part in feature.location.parts:
                     start = part.start.position
                     stop = part.end.position
                     try:
-                        name = feature.qualifiers['gene'][0] + "_" + str(counter)
+                        name = feature.qualifiers['gene'][0]
                     except:
                         # some features only have a locus tag
-                        name = feature.qualifiers['locus_tag'][0] + "_" + str(counter)
-                    counter += 1
+                        name = feature.qualifiers['locus_tag'][0]
                     if feature.strand < 0:
                         tmp = start
                         start = stop
                         stop = tmp
-                    bed_line = "{0}_gi\t{1}\t{2}\t{0}_{3}\n".format(genome, start, stop, name)
-                    sys.stdout.write("\"{0}_{3}\":{{\"karyo\":\"{0}_gi\",\"start\":{1},\"end\":{2},\"group\":\"gen\"}},".format(genome, start, stop, name));
+                    bed_line = "{0}_gi\t{1}\t{2}\t{3}\n".format(genome, start, stop, name)
+                    sys.stdout.write("{{\"karyo\":\"{0}_gi\",\"start\":{1},\"end\":{2},\"name\":\"{3}\"}},".format(genome, start, stop, name));
                     outf.write(bed_line)
     outf.close()
  
