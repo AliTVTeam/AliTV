@@ -1973,19 +1973,14 @@ AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
 		var feature = {
 			name: value.id
 		};
-		if (that.data.features[value.id].group in that.conf.features.supportedFeatures === true) {
-			if (that.conf.features.supportedFeatures[that.data.features[value.id].group].form === "rect") {
+		if (value.type in that.conf.features.supportedFeatures === true) {
+			if (that.conf.features.supportedFeatures[value.type].form === "rect") {
 				feature.x = value.x + 1 / 2 * value.width;
 				feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
 			}
-			if (that.conf.features.supportedFeatures[that.data.features[value.id].group].form === "arrow") {
-				if (that.filters.karyo.chromosomes[that.data.features[value.id].karyo].reverse === false) {
-					feature.x = value.path[0].x + 1 / 2 * Math.abs(value.path[3].x - value.path[0].x);
-					feature.y = value.path[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
-				} else {
-					feature.x = value.path[3].x + 1 / 2 * Math.abs(value.path[0].x - value.path[3].x);
-					feature.y = value.path[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
-				}
+			if (that.conf.features.supportedFeatures[value.type].form === "arrow") {
+				feature.x = value.path[0].x + 1 / 2 * (value.path[3].x - value.path[0].x);
+				feature.y = value.path[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
 			}
 		} else {
 			feature.x = value.x + 1 / 2 * value.width;
