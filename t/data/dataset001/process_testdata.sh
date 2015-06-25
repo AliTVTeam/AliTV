@@ -13,8 +13,9 @@ done
 cat *.txt | perl -F"\t" -ane 'BEGIN{$f=0;print "#fida\tfidb\tidentity\n"}next if(/^#/);print STDERR "$F[0]\t$F[1]\t$F[2]\tf$f\n"; $f++; ($F[5],$F[6])=($F[6],$F[5]) if($F[7] eq "-"); print STDERR "$F[4]\t$F[5]\t$F[6]\tf$f\n"; $f++; printf("f%i\tf%i\t%.2f\n", $f-2, $f-1, $F[10])' >link.tsv 2>link.bed
 
 cut -f1,4 *.txt | sort -u | grep -v "^#" | perl -pe 's/^(....)_gi/$1_gi\t$1/' >karyo.tsv
+# manually change Ntab to N.tabacum, etc. in genome column
 
-perl ../../../bin/generateJSONfiles.pl --karyo karyo.tsv --bed link.bed --link link.tsv --prefix bla
+perl ../../../bin/generateJSONfiles.pl --karyo karyo.tsv --bed link.bed --link link.tsv --prefix tmp
 
 # Add manually created conf.json to data folder
 # Manually set genome_order in filters.json to ["Oeur","Lphi","Cphe","Evir","Ogra","Same","Ntab"]
