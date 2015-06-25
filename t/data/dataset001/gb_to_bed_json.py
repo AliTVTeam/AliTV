@@ -28,18 +28,17 @@ def main():
                     stop = part.end.position
                     try:
                         name = feature.qualifiers['gene'][0] + "_" + str(counter)
-                        counter += 1
                     except:
                         # some features only have a locus tag
                         name = feature.qualifiers['locus_tag'][0] + "_" + str(counter)
-                        counter += 1
-                        if feature.strand < 0:
-                            tmp = start
-                            start = stop
-                            stop = tmp
-                            bed_line = "{0}_gi\t{1}\t{2}\t{0}_{3}\n".format(genome, start, stop, name)
-                            sys.stdout.write("\"{0}_{3}\":{{\"karyo\":\"{0}_gi\",\"start\":{1},\"end\":{2},\"group\":\"gen\"}},".format(genome, start, stop, name));
-                            outf.write(bed_line)
+                    counter += 1
+                    if feature.strand < 0:
+                        tmp = start
+                        start = stop
+                        stop = tmp
+                    bed_line = "{0}_gi\t{1}\t{2}\t{0}_{3}\n".format(genome, start, stop, name)
+                    sys.stdout.write("\"{0}_{3}\":{{\"karyo\":\"{0}_gi\",\"start\":{1},\"end\":{2},\"group\":\"gen\"}},".format(genome, start, stop, name));
+                    outf.write(bed_line)
     outf.close()
  
 if __name__ == '__main__':
