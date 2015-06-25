@@ -378,16 +378,16 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.source1 = {};
 		link.target0 = {};
 		link.target1 = {};
-		var feature1 = that.data.features[value.source];
-		var feature2 = that.data.features[value.target];
+		var feature1 = that.data.features.link[value.source];
+		var feature2 = that.data.features.link[value.target];
 		var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
 		var karyo2 = that.data.karyo.chromosomes[feature2.karyo];
 		var karyo1Coords = coords[karyoMap[feature1.karyo]];
 		var karyo2Coords = coords[karyoMap[feature2.karyo]];
 		var genomePosition1 = that.filters.karyo.genome_order.indexOf(karyo1.genome_id);
 		var genomePosition2 = that.filters.karyo.genome_order.indexOf(karyo2.genome_id);
-		var lengthOfFeature1 = Math.abs(that.data.features[value.source].end - that.data.features[value.source].start);
-		var lengthOfFeature2 = Math.abs(that.data.features[value.target].end - that.data.features[value.target].start);
+		var lengthOfFeature1 = Math.abs(that.data.features.link[value.source].end - that.data.features.link[value.source].start);
+		var lengthOfFeature2 = Math.abs(that.data.features.link[value.target].end - that.data.features.link[value.target].start);
 
 
 		if (genomePosition1 > genomePosition2) {
@@ -669,7 +669,7 @@ AliTV.prototype.fadeLinks = function(g, opacity) {
 	var that = this;
 	that.svgD3.selectAll(".link")
 		.filter(function(d) {
-			return that.data.features[that.data.links[d.linkID].source].karyo != g.karyo && that.data.features[that.data.links[d.linkID].target].karyo != g.karyo;
+			return that.data.features.link[that.data.links[d.linkID].source].karyo != g.karyo && that.data.features.link[that.data.links[d.linkID].target].karyo != g.karyo;
 		})
 		.transition()
 		.style("opacity", opacity);
@@ -841,8 +841,8 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
 		var link = {};
 		link.linkID = key;
 
-		var feature1 = that.data.features[value.source];
-		var feature2 = that.data.features[value.target];
+		var feature1 = that.data.features.link[value.source];
+		var feature2 = that.data.features.link[value.target];
 		var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
 		var karyo2 = that.data.karyo.chromosomes[feature2.karyo];
 		var karyo1Coords = coords[karyoMap[feature1.karyo]];
@@ -1352,7 +1352,7 @@ AliTV.prototype.filterChromosomeWithoutLinkageInformation = function(visibleChro
 		var currentChromosome = key;
 		var valueOfCurrentChromosome = value;
 		$.each(that.data.links, function(key, value) {
-			if (that.data.features[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
+			if (that.data.features.link[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features.link[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
 				filteredChromosomes[currentChromosome] = valueOfCurrentChromosome;
 			}
 		});
@@ -1375,7 +1375,7 @@ AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosome
 		var currentChromosome = key;
 		var valueOfCurrentChromosome = value;
 		$.each(filteredLinks, function(key, value) {
-			if (that.data.features[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
+			if (that.data.features.link[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features.link[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
 				filteredChromosomes[currentChromosome] = valueOfCurrentChromosome;
 			}
 		});
@@ -1434,8 +1434,8 @@ AliTV.prototype.filterVisibleLinks = function(visibleChromosomes) {
 		listOfVisibleChromosomes.push(key);
 	});
 	$.each(allLinks, function(key, value) {
-		var targetKaryo = that.data.features[value.target].karyo;
-		var sourceKaryo = that.data.features[value.source].karyo;
+		var targetKaryo = that.data.features.link[value.target].karyo;
+		var sourceKaryo = that.data.features.link[value.source].karyo;
 		if (listOfVisibleChromosomes.indexOf(targetKaryo) !== -1 && listOfVisibleChromosomes.indexOf(sourceKaryo) !== -1 && (value in filteredLinks) === false) {
 			filteredLinks[key] = value;
 		}
@@ -1476,8 +1476,8 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 		var currentLink = value;
 		var sourceFeature = currentLink.source;
 		var targetFeature = currentLink.target;
-		var lengthOfSourceFeature = Math.abs(that.data.features[sourceFeature].end - that.data.features[sourceFeature].start);
-		var lengthOfTargetFeature = Math.abs(that.data.features[targetFeature].end - that.data.features[targetFeature].start);
+		var lengthOfSourceFeature = Math.abs(that.data.features.link[sourceFeature].end - that.data.features.link[sourceFeature].start);
+		var lengthOfTargetFeature = Math.abs(that.data.features.link[targetFeature].end - that.data.features.link[targetFeature].start);
 		if (lengthOfSourceFeature >= minLength && lengthOfSourceFeature <= maxLength || lengthOfTargetFeature >= minLength && lengthOfTargetFeature <= maxLength) {
 			filteredLinks[key] = currentLink;
 		}
@@ -1496,8 +1496,8 @@ AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
 	var filteredLinks = {};
 	$.each(visibleLinks, function(key, value) {
 		var currentLink = value;
-		var targetFeature = that.data.features[currentLink.source];
-		var sourceFeature = that.data.features[currentLink.target];
+		var targetFeature = that.data.features.link[currentLink.source];
+		var sourceFeature = that.data.features.link[currentLink.target];
 		var targetKaryo = that.data.karyo.chromosomes[targetFeature.karyo];
 		var sourceKaryo = that.data.karyo.chromosomes[sourceFeature.karyo];
 		var genomePositionOfTargetKaryo = that.filters.karyo.genome_order.indexOf(targetKaryo.genome_id);
