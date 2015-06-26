@@ -138,10 +138,10 @@ if($opt_bed){
 	}
 }
 open(OUT, '>', "$opt_prefix.d3/data/data.json") or $L->logdie("Can not open file $opt_prefix.d3/data/data.json\n$!");
-print OUT encode_json {'karyo' => $karyo, 'features' => $features, 'links' => $links};
+print OUT encode_json {'data' => {'karyo' => $karyo, 'features' => {'link' => $features}, 'links' => $links}};
 close OUT or die "$!";
 open(OUT, '>', "$opt_prefix.d3/data/filters.json") or $L->logdie("Can not open file $opt_prefix.d3/data/filters.json\n$!");
-print OUT encode_json $karyo_filters;
+print OUT encode_json {'filters' => $karyo_filters};
 close OUT or die "$!";
 
 =head2 create_dir_structure
@@ -170,6 +170,8 @@ sub create_dir_structure{
                              lib/jquery-ui-1.9.2.custom.min.css
                              lib/bootstrap.min.css
                              lib/bootstrap.min.js
+                             lib/jsoneditor.min.css
+                             lib/jsoneditor.min.js
                              lib/colorpicker/bootstrap-colorpicker.min.css
                              lib/colorpicker/bootstrap-colorpicker.min.js
                              lib/textures.min.js
@@ -225,12 +227,12 @@ sub parse_karyo{
 	while(<IN>){
 		chomp;
 		my($id, $gid, $len, $seq) = split(/\t/);
-		$karyo{'chromosomes'}{$id} = {"genome_id" => $gid+0, "length" => $len+0, "seq" => $seq};
+		$karyo{'chromosomes'}{$id} = {"genome_id" => $gid, "length" => $len+0, "seq" => $seq};
 		$filters{'karyo'}{'chromosomes'}{$id} = {'reverse' => JSON::false, 'visible' => JSON::true};
 		push(@{$filters{'karyo'}{'order'}}, $id);
-		$genome_ids{$gid+0} = 1;
+		$genome_ids{$gid} = 1;
 	}
-	$filters{'karyo'}{'genome_order'} = [sort {$a <=> $b} map {$_+0} keys %genome_ids];
+	$filters{'karyo'}{'genome_order'} = [sort map {$_} keys %genome_ids];
 	close IN or $L->logdie("Can not close file $file\n$!");
 	return (\%karyo, \%filters);
 	print Dumper(\%karyo);

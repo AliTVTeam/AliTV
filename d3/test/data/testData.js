@@ -293,44 +293,59 @@ var filters17 = {'karyo': {
 }
 
 var features = {
+	'link':{
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
+	}
 };
 var features2 = {
+	'link':{
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600},
 		'f3': {'karyo': 'c4', 'start': 400, 'end': 900},
 		'f4': {'karyo': 'c3', 'start': 900, 'end': 800},
 		'f5': {'karyo': 'c1', 'start': 1800, 'end': 1900}
+	}
 };
 var features3 = {
+	'link':{
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600},
 		'f3': {'karyo': 'c4', 'start': 400, 'end': 900}
+	}
 };
 var features4 = {
+	'link':{
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600},
 		'f3': {'karyo': 'c4', 'start': 400, 'end': 900},
-		'f4': {'karyo': 'c1', 'start': 1800, 'end': 1900}	
+		'f4': {'karyo': 'c1', 'start': 1800, 'end': 1900}
+	}
 }
 var features5 = {
+	'link':{
 		'f1': {'karyo': 'c1', 'start': 200, 'end': 300},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 700}
+	}
 };
 
 var features6 = {
+	'link':{
 		'f1': {'karyo': 'c1', 'start': 200, 'end': 300},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 700},
 		'f3': {'karyo': 'c3', 'start': 600, 'end': 700}
+	}
 };
 var features7 = {
+	'link':{
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600},
 		'f3': {'karyo': 'c3', 'start': 400, 'end': 900},
 		'f4': {'karyo': 'c4', 'start': 800, 'end': 900}
+	}
 };
 var features8 = {
+	'link':{
 		'f1': {'karyo': 'c1', 'start': 200, 'end': 400},
 		'f2': {'karyo': 'c1', 'start': 600, 'end': 800},
 		'f3': {'karyo': 'c2', 'start': 550, 'end': 600},
@@ -341,21 +356,27 @@ var features8 = {
 		'f8': {'karyo': 'c6', 'start': 800, 'end': 900},
 		'f9': {'karyo': 'c7', 'start': 100, 'end': 150},
 		'f10': {'karyo': 'c7', 'start': 700, 'end': 900}
+	}
 };
 var features8 = {
+	'link':{
 		'f1': {'karyo': 'c1', 'start': 200, 'end': 400},
 		'f2': {'karyo': 'c2', 'start': 600, 'end': 800},
 		'f3': {'karyo': 'c3', 'start': 550, 'end': 600},
 		'f4': {'karyo': 'c1', 'start': 600, 'end': 800}
+	}
 };
 var features9 = {
+	'link':{
 		'f1': {'karyo': 'c1', 'start': 200, 'end': 400},
 		'f2': {'karyo': 'c2', 'start': 600, 'end': 800},
 		'f3': {'karyo': 'c1', 'start': 550, 'end': 600},
 		'f4': {'karyo': 'c3', 'start': 600, 'end': 800},
 		'f5': {'karyo': 'c4', 'start': 600, 'end': 800}
+	}
 };
 var features10 = {
+	'link':{
 		'f1': {'karyo': 'c1', 'start': 200, 'end': 400},
 		'f2': {'karyo': 'c2', 'start': 200, 'end': 400},
 		'f3': {'karyo': 'c2', 'start': 600, 'end': 800},
@@ -366,71 +387,94 @@ var features10 = {
 		'f8': {'karyo': 'c4', 'start': 50, 'end': 100},
 		'f9': {'karyo': 'c5', 'start': 100, 'end': 300},
 		'f10': {'karyo': 'c6', 'start': 100, 'end': 150}
+	}
 };
 
 var features11 = {
-		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
-		'f2': {'karyo': 'c2', 'start': 300, 'end': 400, 'group': "gen"},
-		'f3': {'karyo': 'c3', 'start': 500, 'end': 600, 'group': "gen"}
+	'gene':[
+		{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1"},
+		{'karyo': 'c2', 'start': 400, 'end': 300, 'name': "f2"},
+		{'karyo': 'c3', 'start': 500, 'end': 600, 'name': "f3"}
+	]
 };
 
 var features12 = {
-		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
-		'f2': {'karyo': 'c1', 'start': 442, 'end': 488, 'group': "gen"},
-		'f3': {'karyo': 'c2', 'start': 43, 'end': 50, 'group': "gen"},
-		'f4': {'karyo': 'c2', 'start': 401, 'end': 420, 'group': "gen"},
-		'f5': {'karyo': 'c3', 'start': 45, 'end': 870, 'group': "gen"},
-		'f6': {'karyo': 'c3', 'start': 902, 'end': 976, 'group': "gen"}
+	'gene':[
+		{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1"},
+		{'karyo': 'c1', 'start': 442, 'end': 488, 'name': "f2"},
+		{'karyo': 'c2', 'start': 43, 'end': 50, 'name': "f3"},
+		{'karyo': 'c2', 'start': 401, 'end': 420, 'name': "f4"},
+		{'karyo': 'c3', 'start': 45, 'end': 870, 'name': "f5"},
+		{'karyo': 'c3', 'start': 902, 'end': 976, 'name': "f6"}
+	]
 };
 
 var features13 = {
-		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
-		'f2': {'karyo': 'c1', 'start': 300, 'end': 400, 'group': "gen"}
+	'gene':[
+		{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1"},
+		{'karyo': 'c1', 'start': 300, 'end': 400, 'name': "f2"}
+	]
 };
 
 var features14 = {
-		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "invertedRepeat"}
+	'invertedRepeat': [{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1"}]
+};
+
+var features14r = {
+	'invertedRepeat': [{'karyo': 'c1', 'start': 200, 'end': 100, 'name': "f1"}]
 };
 
 var features15 = {
-		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
-		'f2': {'karyo': 'c1', 'start': 442, 'end': 488, 'group': "gen"},
-		'f3': {'karyo': 'c2', 'start': 43, 'end': 50, 'group': "invertedRepeat"},
-		'f4': {'karyo': 'c2', 'start': 401, 'end': 420, 'group': "invertedRepeat"}
+	'gene': [
+		{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1"},
+		{'karyo': 'c1', 'start': 488, 'end': 442, 'name': "f2"}
+	],
+	'invertedRepeat': [
+		{'karyo': 'c2', 'start': 50, 'end': 43, 'name': "f3"},
+		{'karyo': 'c2', 'start': 401, 'end': 420, 'name': "f4"}
+	]
 };
 
 var features16 = {
-		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
-		'f2': {'karyo': 'c1', 'start': 442, 'end': 488, 'group': "gen"},
-		'f3': {'karyo': 'c2', 'start': 43, 'end': 50, 'group': "invertedRepeat"},
-		'f4': {'karyo': 'c2', 'start': 401, 'end': 420, 'group': "invertedRepeat"},
-		'f5': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "link"},
-		'f6': {'karyo': 'c2', 'start': 50, 'end': 250, 'group': "link"}
+	'gene': [
+		{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1"},
+		{'karyo': 'c1', 'start': 442, 'end': 488, 'name': "f2"}
+	],
+	'invertedRepeat': [
+		{'karyo': 'c2', 'start': 43, 'end': 50, 'name': "f3"},
+		{'karyo': 'c2', 'start': 401, 'end': 420, 'name': "f4"}
+	],
+	'link':{
+		'f5': {'karyo': 'c1', 'start': 100, 'end': 200},
+		'f6': {'karyo': 'c2', 'start': 50, 'end': 250}
+	}
 };
 
 
 var features17 = {
-		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "gen"},
-		'f2': {'karyo': 'c1', 'start': 300, 'end': 400, 'group': "invertedRepeat"},
-		'f3': {'karyo': 'c1', 'start': 500, 'end': 600, 'group': "n-stretch"}
+	'gene': [{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1"}],
+	'invertedRepeat': [{'karyo': 'c1', 'start': 300, 'end': 400, 'name': "f2"}],
+	'n-stretch': [{'karyo': 'c1', 'start': 500, 'end': 600, 'name': "f3"}]
 };
 
 var features18 = {
-		'f1': {'karyo': 'c1', 'start': 100, 'end': 200, 'group': "repeat"},
-		'f2': {'karyo': 'c1', 'start': 300, 'end': 400, 'group': "transposon"},
-		'f3': {'karyo': 'c1', 'start': 500, 'end': 600, 'group': "n-stretch"}
+	'repeat': [{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1"}],
+	'transposon': [{'karyo': 'c1', 'start': 300, 'end': 400, 'name': "f2"}],
+	'n-stretch': [{'karyo': 'c1', 'start': 500, 'end': 600, 'name': "f3"}]
 };
 
 var features19 = {
-		'f1': {'karyo': 'c1', 'start': 1800, 'end': 2000, 'group': "gen"},
-		'f2': {'karyo': 'c2', 'start': 300, 'end': 400, 'group': "invertedRepeat"},
-		'f3': {'karyo': 'c3', 'start': 500, 'end': 600, 'group': "nStretch"},
-		'f4': {'karyo': 'c4', 'start': 500, 'end': 600, 'group': "repeat"},
-		'f5': {'karyo': 'c5', 'start': 100, 'end': 200, 'group': "link"}
+	'gene': [{'karyo': 'c1', 'start': 1800, 'end': 2000, 'name': "f1"}],
+	'invertedRepeat': [{'karyo': 'c2', 'start': 300, 'end': 400, 'name': "f2"}],
+	'nStretch': [{'karyo': 'c3', 'start': 500, 'end': 600, 'name': "f3"}],
+	'repeat': [{'karyo': 'c4', 'start': 500, 'end': 600, 'name': "f4"}],
+	'link':{
+		'f5': {'karyo': 'c5', 'start': 100, 'end': 200}
+	}
 };
 
 var features20 = {
-		'f6': {'karyo': 'c5', 'start': 100, 'end': 200, 'group': "tRNA"}
+	'tRNA': [{'karyo': 'c5', 'start': 100, 'end': 200, 'name': "f6"}]
 };
 
 var links = {

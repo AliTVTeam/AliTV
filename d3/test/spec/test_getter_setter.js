@@ -119,7 +119,7 @@ describe('The getCanvasWidth method is supposed to get the width of the svg draw
 	});
 	it('the function should return the width of canvas which is defined in the defaultConf', function(){
 		var width = ali.getCanvasWidth();
-		expect(width).toEqual(defaultConf.graphicalParameters.width);
+		expect(width).toEqual(defaultConf.graphicalParameters.canvasWidth);
 	});
 });
 	
@@ -172,7 +172,7 @@ describe('The getCanvasHeight method is supposed to get the height of the svg dr
 	});
 	it('the function should return the height of canvas which is defined in the defaultConf', function(){
 		var height = ali.getCanvasHeight();
-		expect(height).toEqual(defaultConf.graphicalParameters.height);
+		expect(height).toEqual(defaultConf.graphicalParameters.canvasHeight);
 	});
 });
 
@@ -460,7 +460,7 @@ describe('The getGeneColor method is supposed to get the current color of genes'
 	});
 	it('the function should return the color of genomes which is defined in the defaultConf', function(){
 		var color = ali.getGeneColor();
-		expect(color).toEqual(defaultConf.features.supportedFeatures.gen.color);
+		expect(color).toEqual(defaultConf.features.supportedFeatures.gene.color);
 	});
 	
 });
@@ -486,5 +486,178 @@ describe('The setGeneColor method is supposed to set a new color for genes', fun
 	it('the setGeneColor method should throw an error message if the assigned color is empty', function(){
 		var color = "";
 		expect(function(){ali.setGeneColor(color);}).toThrow("empty");
+	});
+});
+
+describe('The setConfig method is supposed to extend the existing config values', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setConf method is supposed to be a function', function(){
+		expect(typeof ali.setConf).toEqual('function');
+	});
+	it('setConf method should not alter the defaultConf if an empty object is passed', function(){
+		ali.setConf({});
+		expect(ali.conf).toEqual(defaultConf);
+	});
+	it('setConf method should overwrite existing/conflicting conf value', function(){
+		ali.conf = jQuery.extend(true, {}, defaultConf);
+		ali.setConf({linear: {drawAllLinks: true}});
+		var confClone = jQuery.extend(true, {}, defaultConf);
+		confClone.linear.drawAllLinks = true;
+		expect(ali.conf).toEqual(confClone);
+	});
+	it('setConf method should add non-existent conf value', function(){
+		ali.conf = jQuery.extend(true, {}, defaultConf);
+		ali.setConf({custom: "customstring"});
+		var confClone = jQuery.extend(true, {}, defaultConf);
+		confClone.custom = "customstring";
+		expect(ali.conf).toEqual(confClone);
+	});
+});
+
+describe('The getSvgWidth method is supposed to get the width of the svg', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getSvgWidth method is supposed to be a function', function(){
+		expect(typeof ali.getSvgWidth).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var width = ali.getSvgWidth();
+		expect(width).toBeDefined();
+	});
+	it('the function should return the width of canvas which is defined in the defaultConf', function(){
+		var width = ali.getSvgWidth();
+		expect(width).toEqual(Number(ali.svg.attr("width")));
+	});
+});
+	
+describe('The setSvgWidth method is supposed to set a new width of the svg', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setSvgWidth method is supposed to be a function', function(){
+		expect(typeof ali.setSvgWidth).toEqual('function');
+	});
+	it('when setSvgWidth is called several times the width should have the same value as the returned width of getSvgWidth method', function(){
+		ali.setSvgWidth(2000);
+		expect(ali.getSvgWidth()).toEqual(2000);
+		ali.setSvgWidth(1200);
+		expect(ali.getSvgWidth()).toEqual(1200);
+		ali.setSvgWidth(10000);
+		expect(ali.getSvgWidth()).toEqual(10000);
+	});
+	it('the setSvgWidth method should throw an error message if the assigned width is empty', function(){
+		var width = "";
+		expect(function(){ali.setSvgWidth(width);}).toThrow("empty");
+	});
+	it('the setSvgWidth method should throw an error message if the assigned width is not a number', function(){
+		var width = "test";
+		expect(function(){ali.setSvgWidth(width);}).toThrow("not a number");
+	});
+	it('the setSvgWidth method should throw an error message if the assigned width is 0', function(){
+		var width = 0;
+		expect(function(){ali.setSvgWidth(width);}).toThrow("width is to small, it should be > 0");
+	});
+	it('the setSvgWidth method should throw an error message if the assigned width is less than 0', function(){
+		var width = -3000;
+		expect(function(){ali.setSvgWidth(width);}).toThrow("width is to small, it should be > 0");
+	});
+});
+
+describe('The getSvgHeight method is supposed to get the height of the svg drawing area', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getSvgHeight method is supposed to be a function', function(){
+		expect(typeof ali.getSvgHeight).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var height = ali.getSvgHeight();
+		expect(height).toBeDefined();
+	});
+	it('the function should return the height of canvas which is defined in the defaultConf', function(){
+		var height = ali.getSvgHeight();
+		expect(height).toEqual(Number(ali.svg.attr("height")));
+	});
+});
+
+describe('The setSvgHeight method is supposed to set a new height of the svg drawing area', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setSvgHeight method is supposed to be a function', function(){
+		expect(typeof ali.setSvgHeight).toEqual('function');
+	});
+	it('when setSvgHeight is called several times the width should have the same value as the returned height of getSvgHeight method', function(){
+		ali.setSvgHeight(1234);
+		expect(ali.getSvgHeight()).toEqual(1234);
+		ali.setSvgHeight(4242);
+		expect(ali.getSvgHeight()).toEqual(4242);
+		ali.setSvgHeight(10000);
+		expect(ali.getSvgHeight()).toEqual(10000);
+	});
+	it('the setSvgHeight method should throw an error message if the assigned height is empty', function(){
+		var height = "";
+		expect(function(){ali.setSvgHeight(height);}).toThrow("empty");
+	});
+	it('the setSvgHeight method should throw an error message if the assigned height is not a number', function(){
+		var height = "test";
+		expect(function(){ali.setSvgHeight(height);}).toThrow("not a number");
+	});
+	it('the setSvgHeight method should throw an error message if the assigned height is 0', function(){
+		var height = 0;
+		expect(function(){ali.setSvgHeight(height);}).toThrow("height is to small, it should be > 0");
+	});
+	it('the setSvgHeight method should throw an error message if the assigned height is less than 0', function(){
+		var height = -42;
+		expect(function(){ali.setSvgHeight(height);}).toThrow("height is to small, it should be > 0");
+	});
+});
+
+describe('The getSvgAsText method is supposed to get the content of the svg as a text string', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getSvgAsText method is supposed to be a function', function(){
+		expect(typeof ali.getSvgAsText).toEqual('function');
+	});	
+	it('the function should return an empty svg with defined size if no data is provided', function(){
+		var svgText = "<svg width=\""+defaultConf.graphicalParameters.canvasWidth+"\" height=\""+defaultConf.graphicalParameters.canvasHeight+"\"></svg>";
+		svgText += "<svg height=\""+defaultConf.graphicalParameters.canvasHeight+"\" width=\""+defaultConf.graphicalParameters.canvasWidth+"\"></svg>";
+		expect(svgText).toContain(ali.getSvgAsText());
+	});
+	// more complex test cases are too difficult right now as there would be a hard constraint on the order of elements
+	// therefore a customMatcher has to be written that can decide if two svg strings are semantically equivalent.
+});
+
+describe('The getJSON method is supposed to return the internal data, filters and conf as one JSON object', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getJSON method is supposed to be a function', function(){
+		expect(typeof ali.getJSON).toEqual('function');
+	});	
+	it('the function should return the defaultConf and two empty objects if nothing is set', function(){
+		var expectedJSON = {conf: defaultConf, data: {}, filters: {}};
+		expect(ali.getJSON()).toEqual(expectedJSON);
+	});
+	it('the function should return the set values in the JSON object', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var expectedJSON = {conf: defaultConf, data: data, filters: filters};
+		expect(ali.getJSON()).toEqual(expectedJSON);
+	});
+});
+
+describe('The setJSON method is supposed to set the internal data, filters and conf objects', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('setJSON method is supposed to be a function', function(){
+		expect(typeof ali.getJSON).toEqual('function');
+	});
+	it('the function should return the set values in the JSON object', function(){
+		var expectedJSON = {conf: defaultConf, data: data, filters: filters};
+		ali.setJSON(expectedJSON);
+		expect(ali.getJSON()).toEqual(expectedJSON);
 	});
 });

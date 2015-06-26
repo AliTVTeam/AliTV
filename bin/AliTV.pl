@@ -13,7 +13,7 @@ my %options;
 
 =head1 NAME 
 
-AliTV.pl
+wgaPipeline.pl
 
 =head1 DESCRIPTION
 
@@ -21,7 +21,7 @@ Wrapper to produce whole genome alignments and visualizations.
 
 =head1 USAGE
 
-  $ perl AliTV.pl --query=<fasta> --reference=<fasta> [options]
+  $ perl wgaPipeline.pl --query=<fasta> --reference=<fasta> [options]
 
 =head1 OPTIONS
 
@@ -399,7 +399,7 @@ my $stat =
 "Query: $chromosomes_drawn1 of $chromosomes_total1\nReference: $chromosomes_drawn2 of $chromosomes_total2";
 $vplain->verbose($stat);
 $vwga->nline();
-$vwga->verbose('AliTV finished');
+$vwga->verbose('wgaPipeline finished');
 
 =head2 clean_headers_command
 
