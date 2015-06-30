@@ -57,7 +57,6 @@ If you have any questions or encounter problems or potential bugs, don't
 hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/AliTV/issues][issues]] on github or write an email to:
 
 - Markus Ankenbrand - markus.ankenbrand@uni-wuerzburg.de
-- Thomas Hackl - thomas.hackl@uni.wuerzburg.de
 
 
 
