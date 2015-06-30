@@ -36,3 +36,6 @@ perl ../../../bin/generateJSONfiles.pl --karyo karyo.tsv --bed link.bed --link l
 cp ../dataset001/conf.json .
 cp tmp.d3/data/*.json .
 #+END_SRC
+ - Change genome_order in filters.json to ["O.europaea","L.philippensis","C.phelypaea","E.virginiana","O.gracilis","S.americana","N.tabacum"]
+ - Make sure that Ntab_gi is before Ntab_gi2 in chromosome_order in filters.json
+ - Add manually created tree.json to data.json -> tree
