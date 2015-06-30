@@ -1,7 +1,7 @@
 {"conf":{"linear":{"drawAllLinks":false,"startLineColor":"#49006a","endLineColor":"#1d91c0"},
 "circular":{"tickSize":5},
 "graphicalParameters":{"canvasWidth":900,"canvasHeight":900,"karyoHeight":30,"karyoDistance":5000,"linkKaryoDistance":20,"tickLabelFrequency":10,"tickDistance":1000,"treeWidth":200,"genomeLabelWidth":200},
-"minLinkIdentity":40,"maxLinkIdentity":100,"midLinkIdentity":60,"minLinkIdentityColor":"#D21414",
+"minLinkIdentity":70,"maxLinkIdentity":100,"midLinkIdentity":85,"minLinkIdentityColor":"#D21414",
 "maxLinkIdentityColor":"#1DAD0A","midLinkIdentityColor":"#FFEE05","minLinkLength":100,"maxLinkLength":5000,
 "layout":"linear",
 "tree":{"drawTree":true,"orientation":"left"},
