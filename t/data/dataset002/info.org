@@ -1,0 +1,38 @@
+* Data
+Same 7 chloroplasts (parasitic, non-parasitic) as in dataset001 but S.americanus sequence is reverse complement and N.tabacum sequence is split in two parts at 80000bp
+ - Copy all fasta files from dataset001.
+ - reverse complement Same_NC_023115.1.fa
+#+BEGIN_SRC sh
+perl -pe 'unless(/^>/){chomp; $_=scalar(reverse($_)); tr/ACGT/TGCA/; $_.="\n"}' Same_NC_023115.1.fa >Same_NC_023115.1.rc.fa
+# SeqFilter --in Same_NC_023115.1.fa --rev-comp "*" --out Same_NC_023115.1.rc.fa
+rm Same_NC_023115.1.fa
+#+END_SRC
+ - split Ntab_NC_001879.2.fa at 80000bp
+#+BEGIN_SRC sh
+SeqFilter Ntab_NC_001879.2.fa --substr-perl-style --substr Ntab_NC_001879.2.subseq --out Ntab_NC_001879.2.split.fa 
+rm Ntab_NC_001879.2.fa
+perl -i -pe 's/^>gi/>gi$c/;$c++;' Ntab_NC_001879.2.split.fa 
+#+END_SRC
+* Alignment
+#+BEGIN_SRC sh
+for i in *.fa
+do
+    for j in *.fa
+    do
+        if [[ ! "$i" < "$j" ]]
+            then lastz $i"[multiple,unmask]" $j"[unmask]" --format=general:name1,zstart1,end1,size1,name2,zstart2+,end2+,strand2,size2,identity,score,length2 --noytrim --ambiguous=iupac --gapped | sed 's/gi/'$(echo $i | sed 's/^\(.....\).*/\1/')'gi/;s/\([[:space:]]\)gi/\1'$(echo $j | sed 's/^\(.....\).*/\1/')'gi/' >$i"_vs_"$j".txt"
+        fi
+    done
+done
+
+cat *.txt | perl -F"\t" -ane 'BEGIN{$f=0;print "#fida\tfidb\tidentity\n"}next if(/^#/);print STDERR "$F[0]\t$F[1]\t$F[2]\tf$f\n"; $f++; ($F[5],$F[6])=($F[6],$F[5]) if($F[7] eq "-"); print STDERR "$F[4]\t$F[5]\t$F[6]\tf$f\n"; $f++; printf("f%i\tf%i\t%.2f\n", $f-2, $f-1, $F[10])' >link.tsv 2>link.bed
+
+cut -f1,4 *.txt | sort -u | grep -v "^#" | perl -pe 's/^(....)_gi(\d+)?/$1_gi$2\t$1/' >karyo.tsv
+perl -i -pe 's/\tCphe\t/\tC.phelypaea\t/;s/\tOeur\t/\tO.europaea\t/;s/\tLphi\t/\tL.philippensis\t/;s/\tEvir\t/\tE.virginiana\t/;s/\tOgra\t/\tO.gracilis\t/;s/\tSame\t/\tS.americana\t/;s/\tNtab\t/\tN.tabacum\t/'
+#+END_SRC
+* Basic JSON files
+#+BEGIN_SRC sh
+perl ../../../bin/generateJSONfiles.pl --karyo karyo.tsv --bed link.bed --link link.tsv --prefix tmp
+cp ../dataset001/conf.json .
+cp tmp.d3/data/*.json .
+#+END_SRC
