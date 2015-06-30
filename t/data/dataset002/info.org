@@ -38,4 +38,33 @@ cp tmp.d3/data/*.json .
 #+END_SRC
  - Change genome_order in filters.json to ["O.europaea","L.philippensis","C.phelypaea","E.virginiana","O.gracilis","S.americana","N.tabacum"]
  - Make sure that Ntab_gi is before Ntab_gi2 in chromosome_order in filters.json
+* Tree and features
  - Add manually created tree.json to data.json -> tree
+ - Copy bed files
+#+BEGIN_SRC sh
+cp ../dataset001/ir.bed .
+cp ../dataset001/*_NC_*.bed .
+#+END_SRC
+ - Transform ir.bed file
+#+BEGIN_SRC 
+perl -i -F"\t" -ape 'if(/Ntab/){$F[0]=~s/Ntab_gi/Ntab_gi2/;$F[1]-=80000;$F[2]-=80000;$_=join("\t",@F);}if(/Same/){$F[1]=160911-$F[1];$F[2]=160911-$F[2];$_=join("\t",@F);}' ir.bed
+#+END_SRC
+ - Transform Ntab and Same bed files
+#+BEGIN_SRC sh
+perl -i -F"\t" -ape '$_="" if($F[1]<=80000 && $F[2]>80000);if($F[1]>80000){$F[0]=~s/Ntab_gi/Ntab_gi2/;$F[1]-=80000;$F[2]-=80000;$_=join("\t",@F);}' Ntab_NC_001879.2.bed
+perl -i -F"\t" -ape '$F[1]=160911-$F[1];$F[2]=160911-$F[2];$_=join("\t",@F);' Same_NC_023115.1.bed
+#+END_SRC
+ - Extract ndh and ycf features and convert to json
+#+BEGIN_SRC sh
+cat *_NC_*.bed | grep -i ndh | perl -F"\t" -ane 'BEGIN{print "\"ndh\":[";}chomp $F[3]; print "{\"karyo\":\"$F[0]\",\"start\":$F[1],\"end\":$F[2],\"name\":\"$F[3]\"},"' | perl -pe 's/,$/],\n/' >ndh.json
+cat *_NC_*.bed | grep -i ycf | perl -F"\t" -ane 'BEGIN{print "\"ycf\":[";}chomp $F[3]; print "{\"karyo\":\"$F[0]\",\"start\":$F[1],\"end\":$F[2],\"name\":\"$F[3]\"},"' | perl -pe 's/,$/],\n/' >ycf.json
+#+END_SRC
+ - Convert ir.bed to ir.json
+#+BEGIN_SRC sh
+perl -F"\t" -ane 'BEGIN{print "\"invertedRepeat\":[";}chomp $F[3]; print "{\"karyo\":\"$F[0]\",\"start\":$F[1],\"end\":$F[2],\"name\":\"$F[3]\"},"' ir.bed | perl -pe 's/,$/],\n/' >ir.json
+#+END_SRC
+ - Combine json files to single feature.json
+#+BEGIN_SRC sh
+cat ir.json ndh.json ycf.json >features.json
+#+END_SRC
+ - Include features.json into data.json
