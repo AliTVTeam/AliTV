@@ -19,6 +19,7 @@
   analysis tool.
 ** Must-have criteria
    - Implementation of basic functionality including documentation and testing
+     - Calculate coordinates for chromosomes (linear layout)
      - Calculate coordinates for links (linear layout)
      - Draw links (linear layout)
      - Color karyos (linear layout)
@@ -83,6 +84,10 @@
 ** (Orgware)
 * Functionality
 ** /F0100/ Implementation of basic functionality (for linear layout)
+*** /F0105/ Calculate coordinates for chromosomes
+    To draw chromosomes from the given dataset, it is needed to
+    calculate coordinates for the chromosomes inside canvas coordinate
+    system.
 *** /F0110/ Calculate coordinates for links
     To draw linkage information from the given dataset, it is needed
     to transform chromosome specific coordinates into canvas
