@@ -18,7 +18,7 @@
   figure output on the fly extends the functionality of AliTV to an
   analysis tool.
 ** Must-have criteria
-   - Reimplementation of existing functionality including documentation and testing
+   - Implementation of basic functionality including documentation and testing
      - Calculate coordinates for links (linear layout)
      - Draw links (linear layout)
      - Color karyos (linear layout)
@@ -82,7 +82,7 @@
    AliTV does not require special hardware.
 ** (Orgware)
 * Functionality
-** /F0100/ Reimplementation of existing functionalty (for linear layout)
+** /F0100/ Implementation of basic functionality (for linear layout)
 *** /F0110/ Calculate coordinates for links
     To draw linkage information from the given dataset, it is needed
     to transform chromosome specific coordinates into canvas
