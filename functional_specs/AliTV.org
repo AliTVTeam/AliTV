@@ -92,7 +92,7 @@
     chromosomes by filtering out all links but keeping the links of
     neighbored chromosomes.
 *** /F0130/ Draw links
-    Given the coordinates from /F0101/ and /F0102/ one can draw links between the
+    Given the coordinates from /F0110/ and /F0120/ one can draw links between the
     chromosomes using the d3 toolkit.
 *** /F0135/ Color links according to their identity
     Links should be colored by their identity value. Therefore a
