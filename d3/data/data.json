@@ -1,4 +1,4 @@
-{
+{"data":{
   "links": [
     {
       "identity": 90,
@@ -36,7 +36,7 @@
       "identity": 40
     }
   ],
-  "features": {
+    "features": {"link":{
     "f2": {
       "start": 100,
       "karyo": "c2",
@@ -75,13 +75,61 @@
     "f8": {
       "end": 400,
       "karyo": "c6",
-      "start": 100
+      "start": 100      
     },
     "f9": {
       "end": 850,
       "karyo": "c7",
       "start": 950
-    }
+    }}, "gene":[
+    {
+      "end": 1500,
+      "karyo": "c1",
+      "start": 500,
+      "name": "f10"
+    },
+    {
+      "end": 800,
+      "karyo": "c2",
+      "start": 500,
+      "name": "f11"
+    },
+    {
+      "end": 800,
+      "karyo": "c3",
+      "start": 500,
+      "name": "f12"
+    },
+    {
+      "end": 800,
+      "karyo": "c4",
+      "start": 500,
+      "name": "f13"
+    }], "repeat": [
+    {
+      "end": 800,
+      "karyo": "c5",
+      "start": 500,
+      "name": "f14"
+    },
+    {
+      "end": 400,
+      "karyo": "c6",
+      "start": 200,
+      "name": "f15"
+    },
+    {
+      "end": 700,
+      "karyo": "c7",
+      "start": 100,
+      "name": "f16"
+    },
+    {
+      "end": 1500,
+      "karyo": "c8",
+      "start": 500,
+      "name": "f17"
+    }]
   },
   "karyo": {
     "chromosomes": {
@@ -121,6 +169,11 @@
         "genome_id": 3
       },
       "c8": {
+        "length": 2500,
+        "seq": null,
+        "genome_id": 4
+      },
+      "c9": {
         "length": 2500,
         "seq": null,
         "genome_id": 4
@@ -164,4 +217,4 @@
 			}]
 		}]
 	}
-}
+}}

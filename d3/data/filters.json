@@ -1,4 +1,4 @@
-{
+{"filters":{
   "karyo": {
     "chromosomes": {
       "c4": {
@@ -32,6 +32,10 @@
       "c8": {
         "visible": false,
         "reverse": false
+      },
+      "c9": {
+        "visible": false,
+        "reverse": false
       }
     },
     "order": [
@@ -42,7 +46,8 @@
       "c5",
       "c6",
       "c7",
-      "c8"
+      "c8",
+      "c9"
     ],
     "genome_order": [
       0,
@@ -62,4 +67,4 @@
   "showAllChromosomes": true,
   "skipChromosomesWithoutLinks": false,
   "onlyShowAdjacentLinks": true
-}
+}}

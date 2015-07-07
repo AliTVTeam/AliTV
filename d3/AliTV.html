@@ -1,43 +1,72 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" href="lib/jquery-ui-1.9.2.custom.min.css">
 <link rel="stylesheet" href="css/AliTV.css">
-
+<link href="lib/bootstrap.min.css" rel="stylesheet">
+<link href="lib/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
+<link href="lib/jsoneditor.min.css" rel="stylesheet" type="text/css">
+    
 <script src="lib/d3.v3.min.js"></script>
 <script src="lib/jquery.min.js"></script>
 <script src="lib/jquery-ui.min.js"></script>
+<script src="lib/FileSaver.min.js"></script>
+<script src="lib/jsoneditor.min.js"></script>
 
 <script src="js/AliTV.js"></script>
-
+<script src="lib/bootstrap.min.js"></script>
+<script src="lib/colorpicker/bootstrap-colorpicker.min.js"></script>
+<script src="lib/textures.min.js"></script> 
 <script type="text/javascript">
-	var wga;
+	var ali;
+	var editor;
 	$(document).ready(function() {
 		var svg = $('#wgaCanvas');
-		wga = new AliTV(svg);
+		ali = new AliTV(svg);
+		var container = document.getElementById("jsoneditor");
+		editor = new JSONEditor(container)
 		$.getJSON('data/data.json', function(data) {
-			wga.setData(data);
+			ali.setData(data.data);
 			$.getJSON('data/filters.json', function(filters) {
-				wga.setFilters(filters);
-				wga.drawLinear();
+				ali.setFilters(filters.filters);
+				$.getJSON('data/conf.json', function(conf) {
+					ali.setConf(conf.conf)
+					setJSONEditorFromAli();
+					ali.drawLinear();
+				}).fail(function() {
+				    console.log( "could not load custom conf.json - using default values" );
+				    setJSONEditorFromAli();
+				    ali.drawLinear();
+				});
 			});
 		});
 		
 		//Set default values for API of graphical parameters
-		$("#linearSpacer").val(wga.getLinearSpacer());
-		$("#karyoHeight").val(wga.getKaryoHeight());
-		$("#canvasWidth").val(wga.getCanvasWidth());
-		$("#canvasHeight").val(wga.getCanvasHeight());
-		$("#tickDistance").val(wga.getTickDistance());
-		$("#treeWidth").val(wga.getTreeWidth());
+		$("#linearSpacer").val(ali.getLinearSpacer());
+		$("#karyoHeight").val(ali.getKaryoHeight());
+		$("#canvasWidth").val(ali.getCanvasWidth());
+		$("#canvasHeight").val(ali.getCanvasHeight());
+		$("#tickDistance").val(ali.getTickDistance());
+		$("#treeWidth").val(ali.getTreeWidth());
 		
 		$('#skipChromosomesWithoutVisibleLinks').attr('checked', false);
 		$('#showAllChromosomes').attr('checked', true);
 		$('#skipChromosomesWithoutLinks').attr('checked', false);
 		$('#onlyShowAdjacentLinks').attr('checked', true);
+		$('#showFeatures').attr('checked', false);
+		$('#showGenes').attr('checked', false);
+		$('#showInvertedRepeats').attr('checked', false);
+		$('#showRepeats').attr('checked', false);
+		$('#showNstretch').attr('checked', false);
+		$('#showFallback').attr('checked', false);
 		$('#drawTree').attr('checked', false);
-		
-		});
+		$('#showAllLabels').attr('checked', false);
+		$('#showGenomeLabels').attr('checked', true);
+		$('#showChromosomeLabels').attr('checked', true);
+		$('#showFeatureLabels').attr('checked', false);
+	});
 	
 	$(function(){
 		$("#identity-slider").slider({
@@ -47,10 +76,10 @@
 			max: 100,
 			slide: function(event, ui){
 				$("#identity-label").val(ui.values[0] + " % - " + ui.values[1] + " %");
-				wga.filters.links.minLinkIdentity = ui.values[0];
-				wga.filters.links.maxLinkIdentity = ui.values[1];
-				var layout = wga.getLayout();
-				wga.drawEqualLayout(layout);
+				ali.filters.links.minLinkIdentity = ui.values[0];
+				ali.filters.links.maxLinkIdentity = ui.values[1];
+				var layout = ali.getLayout();
+				ali.drawEqualLayout(layout);
 			}
 		});	
 		$("#identity-label").val($("#identity-slider").slider("values", 0) + " % - " + $("#identity-slider").slider("values", 1) + " %");
@@ -62,25 +91,33 @@
 			max: 1000,
 			slide: function(event, ui){
 				$("#minlength-label").val(ui.values[0] + " bp - " + ui.values[1] + " bp");
-				wga.filters.links.minLinkLength = ui.values[0];
-				wga.filters.links.maxLinkLength = ui.values[1];
-				var layout = wga.getLayout();
-				wga.drawEqualLayout(layout);
+				ali.filters.links.minLinkLength = ui.values[0];
+				ali.filters.links.maxLinkLength = ui.values[1];
+				var layout = ali.getLayout();
+				ali.drawEqualLayout(layout);
 				}
 		});
 		$("#minlength-label").val($("#length-slider").slider("values", 0) + " bp - " + $("#length-slider").slider("values", 1) + " bp");
 	});
 	
 	$(function() {
-		$( "#accordion" ).accordion();
+		$( "#accordion" ).accordion({
+		      heightStyle: "content"
+	    });
 	});
 	
+  $(function(){
+        $('.demo2').colorpicker().on('changeColor.colorpicker', function(){
+        	changeGeneColor();
+        });
+    });
+
 	$(function(){$('#skipChromosomesWithoutVisibleLinks').change(function() {
 			if($('#skipChromosomesWithoutVisibleLinks').is(':checked')){
-		     	wga.filters.skipChromosomesWithoutVisibleLinks = true;
+		     	ali.filters.skipChromosomesWithoutVisibleLinks = true;
 		     	$("#showAllChromosomes").attr("disabled", true);
 			} else {
-				wga.filters.skipChromosomesWithoutVisibleLinks = false;
+				ali.filters.skipChromosomesWithoutVisibleLinks = false;
 				$("#showAllChromosomes").attr("disabled", false);
 			}
 		});
@@ -88,11 +125,11 @@
 	
 	$(function(){$('#showAllChromosomes').change(function() {
 		if($('#showAllChromosomes').is(':checked')){
-	     	wga.filters.showAllChromosomes = true;
+	     	ali.filters.showAllChromosomes = true;
 	     	$("#skipChromosomesWithoutVisibleLinks").attr("disabled", true);
 	     	$("#skipChromosomesWithoutLinks").attr("disabled", true);
 		} else {
-			wga.filters.showAllChromosomes = false;
+			ali.filters.showAllChromosomes = false;
 			$("#skipChromosomesWithoutVisibleLinks").attr("disabled", false);
 			$("#skipChromosomesWithoutLinks").attr("disabled", false);
 		}
@@ -100,38 +137,39 @@
 	
 	$(function(){$('#skipChromosomesWithoutLinks').change(function() {
 		if($('#skipChromosomesWithoutLinks').is(':checked')){
-	     	wga.filters.skipChromosomesWithoutLinks = true;
+	     	ali.filters.skipChromosomesWithoutLinks = true;
 	     	$("#showAllChromosomes").attr("disabled", true);
 		} else {
-			wga.filters.skipChromosomesWithoutLinks = false;
+			ali.filters.skipChromosomesWithoutLinks = false;
 			$("#showAllChromosomes").attr("disabled", false);
 		}
 	});
 	
 	$(function(){$('#onlyShowAdjacentLinks').change(function() {
 		if($('#onlyShowAdjacentLinks').is(':checked')){
-	     	wga.filters.onlyShowAdjacentLinks = true;
+	     	ali.filters.onlyShowAdjacentLinks = true;
 		} else {
-			wga.filters.onlyShowAdjacentLinks = false;
+			ali.filters.onlyShowAdjacentLinks = false;
 		}
 	});	
 	});
 	
 	$(function(){$('#drawTree').change(function() {
 		if($('#drawTree').is(':checked')){
-			if(wga.hasTree() === false){
+			if(ali.hasTree() === false){
 				alert("there is no tree data");
 				$("#treeWidth").attr("disabled", true);
 				$("#treeLeft").attr("disabled", true);
 				$("#treeRight").attr("disabled", true);
 			} else {
-	     	wga.conf.tree.drawTree = true;
+	     	ali.conf.tree.drawTree = true;
 	     	$("#treeWidth").attr("disabled", false);
 			$("#treeLeft").attr("disabled", false);
 			$("#treeRight").attr("disabled", false);				
 			}
+			
 		} else {
-			wga.conf.tree.drawTree = false;
+			ali.conf.tree.drawTree = false;
 			$("#treeWidth").attr("disabled", true);
 			$("#treeLeft").attr("disabled", true);
 			$("#treeRight").attr("disabled", true);
@@ -141,82 +179,251 @@
 	
 	$(function(){$('#treeLeft').change(function() {
 		if($('#treeLeft').is(':checked')){
-			wga.conf.tree.orientation = "left";
+			ali.conf.tree.orientation = "left";
 		} 
 	});	
 	});
 	
 	$(function(){$('#treeRight').change(function() {
 		if($('#treeRight').is(':checked')){
-			wga.conf.tree.orientation = "right";
+			ali.conf.tree.orientation = "right";
 		} 
 	});	
 	});
 	
+	$(function(){$('#showFeatures').change(function() {
+		if($('#showFeatures').is(':checked')){
+			ali.conf.features.showAllFeatures = true;
+			$("#showGenes").attr("disabled", true);
+			$("#showInvertedRepeats").attr("disabled", true);
+		} else {
+			ali.conf.features.showAllFeatures = false;
+			$("#showGenes").attr("disabled", false);
+			$("#showInvertedRepeats").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showGenes').change(function() {
+		if($('#showGenes').is(':checked')){
+			ali.conf.features.supportedFeatures.gen.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			ali.conf.features.supportedFeatures.gen.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showInvertedRepeats').change(function() {
+		if($('#showInvertedRepeats').is(':checked')){
+			ali.conf.features.supportedFeatures.invertedRepeat.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			ali.conf.features.supportedFeatures.invertedRepeat.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showRepeats').change(function() {
+		if($('#showRepeats').is(':checked')){
+			ali.conf.features.supportedFeatures.repeat.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			ali.conf.features.supportedFeatures.repeat.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showNstretch').change(function() {
+		if($('#showNstretch').is(':checked')){
+			ali.conf.features.supportedFeatures.nStretch.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			ali.conf.features.supportedFeatures.nStretch.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showFallback').change(function() {
+		if($('#showFallback').is(':checked')){
+			ali.conf.features.fallbackStyle.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			ali.conf.features.fallbackStyle.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showAllLabels').change(function() {
+		if($('#showAllLabels').is(':checked')){
+			ali.conf.labels.showAllLabels = true;
+			$("#showChromosomeLabels").attr("disabled", true);
+			$("#showGenomeLabels").attr("disabled", true);
+			$("#showFeatureLabels").attr("disabled", true);
+		} else {
+			ali.conf.labels.showAllLabels = false;
+			$("#showChromosomeLabels").attr("disabled", false);
+			$("#showGenomeLabels").attr("disabled", false);
+			$("#showFeatureLabels").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showGenomeLabels').change(function() {
+		if($('#showGenomeLabels').is(':checked')){
+			ali.conf.labels.genome.showGenomeLabels = true;
+			$("#showAllLabels").attr("disabled", true);
+		} else {
+			ali.conf.labels.genome.showGenomeLabels = false;
+			$("#showAllLabels").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showFeatureLabels').change(function() {
+		if($('#showFeatureLabels').is(':checked')){
+			ali.conf.labels.features.showFeatureLabels = true;
+			$("#showAllLabels").attr("disabled", true);
+		} else {
+			ali.conf.labels.features.showFeatureLabels = false;
+			$("#showAllLabels").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showChromosomeLabels').change(function() {
+		if($('#showChromosomeLabels').is(':checked')){
+			ali.conf.labels.chromosome.showChromosomeLabels = true;
+			$("#showAllLabels").attr("disabled", true);
+		} else {
+			ali.conf.labels.chromosome.showChromosomeLabels = false;
+			$("#showAllLabels").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#showTickLabels').change(function() {
+		if($('#showTickLabels').is(':checked')){
+			ali.conf.labels.ticks.showTickLabels = true;
+			$("#showAllLabels").attr("disabled", true);
+		} else {
+			ali.conf.labels.ticks.showTickLabels = false;
+			$("#showAllLabels").attr("disabled", false);
+		}
+	});	
+	});
+
+	$('#loadJSON').on('change', function(evt) {
+		var files = evt.target.files; // FileList object
+	    // files is a FileList of File objects.
+	    var output = [];
+	    for (var i = 0, f; f = files[i]; i++) {
+	    	var fr = new FileReader();
+	    	fr.onload = function(x){
+	    		ali.setJSON(JSON.parse(x.target.result));
+	    		setJSONEditorFromAli();
+	    		ali.drawLinear();
+	    	}
+	    	fr.readAsText(f);
+	    }
+	});
+	
+	//prevent folding of accordion on click on apply
+	$("#applyChanges").unbind("click");
+	$('#applyChanges').on('click', function(evt) {
+		evt.stopPropagation();
+		evt.preventDefault();
+		setNewParameters();
+	});
 
 });
-});
+}); 
 	
 	function changeLinearSpacer(){
 		var spacer = $("#linearSpacer").val();
 		try {
-		wga.setLinearSpacer(spacer); 
-		$("#linearSpacer").val(wga.getLinearSpacer());
+		ali.setLinearSpacer(spacer); 
+		$("#linearSpacer").val(ali.getLinearSpacer());
 		}
 		catch(err){
 			alert(err);
-			$("#linearSpacer").val(wga.getLinearSpacer());
+			$("#linearSpacer").val(ali.getLinearSpacer());
 		}
 	}
 	function changeKaryoHeight(){
 		var height = $("#karyoHeight").val(); 
 		try {
-		wga.setKaryoHeight(height); 	
+		ali.setKaryoHeight(height); 	
 		}
 		catch(err){
 			alert(err);
-			$("#karyoHeight").val(wga.getKaryoHeight());
+			$("#karyoHeight").val(ali.getKaryoHeight());
 		}
 	}
 	function changeCanvasWidth(){
 		var width = $("#canvasWidth").val(); 
 		try {
-		wga.setCanvasWidth(width); 	
+		ali.setCanvasWidth(width); 	
 		}
 		catch(err){
 			alert(err);
-			$("#canvasWidth").val(wga.getCanvasWidth());
+			$("#canvasWidth").val(ali.getCanvasWidth());
 		}
 	}
 	function changeCanvasHeight(){
 		var height = $("#canvasHeight").val(); 
 		try {
-		wga.setCanvasHeight(height); 
+		ali.setCanvasHeight(height); 
 		}
 		catch(err){
 			alert(err);
-			$("#canvasHeight").val(wga.getCanvasHeight());
+			$("#canvasHeight").val(ali.getCanvasHeight());
 		}
 	}
 	function changeTickDistance(){
 		var distance = $("#tickDistance").val(); 
 		try {
-		wga.setTickDistance(distance); 	
+		ali.setTickDistance(distance); 	
 		}
 		catch(err){
 			alert(err);
-			$("#tickDistance").val(wga.getTickDistance());
+			$("#tickDistance").val(ali.getTickDistance());
 		}
 	}
 	function changeTreeWidth(){
 		var treeWidth = $("#treeWidth").val(); 
 		try {
-		wga.setTreeWidth(treeWidth); 	
+		ali.setTreeWidth(treeWidth); 	
 		}
 		catch(err){
 			alert(err);
-			$("#treeWidth").val(wga.getTreeWidth());
+			$("#treeWidth").val(ali.getTreeWidth());
 		}
+	}
+	function changeTickLabelFrequency(){
+		var frequency = $("#tickLabelFrequency").val(); 
+		try {
+		ali.setTickLabelFrequency(frequency); 	
+		}
+		catch(err){
+			alert(err);
+			$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
+		}
+	}
+	function changeGeneColor(){
+		var color = ($("#geneColor").val());
+		try {
+			ali.setGeneColor(color); 	
+			}
+			catch(err){
+				alert(err);
+				$("#geneColor").val(ali.getGeneColor());
+			}
 	}
 	function setNewParameters(){
 		changeLinearSpacer();
@@ -225,26 +432,47 @@
 		changeCanvasHeight()
 		changeTickDistance();
 		changeTreeWidth();
+		changeTickLabelFrequency();
+		changeGeneColor();
 		
-		var layout = wga.getLayout();
-		wga.drawEqualLayout(layout);
+		var layout = ali.getLayout();
+		setJSONEditorFromAli();
+		ali.drawEqualLayout(layout);
 		if(layout === "circular"){
 			$("#onlyShowAdjacentLinks").attr("disabled", true);
 		} else {
 			$("#onlyShowAdjacentLinks").attr("disabled", false);
-		}
-		
+		}		
+	}
+	function setAliFromJSONEditor(){
+		var json = editor.get();
+		ali.setJSON(json);
+		ali.drawEqualLayout(ali.getLayout());
+	}
+	function setJSONEditorFromAli(){
+		editor.set(ali.getJSON());
+	}
+	function toggleJSONEditor(){
+		$('#jsoneditor').toggle();
+	}
+	function saveSVG(){
+	    var blob = new Blob([ali.getSvgAsText()], {type: "image/svg+xml;charset=utf-8"});
+	    saveAs(blob, "AliTV.svg");
+	}
+	function saveJSON(){
+	    var blob = new Blob([JSON.stringify(ali.getJSON())], {type: "plain/text;charset=utf-8"});
+	    saveAs(blob, "AliTV.json");
 	}
 </script>
 </head>
 <body>
 
-<div style="width: 100%; overflow: hidden;">
+<div style="width: 100%; overflow: auto;">
  	<div id="accordion" class="form-style-5" style="float:left">
  		<h3><span class="number">1</span> Choose your layout</h3>
  		<div>
- 			<button type="submit" onclick="wga.drawCircular();">Draw Circular</button> 
- 			<button type="submit" onclick="wga.drawLinear();">Draw Linear</button> 
+ 			<button type="submit" onclick="ali.drawCircular();">Draw Circular</button> 
+ 			<button type="submit" onclick="ali.drawLinear();">Draw Linear</button> 
  		</div>
  		<h3><span class="number">2</span> Change graphical parameters</h3>
  		<div>
@@ -262,7 +490,7 @@
  					Height:<br>
  					<input type="text" id="canvasHeight" placeholder="Enter the svg-height">
  					<br>
- 					Distance between ticks:<br>
+ 					Distance between ticks in bp:<br>
  					<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
  					<br>
  					Width of the phylogenetic tree:<br>
@@ -309,16 +537,79 @@
  					<br>
  					Tree orientation:
  					<br>
-	 				<input id="treeLeft" type="radio" value="left" name="treeOrientation">Left
+	 				<input id="treeLeft" type="radio" value="left" name="treeOrientation" checked>Left
 	 				<input id="treeRight" type="radio" value="right" name="treeOrientation">Right
  					<br>
  				</fieldset>
  			</form> 
  		</div>
-		<button type="submit" onclick="setNewParameters()">Apply</button>		
+ 		<h3><span class="number">5</span>Draw provided features</h3>
+	 		<div>
+				<form>
+	 				<fieldset>
+	 					Show all features: <input id="showFeatures" type="checkbox">
+	 					<br>
+	 					<h3>Genes</h3>
+	 					Show genes: <input id="showGenes" type="checkbox">
+	 					<br><br>
+	 					Change color:
+	 					<div class="input-group demo2">
+	    					<input id="geneColor" type="text" value="" class="form-control" />
+	    					<span class="input-group-addon"><i></i></span>
+						</div>
+	 					<h3>Inverted repeats</h3>
+	 		 			Show inverted repeats: <input id="showInvertedRepeats" type="checkbox">
+	 					<br>
+	 					<h3>Repeats</h3>
+	 		 			Show repeats: <input id="showRepeats" type="checkbox">
+	 					<br>
+	 					<h3>N stretch</h3>
+	 		 			Show n stretches: <input id="showNstretch" type="checkbox">
+	 					<br>
+	 					<br>
+	 					Show non-supported feature groups: <input id="showFallback" type="checkbox">
+	 				</fieldset>
+	 			</form> 
+	 		</div>
+ 		<h3><span class="number">6</span>Labeling</h3>
+ 		<div>
+			<form>
+ 				<fieldset>
+ 					Show all labels: <input id="showAllLabels" type="checkbox">
+ 					<br>
+ 					<br>
+ 					Show genome labels: <input id="showGenomeLabels" type="checkbox">
+ 					<br>
+ 		 			Show chromosome labels: <input id="showChromosomeLabels" type="checkbox">
+ 					<br>
+ 					Show feature labels: <input id="showFeatureLabels" type="checkbox">
+ 					<br>
+ 					<br>
+ 					Show tick labels: <input id="showTickLabels" type="checkbox">
+ 					<br>
+ 					<br>
+ 					Set tick label frequency: <input type="text" id="tickLabelFrequency" placeholder="Enter the tick label frequency">
+ 					<br>
+ 				</fieldset>
+ 			</form> 
+ 		</div>
+		<h3><span class="number">7</span>Import/Export</h3>
+        <div>
+		  <button onclick="saveSVG()">Save SVG</button>
+		  <button onclick="saveJSON()">Save JSON</button>
+		  <button onclick="$('#loadJSON').click()">Load JSON</button>
+		  <input type="file" id="loadJSON" name="files[]" style="display:none" multiple></input>
+		</div>
+		<h3><span class="number">8</span>Advanced</h3>
+        <div>
+		  <button onclick="toggleJSONEditor()">Toggle JSON Editor</button>
+		  <button onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
+		</div>
+		<button id="applyChanges">Apply</button>		
  	</div>
- 	<svg id='wgaCanvas' style="margin:50px"></svg>
+ 	<svg id='wgaCanvas'></svg>
  </div>
+ <div id="jsoneditor" style="display:none"></div>
  </body>
  </html>
 

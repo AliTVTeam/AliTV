@@ -2,6 +2,8 @@
 /* global $: false */
 /* global _: false */
 /* global document: false */
+/* global textures: false */
+/* global circles: false */
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
@@ -29,10 +31,16 @@ function AliTV(svg) {
 	 * @property {Number}  karyo.chromosomes.genome_id  - number of genome to which this chromosome belongs
 	 * @property {Number}  karyo.chromosomes.length     - length in bp
 	 * @property {String}  karyo.chromosomes.seq        - sequence of the chromosome
-	 * @property {Object}  features                     - the feature information, feature IDs as keys
-	 * @property {String}  features.karyo               - the karyo ID
-	 * @property {Number}  features.start               - start position on the sequence
-	 * @property {Number}  features.end                 - end position on the sequence
+	 * @property {Object}  features                     - the feature information, feature type as keys
+	 * @property {Object}  features.link                - the link feature information, feature IDs as keys
+	 * @property {String}  features.link.karyo          - the karyo ID
+	 * @property {Number}  features.link.start          - start position on the sequence
+	 * @property {Number}  features.link.end            - end position on the sequence
+	 * @property {Array}   features.<type>              - the feature information fot type <type>
+	 * @property {String}  features.<type>.karyo        - the karyo ID
+	 * @property {String}  features.<type>.name         - the name of the feature
+	 * @property {Number}  features.<type>.start        - start position on the sequence
+	 * @property {Number}  features.<type>.end          - end position on the sequence
 	 * @property {Object}  links                        - the link information, link IDs as keys
 	 * @property {String}  links.source                 - source feature of the link
 	 * @property {String}  links.target                 - target feature of the link
@@ -75,17 +83,41 @@ function AliTV(svg) {
 	 * @property {Number}  minLinkLength						   - The minimum length of a link:
 	 * @property {Number}  maxLinkLength						   - The maximum length of a link.
 	 * @property {Object}  graphicalParameters                     - The configuration options for all graphical parameters.
-	 * @property {Number}  graphicalParameters.width               - The width of the svg in px.
-	 * @property {Number}  graphicalParameters.height              - The height of the svg in px.
+	 * @property {Number}  graphicalParameters.canvasWidth         - The width of the alignment drawing area in px.
+	 * @property {Number}  graphicalParameters.canvasHeight        - The height of the alignment drawing area in px.
 	 * @property {Number}  graphicalParameters.karyoHeight         - The height of each chromosome in px.
 	 * @property {Number}  graphicalParameters.karyoDistance       - The horizontal distance between adjacent chromosomes of the same genome in bp.
 	 * @property {Number}  graphicalParameters.linkKaryoDistance   - The vertical distance between chromosomes and links in px.
 	 * @property {Number}  graphicalParameters.tickDistance        - The distance in bp of ticks on the drawn chromosomes.
 	 * @property {Number}  graphicalParameters.treeWidth		   - The width of the svg drawing area, where the tree should be shown.
+	 * @property {Number}  graphicalParameters.genomeLabelWidth    - The width of the svg drawing area, where the genome labels should be shown.
 	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
 	 * @property {Object}  tree									   - Contains the configuration objects for drawing a tree.
 	 * @property {Boolean} tree.drawTree						   - With this option it is possible to draw a phylogenetic tree ext to the chromosomes.
 	 * @property {Boolean} tree.orientation						   - Defines where the tree should be drawn.
+	 * @property {Object}  features								   - Contains the configuration for feature groups.
+	 * @property {Boolean} features.showAllFeatures				   - Defines if all features are drawn or not.
+	 * @property {Object}  features.gene						   - Contains the configuration for genes.
+	 * @property {String}  features.gene.form					   - Defines the shape of a gene.
+	 * @property {String}  features.gene.color					   - Defines the color of a gene.
+	 * @property {Number}  features.gene.height					   - Defines the height of the drawn gene onto the chromosome.
+	 * @property {Boolean} features.gene.visible				   - Defines if a gene is drawn or not.
+	 * @property {Object}  features.invertedRepeat				   - Contains the configuration for inverted repeats.
+	 * @property {String}  features.invertedRepeat.form			   - Defines the shape of an inverted repeat.
+	 * @property {String}  features.invertedRepeat.color		   - Defines the color of an inverted repeat.
+	 * @property {Number}  features.invertedRepeat.height		   - Defines the height of the drawn inverted repeat onto the chromosome.
+	 * @property {Boolean} features.invertedRepeats.visible		   - Defines if an inverted repeat is drawn or not.
+	 * @property {Object}  labels								   - The configuration options for the text labels.
+	 * @property {Boolean} labels.showAllLabels					   - With this option it is possible to set labels to genomes, chromosomes and all features.
+	 * @property {Boolean} labels.ticks							   - Contains the configuration for the labeling of the chromosome scale.
+	 * @property {Boolean} labels.ticks.showTicks				   - Defines if ticks are drawn.
+	 * @property {Boolean} labels.ticks.showTickLabels			   - Defines if tick labels are drawn.
+	 * @property {Object}  labels.chromosomes					   - Contains the configurations for the chromosome labels.
+	 * @property {Boolean} labels.chromosomes.showChromosomeLabels - Defines if chromosome labels are shown or not.
+	 * @property {Object}  labels.genome					   	   - Contains the configurations for the genome labels.
+	 * @property {Boolean} labels.genome.showGenomeLabels 		   - Defines if genome labels are shown or not.
+	 * @property {Object}  labels.features					   	   - Contains the configurations for the feature labels.
+	 * @property {Boolean} labels.features.showFeatureLabels 	   - Defines if feature labels are shown or not.
 	 */
 	this.conf = {
 		linear: {
@@ -97,13 +129,15 @@ function AliTV(svg) {
 			tickSize: 5
 		},
 		graphicalParameters: {
-			width: 1000,
-			height: 1000,
+			canvasWidth: 1000,
+			canvasHeight: 1000,
 			karyoHeight: 30,
 			karyoDistance: 10,
-			linkKaryoDistance: 10,
+			linkKaryoDistance: 20,
+			tickLabelFrequency: 10,
 			tickDistance: 100,
-			treeWidth: 300
+			treeWidth: 300,
+			genomeLabelWidth: 150
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -117,12 +151,79 @@ function AliTV(svg) {
 		tree: {
 			drawTree: false,
 			orientation: "left"
+		},
+		features: {
+			showAllFeatures: false,
+			supportedFeatures: {
+				gene: {
+					form: "rect",
+					color: "#E2EDFF",
+					height: 30,
+					visible: false,
+				},
+				invertedRepeat: {
+					form: "arrow",
+					color: "#e7d3e2",
+					height: 30,
+					visible: false,
+					pattern: "woven"
+				},
+				nStretch: {
+					form: "rect",
+					color: "#000000",
+					height: 30,
+					visible: false,
+					pattern: "lines"
+				},
+				repeat: {
+					form: "arrow",
+					color: "#56cd0f",
+					height: 30,
+					visible: false,
+					pattern: "woven"
+				}
+			},
+			fallbackStyle: {
+				form: "rect",
+				color: "#787878",
+				height: 30,
+				visible: false
+			}
+		},
+		labels: {
+			showAllLabels: false,
+			ticks: {
+				showTicks: true,
+				showTickLabels: true
+			},
+			chromosome: {
+				showChromosomeLabels: true
+			},
+			genome: {
+				showGenomeLabels: true
+			},
+			features: {
+				showFeatureLabels: false
+			}
 		}
 	};
 	// Initialize svg size
-	svg.width(this.conf.graphicalParameters.width);
-	svg.height(this.conf.graphicalParameters.height);
+	this.setSvgWidth(this.getCanvasWidth());
+	this.setSvgHeight(this.getCanvasHeight());
 }
+
+/**
+ * Extends the existing conf of the AliTV object.
+ * New features override the existing ones if conflicting. Non-conflicting configuration values are kept.
+ * For the required format see the documentation of the conf property.
+ * If you need to override the entire conf object write directly to the conf property of your AliTV object.
+ * This is not recommended as AliTV will not function properly if some conf values are not set.
+ * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
+ * @param {Object} conf - Object containing conf values
+ */
+AliTV.prototype.setConf = function(conf) {
+	jQuery.extend(true, this.conf, conf);
+};
 
 /**
  * Sets the data of the AliTV object.
@@ -233,11 +334,11 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		};
 
 		if (this.filters.karyo.chromosomes[key].reverse === false) {
-			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width;
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width;
+			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.canvasWidth;
+			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.canvasWidth;
 		} else {
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.width + (value.length / maxTotalSize) * conf.graphicalParameters.width;
-			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.width * (-1);
+			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.canvasWidth + (value.length / maxTotalSize) * conf.graphicalParameters.canvasWidth;
+			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.canvasWidth * (-1);
 		}
 		current[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
 		linearKaryoCoords.push(coord);
@@ -277,16 +378,16 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.source1 = {};
 		link.target0 = {};
 		link.target1 = {};
-		var feature1 = that.data.features[value.source];
-		var feature2 = that.data.features[value.target];
+		var feature1 = that.data.features.link[value.source];
+		var feature2 = that.data.features.link[value.target];
 		var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
 		var karyo2 = that.data.karyo.chromosomes[feature2.karyo];
 		var karyo1Coords = coords[karyoMap[feature1.karyo]];
 		var karyo2Coords = coords[karyoMap[feature2.karyo]];
 		var genomePosition1 = that.filters.karyo.genome_order.indexOf(karyo1.genome_id);
 		var genomePosition2 = that.filters.karyo.genome_order.indexOf(karyo2.genome_id);
-		var lengthOfFeature1 = Math.abs(that.data.features[value.source].end - that.data.features[value.source].start);
-		var lengthOfFeature2 = Math.abs(that.data.features[value.target].end - that.data.features[value.target].start);
+		var lengthOfFeature1 = Math.abs(that.data.features.link[value.source].end - that.data.features.link[value.source].start);
+		var lengthOfFeature2 = Math.abs(that.data.features.link[value.target].end - that.data.features.link[value.target].start);
 
 
 		if (genomePosition1 > genomePosition2) {
@@ -362,8 +463,14 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
 		});
 
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".karyoGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
 };
 
@@ -398,7 +505,7 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 		.domain(genomeOrder)
 		.range(colorRange);
 
-	return color(genomeId);
+	return color(that.filters.karyo.genome_order.indexOf(genomeId));
 };
 
 /**
@@ -419,14 +526,21 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 			.range([value.x, value.x + value.width]);
 
 		var chromosomePosition = 0;
-		while (chromosomePosition <= that.data.karyo.chromosomes[value.karyo].length) {
+		for (var i = 0; chromosomePosition <= that.data.karyo.chromosomes[value.karyo].length; i++) {
 			ticks.push(scale(chromosomePosition));
 			chromosomePosition += that.conf.graphicalParameters.tickDistance;
 			var coords = {};
+			coords.id = value.karyo;
 			coords.x1 = ticks[ticks.length - 1];
-			coords.y1 = value.y - 5;
 			coords.x2 = ticks[ticks.length - 1];
-			coords.y2 = value.y + value.height + 5;
+
+			if (i % that.conf.graphicalParameters.tickLabelFrequency === 0 && (that.conf.labels.ticks.showTickLabels === true || that.conf.labels.showAllLabels === true)) {
+				coords.y1 = value.y - 10;
+				coords.y2 = value.y + value.height + 10;
+			} else {
+				coords.y1 = value.y - 5;
+				coords.y2 = value.y + value.height + 5;
+			}
 			linearTickCoords.push(coords);
 		}
 	});
@@ -466,6 +580,83 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
+};
+
+/**
+ * This method is supposed to label the ticks with configurable tick labels.
+ * @author Sonja Hohlfeld
+ * @param linearTickCoords
+ */
+AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
+	var that = this;
+
+	var labels = that.svgD3.append("g")
+		.attr("class", "tickLabelGroup")
+		.selectAll("path")
+		.data(linearTickCoords)
+		.enter();
+
+	$.each(that.filters.karyo.order, function(key, value) {
+		labels.append("text")
+			.filter(function(d) {
+				return d.id === value;
+			})
+			.each(function(d, i) {
+				if (i % that.conf.graphicalParameters.tickLabelFrequency === 0) {
+					var labelPosition = i;
+					d3.select(this)
+						.attr("class", "tickLabel")
+						.attr("x", function(d) {
+							return d.x1 - 3;
+						})
+						.attr("y", function(d) {
+							return d.y1;
+						})
+						.text(function(d) {
+							return labelPosition * that.conf.graphicalParameters.tickDistance + " bp";
+						})
+						.attr("font-size", 10 + "px");
+				}
+			});
+
+		labels.append("text")
+			.filter(function(d) {
+				return d.id === value;
+			})
+			.each(function(d, i) {
+				if (i % that.conf.graphicalParameters.tickLabelFrequency === 0) {
+					var labelPosition = i;
+					d3.select(this)
+						.attr("class", "tickLabel")
+						.attr("x", function(d) {
+							return d.x2 - 3;
+						})
+						.attr("y", function(d) {
+							return d.y2 + 6;
+						})
+						.text(function(d) {
+							return labelPosition * that.conf.graphicalParameters.tickDistance + " bp";
+						})
+						.attr("font-size", 10 + "px");
+				}
+			});
+	});
+
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
 };
 
 /**
@@ -478,7 +669,7 @@ AliTV.prototype.fadeLinks = function(g, opacity) {
 	var that = this;
 	that.svgD3.selectAll(".link")
 		.filter(function(d) {
-			return that.data.features[that.data.links[d.linkID].source].karyo != g.karyo && that.data.features[that.data.links[d.linkID].target].karyo != g.karyo;
+			return that.data.features.link[that.data.links[d.linkID].source].karyo != g.karyo && that.data.features.link[that.data.links[d.linkID].target].karyo != g.karyo;
 		})
 		.transition()
 		.style("opacity", opacity);
@@ -526,6 +717,12 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".linkGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
 };
 
 
@@ -537,15 +734,49 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  */
 AliTV.prototype.drawLinear = function() {
 	this.svgD3.selectAll(".treeGroup").remove();
+	this.svgD3.selectAll(".chromosomeLabelGroup").remove();
+	this.svgD3.selectAll(".featureLabelGroup").remove();
+	this.svgD3.selectAll(".genomeLabelGroup").remove();
+	this.svgD3.selectAll(".tickLabelGroup").remove();
+
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
+
+	if (this.conf.labels.ticks.showTickLabels === true || this.conf.labels.showAllLabels === true) {
+		this.drawLinearTickLabels(linearTickCoords);
+	}
+
+
+	if (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels === true) {
+		var linearGenomeLabelCoords = this.getGenomeLabelCoords();
+		this.drawLinearGenomeLabels(linearGenomeLabelCoords);
+		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.genomeLabelWidth);
+	}
+
+	if (this.conf.features.showAllFeatures === true || this.conf.features.supportedFeatures.gene.visible === true || this.conf.features.supportedFeatures.invertedRepeat.visible === true || this.conf.features.supportedFeatures.repeat.visible === true || this.conf.features.supportedFeatures.nStretch.visible === true || this.conf.features.fallbackStyle.visible === true) {
+		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
+		this.drawLinearFeatures(linearFeatureCoords);
+		if (this.conf.labels.showAllLabels === true || this.conf.labels.features.showFeatureLabels === true) {
+			var linearFeatureLabelCoords = this.getFeatureLabelCoords(linearFeatureCoords);
+			this.drawLinearFeatureLabels(linearFeatureLabelCoords);
+		}
+	}
+	if (this.conf.labels.showAllLabels === true || this.conf.labels.chromosome.showChromosomeLabels === true) {
+		var linearChromosomeLabelCoords = this.getChromosomeLabelCoords(karyoCoords);
+		this.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
+	}
+
 	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
 		this.drawPhylogeneticTree();
-		$('#wgaCanvas').width(this.conf.graphicalParameters.width + this.conf.graphicalParameters.treeWidth);
+		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.treeWidth);
+	}
+
+	if (this.conf.tree.drawTree === true && (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels)) {
+		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 	this.conf.layout = "linear";
 };
@@ -610,8 +841,8 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
 		var link = {};
 		link.linkID = key;
 
-		var feature1 = that.data.features[value.source];
-		var feature2 = that.data.features[value.target];
+		var feature1 = that.data.features.link[value.source];
+		var feature2 = that.data.features.link[value.target];
 		var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
 		var karyo2 = that.data.karyo.chromosomes[feature2.karyo];
 		var karyo1Coords = coords[karyoMap[feature1.karyo]];
@@ -667,7 +898,7 @@ AliTV.prototype.drawCircularKaryo = function(coords) {
 	var outerRadius = this.getOuterRadius();
 	this.svgD3.append("g")
 		.attr("class", "karyoGroup")
-		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
+		.attr("transform", "translate(" + this.conf.graphicalParameters.canvasWidth / 2 + "," + this.conf.graphicalParameters.canvasHeight / 2 + ")")
 		.selectAll("path")
 		.data(coords)
 		.enter()
@@ -700,7 +931,7 @@ AliTV.prototype.drawCircularTicks = function(coords) {
 
 	that.svgD3.append("g")
 		.attr("class", "tickGroup")
-		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
+		.attr("transform", "translate(" + this.conf.graphicalParameters.canvasWidth / 2 + "," + this.conf.graphicalParameters.canvasHeight / 2 + ")")
 		.selectAll("path")
 		.data(coords)
 		.enter()
@@ -728,7 +959,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
 	this.svgD3.selectAll(".linkGroup").remove();
 	this.svgD3.append("g")
 		.attr("class", "linkGroup")
-		.attr("transform", "translate(" + this.conf.graphicalParameters.width / 2 + "," + this.conf.graphicalParameters.height / 2 + ")")
+		.attr("transform", "translate(" + this.conf.graphicalParameters.canvasWidth / 2 + "," + this.conf.graphicalParameters.canvasHeight / 2 + ")")
 		.selectAll("path")
 		.data(circularLinkCoords)
 		.enter()
@@ -748,6 +979,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
  */
 AliTV.prototype.drawCircular = function() {
 	this.svgD3.selectAll(".treeGroup").remove();
+	this.svgD3.selectAll(".featureGroup").remove();
 	var karyoCoords = this.getCircularKaryoCoords();
 	var tickCoords = this.getCircularTickCoords(karyoCoords);
 	this.drawCircularTicks(tickCoords);
@@ -835,12 +1067,11 @@ AliTV.prototype.setKaryoHeight = function(height) {
  */
 
 AliTV.prototype.getCanvasWidth = function() {
-	return this.conf.graphicalParameters.width;
+	return this.conf.graphicalParameters.canvasWidth;
 };
 
 /**
- * This function replaces the old width of the drawing area with the new width in the config-object.
- * It is called by a blur()-event, when the decription field loses focus.
+ * This function replaces the old width of the drawing area for the alignment.
  * When the method gets a wrong value it throws an error message.
  * @param {Number} The function gets the width of the svg drawing area which can be set by the user.
  * @throws Will throw an error if the argument is empty.
@@ -858,9 +1089,8 @@ AliTV.prototype.setCanvasWidth = function(width) {
 		throw "width is to small, it should be > 0";
 	} else {
 		width = Number(width);
-		this.conf.graphicalParameters.width = width;
-		$('#wgaCanvas').width(this.conf.graphicalParameters.width);
-		return this.conf.graphicalParameters.width;
+		this.conf.graphicalParameters.canvasWidth = width;
+		return this.conf.graphicalParameters.canvasWidth;
 	}
 };
 
@@ -871,13 +1101,12 @@ AliTV.prototype.setCanvasWidth = function(width) {
  */
 
 AliTV.prototype.getCanvasHeight = function() {
-	return this.conf.graphicalParameters.height;
+	return this.conf.graphicalParameters.canvasHeight;
 };
 
 
 /**
- * This function replaces the old height of the drawing area with the new height in the config-object.
- * It is called by a blur()-event, when the decription field loses focus.
+ * This function replaces the old height of the drawing area for the alignment.
  * When the method gets a wrong value it throws an error message.
  * @param {Number} The function gets the height of the svg drawing area which can be set by the user.
  * @throws Will throw an error if the argument is empty.
@@ -895,9 +1124,8 @@ AliTV.prototype.setCanvasHeight = function(height) {
 		throw "height is to small, it should be > 0";
 	} else {
 		height = Number(height);
-		this.conf.graphicalParameters.height = height;
-		$('#wgaCanvas').height(this.conf.graphicalParameters.height);
-		return this.conf.graphicalParameters.height;
+		this.conf.graphicalParameters.canvasHeight = height;
+		return this.conf.graphicalParameters.canvasHeight;
 	}
 };
 
@@ -1017,6 +1245,63 @@ AliTV.prototype.getGenomeDistance = function() {
 };
 
 /**
+ * This function returns the current frequency of tick labels.
+ * @returns {Number} Returns the frequency of the tick labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getTickLabelFrequency = function() {
+	var tickLabelFrequency = this.conf.graphicalParameters.tickLabelFrequency;
+	return tickLabelFrequency;
+};
+
+/**
+ * This function replaces the old frequency of tick labels with the new tick label frequency in the config-object.
+ * @param tickLabelFrequency: the frequency of tick labels which is returned by getTickLabelFrequency.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
+	if (tickLabelFrequency === "") {
+		throw "empty";
+	} else if (isNaN(tickLabelFrequency)) {
+		throw "not a number";
+	} else if (tickLabelFrequency <= 0) {
+		throw "the frequency is to small, it should be > 0";
+	} else {
+		tickLabelFrequency = Number(tickLabelFrequency);
+		this.conf.graphicalParameters.tickLabelFrequency = tickLabelFrequency;
+		return this.conf.graphicalParameters.tickLabelFrequency;
+	}
+};
+
+/**
+ * This function returns the current color of genes.
+ * @returns {String} The color of genes.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getGeneColor = function() {
+	var color = this.conf.features.supportedFeatures.gene.color;
+	return color;
+};
+
+/**
+ * This function replaces the old color of genes with the new gene color in the config-object.
+ * @param color: the color of genes which is returned by getGeneColor.
+ * @throws Will throw an error if the argument is empty.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setGeneColor = function(color) {
+	if (color === "") {
+		throw "empty";
+	} else {
+		this.conf.features.supportedFeatures.gene.color = color;
+		return this.conf.features.supportedFeatures.gene.color;
+	}
+};
+
+/**
  * This method should call other filter functions in order to filter the visible chromosomes.
  * @returns visibleChromosomes: returns only chromosomes which are visible
  * @author Sonja Hohlfeld
@@ -1067,7 +1352,7 @@ AliTV.prototype.filterChromosomeWithoutLinkageInformation = function(visibleChro
 		var currentChromosome = key;
 		var valueOfCurrentChromosome = value;
 		$.each(that.data.links, function(key, value) {
-			if (that.data.features[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
+			if (that.data.features.link[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features.link[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
 				filteredChromosomes[currentChromosome] = valueOfCurrentChromosome;
 			}
 		});
@@ -1090,7 +1375,7 @@ AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosome
 		var currentChromosome = key;
 		var valueOfCurrentChromosome = value;
 		$.each(filteredLinks, function(key, value) {
-			if (that.data.features[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
+			if (that.data.features.link[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features.link[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
 				filteredChromosomes[currentChromosome] = valueOfCurrentChromosome;
 			}
 		});
@@ -1149,8 +1434,8 @@ AliTV.prototype.filterVisibleLinks = function(visibleChromosomes) {
 		listOfVisibleChromosomes.push(key);
 	});
 	$.each(allLinks, function(key, value) {
-		var targetKaryo = that.data.features[value.target].karyo;
-		var sourceKaryo = that.data.features[value.source].karyo;
+		var targetKaryo = that.data.features.link[value.target].karyo;
+		var sourceKaryo = that.data.features.link[value.source].karyo;
 		if (listOfVisibleChromosomes.indexOf(targetKaryo) !== -1 && listOfVisibleChromosomes.indexOf(sourceKaryo) !== -1 && (value in filteredLinks) === false) {
 			filteredLinks[key] = value;
 		}
@@ -1191,8 +1476,8 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 		var currentLink = value;
 		var sourceFeature = currentLink.source;
 		var targetFeature = currentLink.target;
-		var lengthOfSourceFeature = Math.abs(that.data.features[sourceFeature].end - that.data.features[sourceFeature].start);
-		var lengthOfTargetFeature = Math.abs(that.data.features[targetFeature].end - that.data.features[targetFeature].start);
+		var lengthOfSourceFeature = Math.abs(that.data.features.link[sourceFeature].end - that.data.features.link[sourceFeature].start);
+		var lengthOfTargetFeature = Math.abs(that.data.features.link[targetFeature].end - that.data.features.link[targetFeature].start);
 		if (lengthOfSourceFeature >= minLength && lengthOfSourceFeature <= maxLength || lengthOfTargetFeature >= minLength && lengthOfTargetFeature <= maxLength) {
 			filteredLinks[key] = currentLink;
 		}
@@ -1211,8 +1496,8 @@ AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
 	var filteredLinks = {};
 	$.each(visibleLinks, function(key, value) {
 		var currentLink = value;
-		var targetFeature = that.data.features[currentLink.source];
-		var sourceFeature = that.data.features[currentLink.target];
+		var targetFeature = that.data.features.link[currentLink.source];
+		var sourceFeature = that.data.features.link[currentLink.target];
 		var targetKaryo = that.data.karyo.chromosomes[targetFeature.karyo];
 		var sourceKaryo = that.data.karyo.chromosomes[sourceFeature.karyo];
 		var genomePositionOfTargetKaryo = that.filters.karyo.genome_order.indexOf(targetKaryo.genome_id);
@@ -1235,14 +1520,14 @@ AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
  */
 AliTV.prototype.drawPhylogeneticTree = function() {
 	var that = this;
-	var treeData = that.data.tree;
+	var treeData = $.extend(true, {}, that.data.tree);
 	// Create a tree "canvas"
 	var genomeDistance = that.getGenomeDistance();
 
 	//Initialize the tree size. Every node of the tree has its own "spacer", therefore it is important not only use the canvas height, but you need
 	// the canveas height and the genome distance - the heigth of one karyo in order to draw the branches in the right position. So we have exactly 6 branches, but one is not in the drawing area.
 	var tree = d3.layout.tree()
-		.size([that.conf.graphicalParameters.height + genomeDistance - that.conf.graphicalParameters.karyoHeight, that.conf.graphicalParameters.treeWidth])
+		.size([that.conf.graphicalParameters.canvasHeight + genomeDistance - that.conf.graphicalParameters.karyoHeight, that.conf.graphicalParameters.treeWidth])
 		.separation(function() {
 			return 1;
 		});
@@ -1256,6 +1541,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 	if (this.conf.tree.orientation === "left") {
 		that.svgD3.append("g")
 			.attr("class", "treeGroup")
+			.attr("style", "fill:none;stroke:#000;stroke-width:2px;")
 			.selectAll("path")
 			.data(links)
 			.enter()
@@ -1265,10 +1551,11 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 				return "M" + d.source.y + "," + d.source.x + "H" + d.target.y + "V" + d.target.x;
 			})
 			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
+
 	} else {
 		that.svgD3.append("g")
 			.attr("class", "treeGroup")
-			.attr("transform", "translate(" + that.conf.graphicalParameters.width + ", 0)")
+			.attr("transform", "translate(" + that.conf.graphicalParameters.canvasWidth + ", 0)")
 			.selectAll("path")
 			.data(links)
 			.enter()
@@ -1278,6 +1565,10 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 				return "M" + (that.conf.graphicalParameters.treeWidth - d.source.y) + "," + d.source.x + "H" + (that.conf.graphicalParameters.treeWidth - d.target.y) + "V" + d.target.x;
 			})
 			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
+		if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+			that.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.canvasWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+		}
+
 	}
 
 };
@@ -1285,12 +1576,523 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 /**
  * This method should check if the user provides tree data.
  * @returns {Boolean} Returns true when tree data exists and false when there is no tree data.
- * @author {Sonja Hohlfeld}
+ * @author Sonja Hohlfeld
  */
 AliTV.prototype.hasTree = function() {
 	if (typeof this.data.tree === "undefined" || $.isEmptyObject(this.data.tree) === true || this.data.tree === null) {
 		return false;
 	} else {
 		return true;
+	}
+};
+
+
+/**
+ * Calculates coordinates for different shapes according to the different feature classes in order to draw in the linear layout.
+ * This function operates on the linearKaryoCoords.
+ * This function is primarily meant for internal usage, the user should not need to call this directly.
+ * @author Sonja Hohlfeld
+ * @param {Array} linearKaryoCoords: contains the coordinates for all chromosomes of the form: {karyo: 'karyo_name', x:0, y:0, width:10, height:10}.
+ * @returns {Array} linearFeatureCoords: contains the coordinates for feature classes of the form: {id: "featureId", x:0, y:0, width: 45, height: 10}
+ */
+AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
+	var that = this;
+	var linearFeatureCoords = [];
+	$.each(that.data.features, function(type, features) {
+		// skip link features
+		if (type === "link") {
+			return true;
+		}
+		$.each(features, function(key, value) {
+			var featureKaryo = value.karyo;
+			var currentY;
+			var currentWidth;
+			var currentX;
+			var currentFeature = {};
+			var featureId = value.name;
+			$.each(linearKaryoCoords, function(key, value) {
+				if (featureKaryo === value.karyo) {
+					currentY = value.y;
+					currentX = value.x;
+					currentWidth = value.width;
+				}
+			});
+			var featureStyle = ((typeof that.conf.features.supportedFeatures[type] !== 'undefined') ? that.conf.features.supportedFeatures[type] : that.conf.features.fallbackStyle);
+			if (featureStyle.visible === false && that.conf.features.showAllFeatures === false) {
+				// skip if the feature type should not be visible
+				return true;
+			}
+			if (featureStyle.form === "rect") {
+				currentFeature = {
+					"id": value.name,
+					"type": type,
+					"y": currentY,
+					"height": featureStyle.height
+				};
+
+				currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+				currentFeature.x = currentX + (Math.min(value.start, value.end) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+
+				linearFeatureCoords.push(currentFeature);
+			} else if (featureStyle.form === "arrow") {
+				currentFeature = {
+					"type": type,
+					"id": value.name
+				};
+				currentFeature.path = [];
+				currentFeature.path.push({
+					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 5 * featureStyle.height
+				}, {
+					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 5 * featureStyle.height
+				}, {
+					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY
+				}, {
+					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + 1 / 2 * featureStyle.height
+				}, {
+					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + featureStyle.height
+				}, {
+					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + featureStyle.height - 1 / 5 * featureStyle.height
+				}, {
+					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+					y: currentY + featureStyle.height - 1 / 5 * featureStyle.height
+				});
+				linearFeatureCoords.push(currentFeature);
+			}
+		});
+	});
+	return linearFeatureCoords;
+};
+
+/**
+ * This function draws the features on the karyos in the linear layout, color them according to the configuration.
+ * @author Sonja Hohlfeld
+ * @param {Array} The array containing the coordinates of the features as returned by getLinearFeatureCoords()
+ */
+AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
+	var that = this;
+
+	that.svgD3.selectAll(".featureGroup").remove();
+	var shapes = that.svgD3.append("g")
+		.attr("class", "featureGroup")
+		.selectAll("path")
+		.data(linearFeatureCoords)
+		.enter();
+
+	var lines = textures.lines()
+		.background(function(d) {
+			if (d.type in that.conf.features.supportedFeatures === true) {
+				return that.conf.features.supportedFeatures[d.type].color;
+			} else {
+				return that.conf.features.fallbackStyle.color;
+			}
+		})
+		.thicker();
+
+	shapes.call(lines);
+
+
+	var woven = textures.paths()
+		.d("woven")
+		.background("orange")
+		.thicker();
+
+	shapes.call(woven);
+
+
+	shapes.append("rect")
+		.filter(function(d) {
+			if (d.type in that.conf.features.supportedFeatures === true) {
+				return that.conf.features.supportedFeatures[d.type].form === "rect" && (that.conf.features.supportedFeatures[d.type].visible === true || that.conf.features.showAllFeatures === true);
+			} else {
+				return that.conf.features.fallbackStyle.form === "rect";
+			}
+		})
+		.attr("class", "feature")
+		.attr("x", function(d) {
+			if (d.width < 0) {
+				return d.x + d.width;
+			} else {
+				return d.x;
+			}
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.attr("width", function(d) {
+			return Math.abs(d.width);
+		})
+		.attr("height", function(d) {
+			return d.height;
+		})
+		.style("fill", function(d) {
+			var pattern;
+			var color;
+			if (d.type in that.conf.features.supportedFeatures === true) {
+				pattern = that.conf.features.supportedFeatures[d.type].pattern;
+				if (pattern === "lines") {
+					return lines.url();
+				} else if (pattern === "woven") {
+					return woven.url();
+				} else {
+					color = that.conf.features.supportedFeatures[d.type].color;
+					return color;
+				}
+			} else {
+				pattern = that.conf.features.fallbackStyle.pattern;
+				if (pattern === "lines") {
+					return lines.url();
+				} else if (pattern === "woven") {
+					return woven.url();
+				} else {
+					color = that.conf.features.fallbackStyle.color;
+					return color;
+				}
+			}
+		});
+
+
+	var lineFunction = d3.svg.line()
+		.x(function(d) {
+			return d.x;
+		})
+		.y(function(d) {
+			return d.y;
+		})
+		.interpolate("linear");
+
+	shapes.append("path")
+		.filter(function(d) {
+			if (d.type in that.conf.features.supportedFeatures === true) {
+				return that.conf.features.supportedFeatures[d.type].form === "arrow" && (that.conf.features.supportedFeatures[d.type].visible === true || that.conf.features.showAllFeatures === true);
+			}
+		})
+		.each(function(d, i) {
+			d3.select(this)
+				.attr("class", "feature")
+				.attr("d", lineFunction(d.path))
+				.attr("fill", function(d) {
+					var pattern;
+					var color;
+					pattern = that.conf.features.supportedFeatures[d.type].pattern;
+					if (pattern === "lines") {
+						return lines.url();
+					} else if (pattern === "woven") {
+						return woven.url();
+					} else {
+						color = that.conf.features.supportedFeatures[d.type].color;
+						return color;
+					}
+				});
+		});
+
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".featureGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
+};
+
+/**
+ * This method is supposed to calculate the coordinates for genome labels.
+ * This is called if the configuration of addGenomeLables is true.
+ * @returns genomeLabelCoords: returns an array which contains the coords for the genome labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getGenomeLabelCoords = function() {
+	var that = this;
+	var linearGenomeLabelCoords = [];
+	var genomeDistance = that.getGenomeDistance();
+	$.each(that.filters.karyo.genome_order, function(key, value) {
+		var genome = {
+			name: value,
+			x: 1 / 2 * that.conf.graphicalParameters.genomeLabelWidth,
+			y: key * genomeDistance + 0.9 * that.conf.graphicalParameters.karyoHeight
+		};
+		linearGenomeLabelCoords.push(genome);
+	});
+	return linearGenomeLabelCoords;
+};
+
+/**
+ * This function is supposed to draw the text labels for genomes.
+ * @param linearGenomeLabelCoords: gets the coords of the genome labels whcih is returned by getGenomeLabelCoords.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.drawLinearGenomeLabels = function(linearGenomeLabelCoords) {
+	var that = this;
+	this.svgD3.selectAll(".genomeLabelGroup").remove();
+	that.svgD3.append("g")
+		.attr("class", "genomeLabelGroup")
+		.selectAll("path")
+		.data(linearGenomeLabelCoords)
+		.enter()
+		.append("text")
+		.attr("class", "genomeLabel")
+		.attr("x", function(d) {
+			return d.x;
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.text(function(d) {
+			return d.name;
+		})
+		.attr("font-family", "sans-serif")
+		.attr("font-size", that.conf.graphicalParameters.karyoHeight + "px")
+		.attr("fill", "red")
+		.style("text-anchor", "middle");
+
+	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".genomeLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
+};
+
+/**
+ * This method is supposed to calculate the coordinates for chromosome labels.
+ * This is called if the configuration of addChromosomeLabels or showAllLabels is true.
+ * @param gets the coordinates of the drawn chromosomes.
+ * @returns chromosomeLabelCoords: returns an array which contains the coords for the chromosome labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getChromosomeLabelCoords = function(linearKaryoCoords) {
+	var that = this;
+	var linearChromosomeLabelCoords = [];
+	$.each(linearKaryoCoords, function(key, value) {
+		var genome = {
+			name: value.karyo,
+			x: value.x + 1 / 2 * value.width,
+			y: value.y + 0.85 * that.conf.graphicalParameters.karyoHeight
+		};
+		linearChromosomeLabelCoords.push(genome);
+	});
+	return linearChromosomeLabelCoords;
+};
+
+/**
+ * This function is supposed to draw the text labels for chromosome.
+ * @param linearChromosomeLabelCoords: gets the coords of the chromosome labels which is returned by getChromosomeLabelCoords.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.drawLinearChromosomeLabels = function(linearChromosomeLabelCoords) {
+	var that = this;
+	this.svgD3.selectAll(".chromosomeLabelGroup").remove();
+	that.svgD3.append("g")
+		.attr("class", "chromosomeLabelGroup")
+		.selectAll("path")
+		.data(linearChromosomeLabelCoords)
+		.enter()
+		.append("text")
+		.attr("class", "chromosomeLabel")
+		.attr("x", function(d) {
+			return d.x;
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.text(function(d) {
+			return d.name;
+		})
+		.attr("font-family", "sans-serif")
+		.attr("font-size", that.conf.graphicalParameters.karyoHeight + "px")
+		.attr("fill", "red")
+		.style("text-anchor", "middle");
+
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".chromosomeLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".chromosomeLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === false && that.conf.labels.genome.showGenomeLabels === false) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".chromosomeLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+	}
+};
+
+/**
+ * This method is supposed to calculate the coordinates for feature labels.
+ * This method is called if the configuration of addFeatureLabels or showAllLabels is true.
+ * @param gets the coordinates of the drawn features.
+ * @returns featureLabelCoords: returns an array which contains the coords for the feature labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
+	var that = this;
+	var linearFeatureLabelCoords = [];
+	$.each(linearFeatureCoords, function(key, value) {
+		var feature = {
+			name: value.id
+		};
+		if (value.type in that.conf.features.supportedFeatures === true) {
+			if (that.conf.features.supportedFeatures[value.type].form === "rect") {
+				feature.x = value.x + 1 / 2 * value.width;
+				feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
+			}
+			if (that.conf.features.supportedFeatures[value.type].form === "arrow") {
+				feature.x = value.path[0].x + 1 / 2 * (value.path[3].x - value.path[0].x);
+				feature.y = value.path[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
+			}
+		} else {
+			feature.x = value.x + 1 / 2 * value.width;
+			feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
+		}
+		linearFeatureLabelCoords.push(feature);
+	});
+	return linearFeatureLabelCoords;
+};
+
+/**
+ * This method is supposed to draw labels to all features.
+ * @param linearFeatureLabelCoords: get the coords for the feature labels which are returned by getFeatureLabelCoords.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.drawLinearFeatureLabels = function(linearFeatureLabelCoords) {
+	var that = this;
+	this.svgD3.selectAll(".featureLabelGroup").remove();
+	that.svgD3.append("g")
+		.attr("class", "featureLabelGroup")
+		.selectAll("path")
+		.data(linearFeatureLabelCoords)
+		.enter()
+		.append("text")
+		.attr("class", "featureLabel")
+		.attr("x", function(d) {
+			return d.x;
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.text(function(d) {
+			return d.name;
+		})
+		.attr("font-family", "sans-serif")
+		.attr("font-size", 2 / 3 * that.conf.graphicalParameters.karyoHeight + "px")
+		.attr("fill", "red")
+		.style("text-anchor", "middle");
+
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
+};
+
+
+/**
+ * This function returns the width of the svg.
+ * @returns {Number} The width of svg.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.getSvgWidth = function() {
+	return Number(this.svg.attr("width"));
+};
+
+/**
+ * This function sets the width of the svg - it does not effect the size of the canvas, tree, etc.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} width - the desired width of the svg set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.setSvgWidth = function(width) {
+	if (width === "") {
+		throw "empty";
+	} else if (isNaN(width)) {
+		throw "not a number";
+	} else if (width <= 0) {
+		throw "width is to small, it should be > 0";
+	} else {
+		width = Number(width);
+		this.svg.attr("width", width);
+	}
+};
+
+/**
+ * This function returns the height of the svg.
+ * @returns {Number} The height of svg.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.getSvgHeight = function() {
+	return Number(this.svg.attr("height"));
+};
+
+
+/**
+ * This function sets the height of the svg - it does not effect the size of the canvas, tree, etc.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} height - the desired height of the svg set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.setSvgHeight = function(height) {
+	if (height === "") {
+		throw "empty";
+	} else if (isNaN(height)) {
+		throw "not a number";
+	} else if (height <= 0) {
+		throw "height is to small, it should be > 0";
+	} else {
+		height = Number(height);
+		this.svg.attr("height", height);
+	}
+};
+
+/**
+ * This function returns the content of the svg as a text string.
+ * @returns {String} The content of the svg.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.getSvgAsText = function() {
+	return this.svg[0].outerHTML;
+};
+
+/**
+ * This function returns the content of the AliTV object as a single object containing data, filters and conf.
+ * @returns {Object} The content of the AliTV object.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.getJSON = function() {
+	return {
+		data: this.data,
+		conf: this.conf,
+		filters: this.filters
+	};
+};
+
+/**
+ * This is a convenience function to set data, filters and conf of the AliTV object with a single call.
+ * @param {Object} json - Object containing any of data, filters and conf.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.setJSON = function(json) {
+	if (typeof json.data !== 'undefined') {
+		this.setData(json.data);
+	}
+	if (typeof json.filters !== 'undefined') {
+		this.setFilters(json.filters);
+	}
+	if (typeof json.conf !== 'undefined') {
+		this.setConf(json.conf);
 	}
 };
