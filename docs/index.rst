@@ -6,7 +6,7 @@
 Welcome to AliTV's documentation!
 =================================
 
-Contents:
+This will be the place for tutorials and documentation for the Alignment Toolbox and Visualization (AliTV) in the near future.
 
 .. toctree::
    :maxdepth: 2
@@ -17,6 +17,5 @@ Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 
