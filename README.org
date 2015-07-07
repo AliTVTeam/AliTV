@@ -1,6 +1,6 @@
 ** Build
 [[https://travis-ci.org/BioInf-Wuerzburg/AliTV/][https://travis-ci.org/BioInf-Wuerzburg/AliTV.svg?branch=master]]
-[[https://coveralls.io/r/BioInf-Wuerzburg/AliTV?branch=d3js_oo][https://coveralls.io/repos/BioInf-Wuerzburg/AliTV/badge.svg?branch=master]]
+[[https://coveralls.io/github/BioInf-Wuerzburg/AliTV?branch=master][https://coveralls.io/repos/github/BioInf-Wuerzburg/AliTV/badge.svg?branch=master]]
 
 ** Installation
 
