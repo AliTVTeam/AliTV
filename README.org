@@ -41,6 +41,8 @@ By default, AliTV generates ten files in the output folder:
 | <prefix>_query.fasta     | A copy of the query fasta with adjusted IDs                             |
 | <prefix>_reference.fasta | A copy of the reference fasta with adjusted IDs                         |
 
+A demo of the new interactive HTML/JavaScript output can be found [[http://bioinf-wuerzburg.github.io/AliTV/d3/AliTV.html][here]].
+
 ** Input
 Both the query and the reference file should be in fasta format.
 
