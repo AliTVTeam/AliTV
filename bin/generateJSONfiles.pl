@@ -156,6 +156,9 @@ sub create_dir_structure{
         my @dirlist = map { $opt_prefix.".d3/".$_ } qw(
                              lib
                              lib/colorpicker
+                             lib/colorpicker/img
+                             lib/colorpicker/img/bootstrap-colorpicker
+                             lib/img
                              data
                              js
                              css
@@ -172,9 +175,16 @@ sub create_dir_structure{
                              lib/bootstrap.min.js
                              lib/jsoneditor.min.css
                              lib/jsoneditor.min.js
+                             lib/img/jsoneditor-icons.png
                              lib/colorpicker/bootstrap-colorpicker.min.css
                              lib/colorpicker/bootstrap-colorpicker.min.js
+                             lib/colorpicker/img/bootstrap-colorpicker/alpha-horizontal.png
+                             lib/colorpicker/img/bootstrap-colorpicker/alpha.png
+                             lib/colorpicker/img/bootstrap-colorpicker/hue-horizontal.png
+                             lib/colorpicker/img/bootstrap-colorpicker/hue.png
+                             lib/colorpicker/img/bootstrap-colorpicker/saturation.png
                              lib/textures.min.js
+                             lib/FileSaver.min.js
 
                              js/AliTV.js
                              
