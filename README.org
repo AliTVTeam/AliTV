@@ -2,6 +2,8 @@
 [[https://travis-ci.org/BioInf-Wuerzburg/AliTV/][https://travis-ci.org/BioInf-Wuerzburg/AliTV.svg?branch=master]]
 [[https://coveralls.io/github/BioInf-Wuerzburg/AliTV?branch=master][https://coveralls.io/repos/github/BioInf-Wuerzburg/AliTV/badge.svg?branch=master]]
 
+** Homepage
+[[http://bioinf-wuerzburg.github.io/AliTV][AliTV]]
 ** Installation
 
 #+BEGIN_EXAMPLE
