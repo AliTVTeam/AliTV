@@ -606,8 +606,10 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 			counter = 0;
 		}
 		if (counter % that.conf.graphicalParameters.tickLabelFrequency === 0) {
-			value.counter = counter;
-			filteredLinearTickCoords.push(value);
+			var myValue = {};
+			$.extend(true, myValue, value);
+			myValue.counter = counter;
+			filteredLinearTickCoords.push(myValue);
 		}
 		counter++;
 	});
