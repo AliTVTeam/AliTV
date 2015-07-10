@@ -35,12 +35,13 @@
 			ali.setJSON(data);
 			editor.set(data);
 			lkc = meassureTime(ali, ali.getLinearKaryoCoords, [], "getLinearKaryoCoords");
-			llc = meassureTime(ali, ali.getLinearLinkCoords, [lkc], "getLinearLinkCoords");
-			ltc = meassureTime(ali, ali.getLinearTickCoords, [lkc], "getLinearTickCoords");
 			meassureTime(ali, ali.drawLinearKaryo, [lkc], "drawLinearKaryo");
-			meassureTime(ali, ali.drawLinearLinks, [llc], "drawLinearLinks");
-			meassureTime(ali, ali.drawLinearTicks, [ltc], "drawLinearTicks");
-			meassureTime(ali, ali.drawLinearTickLabels, [ltc], "drawLinearTickLabels");
+			llc = meassureTime(ali, ali.getLinearLinkCoords, [lkc], "getLinearLinkCoords");
+			console.log("");
+			for(var i=0; i<10000; i+=100){
+				var sub = llc.slice(0,i);
+				meassureTime(ali, ali.drawLinearLinks, [sub], i);				
+			}
 		});
 	});
 
@@ -54,7 +55,7 @@
 		var ret = fun.apply(context, arguments);
 		var end = new Date().valueOf();
 		var time = end - start;
-		console.log(text + ": " + time + "ms");
+		console.log(text + "\t" + time );
 		return ret;
 	}
 </script>
