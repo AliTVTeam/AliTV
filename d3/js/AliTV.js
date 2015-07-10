@@ -596,57 +596,53 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 	var that = this;
 
+	var lastID = '';
+	var counter = 0;
+	var filteredLinearTickCoords = [];
+	$.each(linearTickCoords, function(key, value) {
+		if (lastID !== value.id) {
+			lastID = value.id;
+			counter = 0;
+		}
+		if (counter % that.conf.graphicalParameters.tickLabelFrequency === 0) {
+			value.counter = counter;
+			filteredLinearTickCoords.push(value);
+		}
+		counter++;
+	});
+
 	var labels = that.svgD3.append("g")
 		.attr("class", "tickLabelGroup")
 		.selectAll("path")
-		.data(linearTickCoords)
+		.data(filteredLinearTickCoords)
 		.enter();
 
-	$.each(that.filters.karyo.order, function(key, value) {
-		labels.append("text")
-			.filter(function(d) {
-				return d.id === value;
-			})
-			.each(function(d, i) {
-				if (i % that.conf.graphicalParameters.tickLabelFrequency === 0) {
-					var labelPosition = i;
-					d3.select(this)
-						.attr("class", "tickLabel")
-						.attr("x", function(d) {
-							return d.x1 - 3;
-						})
-						.attr("y", function(d) {
-							return d.y1;
-						})
-						.text(function(d) {
-							return labelPosition * that.conf.graphicalParameters.tickDistance + " bp";
-						})
-						.attr("font-size", 10 + "px");
-				}
-			});
+	labels.append("text")
+		.attr("class", "tickLabel")
+		.attr("x", function(d) {
+			return d.x1 - 3;
+		})
+		.attr("y", function(d) {
+			return d.y1;
+		})
+		.text(function(d) {
+			return d.counter * that.conf.graphicalParameters.tickDistance + " bp";
+		})
+		.attr("font-size", 10 + "px");
 
-		labels.append("text")
-			.filter(function(d) {
-				return d.id === value;
-			})
-			.each(function(d, i) {
-				if (i % that.conf.graphicalParameters.tickLabelFrequency === 0) {
-					var labelPosition = i;
-					d3.select(this)
-						.attr("class", "tickLabel")
-						.attr("x", function(d) {
-							return d.x2 - 3;
-						})
-						.attr("y", function(d) {
-							return d.y2 + 6;
-						})
-						.text(function(d) {
-							return labelPosition * that.conf.graphicalParameters.tickDistance + " bp";
-						})
-						.attr("font-size", 10 + "px");
-				}
-			});
-	});
+	labels.append("text")
+		.attr("class", "tickLabel")
+		.attr("x", function(d) {
+			return d.x2 - 3;
+		})
+		.attr("y", function(d) {
+			return d.y2 + 6;
+		})
+		.text(function(d) {
+			return d.counter * that.conf.graphicalParameters.tickDistance + " bp";
+		})
+		.attr("font-size", 10 + "px");
+
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
