@@ -512,8 +512,9 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
  * This function calculates the tick coords and operates on the chromosomes and need the length in bp and the width in px of the karyo.
  * @author Sonja Hohlfeld
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
- * @return {Array} The array containing the tick coordinates as shown in the following example
- * @example linearTickCoords = [[0, 50, 100, 150, 200], [0, 50, 100], [100, 150, 200]]
+ * @return {Array} The array containing the tick coordinates as shown in the following example.
+ * 				   Ticks for one chromosome have to be adjacent and in the order from start to end.
+ * @example linearTickCoords = [{id: 'c1', x1: 0, x2: 0, y1: 860, y2: 910}, {id: 'c2', x1: 0, x2: 0, y1: 660, y2:710}]
  */
 
 AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
