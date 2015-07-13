@@ -278,6 +278,27 @@ sub parse_bed{
 	return \%features;
 }
 
+=head2 optimize_filters_and_conf
+
+Sub to optimize values in filters and conf objects. Input: hash in the form {genome_id1 => {length => 1000, elements => 5}}
+Directly manipulates %conf (tickDistance, karyoDistance) and %filters (minLinkLength, maxLinkLength)
+
+=cut
+
+sub optimize_filters_and_conf{
+	my %genome_info = %{$_[0]};
+	my $maxTotalSize = $genome_info{(sort {$genome_info{$b}{'length'} <=> $genome_info{$a}{'length'}} keys %genome_info)[0]}{'length'};
+	my $maxNumElements = $genome_info{(sort {$genome_info{$b}{'elements'} <=> $genome_info{$a}{'elements'}} keys %genome_info)[0]}{'elements'};
+	# Set total karyoDistance to 5% of maximum genomeLength
+	$conf{'graphicalParameters'}{'karyoDistance'} = round(($maxTotalSize * 0.05) / ($maxNumElements - 1));
+	# Set tickDistance to nearest multiple of a power of 10 of 1% of maximum genomeLength
+	$conf{'graphicalParameters'}{'tickDistance'} = nearest(10**(int(log($maxTotalSize*0.01)/log(10))), $maxTotalSize * 0.01);
+	# Set minLinkLength to 0.05% of maximum genomeLength
+	$filters{'links'}{'minLinkLength'} = round($maxTotalSize * 0.0005);
+	# Set maxLinkLength to maximum genomeLength + 1 (so even the largest possible links are drawn)
+	$filters{'links'}{'maxLinkLength'} = round($maxTotalSize + 1);
+}
+
 
 =head2 parse_link
 
