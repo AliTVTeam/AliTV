@@ -112,7 +112,14 @@
   <ul class="nav nav-tabs" role="tablist">
   
   	<li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About AliTV</a></li>
-  	<li role="presentation"><a href="#toolbox" aria-controls="toolbox" role="tab" data-toggle="tab">Toolbox</a></li>
+  	<li class="dropdown"><a href="#toolbox" class="dropdown-toggle" data-toggle="dropdown">Toolbox <span class="caret"></span></a>
+  		<ul class="dropdown-menu" aria-labelledby="dLabel">
+	    	<li id="filter"><a href="#filter">Filtering</a></li>
+	    	<li><a href="#features">Features</a></li>
+	    	<li><a href="#tree">PylogeneticTree</a></li>
+    	</ul> 
+  	</li>
+  	
   	<li role="presentation"><a href="#graphicalSettings" aria-controls="graphicalSettings" role="tab" data-toggle="tab">Graphical Settings</a></li>
   	<li role="presentation"><a href="#advancedSettings" aria-controls="advancedSettings" role="tab" data-toggle="tab">Advanced Settings</a></li>
     
@@ -124,8 +131,8 @@
 	    	<input type="file" id="loadJSON" name="files[]" style="display:none" multiple></input>
     	</ul> 
     </li>
-    
-	</ul>
+   
+</ul>
 
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="advancedSettings" style="margin:10px 10px"> 
@@ -138,11 +145,11 @@
 	<div role="tabpanel" class="tab-pane fade" id="about" style="margin:10px 10px">
 		AliTV (Alignment Toolbox and Visualization)
 	</div>
-	<div role="tabpanel" class="tab-pane fade" id="toolbox" style="margin:10px 10px">
-		Toolbox
-	</div>
 	<div role="tabpanel" class="tab-pane fade" id="graphicalSettings" style="margin:10px 10px">
 		Graphical Settings
+	</div>
+	<div role="tabpanel" class="tab-pane fade" id="filter" style="margin:10px 10px">
+		Filter links and chromosomes.
 	</div>
   </div>
 
