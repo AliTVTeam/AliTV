@@ -112,9 +112,10 @@
     
     <li class="dropdown"><a href="#dropdown" class="dropdown-toggle" data-toggle="dropdown">Import & Export <span class="caret"></span></a>
     	<ul class="dropdown-menu" aria-labelledby="dLabel">
-	    	<li onclick=saveSVG() ><a href="#">Save SVG</a></li>
-	    	<li><a href="#">Load JSON</a></li>
-	    	<li><a href="#">Export JSONEditor content</a></li>
+	    	<li onclick="saveSVG()"><a href="#">Save SVG</a></li>
+	    	<li onclick="saveJSON()"><a href="#">Save JSON</a></li>
+	    	<li onclick="$('#loadJSON').click()"><a href="#">Load JSON</a></li>
+	    	<input type="file" id="loadJSON" name="files[]" style="display:none" multiple></input>
     	</ul> 
     </li>
     
