@@ -76,7 +76,7 @@ var defaultConf =  {
 				showTickLabels: true
 			},
 			chromosome: {
-				showChromosomeLabels: true
+				showChromosomeLabels: false
 			},
 			genome: {
 				showGenomeLabels: true
