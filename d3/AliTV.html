@@ -463,155 +463,53 @@
 	    var blob = new Blob([JSON.stringify(ali.getJSON())], {type: "plain/text;charset=utf-8"});
 	    saveAs(blob, "AliTV.json");
 	}
+
+ 		$('#myTabs a').click(function (e) {
+		  e.preventDefault()
+		  $(this).tab('show')
+	});
+	
+	$('#myTabs a[href="#profile"]').tab('show') // Select tab by name
+	$('#myTabs a:first').tab('show') // Select first tab
+	$('#myTabs a:last').tab('show') // Select last tab
+	$('#myTabs li:eq(2) a').tab('show') // Select third tab (0-indexed)
+	
+	$('.dropdown-toggle').dropdown()
 </script>
 </head>
 <body>
 
-<div style="width: 100%; overflow: auto;">
- 	<div id="accordion" class="form-style-5" style="float:left">
- 		<h3><span class="number">1</span> Choose your layout</h3>
- 		<div>
- 			<button type="submit" onclick="ali.drawCircular();">Draw Circular</button> 
- 			<button type="submit" onclick="ali.drawLinear();">Draw Linear</button> 
- 		</div>
- 		<h3><span class="number">2</span> Change graphical parameters</h3>
- 		<div>
- 			<form>
- 				<fieldset>
- 					Spacer between chromsomes:<br>
- 					<input type="text" id="linearSpacer" placeholder="Enter a spacer">
- 					<br>
- 					Height of chromosomes:<br>
- 					<input type="text" id="karyoHeight" placeholder="Enter a height">
- 					<br>
- 					Width:<br>
- 					<input type="text" id="canvasWidth" placeholder="Enter the svg-width">
- 					<br>
- 					Height:<br>
- 					<input type="text" id="canvasHeight" placeholder="Enter the svg-height">
- 					<br>
- 					Distance between ticks in bp:<br>
- 					<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
- 					<br>
- 					Width of the phylogenetic tree:<br>
- 					<input type="text" id="treeWidth" placeholder="Enter the tree-width">
- 					<br>
- 				</fieldset>
- 			</form>
- 		</div>
- 		<h3><span class="number">3</span> Filtering</h3>
- 		<div>
- 			<form>
- 				<fieldset>
- 					Filter link identity:
- 					<p>
- 						<label for="identity-label">Identity range:</label> 
- 						<input type="text"id="identity-label" readonly>
- 					</p>
- 					<div id="identity-slider"></div>
- 					<br>
- 					Filter link length for drawn links:<br>
-					<p>
-						<label for="minlength-label">Length range:</label>
-						<input type="text" id="minlength-label" readonly>
-					</p>
- 					<div id="length-slider"></div>
- 					<br>
- 					Skip chromosomes without visible links: <input id="skipChromosomesWithoutVisibleLinks" type="checkbox">
- 					<br>
- 					Skip chromosomes without links: <input id="skipChromosomesWithoutLinks" type="checkbox">
- 					<br>
- 					Show all chromosomes (even if they are set invisible): <input id="showAllChromosomes" type="checkbox">
- 					<br>
- 					Only show adjacent links: <input id="onlyShowAdjacentLinks" type="checkbox">
- 					<br>
- 				</fieldset>
- 			</form> 
- 		</div>
- 		<h3><span class="number">4</span>Add a phylogenetic tree</h3>
- 		<div>
- 			<form>
- 				<fieldset>
- 					Draw a phylogenetic tree: <input id="drawTree" type="checkbox">
- 					<br>
- 					<br>
- 					Tree orientation:
- 					<br>
-	 				<input id="treeLeft" type="radio" value="left" name="treeOrientation" checked>Left
-	 				<input id="treeRight" type="radio" value="right" name="treeOrientation">Right
- 					<br>
- 				</fieldset>
- 			</form> 
- 		</div>
- 		<h3><span class="number">5</span>Draw provided features</h3>
-	 		<div>
-				<form>
-	 				<fieldset>
-	 					Show all features: <input id="showFeatures" type="checkbox">
-	 					<br>
-	 					<h3>Genes</h3>
-	 					Show genes: <input id="showGenes" type="checkbox">
-	 					<br><br>
-	 					Change color:
-	 					<div class="input-group demo2">
-	    					<input id="geneColor" type="text" value="" class="form-control" />
-	    					<span class="input-group-addon"><i></i></span>
-						</div>
-	 					<h3>Inverted repeats</h3>
-	 		 			Show inverted repeats: <input id="showInvertedRepeats" type="checkbox">
-	 					<br>
-	 					<h3>Repeats</h3>
-	 		 			Show repeats: <input id="showRepeats" type="checkbox">
-	 					<br>
-	 					<h3>N stretch</h3>
-	 		 			Show n stretches: <input id="showNstretch" type="checkbox">
-	 					<br>
-	 					<br>
-	 					Show non-supported feature groups: <input id="showFallback" type="checkbox">
-	 				</fieldset>
-	 			</form> 
-	 		</div>
- 		<h3><span class="number">6</span>Labeling</h3>
- 		<div>
-			<form>
- 				<fieldset>
- 					Show all labels: <input id="showAllLabels" type="checkbox">
- 					<br>
- 					<br>
- 					Show genome labels: <input id="showGenomeLabels" type="checkbox">
- 					<br>
- 		 			Show chromosome labels: <input id="showChromosomeLabels" type="checkbox">
- 					<br>
- 					Show feature labels: <input id="showFeatureLabels" type="checkbox">
- 					<br>
- 					<br>
- 					Show tick labels: <input id="showTickLabels" type="checkbox">
- 					<br>
- 					<br>
- 					Set tick label frequency: <input type="text" id="tickLabelFrequency" placeholder="Enter the tick label frequency">
- 					<br>
- 				</fieldset>
- 			</form> 
- 		</div>
-		<h3><span class="number">7</span>Import/Export</h3>
-        <div>
-		  <button onclick="saveSVG()">Save SVG</button>
-		  <button onclick="saveJSON()">Save JSON</button>
-		  <button onclick="$('#loadJSON').click()">Load JSON</button>
-		  <input type="file" id="loadJSON" name="files[]" style="display:none" multiple></input>
-		</div>
-		<h3><span class="number">8</span>Advanced</h3>
-        <div>
-		  <button onclick="toggleJSONEditor()">Toggle JSON Editor</button>
-		  <button onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
-		</div>
-		<button id="applyChanges">Apply</button>		
- 	</div>
+<div class="page-header">
+  <h1><img src="css/AliTV_logo.svg" alt="logo" width="90" height="90" style="margin:0px 20px"/>AliTV <small>Visualize multiple whole genome alignments as circular or linear maps</small></h1>
+<div>
+
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab">Import & Export</a></li>
+    
+    <li class="dropdown"><a href="#dropdown" class="dropdown-toggle" data-toggle="dropdown">Dropdown menu <span class="caret"></span></a>
+    	<ul class="dropdown-menu" aria-labelledby="dLabel">
+	    	<li><a href="#">test1</a></li>
+	    	<li><a href="#">test2</a></li>
+	    	<li><a href="#">test3</a></li>
+	    	<li><a href="#">test4</a></li>
+    	</ul> 
+    </li>
+	</ul>
+
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="importExport">...</div>
+  </div>
+
+</div>
+</div>
+<div>
  	<svg id='wgaCanvas'></svg>
  </div>
  <div id="jsoneditor" style="display:none"></div>
  </body>
  </html>
+ 
 
 
 
