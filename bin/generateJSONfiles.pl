@@ -151,7 +151,10 @@ open(OUT, '>', "$opt_prefix.d3/data/data.json") or $L->logdie("Can not open file
 print OUT encode_json {'data' => {'karyo' => $karyo, 'features' => {'link' => $features}, 'links' => $links}};
 close OUT or die "$!";
 open(OUT, '>', "$opt_prefix.d3/data/filters.json") or $L->logdie("Can not open file $opt_prefix.d3/data/filters.json\n$!");
-print OUT encode_json {'filters' => $karyo_filters};
+print OUT encode_json {'filters' => \%filters};
+close OUT or die "$!";
+open(OUT, '>', "$opt_prefix.d3/data/conf.json") or $L->logdie("Can not open file $opt_prefix.d3/data/conf.json\n$!");
+print OUT encode_json {'conf' => \%conf};
 close OUT or die "$!";
 
 =head2 create_dir_structure
@@ -235,14 +238,7 @@ Output: \%karyo of the form {chromosomes => {$id => {genome_id => $genome_id, le
 sub parse_karyo{
 	my $file = $_[0];
 	my %karyo = ('chromosomes' => {});
-	my %filters = ('karyo' => {'chromosomes' => {}, 'order' => [], 'genome_order' => []}, 
-		       'links' => {'minLinkIdentity' => 70, 'maxLinkIdentity' => 100, 'minLinkLength' => 0, 'maxLinkLength' => 1000000},
-		       'onlyShowAdjacentLinks' => JSON::true,
-		       'showAllChromosomes' => JSON::false,
-		       'skipChromosomesWithoutLinks' => JSON::false,
-		       'skipChromosomesWithoutVisibleLinks' => JSON::false,
-);
-	my %genome_ids = ();
+	my %genome_info = ();
 	open(IN, '<', $file) or $L->logdie("Can not open file $file\n$!");
 	while(<IN>){
 		chomp;
