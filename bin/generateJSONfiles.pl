@@ -246,12 +246,14 @@ sub parse_karyo{
 		$karyo{'chromosomes'}{$id} = {"genome_id" => $gid, "length" => $len+0, "seq" => $seq};
 		$filters{'karyo'}{'chromosomes'}{$id} = {'reverse' => JSON::false, 'visible' => JSON::true};
 		push(@{$filters{'karyo'}{'order'}}, $id);
-		$genome_ids{$gid} = 1;
+		$genome_info{$gid} = {'length' => 0, 'elements' => 0} unless(exists $genome_info{$gid});
+		$genome_info{$gid}{'length'} += $len;
+		$genome_info{$gid}{'elements'}++;
 	}
-	$filters{'karyo'}{'genome_order'} = [sort map {$_} keys %genome_ids];
+	$filters{'karyo'}{'genome_order'} = [sort map {$_} keys %genome_info];
+	optimize_filters_and_conf(\%genome_info);
 	close IN or $L->logdie("Can not close file $file\n$!");
-	return (\%karyo, \%filters);
-	print Dumper(\%karyo);
+	return (\%karyo);
 }
 
 =head2 parse_bed
