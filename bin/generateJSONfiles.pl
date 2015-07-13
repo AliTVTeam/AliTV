@@ -125,9 +125,19 @@ Log::Log4perl->init(
 
 my $L = Log::Log4perl::get_logger();
 
+my %filters = ('karyo' => {'chromosomes' => {}, 'order' => [], 'genome_order' => []}, 
+		       'links' => {'minLinkIdentity' => 70, 'maxLinkIdentity' => 100, 'minLinkLength' => 0, 'maxLinkLength' => 1000000},
+		       'onlyShowAdjacentLinks' => JSON::true,
+		       'showAllChromosomes' => JSON::false,
+		       'skipChromosomesWithoutLinks' => JSON::false,
+		       'skipChromosomesWithoutVisibleLinks' => JSON::false,
+);
+
+my %conf = ('graphicalParameters' => {'tickDistance' => 100, 'karyoDistance' => 10});
+
 create_dir_structure();
 
-my ($karyo, $karyo_filters) = parse_karyo($opt_karyo);
+my ($karyo) = parse_karyo($opt_karyo);
 
 my $features = {};
 my $links = [];
