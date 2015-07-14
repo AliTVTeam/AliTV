@@ -44,7 +44,213 @@
 				});
 			});
 		});	
+	});
+	
+	$(function(){$('#skipChromosomesWithoutVisibleLinks').change(function() {
+			if($('#skipChromosomesWithoutVisibleLinks').is(':checked')){
+		     	ali.filters.skipChromosomesWithoutVisibleLinks = true;
+		     	$("#showAllChromosomes").attr("disabled", true);
+			} else {
+				ali.filters.skipChromosomesWithoutVisibleLinks = false;
+				$("#showAllChromosomes").attr("disabled", false);
+			}
+		});
+	});
+
+	$(function(){$('#showAllChromosomes').change(function() {
+		if($('#showAllChromosomes').is(':checked')){
+	     	ali.filters.showAllChromosomes = true;
+	     	$("#skipChromosomesWithoutVisibleLinks").attr("disabled", true);
+	     	$("#skipChromosomesWithoutLinks").attr("disabled", true);
+		} else {
+			ali.filters.showAllChromosomes = false;
+			$("#skipChromosomesWithoutVisibleLinks").attr("disabled", false);
+			$("#skipChromosomesWithoutLinks").attr("disabled", false);
+		}
+	});
+
+	$(function(){$('#skipChromosomesWithoutLinks').change(function() {
+		if($('#skipChromosomesWithoutLinks').is(':checked')){
+	     	ali.filters.skipChromosomesWithoutLinks = true;
+	     	$("#showAllChromosomes").attr("disabled", true);
+		} else {
+			ali.filters.skipChromosomesWithoutLinks = false;
+			$("#showAllChromosomes").attr("disabled", false);
+		}
+	});
+
+	$(function(){$('#onlyShowAdjacentLinks').change(function() {
+		if($('#onlyShowAdjacentLinks').is(':checked')){
+	     	ali.filters.onlyShowAdjacentLinks = true;
+		} else {
+			ali.filters.onlyShowAdjacentLinks = false;
+		}
 	});	
+	});
+
+	$(function(){$('#drawTree').change(function() {
+		if($('#drawTree').is(':checked')){
+			if(ali.hasTree() === false){
+				alert("there is no tree data");
+				$("#treeWidth").attr("disabled", true);
+				$("#treeLeft").attr("disabled", true);
+				$("#treeRight").attr("disabled", true);
+			} else {
+	     	ali.conf.tree.drawTree = true;
+	     	$("#treeWidth").attr("disabled", false);
+			$("#treeLeft").attr("disabled", false);
+			$("#treeRight").attr("disabled", false);				
+			}
+			
+		} else {
+			ali.conf.tree.drawTree = false;
+			$("#treeWidth").attr("disabled", true);
+			$("#treeLeft").attr("disabled", true);
+			$("#treeRight").attr("disabled", true);
+		}
+	});	
+	});
+
+	$(function(){$('#treeLeft').change(function() {
+		if($('#treeLeft').is(':checked')){
+			ali.conf.tree.orientation = "left";
+		} 
+	});	
+	});
+
+	$(function(){$('#treeRight').change(function() {
+		if($('#treeRight').is(':checked')){
+			ali.conf.tree.orientation = "right";
+		} 
+	});	
+	});
+
+	$(function(){$('#showFeatures').change(function() {
+		if($('#showFeatures').is(':checked')){
+			ali.conf.features.showAllFeatures = true;
+			$("#showGenes").attr("disabled", true);
+			$("#showInvertedRepeats").attr("disabled", true);
+		} else {
+			ali.conf.features.showAllFeatures = false;
+			$("#showGenes").attr("disabled", false);
+			$("#showInvertedRepeats").attr("disabled", false);
+		}
+	});	
+	});
+
+	$(function(){$('#showGenes').change(function() {
+		if($('#showGenes').is(':checked')){
+			ali.conf.features.supportedFeatures.gen.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			ali.conf.features.supportedFeatures.gen.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+
+	$(function(){$('#showInvertedRepeats').change(function() {
+		if($('#showInvertedRepeats').is(':checked')){
+			ali.conf.features.supportedFeatures.invertedRepeat.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			ali.conf.features.supportedFeatures.invertedRepeat.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+
+	$(function(){$('#showRepeats').change(function() {
+		if($('#showRepeats').is(':checked')){
+			ali.conf.features.supportedFeatures.repeat.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			ali.conf.features.supportedFeatures.repeat.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+
+	$(function(){$('#showNstretch').change(function() {
+		if($('#showNstretch').is(':checked')){
+			ali.conf.features.supportedFeatures.nStretch.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			ali.conf.features.supportedFeatures.nStretch.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+
+	$(function(){$('#showFallback').change(function() {
+		if($('#showFallback').is(':checked')){
+			ali.conf.features.fallbackStyle.visible = true;
+			$("#showFeatures").attr("disabled", true);
+		} else {
+			ali.conf.features.fallbackStyle.visible = false;
+			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+
+	$(function(){$('#showAllLabels').change(function() {
+		if($('#showAllLabels').is(':checked')){
+			ali.conf.labels.showAllLabels = true;
+			$("#showChromosomeLabels").attr("disabled", true);
+			$("#showGenomeLabels").attr("disabled", true);
+			$("#showFeatureLabels").attr("disabled", true);
+		} else {
+			ali.conf.labels.showAllLabels = false;
+			$("#showChromosomeLabels").attr("disabled", false);
+			$("#showGenomeLabels").attr("disabled", false);
+			$("#showFeatureLabels").attr("disabled", false);
+		}
+	});	
+	});
+
+	$(function(){$('#showGenomeLabels').change(function() {
+		if($('#showGenomeLabels').is(':checked')){
+			ali.conf.labels.genome.showGenomeLabels = true;
+			$("#showAllLabels").attr("disabled", true);
+		} else {
+			ali.conf.labels.genome.showGenomeLabels = false;
+			$("#showAllLabels").attr("disabled", false);
+		}
+	});	
+	});
+
+	$(function(){$('#showFeatureLabels').change(function() {
+		if($('#showFeatureLabels').is(':checked')){
+			ali.conf.labels.features.showFeatureLabels = true;
+			$("#showAllLabels").attr("disabled", true);
+		} else {
+			ali.conf.labels.features.showFeatureLabels = false;
+			$("#showAllLabels").attr("disabled", false);
+		}
+	});	
+	});
+
+	$(function(){$('#showChromosomeLabels').change(function() {
+		if($('#showChromosomeLabels').is(':checked')){
+			ali.conf.labels.chromosome.showChromosomeLabels = true;
+			$("#showAllLabels").attr("disabled", true);
+		} else {
+			ali.conf.labels.chromosome.showChromosomeLabels = false;
+			$("#showAllLabels").attr("disabled", false);
+		}
+	});	
+	});
+
+	$(function(){$('#showTickLabels').change(function() {
+		if($('#showTickLabels').is(':checked')){
+			ali.conf.labels.ticks.showTickLabels = true;
+			$("#showAllLabels").attr("disabled", true);
+		} else {
+			ali.conf.labels.ticks.showTickLabels = false;
+			$("#showAllLabels").attr("disabled", false);
+		}
+	});	
+	});
 	
 	$('#loadJSON').on('change', function(evt) {
 		var files = evt.target.files; // FileList object
