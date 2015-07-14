@@ -178,16 +178,25 @@
 	<div role="tabpanel" class="tab-pane fade" id="filter" style="margin:10px 10px">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-sm-3">
 					Filter links by their identity:
 					<p>
- 						<label for="identity-label">Identity range:</label> 
- 						<input type="text"id="identity-label" readonly>
+ 						<label for="identity-label"></label> 
+ 						<div class="input-group">
+ 							<input type="text" id="identity-label" class="form-control" placeholder="Username" aria-describedby="basic-addon1" readonly>
+ 						</div>
  					</p>
  					<div id="identity-slider"></div>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-3">
 					Filter links by their length:
+					<p>
+						<label for="minlength-label"></label>
+						<div class="input-group">
+							<input type="text" id="minlength-label" class="form-control" placeholder="Username" aria-describedby="basic-addon1" readonly>						
+						</div>
+					</p>
+ 					<div id="length-slider"></div>
 				</div>
 			</div>
 		</div>
