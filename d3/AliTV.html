@@ -112,8 +112,6 @@
 				$("#identity-label").val(ui.values[0] + " % - " + ui.values[1] + " %");
 				ali.filters.links.minLinkIdentity = ui.values[0];
 				ali.filters.links.maxLinkIdentity = ui.values[1];
-				var layout = ali.getLayout();
-				ali.drawEqualLayout(layout);
 			}
 		});	
 		$("#identity-label").val($("#identity-slider").slider("values", 0) + " % - " + $("#identity-slider").slider("values", 1) + " %");
@@ -127,8 +125,6 @@
 				$("#minlength-label").val(ui.values[0] + " bp - " + ui.values[1] + " bp");
 				ali.filters.links.minLinkLength = ui.values[0];
 				ali.filters.links.maxLinkLength = ui.values[1];
-				var layout = ali.getLayout();
-				ali.drawEqualLayout(layout);
 				}
 		});
 		$("#minlength-label").val($("#length-slider").slider("values", 0) + " bp - " + $("#length-slider").slider("values", 1) + " bp");
