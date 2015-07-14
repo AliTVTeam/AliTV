@@ -26,25 +26,28 @@ function AliTV(svg) {
 	this.svgD3 = d3.selectAll(svg);
 	/**
 	 * property to store the data
-	 * @property {Object}  karyo                        - the chromosome information
-	 * @property {Object}  karyo.chromosomes            - the chromosome details, karyo IDs as keys
-	 * @property {Number}  karyo.chromosomes.genome_id  - number of genome to which this chromosome belongs
-	 * @property {Number}  karyo.chromosomes.length     - length in bp
-	 * @property {String}  karyo.chromosomes.seq        - sequence of the chromosome
-	 * @property {Object}  features                     - the feature information, feature type as keys
-	 * @property {Object}  features.link                - the link feature information, feature IDs as keys
-	 * @property {String}  features.link.karyo          - the karyo ID
-	 * @property {Number}  features.link.start          - start position on the sequence
-	 * @property {Number}  features.link.end            - end position on the sequence
-	 * @property {Array}   features.<type>              - the feature information fot type <type>
-	 * @property {String}  features.<type>.karyo        - the karyo ID
-	 * @property {String}  features.<type>.name         - the name of the feature
-	 * @property {Number}  features.<type>.start        - start position on the sequence
-	 * @property {Number}  features.<type>.end          - end position on the sequence
-	 * @property {Object}  links                        - the link information, link IDs as keys
-	 * @property {String}  links.source                 - source feature of the link
-	 * @property {String}  links.target                 - target feature of the link
-	 * @property {Number}  links.identity               - identity of the link
+	 * @property {Object}  karyo                                   - the chromosome information
+	 * @property {Object}  karyo.chromosomes                       - the chromosome details, karyo IDs as keys
+	 * @property {Number}  karyo.chromosomes.genome_id             - number of genome to which this chromosome belongs
+	 * @property {Number}  karyo.chromosomes.length                - length in bp
+	 * @property {String}  karyo.chromosomes.seq                   - sequence of the chromosome
+	 * @property {Object}  features                                - the feature information, feature type as keys
+	 * @property {Object}  features.link                           - the link feature information, feature IDs as keys
+	 * @property {String}  features.link.karyo                     - the karyo ID
+	 * @property {Number}  features.link.start                     - start position on the sequence
+	 * @property {Number}  features.link.end                       - end position on the sequence
+	 * @property {Array}   features.<type>                         - the feature information fot type <type>
+	 * @property {String}  features.<type>.karyo                   - the karyo ID
+	 * @property {String}  features.<type>.name                    - the name of the feature
+	 * @property {Number}  features.<type>.start                   - start position on the sequence
+	 * @property {Number}  features.<type>.end                     - end position on the sequence
+	 * @property {Object}  links                                   - the link information, <source_genome> (sgen) as keys
+	 * @property {Object}  links.<sgen>                            - the link information, <target_genome> (tgen) as keys
+	 * @property {Object}  links.<sgen>.<tgen>                     - the link information, feature_id (fid) as key
+	 * @property {Object}  links.<sgen>.<tgen>.<fid>               - the link information, feature_id (fid) as key
+	 * @property {String}  links.<sgen>.<tgen>.<fid>.source        - source feature of the link
+	 * @property {String}  links.<sgen>.<tgen>.<fid>.target        - target feature of the link
+	 * @property {Number}  links.<sgen>.<tgen>.<fid>.identity      - identity of the link
 	 */
 	this.data = {};
 	/**
