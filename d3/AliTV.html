@@ -282,6 +282,107 @@
 	});	
 	});
 	
+	function changeLinearSpacer(){
+		var spacer = $("#linearSpacer").val();
+		try {
+		ali.setLinearSpacer(spacer); 
+		$("#linearSpacer").val(ali.getLinearSpacer());
+		}
+		catch(err){
+			alert(err);
+			$("#linearSpacer").val(ali.getLinearSpacer());
+		}
+	}
+	function changeKaryoHeight(){
+		var height = $("#karyoHeight").val(); 
+		try {
+		ali.setKaryoHeight(height); 	
+		}
+		catch(err){
+			alert(err);
+			$("#karyoHeight").val(ali.getKaryoHeight());
+		}
+	}
+	function changeCanvasWidth(){
+		var width = $("#canvasWidth").val(); 
+		try {
+		ali.setCanvasWidth(width); 	
+		}
+		catch(err){
+			alert(err);
+			$("#canvasWidth").val(ali.getCanvasWidth());
+		}
+	}
+	function changeCanvasHeight(){
+		var height = $("#canvasHeight").val(); 
+		try {
+		ali.setCanvasHeight(height); 
+		}
+		catch(err){
+			alert(err);
+			$("#canvasHeight").val(ali.getCanvasHeight());
+		}
+	}
+	function changeTickDistance(){
+		var distance = $("#tickDistance").val(); 
+		try {
+		ali.setTickDistance(distance); 	
+		}
+		catch(err){
+			alert(err);
+			$("#tickDistance").val(ali.getTickDistance());
+		}
+	}
+	function changeTreeWidth(){
+		var treeWidth = $("#treeWidth").val(); 
+		try {
+		ali.setTreeWidth(treeWidth); 	
+		}
+		catch(err){
+			alert(err);
+			$("#treeWidth").val(ali.getTreeWidth());
+		}
+	}
+	function changeTickLabelFrequency(){
+		var frequency = $("#tickLabelFrequency").val(); 
+		try {
+		ali.setTickLabelFrequency(frequency); 	
+		}
+		catch(err){
+			alert(err);
+			$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
+		}
+	}
+	function changeGeneColor(){
+		var color = ($("#geneColor").val());
+		try {
+			ali.setGeneColor(color); 	
+			}
+			catch(err){
+				alert(err);
+				$("#geneColor").val(ali.getGeneColor());
+			}
+	}
+	function setNewParameters(){
+		changeLinearSpacer();
+		changeKaryoHeight();
+		changeCanvasWidth();
+		changeCanvasHeight()
+		changeTickDistance();
+		changeTreeWidth();
+		changeTickLabelFrequency();
+		changeGeneColor();
+		
+		var layout = ali.getLayout();
+		setJSONEditorFromAli();
+		ali.drawEqualLayout(layout);
+		if(layout === "circular"){
+			$("#onlyShowAdjacentLinks").attr("disabled", true);
+		} else {
+			$("#onlyShowAdjacentLinks").attr("disabled", false);
+		}		
+	}
+	
 	$('#loadJSON').on('change', function(evt) {
 		var files = evt.target.files; // FileList object
 	    // files is a FileList of File objects.
@@ -296,7 +397,7 @@
 	    	fr.readAsText(f);
 	    }
 	});
-
+	
 	//prevent folding of accordion on click on apply
 	$("#applyChanges").unbind("click");
 	$('#applyChanges').on('click', function(evt) {
@@ -324,6 +425,7 @@
 	    var blob = new Blob([JSON.stringify(ali.getJSON())], {type: "plain/text;charset=utf-8"});
 	    saveAs(blob, "AliTV.json");
 	}
+
 	
 	
  	$('#myTabs a').click(function (e) {
@@ -470,12 +572,30 @@
 <div style="width: 100%; overflow: hidden;">
  	<svg id='wgaCanvas' style="margin:50px"></svg>
  </div> 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
  <div id="jsoneditor" style="display:none"></div>
  </body>
  </html>
  
+<<<<<<< Updated upstream
  
+=======
+<!--         <div>
+		  <button onclick="saveSVG()">Save SVG</button>
+		  <button onclick="saveJSON()">Save JSON</button>
+		  <button onclick="$('#loadJSON').click()">Load JSON</button>
+		  <input type="file" id="loadJSON" name="files[]" style="display:none" multiple></input>
+		</div>
+
+        <div>
+		  <button onclick="toggleJSONEditor()">Toggle JSON Editor</button>
+		  <button onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
+		</div>
+		<button id="applyChanges">Apply</button> -->		
+>>>>>>> Stashed changes
 
 
 
