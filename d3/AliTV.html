@@ -469,9 +469,12 @@
 	         <li class="dropdown-submenu">
 	           <a tabindex="-1" href="#">Features</a>
 		           <ul class="dropdown-menu">
-		             <li><a tabindex="-1" href="#">Gen</a></li>
+		             <li><a tabindex="-1" href="#gen" data-toggle="tab">Gen</a></li>
 		             <li><a href="#">Inverted Repeat</a></li>
 		             <li><a href="#">Repeat</a></li>
+		             <li><a href="#">N Stretch</a></li>
+		             <li class="divider"></li>
+		             <li><a href="#">Add more features...</a></li>
 		           </ul>
 	         </li>
 	      <li><a href="#tree" data-toggle="tab">Phylogenetic Tree</a></li>
@@ -578,8 +581,13 @@
 			</div>
 		</div>
 	</div>
+	
 	<div role="tabpanel" class="tab-pane fade" id="tree" style="margin:10px 10px">
 		Add a phylogenetic tree.
+	</div>
+	
+	<div role="tabpanel" class="tab-pane fade" id="gen" style="margin:10px 10px">
+		Show genes
 	</div>
 
   </div>
