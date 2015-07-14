@@ -122,16 +122,7 @@
   	
   	<li role="presentation"><a href="#graphicalSettings" aria-controls="graphicalSettings" role="tab" data-toggle="tab">Graphical Settings</a></li>
   	<li role="presentation"><a href="#advancedSettings" aria-controls="advancedSettings" role="tab" data-toggle="tab">Advanced Settings</a></li>
-    
-    <li class="dropdown"><a href="#dropdown" class="dropdown-toggle" data-toggle="dropdown">Import & Export <span class="caret"></span></a>
-    	<ul class="dropdown-menu" aria-labelledby="dLabel">
-	    	<li onclick="saveSVG()"><a href="#">Save SVG</a></li>
-	    	<li onclick="saveJSON()"><a href="#">Save JSON</a></li>
-	    	<li onclick="$('#loadJSON').click()"><a href="#">Load JSON</a></li>
-	    	<input type="file" id="loadJSON" name="files[]" style="display:none" multiple></input> 
-    	</ul> 
-    </li>
-   
+    <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab">Import & Export</a></li>  
 </ul>
 
   <div class="tab-content">
@@ -143,6 +134,14 @@
     	<div style="margin: 10px 0px">
 		  <button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
 		  <button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
+		</div>
+	</div>
+	<div role="tabpanel" class="tab-pane fade" id="importExport" style="margin:10px 10px"> 
+    	<div style="margin: 10px 0px">
+		  <button class="btn btn-info" onclick="saveSVG()">Save SVG</button>
+		  <button class="btn btn-info" onclick="saveJSON()">Save JSON</button>
+		  <button class="btn btn-info" onclick="$('#loadJSON').click()">Load JSON</button>
+		  <input type="file" id="loadJSON" name="files[]" style="display:none" multiple></input>
 		</div>
 	</div>
 	<div role="tabpanel" class="tab-pane fade" id="graphicalSettings" style="margin:10px 10px">
