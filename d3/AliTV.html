@@ -116,11 +116,11 @@
   		<ul class="dropdown-menu" aria-labelledby="dLabel">
 	    	<li><a href="#filter" data-toggle="tab">Filtering</a></li>
 	    	<li><a href="#features" data-toggle="tab">Features</a></li>
-	    	<li><a href="#tree" data-toggle="tab">PylogeneticTree</a></li>
+	    	<li><a href="#tree" data-toggle="tab">PhylogeneticTree</a></li>
     	</ul> 
   	</li>
   	
-  	<li role="presentation"><a href="#graphicalSettings" aria-controls="graphicalSettings" role="tab" data-toggle="tab">Graphical Settings</a></li>
+  	<li role="presentation"><a href="#graphicalSettings" aria-controls="graphicalSettings" role="tab" data-toggle="tab">Layout Settings</a></li>
   	<li role="presentation"><a href="#advancedSettings" aria-controls="advancedSettings" role="tab" data-toggle="tab">Advanced Settings</a></li>
     <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab">Import & Export</a></li>  
 </ul>
@@ -145,10 +145,19 @@
 		</div>
 	</div>
 	<div role="tabpanel" class="tab-pane fade" id="graphicalSettings" style="margin:10px 10px">
-		Graphical Settings
+		Layout Settings
 	</div>
 	<div role="tabpanel" class="tab-pane fade" id="filter" style="margin:10px 10px">
-		Filter links and chromosomes.
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+					Filter links by their identity:
+				</div>
+				<div class="col-sm-6">
+					Filter links by their length:
+				</div>
+			</div>
+		</div>
 	</div>
 	<div role="tabpanel" class="tab-pane fade" id="tree" style="margin:10px 10px">
 		Add a phylogenetic tree.
