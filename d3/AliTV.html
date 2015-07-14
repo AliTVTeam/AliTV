@@ -111,12 +111,12 @@
 
   <ul class="nav nav-tabs" role="tablist">
   
-  	<li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About AliTV</a></li>
-  	<li class="dropdown"><a href="#toolbox" class="dropdown-toggle" data-toggle="dropdown">Toolbox <span class="caret"></span></a>
+  	<li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About AliTV</a></li>
+  	<li class="dropdown"><a href="#toolbox" class="dropdown-toggle" data-toggle="dropdown">Toolbox & Analysis <span class="caret"></span></a>
   		<ul class="dropdown-menu" aria-labelledby="dLabel">
-	    	<li id="filter"><a href="#filter">Filtering</a></li>
-	    	<li><a href="#features">Features</a></li>
-	    	<li><a href="#tree">PylogeneticTree</a></li>
+	    	<li><a href="#filter" data-toggle="tab">Filtering</a></li>
+	    	<li><a href="#features" data-toggle="tab">Features</a></li>
+	    	<li><a href="#tree" data-toggle="tab">PylogeneticTree</a></li>
     	</ul> 
   	</li>
   	
@@ -128,28 +128,34 @@
 	    	<li onclick="saveSVG()"><a href="#">Save SVG</a></li>
 	    	<li onclick="saveJSON()"><a href="#">Save JSON</a></li>
 	    	<li onclick="$('#loadJSON').click()"><a href="#">Load JSON</a></li>
-	    	<input type="file" id="loadJSON" name="files[]" style="display:none" multiple></input>
+	    	<input type="file" id="loadJSON" name="files[]" style="display:none" multiple></input> 
     	</ul> 
     </li>
    
 </ul>
 
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade in active" id="advancedSettings" style="margin:10px 10px"> 
+	<div role="tabpanel" class="tab-pane active" id="about" style="margin:10px 10px">
+		AliTV (Alignment Toolbox and Visualization)
+	</div>
+    <div role="tabpanel" class="tab-pane fade" id="advancedSettings" style="margin:10px 10px"> 
     	By using JSONEditor You can change all parameters directly in the structure of the conf-, data- or filters-object. <br> 
     	<div style="margin: 10px 0px">
 		  <button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
 		  <button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
 		</div>
 	</div>
-	<div role="tabpanel" class="tab-pane fade" id="about" style="margin:10px 10px">
-		AliTV (Alignment Toolbox and Visualization)
-	</div>
 	<div role="tabpanel" class="tab-pane fade" id="graphicalSettings" style="margin:10px 10px">
 		Graphical Settings
 	</div>
 	<div role="tabpanel" class="tab-pane fade" id="filter" style="margin:10px 10px">
 		Filter links and chromosomes.
+	</div>
+	<div role="tabpanel" class="tab-pane fade" id="tree" style="margin:10px 10px">
+		Add a phylogenetic tree.
+	</div>
+	<div role="tabpanel" class="tab-pane fade" id="features" style="margin:10px 10px">
+		Add biological features.
 	</div>
   </div>
 
