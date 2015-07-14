@@ -31,17 +31,16 @@
 		ali = new AliTV(svg);
 		var container = document.getElementById("jsoneditor");
 		editor = new JSONEditor(container)
-		$.getJSON('bacgen_assembly.json', function(data) {
+		$.getJSON('paeni_assembly.json', function(data) {
 			ali.setJSON(data);
 			editor.set(data);
 			lkc = meassureTime(ali, ali.getLinearKaryoCoords, [], "getLinearKaryoCoords");
 			meassureTime(ali, ali.drawLinearKaryo, [lkc], "drawLinearKaryo");
 			llc = meassureTime(ali, ali.getLinearLinkCoords, [lkc], "getLinearLinkCoords");
-			console.log("");
-			for(var i=0; i<10000; i+=100){
-				var sub = llc.slice(0,i);
-				meassureTime(ali, ali.drawLinearLinks, [sub], i);				
-			}
+			meassureTime(ali, ali.drawLinearLinks, [llc], "drawLinearLinks");
+			ltc = meassureTime(ali, ali.getLinearTickCoords, [lkc], "getLinearTickCoords");
+			meassureTime(ali, ali.drawLinearTicks, [ltc], "drawLinearTicks");
+			meassureTime(ali, ali.drawLinearTickLabels, [ltc], "drawLinearTickLabels");
 		});
 	});
 
