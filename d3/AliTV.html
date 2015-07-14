@@ -451,6 +451,11 @@
 	
 	$('.dropdown-toggle').dropdown()
 	
+	$(function(){
+        $('.demo2').colorpicker().on('changeColor.colorpicker', function(){
+        	changeGeneColor();
+        });
+    });
 </script>
 </head>
 <body>
@@ -587,7 +592,13 @@
 	</div>
 	
 	<div role="tabpanel" class="tab-pane fade" id="gen" style="margin:10px 10px">
-		Show genes
+		Show genes: <input id="showGenes" type="checkbox">
+	 					<br><br>
+	 					Change color:
+	 					<div class="input-group demo2">
+	    					<input id="geneColor" type="text" value="" class="form-control" />
+	    					<span class="input-group-addon"><i></i></span>
+						</div>
 	</div>
 
   </div>
