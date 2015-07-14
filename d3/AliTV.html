@@ -462,18 +462,27 @@
   <ul class="nav nav-tabs" role="tablist">
   
   	<li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About AliTV</a></li>
-  	<li class="dropdown"><a href="#toolbox" class="dropdown-toggle" data-toggle="dropdown">Toolbox & Analysis <span class="caret"></span></a>
-  		<ul class="dropdown-menu" aria-labelledby="dLabel">
-	    	<li><a href="#filter" data-toggle="tab">Filtering</a></li>
-	    	<li><a href="#features" data-toggle="tab">Features</a></li>
-	    	<li><a href="#tree" data-toggle="tab">PhylogeneticTree</a></li>
-    	</ul> 
-  	</li>
+  	
+  	<li class="dropdown"><a id="dLabel" data-toggle="dropdown">Toolbox & Analysis <span class="caret"></span></a>
+		<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+         <li><a href="#filter" data-toggle="tab">Filters</a></li>
+	         <li class="dropdown-submenu">
+	           <a tabindex="-1" href="#">Features</a>
+		           <ul class="dropdown-menu">
+		             <li><a tabindex="-1" href="#">Gen</a></li>
+		             <li><a href="#">Inverted Repeat</a></li>
+		             <li><a href="#">Repeat</a></li>
+		           </ul>
+	         </li>
+	      <li><a href="#tree" data-toggle="tab">Phylogenetic Tree</a></li>
+       </ul>
+    </li>
   	
   	<li role="presentation"><a href="#graphicalSettings" aria-controls="graphicalSettings" role="tab" data-toggle="tab">Layout Settings</a></li>
   	<li role="presentation"><a href="#advancedSettings" aria-controls="advancedSettings" role="tab" data-toggle="tab">Advanced Settings</a></li>
     <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab">Import & Export</a></li>  
 </ul>
+
 
   <div class="tab-content">
 	<div role="tabpanel" class="tab-pane active" id="about" style="margin:10px 10px">
@@ -572,9 +581,7 @@
 	<div role="tabpanel" class="tab-pane fade" id="tree" style="margin:10px 10px">
 		Add a phylogenetic tree.
 	</div>
-	<div role="tabpanel" class="tab-pane fade" id="features" style="margin:10px 10px">
-		Add biological features.
-	</div>
+
   </div>
 
 </div>
@@ -587,6 +594,7 @@
  </body>
  </html>
  
+
 
 
 
