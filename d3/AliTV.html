@@ -441,48 +441,43 @@
 	
  	$('#myTabs a').click(function (e) {
 		  e.preventDefault()
+		  e.stopPropagation();
 		  $(this).tab('show')
 	});
-	
-	$('#myTabs a[href="#profile"]').tab('show') // Select tab by name
-	$('#myTabs a:first').tab('show') // Select first tab
-	$('#myTabs a:last').tab('show') // Select last tab
-	$('#myTabs li:eq(2) a').tab('show') // Select third tab (0-indexed)
-	
-	$('.dropdown-toggle').dropdown()
+		
+	$('.dropdown-toggle').dropdown() 
 	
 	$(function(){
         $('.demo2').colorpicker().on('changeColor.colorpicker', function(){
         	changeGeneColor();
         });
     });
+	
+    jQuery(document).ready(function ($) {
+        $('#tabs').tab();
+    });
+    
+
+		
 </script>
 </head>
+
+<body>
 <body>
 
 <div class="page-header" style="background: #f7f7f7">
   <h1><img src="css/AliTV_logo.svg" alt="logo" width="90" height="90" style="margin:0px 20px"/>AliTV <small>Visualize multiple whole genome alignments as circular or linear maps</small></h1>
-<div>
+<div> 
 
   <ul class="nav nav-tabs" role="tablist">
   
   	<li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About AliTV</a></li>
   	
   	<li class="dropdown"><a id="dLabel" data-toggle="dropdown">Toolbox & Analysis <span class="caret"></span></a>
-		<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-         <li><a href="#filter" data-toggle="tab">Filters</a></li>
-	         <li class="dropdown-submenu">
-	           <a tabindex="-1" href="#">Features</a>
-		           <ul class="dropdown-menu">
-		             <li><a tabindex="-1" href="#gen" data-toggle="tab">Gen</a></li>
-		             <li><a href="#">Inverted Repeat</a></li>
-		             <li><a href="#">Repeat</a></li>
-		             <li><a href="#">N Stretch</a></li>
-		             <li class="divider"></li>
-		             <li><a href="#">Add more features...</a></li>
-		           </ul>
-	         </li>
-	      <li><a href="#tree" data-toggle="tab">Phylogenetic Tree</a></li>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+	        <li><a href="#filter" data-toggle="tab">Filters</a></li>
+			<li><a href="#features" data-toggle="tab">Features</a></li>
+	      	<li><a href="#tree" data-toggle="tab">Phylogenetic Tree</a></li>
        </ul>
     </li>
   	
@@ -491,29 +486,28 @@
     <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab">Import & Export</a></li>  
 </ul>
 
-
-  <div class="tab-content">
+<div class="tab-content">
 	<div role="tabpanel" class="tab-pane active" id="about" style="margin:10px 10px">
 		AliTV (Alignment Toolbox and Visualization)
 	</div>
-    <div role="tabpanel" class="tab-pane fade" id="advancedSettings" style="margin:10px 10px"> 
-    	By using JSONEditor You can change all parameters directly in the structure of the conf-, data- or filters-object. <br> 
-    	<div style="margin: 10px 0px">
-		  <button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
-		  <button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
+	
+	<div role="tabpanel" class="tab-pane fade" id="advancedSettings" style="margin:10px 10px"> 
+		By using JSONEditor You can change all parameters directly in the structure of the conf-, data- or filters-object. <br> 
+		<div style="margin: 10px 0px">
+			<button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
+			<button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
 		</div>
 	</div>
+	
 	<div role="tabpanel" class="tab-pane fade" id="importExport" style="margin:10px 10px"> 
-    	<div style="margin: 10px 0px">
+	   	<div style="margin: 10px 0px">
 		  <button class="btn btn-info" onclick="saveSVG()">Save SVG</button>
 		  <button class="btn btn-info" onclick="saveJSON()">Save JSON</button>
 		  <button class="btn btn-info" onclick="$('#loadJSON').click()">Load JSON</button>
 		  <input type="file" id="loadJSON" name="files[]" style="display:none" multiple></input>
 		</div>
 	</div>
-	<div role="tabpanel" class="tab-pane fade" id="graphicalSettings" style="margin:10px 10px">
-		Layout Settings
-	</div>
+	
 	<div role="tabpanel" class="tab-pane fade" id="filter" style="margin:10px 0px">
 		<div class="container-fluid">
 			<div class="row">
@@ -576,42 +570,162 @@
 						      </div>
 						    </div>
 		  				</div>
-					</form>
 					  <div class="form-group">
 					    <div class="col-sm-offset-2 col-sm-10">
 					      <button type="submit" class="btn btn-info" onclick="setFilters()">Apply</button>
 					    </div>
 					  </div>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<div role="tabpanel" class="tab-pane fade" id="tree" style="margin:10px 10px">
 		Add a phylogenetic tree.
 	</div>
-	
+
 	<div role="tabpanel" class="tab-pane fade" id="gen" style="margin:10px 10px">
-		Show genes: <input id="showGenes" type="checkbox">
-	 					<br><br>
-	 					Change color:
-	 					<div class="input-group demo2">
-	    					<input id="geneColor" type="text" value="" class="form-control" />
-	    					<span class="input-group-addon"><i></i></span>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-4">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<div class="checkbox">
+								        <label>
+								          <input id="showGenes" type="checkbox"> Show Genes
+								        </label>
+								    </div>
+								</div>
+							</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								Change color: <br>
+				 					<div class="input-group demo2">
+				    					<input id="geneColor" type="text" value="" class="form-control" />
+				    					<span class="input-group-addon"><i></i></span>
+									</div>
+							</div>
 						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+						    <div class="col-sm-offset-2 col-sm-10">
+						      <button type="submit" class="btn btn-info" style="margin: 20px 20px">Apply</button>
+						    </div>
+					  	</div>
+					</div>
+				</div>
+			</div>
 	</div>
-
-  </div>
-
+	
+	<div role="tabpanel" class="tab-pane fade" id="invertedRepeat" style="margin:10px 10px">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-4">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<div class="checkbox">
+								        <label>
+								          <input id="showInvertedRepeats" type="checkbox"> Show Inverted Repeats
+								        </label>
+								    </div>
+								</div>
+							</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								Change color: <br>
+				 					<div class="input-group demo2">
+				    					<input id="invertedRepeatColor" type="text" value="" class="form-control" />
+				    					<span class="input-group-addon"><i></i></span>
+									</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+						    <div class="col-sm-offset-2 col-sm-10">
+						      <button type="submit" class="btn btn-info" style="margin: 20px 20px">Apply</button>
+						    </div>
+					  	</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div role="tabpanel" class="tab-pane fade" id="graphicalSettings" style="margin:10px 10px">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3">
+					<form class="form-horizontal">
+						<div class="form-group">
+						    <div class="col-sm-offset-2 col-sm-10">
+						    	Choose Your layout:
+								<div class="input-group" style="margin: 10px 10px">
+								  <span class="input-group-addon">Linear Layout</span>
+								  <span class="input-group-addon"><input id="#linear" type="checkbox"></span>
+								</div>
+								<div class="input-group" style="margin: 10px 10px">
+								  <span class="input-group-addon">Circular Layout</span>
+								  <span class="input-group-addon"><input id="#circular" type="checkbox"></span>
+								</div>	     
+								Set the SVG height and width: 
+								<div class="input-group" style="margin: 10px 10px">
+									<input type="text" id="canvasWidth" placeholder="Enter the SVG-width in px">
+								</div>
+								<div class="input-group" style="margin: 10px 10px">
+									<input type="text" id="canvasHeight" placeholder="Enter the SVG-height in px">
+								</div>
+						    </div>
+		  				</div>
+					</form>
+				</div>
+				<!-- <div class="col-sm-3">
+					<form class="form-horizontal">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<br>
+								</div>
+							</div>
+						</form>
+					</div> -->
+					<div class="col-sm-2">
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								Spacer between chromsomes:<br>
+								<input type="text" id="linearSpacer" placeholder="Enter a spacer">
+								<br>
+								Height of chromosomes:<br>
+								<input type="text" id="karyoHeight" placeholder="Enter a height">
+								<br>
+								Distance between ticks in bp:<br>
+								<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
+								<br>
+								Width of the phylogenetic tree:<br>
+								<input type="text" id="treeWidth" placeholder="Enter the tree-width">
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+ 		</div>
+	</div>
 </div>
-</div>
+
+</div> <!-- collapse tab structure -->
+</div> <!-- collapse page header  -->
 
 <div style="width: 100%; overflow: hidden;">
  	<svg id='wgaCanvas' style="margin:50px"></svg>
  </div> 
  <div id="jsoneditor" style="display:none"></div>
- </body>
- </html>
+ </body> 
+</body> 
+</html>
  
 
 
