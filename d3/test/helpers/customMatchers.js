@@ -156,7 +156,7 @@ var customMatchers = {
 		return { 
 			compare: function(actual, expected){
 				var comp = function(a,b){
-					return (a < b) ? -1 : 1;
+					return (a.linkID < b.linkID) ? -1 : 1;
 				};
 				actual.sort(comp);
 				expected.sort(comp);
@@ -171,6 +171,7 @@ var customMatchers = {
 						if(actual[i].linkID !== expected[i].linkID){
 							result.pass = false;
 							result.message = "mismatch in linkID: " + actual[i].linkID + " vs " + expected[i].linkID;
+							return result;
 						}
 						var sourceActual = {startAngle: Math.round(actual[i].source.startAngle*factor)/factor, endAngle: Math.round(actual[i].source.endAngle*factor)/factor};
 						var sourceExpected = {startAngle: Math.round(expected[i].source.startAngle*factor)/factor, endAngle: Math.round(expected[i].source.endAngle*factor)/factor};
