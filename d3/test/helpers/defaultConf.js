@@ -1,6 +1,5 @@
 var defaultConf =  {
 		linear: {
-			drawAllLinks: false,
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
 		},

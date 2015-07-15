@@ -489,11 +489,20 @@ var links3 = {"0":{"1":{
               "1":{"2":{
             	 "l2": {'source': 'f5', 'target': 'f4', 'identity': 86}}}
              };
-var links4 = {"0":{"1":{
-             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
- 				 "l2": {'source': 'f2', 'target': 'f3', 'identity': 86},
- 				 "l3": {'source': 'f1', 'target': 'f3', 'identity': 94}
- 			 }}};
+var links4 = {"0":
+				{"1":
+					{"l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
+				},
+				"2":
+					{"l3": {'source': 'f1', 'target': 'f3', 'identity': 94}
+	 			}
+			  },
+              "1":
+              	{"2":
+              		{"l2": {'source': 'f2', 'target': 'f3', 'identity': 86}
+              	}
+			  }
+			 };
 var links5 = {"0":{"1":{
 		"l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
 		"l2": {'source': 'f2', 'target': 'f3', 'identity': 86}
