@@ -507,10 +507,13 @@ var links5 = {"0":{"1":{
 		"l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
 		"l2": {'source': 'f2', 'target': 'f3', 'identity': 86}
 }}};
-var links6 = {"0":{"1":{
-		"l3": {'source': 'f1', 'target': 'f3', 'identity': 90},
-		"l5": {'source': 'f4', 'target': 'f2', 'identity': 86}
-}}};
+var links6 = {"0":
+			{"2":
+				{"l3": {'source': 'f1', 'target': 'f3', 'identity': 90}}
+			,
+			"1":
+				{"l5": {'source': 'f4', 'target': 'f2', 'identity': 86}}
+			}};
 var links7 = {"0":{"1":{
 		"l1": {'source': 'f1', 'target': 'f3', 'identity': 40},
 		"l2": {'source': 'f2', 'target': 'f3', 'identity': 50},
