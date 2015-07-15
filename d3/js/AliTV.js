@@ -839,7 +839,10 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
 		karyoMap[value.karyo] = key;
 	});
 
-	$.each(that.data.links, function(key, value) {
+	var visibleChromosomes = that.filterChromosomes();
+	var visibleLinks = that.filterLinks(visibleChromosomes);
+
+	$.each(visibleLinks, function(key, value) {
 		var link = {};
 		link.linkID = key;
 
@@ -1413,7 +1416,7 @@ AliTV.prototype.filterChromosomeOrder = function(visibleChromosomes) {
  * @author Sonja Hohlfeld and Markus Ankenbrand
  */
 AliTV.prototype.filterLinks = function(visibleChromosomes) {
-	visibleLinks = this.filterLinksByAdjacency();
+	var visibleLinks = this.filterLinksByAdjacency();
 	visibleLinks = this.filterVisibleLinks(visibleLinks, visibleChromosomes);
 	visibleLinks = this.filterLinksByIdentity(visibleLinks);
 	visibleLinks = this.filterLinksByLength(visibleLinks);
@@ -1495,19 +1498,20 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 AliTV.prototype.filterLinksByAdjacency = function() {
 	var that = this;
 	var filteredLinks = {};
+	var i, genome0, genome1;
 	if (this.filters.onlyShowAdjacentLinks === true && this.conf.layout === 'linear') {
-		for (var i = 0; i < that.filters.karyo.genome_order.length - 1; i++) {
-			var genome0 = that.filters.karyo.genome_order[i];
-			var genome1 = that.filters.karyo.genome_order[i + 1];
+		for (i = 0; i < that.filters.karyo.genome_order.length - 1; i++) {
+			genome0 = that.filters.karyo.genome_order[i];
+			genome1 = that.filters.karyo.genome_order[i + 1];
 			filteredLinks = $.extend(filteredLinks, that.data.links[genome0][genome1]);
 			filteredLinks = $.extend(filteredLinks, that.data.links[genome1][genome0]);
 		}
 	} else {
 		// combine all links into a single object
-		for (var i = 0; i < that.filters.karyo.genome_order.length; i++) {
+		for (i = 0; i < that.filters.karyo.genome_order.length; i++) {
 			for (var j = 0; j < that.filters.karyo.genome_order.length; j++) {
-				var genome0 = that.filters.karyo.genome_order[i];
-				var genome1 = that.filters.karyo.genome_order[j];
+				genome0 = that.filters.karyo.genome_order[i];
+				genome1 = that.filters.karyo.genome_order[j];
 				filteredLinks = $.extend(filteredLinks, that.data.links[genome0][genome1]);
 			}
 		}
