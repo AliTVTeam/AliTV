@@ -1386,16 +1386,17 @@ AliTV.prototype.filterChromosomeOrder = function(visibleChromosomes) {
 /**
  * This method should call functions in order to filter the links.
  * The nested link data structure with genome_ids as keys is returned as a flat structure with link_ids as keys.
+ * The filteredLinks are also saved as an object property.
  * @param visibleChromosomes: gets the chromosomes which are visible in the current configurations.
  * @returns visibleLinks: return all links which are visible
  * @author Sonja Hohlfeld and Markus Ankenbrand
  */
 AliTV.prototype.filterLinks = function(visibleChromosomes) {
-	var visibleLinks = this.filterLinksByAdjacency();
-	visibleLinks = this.filterVisibleLinks(visibleLinks, visibleChromosomes);
-	visibleLinks = this.filterLinksByIdentity(visibleLinks);
-	visibleLinks = this.filterLinksByLength(visibleLinks);
-	return visibleLinks;
+	this.visibleLinks = this.filterLinksByAdjacency();
+	this.visibleLinks = this.filterVisibleLinks(this.visibleLinks, visibleChromosomes);
+	this.visibleLinks = this.filterLinksByIdentity(this.visibleLinks);
+	this.visibleLinks = this.filterLinksByLength(this.visibleLinks);
+	return this.visibleLinks;
 };
 
 /**
