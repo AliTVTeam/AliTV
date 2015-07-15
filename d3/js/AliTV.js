@@ -1477,23 +1477,22 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 AliTV.prototype.filterLinksByAdjacency = function() {
 	var that = this;
 	var filteredLinks = {};
-	var i, genome0, genome1;
 	if (this.filters.onlyShowAdjacentLinks === true && this.conf.layout === 'linear') {
-		for (i = 0; i < that.filters.karyo.genome_order.length - 1; i++) {
-			genome0 = that.filters.karyo.genome_order[i];
-			genome1 = that.filters.karyo.genome_order[i + 1];
-			filteredLinks = $.extend(filteredLinks, that.data.links[genome0][genome1]);
-			filteredLinks = $.extend(filteredLinks, that.data.links[genome1][genome0]);
+		for (var i = 0; i < that.filters.karyo.genome_order.length - 1; i++) {
+			var genome0 = that.filters.karyo.genome_order[i];
+			var genome1 = that.filters.karyo.genome_order[i + 1];
+			var links01 = ((typeof that.data.links[genome0][genome1] === 'undefined') ? {} : that.data.links[genome0][genome1]);
+			var links10 = ((typeof that.data.links[genome1][genome0] === 'undefined') ? {} : that.data.links[genome1][genome0]);
+			filteredLinks = $.extend(filteredLinks, links01);
+			filteredLinks = $.extend(filteredLinks, links10);
 		}
 	} else {
 		// combine all links into a single object
-		for (i = 0; i < that.filters.karyo.genome_order.length; i++) {
-			for (var j = 0; j < that.filters.karyo.genome_order.length; j++) {
-				genome0 = that.filters.karyo.genome_order[i];
-				genome1 = that.filters.karyo.genome_order[j];
-				filteredLinks = $.extend(filteredLinks, that.data.links[genome0][genome1]);
-			}
-		}
+		$.each(that.data.links, function(key, value) {
+			$.each(value, function(k, v) {
+				filteredLinks = $.extend(filteredLinks, v);
+			});
+		});
 	}
 	return filteredLinks;
 };
