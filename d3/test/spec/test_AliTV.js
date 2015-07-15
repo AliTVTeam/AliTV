@@ -1016,7 +1016,6 @@ describe('The filterChromosomes method is supposed to filter all visible chromos
 		ali.setData({karyo: karyo4, links: links12, features: features9});
 		ali.setFilters(filters4);
 		ali.filters.showAllChromosomes = false;
-		ali.filters.skipChromosomesWithoutLinks = true;
 		var expectedChromosomes = { c1: { genome_id: 0, length: 2000, seq: null }, c2: { genome_id: 1, length: 1000, seq: null }, c3: { genome_id: 1, length: 1000, seq: null }};
 		expect(ali.filterChromosomes()).toEqual(expectedChromosomes);
 	});
@@ -1094,23 +1093,6 @@ describe('The filterVisibleLinks method is supposed to filter links which have t
 		var visibleChromosomes = ali.filterChromosomes();
 		var expectedLinks = {"l1": {'source': 'f1', 'target': 'f2', 'identity': 75}};
 		expect(ali.filterVisibleLinks(visibleChromosomes)).toEqual(expectedLinks);
-	});
-});
-
-describe('The filterChromosomeWithoutLinkageInformation method is supposed to filter all chromosomes which have no links', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('filterChromosomeWithoutLinkageInformation method is supposed to be a function', function(){
-		expect(typeof ali.filterChromosomeWithoutLinkageInformation).toEqual('function');
-	});	
-	it('The filterChromosomeWithoutLinkageInformation method is supposed to return only chromosome which have links', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData({karyo: karyo4, links: links12, features: features9});
-		ali.setFilters(filters4);
-		var visibleChromosomes = ali.data.karyo.chromosomes;
-		var expectedChromosomes = { c1: { genome_id: 0, length: 2000, seq: null }, c2: { genome_id: 1, length: 1000, seq: null }, c3: { genome_id: 1, length: 1000, seq: null }}
-		expect(ali.filterChromosomeWithoutLinkageInformation(visibleChromosomes)).toEqual(expectedChromosomes);
 	});
 });
 

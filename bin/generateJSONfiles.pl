@@ -129,7 +129,6 @@ my %filters = ('karyo' => {'chromosomes' => {}, 'order' => [], 'genome_order' =>
 		       'links' => {'minLinkIdentity' => 70, 'maxLinkIdentity' => 100, 'minLinkLength' => 0, 'maxLinkLength' => 1000000},
 		       'onlyShowAdjacentLinks' => JSON::true,
 		       'showAllChromosomes' => JSON::false,
-		       'skipChromosomesWithoutLinks' => JSON::false,
 		       'skipChromosomesWithoutVisibleLinks' => JSON::false,
 );
 
