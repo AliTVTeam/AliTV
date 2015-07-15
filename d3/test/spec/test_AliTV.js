@@ -503,6 +503,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		ali.setData({karyo:karyo4,features:features2, links:links4});
 		ali.setFilters(filters4);
 		ali.filters.links.minLinkIdentity = 92;
+		ali.filters.onlyShowAdjacentLinks = false;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		var expectedCoords = [
@@ -521,6 +522,7 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		ali.setFilters(filters4);
 		ali.filters.links.minLinkIdentity = 89;
 		ali.filters.links.maxLinkIdentity = 100;
+		ali.filters.onlyShowAdjacentLinks = false;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		var expectedCoords = [
