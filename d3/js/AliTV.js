@@ -1477,8 +1477,8 @@ AliTV.prototype.filterLinksByAdjacency = function() {
 		for (var i = 0; i < that.filters.karyo.genome_order.length - 1; i++) {
 			var genome0 = that.filters.karyo.genome_order[i];
 			var genome1 = that.filters.karyo.genome_order[i + 1];
-			var links01 = ((typeof that.data.links[genome0][genome1] === 'undefined') ? {} : that.data.links[genome0][genome1]);
-			var links10 = ((typeof that.data.links[genome1][genome0] === 'undefined') ? {} : that.data.links[genome1][genome0]);
+			var links01 = ((typeof that.data.links[genome0] === 'undefined' || typeof that.data.links[genome0][genome1] === 'undefined') ? {} : that.data.links[genome0][genome1]);
+			var links10 = ((typeof that.data.links[genome1] === 'undefined' || typeof that.data.links[genome1][genome0] === 'undefined') ? {} : that.data.links[genome1][genome0]);
 			filteredLinks = $.extend(filteredLinks, links01);
 			filteredLinks = $.extend(filteredLinks, links10);
 		}
