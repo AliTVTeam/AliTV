@@ -1345,27 +1345,6 @@ AliTV.prototype.filterVisibleChromosomes = function(visibleChromosomes) {
 };
 
 /**
- *This method should filter all chromosome which have no linkage information
- * @param visibleChromosomes: the method gets all current visible chromosomes.
- * @returns filteredChromosomes: the method returns only chromosomes which have linkage information
- * @author Sonja Hohlfeld 
- */
-AliTV.prototype.filterChromosomeWithoutLinkageInformation = function(visibleChromosomes) {
-	var that = this;
-	var filteredChromosomes = {};
-	$.each(visibleChromosomes, function(key, value) {
-		var currentChromosome = key;
-		var valueOfCurrentChromosome = value;
-		$.each(that.data.links, function(key, value) {
-			if (that.data.features.link[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features.link[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
-				filteredChromosomes[currentChromosome] = valueOfCurrentChromosome;
-			}
-		});
-	});
-	return filteredChromosomes;
-};
-
-/**
  * This method should filter all chromosome which have no visible links with the current configurations
  * @param visibleChromosomes: the method gets all current visible chromosomes.
  * @returns filteredChromosomes: the method returns only chromosomes which have visible links
