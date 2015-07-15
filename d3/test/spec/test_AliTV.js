@@ -1063,8 +1063,9 @@ describe('The filterVisibleLinks method is supposed to filter links which have t
 		ali.setFilters(filters14);
 		ali.filters.showAllChromosomes = false;
 		var visibleChromosomes = ali.filterChromosomes();
+		ali.filters.onlyShowAdjacentLinks = false;
 		var expectedLinks = {"l1": {'source': 'f1', 'target': 'f2', 'identity': 75}};
-		expect(ali.filterVisibleLinks(visibleChromosomes)).toEqual(expectedLinks);
+		expect(ali.filterVisibleLinks(ali.filterLinksByAdjacency(), visibleChromosomes)).toEqual(expectedLinks);
 	});
 });
 
