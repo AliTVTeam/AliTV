@@ -665,57 +665,81 @@
 						    <div class="col-sm-offset-2 col-sm-10">
 						    	Choose Your layout:
 								<div class="input-group" style="margin: 10px 10px">
-								  <span class="input-group-addon">Linear Layout</span>
+								  <span class="input-group-addon"><img src="lib/img/linear.png" width="15px" height="15px"></img></span>
+								  <span class="input-group-addon">Linear Layout  </span>
 								  <span class="input-group-addon"><input id="#linear" type="checkbox"></span>
 								</div>
 								<div class="input-group" style="margin: 10px 10px">
+								  <span class="input-group-addon"><img src="lib/img/circular.png" width="15px" height="15px"></img></span>
 								  <span class="input-group-addon">Circular Layout</span>
 								  <span class="input-group-addon"><input id="#circular" type="checkbox"></span>
 								</div>	     
 								Set the SVG height and width: 
 								<div class="input-group" style="margin: 10px 10px">
-									<input type="text" id="canvasWidth" placeholder="Enter the SVG-width in px">
+									Height: <input type="text" id="canvasWidth" placeholder="Enter the SVG-width in px">
 								</div>
 								<div class="input-group" style="margin: 10px 10px">
-									<input type="text" id="canvasHeight" placeholder="Enter the SVG-height in px">
+									Width: <input type="text" id="canvasHeight" placeholder="Enter the SVG-height in px">
 								</div>
 						    </div>
 		  				</div>
 					</form>
 				</div>
-				<!-- <div class="col-sm-3">
+				<div class="col-sm-3">
 					<form class="form-horizontal">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<br>
-								</div>
-							</div>
-						</form>
-					</div> -->
-					<div class="col-sm-2">
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
-								Spacer between chromsomes:<br>
-								<input type="text" id="linearSpacer" placeholder="Enter a spacer">
-								<br>
-								Height of chromosomes:<br>
-								<input type="text" id="karyoHeight" placeholder="Enter a height">
-								<br>
-								Distance between ticks in bp:<br>
-								<input type="text" id="tickDistance" placeholder="Enter the distance between ticks">
-								<br>
-								Width of the phylogenetic tree:<br>
-								<input type="text" id="treeWidth" placeholder="Enter the tree-width">
-								<br>
+								Change parameters for chromosomes:
+								<div class="input-group" style="margin: 10px 10px">
+									Spacer between chromosomes: <input type="text" id="linearSpacer" placeholder="Chromosome spacer">
+								</div>
+								<div class="input-group" style="margin: 10px 10px">
+									Height of chromosomes: <input type="text" id="karyoHeight" placeholder="Chromosome height">
+								</div>
+								<div class="input-group" style="margin: 10px 10px">
+									Distance between ticks: <input type="text" id="tickDistance" placeholder="Tick distance in bp">
+								</div>
+<!-- 									<div class="input-group" style="margin: 10px 10px">
+										<input type="text" id="treeWidth" placeholder="Enter the tree-width">
+									</div> -->
+								Define a custome color range between color1 and color2 for the genomes:
+								<div class="input-group demo2" style="margin: 10px 10px">
+									<span class="input-group-addon">Color 1</span>
+			    					<input id="startLineColor" type="text" class="form-control" />
+			    					<span class="input-group-addon"><i></i></span>
+								</div>
+								<div class="input-group demo2" style="margin: 10px 10px">
+									<span class="input-group-addon">Color 2</span>
+			    					<input id="endLineColor" type="text" class="form-control" />
+			    					<span class="input-group-addon"><i></i></span>
+								</div>
 							</div>
 						</div>
-					</div>
+					</form>
+				</div>
+				<div class="col-sm-3">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								Define a custome color range between the minimal and maximal link identity:
+								<div class="input-group demo2" style="margin: 10px 10px">
+									<span class="input-group-addon">MinLink Identity</span>
+			    					<input id="minLinkColor" type="text" class="form-control" />
+			    					<span class="input-group-addon"><i></i></span>
+								</div>
+								<div class="input-group demo2" style="margin: 10px 10px">
+									<span class="input-group-addon">MaxLink Identity</span>
+			    					<input id="maxLinkColor" type="text" class="form-control" />
+			    					<span class="input-group-addon"><i></i></span>
+								</div>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
- 		</div>
-	</div>
+		</div>
+ 	</div>
 </div>
-
 </div> <!-- collapse tab structure -->
 </div> <!-- collapse page header  -->
 
