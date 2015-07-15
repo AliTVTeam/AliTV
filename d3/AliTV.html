@@ -472,15 +472,20 @@
   <ul class="nav nav-tabs" role="tablist">
   
   	<li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About AliTV</a></li>
+  	<li role="presentation"><a href="#filter" aria-controls="about" role="tab" data-toggle="tab">Filtering</a></li>
   	
-  	<li class="dropdown"><a id="dLabel" data-toggle="dropdown">Toolbox & Analysis <span class="caret"></span></a>
+  	<li class="dropdown"><a id="dLabel" data-toggle="dropdown">Add biological Features <span class="caret"></span></a>
 		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-	        <li><a href="#filter" data-toggle="tab">Filters</a></li>
-			<li><a href="#features" data-toggle="tab">Features</a></li>
-	      	<li><a href="#tree" data-toggle="tab">Phylogenetic Tree</a></li>
+	        <li><a href="#gen" data-toggle="tab">Genes</a></li>
+			<li><a href="#invertedRepeat" data-toggle="tab">Inverted Repeat</a></li>
+	      	<li><a href="#repeat" data-toggle="tab">Repeat</a></li>
+	      	<li><a href="#nStretch" data-toggle="tab">N Stretch</a></li>
+	      	<li role="separator" class="divider"></li>
+	      	<li><a href="#customFeature" data-toggle="tab">Add more features...</a></li>
        </ul>
     </li>
   	
+  	<li role="presentation"><a href="#tree" aria-controls="about" role="tab" data-toggle="tab">Phylogenetic Tree</a></li>
   	<li role="presentation"><a href="#graphicalSettings" aria-controls="graphicalSettings" role="tab" data-toggle="tab">Layout Settings</a></li>
   	<li role="presentation"><a href="#advancedSettings" aria-controls="advancedSettings" role="tab" data-toggle="tab">Advanced Settings</a></li>
     <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab">Import & Export</a></li>  
@@ -519,7 +524,7 @@
 								<p>
 			 						<label for="identity-label"></label> 
 			 						<div class="input-group">
-			 							<input type="text" id="identity-label" class="form-control" placeholder="Username" aria-describedby="basic-addon1" readonly>
+			 							<input type="text" id="identity-label" class="form-control" aria-describedby="basic-addon1" readonly>
 			 						</div>
 			 					</p>
 			 					<div id="identity-slider"></div>
@@ -535,7 +540,7 @@
 								<p>
 									<label for="minlength-label"></label>
 									<div class="input-group">
-										<input type="text" id="minlength-label" class="form-control" placeholder="Username" aria-describedby="basic-addon1" readonly>						
+										<input type="text" id="minlength-label" class="form-control" aria-describedby="basic-addon1" readonly>						
 									</div>
 								</p>
 			 					<div id="length-slider"></div>
@@ -588,7 +593,7 @@
 	<div role="tabpanel" class="tab-pane fade" id="gen" style="margin:10px 10px">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10">
 									<div class="checkbox">
@@ -596,10 +601,32 @@
 								          <input id="showGenes" type="checkbox"> Show Genes
 								        </label>
 								    </div>
+								    <div class="checkbox">
+								        <label>
+								          <input id="genLabels" type="checkbox"> Label Genes
+								        </label>
+								    </div>
 								</div>
 							</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									Choose form:
+									<div class="input-group" style="margin: 10px 10px">
+									  <span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
+									  <span class="input-group-addon">Arrow  </span>
+									  <span class="input-group-addon"><input id="#genArrow" type="checkbox"></span>
+									</div>
+									<div class="input-group" style="margin: 10px 10px">
+									  <span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px" style=""></img></span>
+									  <span class="input-group-addon">Rect  </span>
+									  <span class="input-group-addon"><input id="#genRect" type="checkbox"></span>
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								Change color: <br>
@@ -610,7 +637,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
 						      <button type="submit" class="btn btn-info" style="margin: 20px 20px">Apply</button>
@@ -624,18 +651,40 @@
 	<div role="tabpanel" class="tab-pane fade" id="invertedRepeat" style="margin:10px 10px">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10">
 									<div class="checkbox">
 								        <label>
-								          <input id="showInvertedRepeats" type="checkbox"> Show Inverted Repeats
+								          <input id="showGenes" type="checkbox"> Show Inverted Repeats
+								        </label>
+								    </div>
+								    <div class="checkbox">
+								        <label>
+								          <input id="repeatLabels" type="checkbox"> Label Inverted Repeats
 								        </label>
 								    </div>
 								</div>
 							</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									Choose form:
+									<div class="input-group" style="margin: 10px 10px">
+									  <span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
+									  <span class="input-group-addon">Arrow  </span>
+									  <span class="input-group-addon"><input id="#invertedRepeatArrow" type="checkbox"></span>
+									</div>
+									<div class="input-group" style="margin: 10px 10px">
+									  <span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px" style=""></img></span>
+									  <span class="input-group-addon">Rect  </span>
+									  <span class="input-group-addon"><input id="#invertedRepeatRect" type="checkbox"></span>
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								Change color: <br>
@@ -646,7 +695,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
 						      <button type="submit" class="btn btn-info" style="margin: 20px 20px">Apply</button>
@@ -656,6 +705,123 @@
 				</div>
 			</div>
 	</div>
+	
+	<div role="tabpanel" class="tab-pane fade" id="repeat" style="margin:10px 10px">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-3">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<div class="checkbox">
+								        <label>
+								          <input id="showRepeats" type="checkbox"> Show repeats
+								        </label>
+								    </div>
+								    <div class="checkbox">
+								        <label>
+								          <input id="repeatLabels" type="checkbox"> Label repeats
+								        </label>
+								    </div>
+								</div>
+							</div>
+					</div>
+					<div class="col-sm-3">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									Choose form:
+									<div class="input-group" style="margin: 10px 10px">
+									  <span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
+									  <span class="input-group-addon">Arrow  </span>
+									  <span class="input-group-addon"><input id="#repeatArrow" type="checkbox"></span>
+									</div>
+									<div class="input-group" style="margin: 10px 10px">
+									  <span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px" style=""></img></span>
+									  <span class="input-group-addon">Rect  </span>
+									  <span class="input-group-addon"><input id="#repeatRect" type="checkbox"></span>
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								Change color: <br>
+				 					<div class="input-group demo2">
+				    					<input id="repeatColor" type="text" value="" class="form-control" />
+				    					<span class="input-group-addon"><i></i></span>
+									</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+						    <div class="col-sm-offset-2 col-sm-10">
+						      <button type="submit" class="btn btn-info" style="margin: 20px 20px">Apply</button>
+						    </div>
+					  	</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	
+	<div role="tabpanel" class="tab-pane fade" id="nStretch" style="margin:10px 10px">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-3">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<div class="checkbox">
+								        <label>
+								          <input id="showNStretch" type="checkbox"> Show N Stretches
+								        </label>
+								    </div>
+								    <div class="checkbox">
+								        <label>
+								          <input id="nStretchLabels" type="checkbox"> Label N Stretches
+								        </label>
+								    </div>
+								</div>
+							</div>
+					</div>
+					<div class="col-sm-3">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									Choose form:
+									<div class="input-group" style="margin: 10px 10px">
+									  <span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
+									  <span class="input-group-addon">Arrow  </span>
+									  <span class="input-group-addon"><input id="#inStretchArrow" type="checkbox"></span>
+									</div>
+									<div class="input-group" style="margin: 10px 10px">
+									  <span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px" style=""></img></span>
+									  <span class="input-group-addon">Rect  </span>
+									  <span class="input-group-addon"><input id="#nStretchRect" type="checkbox"></span>
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								Change color: <br>
+				 					<div class="input-group demo2">
+				    					<input id="nStretchColor" type="text" value="" class="form-control" />
+				    					<span class="input-group-addon"><i></i></span>
+									</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+						    <div class="col-sm-offset-2 col-sm-10">
+						      <button type="submit" class="btn btn-info" style="margin: 20px 20px">Apply</button>
+						    </div>
+					  	</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	
 	<div role="tabpanel" class="tab-pane fade" id="graphicalSettings" style="margin:10px 10px">
 		<div class="container-fluid">
 			<div class="row">
@@ -663,7 +829,7 @@
 					<form class="form-horizontal">
 						<div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
-						    	Choose Your layout:
+						    	<mark class="bg-info">Choose Your layout:</mark>
 								<div class="input-group" style="margin: 10px 10px">
 								  <span class="input-group-addon"><img src="lib/img/linear.png" width="15px" height="15px"></img></span>
 								  <span class="input-group-addon">Linear Layout  </span>
@@ -689,7 +855,7 @@
 					<form class="form-horizontal">
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
-								Change parameters for chromosomes:
+								<mark class="bg-info">Change parameters for chromosomes:</mark>
 								<div class="input-group" style="margin: 10px 10px">
 									Spacer between chromosomes: <input type="text" id="linearSpacer" placeholder="Chromosome spacer">
 								</div>
@@ -721,20 +887,66 @@
 					<form class="form-horizontal">
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
+							<mark class="bg-info">Change parameters for links:</mark>
+							<div class="input-group" style="margin: 10px 10px">
 								Define a custome color range between the minimal and maximal link identity:
 								<div class="input-group demo2" style="margin: 10px 10px">
-									<span class="input-group-addon">MinLink Identity</span>
+									<span class="input-group-addon">MinLink Color</span>
 			    					<input id="minLinkColor" type="text" class="form-control" />
 			    					<span class="input-group-addon"><i></i></span>
 								</div>
 								<div class="input-group demo2" style="margin: 10px 10px">
-									<span class="input-group-addon">MaxLink Identity</span>
+									<span class="input-group-addon">MaxLink Color</span>
 			    					<input id="maxLinkColor" type="text" class="form-control" />
 			    					<span class="input-group-addon"><i></i></span>
+								</div>
 								</div>
 							</div>
 						</div>
 					</form>
+				</div>
+				<div class="col-sm-3">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+							<mark class="bg-info">Set labels:</mark>
+								<div class="checkbox">
+							        <label>
+							        	<input id="showGenomeLabels" type="checkbox"> Label Genomes
+							        </label>
+							    </div>
+						      	<div class="checkbox">
+						        	<label>
+						         		<input id="showChromosomeLabels" type="checkbox"> Label Chromosomes
+						       	 	</label>
+						      	</div>
+						      	<div class="checkbox">
+						        	<label>
+						         		<input id="showTickLabels" type="checkbox"> Label Ticks
+						        	</label>
+						      	</div>
+						      	<br>
+						      	<div class="input-group demo2" style="margin: 10px 10px">
+						      		<span class="input-group-addon">Label color</span>
+			    					<input id="labelColor" type="text" class="form-control" />
+			    					<span class="input-group-addon"><i></i></span>
+								</div>
+								<div class="input-group" style="margin: 10px 10px">
+									Label size: <input type="text" id="labelSize" placeholder="Label size in px">
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-10"></div>
+				<div class="col-sm-2">
+					<div class="form-group">
+					    <div class="col-sm-offset-2 col-sm-10">
+					      <button type="submit" class="btn btn-info" style="margin: 20px 20px">Apply</button>
+					    </div>
+					</div>
 				</div>
 			</div>
 		</div>
