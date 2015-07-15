@@ -594,6 +594,9 @@ describe('The getCircularLinkCoords method of AliTV objects is supposed to calcu
 	it('getCircularLinkCoords method is supposed to work with simple test data (3 genomes, 4 chromosomes, 3 links)', function(){
 		ali.setData({karyo:karyo4,features:features2, links:links4});
 		ali.setFilters(filters4);
+		ali.filters.links.minLinkIdentity = 0;
+		ali.filters.links.maxLinkIdentity = 100;
+		ali.conf.layout = "circular";
 		var circularKaryoCoords = ali.getCircularKaryoCoords();
 		var circularLinkCoords = ali.getCircularLinkCoords(circularKaryoCoords);
 		var expectedCoords = [
