@@ -987,6 +987,7 @@ describe('The filterChromosomes method is supposed to filter all visible chromos
 		ali.setData({karyo: karyo4, links: links12, features: features9});
 		ali.setFilters(filters4);
 		ali.filters.showAllChromosomes = false;
+		ali.filters.skipChromosomesWithoutVisibleLinks = true;
 		var expectedChromosomes = { c1: { genome_id: 0, length: 2000, seq: null }, c2: { genome_id: 1, length: 1000, seq: null }, c3: { genome_id: 1, length: 1000, seq: null }};
 		expect(ali.filterChromosomes()).toEqual(expectedChromosomes);
 	});
