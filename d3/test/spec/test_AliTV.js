@@ -1103,7 +1103,9 @@ describe('The filterLinksByIdentity method is supposed to filter all links whose
 		ali.filters.links.minLinkIdentity = 50;
 		ali.filters.links.maxLinkIdentity = 70;
 		var expectedLinks = {"l2": { source: 'f2', target: 'f3', identity: 50 },"l3": { source: 'f2', target: 'f4', identity: 60 }, "l4": { source: 'f1', target: 'f4', identity: 70 }};
-		var links = ali.data.links;
+		// this is needed to make the link object flat 
+		ali.filters.onlyShowAdjacentLinks = false;
+		var links = ali.filterLinksByAdjacency();
 		expect(ali.filterLinksByIdentity(links)).toEqual(expectedLinks);
 	});	
 });
