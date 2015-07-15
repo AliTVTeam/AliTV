@@ -670,7 +670,7 @@ AliTV.prototype.fadeLinks = function(g, opacity) {
 	var that = this;
 	that.svgD3.selectAll(".link")
 		.filter(function(d) {
-			return that.data.features.link[that.data.links[d.linkID].source].karyo != g.karyo && that.data.features.link[that.data.links[d.linkID].target].karyo != g.karyo;
+			return that.data.features.link[that.visibleLinks[d.linkID].source].karyo != g.karyo && that.data.features.link[that.visibleLinks[d.linkID].target].karyo != g.karyo;
 		})
 		.transition()
 		.style("opacity", opacity);
@@ -712,7 +712,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.attr("class", "link")
 		.attr("d", coordsToPath)
 		.style("fill", function(d) {
-			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
+			return that.colorLinksByIdentity(that.visibleLinks[d.linkID].identity);
 		});
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
@@ -971,7 +971,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
 		.attr("class", "link")
 		.attr("d", d3.svg.chord().radius(this.getOuterRadius() - this.conf.graphicalParameters.karyoHeight - this.conf.graphicalParameters.linkKaryoDistance))
 		.style("fill", function(d) {
-			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
+			return that.colorLinksByIdentity(that.visibleLinks[d.linkID].identity);
 		});
 };
 
@@ -1349,7 +1349,6 @@ AliTV.prototype.filterVisibleChromosomes = function(visibleChromosomes) {
 AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosomes) {
 	var that = this;
 	var filteredChromosomes = {};
-	var allLinks = that.data.links;
 	var filteredLinks = that.filterLinks(visibleChromosomes);
 	$.each(visibleChromosomes, function(key, value) {
 		var currentChromosome = key;
