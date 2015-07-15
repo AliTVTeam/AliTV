@@ -1407,16 +1407,14 @@ AliTV.prototype.filterChromosomeOrder = function(visibleChromosomes) {
 
 /**
  * This method should call functions in order to filter the links.
+ * The nested link data structure with genome_ids as keys is returned as a flat structure with link_ids as keys.
  * @param visibleChromosomes: gets the chromosomes which are visible in the current configurations.
  * @returns visibleLinks: return all links which are visible
  * @author Sonja Hohlfeld and Markus Ankenbrand
  */
 AliTV.prototype.filterLinks = function(visibleChromosomes) {
-	var visibleLinks = this.data.links;
-	if (this.filters.onlyShowAdjacentLinks === true) {
-		visibleLinks = this.filterLinksByAdjacency();
-	}
-	var visibleLinks = this.filterVisibleLinks(visibleLinks, visibleChromosomes);
+	visibleLinks = this.filterLinksByAdjacency();
+	visibleLinks = this.filterVisibleLinks(visibleLinks, visibleChromosomes);
 	visibleLinks = this.filterLinksByIdentity(visibleLinks);
 	visibleLinks = this.filterLinksByLength(visibleLinks);
 	return visibleLinks;
@@ -1429,15 +1427,14 @@ AliTV.prototype.filterLinks = function(visibleChromosomes) {
  * @return visibleLinks: returns only links which source or target are in visible chromosomes
  * @author Sonja Hohlfeld and Markus Ankenbrand
  */
-AliTV.prototype.filterVisibleLinks = function(visibleChromosomes) {
-	var allLinks = this.data.links;
+AliTV.prototype.filterVisibleLinks = function(visibleLinks, visibleChromosomes) {
 	var that = this;
 	var filteredLinks = {};
 	var listOfVisibleChromosomes = [];
 	$.each(visibleChromosomes, function(key, value) {
 		listOfVisibleChromosomes.push(key);
 	});
-	$.each(allLinks, function(key, value) {
+	$.each(visibleLinks, function(key, value) {
 		var targetKaryo = that.data.features.link[value.target].karyo;
 		var sourceKaryo = that.data.features.link[value.source].karyo;
 		if (listOfVisibleChromosomes.indexOf(targetKaryo) !== -1 && listOfVisibleChromosomes.indexOf(sourceKaryo) !== -1 && (value in filteredLinks) === false) {
@@ -1490,29 +1487,31 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 };
 
 /**
- * This method should filter links according to their adjacency.
- * @return filteredLinks: returns only links which are between chromosomes of adjacent genomes.
+ * This method should filter links according to their adjacency (if the according option is set and the layout is linear).
+ * The nested link data structure with genome_ids as keys is returned as a flat structure with link_ids as keys.
+ * @return filteredLinks: returns only links which are between chromosomes of adjacent genomes (if needed) in a flat link object.
  * @author Sonja Hohlfeld and Markus Ankenbrand
  */
 AliTV.prototype.filterLinksByAdjacency = function() {
 	var that = this;
 	var filteredLinks = {};
-	$.each(visibleLinks, function(key, value) {
-		var currentLink = value;
-		var targetFeature = that.data.features.link[currentLink.source];
-		var sourceFeature = that.data.features.link[currentLink.target];
-		var targetKaryo = that.data.karyo.chromosomes[targetFeature.karyo];
-		var sourceKaryo = that.data.karyo.chromosomes[sourceFeature.karyo];
-		var genomePositionOfTargetKaryo = that.filters.karyo.genome_order.indexOf(targetKaryo.genome_id);
-		var genomePositionOfSourceKaryo = that.filters.karyo.genome_order.indexOf(sourceKaryo.genome_id);
-		if (Math.abs(genomePositionOfTargetKaryo - genomePositionOfSourceKaryo) === 1) {
-			filteredLinks[key] = currentLink;
-		} else {
-			if (that.conf.linear.drawAllLinks === true) {
-				filteredLinks[key] = currentLink;
+	if (this.filters.onlyShowAdjacentLinks === true && this.conf.layout === 'linear') {
+		for (var i = 0; i < that.filters.karyo.genome_order.length - 1; i++) {
+			var genome0 = that.filters.karyo.genome_order[i];
+			var genome1 = that.filters.karyo.genome_order[i + 1];
+			filteredLinks = $.extend(filteredLinks, that.data.links[genome0][genome1]);
+			filteredLinks = $.extend(filteredLinks, that.data.links[genome1][genome0]);
+		}
+	} else {
+		// combine all links into a single object
+		for (var i = 0; i < that.filters.karyo.genome_order.length; i++) {
+			for (var j = 0; j < that.filters.karyo.genome_order.length; j++) {
+				var genome0 = that.filters.karyo.genome_order[i];
+				var genome1 = that.filters.karyo.genome_order[j];
+				filteredLinks = $.extend(filteredLinks, that.data.links[genome0][genome1]);
 			}
 		}
-	});
+	}
 	return filteredLinks;
 };
 
