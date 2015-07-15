@@ -1409,23 +1409,25 @@ AliTV.prototype.filterChromosomeOrder = function(visibleChromosomes) {
  * This method should call functions in order to filter the links.
  * @param visibleChromosomes: gets the chromosomes which are visible in the current configurations.
  * @returns visibleLinks: return all links which are visible
- * @author Sonja Hohlfeld
+ * @author Sonja Hohlfeld and Markus Ankenbrand
  */
 AliTV.prototype.filterLinks = function(visibleChromosomes) {
-	var visibleLinks = this.filterVisibleLinks(visibleChromosomes);
+	var visibleLinks = this.data.links;
+	if (this.filters.onlyShowAdjacentLinks === true) {
+		visibleLinks = this.filterLinksByAdjacency();
+	}
+	var visibleLinks = this.filterVisibleLinks(visibleLinks, visibleChromosomes);
 	visibleLinks = this.filterLinksByIdentity(visibleLinks);
 	visibleLinks = this.filterLinksByLength(visibleLinks);
-	if (this.filters.onlyShowAdjacentLinks === true) {
-		visibleLinks = this.filterLinksByAdjacency(visibleLinks);
-	}
 	return visibleLinks;
 };
 
 /**
  * This method should filter the visible links according to visible chromosomes
- * @param visibleChromosomes: gets the chromosomes, which are visible in the current configurations in order to filter all links, which have no target or source chromosome.
+ * @param visibleLinks: contains all currently visible links.
+ * @param visibleChromosomes: contains the chromosomes, which are visible in the current configurations in order to filter all links, which have no target or source chromosome.
  * @return visibleLinks: returns only links which source or target are in visible chromosomes
- * @author Sonja Hohlfeld
+ * @author Sonja Hohlfeld and Markus Ankenbrand
  */
 AliTV.prototype.filterVisibleLinks = function(visibleChromosomes) {
 	var allLinks = this.data.links;
@@ -1489,11 +1491,10 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 
 /**
  * This method should filter links according to their adjacency.
- * @return filteredLinks: returns only links which are between adjacent chromosomes.
- * @param visibleLinks: gets all current visible links.
- * @author Sonja Hohlfeld
+ * @return filteredLinks: returns only links which are between chromosomes of adjacent genomes.
+ * @author Sonja Hohlfeld and Markus Ankenbrand
  */
-AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
+AliTV.prototype.filterLinksByAdjacency = function() {
 	var that = this;
 	var filteredLinks = {};
 	$.each(visibleLinks, function(key, value) {
