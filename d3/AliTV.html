@@ -409,14 +409,6 @@
 	    }
 	});
 	
-	//prevent folding of accordion on click on apply
-	$("#applyChanges").unbind("click");
-	$('#applyChanges').on('click', function(evt) {
-		evt.stopPropagation();
-		evt.preventDefault();
-		setNewParameters();
-	});
-	
 	function setAliFromJSONEditor(){
 		var json = editor.get();
 		ali.setJSON(json);
