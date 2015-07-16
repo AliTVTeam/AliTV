@@ -1,53 +1,53 @@
-describe('The getLinearSpacer method is supposed to get the information of the spacer between two karyos', function(){
+describe('The getKaryoSpacer method is supposed to get the information of the spacer between two karyos', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	
-	it('getLinearSpacer method is supposed to be a function', function(){
-		expect(typeof ali.getLinearSpacer).toEqual('function');
+	it('getKaryoSpacer method is supposed to be a function', function(){
+		expect(typeof ali.getKaryoSpacer).toEqual('function');
 	});	
 	it('the function should return a defined value', function(){
-		var spacer = ali.getLinearSpacer();
+		var spacer = ali.getKaryoSpacer();
 		expect(spacer).toBeDefined();
 	});
 	it('the function should return the spacer of the defaultConf', function(){
-		var spacer = ali.getLinearSpacer();
+		var spacer = ali.getKaryoSpacer();
 		expect(spacer).toEqual(defaultConf.graphicalParameters.karyoDistance);
 	});
 });
 	
-describe('The setLinearSpacer method is supposed to set the new information of the karyoDistance in the conf object', function(){
+describe('The setKaryoSpacer method is supposed to set the new information of the karyoDistance in the conf object', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('setLinearSpacer method is supposed to be a function', function(){
-		expect(typeof ali.setLinearSpacer).toEqual('function');
+	it('setKaryoSpacer method is supposed to be a function', function(){
+		expect(typeof ali.setKaryoSpacer).toEqual('function');
 	});	
-	it('the returned spacer of the getLinearSpacer method should be the same as the spacer which is set and returned by the setter-method', function(){
+	it('the returned spacer of the getKaryoSpacer method should be the same as the spacer which is set and returned by the setter-method', function(){
 		var returnedSpacer = 50;
-		expect(ali.setLinearSpacer(returnedSpacer)).toEqual(50);
+		expect(ali.setKaryoSpacer(returnedSpacer)).toEqual(50);
 	});	
-	it('when setLinearSpacer is called several times the spacer should have the same value as the returned spacer of getLinearSpacer method', function(){
-		ali.setLinearSpacer(12);
-		expect(ali.getLinearSpacer()).toEqual(12);
-		ali.setLinearSpacer(100);
-		expect(ali.getLinearSpacer()).toEqual(100);
-		ali.setLinearSpacer(20);
-		expect(ali.getLinearSpacer()).toEqual(20);
+	it('when setKaryoSpacer is called several times the spacer should have the same value as the returned spacer of getKaryoSpacer method', function(){
+		ali.setKaryoSpacer(12);
+		expect(ali.getKaryoSpacer()).toEqual(12);
+		ali.setKaryoSpacer(100);
+		expect(ali.getKaryoSpacer()).toEqual(100);
+		ali.setKaryoSpacer(20);
+		expect(ali.getKaryoSpacer()).toEqual(20);
 	});	
-	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is empty', function(){
+	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is empty', function(){
 		var returnedSpacer = "";
-		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("empty");
+		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("empty");
 	});
-	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is not a number', function(){
+	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is not a number', function(){
 		var returnedSpacer = "test";
-		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("not a number");
+		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("not a number");
 	});
-	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is less than 0', function(){
+	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is less than 0', function(){
 		var returnedSpacer = -12;
-		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("spacer is to small, it should be > 0");
+		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("spacer is to small, it should be > 0");
 	});
-	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is 0', function(){
+	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is 0', function(){
 		var returnedSpacer = 0;
-		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("spacer is to small, it should be > 0");
+		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("spacer is to small, it should be > 0");
 	});
 });
 
