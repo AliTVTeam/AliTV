@@ -1339,7 +1339,10 @@ AliTV.prototype.setGenomeColor = function(color) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getLinkColor = function() {
-
+	var color = [];
+	color.push(this.conf.minLinkIdentityColor);
+	color.push(this.conf.maxLinkIdentityColor);
+	return color;
 };
 
 /**
