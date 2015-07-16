@@ -384,6 +384,20 @@
 				$("#geneColor").val(ali.getGeneColor());
 			}
 	}
+	function changeGenomeColor(){
+		var color = [];
+		color.push($("#startLineColor").val());
+		color.push($("#endLineColor").val());
+		try {
+			ali.setGenomeColor(color); 	
+			}
+			catch(err){
+				alert(err);
+				var defaultColor = ali.getGenomeColor();
+				$("#startLineColor").val(defaultColor[0]);
+				$("#endLineColor").val(defaultColor[1]);
+			} 
+	}
 /* 	function setNewParameters(){
 		changeLinearSpacer();
 		changeKaryoHeight();
@@ -417,6 +431,7 @@
 		changeKaryoSpacer();
 		changeKaryoHeight();
 		changeTickDistance();
+		changeGenomeColor();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
 	}
