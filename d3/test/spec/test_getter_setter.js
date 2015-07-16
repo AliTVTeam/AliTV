@@ -550,6 +550,29 @@ describe('The getLinkColor method is supposed to get the color for minimal and m
 	});	
 });
 
+describe('The setLinkColor method is supposed to set the new colors for the minimal and maximal links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setLinkColor method is supposed to be a function', function(){
+		expect(typeof ali.setLinkColor).toEqual('function');
+	});	
+	it('the returned value of the setLinkColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = ["#000000", "#ffffff"];
+		expect(ali.setLinkColor(color)).toEqual(color);
+	});	
+	it('when setLinkColor is called several times the color should have the same value as the returned color of getLinkColor method', function(){
+		var color = ["#000000", "#efefef"];
+		ali.setLinkColor(color);
+		var newColor = ali.getLinkColor();
+		expect(newColor[0]).toEqual(color[0]);
+		expect(newColor[1]).toEqual(color[1]);
+	});
+	it('the setLinkColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setLinkColor(color);}).toThrow("empty");
+	});
+});
+
 describe('The setConfig method is supposed to extend the existing config values', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
