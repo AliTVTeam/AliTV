@@ -1019,7 +1019,6 @@ AliTV.prototype.setKaryoSpacer = function(spacer) {
 	} else if (spacer <= 0) {
 		throw "spacer is to small, it should be > 0";
 	} else {
-		spacer = Number(spacer);
 		this.conf.graphicalParameters.karyoDistance = spacer;
 		return this.conf.graphicalParameters.karyoDistance;
 	}

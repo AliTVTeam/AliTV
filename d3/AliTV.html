@@ -304,10 +304,10 @@
 	});
 	
 	function changeKaryoSpacer(){
-		var spacer = $("#karyoSpacer").val();
+		var spacer = $("#karyoSpacer").val(); 
+		spacer = Number(spacer);
 		try {
-		ali.setKaryoSpacer(spacer); 
-		$("#linearSpacer").val(ali.setKaryoSpacer());
+		ali.setKaryoSpacer(spacer); 	
 		}
 		catch(err){
 			alert(err);
@@ -384,7 +384,7 @@
 				$("#geneColor").val(ali.getGeneColor());
 			}
 	}
-	function setNewParameters(){
+/* 	function setNewParameters(){
 		changeLinearSpacer();
 		changeKaryoHeight();
 		changeCanvasWidth();
@@ -402,7 +402,7 @@
 		} else {
 			$("#onlyShowAdjacentLinks").attr("disabled", false);
 		}		
-	}
+	} */
 	
 	function setFilters(){
 		var layout = ali.getLayout();
@@ -415,6 +415,8 @@
 		changeCanvasWidth();
 		changeCanvasHeight();
 		changeKaryoSpacer();
+		changeKaryoHeight();
+		changeTickDistance();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
 	}
@@ -865,10 +867,10 @@
 								</div>	     
 								Set the SVG height and width: 
 								<div class="input-group" style="margin: 10px 10px">
-									Height: <input type="text" id="canvasHeight" placeholder="Enter the SVG-width in px">
+									Height: <input type="text" id="canvasHeight" placeholder="Enter the SVG-width in px" autocomplete="off">
 								</div>
 								<div class="input-group" style="margin: 10px 10px">
-									Width: <input type="text" id="canvasWidth" placeholder="Enter the SVG-height in px">
+									Width: <input type="text" id="canvasWidth" placeholder="Enter the SVG-height in px" autocomplete="off">
 								</div>
 						    </div>
 		  				</div>
@@ -880,7 +882,7 @@
 							<div class="col-sm-offset-2 col-sm-10">
 								<mark class="bg-info">Change parameters for chromosomes:</mark>
 								<div class="input-group" style="margin: 10px 10px">
-									Spacer between chromosomes: <input type="text" id="linearSpacer" placeholder="Chromosome spacer">
+									Spacer between chromosomes: <input type="text" id="karyoSpacer" placeholder="Chromosome spacer">
 								</div>
 								<div class="input-group" style="margin: 10px 10px">
 									Height of chromosomes: <input type="text" id="karyoHeight" placeholder="Chromosome height">
