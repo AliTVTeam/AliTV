@@ -1346,6 +1346,16 @@ AliTV.prototype.getLinkColor = function() {
 };
 
 /**
+ * This function replaces the old colors for the minimal and maximal link identity by the new ones.
+ * @param color: the array contains the minLinkIdentityColor and the maxLinkIdentityColor which is returned by getLinkColor.
+ * @throws Will throw an error if the argument is empty.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setLinkColor = function(color) {
+
+};
+
+/**
  * This method should call other filter functions in order to filter the visible chromosomes.
  * @returns visibleChromosomes: returns only chromosomes which are visible
  * @author Sonja Hohlfeld
