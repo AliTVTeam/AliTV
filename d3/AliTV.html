@@ -451,7 +451,8 @@
 		ali.drawEqualLayout(layout);
 	}
 	
-	$('#loadJSON').on('change', function(evt) {
+	$(function(){$('#loadJSON').on('change', function(evt) {
+		console.log("test");
 		var files = evt.target.files; // FileList object
 	    // files is a FileList of File objects.
 	    var output = [];
@@ -464,6 +465,7 @@
 	    	}
 	    	fr.readAsText(f);
 	    }
+	});
 	});
 	
 	function setAliFromJSONEditor(){
