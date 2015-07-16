@@ -1352,7 +1352,16 @@ AliTV.prototype.getLinkColor = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.setLinkColor = function(color) {
-
+	var newColor = [];
+	if (color === "") {
+		throw "empty";
+	} else {
+		this.conf.minLinkIdentityColor = color[0];
+		this.conf.maxLinkIdentityColor = color[1];
+		newColor.push(this.conf.minLinkIdentityColor);
+		newColor.push(this.conf.maxLinkIdentityColor);
+		return newColor;
+	}
 };
 
 /**
