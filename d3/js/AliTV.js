@@ -1314,6 +1314,16 @@ AliTV.prototype.getGenomeColor = function() {
 };
 
 /**
+ * This function replaces the old colors of the start genome and the end genome with the new ones.
+ * @param color: the array contains the startLineColor and the endLineColor which is returned by getGenomeColor.
+ * @throws Will throw an error if the argument is empty.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setGenomeColor = function(color) {
+
+};
+
+/**
  * This method should call other filter functions in order to filter the visible chromosomes.
  * @returns visibleChromosomes: returns only chromosomes which are visible
  * @author Sonja Hohlfeld
