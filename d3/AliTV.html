@@ -410,6 +410,14 @@
 		ali.drawEqualLayout(layout);
 	}
 	
+	function setLayoutSettings(){
+		var layout = ali.getLayout();
+		changeCanvasWidth();
+		changeCanvasHeight();
+		setJSONEditorFromAli();
+		ali.drawEqualLayout(layout);
+	}
+	
 	$('#loadJSON').on('change', function(evt) {
 		var files = evt.target.files; // FileList object
 	    // files is a FileList of File objects.
