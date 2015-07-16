@@ -508,6 +508,27 @@ describe('The getGenomeColor method is supposed to get the current color of the 
 	});	
 });
 
+describe('The setGenomeColor method is supposed to set the new start and end color for the genomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setGenomeColor method is supposed to be a function', function(){
+		expect(typeof ali.setGenomeColor).toEqual('function');
+	});	
+	it('the returned value of the setGenomeColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		//var color = ["#000000", "#ffffff"];
+		expect(ali.setGeneColor(color)).toEqual(color);
+	});	
+	it('when setGenomeColor is called several times the color should have the same value as the returned color of getGenomeColor method', function(){
+		var color = ["#000000", "#efefef"];
+		ali.setGeneColor(color);
+		expect(ali.getGeneColor()).toEqual(color);
+	});
+	it('the setGenomeColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setGenomeColor(color);}).toThrow("empty");
+	});
+});
+
 describe('The setConfig method is supposed to extend the existing config values', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
