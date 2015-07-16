@@ -515,13 +515,15 @@ describe('The setGenomeColor method is supposed to set the new start and end col
 		expect(typeof ali.setGenomeColor).toEqual('function');
 	});	
 	it('the returned value of the setGenomeColor method should be the same as the color which is setted and returned by the setter-method', function(){
-		//var color = ["#000000", "#ffffff"];
+		var color = ["#000000", "#ffffff"];
 		expect(ali.setGeneColor(color)).toEqual(color);
 	});	
 	it('when setGenomeColor is called several times the color should have the same value as the returned color of getGenomeColor method', function(){
 		var color = ["#000000", "#efefef"];
-		ali.setGeneColor(color);
-		expect(ali.getGeneColor()).toEqual(color);
+		ali.setGenomeColor(color);
+		var newColor = ali.getGenomeColor();
+		expect(newColor[0]).toEqual(color[0]);
+		expect(newColor[1]).toEqual(color[1]);
 	});
 	it('the setGenomeColor method should throw an error message if the assigned color is empty', function(){
 		var color = "";

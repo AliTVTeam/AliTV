@@ -1320,7 +1320,16 @@ AliTV.prototype.getGenomeColor = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.setGenomeColor = function(color) {
-
+	var newColor = [];
+	if (color === "") {
+		throw "empty";
+	} else {
+		this.conf.linear.startLineColor = color[0];
+		this.conf.linear.endLineColor = color[1];
+		newColor.push(this.conf.linear.startLineColor);
+		newColor.push(this.conf.linear.endLineColor);
+		return newColor;
+	}
 };
 
 /**
