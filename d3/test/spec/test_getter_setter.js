@@ -544,8 +544,10 @@ describe('The getLinkColor method is supposed to get the color for minimal and m
 	it('the function should return the color for the minLinkIdentity and the maxLinkIdentity', function(){
 		var color = ali.getLinkColor();
 		var minLinkIdentityColor = color[0];
-		var maxLinkIdentityColor = color[1];
+		var midLinkIdentityColor = color[1];
+		var maxLinkIdentityColor = color[2];
 		expect(minLinkIdentityColor).toEqual(defaultConf.minLinkIdentityColor);
+		expect(midLinkIdentityColor).toEqual(defaultConf.midLinkIdentityColor);
 		expect(maxLinkIdentityColor).toEqual(defaultConf.maxLinkIdentityColor);
 	});	
 });
@@ -557,15 +559,16 @@ describe('The setLinkColor method is supposed to set the new colors for the mini
 		expect(typeof ali.setLinkColor).toEqual('function');
 	});	
 	it('the returned value of the setLinkColor method should be the same as the color which is setted and returned by the setter-method', function(){
-		var color = ["#000000", "#ffffff"];
+		var color = ["#000000", "#ffffff", "#efefef"];
 		expect(ali.setLinkColor(color)).toEqual(color);
 	});	
 	it('when setLinkColor is called several times the color should have the same value as the returned color of getLinkColor method', function(){
-		var color = ["#000000", "#efefef"];
+		var color = ["#000000", "#efefef", "#ffffff"];
 		ali.setLinkColor(color);
 		var newColor = ali.getLinkColor();
 		expect(newColor[0]).toEqual(color[0]);
 		expect(newColor[1]).toEqual(color[1]);
+		expect(newColor[2]).toEqual(color[2]);
 	});
 	it('the setLinkColor method should throw an error message if the assigned color is empty', function(){
 		var color = "";
