@@ -1,0 +1,93 @@
+* LICENSE
+The AliTV project in general is distributed under the [[../LICENSE][MIT]] license.
+There are dependencies, that are not distributed - those have their own licenses.
+There are also some libraries that are part of the distribution with differing licenses.
+Those are listed here:
+** List of included libraries
+*** Bootstrap
+**** Repository
+[[https://github.com/twbs/bootstrap]]
+**** Version
+3.3.5
+**** LICENSE
+[[file:LICENSE-bootstrap][LICENSE-bootstrap]]
+**** Files
+ - [[../d3/lib/bootstrap.min.js]]
+ - [[../d3/lib/bootstrap.min.css]]
+*** Colorpicker
+**** Repository
+[[https://github.com/mjolnic/bootstrap-colorpicker]]
+**** Version
+2.1
+**** LICENSE
+[[file:LICENSE-colorpicker][LICENSE-colorpicker]]
+**** Files
+ - [[../d3/lib/colorpicker/]]
+*** D3.js
+**** Repository
+[[https://github.com/mbostock/d3]]
+**** Version
+3.5.5
+**** LICENSE
+[[file:LICENSE-d3][LICENSE-d3]]
+**** Files
+ - [[../d3/lib/d3.v3.min.js]]
+*** FileSaver.js
+**** Repository
+[[https://github.com/eligrey/FileSaver.js]]
+**** Version (git SHA)
+9befa6c5a5565a393fe772e89011b4648da60078
+**** LICENSE
+[[file:LICENSE-FileSaver][LICENSE-FileSaver]]
+**** Files
+ - [[../d3/lib/FileSaver.min.js]]
+*** Jasmine
+**** Repository
+[[https://github.com/jasmine/jasmine]]
+**** Version
+2.3
+**** LICENSE
+[[file:LICENSE-jasmine][LICENSE-jasmine]]
+**** Files
+ - [[../d3/test/lib/jasmine-2.2.0/]]
+*** jQuery
+**** Repository
+[[https://github.com/jquery/jquery]]
+**** Version
+1.11.3
+**** LICENSE
+[[file:LICENSE-jquery][LICENSE-jquery]]
+**** Files
+ - [[../d3/lib/jquery.min.js]]
+*** jQueryUI
+**** Repository
+[[https://github.com/jquery/jquery-ui]]
+**** Version
+1.11
+**** LICENSE
+[[file:LICENSE-jquery-ui][LICENSE-jquery-ui]]
+**** Files
+ - [[../d3/lib/jquery-ui-1.9.2.custom.min.css]]
+ - [[../d3/lib/jquery-ui.min.css]]
+ - [[../d3/lib/jquery-ui.min.js]]
+*** JSONeditor
+**** Repository
+[[https://github.com/josdejong/jsoneditor]]
+**** Version
+4.2.1
+**** LICENSE
+[[file:LICENSE-jsoneditor][LICENSE-jsoneditor]]
+**** Files
+ - [[../d3/lib/img/jsoneditor-icons.png]]
+ - [[../d3/lib/jsoneditor.min.css]]
+ - [[../d3/lib/jsoneditor.min.js]]
+*** Textures.js
+**** Repository
+[[https://github.com/riccardoscalco/textures]]
+**** Version
+1.0.3
+**** LICENSE
+[[file:LICENSE-textures][LICENSE-textures]]
+**** Files
+ - [[../d3/lib/textures.min.js]]
+			    
