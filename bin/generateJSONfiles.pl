@@ -8,7 +8,7 @@ $Data::Dumper::Sortkeys = 1;
 use Getopt::Long;
 use Pod::Usage;
 use Log::Log4perl qw(:no_extra_logdie_message);
-use POSIX; # for rounding
+use Math::Round;
 use JSON;
 use File::Copy qw(cp);
 use File::Path qw(make_path);
@@ -125,9 +125,18 @@ Log::Log4perl->init(
 
 my $L = Log::Log4perl::get_logger();
 
+my %filters = ('karyo' => {'chromosomes' => {}, 'order' => [], 'genome_order' => []}, 
+		       'links' => {'minLinkIdentity' => 70, 'maxLinkIdentity' => 100, 'minLinkLength' => 0, 'maxLinkLength' => 1000000},
+		       'onlyShowAdjacentLinks' => JSON::true,
+		       'showAllChromosomes' => JSON::false,
+		       'skipChromosomesWithoutVisibleLinks' => JSON::false,
+);
+
+my %conf = ('graphicalParameters' => {'tickDistance' => 100, 'karyoDistance' => 10});
+
 create_dir_structure();
 
-my ($karyo, $karyo_filters) = parse_karyo($opt_karyo);
+my ($karyo) = parse_karyo($opt_karyo);
 
 my $features = {};
 my $links = [];
@@ -141,7 +150,10 @@ open(OUT, '>', "$opt_prefix.d3/data/data.json") or $L->logdie("Can not open file
 print OUT encode_json {'data' => {'karyo' => $karyo, 'features' => {'link' => $features}, 'links' => $links}};
 close OUT or die "$!";
 open(OUT, '>', "$opt_prefix.d3/data/filters.json") or $L->logdie("Can not open file $opt_prefix.d3/data/filters.json\n$!");
-print OUT encode_json {'filters' => $karyo_filters};
+print OUT encode_json {'filters' => \%filters};
+close OUT or die "$!";
+open(OUT, '>', "$opt_prefix.d3/data/conf.json") or $L->logdie("Can not open file $opt_prefix.d3/data/conf.json\n$!");
+print OUT encode_json {'conf' => \%conf};
 close OUT or die "$!";
 
 =head2 create_dir_structure
@@ -225,14 +237,7 @@ Output: \%karyo of the form {chromosomes => {$id => {genome_id => $genome_id, le
 sub parse_karyo{
 	my $file = $_[0];
 	my %karyo = ('chromosomes' => {});
-	my %filters = ('karyo' => {'chromosomes' => {}, 'order' => [], 'genome_order' => []}, 
-		       'links' => {'minLinkIdentity' => 70, 'maxLinkIdentity' => 100, 'minLinkLength' => 0, 'maxLinkLength' => 1000000},
-		       'onlyShowAdjacentLinks' => JSON::true,
-		       'showAllChromosomes' => JSON::false,
-		       'skipChromosomesWithoutLinks' => JSON::false,
-		       'skipChromosomesWithoutVisibleLinks' => JSON::false,
-);
-	my %genome_ids = ();
+	my %genome_info = ();
 	open(IN, '<', $file) or $L->logdie("Can not open file $file\n$!");
 	while(<IN>){
 		chomp;
@@ -240,12 +245,14 @@ sub parse_karyo{
 		$karyo{'chromosomes'}{$id} = {"genome_id" => $gid, "length" => $len+0, "seq" => $seq};
 		$filters{'karyo'}{'chromosomes'}{$id} = {'reverse' => JSON::false, 'visible' => JSON::true};
 		push(@{$filters{'karyo'}{'order'}}, $id);
-		$genome_ids{$gid} = 1;
+		$genome_info{$gid} = {'length' => 0, 'elements' => 0} unless(exists $genome_info{$gid});
+		$genome_info{$gid}{'length'} += $len;
+		$genome_info{$gid}{'elements'}++;
 	}
-	$filters{'karyo'}{'genome_order'} = [sort map {$_} keys %genome_ids];
+	$filters{'karyo'}{'genome_order'} = [sort map {$_} keys %genome_info];
+	optimize_filters_and_conf(\%genome_info);
 	close IN or $L->logdie("Can not close file $file\n$!");
-	return (\%karyo, \%filters);
-	print Dumper(\%karyo);
+	return (\%karyo);
 }
 
 =head2 parse_bed
@@ -270,6 +277,27 @@ sub parse_bed{
 	return \%features;
 }
 
+=head2 optimize_filters_and_conf
+
+Sub to optimize values in filters and conf objects. Input: hash in the form {genome_id1 => {length => 1000, elements => 5}}
+Directly manipulates %conf (tickDistance, karyoDistance) and %filters (minLinkLength, maxLinkLength)
+
+=cut
+
+sub optimize_filters_and_conf{
+	my %genome_info = %{$_[0]};
+	my $maxTotalSize = $genome_info{(sort {$genome_info{$b}{'length'} <=> $genome_info{$a}{'length'}} keys %genome_info)[0]}{'length'};
+	my $maxNumElements = $genome_info{(sort {$genome_info{$b}{'elements'} <=> $genome_info{$a}{'elements'}} keys %genome_info)[0]}{'elements'};
+	# Set total karyoDistance to 5% of maximum genomeLength
+	$conf{'graphicalParameters'}{'karyoDistance'} = round(($maxTotalSize * 0.05) / ($maxNumElements - 1));
+	# Set tickDistance to nearest multiple of a power of 10 of 1% of maximum genomeLength
+	$conf{'graphicalParameters'}{'tickDistance'} = nearest(10**(int(log($maxTotalSize*0.01)/log(10))), $maxTotalSize * 0.01);
+	# Set minLinkLength to 0.05% of maximum genomeLength
+	$filters{'links'}{'minLinkLength'} = round($maxTotalSize * 0.0005);
+	# Set maxLinkLength to maximum genomeLength + 1 (so even the largest possible links are drawn)
+	$filters{'links'}{'maxLinkLength'} = round($maxTotalSize + 1);
+}
+
 
 =head2 parse_link
 
@@ -281,7 +309,8 @@ Output: \@links of the form [{source => $source, target => $target, identity => 
 sub parse_links{
 	my $file = $_[0];
 	my $features = $_[1];
-	my @links = ();
+	my %links = ();
+	my $linkcounter=0;
 	open(IN, '<', $file) or $L->logdie("Can not open file $file\n$!");
 	my $line = <IN>;
 	my @header = ('fida', 'type', 'fidb');
@@ -298,13 +327,17 @@ sub parse_links{
 		$L->logdie("Link header is present but does not contain fida column (fida and fidb column are mandatory)") unless($fidapresent);
 		$L->logdie("Link header is present but does not contain fidb column (fida and fidb column are mandatory)") unless($fidbpresent);
 	} else {
-		push(@links, parse_link_line($line, \@header, $features));
+		my($genome0, $genome1, $linkobject) = parse_link_line($line, \@header, $features);
+		$links{$genome0}{$genome1}{$linkcounter} = $linkobject;
+		$linkcounter++;
 	}
 	while(<IN>){
-		push(@links, parse_link_line($_, \@header, $features));
+		my($genome0, $genome1, $linkobject) = parse_link_line($_, \@header, $features);
+		$links{$genome0}{$genome1}{$linkcounter} = $linkobject;
+		$linkcounter++;
 	}
 	close IN or $L->logdie("Can not close file $file\n$!");
-	return \@links;
+	return \%links;
 }
 
 sub parse_link_line{
@@ -329,7 +362,9 @@ sub parse_link_line{
 	$properties{'source'} = $fida;
 	$L->warn("There is no feature id $fidb in the bed file (but used in link file)") unless(exists $features->{$fidb});
 	$properties{'target'} = $fidb;
-	return \%properties;
+	my $genome0 = $karyo->{chromosomes}{$features->{$fida}{karyo}}{genome_id};
+	my $genome1 = $karyo->{chromosomes}{$features->{$fidb}{karyo}}{genome_id};
+	return ($genome0, $genome1, \%properties);
 }
 
 =head1 LIMITATIONS

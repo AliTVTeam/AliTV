@@ -1,6 +1,5 @@
 var defaultConf =  {
 		linear: {
-			drawAllLinks: false,
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
 		},
@@ -76,7 +75,7 @@ var defaultConf =  {
 				showTickLabels: true
 			},
 			chromosome: {
-				showChromosomeLabels: true
+				showChromosomeLabels: false
 			},
 			genome: {
 				showGenomeLabels: true

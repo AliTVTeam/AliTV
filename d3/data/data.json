@@ -1,41 +1,56 @@
 {"data":{
-  "links": [
-    {
-      "identity": 90,
-      "target": "f2",
-      "source": "f1"
-    },
-    {
-      "source": "f2",
-      "target": "f3",
-      "identity": 80
-    },
-    {
-      "source": "f1",
-      "target": "f3",
-      "identity": 95
-    },
-    {
-      "source": "f4",
-      "target": "f5",
-      "identity": 50
-    },
-    {
-      "source": "f4",
-      "target": "f6",
-      "identity": 60
-    },
-    {
-      "source": "f5",
-      "target": "f6",
-      "identity": 100
-    },
-    {
-      "source": "f4",
-      "target": "f8",
-      "identity": 40
-    }
-  ],
+  "links": {
+  	"0":
+  	  { 
+  	  "1": 
+	  	  {
+	    	"l1": {
+	      	  "identity": 90,
+	      	  "target": "f2",
+		      "source": "f1"
+		    },
+		    "l2": {
+		      "source": "f4",
+		      "target": "f6",
+		      "identity": 60
+		    }
+		  },
+		"2":
+		  {
+		    "l3": {
+		      "source": "f1",
+		      "target": "f3",
+		      "identity": 95
+		    },
+		    "l4": {
+		      "source": "f5",
+		      "target": "f6",
+		      "identity": 100
+		    }
+		  }
+		},
+	"1":
+	  {
+	  "2":
+	    {
+	      "l5": {
+		    "source": "f2",
+		    "target": "f3",
+		    "identity": 80
+		  },
+		  "l6": {
+		    "source": "f4",
+		    "target": "f5",
+		    "identity": 50
+		  },
+		  "l7": {
+		    "source": "f4",
+		    "target": "f8",
+		    "identity": 40
+		  }
+	    }
+	  }
+	},
     "features": {"link":{
     "f2": {
       "start": 100,

@@ -477,74 +477,87 @@ var features20 = {
 	'tRNA': [{'karyo': 'c5', 'start': 100, 'end': 200, 'name': "f6"}]
 };
 
-var links = {
+var links = {"0":{"1":{
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
-			 };
-var links2 = {
+			 }}};
+var links2 = {"0":{"1":{
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
 				 "l2": {'source': 'f3', 'target': 'f2', 'identity': 86}
+			 }}};
+var links3 = {"0":{"1":{
+             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}}},
+              "1":{"2":{
+            	 "l2": {'source': 'f5', 'target': 'f4', 'identity': 86}}}
+             };
+var links4 = {"0":
+				{"1":
+					{"l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
+				},
+				"2":
+					{"l3": {'source': 'f1', 'target': 'f3', 'identity': 94}
+	 			}
+			  },
+              "1":
+              	{"2":
+              		{"l2": {'source': 'f2', 'target': 'f3', 'identity': 86}
+              	}
+			  }
 			 };
-var links3 = {
-             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
- 				 "l2": {'source': 'f5', 'target': 'f4', 'identity': 86}
- 			 };
-var links4 = {
-             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
- 				 "l2": {'source': 'f2', 'target': 'f3', 'identity': 86},
- 				 "l3": {'source': 'f1', 'target': 'f3', 'identity': 94}
- 			 };
-var links5 = {
+var links5 = {"0":{"1":{
 		"l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
 		"l2": {'source': 'f2', 'target': 'f3', 'identity': 86}
-};
-var links6 = {
-		"l3": {'source': 'f1', 'target': 'f3', 'identity': 90},
-		"l5": {'source': 'f4', 'target': 'f2', 'identity': 86}
-};
-var links7 = {
+}}};
+var links6 = {"0":
+			{"2":
+				{"l3": {'source': 'f1', 'target': 'f3', 'identity': 90}}
+			,
+			"1":
+				{"l5": {'source': 'f4', 'target': 'f2', 'identity': 86}}
+			}};
+var links7 = {"0":{"1":{
 		"l1": {'source': 'f1', 'target': 'f3', 'identity': 40},
 		"l2": {'source': 'f2', 'target': 'f3', 'identity': 50},
 		"l3": {'source': 'f2', 'target': 'f4', 'identity': 60},
 		"l4": {'source': 'f1', 'target': 'f4', 'identity': 70},
 		"l5": {'source': 'f4', 'target': 'f2', 'identity': 90}
-};
-var links8 = {
+}}};
+var links8 = {"0":{"1":{
 		"l1": {'source': 'f1', 'target': 'f2', 'identity': 75}
-};
+}}};
 
-var links9 = {
+var links9 = {"0":{"1":{
 		"l1": {'source': 'f1', 'target': 'f3', 'identity': 80}
-};
+}}};
 
-var links10 = {
+var links10 = {"0":{"1":{
 		"l1": {'source': 'f1', 'target': 'f2', 'identity': 90},
 		"l2": {'source': 'f2', 'target': 'f4', 'identity': 100}
-};
+}}};
 
-var links11 = {
+var links11 = {"0":{"1":{
 		"l1": {'source': 'f1', 'target': 'f4', 'identity': 75},
 		"l2": {'source': 'f2', 'target': 'f5', 'identity': 100},
 		"l3": {'source': 'f3', 'target': 'f6', 'identity': 88},
 		"l4": {'source': 'f4', 'target': 'f9', 'identity': 77},
 		"l5": {'source': 'f6', 'target': 'f10', 'identity': 99}
-};
+}}};
 
-var links12 = {
+var links12 = {"0":{"1":{
 		"l1": {'source': 'f1', 'target': 'f2', 'identity': 75},
 		"l2": {'source': 'f3', 'target': 'f4', 'identity': 100}
-};
+}}};
 
-var links13 = {
+var links13 = {"0":{"1":{
 		"l1": {'source': 'f1', 'target': 'f4', 'identity': 30},
 		"l2": {'source': 'f2', 'target': 'f5', 'identity': 99},
 		"l3": {'source': 'f3', 'target': 'f6', 'identity': 88},
 		"l4": {'source': 'f7', 'target': 'f9', 'identity': 77},
 		"l5": {'source': 'f8', 'target': 'f10', 'identity': 100}
-};
+}}};
 
-var links14 = {
+var links14 = {"0":{"1":{
    	 "l1": {'source': 'f5', 'target': 'f6', 'identity': 90}
-	 };
+	 }}};
 
 var tree = {
 		"children": [{
