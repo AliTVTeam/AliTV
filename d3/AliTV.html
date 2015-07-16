@@ -281,7 +281,7 @@
 	});	
 	});
 	
-	$(function(){$('#linear').change(function() {
+/* 	$(function(){$('#linear').change(function() {
 		if($('#linear').is(':checked')){
 			ali.conf.layout = "linear";
 			$("#circular").attr("disabled", true);
@@ -299,7 +299,7 @@
 			$("#linear").attr("disabled", false);
 		}
 	});	
-	});
+	}); */
 	
 	function changeKaryoSpacer(){
 		var spacer = $("#karyoSpacer").val(); 
@@ -887,24 +887,24 @@
 						<div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
 						    	<mark class="bg-info">Choose Your layout:</mark>
-								<div class="input-group" style="margin: 10px 10px">
-								  <span class="input-group-addon"><img src="lib/img/linear.png" width="15px" height="15px"></img></span>
-								  <span class="input-group-addon">Linear Layout  </span>
-								  <span class="input-group-addon"><input id="linear" type="checkbox"></span>
-								</div>
-								<div class="input-group" style="margin: 10px 10px">
-								  <span class="input-group-addon"><img src="lib/img/circular.png" width="15px" height="15px"></img></span>
-								  <span class="input-group-addon">Circular Layout</span>
-								  <span class="input-group-addon"><input id="circular" type="checkbox"></span>
-								</div>	     
-								Set the SVG height and width: 
-								<div class="input-group" style="margin: 10px 10px">
-									Height: <input type="text" id="canvasHeight" placeholder="Enter the SVG-width in px" autocomplete="off">
-								</div>
-								<div class="input-group" style="margin: 10px 10px">
-									Width: <input type="text" id="canvasWidth" placeholder="Enter the SVG-height in px" autocomplete="off">
-								</div>
-						    </div>
+						    		<div class="input-group" style="margin: 10px 10px">
+						    			<span class="input-group-addon"><img src="lib/img/linear.png" width="15px" height="15px"></img></span>
+										<span class="input-group-addon">Linear Layout </span>
+										<span class="input-group-addon"><input type="radio" name="layout" value="linear" id="linear" checked></span>
+						    		</div>
+									<div class="input-group" style="margin: 10px 10px">
+										<span class="input-group-addon"><img src="lib/img/circular.png" width="15px" height="15px"></img></span>
+										<span class="input-group-addon">Circular Layout </span>
+										<span class="input-group-addon"><input type="radio" name="layout" value="circular" id="circular"></span>
+									</div>	     
+									Set the SVG height and width: 
+									<div class="input-group" style="margin: 10px 10px">
+										Height: <input type="text" id="canvasHeight" placeholder="Enter the SVG-width in px" autocomplete="off">
+									</div>
+									<div class="input-group" style="margin: 10px 10px">
+										Width: <input type="text" id="canvasWidth" placeholder="Enter the SVG-height in px" autocomplete="off">
+									</div>  
+						    </div> 
 		  				</div>
 					</form>
 				</div>
