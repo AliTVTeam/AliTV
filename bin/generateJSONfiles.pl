@@ -309,7 +309,8 @@ Output: \@links of the form [{source => $source, target => $target, identity => 
 sub parse_links{
 	my $file = $_[0];
 	my $features = $_[1];
-	my @links = ();
+	my %links = ();
+	my $linkcounter=0;
 	open(IN, '<', $file) or $L->logdie("Can not open file $file\n$!");
 	my $line = <IN>;
 	my @header = ('fida', 'type', 'fidb');
@@ -326,13 +327,17 @@ sub parse_links{
 		$L->logdie("Link header is present but does not contain fida column (fida and fidb column are mandatory)") unless($fidapresent);
 		$L->logdie("Link header is present but does not contain fidb column (fida and fidb column are mandatory)") unless($fidbpresent);
 	} else {
-		push(@links, parse_link_line($line, \@header, $features));
+		my($genome0, $genome1, $linkobject) = parse_link_line($line, \@header, $features);
+		$links{$genome0}{$genome1}{$linkcounter} = $linkobject;
+		$linkcounter++;
 	}
 	while(<IN>){
-		push(@links, parse_link_line($_, \@header, $features));
+		my($genome0, $genome1, $linkobject) = parse_link_line($_, \@header, $features);
+		$links{$genome0}{$genome1}{$linkcounter} = $linkobject;
+		$linkcounter++;
 	}
 	close IN or $L->logdie("Can not close file $file\n$!");
-	return \@links;
+	return \%links;
 }
 
 sub parse_link_line{
@@ -357,7 +362,9 @@ sub parse_link_line{
 	$properties{'source'} = $fida;
 	$L->warn("There is no feature id $fidb in the bed file (but used in link file)") unless(exists $features->{$fidb});
 	$properties{'target'} = $fidb;
-	return \%properties;
+	my $genome0 = $karyo->{chromosomes}{$features->{$fida}{karyo}}{genome_id};
+	my $genome1 = $karyo->{chromosomes}{$features->{$fidb}{karyo}}{genome_id};
+	return ($genome0, $genome1, \%properties);
 }
 
 =head1 LIMITATIONS
