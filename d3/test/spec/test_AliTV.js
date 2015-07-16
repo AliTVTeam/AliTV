@@ -1330,6 +1330,19 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		ali.drawLinearFeatures(linearFeatureCoords);
 		expect(ali.svgD3.selectAll('.feature').size()).toEqual(4);
 	});
+	it('there should be exactly four features of different feature groups in a test svg, the patterns and forms of them are changed via the configuration', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo12, features: features19});
+		ali.setFilters(filters17);
+		ali.conf.features.showAllFeatures = true;
+		ali.conf.features.supportedFeatures.gene.form = "arrow";
+		ali.conf.features.supportedFeatures.gene.pattern = "";
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		ali.drawLinearFeatures(linearFeatureCoords);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(4);
+	});
 	// The next few tests are important for the coverage but a specific testing on the style is not possible, because grunt and SpecRunner have different results.
 	// Therefore there are only tests which check if the feature exists in the DOM.
 	it('there should be exactly one feature of a non-supported feature group, which should be drawn as it is set in the default configuration of the fallback style', function(){
@@ -1581,17 +1594,6 @@ describe('The drawLinearFeatureLabels method of AliTV objects is supposed to dra
 		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
 		ali.drawLinearFeatureLabels(linearFeatureLabelCoords);
 		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(1);
-	});
-	it('no feature labels are drawn because the default configuration for them are equal false', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData(data8);
-		ali.setFilters(filters);
-		ali.conf.features.showAllFeatures = true;
-		ali.conf.labels.features.showFeatureLabels = false;
-		ali.conf.labels.showAllLabels = false;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(0);
 	});
 	it('if there are no genome labels drawn the feature labels are not transformed', function(){
 		var svg = $('<svg></svg>');
