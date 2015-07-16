@@ -26,25 +26,28 @@ function AliTV(svg) {
 	this.svgD3 = d3.selectAll(svg);
 	/**
 	 * property to store the data
-	 * @property {Object}  karyo                        - the chromosome information
-	 * @property {Object}  karyo.chromosomes            - the chromosome details, karyo IDs as keys
-	 * @property {Number}  karyo.chromosomes.genome_id  - number of genome to which this chromosome belongs
-	 * @property {Number}  karyo.chromosomes.length     - length in bp
-	 * @property {String}  karyo.chromosomes.seq        - sequence of the chromosome
-	 * @property {Object}  features                     - the feature information, feature type as keys
-	 * @property {Object}  features.link                - the link feature information, feature IDs as keys
-	 * @property {String}  features.link.karyo          - the karyo ID
-	 * @property {Number}  features.link.start          - start position on the sequence
-	 * @property {Number}  features.link.end            - end position on the sequence
-	 * @property {Array}   features.<type>              - the feature information fot type <type>
-	 * @property {String}  features.<type>.karyo        - the karyo ID
-	 * @property {String}  features.<type>.name         - the name of the feature
-	 * @property {Number}  features.<type>.start        - start position on the sequence
-	 * @property {Number}  features.<type>.end          - end position on the sequence
-	 * @property {Object}  links                        - the link information, link IDs as keys
-	 * @property {String}  links.source                 - source feature of the link
-	 * @property {String}  links.target                 - target feature of the link
-	 * @property {Number}  links.identity               - identity of the link
+	 * @property {Object}  karyo                                   - the chromosome information
+	 * @property {Object}  karyo.chromosomes                       - the chromosome details, karyo IDs as keys
+	 * @property {Number}  karyo.chromosomes.genome_id             - number of genome to which this chromosome belongs
+	 * @property {Number}  karyo.chromosomes.length                - length in bp
+	 * @property {String}  karyo.chromosomes.seq                   - sequence of the chromosome
+	 * @property {Object}  features                                - the feature information, feature type as keys
+	 * @property {Object}  features.link                           - the link feature information, feature IDs as keys
+	 * @property {String}  features.link.karyo                     - the karyo ID
+	 * @property {Number}  features.link.start                     - start position on the sequence
+	 * @property {Number}  features.link.end                       - end position on the sequence
+	 * @property {Array}   features.<type>                         - the feature information fot type <type>
+	 * @property {String}  features.<type>.karyo                   - the karyo ID
+	 * @property {String}  features.<type>.name                    - the name of the feature
+	 * @property {Number}  features.<type>.start                   - start position on the sequence
+	 * @property {Number}  features.<type>.end                     - end position on the sequence
+	 * @property {Object}  links                                   - the link information, <source_genome> (sgen) as keys
+	 * @property {Object}  links.<sgen>                            - the link information, <target_genome> (tgen) as keys
+	 * @property {Object}  links.<sgen>.<tgen>                     - the link information, feature_id (fid) as key
+	 * @property {Object}  links.<sgen>.<tgen>.<fid>               - the link information, feature_id (fid) as key
+	 * @property {String}  links.<sgen>.<tgen>.<fid>.source        - source feature of the link
+	 * @property {String}  links.<sgen>.<tgen>.<fid>.target        - target feature of the link
+	 * @property {Number}  links.<sgen>.<tgen>.<fid>.identity      - identity of the link
 	 */
 	this.data = {};
 	/**
@@ -52,7 +55,6 @@ function AliTV(svg) {
 	 * @property {Object}  filters                      				- the data dependent displaying information
 	 * @property {Object}  filters.karyo                        		- the chromosome dependent displaying information
 	 * @property {Boolean} filters.skipChromosomesWithoutVisibleLinks	- If a chromosome has no visible links, because they are filtered, it is possible to skip this chromosome.
-	 * @property {Boolean} filters.skipChromosomesWithoutLinks			- If a chromosome has no links, the user have the possibility to skip them.
 	 * @property {Boolean} filters.showAllChromosomes					- Allows to show all chromosomes, even if when they are set not visible.
 	 * @property {Boolean} filters.onlyShowAdjacentLinks				- Allows to show only adjacent links or all links.			
 	 * @property {Array}   filters.karyo.order                  		- array of chromosome IDs in the desired order (circular layout)
@@ -69,7 +71,6 @@ function AliTV(svg) {
 	/**
 	 * property to store configuration options
 	 * @property {Object}  linear                                  - The configuration options for the linear layout.
-	 * @property {Boolean} linear.drawAllLinks                     - Only adjacent links should be drawn, but the user has the possibility to set this value on true, so all links will be drawn.
 	 * @property {String}  linear.startLineColor                   - The start color of the color gradient for drawing karyos according to their genomeId
 	 * @property {String}  linear.endLineColor                     - The end color of the color gradient. 
 	 * @property {Object}  circular                                - The configuration options for the circular layout.
@@ -102,11 +103,31 @@ function AliTV(svg) {
 	 * @property {String}  features.gene.color					   - Defines the color of a gene.
 	 * @property {Number}  features.gene.height					   - Defines the height of the drawn gene onto the chromosome.
 	 * @property {Boolean} features.gene.visible				   - Defines if a gene is drawn or not.
+	 * @property {Boolean} features.gene.labeling				   - Defines if the label for a gene is shown or not.
 	 * @property {Object}  features.invertedRepeat				   - Contains the configuration for inverted repeats.
 	 * @property {String}  features.invertedRepeat.form			   - Defines the shape of an inverted repeat.
 	 * @property {String}  features.invertedRepeat.color		   - Defines the color of an inverted repeat.
 	 * @property {Number}  features.invertedRepeat.height		   - Defines the height of the drawn inverted repeat onto the chromosome.
-	 * @property {Boolean} features.invertedRepeats.visible		   - Defines if an inverted repeat is drawn or not.
+	 * @property {Boolean} features.invertedRepeat.visible		   - Defines if an inverted repeat is drawn or not.
+	 * @property {Boolean} features.invertedRepeat.labeling		   - Defines if the label for a inverted repeat is shown or not.
+	 * @property {Object}  features.nStretch				   	   - Contains the configuration for n stretch.
+	 * @property {String}  features.nStretch.form			   	   - Defines the shape of a n stretch.
+	 * @property {String}  features.nStretch.color		   		   - Defines the color of a n stretch.
+	 * @property {Number}  features.nStretch.height		   		   - Defines the height of the drawn n stretch onto the chromosome.
+	 * @property {Boolean} features.nStretch.visible		   	   - Defines if an inverted n stretch is drawn or not.
+	 * @property {Boolean} features.nStretch.labeling		       - Defines if the label for a n stretch is shown or not.
+	 * @property {Object}  features.repeat				   		   - Contains the configuration for inverted repeats.
+	 * @property {String}  features.repeat.form			   		   - Defines the shape of a repeat.
+	 * @property {String}  features.repeat.color		   		   - Defines the color of a repeat.
+	 * @property {Number}  features.repeat.height		   		   - Defines the height of the drawn repeat onto the chromosome.
+	 * @property {Boolean} features.repeat.visible		   		   - Defines if an repeat is drawn or not.
+	 * @property {Boolean} features.repeat.labeling		   		   - Defines if the label for a repeat is shown or not.
+	 * @property {Object}  features.fallback				   	   - Contains the configuration for non-supported feature classes.
+	 * @property {String}  features.fallback.form			   	   - Defines the shape of a non-supported feature groups.
+	 * @property {String}  features.fallback.color		   		   - Defines the color of a non-supported feature group.
+	 * @property {Number}  features.fallback.height		   		   - Defines the height of the drawn non-supported feature group onto the chromosome.
+	 * @property {Boolean} features.fallback.visible		   	   - Defines if an non-supported feature group is drawn or not.
+	 * @property {Boolean} features.fallback.labeling		   	   - Defines if the label for a non-supported feature group is shown or not.
 	 * @property {Object}  labels								   - The configuration options for the text labels.
 	 * @property {Boolean} labels.showAllLabels					   - With this option it is possible to set labels to genomes, chromosomes and all features.
 	 * @property {Boolean} labels.ticks							   - Contains the configuration for the labeling of the chromosome scale.
@@ -121,7 +142,6 @@ function AliTV(svg) {
 	 */
 	this.conf = {
 		linear: {
-			drawAllLinks: false,
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
 		},
@@ -160,34 +180,39 @@ function AliTV(svg) {
 					color: "#E2EDFF",
 					height: 30,
 					visible: false,
+					labeling: false
 				},
 				invertedRepeat: {
 					form: "arrow",
 					color: "#e7d3e2",
 					height: 30,
 					visible: false,
-					pattern: "woven"
+					pattern: "woven",
+					labeling: false
 				},
 				nStretch: {
 					form: "rect",
 					color: "#000000",
 					height: 30,
 					visible: false,
-					pattern: "lines"
+					pattern: "lines",
+					labeling: false
 				},
 				repeat: {
-					form: "arrow",
+					form: "rect",
 					color: "#56cd0f",
 					height: 30,
 					visible: false,
-					pattern: "woven"
+					pattern: "woven",
+					labeling: false
 				}
 			},
 			fallbackStyle: {
 				form: "rect",
 				color: "#787878",
 				height: 30,
-				visible: false
+				visible: false,
+				labeling: false
 			}
 		},
 		labels: {
@@ -197,7 +222,7 @@ function AliTV(svg) {
 				showTickLabels: true
 			},
 			chromosome: {
-				showChromosomeLabels: true
+				showChromosomeLabels: false
 			},
 			genome: {
 				showGenomeLabels: true
@@ -512,8 +537,9 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
  * This function calculates the tick coords and operates on the chromosomes and need the length in bp and the width in px of the karyo.
  * @author Sonja Hohlfeld
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
- * @return {Array} The array containing the tick coordinates as shown in the following example
- * @example linearTickCoords = [[0, 50, 100, 150, 200], [0, 50, 100], [100, 150, 200]]
+ * @return {Array} The array containing the tick coordinates as shown in the following example.
+ * 				   Ticks for one chromosome have to be adjacent and in the order from start to end.
+ * @example linearTickCoords = [{id: 'c1', x1: 0, x2: 0, y1: 860, y2: 910}, {id: 'c2', x1: 0, x2: 0, y1: 660, y2:710}]
  */
 
 AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
@@ -596,57 +622,54 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 	var that = this;
 
+	var lastID = '';
+	var counter = 0;
+	var filteredLinearTickCoords = [];
+	$.each(linearTickCoords, function(key, value) {
+		if (lastID !== value.id) {
+			lastID = value.id;
+			counter = 0;
+		}
+		if (counter % that.conf.graphicalParameters.tickLabelFrequency === 0) {
+			var myValue = {};
+			$.extend(true, myValue, value);
+			myValue.counter = counter;
+			filteredLinearTickCoords.push(myValue);
+		}
+		counter++;
+	});
+
 	var labels = that.svgD3.append("g")
 		.attr("class", "tickLabelGroup")
 		.selectAll("path")
-		.data(linearTickCoords)
+		.data(filteredLinearTickCoords)
 		.enter();
 
-	$.each(that.filters.karyo.order, function(key, value) {
-		labels.append("text")
-			.filter(function(d) {
-				return d.id === value;
-			})
-			.each(function(d, i) {
-				if (i % that.conf.graphicalParameters.tickLabelFrequency === 0) {
-					var labelPosition = i;
-					d3.select(this)
-						.attr("class", "tickLabel")
-						.attr("x", function(d) {
-							return d.x1 - 3;
-						})
-						.attr("y", function(d) {
-							return d.y1;
-						})
-						.text(function(d) {
-							return labelPosition * that.conf.graphicalParameters.tickDistance + " bp";
-						})
-						.attr("font-size", 10 + "px");
-				}
-			});
+	labels.append("text")
+		.attr("class", "tickLabel")
+		.attr("x", function(d) {
+			return d.x1 - 3;
+		})
+		.attr("y", function(d) {
+			return d.y1;
+		})
+		.text(function(d) {
+			return d.counter * that.conf.graphicalParameters.tickDistance + " bp";
+		})
+		.attr("font-size", 10 + "px");
 
-		labels.append("text")
-			.filter(function(d) {
-				return d.id === value;
-			})
-			.each(function(d, i) {
-				if (i % that.conf.graphicalParameters.tickLabelFrequency === 0) {
-					var labelPosition = i;
-					d3.select(this)
-						.attr("class", "tickLabel")
-						.attr("x", function(d) {
-							return d.x2 - 3;
-						})
-						.attr("y", function(d) {
-							return d.y2 + 6;
-						})
-						.text(function(d) {
-							return labelPosition * that.conf.graphicalParameters.tickDistance + " bp";
-						})
-						.attr("font-size", 10 + "px");
-				}
-			});
-	});
+	labels.append("text")
+		.attr("class", "tickLabel")
+		.attr("x", function(d) {
+			return d.x2 - 3;
+		})
+		.attr("y", function(d) {
+			return d.y2 + 6;
+		})
+		.text(function(d) {
+			return d.counter * that.conf.graphicalParameters.tickDistance + " bp";
+		})
+		.attr("font-size", 10 + "px");
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
@@ -669,7 +692,7 @@ AliTV.prototype.fadeLinks = function(g, opacity) {
 	var that = this;
 	that.svgD3.selectAll(".link")
 		.filter(function(d) {
-			return that.data.features.link[that.data.links[d.linkID].source].karyo != g.karyo && that.data.features.link[that.data.links[d.linkID].target].karyo != g.karyo;
+			return that.data.features.link[that.visibleLinks[d.linkID].source].karyo != g.karyo && that.data.features.link[that.visibleLinks[d.linkID].target].karyo != g.karyo;
 		})
 		.transition()
 		.style("opacity", opacity);
@@ -711,7 +734,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.attr("class", "link")
 		.attr("d", coordsToPath)
 		.style("fill", function(d) {
-			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
+			return that.colorLinksByIdentity(that.visibleLinks[d.linkID].identity);
 		});
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
@@ -760,10 +783,8 @@ AliTV.prototype.drawLinear = function() {
 	if (this.conf.features.showAllFeatures === true || this.conf.features.supportedFeatures.gene.visible === true || this.conf.features.supportedFeatures.invertedRepeat.visible === true || this.conf.features.supportedFeatures.repeat.visible === true || this.conf.features.supportedFeatures.nStretch.visible === true || this.conf.features.fallbackStyle.visible === true) {
 		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 		this.drawLinearFeatures(linearFeatureCoords);
-		if (this.conf.labels.showAllLabels === true || this.conf.labels.features.showFeatureLabels === true) {
-			var linearFeatureLabelCoords = this.getFeatureLabelCoords(linearFeatureCoords);
-			this.drawLinearFeatureLabels(linearFeatureLabelCoords);
-		}
+		var linearFeatureLabelCoords = this.getFeatureLabelCoords(linearFeatureCoords);
+		this.drawLinearFeatureLabels(linearFeatureLabelCoords);
 	}
 	if (this.conf.labels.showAllLabels === true || this.conf.labels.chromosome.showChromosomeLabels === true) {
 		var linearChromosomeLabelCoords = this.getChromosomeLabelCoords(karyoCoords);
@@ -837,7 +858,10 @@ AliTV.prototype.getCircularLinkCoords = function(coords) {
 		karyoMap[value.karyo] = key;
 	});
 
-	$.each(that.data.links, function(key, value) {
+	var visibleChromosomes = that.filterChromosomes();
+	var visibleLinks = that.filterLinks(visibleChromosomes);
+
+	$.each(visibleLinks, function(key, value) {
 		var link = {};
 		link.linkID = key;
 
@@ -967,7 +991,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
 		.attr("class", "link")
 		.attr("d", d3.svg.chord().radius(this.getOuterRadius() - this.conf.graphicalParameters.karyoHeight - this.conf.graphicalParameters.linkKaryoDistance))
 		.style("fill", function(d) {
-			return that.colorLinksByIdentity(that.data.links[d.linkID].identity);
+			return that.colorLinksByIdentity(that.visibleLinks[d.linkID].identity);
 		});
 };
 
@@ -995,7 +1019,7 @@ AliTV.prototype.drawCircular = function() {
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.getLinearSpacer = function() {
+AliTV.prototype.getKaryoSpacer = function() {
 	return this.conf.graphicalParameters.karyoDistance;
 };
 
@@ -1011,7 +1035,7 @@ AliTV.prototype.getLinearSpacer = function() {
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.setLinearSpacer = function(spacer) {
+AliTV.prototype.setKaryoSpacer = function(spacer) {
 	if (spacer === "") {
 		throw "empty";
 	} else if (isNaN(spacer)) {
@@ -1019,7 +1043,6 @@ AliTV.prototype.setLinearSpacer = function(spacer) {
 	} else if (spacer <= 0) {
 		throw "spacer is to small, it should be > 0";
 	} else {
-		spacer = Number(spacer);
 		this.conf.graphicalParameters.karyoDistance = spacer;
 		return this.conf.graphicalParameters.karyoDistance;
 	}
@@ -1302,6 +1325,73 @@ AliTV.prototype.setGeneColor = function(color) {
 };
 
 /**
+ * This function returns an array which contains the color of the first and the last genome. 
+ * The colors are defined in the conf-object.
+ * @returns {Array} The color of the first and the last genome.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getGenomeColor = function() {
+	var color = [];
+	color.push(this.conf.linear.startLineColor);
+	color.push(this.conf.linear.endLineColor);
+	return color;
+};
+
+/**
+ * This function replaces the old colors of the start genome and the end genome with the new ones.
+ * @param color: the array contains the startLineColor and the endLineColor which is returned by getGenomeColor.
+ * @throws Will throw an error if the argument is empty.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setGenomeColor = function(color) {
+	var newColor = [];
+	if (color === "") {
+		throw "empty";
+	} else {
+		this.conf.linear.startLineColor = color[0];
+		this.conf.linear.endLineColor = color[1];
+		newColor.push(this.conf.linear.startLineColor);
+		newColor.push(this.conf.linear.endLineColor);
+		return newColor;
+	}
+};
+
+/**
+ * This function returns an array which contains the color of the minLinkIdentity and the maxLinkIdentity. 
+ * The colors are defined in the conf-object.
+ * @returns {Array} The color of the links with the minimal and maximal identity.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getLinkColor = function() {
+	var color = [];
+	color.push(this.conf.minLinkIdentityColor);
+	color.push(this.conf.midLinkIdentityColor);
+	color.push(this.conf.maxLinkIdentityColor);
+	return color;
+};
+
+/**
+ * This function replaces the old colors for the minimal and maximal link identity by the new ones.
+ * @param color: the array contains the minLinkIdentityColor and the maxLinkIdentityColor which is returned by getLinkColor.
+ * @throws Will throw an error if the argument is empty.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setLinkColor = function(color) {
+	var newColor = [];
+	if (color === "") {
+		throw "empty";
+	} else {
+		this.conf.minLinkIdentityColor = color[0];
+		this.conf.midLinkIdentityColor = color[1];
+		this.conf.maxLinkIdentityColor = color[2];
+		newColor.push(this.conf.minLinkIdentityColor);
+		newColor.push(this.conf.midLinkIdentityColor);
+		newColor.push(this.conf.maxLinkIdentityColor);
+		return newColor;
+	}
+};
+
+/**
  * This method should call other filter functions in order to filter the visible chromosomes.
  * @returns visibleChromosomes: returns only chromosomes which are visible
  * @author Sonja Hohlfeld
@@ -1312,9 +1402,6 @@ AliTV.prototype.filterChromosomes = function() {
 		visibleChromosomes = this.filterVisibleChromosomes(visibleChromosomes);
 	} else {
 		return visibleChromosomes;
-	}
-	if (this.filters.skipChromosomesWithoutLinks === true) {
-		visibleChromosomes = this.filterChromosomeWithoutLinkageInformation(visibleChromosomes);
 	}
 	if (this.filters.skipChromosomesWithoutVisibleLinks === true) {
 		visibleChromosomes = this.filterChromosomeWithoutVisibleLinks(visibleChromosomes);
@@ -1340,27 +1427,6 @@ AliTV.prototype.filterVisibleChromosomes = function(visibleChromosomes) {
 };
 
 /**
- *This method should filter all chromosome which have no linkage information
- * @param visibleChromosomes: the method gets all current visible chromosomes.
- * @returns filteredChromosomes: the method returns only chromosomes which have linkage information
- * @author Sonja Hohlfeld 
- */
-AliTV.prototype.filterChromosomeWithoutLinkageInformation = function(visibleChromosomes) {
-	var that = this;
-	var filteredChromosomes = {};
-	$.each(visibleChromosomes, function(key, value) {
-		var currentChromosome = key;
-		var valueOfCurrentChromosome = value;
-		$.each(that.data.links, function(key, value) {
-			if (that.data.features.link[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features.link[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
-				filteredChromosomes[currentChromosome] = valueOfCurrentChromosome;
-			}
-		});
-	});
-	return filteredChromosomes;
-};
-
-/**
  * This method should filter all chromosome which have no visible links with the current configurations
  * @param visibleChromosomes: the method gets all current visible chromosomes.
  * @returns filteredChromosomes: the method returns only chromosomes which have visible links
@@ -1369,7 +1435,6 @@ AliTV.prototype.filterChromosomeWithoutLinkageInformation = function(visibleChro
 AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosomes) {
 	var that = this;
 	var filteredChromosomes = {};
-	var allLinks = that.data.links;
 	var filteredLinks = that.filterLinks(visibleChromosomes);
 	$.each(visibleChromosomes, function(key, value) {
 		var currentChromosome = key;
@@ -1405,35 +1470,35 @@ AliTV.prototype.filterChromosomeOrder = function(visibleChromosomes) {
 
 /**
  * This method should call functions in order to filter the links.
+ * The nested link data structure with genome_ids as keys is returned as a flat structure with link_ids as keys.
+ * The filteredLinks are also saved as an object property.
  * @param visibleChromosomes: gets the chromosomes which are visible in the current configurations.
  * @returns visibleLinks: return all links which are visible
- * @author Sonja Hohlfeld
+ * @author Sonja Hohlfeld and Markus Ankenbrand
  */
 AliTV.prototype.filterLinks = function(visibleChromosomes) {
-	var visibleLinks = this.filterVisibleLinks(visibleChromosomes);
-	visibleLinks = this.filterLinksByIdentity(visibleLinks);
-	visibleLinks = this.filterLinksByLength(visibleLinks);
-	if (this.filters.onlyShowAdjacentLinks === true) {
-		visibleLinks = this.filterLinksByAdjacency(visibleLinks);
-	}
-	return visibleLinks;
+	this.visibleLinks = this.filterLinksByAdjacency();
+	this.visibleLinks = this.filterVisibleLinks(this.visibleLinks, visibleChromosomes);
+	this.visibleLinks = this.filterLinksByIdentity(this.visibleLinks);
+	this.visibleLinks = this.filterLinksByLength(this.visibleLinks);
+	return this.visibleLinks;
 };
 
 /**
  * This method should filter the visible links according to visible chromosomes
- * @param visibleChromosomes: gets the chromosomes, which are visible in the current configurations in order to filter all links, which have no target or source chromosome.
+ * @param visibleLinks: contains all currently visible links.
+ * @param visibleChromosomes: contains the chromosomes, which are visible in the current configurations in order to filter all links, which have no target or source chromosome.
  * @return visibleLinks: returns only links which source or target are in visible chromosomes
- * @author Sonja Hohlfeld
+ * @author Sonja Hohlfeld and Markus Ankenbrand
  */
-AliTV.prototype.filterVisibleLinks = function(visibleChromosomes) {
-	var allLinks = this.data.links;
+AliTV.prototype.filterVisibleLinks = function(visibleLinks, visibleChromosomes) {
 	var that = this;
 	var filteredLinks = {};
 	var listOfVisibleChromosomes = [];
 	$.each(visibleChromosomes, function(key, value) {
 		listOfVisibleChromosomes.push(key);
 	});
-	$.each(allLinks, function(key, value) {
+	$.each(visibleLinks, function(key, value) {
 		var targetKaryo = that.data.features.link[value.target].karyo;
 		var sourceKaryo = that.data.features.link[value.source].karyo;
 		if (listOfVisibleChromosomes.indexOf(targetKaryo) !== -1 && listOfVisibleChromosomes.indexOf(sourceKaryo) !== -1 && (value in filteredLinks) === false) {
@@ -1486,30 +1551,31 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 };
 
 /**
- * This method should filter links according to their adjacency.
- * @return filteredLinks: returns only links which are between adjacent chromosomes.
- * @param visibleLinks: gets all current visible links.
- * @author Sonja Hohlfeld
+ * This method should filter links according to their adjacency (if the according option is set and the layout is linear).
+ * The nested link data structure with genome_ids as keys is returned as a flat structure with link_ids as keys.
+ * @return filteredLinks: returns only links which are between chromosomes of adjacent genomes (if needed) in a flat link object.
+ * @author Sonja Hohlfeld and Markus Ankenbrand
  */
-AliTV.prototype.filterLinksByAdjacency = function(visibleLinks) {
+AliTV.prototype.filterLinksByAdjacency = function() {
 	var that = this;
 	var filteredLinks = {};
-	$.each(visibleLinks, function(key, value) {
-		var currentLink = value;
-		var targetFeature = that.data.features.link[currentLink.source];
-		var sourceFeature = that.data.features.link[currentLink.target];
-		var targetKaryo = that.data.karyo.chromosomes[targetFeature.karyo];
-		var sourceKaryo = that.data.karyo.chromosomes[sourceFeature.karyo];
-		var genomePositionOfTargetKaryo = that.filters.karyo.genome_order.indexOf(targetKaryo.genome_id);
-		var genomePositionOfSourceKaryo = that.filters.karyo.genome_order.indexOf(sourceKaryo.genome_id);
-		if (Math.abs(genomePositionOfTargetKaryo - genomePositionOfSourceKaryo) === 1) {
-			filteredLinks[key] = currentLink;
-		} else {
-			if (that.conf.linear.drawAllLinks === true) {
-				filteredLinks[key] = currentLink;
-			}
+	if (this.filters.onlyShowAdjacentLinks === true && this.conf.layout === 'linear') {
+		for (var i = 0; i < that.filters.karyo.genome_order.length - 1; i++) {
+			var genome0 = that.filters.karyo.genome_order[i];
+			var genome1 = that.filters.karyo.genome_order[i + 1];
+			var links01 = ((typeof that.data.links[genome0] === 'undefined' || typeof that.data.links[genome0][genome1] === 'undefined') ? {} : that.data.links[genome0][genome1]);
+			var links10 = ((typeof that.data.links[genome1] === 'undefined' || typeof that.data.links[genome1][genome0] === 'undefined') ? {} : that.data.links[genome1][genome0]);
+			filteredLinks = $.extend(filteredLinks, links01);
+			filteredLinks = $.extend(filteredLinks, links10);
 		}
-	});
+	} else {
+		// combine all links into a single object
+		$.each(that.data.links, function(key, value) {
+			$.each(value, function(k, v) {
+				filteredLinks = $.extend(filteredLinks, v);
+			});
+		});
+	}
 	return filteredLinks;
 };
 
@@ -1933,11 +1999,11 @@ AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
 			name: value.id
 		};
 		if (value.type in that.conf.features.supportedFeatures === true) {
-			if (that.conf.features.supportedFeatures[value.type].form === "rect") {
+			if (that.conf.features.supportedFeatures[value.type].form === "rect" && (that.conf.labels.showAllLabels === true || that.conf.labels.features.showFeatureLabels === true || that.conf.features.supportedFeatures[value.type].labeling === true)) {
 				feature.x = value.x + 1 / 2 * value.width;
 				feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
 			}
-			if (that.conf.features.supportedFeatures[value.type].form === "arrow") {
+			if (that.conf.features.supportedFeatures[value.type].form === "arrow" && (that.conf.labels.showAllLabels === true || that.conf.labels.features.showFeatureLabels === true || that.conf.features.supportedFeatures[value.type].labeling === true)) {
 				feature.x = value.path[0].x + 1 / 2 * (value.path[3].x - value.path[0].x);
 				feature.y = value.path[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
 			}
