@@ -501,8 +501,10 @@ describe('The getGenomeColor method is supposed to get the current color of the 
 	});
 	it('the function should return the color of the first and the last genome', function(){
 		var color = ali.getGenomeColor();
-		expect(color[0]).toEqual(defaultConf.linear.startLineColor());
-		expect(color[1]).toEqual(defaultConf.linear.endLineColor());
+		var startLineColor = color[0];
+		var endLineColor = color[1];
+		expect(startLineColor).toEqual(defaultConf.linear.startLineColor);
+		expect(endLineColor).toEqual(defaultConf.linear.endLineColor);
 	});	
 });
 

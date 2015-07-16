@@ -1307,7 +1307,10 @@ AliTV.prototype.setGeneColor = function(color) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getGenomeColor = function() {
-
+	var color = [];
+	color.push(this.conf.linear.startLineColor);
+	color.push(this.conf.linear.endLineColor);
+	return color;
 };
 
 /**
