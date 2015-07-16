@@ -531,6 +531,25 @@ describe('The setGenomeColor method is supposed to set the new start and end col
 	});
 });
 
+describe('The getLinkColor method is supposed to get the color for minimal and maximal links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getLinkColor method is supposed to be a function', function(){
+		expect(typeof ali.getLinkColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getLinkColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color for the minLinkIdentity and the maxLinkIdentity', function(){
+		var color = ali.getLinkColor();
+		var minLinkIdentityColor = color[0];
+		var maxLinkIdentityColor = color[1];
+		expect(minLinkIdentityColor).toEqual(defaultConf.minLinkIdentityColor);
+		expect(maxLinkIdentityColor).toEqual(defaultConf.maxLinkIdentityColor);
+	});	
+});
+
 describe('The setConfig method is supposed to extend the existing config values', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
