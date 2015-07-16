@@ -48,14 +48,16 @@ Both the query and the reference file should be in fasta format.
 
 ** Citing AliTV
 
-not yet published - use the github page as reference for now
+We have not yet submitted a manuscript.
+Please use this repository to cite AliTV if you use it in your project.
+[[http://dx.doi.org/10.5281/zenodo.20542][https://zenodo.org/badge/doi/10.5281/zenodo.20542.svg]]
 
-lastz or MUMmer
+Please also consider citing:
+ - lastz or MUMmer
+ - Circos
+ - BLAST (for IR annotation)
 
-Circos
-
-BLAST (for IR annotation)
-
+For a list of included libraries together with their respective licenses see the [[file:LICENSES/][LICENSES]] folder.
 ** Contact
 If you have any questions or encounter problems or potential bugs, don't
 hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/AliTV/issues][issues]] on github or write an email to:
