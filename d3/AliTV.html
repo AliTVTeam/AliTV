@@ -295,7 +295,6 @@
 	$(function(){$('#circular').change(function() {
 		if($('#circular').is(':checked')){
 			ali.conf.layout = "circular";
-			console.log(ali.getLayout());
 			$("#linear").attr("disabled", true);
 		} else {
 			$("#linear").attr("disabled", false);
@@ -398,6 +397,22 @@
 				$("#endLineColor").val(defaultColor[1]);
 			} 
 	}
+	function changeLinkColor(){
+		var color = [];
+		color.push($("#minLinkColor").val());
+		color.push($("#midLinkColor").val());
+		color.push($("#maxLinkColor").val());
+ 		try {
+			ali.setLinkColor(color); 	
+			}
+			catch(err){
+				alert(err);
+				var defaultColor = ali.getLinkColor();
+				$("#minLinkColor").val(defaultColor[0]);
+				$("#midLinkColor").val(defaultColor[1]);
+				$("#maxLinkColor").val(defaultColor[2]);
+			}  
+	}
 /* 	function setNewParameters(){
 		changeLinearSpacer();
 		changeKaryoHeight();
@@ -432,6 +447,7 @@
 		changeKaryoHeight();
 		changeTickDistance();
 		changeGenomeColor();
+		changeLinkColor();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
 	}
@@ -933,6 +949,11 @@
 								<div class="input-group demo2" style="margin: 10px 10px">
 									<span class="input-group-addon">MinLink Color</span>
 			    					<input id="minLinkColor" type="text" class="form-control" />
+			    					<span class="input-group-addon"><i></i></span>
+								</div>
+								<div class="input-group demo2" style="margin: 10px 10px">
+									<span class="input-group-addon">MidLink Color</span>
+			    					<input id="midLinkColor" type="text" class="form-control" />
 			    					<span class="input-group-addon"><i></i></span>
 								</div>
 								<div class="input-group demo2" style="margin: 10px 10px">
