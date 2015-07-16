@@ -1301,6 +1301,16 @@ AliTV.prototype.setGeneColor = function(color) {
 };
 
 /**
+ * This function returns an array which contains the color of the first and the last genome. 
+ * The colors are defined in the conf-object.
+ * @returns {Array} The color of the first and the last genome.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getGenomeColor = function() {
+
+};
+
+/**
  * This method should call other filter functions in order to filter the visible chromosomes.
  * @returns visibleChromosomes: returns only chromosomes which are visible
  * @author Sonja Hohlfeld
