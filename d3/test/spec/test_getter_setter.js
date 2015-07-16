@@ -1,53 +1,53 @@
-describe('The getLinearSpacer method is supposed to get the information of the spacer between two karyos', function(){
+describe('The getKaryoSpacer method is supposed to get the information of the spacer between two karyos', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	
-	it('getLinearSpacer method is supposed to be a function', function(){
-		expect(typeof ali.getLinearSpacer).toEqual('function');
+	it('getKaryoSpacer method is supposed to be a function', function(){
+		expect(typeof ali.getKaryoSpacer).toEqual('function');
 	});	
 	it('the function should return a defined value', function(){
-		var spacer = ali.getLinearSpacer();
+		var spacer = ali.getKaryoSpacer();
 		expect(spacer).toBeDefined();
 	});
 	it('the function should return the spacer of the defaultConf', function(){
-		var spacer = ali.getLinearSpacer();
+		var spacer = ali.getKaryoSpacer();
 		expect(spacer).toEqual(defaultConf.graphicalParameters.karyoDistance);
 	});
 });
 	
-describe('The setLinearSpacer method is supposed to set the new information of the karyoDistance in the conf object', function(){
+describe('The setKaryoSpacer method is supposed to set the new information of the karyoDistance in the conf object', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('setLinearSpacer method is supposed to be a function', function(){
-		expect(typeof ali.setLinearSpacer).toEqual('function');
+	it('setKaryoSpacer method is supposed to be a function', function(){
+		expect(typeof ali.setKaryoSpacer).toEqual('function');
 	});	
-	it('the returned spacer of the getLinearSpacer method should be the same as the spacer which is set and returned by the setter-method', function(){
+	it('the returned spacer of the getKaryoSpacer method should be the same as the spacer which is set and returned by the setter-method', function(){
 		var returnedSpacer = 50;
-		expect(ali.setLinearSpacer(returnedSpacer)).toEqual(50);
+		expect(ali.setKaryoSpacer(returnedSpacer)).toEqual(50);
 	});	
-	it('when setLinearSpacer is called several times the spacer should have the same value as the returned spacer of getLinearSpacer method', function(){
-		ali.setLinearSpacer(12);
-		expect(ali.getLinearSpacer()).toEqual(12);
-		ali.setLinearSpacer(100);
-		expect(ali.getLinearSpacer()).toEqual(100);
-		ali.setLinearSpacer(20);
-		expect(ali.getLinearSpacer()).toEqual(20);
+	it('when setKaryoSpacer is called several times the spacer should have the same value as the returned spacer of getKaryoSpacer method', function(){
+		ali.setKaryoSpacer(12);
+		expect(ali.getKaryoSpacer()).toEqual(12);
+		ali.setKaryoSpacer(100);
+		expect(ali.getKaryoSpacer()).toEqual(100);
+		ali.setKaryoSpacer(20);
+		expect(ali.getKaryoSpacer()).toEqual(20);
 	});	
-	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is empty', function(){
+	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is empty', function(){
 		var returnedSpacer = "";
-		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("empty");
+		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("empty");
 	});
-	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is not a number', function(){
+	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is not a number', function(){
 		var returnedSpacer = "test";
-		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("not a number");
+		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("not a number");
 	});
-	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is less than 0', function(){
+	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is less than 0', function(){
 		var returnedSpacer = -12;
-		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("spacer is to small, it should be > 0");
+		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("spacer is to small, it should be > 0");
 	});
-	it('the returned Spacer of the getLinearSpacer method should throw an error message if the spacer is 0', function(){
+	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is 0', function(){
 		var returnedSpacer = 0;
-		expect(function(){ali.setLinearSpacer(returnedSpacer);}).toThrow("spacer is to small, it should be > 0");
+		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("spacer is to small, it should be > 0");
 	});
 });
 
@@ -486,6 +486,93 @@ describe('The setGeneColor method is supposed to set a new color for genes', fun
 	it('the setGeneColor method should throw an error message if the assigned color is empty', function(){
 		var color = "";
 		expect(function(){ali.setGeneColor(color);}).toThrow("empty");
+	});
+});
+
+describe('The getGenomeColor method is supposed to get the current color of the first and the last genome', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getChromosomeColor method is supposed to be a function', function(){
+		expect(typeof ali.getGenomeColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getGenomeColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color of the first and the last genome', function(){
+		var color = ali.getGenomeColor();
+		var startLineColor = color[0];
+		var endLineColor = color[1];
+		expect(startLineColor).toEqual(defaultConf.linear.startLineColor);
+		expect(endLineColor).toEqual(defaultConf.linear.endLineColor);
+	});	
+});
+
+describe('The setGenomeColor method is supposed to set the new start and end color for the genomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setGenomeColor method is supposed to be a function', function(){
+		expect(typeof ali.setGenomeColor).toEqual('function');
+	});	
+	it('the returned value of the setGenomeColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = ["#000000", "#ffffff"];
+		expect(ali.setGeneColor(color)).toEqual(color);
+	});	
+	it('when setGenomeColor is called several times the color should have the same value as the returned color of getGenomeColor method', function(){
+		var color = ["#000000", "#efefef"];
+		ali.setGenomeColor(color);
+		var newColor = ali.getGenomeColor();
+		expect(newColor[0]).toEqual(color[0]);
+		expect(newColor[1]).toEqual(color[1]);
+	});
+	it('the setGenomeColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setGenomeColor(color);}).toThrow("empty");
+	});
+});
+
+describe('The getLinkColor method is supposed to get the color for minimal and maximal links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getLinkColor method is supposed to be a function', function(){
+		expect(typeof ali.getLinkColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getLinkColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color for the minLinkIdentity and the maxLinkIdentity', function(){
+		var color = ali.getLinkColor();
+		var minLinkIdentityColor = color[0];
+		var midLinkIdentityColor = color[1];
+		var maxLinkIdentityColor = color[2];
+		expect(minLinkIdentityColor).toEqual(defaultConf.minLinkIdentityColor);
+		expect(midLinkIdentityColor).toEqual(defaultConf.midLinkIdentityColor);
+		expect(maxLinkIdentityColor).toEqual(defaultConf.maxLinkIdentityColor);
+	});	
+});
+
+describe('The setLinkColor method is supposed to set the new colors for the minimal and maximal links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setLinkColor method is supposed to be a function', function(){
+		expect(typeof ali.setLinkColor).toEqual('function');
+	});	
+	it('the returned value of the setLinkColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = ["#000000", "#ffffff", "#efefef"];
+		expect(ali.setLinkColor(color)).toEqual(color);
+	});	
+	it('when setLinkColor is called several times the color should have the same value as the returned color of getLinkColor method', function(){
+		var color = ["#000000", "#efefef", "#ffffff"];
+		ali.setLinkColor(color);
+		var newColor = ali.getLinkColor();
+		expect(newColor[0]).toEqual(color[0]);
+		expect(newColor[1]).toEqual(color[1]);
+		expect(newColor[2]).toEqual(color[2]);
+	});
+	it('the setLinkColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setLinkColor(color);}).toThrow("empty");
 	});
 });
 

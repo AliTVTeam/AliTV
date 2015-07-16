@@ -997,7 +997,7 @@ AliTV.prototype.drawCircular = function() {
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.getLinearSpacer = function() {
+AliTV.prototype.getKaryoSpacer = function() {
 	return this.conf.graphicalParameters.karyoDistance;
 };
 
@@ -1013,7 +1013,7 @@ AliTV.prototype.getLinearSpacer = function() {
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.setLinearSpacer = function(spacer) {
+AliTV.prototype.setKaryoSpacer = function(spacer) {
 	if (spacer === "") {
 		throw "empty";
 	} else if (isNaN(spacer)) {
@@ -1021,7 +1021,6 @@ AliTV.prototype.setLinearSpacer = function(spacer) {
 	} else if (spacer <= 0) {
 		throw "spacer is to small, it should be > 0";
 	} else {
-		spacer = Number(spacer);
 		this.conf.graphicalParameters.karyoDistance = spacer;
 		return this.conf.graphicalParameters.karyoDistance;
 	}
@@ -1300,6 +1299,73 @@ AliTV.prototype.setGeneColor = function(color) {
 	} else {
 		this.conf.features.supportedFeatures.gene.color = color;
 		return this.conf.features.supportedFeatures.gene.color;
+	}
+};
+
+/**
+ * This function returns an array which contains the color of the first and the last genome. 
+ * The colors are defined in the conf-object.
+ * @returns {Array} The color of the first and the last genome.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getGenomeColor = function() {
+	var color = [];
+	color.push(this.conf.linear.startLineColor);
+	color.push(this.conf.linear.endLineColor);
+	return color;
+};
+
+/**
+ * This function replaces the old colors of the start genome and the end genome with the new ones.
+ * @param color: the array contains the startLineColor and the endLineColor which is returned by getGenomeColor.
+ * @throws Will throw an error if the argument is empty.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setGenomeColor = function(color) {
+	var newColor = [];
+	if (color === "") {
+		throw "empty";
+	} else {
+		this.conf.linear.startLineColor = color[0];
+		this.conf.linear.endLineColor = color[1];
+		newColor.push(this.conf.linear.startLineColor);
+		newColor.push(this.conf.linear.endLineColor);
+		return newColor;
+	}
+};
+
+/**
+ * This function returns an array which contains the color of the minLinkIdentity and the maxLinkIdentity. 
+ * The colors are defined in the conf-object.
+ * @returns {Array} The color of the links with the minimal and maximal identity.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getLinkColor = function() {
+	var color = [];
+	color.push(this.conf.minLinkIdentityColor);
+	color.push(this.conf.midLinkIdentityColor);
+	color.push(this.conf.maxLinkIdentityColor);
+	return color;
+};
+
+/**
+ * This function replaces the old colors for the minimal and maximal link identity by the new ones.
+ * @param color: the array contains the minLinkIdentityColor and the maxLinkIdentityColor which is returned by getLinkColor.
+ * @throws Will throw an error if the argument is empty.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setLinkColor = function(color) {
+	var newColor = [];
+	if (color === "") {
+		throw "empty";
+	} else {
+		this.conf.minLinkIdentityColor = color[0];
+		this.conf.midLinkIdentityColor = color[1];
+		this.conf.maxLinkIdentityColor = color[2];
+		newColor.push(this.conf.minLinkIdentityColor);
+		newColor.push(this.conf.midLinkIdentityColor);
+		newColor.push(this.conf.maxLinkIdentityColor);
+		return newColor;
 	}
 };
 
