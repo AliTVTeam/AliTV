@@ -1,6 +1,5 @@
 var defaultConf =  {
 		linear: {
-			drawAllLinks: false,
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
 		},
@@ -39,34 +38,39 @@ var defaultConf =  {
 					color: "#E2EDFF",
 					height: 30,
 					visible: false,
+					labeling: false
 				},
 				invertedRepeat: {
 					form: "arrow",
 					color: "#e7d3e2",
 					height: 30,
 					visible: false,
-					pattern: "woven"
+					pattern: "woven",
+					labeling: false
 				},
 				nStretch: {
 					form: "rect",
 					color: "#000000",
 					height: 30,
 					visible: false,
-					pattern: "lines"
+					pattern: "lines",
+					labeling: false
 				},
 				repeat: {
-					form: "arrow",
+					form: "rect",
 					color: "#56cd0f",
 					height: 30,
 					visible: false,
-					pattern: "woven"
+					pattern: "woven",
+					labeling: false
 				}
 			},
 			fallbackStyle: {
 				form: "rect",
 				color: "#787878",
 				height: 30,
-				visible: false
+				visible: false,
+				labeling: false
 			}
 		},
 		labels: {
@@ -76,7 +80,7 @@ var defaultConf =  {
 				showTickLabels: true
 			},
 			chromosome: {
-				showChromosomeLabels: true
+				showChromosomeLabels: false
 			},
 			genome: {
 				showGenomeLabels: true

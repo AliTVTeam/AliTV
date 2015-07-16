@@ -77,3 +77,14 @@ hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/AliT
 #+LaTeX_HEADER: \setlength{\parindent}{0pt}
 #+LaTeX_HEADER: \setlength{\parskip}{1.5ex}
 #+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
+** Changelog
+*** 0.2.0
+ - allow for input as tsv and bed files as alternative to fasta files
+ - demo data added - seven chloroplast genomes
+ - documentation added
+ - test cases added
+ - added interactive JavaScript output
+ - renamed to Alignment Toolbox and Visualization (AliTV)
+*** 0.1.0
+ - First release of the wgaPipeline code.
+ - Automated whole genome alignment and circos visualization from two fasta files.
