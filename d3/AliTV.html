@@ -280,26 +280,23 @@
 		}
 	});	
 	});
+
 	
-/* 	$(function(){$('#linear').change(function() {
-		if($('#linear').is(':checked')){
-			ali.conf.layout = "linear";
-			$("#circular").attr("disabled", true);
-		} else {
-			$("#circular").attr("disabled", false);
-		}
-	});	
+	$(function(){$("#linear") 
+    .change(function(){ 
+        if( $(this).is(":checked") ){ 
+            ali.conf.layout = $(this).val(); 
+        }
+    });
 	});
 	
-	$(function(){$('#circular').change(function() {
-		if($('#circular').is(':checked')){
-			ali.conf.layout = "circular";
-			$("#linear").attr("disabled", true);
-		} else {
-			$("#linear").attr("disabled", false);
-		}
-	});	
-	}); */
+	$(function(){$("#circular") 
+	    .change(function(){ 
+	        if( $(this).is(":checked") ){ 
+	           ali.conf.layout = $(this).val(); 
+	        }
+	    });
+		});
 	
 	function changeKaryoSpacer(){
 		var spacer = $("#karyoSpacer").val(); 
@@ -890,12 +887,12 @@
 						    		<div class="input-group" style="margin: 10px 10px">
 						    			<span class="input-group-addon"><img src="lib/img/linear.png" width="15px" height="15px"></img></span>
 										<span class="input-group-addon">Linear Layout </span>
-										<span class="input-group-addon"><input type="radio" name="layout" value="linear" id="linear" checked></span>
+										<span class="input-group-addon"><input id="linear" type="radio" name="layout" value="linear" id="linear" checked></span>
 						    		</div>
 									<div class="input-group" style="margin: 10px 10px">
 										<span class="input-group-addon"><img src="lib/img/circular.png" width="15px" height="15px"></img></span>
 										<span class="input-group-addon">Circular Layout </span>
-										<span class="input-group-addon"><input type="radio" name="layout" value="circular" id="circular"></span>
+										<span class="input-group-addon"><input id="circular" type="radio" name="layout" value="circular" id="circular"></span>
 									</div>	     
 									Set the SVG height and width: 
 									<div class="input-group" style="margin: 10px 10px">
