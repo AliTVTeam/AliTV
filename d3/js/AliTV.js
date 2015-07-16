@@ -995,7 +995,7 @@ AliTV.prototype.drawCircular = function() {
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.getLinearSpacer = function() {
+AliTV.prototype.getKaryoSpacer = function() {
 	return this.conf.graphicalParameters.karyoDistance;
 };
 
@@ -1011,7 +1011,7 @@ AliTV.prototype.getLinearSpacer = function() {
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.setLinearSpacer = function(spacer) {
+AliTV.prototype.setKaryoSpacer = function(spacer) {
 	if (spacer === "") {
 		throw "empty";
 	} else if (isNaN(spacer)) {

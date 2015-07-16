@@ -303,15 +303,15 @@
 	});	
 	});
 	
-	function changeLinearSpacer(){
-		var spacer = $("#linearSpacer").val();
+	function changeKaryoSpacer(){
+		var spacer = $("#karyoSpacer").val();
 		try {
-		ali.setLinearSpacer(spacer); 
-		$("#linearSpacer").val(ali.getLinearSpacer());
+		ali.setKaryoSpacer(spacer); 
+		$("#linearSpacer").val(ali.setKaryoSpacer());
 		}
 		catch(err){
 			alert(err);
-			$("#linearSpacer").val(ali.getLinearSpacer());
+			$("#karyoSpacer").val(ali.getKaryoSpacer());
 		}
 	}
 	function changeKaryoHeight(){
@@ -414,6 +414,7 @@
 		var layout = ali.getLayout();
 		changeCanvasWidth();
 		changeCanvasHeight();
+		changeKaryoSpacer();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
 	}
