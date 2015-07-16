@@ -1333,6 +1333,16 @@ AliTV.prototype.setGenomeColor = function(color) {
 };
 
 /**
+ * This function returns an array which contains the color of the minLinkIdentity and the maxLinkIdentity. 
+ * The colors are defined in the conf-object.
+ * @returns {Array} The color of the links with the minimal and maximal identity.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getLinkColor = function() {
+
+};
+
+/**
  * This method should call other filter functions in order to filter the visible chromosomes.
  * @returns visibleChromosomes: returns only chromosomes which are visible
  * @author Sonja Hohlfeld
