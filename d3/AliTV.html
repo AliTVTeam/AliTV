@@ -24,7 +24,7 @@
 <script type="text/javascript">
 	var ali;
 	var editor;
-	$(document).ready(function() {
+ 	$(document).ready(function() {
 		var svg = $('#wgaCanvas');
 		ali = new AliTV(svg);
 		var container = document.getElementById("jsoneditor");
@@ -44,7 +44,7 @@
 				});
 			});
 		});	
-	});
+	});  
 	
 	$(function(){
 		$("#identity-slider").slider({
@@ -278,6 +278,27 @@
 		} else {
 			ali.conf.labels.ticks.showTickLabels = false;
 			$("#showAllLabels").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#linear').change(function() {
+		if($('#linear').is(':checked')){
+			ali.conf.layout = "linear";
+			$("#circular").attr("disabled", true);
+		} else {
+			$("#circular").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#circular').change(function() {
+		if($('#circular').is(':checked')){
+			ali.conf.layout = "circular";
+			console.log(ali.getLayout());
+			$("#linear").attr("disabled", true);
+		} else {
+			$("#linear").attr("disabled", false);
 		}
 	});	
 	});
@@ -826,12 +847,12 @@
 								<div class="input-group" style="margin: 10px 10px">
 								  <span class="input-group-addon"><img src="lib/img/linear.png" width="15px" height="15px"></img></span>
 								  <span class="input-group-addon">Linear Layout  </span>
-								  <span class="input-group-addon"><input id="#linear" type="checkbox"></span>
+								  <span class="input-group-addon"><input id="linear" type="checkbox"></span>
 								</div>
 								<div class="input-group" style="margin: 10px 10px">
 								  <span class="input-group-addon"><img src="lib/img/circular.png" width="15px" height="15px"></img></span>
 								  <span class="input-group-addon">Circular Layout</span>
-								  <span class="input-group-addon"><input id="#circular" type="checkbox"></span>
+								  <span class="input-group-addon"><input id="circular" type="checkbox"></span>
 								</div>	     
 								Set the SVG height and width: 
 								<div class="input-group" style="margin: 10px 10px">
@@ -937,7 +958,7 @@
 				<div class="col-sm-2">
 					<div class="form-group">
 					    <div class="col-sm-offset-2 col-sm-10">
-					      <button type="submit" class="btn btn-info" style="margin: 20px 20px">Apply</button>
+					      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setLayoutSettings();">Apply</button>
 					    </div>
 					</div>
 				</div>
