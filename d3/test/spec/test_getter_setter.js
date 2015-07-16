@@ -493,17 +493,17 @@ describe('The getGenomeColor method is supposed to get the current color of the 
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	it('getChromosomeColor method is supposed to be a function', function(){
-		expect(typeof ali.getChromosomeColor).toEqual('function');
+		expect(typeof ali.getGenomeColor).toEqual('function');
 	});	
-//	it('the function should return a defined value', function(){
-//		var color = ali.getGeneColor();
-//		expect(color).toBeDefined();
-//	});
-//	it('the function should return the color of genomes which is defined in the defaultConf', function(){
-//		var color = ali.getGeneColor();
-//		expect(color).toEqual(defaultConf.features.supportedFeatures.gene.color);
-//	});
-	
+	it('the function should return a defined value', function(){
+		var color = ali.getGenomeColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color of the first and the last genome', function(){
+		var color = ali.getGenomeColor();
+		expect(color[0]).toEqual(defaultConf.linear.startLineColor());
+		expect(color[1]).toEqual(defaultConf.linear.endLineColor());
+	});	
 });
 
 describe('The setConfig method is supposed to extend the existing config values', function(){
