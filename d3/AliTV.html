@@ -16,6 +16,7 @@
 <script src="lib/jquery-ui.min.js"></script>
 <script src="lib/FileSaver.min.js"></script>
 <script src="lib/jsoneditor.min.js"></script>
+<script src="lib/svg-pan-zoom.min.js"></script>
 
 <script src="js/AliTV.js"></script>
 <script src="lib/bootstrap.min.js"></script>
@@ -37,10 +38,12 @@
 					ali.setConf(conf.conf)
 					setJSONEditorFromAli();
 					ali.drawLinear();
+                                        var panZoom = svgPanZoom('#wgaCanvas');
 				}).fail(function() {
 				    console.log( "could not load custom conf.json - using default values" );
 				    setJSONEditorFromAli();
 				    ali.drawLinear();
+                                    var panZoom = svgPanZoom('#wgaCanvas');
 				});
 			});
 		});	
