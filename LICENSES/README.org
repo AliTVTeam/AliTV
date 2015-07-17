@@ -97,6 +97,6 @@ Those are listed here:
 **** Version
 v3.2.0
 **** LICENSE
-LICENSE-svgpanzoom
+[[file:LICENSE-svgpanzoom][LICENSE-svgpanzoom]]
 **** Files
  - [[../d3/lib/svg-pan-zoom.min.js]]
