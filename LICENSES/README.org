@@ -91,3 +91,12 @@ Those are listed here:
 **** Files
  - [[../d3/lib/textures.min.js]]
 			    
+*** Svg-pan-zoom
+**** Repository
+[[https://github.com/ariutta/svg-pan-zoom]]
+**** Version
+v3.2.0
+**** LICENSE
+LICENSE-svgpanzoom
+**** Files
+ - [[../d3/lib/svg-pan-zoom.min.js]]
