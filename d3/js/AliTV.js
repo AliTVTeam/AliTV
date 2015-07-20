@@ -1978,7 +1978,7 @@ AliTV.prototype.drawLinearChromosomeLabels = function(linearChromosomeLabelCoord
 		})
 		.attr("font-family", "sans-serif")
 		.attr("font-size", that.conf.graphicalParameters.karyoHeight + "px")
-		.attr("fill", "red")
+		.attr("fill", that.getChromosomeLabelColor())
 		.style("text-anchor", "middle");
 
 	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
