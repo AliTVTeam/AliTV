@@ -44,7 +44,6 @@
 				});
 			});
 		});	
-		
 		$("#karyoSpacer").val(ali.getKaryoSpacer());
 		$("#karyoHeight").val(ali.getKaryoHeight());
 		$("#canvasWidth").val(ali.getCanvasWidth());
@@ -67,6 +66,9 @@
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showChromosomeLabels').attr('checked', false);
 		$('#showTickLabels').attr('checked', true);
+		$('#showGenes').attr('checked', false);
+		$('#geneLabels').attr('checked', false);
+		
 	});  
 	
 	$(function(){
@@ -180,9 +182,18 @@
 
 	$(function(){$('#showGenes').change(function() {
 		if($('#showGenes').is(':checked')){
-			ali.conf.features.supportedFeatures.gen.visible = true;
+			ali.conf.features.supportedFeatures.gene.visible = true;
 		} else {
-			ali.conf.features.supportedFeatures.gen.visible = false;
+			ali.conf.features.supportedFeatures.gene.visible = false;
+		}
+	});	
+	});
+	
+	$(function(){$('#geneLabels').change(function() {
+		if($('#geneLabels').is(':checked')){
+			ali.conf.features.supportedFeatures.gene.labeling = true;
+		} else {
+			ali.conf.features.supportedFeatures.gene.labeling = false;
 		}
 	});	
 	});
@@ -700,7 +711,7 @@
 								    </div>
 								    <div class="checkbox">
 								        <label>
-								          <input id="genLabels" type="checkbox"> Label Genes
+								          <input id="geneLabels" type="checkbox"> Label Genes
 								        </label>
 								    </div>
 								</div>
@@ -711,15 +722,15 @@
 								<div class="col-sm-offset-2 col-sm-10">
 									Choose form:
 									<div class="input-group" style="margin: 10px 10px">
-									  <span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
-									  <span class="input-group-addon">Arrow  </span>
-									  <span class="input-group-addon"><input id="#genArrow" type="checkbox"></span>
-									</div>
+						    			<span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px"></img></span>
+										<span class="input-group-addon">Rect </span>
+										<span class="input-group-addon"><input id="geneRect" type="radio" name="layout" value="linear" id="linear" checked></span>
+						    		</div>
 									<div class="input-group" style="margin: 10px 10px">
-									  <span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px" style=""></img></span>
-									  <span class="input-group-addon">Rect  </span>
-									  <span class="input-group-addon"><input id="#genRect" type="checkbox"></span>
-									</div>
+										<span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
+										<span class="input-group-addon">Arrow </span>
+										<span class="input-group-addon"><input id="geneArrow" type="radio" name="layout" value="circular" id="circular"></span>
+									</div>	
 								</div>
 							</div>
 					</div>
