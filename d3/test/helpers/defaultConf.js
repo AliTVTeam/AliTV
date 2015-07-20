@@ -74,7 +74,6 @@ var defaultConf =  {
 			}
 		},
 		labels: {
-			showAllLabels: false,
 			ticks: {
 				showTicks: true,
 				showTickLabels: true
@@ -83,7 +82,8 @@ var defaultConf =  {
 				showChromosomeLabels: false
 			},
 			genome: {
-				showGenomeLabels: true
+				showGenomeLabels: true,
+				color: "#000000"
 			},
 			features: {
 				showFeatureLabels: false
