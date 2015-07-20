@@ -1363,6 +1363,16 @@ AliTV.prototype.setInvertedRepeatColor = function(color) {
 };
 
 /**
+ * This function returns the current color of repeats.
+ * @returns {String} The color of repeats.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getRepeatColor = function() {
+	var color = this.conf.features.supportedFeatures.repeat.color;
+	return color;
+};
+
+/**
  * This function returns an array which contains the color of the first and the last genome. 
  * The colors are defined in the conf-object.
  * @returns {Array} The color of the first and the last genome.
