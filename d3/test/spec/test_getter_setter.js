@@ -765,3 +765,25 @@ describe('The getGenomeLabelColor method is supposed to get the color of the gen
 		expect(color).toEqual(defaultConf.labels.genome.color);
 	});
 });
+
+describe('The setGenomeLabelColor method is supposed to set a new color for the genome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setGenomeLabelColor method is supposed to be a function', function(){
+		expect(typeof ali.setGenomeLabelColor).toEqual('function');
+	});	
+	it('the returned value of the setGenomeLabelColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = "#000000";
+		expect(ali.setGenomeLabelColor()).toEqual(color);
+	});	
+	it('when setGenomeLabelColor is called several times the color should have the same value as the returned color of getGenomeLabelColor method', function(){
+		var color = "#000000";
+		ali.setGenomeLabelColor(color);
+		var newColor = ali.getGenomeLabelColor();
+		expect(newColor).toEqual(color);
+	});
+	it('the setGenomeLabelColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setGenomeLabelColor(color);}).toThrow("empty");
+	});
+});
