@@ -2167,9 +2167,9 @@ AliTV.prototype.setJSON = function(json) {
 };
 
 /**
- * This function returns an array which contains the color of the genomeLabels. 
- * The colors are defined in the conf-object.
- * @returns {Array} The color of the genome labels.
+ * This function returns the color of the genomeLabels. 
+ * The color is defined in the conf-object.
+ * @returns The color of the genome labels.
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getGenomeLabelColor = function() {
@@ -2189,4 +2189,14 @@ AliTV.prototype.setGenomeLabelColor = function(color) {
 		this.conf.labels.genome.color = color;
 		return this.conf.labels.genome.color;
 	}
+};
+
+/**
+ * This function returns the size of the genomeLabels. 
+ * The size is defined in the conf-object.
+ * @returns The size of the genome labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getGenomeLabelSize = function() {
+	return this.conf.labels.genome.size;
 };
