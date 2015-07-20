@@ -83,7 +83,8 @@ var defaultConf =  {
 			},
 			genome: {
 				showGenomeLabels: true,
-				color: "#000000"
+				color: "#000000",
+				size: 25
 			},
 			features: {
 				showFeatureLabels: false
