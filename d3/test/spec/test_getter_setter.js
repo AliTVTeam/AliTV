@@ -941,3 +941,25 @@ describe('The getTickLabelColor method is supposed to get the color of the Ticks
 		expect(color).toEqual(defaultConf.labels.ticks.color);
 	});
 });
+
+describe('The setTickLabelColor method is supposed to set a new color for the Tick labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setTickLabelColor method is supposed to be a function', function(){
+		expect(typeof ali.setTickLabelColor).toEqual('function');
+	});	
+	it('the returned value of the setTickLabelColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = "#000000";
+		expect(ali.setTickLabelColor(color)).toEqual(color);
+	});	
+	it('when setTickLabelColor is called several times the color should have the same value as the returned color of getTickLabelColor method', function(){
+		var color = "#000000";
+		ali.setTickLabelColor(color);
+		var newColor = ali.getTickLabelColor();
+		expect(newColor).toEqual(color);
+	});
+	it('the setTickLabelColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setTickLabelColor(color);}).toThrow("empty");
+	});
+});
