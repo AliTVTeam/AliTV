@@ -781,12 +781,12 @@ AliTV.prototype.drawLinear = function() {
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
 
-	if (this.conf.labels.ticks.showTickLabels === true || this.conf.labels.showAllLabels === true) {
+	if (this.conf.labels.ticks.showTickLabels === true) {
 		this.drawLinearTickLabels(linearTickCoords);
 	}
 
 
-	if (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels === true) {
+	if (this.conf.labels.genome.showGenomeLabels === true) {
 		var linearGenomeLabelCoords = this.getGenomeLabelCoords();
 		this.drawLinearGenomeLabels(linearGenomeLabelCoords);
 		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.genomeLabelWidth);
@@ -795,10 +795,10 @@ AliTV.prototype.drawLinear = function() {
 	if (this.conf.features.showAllFeatures === true || this.conf.features.supportedFeatures.gene.visible === true || this.conf.features.supportedFeatures.invertedRepeat.visible === true || this.conf.features.supportedFeatures.repeat.visible === true || this.conf.features.supportedFeatures.nStretch.visible === true || this.conf.features.fallbackStyle.visible === true) {
 		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 		this.drawLinearFeatures(linearFeatureCoords);
-		var linearFeatureLabelCoords = this.getFeatureLabelCoords(linearFeatureCoords);
-		this.drawLinearFeatureLabels(linearFeatureLabelCoords);
+//		var linearFeatureLabelCoords = this.getFeatureLabelCoords(linearFeatureCoords);
+//		this.drawLinearFeatureLabels(linearFeatureLabelCoords);
 	}
-	if (this.conf.labels.showAllLabels === true || this.conf.labels.chromosome.showChromosomeLabels === true) {
+	if (this.conf.labels.chromosome.showChromosomeLabels === true) {
 		var linearChromosomeLabelCoords = this.getChromosomeLabelCoords(karyoCoords);
 		this.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
 	}
@@ -808,7 +808,7 @@ AliTV.prototype.drawLinear = function() {
 		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.treeWidth);
 	}
 
-	if (this.conf.tree.drawTree === true && (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels)) {
+	if (this.conf.tree.drawTree === true && this.conf.labels.genome.showGenomeLabels) {
 		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 	this.conf.layout = "linear";
