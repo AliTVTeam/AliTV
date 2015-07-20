@@ -980,3 +980,35 @@ describe('The getTickLabelSize method is supposed to get the size of the Tick la
 		expect(size).toEqual(defaultConf.labels.ticks.size);
 	});
 });
+
+describe('The setTickLabelSize method is supposed to set a new size of the Tick labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setTickLabelSize method is supposed to be a function', function(){
+		expect(typeof ali.setTickLabelSize).toEqual('function');
+	});
+	it('when setTickLabelSize is called several times the size should have the same value as the returned size of the getTickLabelSize method', function(){
+		ali.setTickLabelSize(20);
+		expect(ali.getTickLabelSize()).toEqual(20);
+		ali.setTickLabelSize(1);
+		expect(ali.getTickLabelSize()).toEqual(1);
+		ali.setTickLabelSize(13.25);
+		expect(ali.getTickLabelSize()).toEqual(13.25);
+	});
+	it('the setTickLabelSize method should throw an error message if the assigned size is empty', function(){
+		var size = "";
+		expect(function(){ali.setTickLabelSize(size);}).toThrow("empty");
+	});
+	it('the setTickLabelSize method should throw an error message if the assigned size is not a number', function(){
+		var size = "test";
+		expect(function(){ali.setTickLabelSize(size);}).toThrow("not a number");
+	});
+	it('the setTickLabelSize method should throw an error message if the assigned size is 0', function(){
+		var size = 0;
+		expect(function(){ali.setTickLabelSize(size);}).toThrow("size is to small, it should be > 0");
+	});
+	it('the setTickLabelSize method should throw an error message if the assigned size is less than 0', function(){
+		var size = -30;
+		expect(function(){ali.setTickLabelSize(size);}).toThrow("size is to small, it should be > 0");
+	});
+});
