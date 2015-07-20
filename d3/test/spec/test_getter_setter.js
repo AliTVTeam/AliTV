@@ -963,3 +963,20 @@ describe('The setTickLabelColor method is supposed to set a new color for the Ti
 		expect(function(){ali.setTickLabelColor(color);}).toThrow("empty");
 	});
 });
+
+describe('The getTickLabelSize method is supposed to get the size of the Tick labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getTickLabelSize method is supposed to be a function', function(){
+		expect(typeof ali.getTickLabelSize).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var size = ali.getTickLabelSize();
+		expect(size).toBeDefined();
+	});
+	it('the function should return the current size of the Tick Labels which is set in the defaultConf', function(){
+		var size = ali.getTickLabelSize();
+		expect(size).toEqual(defaultConf.labels.ticks.size);
+	});
+});
