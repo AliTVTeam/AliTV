@@ -87,7 +87,9 @@ var defaultConf =  {
 				size: 25
 			},
 			features: {
-				showFeatureLabels: false
+				showFeatureLabels: false,
+				color: "#000000",
+				size: 25
 			}
 		}
 	};
