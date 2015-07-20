@@ -1162,7 +1162,8 @@ AliTV.prototype.setCanvasHeight = function(height) {
  */
 
 AliTV.prototype.getTickDistance = function() {
-	return this.conf.graphicalParameters.tickDistance;
+	var json = this.getJSON();
+	return json.conf.graphicalParameters.tickDistance;
 };
 
 /**
@@ -2173,6 +2174,7 @@ AliTV.prototype.setJSON = function(json) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getGenomeLabelColor = function() {
+	this.getJSON();
 	return this.conf.labels.genome.color;
 };
 
