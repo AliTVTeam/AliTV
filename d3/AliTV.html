@@ -220,14 +220,21 @@
 	$(function(){$('#showRepeats').change(function() {
 		if($('#showRepeats').is(':checked')){
 			ali.conf.features.supportedFeatures.repeat.visible = true;
-			$("#showFeatures").attr("disabled", true);
 		} else {
 			ali.conf.features.supportedFeatures.repeat.visible = false;
-			$("#showFeatures").attr("disabled", false);
 		}
 	});	
 	});
 
+	$(function(){$('#repeatLabels').change(function() {
+		if($('#repeatLabels').is(':checked')){
+			ali.conf.features.supportedFeatures.repeat.labeling = true;
+		} else {
+			ali.conf.features.supportedFeatures.repeat.labeling = false;
+		}
+	});	
+	});
+	
 	$(function(){$('#showNstretch').change(function() {
 		if($('#showNstretch').is(':checked')){
 			ali.conf.features.supportedFeatures.nStretch.visible = true;
@@ -519,6 +526,16 @@
 				$("#invertedRepeatColor").val(ali.getInvertedRepeatColor());
 			}
 	}
+	function changeRepeatColor(){
+		var color = ($("#repeatColor").val());
+		try {
+			ali.setRepeatColor(color); 	
+			}
+			catch(err){
+				alert(err);
+				$("#repeatColor").val(ali.getRepeatColor());
+			}
+	}
 	
 	function setFilters(){
 		var layout = ali.getLayout();
@@ -556,6 +573,13 @@
 	function setInvertedRepeatSettings(){
 		var layout = ali.getLayout();
 		changeInvertedRepeatColor();
+		setJSONEditorFromAli();
+		ali.drawEqualLayout(layout);
+	}
+	
+	function setRepeatSettings(){
+		var layout = ali.getLayout();
+		changeRepeatColor();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
 	}
@@ -896,14 +920,14 @@
 								<div class="col-sm-offset-2 col-sm-10">
 									Choose form:
 									<div class="input-group" style="margin: 10px 10px">
-									  <span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
-									  <span class="input-group-addon">Arrow  </span>
-									  <span class="input-group-addon"><input id="#repeatArrow" type="checkbox"></span>
-									</div>
+						    			<span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px"></img></span>
+										<span class="input-group-addon">Rect </span>
+										<span class="input-group-addon"><input id="repeatRect" type="radio" name="repeat" value="rect"></span>
+						    		</div>
 									<div class="input-group" style="margin: 10px 10px">
-									  <span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px" style=""></img></span>
-									  <span class="input-group-addon">Rect  </span>
-									  <span class="input-group-addon"><input id="#repeatRect" type="checkbox"></span>
+										<span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
+										<span class="input-group-addon">Arrow </span>
+										<span class="input-group-addon"><input id="repeatArrow" type="radio" name="repeat" value="arrow" checked></span>
 									</div>
 								</div>
 							</div>
@@ -922,7 +946,7 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-info" style="margin: 20px 20px">Apply</button>
+						      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setRepeatSettings();">Apply</button>
 						    </div>
 					  	</div>
 					</div>
