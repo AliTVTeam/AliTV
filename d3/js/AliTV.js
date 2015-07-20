@@ -2173,3 +2173,13 @@ AliTV.prototype.setJSON = function(json) {
 AliTV.prototype.getGenomeLabelColor = function() {
 	return this.conf.labels.genome.color;
 };
+
+/**
+ * This function set a new color for the genome labels.
+ * @param color: the array contains the current color of genome labels which is returned by getGenomeLabelColor.
+ * @throws Will throw an error if the argument is empty.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setGenomeLabelColor = function(color) {
+
+};
