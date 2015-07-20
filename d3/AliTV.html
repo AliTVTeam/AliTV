@@ -44,6 +44,18 @@
 				});
 			});
 		});	
+		
+		$("#karyoSpacer").val(ali.getKaryoSpacer());
+		$("#karyoHeight").val(ali.getKaryoHeight());
+		$("#canvasWidth").val(ali.getCanvasWidth());
+		$("#canvasHeight").val(ali.getCanvasHeight());
+		$("#tickDistance").val(ali.getTickDistance());
+		$("#treeWidth").val(ali.getTreeWidth());
+		$("#startLineColor").val((ali.getGenomeColor()[0]));
+		$("#endLineColor").val((ali.getGenomeColor()[1]));
+		$("#minLinkColor").val((ali.getLinkColor()[0]));
+		$("#midLinkColor").val((ali.getLinkColor()[1]));
+		$("#maxLinkColor").val((ali.getLinkColor()[2]));
 	});  
 	
 	$(function(){
