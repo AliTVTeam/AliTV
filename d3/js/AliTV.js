@@ -2208,6 +2208,21 @@ AliTV.prototype.getChromosomeLabelColor = function() {
 };
 
 /**
+ * This function set a new color for the chromosome labels.
+ * @param color: the current color of chromosome labels which is returned by getChromosomeLabelColor.
+ * @throws Will throw an error if the argument is empty.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setChromosomeLabelColor = function(color) {
+	if (color === "") {
+		throw "empty";
+	} else {
+		this.conf.labels.chromosome.color = color;
+		return this.conf.labels.chromosome.color;
+	}
+};
+
+/**
  * This function returns the size of the genomeLabels. 
  * The size is defined in the conf-object.
  * @returns The size of the genome labels.
