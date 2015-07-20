@@ -2300,3 +2300,18 @@ AliTV.prototype.setChromosomeLabelSize = function(size) {
 AliTV.prototype.getTickLabelColor = function() {
 	return this.conf.labels.ticks.color;
 };
+
+/**
+ * This function set a new color for the tick labels.
+ * @param color: the current color of tick labels which is returned by getTickLabelColor.
+ * @throws Will throw an error if the argument is empty.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setTickLabelColor = function(color) {
+	if (color === "") {
+		throw "empty";
+	} else {
+		this.conf.labels.ticks.color = color;
+		return this.conf.labels.ticks.color;
+	}
+};
