@@ -1029,3 +1029,27 @@ describe('The getInvertedRepeatColor method is supposed to get the current color
 	});
 	
 });
+
+describe('The setInvertedRepeatColor method is supposed to set a new color for inverted repeats', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setInvertedRepeatColor method is supposed to be a function', function(){
+		expect(typeof ali.setInvertedRepeatColor).toEqual('function');
+	});	
+	it('the returned value of the setInvertedRepeatColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = "#000000";
+		expect(ali.setInvertedRepeatColor(color)).toEqual(color);
+	});	
+	it('when setInvertedRepeatColor is called several times the color should have the same value as the returned color of getInvertedRepeatColor method', function(){
+		ali.setInvertedRepeatColor("#000000");
+		expect(ali.getInvertedRepeatColor()).toEqual("#000000");
+		ali.setInvertedRepeatColor("#36b6cd");
+		expect(ali.getInvertedRepeatColor()).toEqual("#36b6cd");
+		ali.setInvertedRepeatColor("#334e53");
+		expect(ali.getInvertedRepeatColor()).toEqual("#334e53");
+	});
+	it('the setInvertedRepeatColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setInvertedRepeatColor(color);}).toThrow("empty");
+	});
+});
