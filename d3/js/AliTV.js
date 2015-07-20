@@ -2181,5 +2181,10 @@ AliTV.prototype.getGenomeLabelColor = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.setGenomeLabelColor = function(color) {
-
+	if (color === "") {
+		throw "empty";
+	} else {
+		this.conf.labels.genome.color = color;
+		return this.conf.labels.genome.color;
+	}
 };

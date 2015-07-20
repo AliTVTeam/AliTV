@@ -774,7 +774,7 @@ describe('The setGenomeLabelColor method is supposed to set a new color for the 
 	});	
 	it('the returned value of the setGenomeLabelColor method should be the same as the color which is setted and returned by the setter-method', function(){
 		var color = "#000000";
-		expect(ali.setGenomeLabelColor()).toEqual(color);
+		expect(ali.setGenomeLabelColor(color)).toEqual(color);
 	});	
 	it('when setGenomeLabelColor is called several times the color should have the same value as the returned color of getGenomeLabelColor method', function(){
 		var color = "#000000";
