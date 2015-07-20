@@ -1070,3 +1070,27 @@ describe('The getRepeatColor method is supposed to get the current color of repe
 	});
 	
 });
+
+describe('The setRepeatColor method is supposed to set a new color for  repeats', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setRepeatColor method is supposed to be a function', function(){
+		expect(typeof ali.setRepeatColor).toEqual('function');
+	});	
+	it('the returned value of the setRepeatColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = "#000000";
+		expect(ali.setRepeatColor(color)).toEqual(color);
+	});	
+	it('when setRepeatColor is called several times the color should have the same value as the returned color of getRepeatColor method', function(){
+		ali.setRepeatColor("#000000");
+		expect(ali.getRepeatColor()).toEqual("#000000");
+		ali.setRepeatColor("#36b6cd");
+		expect(ali.getRepeatColor()).toEqual("#36b6cd");
+		ali.setRepeatColor("#334e53");
+		expect(ali.getRepeatColor()).toEqual("#334e53");
+	});
+	it('the setRepeatColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setRepeatColor(color);}).toThrow("empty");
+	});
+});
