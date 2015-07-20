@@ -63,6 +63,9 @@
 		$("#tickLabelSize").val(ali.getTickLabelSize());
 		$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
 		$("#geneColor").val(ali.getGeneColor());
+		$("#invertedRepeatColor").val(ali.getInvertedRepeatColor());
+		$("#repeatColor").val(ali.getRepeatColor());
+		$("#nStretchColor").val(ali.getNStretchColor());
 		
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showChromosomeLabels').attr('checked', false);
@@ -238,10 +241,17 @@
 	$(function(){$('#showNstretch').change(function() {
 		if($('#showNstretch').is(':checked')){
 			ali.conf.features.supportedFeatures.nStretch.visible = true;
-			$("#showFeatures").attr("disabled", true);
 		} else {
 			ali.conf.features.supportedFeatures.nStretch.visible = false;
-			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#nStretchLabels').change(function() {
+		if($('#nStretchLabels').is(':checked')){
+			ali.conf.features.supportedFeatures.nStretch.labeling = true;
+		} else {
+			ali.conf.features.supportedFeatures.nStretch.labeling = false;
 		}
 	});	
 	});
@@ -330,6 +340,38 @@
 	    .change(function(){ 
 	        if( $(this).is(":checked") ){ 
 	           ali.conf.features.supportedFeatures.invertedRepeat.form = $(this).val(); 
+	        }
+    });
+	});
+	
+	$(function(){$("#repeatRect") 
+	    .change(function(){ 
+	        if( $(this).is(":checked") ){ 
+	            ali.conf.features.supportedFeatures.repeat.form = $(this).val(); 
+	        }
+	    });
+		});
+	
+	$(function(){$("#repeatArrow") 
+	    .change(function(){ 
+	        if( $(this).is(":checked") ){ 
+	           ali.conf.features.supportedFeatures.repeat.form = $(this).val(); 
+	        }
+    });
+	});
+	
+	$(function(){$("#nStretchRect") 
+	    .change(function(){ 
+	        if( $(this).is(":checked") ){ 
+	            ali.conf.features.supportedFeatures.nStretch.form = $(this).val(); 
+	        }
+	    });
+		});
+	
+	$(function(){$("#nStretchArrow") 
+	    .change(function(){ 
+	        if( $(this).is(":checked") ){ 
+	           ali.conf.features.supportedFeatures.nStretch.form = $(this).val(); 
 	        }
     });
 	});
@@ -536,6 +578,16 @@
 				$("#repeatColor").val(ali.getRepeatColor());
 			}
 	}
+	function changeNStretchColor(){
+		var color = ($("#nStretchColor").val());
+		try {
+			ali.setNStretchColor(color); 	
+			}
+			catch(err){
+				alert(err);
+				$("#nStretchColor").val(ali.getNStretchColor());
+			}
+	}
 	
 	function setFilters(){
 		var layout = ali.getLayout();
@@ -580,6 +632,13 @@
 	function setRepeatSettings(){
 		var layout = ali.getLayout();
 		changeRepeatColor();
+		setJSONEditorFromAli();
+		ali.drawEqualLayout(layout);
+	}
+	
+	function setNStretchSettings(){
+		var layout = ali.getLayout();
+		changeNStretchColor();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
 	}
@@ -978,14 +1037,14 @@
 								<div class="col-sm-offset-2 col-sm-10">
 									Choose form:
 									<div class="input-group" style="margin: 10px 10px">
-									  <span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
-									  <span class="input-group-addon">Arrow  </span>
-									  <span class="input-group-addon"><input id="#inStretchArrow" type="checkbox"></span>
-									</div>
+						    			<span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px"></img></span>
+										<span class="input-group-addon">Rect </span>
+										<span class="input-group-addon"><input id="nStretchRect" type="radio" name="nStretch" value="rect"></span>
+						    		</div>
 									<div class="input-group" style="margin: 10px 10px">
-									  <span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px" style=""></img></span>
-									  <span class="input-group-addon">Rect  </span>
-									  <span class="input-group-addon"><input id="#nStretchRect" type="checkbox"></span>
+										<span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
+										<span class="input-group-addon">Arrow </span>
+										<span class="input-group-addon"><input id="nStretchArrow" type="radio" name="nStretch" value="arrow" checked></span>
 									</div>
 								</div>
 							</div>
@@ -1004,7 +1063,7 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-info" style="margin: 20px 20px">Apply</button>
+						      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setNStretchSettings();">Apply</button>
 						    </div>
 					  	</div>
 					</div>
