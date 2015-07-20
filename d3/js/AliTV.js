@@ -1373,6 +1373,21 @@ AliTV.prototype.getRepeatColor = function() {
 };
 
 /**
+ * This function replaces the old color of repeats with the new color in the config-object.
+ * @param color: the color of repeats which is returned by getRepeatColor.
+ * @throws Will throw an error if the argument is empty.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setRepeatColor = function(color) {
+	if (color === "") {
+		throw "empty";
+	} else {
+		this.conf.features.supportedFeatures.repeat.color = color;
+		return this.conf.features.supportedFeatures.repeat.color;
+	}
+};
+
+/**
  * This function returns an array which contains the color of the first and the last genome. 
  * The colors are defined in the conf-object.
  * @returns {Array} The color of the first and the last genome.
