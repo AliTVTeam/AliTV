@@ -76,7 +76,9 @@ var defaultConf =  {
 		labels: {
 			ticks: {
 				showTicks: true,
-				showTickLabels: true
+				showTickLabels: true,
+				color: "#000000",
+				size: 10
 			},
 			chromosome: {
 				showChromosomeLabels: false,
