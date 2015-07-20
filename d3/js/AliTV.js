@@ -611,7 +611,7 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 		.attr("y2", function(d) {
 			return d.y2;
 		})
-		.style("stroke", "#000");
+		.style("stroke", that.getTickLabelColor());
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
@@ -666,7 +666,8 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 		.text(function(d) {
 			return d.counter * that.conf.graphicalParameters.tickDistance + " bp";
 		})
-		.attr("font-size", 10 + "px");
+		.attr("font-size", 10 + "px")
+		.attr("fill", that.getTickLabelColor());
 
 	labels.append("text")
 		.attr("class", "tickLabel")
@@ -679,7 +680,8 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 		.text(function(d) {
 			return d.counter * that.conf.graphicalParameters.tickDistance + " bp";
 		})
-		.attr("font-size", 10 + "px");
+		.attr("font-size", 10 + "px")
+		.attr("fill", that.getTickLabelColor());
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
