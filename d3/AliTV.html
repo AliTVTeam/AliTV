@@ -62,6 +62,7 @@
 		$("#tickLabelColor").val(ali.getTickLabelColor());
 		$("#tickLabelSize").val(ali.getTickLabelSize());
 		$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
+		$("#geneColor").val(ali.getGeneColor());
 		
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showChromosomeLabels').attr('checked', false);
@@ -284,8 +285,24 @@
 	        if( $(this).is(":checked") ){ 
 	           ali.conf.layout = $(this).val(); 
 	        }
+    });
+	});
+	
+	$(function(){$("#geneRect") 
+	    .change(function(){ 
+	        if( $(this).is(":checked") ){ 
+	            ali.conf.features.supportedFeatures.gene.form = $(this).val(); 
+	        }
 	    });
 		});
+	
+	$(function(){$("#geneArrow") 
+	    .change(function(){ 
+	        if( $(this).is(":checked") ){ 
+	           ali.conf.features.supportedFeatures.gene.form = $(this).val(); 
+	        }
+    });
+	});
 	
 	$(function(){$('#showGenomeLabels').change(function() {
 		if($('#showGenomeLabels').is(':checked')){
@@ -724,12 +741,12 @@
 									<div class="input-group" style="margin: 10px 10px">
 						    			<span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px"></img></span>
 										<span class="input-group-addon">Rect </span>
-										<span class="input-group-addon"><input id="geneRect" type="radio" name="layout" value="linear" id="linear" checked></span>
+										<span class="input-group-addon"><input id="geneRect" type="radio" name="geneForm" value="rect" checked></span>
 						    		</div>
 									<div class="input-group" style="margin: 10px 10px">
 										<span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
 										<span class="input-group-addon">Arrow </span>
-										<span class="input-group-addon"><input id="geneArrow" type="radio" name="layout" value="circular" id="circular"></span>
+										<span class="input-group-addon"><input id="geneArrow" type="radio" name="geneForm" value="arrow"></span>
 									</div>	
 								</div>
 							</div>
