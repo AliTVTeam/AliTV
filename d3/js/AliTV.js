@@ -2254,3 +2254,13 @@ AliTV.prototype.setGenomeLabelSize = function(size) {
 		return this.conf.labels.genome.size;
 	}
 };
+
+/**
+ * This function returns the size of the chromosomeLabels. 
+ * The size is defined in the conf-object.
+ * @returns The size of the chromosome labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getChromosomeLabelSize = function() {
+	return this.conf.labels.chromosome.size;
+};
