@@ -1012,3 +1012,20 @@ describe('The setTickLabelSize method is supposed to set a new size of the Tick 
 		expect(function(){ali.setTickLabelSize(size);}).toThrow("size is to small, it should be > 0");
 	});
 });
+
+describe('The getInvertedRepeatColor method is supposed to get the current color of inverted repeats', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getInvertedRepeatColor method is supposed to be a function', function(){
+		expect(typeof ali.getInvertedRepeatColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getInvertedRepeatColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color of inverted repeats which is defined in the defaultConf', function(){
+		var color = ali.getInvertedRepeatsColor();
+		expect(color).toEqual(defaultConf.features.supportedFeatures.invertedRepeats.color);
+	});
+	
+});
