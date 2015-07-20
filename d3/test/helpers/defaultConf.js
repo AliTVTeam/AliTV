@@ -79,7 +79,9 @@ var defaultConf =  {
 				showTickLabels: true
 			},
 			chromosome: {
-				showChromosomeLabels: false
+				showChromosomeLabels: false,
+				color: "#000000",
+				size: 25
 			},
 			genome: {
 				showGenomeLabels: true,
@@ -87,9 +89,7 @@ var defaultConf =  {
 				size: 25
 			},
 			features: {
-				showFeatureLabels: false,
-				color: "#000000",
-				size: 25
+				showFeatureLabels: false
 			}
 		}
 	};

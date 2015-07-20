@@ -225,7 +225,9 @@ function AliTV(svg) {
 				showTickLabels: true
 			},
 			chromosome: {
-				showChromosomeLabels: false
+				showChromosomeLabels: false,
+				color: "#000000",
+				size: 25
 			},
 			genome: {
 				showGenomeLabels: true,
@@ -233,9 +235,7 @@ function AliTV(svg) {
 				size: 25
 			},
 			features: {
-				showFeatureLabels: false,
-				color: "#000000",
-				size: 25
+				showFeatureLabels: false
 			}
 		}
 	};
@@ -2204,7 +2204,6 @@ AliTV.prototype.setGenomeLabelColor = function(color) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getChromosomeLabelColor = function() {
-	this.getJSON();
 	return this.conf.labels.chromosome.color;
 };
 
