@@ -56,6 +56,10 @@
 		$("#minLinkColor").val((ali.getLinkColor()[0]));
 		$("#midLinkColor").val((ali.getLinkColor()[1]));
 		$("#maxLinkColor").val((ali.getLinkColor()[2]));
+		
+		$('#showGenomeLabels').attr('checked', true);
+		$('#showChromosomeLabels').attr('checked', false);
+		$('#showTickLabels').attr('checked', true);
 	});  
 	
 	$(function(){
@@ -235,49 +239,21 @@
 	});	
 	});
 
-	$(function(){$('#showAllLabels').change(function() {
-		if($('#showAllLabels').is(':checked')){
-			ali.conf.labels.showAllLabels = true;
-			$("#showChromosomeLabels").attr("disabled", true);
-			$("#showGenomeLabels").attr("disabled", true);
-			$("#showFeatureLabels").attr("disabled", true);
-		} else {
-			ali.conf.labels.showAllLabels = false;
-			$("#showChromosomeLabels").attr("disabled", false);
-			$("#showGenomeLabels").attr("disabled", false);
-			$("#showFeatureLabels").attr("disabled", false);
-		}
-	});	
-	});
-
 	$(function(){$('#showGenomeLabels').change(function() {
 		if($('#showGenomeLabels').is(':checked')){
 			ali.conf.labels.genome.showGenomeLabels = true;
-			$("#showAllLabels").attr("disabled", true);
 		} else {
 			ali.conf.labels.genome.showGenomeLabels = false;
-			$("#showAllLabels").attr("disabled", false);
 		}
 	});	
 	});
 
-	$(function(){$('#showFeatureLabels').change(function() {
-		if($('#showFeatureLabels').is(':checked')){
-			ali.conf.labels.features.showFeatureLabels = true;
-			$("#showAllLabels").attr("disabled", true);
-		} else {
-			ali.conf.labels.features.showFeatureLabels = false;
-			$("#showAllLabels").attr("disabled", false);
-		}
-	});	
-	});
+
 	$(function(){$('#showChromosomeLabels').change(function() {
 		if($('#showChromosomeLabels').is(':checked')){
-			ali.conf.labels.chromosome.showChromosomeLabels = true;
-			$("#showAllLabels").attr("disabled", true);
+			ali.conf.labels.chromosome.showChromosomeLabels = true;;
 		} else {
 			ali.conf.labels.chromosome.showChromosomeLabels = false;
-			$("#showAllLabels").attr("disabled", false);
 		}
 	});	
 	});
@@ -285,10 +261,8 @@
 	$(function(){$('#showTickLabels').change(function() {
 		if($('#showTickLabels').is(':checked')){
 			ali.conf.labels.ticks.showTickLabels = true;
-			$("#showAllLabels").attr("disabled", true);
 		} else {
 			ali.conf.labels.ticks.showTickLabels = false;
-			$("#showAllLabels").attr("disabled", false);
 		}
 	});	
 	});
@@ -309,6 +283,17 @@
 	        }
 	    });
 		});
+	
+	$(function(){$('#showGenomeLabels').change(function() {
+		if($('#showGenomeLabels').is(':checked')){
+			ali.conf.labels.genome.showGenomeLabels = true;
+			$("#showAllLabels").attr("disabled", true);
+		} else {
+			ali.conf.labels.genome.showGenomeLabels = false;
+			$("#showAllLabels").attr("disabled", false);
+		}
+	});	
+	});
 	
 	function changeKaryoSpacer(){
 		var spacer = $("#karyoSpacer").val(); 
