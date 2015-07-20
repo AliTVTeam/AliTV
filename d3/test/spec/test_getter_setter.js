@@ -804,3 +804,35 @@ describe('The getGenomeLabelSize method is supposed to get the size of the genom
 		expect(color).toEqual(defaultConf.labels.genome.size);
 	});
 });
+
+describe('The setGenomeLabelSize method is supposed to set a new size of the genome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setGenomeLabelSize method is supposed to be a function', function(){
+		expect(typeof ali.setGenomeLabelSize).toEqual('function');
+	});
+	it('when setGenomeLabelSize is called several times the size should have the same value as the returned size of the getGenomeLabelSize method', function(){
+		ali.setGenomeLabelSize(20);
+		expect(ali.getGenomeLabelSize).toEqual(20);
+		ali.setGenomeLabelSize(1);
+		expect(ali.getGenomeLabelSize).toEqual(1);
+		ali.setGenomeLabelSize(13.25);
+		expect(ali.getGenomeLabelSize).toEqual(13.25);
+	});
+	it('the setGenomeLabelSize method should throw an error message if the assigned size is empty', function(){
+		var size = "";
+		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("empty");
+	});
+	it('the setGenomeLabelSize method should throw an error message if the assigned size is not a number', function(){
+		var size = "test";
+		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("not a number");
+	});
+	it('the setGenomeLabelSize method should throw an error message if the assigned size is 0', function(){
+		var size = 0;
+		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("size is to small, it should be > 0");
+	});
+	it('the setGenomeLabelSize method should throw an error message if the assigned size is less than 0', function(){
+		var size = -30;
+		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("size is to small, it should be > 0");
+	});
+});
