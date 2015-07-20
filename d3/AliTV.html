@@ -515,6 +515,14 @@
 	
 	function setGeneSettings(){
 		var layout = ali.getLayout();
+		changeGeneColor();
+		setJSONEditorFromAli();
+		ali.drawEqualLayout(layout);
+	}
+	
+	function setInvertedRepeatSettings(){
+		var layout = ali.getLayout();
+		changeInvertedRepeatColor();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
 	}
@@ -781,12 +789,12 @@
 								<div class="col-sm-offset-2 col-sm-10">
 									<div class="checkbox">
 								        <label>
-								          <input id="showGenes" type="checkbox"> Show Inverted Repeats
+								          <input id="showInvertedRepeats" type="checkbox"> Show Inverted Repeats
 								        </label>
 								    </div>
 								    <div class="checkbox">
 								        <label>
-								          <input id="repeatLabels" type="checkbox"> Label Inverted Repeats
+								          <input id="invertedRepeatLabels" type="checkbox"> Label Inverted Repeats
 								        </label>
 								    </div>
 								</div>
@@ -797,14 +805,14 @@
 								<div class="col-sm-offset-2 col-sm-10">
 									Choose form:
 									<div class="input-group" style="margin: 10px 10px">
-									  <span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
-									  <span class="input-group-addon">Arrow  </span>
-									  <span class="input-group-addon"><input id="#invertedRepeatArrow" type="checkbox"></span>
-									</div>
+						    			<span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px"></img></span>
+										<span class="input-group-addon">Rect </span>
+										<span class="input-group-addon"><input id="invertedRepeatRect" type="radio" name="invertedRepeat" value="rect"></span>
+						    		</div>
 									<div class="input-group" style="margin: 10px 10px">
-									  <span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px" style=""></img></span>
-									  <span class="input-group-addon">Rect  </span>
-									  <span class="input-group-addon"><input id="#invertedRepeatRect" type="checkbox"></span>
+										<span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
+										<span class="input-group-addon">Arrow </span>
+										<span class="input-group-addon"><input id="invertedRepeatArrow" type="radio" name="invertedRepeat" value="arrow" checked></span>
 									</div>
 								</div>
 							</div>
@@ -823,7 +831,7 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-info" style="margin: 20px 20px">Apply</button>
+						      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setInvertedRepeatSettings();">Apply</button>
 						    </div>
 					  	</div>
 					</div>
