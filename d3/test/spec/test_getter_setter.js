@@ -1024,8 +1024,8 @@ describe('The getInvertedRepeatColor method is supposed to get the current color
 		expect(color).toBeDefined();
 	});
 	it('the function should return the color of inverted repeats which is defined in the defaultConf', function(){
-		var color = ali.getInvertedRepeatsColor();
-		expect(color).toEqual(defaultConf.features.supportedFeatures.invertedRepeats.color);
+		var color = ali.getInvertedRepeatColor();
+		expect(color).toEqual(defaultConf.features.supportedFeatures.invertedRepeat.color);
 	});
 	
 });
