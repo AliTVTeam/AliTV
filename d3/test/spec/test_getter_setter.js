@@ -892,3 +892,35 @@ describe('The getChromosomeLabelSize method is supposed to get the size of the C
 		expect(color).toEqual(defaultConf.labels.chromosome.size);
 	});
 });
+
+describe('The setChromosomeLabelSize method is supposed to set a new size of the Chromosome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setChromosomeLabelSize method is supposed to be a function', function(){
+		expect(typeof ali.setChromosomeLabelSize).toEqual('function');
+	});
+	it('when setChromosomeLabelSize is called several times the size should have the same value as the returned size of the getChromosomeLabelSize method', function(){
+		ali.setChromosomeLabelSize(20);
+		expect(ali.getChromosomeLabelSize()).toEqual(20);
+		ali.setChromosomeLabelSize(1);
+		expect(ali.getChromosomeLabelSize()).toEqual(1);
+		ali.setChromosomeLabelSize(13.25);
+		expect(ali.getChromosomeLabelSize()).toEqual(13.25);
+	});
+	it('the setChromosomeLabelSize method should throw an error message if the assigned size is empty', function(){
+		var size = "";
+		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("empty");
+	});
+	it('the setChromosomeLabelSize method should throw an error message if the assigned size is not a number', function(){
+		var size = "test";
+		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("not a number");
+	});
+	it('the setChromosomeLabelSize method should throw an error message if the assigned size is 0', function(){
+		var size = 0;
+		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("size is to small, it should be > 0");
+	});
+	it('the setChromosomeLabelSize method should throw an error message if the assigned size is less than 0', function(){
+		var size = -30;
+		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("size is to small, it should be > 0");
+	});
+});
