@@ -1388,6 +1388,16 @@ AliTV.prototype.setRepeatColor = function(color) {
 };
 
 /**
+ * This function returns the current color of nStretches.
+ * @returns {String} The color of repeats.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getNStretchColor = function() {
+	var color = this.conf.features.supportedFeatures.nStretch.color;
+	return color;
+};
+
+/**
  * This function returns an array which contains the color of the first and the last genome. 
  * The colors are defined in the conf-object.
  * @returns {Array} The color of the first and the last genome.
