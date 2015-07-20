@@ -1013,7 +1013,7 @@ describe('The setTickLabelSize method is supposed to set a new size of the Tick 
 	});
 });
 
-describe('The getInvertedRepeatColor method is supposed to get the current color of inverted repeats', function(){
+describe('The getInvertedRepeat method is supposed to get the current color of inverted repeats', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	it('getInvertedRepeatColor method is supposed to be a function', function(){
@@ -1110,4 +1110,28 @@ describe('The getNStretchColor method is supposed to get the current color of NS
 		expect(color).toEqual(defaultConf.features.supportedFeatures.nStretch.color);
 	});
 	
+});
+
+describe('The setNStretchColor method is supposed to set a new color for  NStretchs', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setNStretchColor method is supposed to be a function', function(){
+		expect(typeof ali.setNStretchColor).toEqual('function');
+	});	
+	it('the returned value of the setNStretchColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = "#000000";
+		expect(ali.setNStretchColor(color)).toEqual(color);
+	});	
+	it('when setNStretchColor is called several times the color should have the same value as the returned color of getNStretchColor method', function(){
+		ali.setNStretchColor("#000000");
+		expect(ali.getNStretchColor()).toEqual("#000000");
+		ali.setNStretchColor("#36b6cd");
+		expect(ali.getNStretchColor()).toEqual("#36b6cd");
+		ali.setNStretchColor("#334e53");
+		expect(ali.getNStretchColor()).toEqual("#334e53");
+	});
+	it('the setNStretchColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setNStretchColor(color);}).toThrow("empty");
+	});
 });
