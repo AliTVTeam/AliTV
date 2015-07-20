@@ -666,7 +666,7 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 		.text(function(d) {
 			return d.counter * that.conf.graphicalParameters.tickDistance + " bp";
 		})
-		.attr("font-size", 10 + "px")
+		.attr("font-size", that.getTickLabelSize() + "px")
 		.attr("fill", that.getTickLabelColor());
 
 	labels.append("text")
@@ -680,7 +680,7 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 		.text(function(d) {
 			return d.counter * that.conf.graphicalParameters.tickDistance + " bp";
 		})
-		.attr("font-size", 10 + "px")
+		.attr("font-size", that.getTickLabelSize() + "px")
 		.attr("fill", that.getTickLabelColor());
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
