@@ -924,3 +924,20 @@ describe('The setChromosomeLabelSize method is supposed to set a new size of the
 		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("size is to small, it should be > 0");
 	});
 });
+
+describe('The getTickLabelColor method is supposed to get the color of the Ticks labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getTickLabelColor method is supposed to be a function', function(){
+		expect(typeof ali.getTickLabelColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getTickLabelColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color of the Tick labels which is set in the defaultConf', function(){
+		var color = ali.getTickLabelColor();
+		expect(color).toEqual(defaultConf.labels.ticks.color);
+	});
+});
