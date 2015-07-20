@@ -787,3 +787,20 @@ describe('The setGenomeLabelColor method is supposed to set a new color for the 
 		expect(function(){ali.setGenomeLabelColor(color);}).toThrow("empty");
 	});
 });
+
+describe('The getGenomeLabelSize method is supposed to get the size of the genome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getGenomeLabelSize method is supposed to be a function', function(){
+		expect(typeof ali.getGenomeLabelSize).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getGenomeLabelSize();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the current size of the genome Labels which is set in the defaultConf', function(){
+		var color = ali.getGenomeLabelSize();
+		expect(color).toEqual(defaultConf.labels.genome.size);
+	});
+});
