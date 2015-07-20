@@ -1094,3 +1094,20 @@ describe('The setRepeatColor method is supposed to set a new color for  repeats'
 		expect(function(){ali.setRepeatColor(color);}).toThrow("empty");
 	});
 });
+
+describe('The getNStretchColor method is supposed to get the current color of NStretchs', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getNStretchColor method is supposed to be a function', function(){
+		expect(typeof ali.getNStretchColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getNStretchColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color ofNStretchs which is defined in the defaultConf', function(){
+		var color = ali.getNStretchColor();
+		expect(color).toEqual(defaultConf.features.supportedFeatures.nStretch.color);
+	});
+	
+});
