@@ -135,10 +135,12 @@ function AliTV(svg) {
 	 * @property {Boolean} labels.ticks.showTickLabels			   - Defines if tick labels are drawn.
 	 * @property {Object}  labels.chromosomes					   - Contains the configurations for the chromosome labels.
 	 * @property {Boolean} labels.chromosomes.showChromosomeLabels - Defines if chromosome labels are shown or not.
+	 * @property {String}  labels.chromosomes.color				   - Defines the color of chromosome labels.
+	 * @property {Number}  labels.chromosomes.size				   - Defines the size of chromosome labels.
 	 * @property {Object}  labels.genome					   	   - Contains the configurations for the genome labels.
 	 * @property {Boolean} labels.genome.showGenomeLabels 		   - Defines if genome labels are shown or not.
 	 * @property {String}  labels.genome.color					   - Defines the color of genome labels.
-	 * @property {String}  labels.genome.size					   - Defines the size of genome labels.
+	 * @property {Number}  labels.genome.size					   - Defines the size of genome labels.
 	 * @property {Object}  labels.features					   	   - Contains the configurations for the feature labels.
 	 * @property {Boolean} labels.features.showFeatureLabels 	   - Defines if feature labels are shown or not.
 	 */
@@ -231,7 +233,9 @@ function AliTV(svg) {
 				size: 25
 			},
 			features: {
-				showFeatureLabels: false
+				showFeatureLabels: false,
+				color: "#000000",
+				size: 25
 			}
 		}
 	};
@@ -2191,6 +2195,17 @@ AliTV.prototype.setGenomeLabelColor = function(color) {
 		this.conf.labels.genome.color = color;
 		return this.conf.labels.genome.color;
 	}
+};
+
+/**
+ * This function returns the color of the chromosomeLabels. 
+ * The color is defined in the conf-object.
+ * @returns The color of the chromosome labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getChromosomeLabelColor = function() {
+	this.getJSON();
+	return this.conf.labels.chromosome.color;
 };
 
 /**
