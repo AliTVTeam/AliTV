@@ -813,11 +813,11 @@ describe('The setGenomeLabelSize method is supposed to set a new size of the gen
 	});
 	it('when setGenomeLabelSize is called several times the size should have the same value as the returned size of the getGenomeLabelSize method', function(){
 		ali.setGenomeLabelSize(20);
-		expect(ali.getGenomeLabelSize).toEqual(20);
+		expect(ali.getGenomeLabelSize()).toEqual(20);
 		ali.setGenomeLabelSize(1);
-		expect(ali.getGenomeLabelSize).toEqual(1);
+		expect(ali.getGenomeLabelSize()).toEqual(1);
 		ali.setGenomeLabelSize(13.25);
-		expect(ali.getGenomeLabelSize).toEqual(13.25);
+		expect(ali.getGenomeLabelSize()).toEqual(13.25);
 	});
 	it('the setGenomeLabelSize method should throw an error message if the assigned size is empty', function(){
 		var size = "";
