@@ -1053,3 +1053,20 @@ describe('The setInvertedRepeatColor method is supposed to set a new color for i
 		expect(function(){ali.setInvertedRepeatColor(color);}).toThrow("empty");
 	});
 });
+
+describe('The getRepeatColor method is supposed to get the current color of repeats', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getRepeatColor method is supposed to be a function', function(){
+		expect(typeof ali.getRepeatColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getRepeatColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color ofrepeats which is defined in the defaultConf', function(){
+		var color = ali.getRepeatColor();
+		expect(color).toEqual(defaultConf.features.supportedFeatures.repeat.color);
+	});
+	
+});
