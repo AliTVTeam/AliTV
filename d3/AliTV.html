@@ -58,6 +58,7 @@
 		$("#maxLinkColor").val((ali.getLinkColor()[2]));
 		$("#genomeLabelColor").val(ali.getGenomeLabelColor());
 		$("#genomeLabelSize").val(ali.getGenomeLabelSize());
+		$("#chromosomeLabelColor").val(ali.getChromosomeLabelColor());
 		
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showChromosomeLabels').attr('checked', false);
@@ -428,6 +429,16 @@
 				$("#genomeLabelSize").val(this.conf.labels.genome.size);
 			} 
 	}
+	function changeChromosomeLabelColor(){
+		var color = $("#chromosomeLabelColor").val();
+		try {
+			ali.setChromosomeLabelColor(color); 	
+			}
+			catch(err){
+				alert(err);
+				$("#chromosomeLabelColor").val(this.conf.labels.chromosome.color);
+			} 
+	}
 /* 	function setNewParameters(){
 		changeLinearSpacer();
 		changeKaryoHeight();
@@ -465,6 +476,7 @@
 		changeLinkColor();
 		changeGenomeLabelColor();
 		changeGenomeLabelSize();
+		changeChromosomeLabelColor();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
 	}
