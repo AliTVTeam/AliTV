@@ -138,6 +138,7 @@ function AliTV(svg) {
 	 * @property {Object}  labels.genome					   	   - Contains the configurations for the genome labels.
 	 * @property {Boolean} labels.genome.showGenomeLabels 		   - Defines if genome labels are shown or not.
 	 * @property {String}  labels.genome.color					   - Defines the color of genome labels.
+	 * @property {String}  labels.genome.size					   - Defines the size of genome labels.
 	 * @property {Object}  labels.features					   	   - Contains the configurations for the feature labels.
 	 * @property {Boolean} labels.features.showFeatureLabels 	   - Defines if feature labels are shown or not.
 	 */
@@ -226,7 +227,8 @@ function AliTV(svg) {
 			},
 			genome: {
 				showGenomeLabels: true,
-				color: "#000000"
+				color: "#000000",
+				size: 25
 			},
 			features: {
 				showFeatureLabels: false
