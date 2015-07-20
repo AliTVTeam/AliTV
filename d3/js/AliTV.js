@@ -137,6 +137,7 @@ function AliTV(svg) {
 	 * @property {Boolean} labels.chromosomes.showChromosomeLabels - Defines if chromosome labels are shown or not.
 	 * @property {Object}  labels.genome					   	   - Contains the configurations for the genome labels.
 	 * @property {Boolean} labels.genome.showGenomeLabels 		   - Defines if genome labels are shown or not.
+	 * @property {String}  labels.genome.color					   - Defines the color of genome labels.
 	 * @property {Object}  labels.features					   	   - Contains the configurations for the feature labels.
 	 * @property {Boolean} labels.features.showFeatureLabels 	   - Defines if feature labels are shown or not.
 	 */
@@ -216,7 +217,6 @@ function AliTV(svg) {
 			}
 		},
 		labels: {
-			showAllLabels: false,
 			ticks: {
 				showTicks: true,
 				showTickLabels: true
@@ -225,7 +225,8 @@ function AliTV(svg) {
 				showChromosomeLabels: false
 			},
 			genome: {
-				showGenomeLabels: true
+				showGenomeLabels: true,
+				color: "#000000"
 			},
 			features: {
 				showFeatureLabels: false
@@ -2161,4 +2162,14 @@ AliTV.prototype.setJSON = function(json) {
 	if (typeof json.conf !== 'undefined') {
 		this.setConf(json.conf);
 	}
+};
+
+/**
+ * This function returns an array which contains the color of the genomeLabels. 
+ * The colors are defined in the conf-object.
+ * @returns {Array} The color of the genome labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getGenomeLabelColor = function() {
+
 };
