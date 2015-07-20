@@ -202,10 +202,17 @@
 	$(function(){$('#showInvertedRepeats').change(function() {
 		if($('#showInvertedRepeats').is(':checked')){
 			ali.conf.features.supportedFeatures.invertedRepeat.visible = true;
-			$("#showFeatures").attr("disabled", true);
 		} else {
 			ali.conf.features.supportedFeatures.invertedRepeat.visible = false;
-			$("#showFeatures").attr("disabled", false);
+		}
+	});	
+	});
+	
+	$(function(){$('#invertedRepeatLabels').change(function() {
+		if($('#invertedRepeatLabels').is(':checked')){
+			ali.conf.features.supportedFeatures.invertedRepeat.labeling = true;
+		} else {
+			ali.conf.features.supportedFeatures.invertedRepeat.labeling = false;
 		}
 	});	
 	});
@@ -300,6 +307,22 @@
 	    .change(function(){ 
 	        if( $(this).is(":checked") ){ 
 	           ali.conf.features.supportedFeatures.gene.form = $(this).val(); 
+	        }
+    });
+	});
+	
+	$(function(){$("#invertedRepeatRect") 
+	    .change(function(){ 
+	        if( $(this).is(":checked") ){ 
+	            ali.conf.features.supportedFeatures.invertedRepeat.form = $(this).val(); 
+	        }
+	    });
+		});
+	
+	$(function(){$("#invertedRepeatArrow") 
+	    .change(function(){ 
+	        if( $(this).is(":checked") ){ 
+	           ali.conf.features.supportedFeatures.invertedRepeat.form = $(this).val(); 
 	        }
     });
 	});
@@ -485,6 +508,16 @@
 				alert(err);
 				$("#tickLabelSize").val(this.conf.labels.ticks.size);
 			} 
+	}
+	function changeInvertedRepeatColor(){
+		var color = ($("#invertedRepeatColor").val());
+		try {
+			ali.setInvertedRepeatColor(color); 	
+			}
+			catch(err){
+				alert(err);
+				$("#invertedRepeatColor").val(ali.getInvertedRepeatColor());
+			}
 	}
 	
 	function setFilters(){
