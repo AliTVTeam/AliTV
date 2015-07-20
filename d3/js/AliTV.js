@@ -1915,8 +1915,8 @@ AliTV.prototype.drawLinearGenomeLabels = function(linearGenomeLabelCoords) {
 			return d.name;
 		})
 		.attr("font-family", "sans-serif")
-		.attr("font-size", that.conf.graphicalParameters.karyoHeight + "px")
-		.attr("fill", "red")
+		.attr("font-size", that.getGenomeLabelSize() + "px")
+		.attr("fill", that.getGenomeLabelColor())
 		.style("text-anchor", "middle");
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
@@ -2171,5 +2171,5 @@ AliTV.prototype.setJSON = function(json) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getGenomeLabelColor = function() {
-
+	return this.conf.labels.genome.color;
 };

@@ -762,6 +762,6 @@ describe('The getGenomeLabelColor method is supposed to get the color of the gen
 	});
 	it('the function should return the color of the genome Labels which is set in the defaultConf', function(){
 		var color = ali.getGenomeLabelColor();
-		expect(color).toEqual(NdefaultConf.labels.genome.color);
+		expect(color).toEqual(defaultConf.labels.genome.color);
 	});
 });
