@@ -2317,3 +2317,13 @@ AliTV.prototype.setTickLabelColor = function(color) {
 		return this.conf.labels.ticks.color;
 	}
 };
+
+/**
+ * This function returns the size of the tick Labels. 
+ * The size is defined in the conf-object.
+ * @returns The size of the tick labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getTickLabelSize = function() {
+	return this.conf.labels.ticks.size;
+};
