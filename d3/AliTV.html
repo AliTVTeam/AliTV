@@ -178,26 +178,11 @@
 	});	
 	});
 
-	$(function(){$('#showFeatures').change(function() {
-		if($('#showFeatures').is(':checked')){
-			ali.conf.features.showAllFeatures = true;
-			$("#showGenes").attr("disabled", true);
-			$("#showInvertedRepeats").attr("disabled", true);
-		} else {
-			ali.conf.features.showAllFeatures = false;
-			$("#showGenes").attr("disabled", false);
-			$("#showInvertedRepeats").attr("disabled", false);
-		}
-	});	
-	});
-
 	$(function(){$('#showGenes').change(function() {
 		if($('#showGenes').is(':checked')){
 			ali.conf.features.supportedFeatures.gen.visible = true;
-			$("#showFeatures").attr("disabled", true);
 		} else {
 			ali.conf.features.supportedFeatures.gen.visible = false;
-			$("#showFeatures").attr("disabled", false);
 		}
 	});	
 	});
@@ -500,6 +485,12 @@
 		ali.drawEqualLayout(layout);
 	}
 	
+	function setGeneSettings(){
+		var layout = ali.getLayout();
+		setJSONEditorFromAli();
+		ali.drawEqualLayout(layout);
+	}
+	
 	$(function(){$('#loadJSON').on('change', function(evt) {
 		console.log("test");
 		var files = evt.target.files; // FileList object
@@ -746,7 +737,7 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-info" style="margin: 20px 20px">Apply</button>
+						      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setGeneSettings();">Apply</button>
 						    </div>
 					  	</div>
 					</div>
