@@ -56,6 +56,7 @@
 		$("#minLinkColor").val((ali.getLinkColor()[0]));
 		$("#midLinkColor").val((ali.getLinkColor()[1]));
 		$("#maxLinkColor").val((ali.getLinkColor()[2]));
+		$("#genomeLabelColor").val(ali.getGenomeLabelColor());
 		
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showChromosomeLabels').attr('checked', false);
@@ -405,6 +406,15 @@
 				$("#midLinkColor").val(defaultColor[1]);
 				$("#maxLinkColor").val(defaultColor[2]);
 			}  
+	}
+	function changeGenomeLabelColor(){
+		try {
+			ali.setGenomeLabelColor(color); 	
+			}
+			catch(err){
+				alert(err);
+				$("#genomeLabelColor").val(this.conf.labels.genome.color);
+			} 
 	}
 /* 	function setNewParameters(){
 		changeLinearSpacer();
