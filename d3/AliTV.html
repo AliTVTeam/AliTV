@@ -643,6 +643,13 @@
 		ali.drawEqualLayout(layout);
 	}
 	
+	function setTreeSettings(){
+		var layout = ali.getLayout();
+		changeTreeWidth();
+		setJSONEditorFromAli();
+		ali.drawEqualLayout(layout);
+	}
+	
 	$(function(){$('#loadJSON').on('change', function(evt) {
 		console.log("test");
 		var files = evt.target.files; // FileList object
@@ -843,7 +850,7 @@
 								<div class="col-sm-offset-2 col-sm-10">
 									<div class="checkbox">
 								        <label>
-								          <input id="showTree" type="checkbox"> Show phylogenetic tree
+								          <input id="drawTree" type="checkbox"> Show phylogenetic tree
 								        </label>
 								    </div>
 								</div>
@@ -863,6 +870,13 @@
 									</div>	
 								</div>
 							</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<div class="input-group" style="margin: 10px 10px">
+								Width of tree (px): <input type="text" id="treeWidth" placeholder="Tree width">
+							</div>  
+					  	</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="form-group">
