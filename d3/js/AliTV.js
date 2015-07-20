@@ -133,6 +133,7 @@ function AliTV(svg) {
 	 * @property {Boolean} labels.ticks							   - Contains the configuration for the labeling of the chromosome scale.
 	 * @property {Boolean} labels.ticks.showTicks				   - Defines if ticks are drawn.
 	 * @property {Boolean} labels.ticks.showTickLabels			   - Defines if tick labels are drawn.
+	 * @property {String}  labels.ticks.color					   - Defines the color of ticks and their labels.
 	 * @property {Object}  labels.chromosomes					   - Contains the configurations for the chromosome labels.
 	 * @property {Boolean} labels.chromosomes.showChromosomeLabels - Defines if chromosome labels are shown or not.
 	 * @property {String}  labels.chromosomes.color				   - Defines the color of chromosome labels.
@@ -222,7 +223,9 @@ function AliTV(svg) {
 		labels: {
 			ticks: {
 				showTicks: true,
-				showTickLabels: true
+				showTickLabels: true,
+				color: "#000000",
+				size: 10
 			},
 			chromosome: {
 				showChromosomeLabels: false,
@@ -2286,4 +2289,14 @@ AliTV.prototype.setChromosomeLabelSize = function(size) {
 		this.conf.labels.chromosome.size = size;
 		return this.conf.labels.chromosome.size;
 	}
+};
+
+/**
+ * This function returns the color of the tick Labels. 
+ * The color is defined in the conf-object.
+ * @returns The color of the tick labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getTickLabelColor = function() {
+	return this.conf.labels.ticks.color;
 };
