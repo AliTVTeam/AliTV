@@ -875,3 +875,20 @@ describe('The setChromosomeLabelColor method is supposed to set a new color for 
 		expect(function(){ali.setChromosomeLabelColor(color);}).toThrow("empty");
 	});
 });
+
+describe('The getChromosomeLabelSize method is supposed to get the size of the Chromosome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getChromosomeLabelSize method is supposed to be a function', function(){
+		expect(typeof ali.getChromosomeLabelSize).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getChromosomeLabelSize();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the current size of the Chromosome Labels which is set in the defaultConf', function(){
+		var color = ali.getChromosomeLabelSize();
+		expect(color).toEqual(defaultConf.labels.chromosome.size);
+	});
+});
