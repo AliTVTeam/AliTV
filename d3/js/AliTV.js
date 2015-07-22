@@ -747,6 +747,9 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.enter()
 		.append("path")
 		.attr("class", "link")
+		.attr("id", function(d){
+			return d.linkID;
+		})
 		.attr("d", coordsToPath)
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.visibleLinks[d.linkID].identity);
