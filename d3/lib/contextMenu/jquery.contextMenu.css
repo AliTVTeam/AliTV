@@ -98,6 +98,8 @@
 .context-menu-item.icon-quit { background-image: url(images/door.png); }
 .context-menu-item.icon-visible { background-image: url(images/eye.png); }
 .context-menu-item.icon-change { background-image: url(images/change.png); }
+.context-menu-item.icon-hide { background-image: url(images/hide.png); }
+.context-menu-item.icon-close { background-image: url(images/close.png); }
 
 /* vertically align inside labels */
 .context-menu-input > label > * { vertical-align: top; }
