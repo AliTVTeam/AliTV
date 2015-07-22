@@ -46,6 +46,7 @@
 				});
 			});
 		});	
+		
 		$("#karyoSpacer").val(ali.getKaryoSpacer());
 		$("#karyoHeight").val(ali.getKaryoHeight());
 		$("#canvasWidth").val(ali.getCanvasWidth());
@@ -74,7 +75,6 @@
 		$('#showTickLabels').attr('checked', true);
 		$('#showGenes').attr('checked', false);
 		$('#geneLabels').attr('checked', false);
-		
 	});  
 	
 	$(function(){
@@ -653,7 +653,6 @@
 	}
 	
 	$(function(){$('#loadJSON').on('change', function(evt) {
-		console.log("test");
 		var files = evt.target.files; // FileList object
 	    // files is a FileList of File objects.
 	    var output = [];
