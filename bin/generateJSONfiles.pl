@@ -289,7 +289,9 @@ sub optimize_filters_and_conf{
 	my $maxTotalSize = $genome_info{(sort {$genome_info{$b}{'length'} <=> $genome_info{$a}{'length'}} keys %genome_info)[0]}{'length'};
 	my $maxNumElements = $genome_info{(sort {$genome_info{$b}{'elements'} <=> $genome_info{$a}{'elements'}} keys %genome_info)[0]}{'elements'};
 	# Set total karyoDistance to 5% of maximum genomeLength
-	$conf{'graphicalParameters'}{'karyoDistance'} = round(($maxTotalSize * 0.05) / ($maxNumElements - 1));
+	if($maxNumElements > 1){
+		$conf{'graphicalParameters'}{'karyoDistance'} = round(($maxTotalSize * 0.05) / ($maxNumElements - 1));		
+	}
 	# Set tickDistance to nearest multiple of a power of 10 of 1% of maximum genomeLength
 	$conf{'graphicalParameters'}{'tickDistance'} = nearest(10**(int(log($maxTotalSize*0.01)/log(10))), $maxTotalSize * 0.01);
 	# Set minLinkLength to 0.05% of maximum genomeLength
