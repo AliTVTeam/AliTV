@@ -712,20 +712,18 @@
         $.contextMenu({
             selector: '.karyoGroup', 
             build: function($trigger, e) {
-            		var target = e.target
-                	var name = ($(target).attr("id"));
+                	var name = ($(e.target).attr("id"));
                 return { 
-                    callback: function(key, options) {
-                        var m = "clicked: " + key;
-                        window.console && console.log(m) || alert(m); 
-                    },
                     items: {
-                    	"Info": {name: name},
+                    	"info": {name: "Name: " + name},
 		                "sep1": "---------",
                     	"Visible": {
-		                    name: "Visible", 
-		                    type: 'checkbox', 
-		                    selected: true
+		                    name: "Hide",
+		                    icon: "hide",
+		                    callback: function(key, options) {
+		                        var m = "hide was clicked";
+		                        console.log(m);
+		                    }
 		                },
 		                "Change orientation": {name: "Change orientation", icon: "change"}
                     }
