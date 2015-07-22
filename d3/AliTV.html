@@ -725,14 +725,68 @@
 		                        console.log(m);
 		                    }
 		                },
-		                "Change orientation": {name: "Change orientation", icon: "change"}
+		                "Change orientation": {name: "Change orientation", icon: "change"},
+		                "Quit": {name: "Quit", icon: "close", callback: $.noop}
                     }
                  };
             } 
         });
-        $('.context-menu-one').on('click', function(e){
-            console.log('clicked', this);
-        })
+        
+    });
+    
+    $(function(){
+        $.contextMenu({
+            selector: '.linkGroup', 
+            build: function($trigger, e) {
+                	var name = ($(e.target).attr("id"));
+                	var identity = ali.visibleLinks[name].identity;
+                return { 
+                    items: {
+                    	"name": {name: "Link: " + name},
+                    	"identity": {name: "Identity: " + identity + "%"},
+		                "sep1": "---------",
+                    	"Visible": {
+		                    name: "Hide",
+		                    icon: "hide",
+		                    callback: function(key, options) {
+		                        var m = "hide was clicked";
+		                        console.log(m);
+		                    }
+		                },
+		                "Quit": {name: "Quit", icon: "close", callback: $.noop}
+                    }
+                 };
+            } 
+        });
+        
+    });
+    
+    $(function(){
+        $.contextMenu({
+            selector: '.featureGroup', 
+            build: function($trigger, e) {
+            		var id = $(e.target).attr("id");
+            		var split = id.split("_");
+                	var name = split[0];
+                	var group = split[1];
+                return { 
+                    items: {
+                    	"name": {name: "Name: " + name},
+                    	"group": {name: "Group: " + group},
+		                "sep1": "---------",
+                    	"Visible": {
+		                    name: "Hide",
+		                    icon: "hide",
+		                    callback: function(key, options) {
+		                        var m = "hide was clicked";
+		                        console.log(m);
+		                    }
+		                },
+		                "Quit": {name: "Quit", icon: "close", callback: $.noop}
+                    }
+                 };
+            } 
+        });
         
     });
     
