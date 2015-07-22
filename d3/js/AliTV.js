@@ -1874,6 +1874,9 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			}
 		})
 		.attr("class", "feature")
+		.attr("id", function(d){
+			return d.id + "_" + d.type;
+		})
 		.attr("x", function(d) {
 			if (d.width < 0) {
 				return d.x + d.width;
@@ -1935,6 +1938,9 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.each(function(d, i) {
 			d3.select(this)
 				.attr("class", "feature")
+				.attr("id", function(d){
+					return d.id + "_" + d.type;
+				})
 				.attr("d", lineFunction(d.path))
 				.attr("fill", function(d) {
 					var pattern;
