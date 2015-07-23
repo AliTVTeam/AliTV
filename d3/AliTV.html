@@ -39,43 +39,18 @@
 					ali.setConf(conf.conf)
 					setJSONEditorFromAli();
 					ali.drawLinear();
+					setParameters();
 				}).fail(function() {
 				    console.log( "could not load custom conf.json - using default values" );
 				    setJSONEditorFromAli();
 				    ali.drawLinear();
+				    setParameters();
 				});
 			});
 		});	
 		
-		$("#karyoSpacer").val(ali.getKaryoSpacer());
-		$("#karyoHeight").val(ali.getKaryoHeight());
-		$("#canvasWidth").val(ali.getCanvasWidth());
-		$("#canvasHeight").val(ali.getCanvasHeight());
-		$("#tickDistance").val(ali.getTickDistance());
-		$("#treeWidth").val(ali.getTreeWidth());
-		$("#startLineColor").val((ali.getGenomeColor()[0]));
-		$("#endLineColor").val((ali.getGenomeColor()[1]));
-		$("#minLinkColor").val((ali.getLinkColor()[0]));
-		$("#midLinkColor").val((ali.getLinkColor()[1]));
-		$("#maxLinkColor").val((ali.getLinkColor()[2]));
-		$("#genomeLabelColor").val(ali.getGenomeLabelColor());
-		$("#genomeLabelSize").val(ali.getGenomeLabelSize());
-		$("#chromosomeLabelColor").val(ali.getChromosomeLabelColor());
-		$("#chromosomeLabelSize").val(ali.getChromosomeLabelSize());
-		$("#tickLabelColor").val(ali.getTickLabelColor());
-		$("#tickLabelSize").val(ali.getTickLabelSize());
-		$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
-		$("#geneColor").val(ali.getGeneColor());
-		$("#invertedRepeatColor").val(ali.getInvertedRepeatColor());
-		$("#repeatColor").val(ali.getRepeatColor());
-		$("#nStretchColor").val(ali.getNStretchColor());
-		
-		$('#showGenomeLabels').attr('checked', true);
-		$('#showChromosomeLabels').attr('checked', false);
-		$('#showTickLabels').attr('checked', true);
-		$('#showGenes').attr('checked', false);
-		$('#geneLabels').attr('checked', false);
 	});  
+ 	
 	
 	$(function(){
 		$("#identity-slider").slider({
@@ -591,10 +566,42 @@
 			}
 	}
 	
+	function setParameters(){
+		$("#karyoSpacer").val(ali.getKaryoSpacer());
+		$("#karyoHeight").val(ali.getKaryoHeight());
+		$("#canvasWidth").val(ali.getCanvasWidth());
+		$("#canvasHeight").val(ali.getCanvasHeight());
+		$("#tickDistance").val(ali.getTickDistance());
+		$("#treeWidth").val(ali.getTreeWidth());
+		$("#startLineColor").val((ali.getGenomeColor()[0]));
+		$("#endLineColor").val((ali.getGenomeColor()[1]));
+		$("#minLinkColor").val((ali.getLinkColor()[0]));
+		$("#midLinkColor").val((ali.getLinkColor()[1]));
+		$("#maxLinkColor").val((ali.getLinkColor()[2]));
+		$("#genomeLabelColor").val(ali.getGenomeLabelColor());
+		$("#genomeLabelSize").val(ali.getGenomeLabelSize());
+		$("#chromosomeLabelColor").val(ali.getChromosomeLabelColor());
+		$("#chromosomeLabelSize").val(ali.getChromosomeLabelSize());
+		$("#tickLabelColor").val(ali.getTickLabelColor());
+		$("#tickLabelSize").val(ali.getTickLabelSize());
+		$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
+		$("#geneColor").val(ali.getGeneColor());
+		$("#invertedRepeatColor").val(ali.getInvertedRepeatColor());
+		$("#repeatColor").val(ali.getRepeatColor());
+		$("#nStretchColor").val(ali.getNStretchColor());
+		
+		$('#showGenomeLabels').attr('checked', true);
+		$('#showChromosomeLabels').attr('checked', false);
+		$('#showTickLabels').attr('checked', true);
+		$('#showGenes').attr('checked', false);
+		$('#geneLabels').attr('checked', false);		
+	}
+	
 	function setFilters(){
 		var layout = ali.getLayout();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
+		setParameters();
 	}
 	
 	function setLayoutSettings(){
@@ -615,6 +622,7 @@
 		changeTickLabelFrequency();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
+		setParameters();
 	}
 	
 	function setGeneSettings(){
@@ -622,6 +630,7 @@
 		changeGeneColor();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
+		setParameters();
 	}
 	
 	function setInvertedRepeatSettings(){
@@ -629,6 +638,7 @@
 		changeInvertedRepeatColor();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
+		setParameters();
 	}
 	
 	function setRepeatSettings(){
@@ -636,6 +646,7 @@
 		changeRepeatColor();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
+		setParameters();
 	}
 	
 	function setNStretchSettings(){
@@ -643,6 +654,7 @@
 		changeNStretchColor();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
+		setParameters();
 	}
 	
 	function setTreeSettings(){
@@ -650,6 +662,7 @@
 		changeTreeWidth();
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
+		setParameters();
 	}
 	
 	$(function(){$('#loadJSON').on('change', function(evt) {
