@@ -122,7 +122,22 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		    {'karyo': 'c4', 'x': 0, 'y': wga.getGenomeDistance()*2, 'width': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 2}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
-	});	
+	});
+	it('getLinearKaryoCoords method is supposed to work when the filters set an offset for one genome (3 genomes, 4 chromosomes)', function(){
+		wga.setData(data4);
+		wga.setFilters(filters4_offset);
+		var linearKaryoCoords = wga.getLinearKaryoCoords();
+		var canvasWidth = defaultConf.graphicalParameters.canvasWidth;
+		var karyoDistance = defaultConf.graphicalParameters.karyoDistance;
+		var karyoHeight = defaultConf.graphicalParameters.karyoHeight;
+		var expectedCoords = [
+		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': canvasWidth/((2000+karyoDistance)/2000), 'height': karyoHeight, 'genome': 0},
+		    {'karyo': 'c2', 'x': 0, 'y': wga.getGenomeDistance(), 'width': canvasWidth/((2000+karyoDistance)/1000), 'height': karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': canvasWidth/((2000+karyoDistance)/(1000+karyoDistance)), 'y': wga.getGenomeDistance(), 'width': canvasWidth/((2000+karyoDistance)/1000), 'height': karyoHeight, 'genome': 1},
+		    {'karyo': 'c4', 'x': 0, 'y': wga.getGenomeDistance()*2, 'width': canvasWidth/((2000+karyoDistance)/1000), 'height': karyoHeight, 'genome': 2}
+		];
+		expect(linearKaryoCoords).toEqual(expectedCoords);
+	});
 });
 
 describe('The drawLinearKaryo method of AliTV objects is supposed to draw karyos', function(){
