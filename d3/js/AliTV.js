@@ -786,6 +786,11 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  */
 AliTV.prototype.drawLinear = function() {
 	this.clearAli();
+	this.svgD3.selectAll(".alignmentRegion").remove();
+	this.svgD3.append("svg")
+		.attr("class", "alignmentRegion");
+	//	.attr("width", 500)
+	//	.attr("height", 500);
 
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
