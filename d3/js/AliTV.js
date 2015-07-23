@@ -52,20 +52,24 @@ function AliTV(svg) {
 	this.data = {};
 	/**
 	 * property to store data specific drawing options (structure highly dependent on data structure)
-	 * @property {Object}  filters                      				- the data dependent displaying information
-	 * @property {Object}  filters.karyo                        		- the chromosome dependent displaying information
-	 * @property {Boolean} filters.skipChromosomesWithoutVisibleLinks	- If a chromosome has no visible links, because they are filtered, it is possible to skip this chromosome.
-	 * @property {Boolean} filters.showAllChromosomes					- Allows to show all chromosomes, even if when they are set not visible.
-	 * @property {Boolean} filters.onlyShowAdjacentLinks				- Allows to show only adjacent links or all links.			
-	 * @property {Array}   filters.karyo.order                  		- array of chromosome IDs in the desired order (circular layout)
-	 * @property {Array}   filters.karyo.genome_order          			- array of genome IDs in the desired order (linear layout)
-	 * @property {Object}  filters.karyo.chromosomes           			- the chromosome drawing details, karyo IDs as keys
-	 * @property {Boolean} filters.karyo.chromosomes.reverse    		- should the sequence be treated as its reverse (complement)
-	 * @property {Boolean} filters.karyo.chromosomes.visible    		- should the sequence be displayed at all
-	 * @property {Number}  filters.links.minLinkIdentity	    		- The minimum identity of links which should be draw.
-	 * @property {Number}  filters.links.maxLinkIdentity    			- The maximum identity of links which should be draw.
-	 * @property {Number}  filters.links.minLinkLength  				- The minimum length of links, which should be draw in bp.
-	 * @property {Number}  filters.links.maxLinkLength  				- The maximum length of links, which should be draw in bp.
+	 * @property {Object}  filters                      				 - the data dependent displaying information
+	 * @property {Object}  filters.karyo                        		 - the chromosome dependent displaying information
+	 * @property {Boolean} filters.skipChromosomesWithoutVisibleLinks	 - If a chromosome has no visible links, because they are filtered, it is possible to skip this chromosome.
+	 * @property {Boolean} filters.showAllChromosomes					 - Allows to show all chromosomes, even if when they are set not visible.
+	 * @property {Boolean} filters.onlyShowAdjacentLinks				 - Allows to show only adjacent links or all links.			
+	 * @property {Array}   filters.karyo.order                  		 - array of chromosome IDs in the desired order (circular layout)
+	 * @property {Array}   filters.karyo.genome_order          		 	 - array of genome IDs in the desired order (linear layout)
+	 * @property {Object}  filters.karyo.chromosomes           			 - the chromosome drawing details, karyo IDs as keys
+	 * @property {Boolean} filters.karyo.chromosomes.reverse    		 - should the sequence be treated as its reverse (complement)
+	 * @property {Boolean} filters.karyo.chromosomes.visible    		 - should the sequence be displayed at all
+	 * @property {Object}  filters.karyo.genome_region                   - An object that can contain genome_ids as keys and regions as values
+	 * @property {Object}  filters.karyo.genome_region.<genome_id>		 - region object with optional "start" and "end" values
+	 * @property {Object}  filters.karyo.genome_region.<genome_id>.start - start value in bp, this position in the genome scale (including gaps between chromosomes) will be at the start of the drawing area (left).
+	 * @property {Object}  filters.karyo.genome_region.<genome_id>.end	 - end value in bp, this position in the genome scale (including gaps between chromosomes) will be at the end of the drawing area (right).
+	 * @property {Number}  filters.links.minLinkIdentity	    		 - The minimum identity of links which should be draw.
+	 * @property {Number}  filters.links.maxLinkIdentity    			 - The maximum identity of links which should be draw.
+	 * @property {Number}  filters.links.minLinkLength  				 - The minimum length of links, which should be draw in bp.
+	 * @property {Number}  filters.links.maxLinkLength  				 - The maximum length of links, which should be draw in bp.
 	 */
 	this.filters = {};
 	/**
