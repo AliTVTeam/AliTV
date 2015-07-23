@@ -467,7 +467,7 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 	var that = this;
 
 	that.svgD3.selectAll(".karyoGroup").remove();
-	that.svgD3.append("g")
+	that.svgD3.selectAll(".alignmentRegion").append("g")
 		.attr("class", "karyoGroup")
 		.selectAll("path")
 		.data(linearKaryoCoords)
