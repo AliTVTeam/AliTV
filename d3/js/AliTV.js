@@ -2446,3 +2446,7 @@ AliTV.prototype.setFeatureInvisible = function(featureId, group, karyo) {
  * @returns {Object} internal alignmentRegion svg as d3 selection.
  * @author Markus Ankenbrand
  */
+
+AliTV.prototype.getAlignmentRegion = function() {
+
+};
