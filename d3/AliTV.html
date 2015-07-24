@@ -42,11 +42,13 @@
 					setJSONEditorFromAli();
 					ali.drawLinear();
 					setParameters();
+					setSlider();
 				}).fail(function() {
 				    console.log( "could not load custom conf.json - using default values" );
 				    setJSONEditorFromAli();
 				    ali.drawLinear();
 				    setParameters();
+				    setSlider();
 				});
 			});
 		});	
@@ -54,33 +56,35 @@
 	});  
  	
 	
-	$(function(){
-		$("#identity-slider").slider({
-			range: true,
-			values: [0, 100],
-			min: 0,
-			max: 100,
-			slide: function(event, ui){
-				$("#identity-label").val(ui.values[0] + " % - " + ui.values[1] + " %");
-				ali.filters.links.minLinkIdentity = ui.values[0];
-				ali.filters.links.maxLinkIdentity = ui.values[1];
-			}
-		});	
-		$("#identity-label").val($("#identity-slider").slider("values", 0) + " % - " + $("#identity-slider").slider("values", 1) + " %");
-		
-		$("#length-slider").slider({
-			range: true,
-			values: [100, 1000],
-			min: 100,
-			max: 1000,
-			slide: function(event, ui){
-				$("#minlength-label").val(ui.values[0] + " bp - " + ui.values[1] + " bp");
-				ali.filters.links.minLinkLength = ui.values[0];
-				ali.filters.links.maxLinkLength = ui.values[1];
+ 	function setSlider() {		
+		$(function(){
+			$("#identity-slider").slider({
+				range: true,
+				values: [0, 100],
+				min: 0,
+				max: 100,
+				slide: function(event, ui){
+					$("#identity-label").val(ui.values[0] + " % - " + ui.values[1] + " %");
+					ali.filters.links.minLinkIdentity = ui.values[0];
+					ali.filters.links.maxLinkIdentity = ui.values[1];
 				}
+			});	
+			$("#identity-label").val($("#identity-slider").slider("values", 0) + " % - " + $("#identity-slider").slider("values", 1) + " %");
+			
+			$("#length-slider").slider({
+				range: true,
+				values: [0, ali.getMaxChromosomeLength()],
+				min: 0,
+				max: ali.getMaxChromosomeLength(),
+				slide: function(event, ui){
+					$("#minlength-label").val(ui.values[0] + " bp - " + ui.values[1] + " bp");
+					ali.filters.links.minLinkLength = ui.values[0];
+					ali.filters.links.maxLinkLength = ui.values[1];
+					}
+			});
+			$("#minlength-label").val($("#length-slider").slider("values", 0) + " bp - " + $("#length-slider").slider("values", 1) + " bp");
 		});
-		$("#minlength-label").val($("#length-slider").slider("values", 0) + " bp - " + $("#length-slider").slider("values", 1) + " bp");
-	});
+ 	}
 	
 	$(function(){$('#skipChromosomesWithoutVisibleLinks').change(function() {
 			if($('#skipChromosomesWithoutVisibleLinks').is(':checked')){
