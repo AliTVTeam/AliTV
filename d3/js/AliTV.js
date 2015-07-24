@@ -2423,5 +2423,10 @@ AliTV.prototype.showInvisibleLink = function(selectedLinkID) {
  * @author Sonja Hohlfeld 
  */
 AliTV.prototype.getMaxChromosomeLength = function() {
-
+	var length = [];
+	$.each(this.data.karyo.chromosomes, function(key, value) {
+		length.push(value.length);
+	});
+	var maxLength = Math.max.apply(Math, length);
+	return maxLength;
 };
