@@ -2502,3 +2502,7 @@ AliTV.prototype.getAlignmentRegion = function() {
  * @returns {Array} - filtered linearLinkCoords
  * @author Markus Ankenbrand
  */
+
+AliTV.prototype.removeLinksOutsideVisibleRegion = function(linkCoords, removeHalfVisible) {
+
+};
