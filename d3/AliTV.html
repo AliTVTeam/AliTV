@@ -591,6 +591,7 @@
 		$("#invertedRepeatColor").val(ali.getInvertedRepeatColor());
 		$("#repeatColor").val(ali.getRepeatColor());
 		$("#nStretchColor").val(ali.getNStretchColor());
+		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
 		
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showChromosomeLabels').attr('checked', false);
@@ -807,7 +808,34 @@
         
     });
     
-		
+    function setInvisibleLinkSelection(){
+    	$('#invisibleLinks').text("");
+		if(ali.getInvisibleLinks() === 0){
+			$('.selectpicker').selectpicker('val', '')
+		} else {
+		    $.each(ali.filters.links.hiddenLinks, function(key, value) {   
+		        $('#invisibleLinks')
+		            .append($("<option></option>")
+		            .attr("value", key)
+		            .text("LinkID: " + key))
+		            .selectpicker("refresh"); 
+		   });   			
+		}
+    }
+    
+	function restoreLink(){
+		var selectedLinkID = $('.selectpicker[name=invisibleLinks]').val();
+		ali.showInvisibleLink(selectedLinkID);
+		setInvisibleLinkSelection();
+		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
+	}
+    
+    $('.selectpicker').selectpicker({
+        style: 'btn-info',
+        size: 4
+    });
+    
+	
 </script>
 </head>
 
