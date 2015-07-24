@@ -2504,5 +2504,20 @@ AliTV.prototype.getAlignmentRegion = function() {
  */
 
 AliTV.prototype.removeLinksOutsideVisibleRegion = function(linkCoords, removeHalfVisible) {
-
+	var filteredCoords = [];
+	var canvasWidth = this.getCanvasWidth();
+	var tooMuch = (removeHalfVisible ? 1 : 2);
+	$.each(linkCoords, function(key, value) {
+		var out = 0;
+		if (Math.max(value.source0.x, value.source1.x) <= 0 || Math.min(value.source0.x, value.source1.x) >= canvasWidth) {
+			out++;
+		}
+		if (Math.max(value.target0.x, value.target1.x) <= 0 || Math.min(value.target0.x, value.target1.x) >= canvasWidth) {
+			out++;
+		}
+		if (out < tooMuch) {
+			filteredCoords.push(value);
+		}
+	});
+	return filteredCoords;
 };
