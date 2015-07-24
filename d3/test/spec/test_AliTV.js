@@ -68,6 +68,9 @@ describe('The setFilters method of AliTV objects is supposed to set the filters'
 });
 
 describe('The getLinearKaryoCoords method of AliTV objects is supposed to calculate coordinates for the karyos in the linear case', function(){
+	beforeEach(function() {
+	    jasmine.addMatchers(customMatchers);
+	});
 	var svg = $('<svg></svg>');
 	var wga = new AliTV(svg);
 	it('getLinearKaryoCoords method is supposed to be a function', function(){
@@ -136,7 +139,7 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		    {'karyo': 'c3', 'x': (1000+karyoDistance-1000)*canvasWidth/(2000+karyoDistance), 'y': wga.getGenomeDistance(), 'width': canvasWidth/((2000+karyoDistance)/1000), 'height': karyoHeight, 'genome': 1},
 		    {'karyo': 'c4', 'x': 0, 'y': wga.getGenomeDistance()*2, 'width': canvasWidth/((2000+karyoDistance)/1000), 'height': karyoHeight, 'genome': 2}
 		];
-		expect(linearKaryoCoords).toEqual(expectedCoords);
+		expect(linearKaryoCoords).toHaveSameLinearKaryoCoords(expectedCoords);
 	});
 	it('getLinearKaryoCoords method is supposed to work when the filters set a start and end for one genome region (3 genomes, 4 chromosomes)', function(){
 		wga.setData(data4);
@@ -149,11 +152,11 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
 		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': canvasWidth/((2000+karyoDistance)/2000), 'height': karyoHeight, 'genome': 0},
 		    {'karyo': 'c2', 'x': canvasWidth*500/(-500), 'y': wga.getGenomeDistance(), 
 		    	'width': 1000*canvasWidth/500, 'height': karyoHeight, 'genome': 1},
-		    {'karyo': 'c3', 'x': ((1000+karyoDistance)/500) * canvasWidth + canvasWidth, 'y': wga.getGenomeDistance(), 
+		    {'karyo': 'c3', 'x': ((karyoDistance)/500) * canvasWidth + canvasWidth, 'y': wga.getGenomeDistance(), 
 		    	'width': 1000*canvasWidth/500, 'height': karyoHeight, 'genome': 1},
 		    {'karyo': 'c4', 'x': 0, 'y': wga.getGenomeDistance()*2, 'width': canvasWidth/((2000+karyoDistance)/1000), 'height': karyoHeight, 'genome': 2}
 		];
-		expect(linearKaryoCoords).toEqual(expectedCoords);
+		expect(linearKaryoCoords).toHaveSameLinearKaryoCoords(expectedCoords);
 	});
 });
 
