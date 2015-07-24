@@ -2416,3 +2416,12 @@ AliTV.prototype.showInvisibleLink = function(selectedLinkID) {
 	delete this.filters.links.invisibleLinks[selectedLinkID];
 	return this.filters.links.invisibleLinks;
 };
+
+/**
+ * This function is supposed to return the value of the longest chromosome.
+ * @return maxLinkLength: the value of the longest chromosome in bp.
+ * @author Sonja Hohlfeld 
+ */
+AliTV.prototype.getMaxChromosomeLength = function() {
+
+};
