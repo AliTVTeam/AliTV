@@ -2437,3 +2437,18 @@ AliTV.prototype.setTickLabelSize = function(size) {
 		return this.conf.labels.ticks.size;
 	}
 };
+
+/**
+ * This function pushes a link which is selected by his id to ali.filters.links.invisible links.
+ * The function marks all links, which are set invisible.
+ * @param selectedLink: gets the id of the selected link
+ * @returns ali.filters.links.invisibleLinks: returns the links which are invisible in the current settings.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setLinkInvisible = function(selectedLink) {
+
+};
+
+
+
+
