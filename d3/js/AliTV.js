@@ -782,7 +782,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  */
 AliTV.prototype.drawLinear = function() {
 	this.clearAli();
-	
+
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
