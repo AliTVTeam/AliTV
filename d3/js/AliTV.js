@@ -490,7 +490,7 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			return d.height;
 		})
 		.on("mouseover", function(g) {
-			that.fadeLinks(g, 0.1);
+			that.fadeLinks(g, that.conf.graphicalParameters.fade);
 		})
 		.on("mouseout", function(g) {
 			that.fadeLinks(g, 1);
