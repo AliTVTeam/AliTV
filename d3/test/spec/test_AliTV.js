@@ -1694,6 +1694,6 @@ describe('The removeLinksOutsideVisibleRegion method is supposed to remove links
 		expect(filteredFull).toEqual([linearLinkCoords[0],linearLinkCoords[1]]);
 	});
 	it('removeLinksOutsideVisibleRegion method filters links half outside region if requested', function(){
-		expect(filteredFull).toEqual([linearLinkCoords[0]]);
+		expect(filteredHalf).toEqual([linearLinkCoords[0]]);
 	});
 });
