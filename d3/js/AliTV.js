@@ -483,8 +483,8 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
 
 		linearLinkCoords.push(link);
-
 	});
+	linearLinkCoords = this.removeLinksOutsideVisibleRegion(linearLinkCoords, this.conf.linear.hideHalfVisibleLinks);
 	return linearLinkCoords;
 };
 
