@@ -1649,5 +1649,13 @@ describe('The setLinkInvisible method is supposed to push a link to ali.filters.
 	it('setLinkInvisible method is supposed to be a function', function(){
 		expect(typeof ali.setLinkInvisible).toEqual('function');
 	});
-
 });
+
+describe('The getInvisibleLinks mehtod is supposed to count the elements in ali.filters.links.invisibleLinks and return them as a number', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getInvisibleLinks method is supposed to be a function', function(){
+		expect(typeof ali.getInvisibleLinks).toEqual('function');
+	});
+});
+
