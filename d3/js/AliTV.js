@@ -2465,4 +2465,20 @@ AliTV.prototype.getInvisibleLinks = function() {
 	return invisibleLinkSize;
 };
 
+/**
+ * This function is supposed to get the ID of a selected link, which is hidden and should be restored.
+ * The function show the hidden link and delete it from the invisibleLinks-object in ali.filters.links.invisibleLinks
+ * @param selectedLinkID: the ID of the links which should be restored.
+ * @returns ali.filters.links.hiddenLinks: the current links which are set invisible.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.showInvisibleLink = function(selectedLinkID) {
+	$(".link").each(function() {
+		if ($(this).css("display") === "none" && $(this).attr("id") === selectedLinkID) {
+			$(this).show();
+		}
+	});
 
+	delete this.filters.links.hiddenLinks[selectedLinkID];
+	return this.filters.links.hiddenLinks;
+};
