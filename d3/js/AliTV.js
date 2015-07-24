@@ -753,6 +753,11 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.attr("d", coordsToPath)
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.visibleLinks[d.linkID].identity);
+		})
+		.style("display", function(d){
+			if(d.linkID in that.filters.links.invisibleLinks){
+				return "none";
+			}
 		});
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
