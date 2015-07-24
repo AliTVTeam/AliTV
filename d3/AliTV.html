@@ -762,13 +762,15 @@
 		                "sep1": "---------",
                     	"Visible": {
 		                    name: "Hide",
-		                    icon: "hide",
-		                    callback: function(key, options) {
-		                        var m = "hide was clicked";
-		                        console.log(m);
+		                    callback: function() {
+		                    	var selectedLinkID = $(e.target).attr("id");
+		                       ali.setLinkInvisible(selectedLinkID);
+		                       $(e.target).hide()
+		                       setInvisibleLinkSelection();
+		                       $("#invisibleLinksLabel").val(ali.getInvisibleLinks());
 		                    }
 		                },
-		                "Quit": {name: "Quit", icon: "close", callback: $.noop}
+		                "Quit": {name: "Quit",  callback: $.noop}
                     }
                  };
             } 
@@ -1380,6 +1382,7 @@
  	<svg id='wgaCanvas' style="margin:50px"></svg>
  </div> 
  <div id="jsoneditor" style="display:none"></div>
+
  </body> 
 </body> 
 </html>
