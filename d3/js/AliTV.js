@@ -468,7 +468,7 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		.enter()
 		.append("rect")
 		.attr("class", "karyo")
-		.attr("id", function(d){
+		.attr("id", function(d) {
 			return that.data.karyo.chromosomes[d.karyo].genome_id;
 		})
 		.attr("x", function(d) {
@@ -747,7 +747,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.enter()
 		.append("path")
 		.attr("class", "link")
-		.attr("id", function(d){
+		.attr("id", function(d) {
 			return d.linkID;
 		})
 		.attr("d", coordsToPath)
@@ -1874,7 +1874,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			}
 		})
 		.attr("class", "feature")
-		.attr("id", function(d){
+		.attr("id", function(d) {
 			return d.id + "_" + d.type;
 		})
 		.attr("x", function(d) {
@@ -1938,7 +1938,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.each(function(d, i) {
 			d3.select(this)
 				.attr("class", "feature")
-				.attr("id", function(d){
+				.attr("id", function(d) {
 					return d.id + "_" + d.type;
 				})
 				.attr("d", lineFunction(d.path))
