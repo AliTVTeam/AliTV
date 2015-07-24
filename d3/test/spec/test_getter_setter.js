@@ -1136,10 +1136,10 @@ describe('The setNStretchColor method is supposed to set a new color for  NStret
 	});
 });
 
-describe("The getMaxLinkLength method is supposed to return the value of the longest chromosome", function(){
+describe("The getMaxChromosomeLength method is supposed to return the value of the longest chromosome", function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('getMaxLinkLength method is supposed to be a function', function(){
-		expect(typeof ali.getMaxLinkLength).toEqual('function');
+	it('getMaxChromosomeLength method is supposed to be a function', function(){
+		expect(typeof ali.getMaxChromosomeLength).toEqual('function');
 	});	
 });
