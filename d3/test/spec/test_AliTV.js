@@ -1683,8 +1683,8 @@ describe('The removeLinksOutsideVisibleRegion method is supposed to remove links
 	it('removeLinksOutsideVisibleRegion method is supposed to be a function', function(){
 		expect(typeof ali.removeLinksOutsideVisibleRegion).toEqual('function');
 	});
-	ali.setCanvashHeight=200;
-	ali.setCanvashWidth=200;
+	ali.setCanvasHeight(200);
+	ali.setCanvasWidth(200);
 	var linearLinkCoords = [{ 'linkID': "0", 'source0': {'x': 0, 'y': 0}, 'source1': {'x': 100, 'y': 0}, 'target0': {'x': 100, 'y': 100}, 'target1': {'x': 200, 'y': 100}}, //fullyVisible
 	                        { 'linkID': "1", 'source0': {'x': -100, 'y': 0}, 'source1': {'x': -1, 'y': 0}, 'target0': {'x': 0, 'y': 100}, 'target1': {'x': 100, 'y': 100}}, //partlyVisible
 	                        { 'linkID': "2", 'source0': {'x': -100, 'y': 0}, 'source1': {'x': -1, 'y': 0}, 'target0': {'x': 201, 'y': 100}, 'target1': {'x': 300, 'y': 100}}]; //notVisible (crossing)
