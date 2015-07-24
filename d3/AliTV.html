@@ -684,6 +684,28 @@
 	});
 	});
 	
+    function setInvisibleLinkSelection(){
+    	$('#invisibleLinks').text("");
+		if(ali.getInvisibleLinks() === 0){
+			$('.selectpicker').selectpicker('val', '')
+		} else {
+		    $.each(ali.filters.links.invisibleLinks, function(key, value) {   
+		        $('#invisibleLinks')
+		            .append($("<option></option>")
+		            .attr("value", key)
+		            .text("LinkID: " + key))
+		            .selectpicker("refresh"); 
+		   });   			
+		}
+    }
+    
+	function restoreLink(){
+		var selectedLinkID = $('.selectpicker[name=invisibleLinks]').val();
+		ali.showInvisibleLink(selectedLinkID);
+		setInvisibleLinkSelection();
+		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
+	}
+    
 	function setAliFromJSONEditor(){
 		var json = editor.get();
 		ali.setJSON(json);
@@ -805,28 +827,6 @@
         });
         
     });
-    
-    function setInvisibleLinkSelection(){
-    	$('#invisibleLinks').text("");
-		if(ali.getInvisibleLinks() === 0){
-			$('.selectpicker').selectpicker('val', '')
-		} else {
-		    $.each(ali.filters.links.hiddenLinks, function(key, value) {   
-		        $('#invisibleLinks')
-		            .append($("<option></option>")
-		            .attr("value", key)
-		            .text("LinkID: " + key))
-		            .selectpicker("refresh"); 
-		   });   			
-		}
-    }
-    
-	function restoreLink(){
-		var selectedLinkID = $('.selectpicker[name=invisibleLinks]').val();
-		ali.showInvisibleLink(selectedLinkID);
-		setInvisibleLinkSelection();
-		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
-	}
     
     $('.selectpicker').selectpicker({
         style: 'btn-info',
