@@ -92,6 +92,7 @@ function AliTV(svg) {
 	 * @property {Number}  graphicalParameters.tickDistance        - The distance in bp of ticks on the drawn chromosomes.
 	 * @property {Number}  graphicalParameters.treeWidth		   - The width of the svg drawing area, where the tree should be shown.
 	 * @property {Number}  graphicalParameters.genomeLabelWidth    - The width of the svg drawing area, where the genome labels should be shown.
+	 * @property {Number}  graphicalParameters.fade				   - The value which is used for the opacity of links by the fadeLinks method.
 	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
 	 * @property {Object}  tree									   - Contains the configuration objects for drawing a tree.
 	 * @property {Boolean} tree.drawTree						   - With this option it is possible to draw a phylogenetic tree ext to the chromosomes.
@@ -162,7 +163,8 @@ function AliTV(svg) {
 			tickLabelFrequency: 10,
 			tickDistance: 100,
 			treeWidth: 300,
-			genomeLabelWidth: 150
+			genomeLabelWidth: 150,
+			fade: 0.1
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
