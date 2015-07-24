@@ -2447,8 +2447,8 @@ AliTV.prototype.setTickLabelSize = function(size) {
  */
 AliTV.prototype.setLinkInvisible = function(selectedLinkID) {
 	var selectedLink = this.visibleLinks[selectedLinkID];
-	this.filters.links.hiddenLinks[selectedLinkID] = selectedLink;
-	return this.filters.links.hiddenLinks;
+	this.filters.links.invisibleLinks[selectedLinkID] = selectedLink;
+	return this.filters.links.invisibleLinks;
 };
 
 /**
@@ -2458,7 +2458,7 @@ AliTV.prototype.setLinkInvisible = function(selectedLinkID) {
  */
 AliTV.prototype.getInvisibleLinks = function() {
 	var keylist = [];
-	$.each(this.filters.links.hiddenLinks, function(key, value) {
+	$.each(this.filters.links.invisibleLinks, function(key, value) {
 		keylist.push(key);
 	});
 	var invisibleLinkSize = keylist.length;
@@ -2479,6 +2479,6 @@ AliTV.prototype.showInvisibleLink = function(selectedLinkID) {
 		}
 	});
 
-	delete this.filters.links.hiddenLinks[selectedLinkID];
-	return this.filters.links.hiddenLinks;
+	delete this.filters.links.invisibleLinks[selectedLinkID];
+	return this.filters.links.invisibleLinks;
 };
