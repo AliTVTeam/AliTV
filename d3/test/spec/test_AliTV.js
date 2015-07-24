@@ -1676,3 +1676,12 @@ describe('The setFeatureInvisible method is supposed to push a feature to ali.fi
 		expect(typeof ali.setFeatureInvisible).toEqual('function');
 	});
 });
+
+describe('The removeLinksOutsideVisibleRegion method is supposed to remove links outside the visible region', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('removeLinksOutsideVisibleRegion method is supposed to be a function', function(){
+		expect(typeof ali.removeLinksOutsideVisibleRegion).toEqual('function');
+	});
+});
+

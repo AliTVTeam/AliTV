@@ -793,15 +793,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
 AliTV.prototype.drawLinear = function() {
-<<<<<<< HEAD
 	this.clearAli();
-=======
-	this.svgD3.selectAll(".treeRegion").remove();
-	this.svgD3.selectAll(".chromosomeLabelGroup").remove();
-	this.svgD3.selectAll(".featureLabelGroup").remove();
-	this.svgD3.selectAll(".genomeLabelRegion").remove();
-	this.svgD3.selectAll(".tickLabelGroup").remove();
->>>>>>> renamed genomeLabelGroup and treeGroup to genomeLabelRegion and treeRegion and changed type of element from g to svg
 	this.getAlignmentRegion().remove();
 	this.getAlignmentRegion();
 	var karyoCoords = this.getLinearKaryoCoords();
@@ -1052,12 +1044,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
 AliTV.prototype.drawCircular = function() {
-<<<<<<< HEAD
 	this.clearAli();
-=======
-	this.svgD3.selectAll(".treeRegion").remove();
-	this.svgD3.selectAll(".featureGroup").remove();
->>>>>>> renamed genomeLabelGroup and treeGroup to genomeLabelRegion and treeRegion and changed type of element from g to svg
 	var karyoCoords = this.getCircularKaryoCoords();
 	var tickCoords = this.getCircularTickCoords(karyoCoords);
 	this.drawCircularTicks(tickCoords);
