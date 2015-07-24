@@ -610,7 +610,6 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 		.attr("y2", function(d) {
 			return d.y2;
 		})
-<<<<<<< HEAD
 		.style("stroke", that.getTickLabelColor());
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
@@ -622,9 +621,6 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
-=======
-		.style("stroke", "#000");
->>>>>>> translate inner svg instead of separate groups
 };
 
 /**
@@ -683,7 +679,6 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 		.text(function(d) {
 			return d.counter * that.conf.graphicalParameters.tickDistance + " bp";
 		})
-<<<<<<< HEAD
 		.attr("font-size", that.getTickLabelSize() + "px")
 		.attr("fill", that.getTickLabelColor());
 
@@ -696,9 +691,6 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
-=======
-		.attr("font-size", 10 + "px");
->>>>>>> translate inner svg instead of separate groups
 };
 
 /**
@@ -2448,3 +2440,9 @@ AliTV.prototype.setFeatureInvisible = function(featureId, group, karyo) {
 		}
 	});
 };
+
+/**
+ * This function returns the internal alignmentRegion svg element as d3 selection. It is created if it does not exist.
+ * @returns {Object} internal alignmentRegion svg as d3 selection.
+ * @author Markus Ankenbrand
+ */
