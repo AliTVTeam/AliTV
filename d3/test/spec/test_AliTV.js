@@ -1659,3 +1659,10 @@ describe('The getInvisibleLinks mehtod is supposed to count the elements in ali.
 	});
 });
 
+describe('The showInvisibleLink method is supposed to restore a selected link which is set invisible', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('showInvisibleLink method is supposed to be a function', function(){
+		expect(typeof ali.showInvisibleLink).toEqual('function');
+	});
+});
