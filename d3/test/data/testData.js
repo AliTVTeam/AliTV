@@ -11,7 +11,7 @@ var filters = {'karyo': {
 			'c1': {'reverse': false, 'visible': true},
 			'c2': {'reverse': false, 'visible': true}
 		}},
-		"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000}
+		"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000, "invisibleLinks": {}}
 }
 var karyo2 = {
 		'chromosomes': {
@@ -28,10 +28,10 @@ var filters2 = {'karyo': {
 			'c2': {'reverse': false, 'visible': true},
 			'c3': {'reverse': false, 'visible': true}
 		}},
-		"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000},
+		"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000, "invisibleLinks": {}},
 		  "skipChromosomesWithoutVisibleLinks": false,
 		  "showAllChromosomes": true,
-		  "skipChromosomesWithoutLinks": false
+		  "skipChromosomesWithoutLinks": false,
 }
 var karyo3 = {
 		'chromosomes': {
@@ -139,7 +139,7 @@ var filters5 = {'karyo': {
 		'c2': {'reverse': false, 'visible': true},
 		'c4': {'reverse': false, 'visible': true}
 	}},
-	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000}
+	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000, "invisibleLinks": {}}
 };
 var filters4_reverse = {'karyo': {
 	'order': ['c1', 'c2', 'c3', 'c4'],
@@ -597,8 +597,8 @@ var tree = {
 		}]
 	};
 
-var data = {'karyo': karyo, 'features': features, 'links': links};
-var data2 = {'karyo': karyo2, 'features': features, 'links': links};
+var data = {'karyo': karyo, 'features': features, 'links': links, 'visibleLinks': links};
+var data2 = {'karyo': karyo2, 'features': features, 'links': links, 'visibleLinks': links};
 var data3 = {'karyo': karyo3, 'features': features, 'links': links};
 var data4 = {'karyo': karyo4, 'features': features, 'links': links};
 var data5 = {'karyo': karyo, 'features': features, 'links': links, "tree": tree};

@@ -754,8 +754,8 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.visibleLinks[d.linkID].identity);
 		})
-		.style("display", function(d){
-			if(d.linkID in that.filters.links.invisibleLinks){
+		.style("display", function(d) {
+			if (d.linkID in that.filters.links.invisibleLinks) {
 				return "none";
 			}
 		});
@@ -795,7 +795,6 @@ AliTV.prototype.drawLinear = function() {
 	if (this.conf.labels.ticks.showTickLabels === true) {
 		this.drawLinearTickLabels(linearTickCoords);
 	}
-
 
 	if (this.conf.labels.genome.showGenomeLabels === true) {
 		var linearGenomeLabelCoords = this.getGenomeLabelCoords();

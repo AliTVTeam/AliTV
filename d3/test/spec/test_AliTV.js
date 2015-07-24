@@ -178,6 +178,7 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 		var ticks = wga.getLinearTickCoords(karyoCoords);
 		wga.drawLinearTicks(ticks, karyoCoords);
 		wga.drawLinearKaryo(karyoCoords);
+
 		var linkCoords = wga.getLinearLinkCoords(karyoCoords);
 		wga.drawLinearLinks(linkCoords);
 		
@@ -699,7 +700,7 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 	});
 	it('there should be exactly two links and three chromosomes in the simple test svg', function(){
-		ali.setData({karyo:karyo5,features:features3, links:links5});
+		ali.setData({karyo:karyo5,features:features3, links:links5, visibleLinks: links5});
 		ali.setFilters(filters5);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
@@ -1577,7 +1578,6 @@ describe('The drawLinearTickLabels method is supposed to add labels to the ticks
 		ali.setData(data);
 		ali.setFilters(filters);
 		ali.conf.labels.ticks.showTickLabels = false;
-		ali.conf.labels.showAllLabels = false;
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(0);
 	});
