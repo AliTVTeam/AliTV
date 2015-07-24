@@ -1707,7 +1707,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 
 	//Now you want to draw every branch in the middle of a chromosome. Therefore you must move it the negative half of a chromosome height and negative the half of the genome distance in y direction.
 	if (this.conf.tree.orientation === "left") {
-		that.svgD3.append("svg")
+		that.svgD3.append("g")
 			.attr("class", "treeRegion")
 			.attr("style", "fill:none;stroke:#000;stroke-width:2px;")
 			.selectAll("path")
@@ -1721,7 +1721,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
 
 	} else {
-		that.svgD3.append("svg")
+		that.svgD3.append("g")
 			.attr("class", "treeRegion")
 			.attr("transform", "translate(" + that.conf.graphicalParameters.canvasWidth + ", 0)")
 			.selectAll("path")
@@ -1997,7 +1997,7 @@ AliTV.prototype.getGenomeLabelCoords = function() {
 AliTV.prototype.drawLinearGenomeLabels = function(linearGenomeLabelCoords) {
 	var that = this;
 	this.svgD3.selectAll(".genomeLabelRegion").remove();
-	that.svgD3.append("svg")
+	that.svgD3.append("g")
 		.attr("class", "genomeLabelRegion")
 		.selectAll("path")
 		.data(linearGenomeLabelCoords)
@@ -2451,7 +2451,8 @@ AliTV.prototype.setFeatureInvisible = function(featureId, group, karyo) {
 };
 
 /**
- * This function returns the internal alignmentRegion svg element as d3 selection. It is created if it does not exist.
+ * This function returns the internal alignmentRegion g element as d3 selection. It is created if it does not exist.
+ * It also creates and adds the clipPath if it does not exist.
  * @returns {Object} internal alignmentRegion svg as d3 selection.
  * @author Markus Ankenbrand
  */
@@ -2459,10 +2460,19 @@ AliTV.prototype.setFeatureInvisible = function(featureId, group, karyo) {
 AliTV.prototype.getAlignmentRegion = function() {
 	var alignmentRegion = this.svgD3.selectAll(".alignmentRegion");
 	if (alignmentRegion.size() < 1) {
-		this.svgD3.append("svg")
-			.attr("class", "alignmentRegion")
+		this.svgD3.append("svg:clipPath")
+			.attr("id", "clip")
+			.append("svg:rect")
+			.attr("id", "clip-rect")
+			.attr("x", "0")
+			.attr("y", "0")
 			.attr("width", this.conf.graphicalParameters.canvasWidth)
 			.attr("height", this.conf.graphicalParameters.canvasHeight);
+		this.svgD3.append("g")
+			.attr("class", "alignmentRegion")
+			.attr("clip-path", "url(#clip)");
+		//.attr("width", 500) //this.conf.graphicalParameters.canvasWidth)
+		//.attr("height", this.conf.graphicalParameters.canvasHeight);
 		alignmentRegion = this.svgD3.selectAll(".alignmentRegion");
 	}
 	return alignmentRegion;
