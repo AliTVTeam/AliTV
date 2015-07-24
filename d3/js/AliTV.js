@@ -781,12 +781,8 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
 AliTV.prototype.drawLinear = function() {
-	this.svgD3.selectAll(".treeGroup").remove();
-	this.svgD3.selectAll(".chromosomeLabelGroup").remove();
-	this.svgD3.selectAll(".featureLabelGroup").remove();
-	this.svgD3.selectAll(".genomeLabelGroup").remove();
-	this.svgD3.selectAll(".tickLabelGroup").remove();
-
+	this.clearAli();
+	
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
@@ -1024,8 +1020,7 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
 AliTV.prototype.drawCircular = function() {
-	this.svgD3.selectAll(".treeGroup").remove();
-	this.svgD3.selectAll(".featureGroup").remove();
+	this.clearAli();
 	var karyoCoords = this.getCircularKaryoCoords();
 	var tickCoords = this.getCircularTickCoords(karyoCoords);
 	this.drawCircularTicks(tickCoords);
