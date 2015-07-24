@@ -1616,5 +1616,14 @@ describe("The clearAli method is supposed to remove all svg groups of ali", func
 	it('clearAli method is supposed to remove all svg groups (karyos, links, features, ticks, tree, labels', function(){
 		ali.setData(data8);
 		ali.setFilters(filters);
+		ali.conf.labels.chromosome.showChromosomeLabels = true;
+		ali.drawLinear();
+		expect(ali.svgD3.selectAll('.karyoGroup').size()).toEqual(1);
+		expect(ali.svgD3.selectAll('.linkGroup').size()).toEqual(1);
+		expect(ali.svgD3.selectAll('.featureGroup').size()).toEqual(1);
+		expect(ali.svgD3.selectAll('.genomeLabelGroup').size()).toEqual(1);
+		expect(ali.svgD3.selectAll('.tickGroup').size()).toEqual(1);
+		expect(ali.svgD3.selectAll('.tickLabelGroup').size()).toEqual(1);
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(1);
 	});
 });
