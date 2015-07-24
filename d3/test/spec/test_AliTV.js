@@ -1606,3 +1606,15 @@ describe('The showInvisibleLink method is supposed to restore a selected link wh
 		expect(typeof ali.showInvisibleLink).toEqual('function');
 	});
 });
+
+describe("The aliClear method is supposed to remove all svg groups of ali", function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('aliClear method is supposed to be a function', function(){
+		expect(typeof ali.aliClear).toEqual('function');
+	});
+	it('aliClear method is supposed to remove all svg groups (karyos, links, features, ticks, tree, labels', function(){
+		ali.setData(data8);
+		ali.setFilters(filters);
+	});
+});
