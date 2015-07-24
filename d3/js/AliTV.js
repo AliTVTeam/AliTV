@@ -2430,3 +2430,11 @@ AliTV.prototype.getMaxChromosomeLength = function() {
 	var maxLength = Math.max.apply(Math, length);
 	return maxLength;
 };
+
+/**
+ * This function is supposed to clear the complete drawing area by removing all children from the svg.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.clearAli = function() {
+
+};
