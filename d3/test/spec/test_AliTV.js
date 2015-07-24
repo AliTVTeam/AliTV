@@ -1521,6 +1521,7 @@ describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to 
 		ali.setData(data);
 		ali.setFilters(filters);
 		ali.conf.labels.genome.showGenomeLabels = true;
+		ali.conf.labels.chromosome.showChromosomeLabels = true;
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.genomeLabelWidth + ", 0)");
 	});
@@ -1569,12 +1570,11 @@ describe('The drawLinearTickLabels method is supposed to add labels to the ticks
 	it('the ticks should be labeled', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
-		ali.conf.labels.ticks.showTickLabels = false;
-		ali.conf.labels.showAllLabels = true;
+		ali.conf.labels.ticks.showTickLabels = true;
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(10);
 	});
-	it('the ticks are not labeled because the default value is set in false', function(){
+	it('the ticks are not labeled because the default value is set false', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
 		ali.conf.labels.ticks.showTickLabels = false;
