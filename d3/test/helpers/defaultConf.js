@@ -2,6 +2,7 @@ var defaultConf =  {
 		linear: {
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
+			hideHalfVisibleLinks: false
 		},
 		circular: {
 			tickSize: 5

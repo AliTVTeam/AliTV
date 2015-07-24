@@ -76,7 +76,8 @@ function AliTV(svg) {
 	 * property to store configuration options
 	 * @property {Object}  linear                                  - The configuration options for the linear layout.
 	 * @property {String}  linear.startLineColor                   - The start color of the color gradient for drawing karyos according to their genomeId
-	 * @property {String}  linear.endLineColor                     - The end color of the color gradient. 
+	 * @property {String}  linear.endLineColor                     - The end color of the color gradient.
+	 * @property {String}  linear.hideHalfVisibleLinks			   - If true - do not show links with only one end in a visible region.
 	 * @property {Object}  circular                                - The configuration options for the circular layout.
 	 * @property {Number}  circular.tickSize                       - The size of the ticks in pixels. 
 	 * @property {Number}  minLinkIdentity                         - The minimum of the link identity the user wants to color.
@@ -154,6 +155,7 @@ function AliTV(svg) {
 		linear: {
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
+			hideHalfVisibleLinks: false
 		},
 		circular: {
 			tickSize: 5
