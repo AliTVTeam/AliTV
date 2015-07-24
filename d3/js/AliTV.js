@@ -2488,6 +2488,7 @@ AliTV.prototype.setFeatureInvisible = function(featureId, group, karyo) {
 AliTV.prototype.getAlignmentRegion = function() {
 	var alignmentRegion = this.svgD3.selectAll(".alignmentRegion");
 	if (alignmentRegion.size() < 1) {
+		this.svgD3.selectAll("#clip").remove();
 		this.svgD3.append("svg:clipPath")
 			.attr("id", "clip")
 			.append("svg:rect")
