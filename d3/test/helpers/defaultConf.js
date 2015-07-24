@@ -15,7 +15,8 @@ var defaultConf =  {
 			tickLabelFrequency: 10,
 			tickDistance: 100,
 			treeWidth: 300,
-			genomeLabelWidth: 150
+			genomeLabelWidth: 150,
+			fade: 0.1
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
