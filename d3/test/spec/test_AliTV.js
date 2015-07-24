@@ -1519,7 +1519,7 @@ describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to 
 		var ali = new AliTV(svg);
 		ali.setData(data);
 		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = true;
+		ali.conf.labels.genome.showGenomeLabels = true;
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.genomeLabelWidth + ", 0)");
 	});
@@ -1643,11 +1643,11 @@ describe('The drawLinearTickLabels method is supposed to add labels to the ticks
 	});
 });
 
-describe('The setLinksInvisible method is supposed to push a link to ali.filters.links.invisibleLinks', function(){
+describe('The setLinkInvisible method is supposed to push a link to ali.filters.links.invisibleLinks', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('setLinksInvisible method is supposed to be a function', function(){
-		expect(typeof ali.setLinksInvisible).toEqual('function');
+	it('setLinkInvisible method is supposed to be a function', function(){
+		expect(typeof ali.setLinkInvisible).toEqual('function');
 	});
 
 });
