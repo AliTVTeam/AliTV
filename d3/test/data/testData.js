@@ -145,6 +145,20 @@ var filters4_offset = {'karyo': {
 	}},
 	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000}
 };
+var filters4_region = {'karyo': {
+	'order': ['c1', 'c2', 'c3', 'c4'],
+	'genome_order': [0, 1, 2],
+	'genome_region': {
+		'0': {'start': 500, 'end': 1000}
+	},
+	'chromosomes': {
+		'c1': {'reverse': false, 'visible': true},
+		'c2': {'reverse': false, 'visible': true},
+		'c3': {'reverse': false, 'visible': true},
+		'c4': {'reverse': false, 'visible': true}
+	}},
+	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000}
+};
 var filters5 = {'karyo': {
 	'order': ['c1', 'c2', 'c4'],
 	'genome_order': [0, 1, 2],
