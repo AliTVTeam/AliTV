@@ -2436,5 +2436,12 @@ AliTV.prototype.getMaxChromosomeLength = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.clearAli = function() {
-
+	this.svgD3.selectAll(".treeGroup").remove();
+	this.svgD3.selectAll(".chromosomeLabelGroup").remove();
+	this.svgD3.selectAll(".featureGroup").remove();
+	this.svgD3.selectAll(".genomeLabelGroup").remove();
+	this.svgD3.selectAll(".tickLabelGroup").remove();
+	this.svgD3.selectAll(".tickGroup").remove();
+	this.svgD3.selectAll(".karyoGroup").remove();
+	this.svgD3.selectAll(".linkGroup").remove();
 };
