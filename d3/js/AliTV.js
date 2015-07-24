@@ -765,7 +765,15 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
 AliTV.prototype.drawLinear = function() {
+<<<<<<< HEAD
 	this.clearAli();
+=======
+	this.svgD3.selectAll(".treeRegion").remove();
+	this.svgD3.selectAll(".chromosomeLabelGroup").remove();
+	this.svgD3.selectAll(".featureLabelGroup").remove();
+	this.svgD3.selectAll(".genomeLabelRegion").remove();
+	this.svgD3.selectAll(".tickLabelGroup").remove();
+>>>>>>> renamed genomeLabelGroup and treeGroup to genomeLabelRegion and treeRegion and changed type of element from g to svg
 	this.getAlignmentRegion().remove();
 	this.getAlignmentRegion();
 	var karyoCoords = this.getLinearKaryoCoords();
@@ -1016,7 +1024,12 @@ AliTV.prototype.drawCircularLinks = function(circularLinkCoords) {
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  */
 AliTV.prototype.drawCircular = function() {
+<<<<<<< HEAD
 	this.clearAli();
+=======
+	this.svgD3.selectAll(".treeRegion").remove();
+	this.svgD3.selectAll(".featureGroup").remove();
+>>>>>>> renamed genomeLabelGroup and treeGroup to genomeLabelRegion and treeRegion and changed type of element from g to svg
 	var karyoCoords = this.getCircularKaryoCoords();
 	var tickCoords = this.getCircularTickCoords(karyoCoords);
 	this.drawCircularTicks(tickCoords);
@@ -1694,8 +1707,8 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 
 	//Now you want to draw every branch in the middle of a chromosome. Therefore you must move it the negative half of a chromosome height and negative the half of the genome distance in y direction.
 	if (this.conf.tree.orientation === "left") {
-		that.svgD3.append("g")
-			.attr("class", "treeGroup")
+		that.svgD3.append("svg")
+			.attr("class", "treeRegion")
 			.attr("style", "fill:none;stroke:#000;stroke-width:2px;")
 			.selectAll("path")
 			.data(links)
@@ -1708,8 +1721,8 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
 
 	} else {
-		that.svgD3.append("g")
-			.attr("class", "treeGroup")
+		that.svgD3.append("svg")
+			.attr("class", "treeRegion")
 			.attr("transform", "translate(" + that.conf.graphicalParameters.canvasWidth + ", 0)")
 			.selectAll("path")
 			.data(links)
@@ -1721,7 +1734,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 			})
 			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
 		if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
-			that.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.canvasWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+			that.svgD3.selectAll(".treeRegion").attr("transform", "translate(" + (that.conf.graphicalParameters.canvasWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 		}
 
 	}
@@ -1983,9 +1996,9 @@ AliTV.prototype.getGenomeLabelCoords = function() {
  */
 AliTV.prototype.drawLinearGenomeLabels = function(linearGenomeLabelCoords) {
 	var that = this;
-	this.svgD3.selectAll(".genomeLabelGroup").remove();
-	that.svgD3.append("g")
-		.attr("class", "genomeLabelGroup")
+	this.svgD3.selectAll(".genomeLabelRegion").remove();
+	that.svgD3.append("svg")
+		.attr("class", "genomeLabelRegion")
 		.selectAll("path")
 		.data(linearGenomeLabelCoords)
 		.enter()
@@ -2006,7 +2019,7 @@ AliTV.prototype.drawLinearGenomeLabels = function(linearGenomeLabelCoords) {
 		.style("text-anchor", "middle");
 
 	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
-		that.svgD3.selectAll(".genomeLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
+		that.svgD3.selectAll(".genomeLabelRegion").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
 };
 

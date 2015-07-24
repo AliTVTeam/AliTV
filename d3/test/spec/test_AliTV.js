@@ -1177,7 +1177,7 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 		ali.setData(data5);
 		ali.setFilters(filters);
 		ali.drawPhylogeneticTree();
-		expect(ali.svgD3.selectAll('.treeGroup').size()).toEqual(1);
+		expect(ali.svgD3.selectAll('.treeRegion').size()).toEqual(1);
 	});	
 	it('if the user wants to draw a tree he sets drawTree equal true, then one tree is drawn', function(){
 			var svg = $('<svg></svg>');
@@ -1186,7 +1186,7 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 			ali.setFilters(filters);
 			ali.conf.tree.drawTree = true;
 			ali.drawLinear();
-			expect(ali.svgD3.selectAll('.treeGroup').size()).toEqual(1);
+			expect(ali.svgD3.selectAll('.treeRegion').size()).toEqual(1);
 	});
 	it('then the user wants to remove the tree, therefore he sets drawTree equal false and the tree should be removed', function(){
 			var svg = $('<svg></svg>');
@@ -1195,7 +1195,7 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 			ali.setFilters(filters);
 			ali.conf.tree.drawTree = false;
 			ali.drawLinear();
-			expect(ali.svgD3.selectAll('.treeGroup').size()).toEqual(0);
+			expect(ali.svgD3.selectAll('.treeRegion').size()).toEqual(0);
 	});
 	it('if the tree is drawn on the right side the tree drawing area is transformed', function(){
 		var svg = $('<svg></svg>');
@@ -1205,7 +1205,7 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 		ali.conf.tree.drawTree = true;
 		ali.conf.tree.orientation = "right";
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(" + (ali.conf.graphicalParameters.canvasWidth + ali.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+		expect(ali.svgD3.selectAll('.treeRegion').attr("transform")).toEqual("translate(" + (ali.conf.graphicalParameters.canvasWidth + ali.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	});
 	it('if the tree is drawn on the right side and no genome labels are set, the tree should not be transformed', function(){
 		var svg = $('<svg></svg>');
@@ -1217,7 +1217,7 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 		ali.conf.labels.showAllLabels = false;
 		ali.conf.labels.genome.showGenomeLabels = false;
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(" + ali.conf.graphicalParameters.canvasWidth + ", 0)");
+		expect(ali.svgD3.selectAll('.treeRegion').attr("transform")).toEqual("translate(" + ali.conf.graphicalParameters.canvasWidth + ", 0)");
 	});
 });
 
@@ -1456,12 +1456,12 @@ describe('The drawLinearGenomeLabels method of AliTV objects is supposed to draw
 	it('drawLinearFeatures method is supposed to be a function', function(){
 		expect(typeof ali.drawLinearGenomeLabels).toEqual('function');
 	});
-	it('there should be exactly one genomeLabelGroup in the simple test svg', function(){
+	it('there should be exactly one genomeLabelRegion in the simple test svg', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
 		var linearGenomeLabelCoords = ali.getGenomeLabelCoords();
 		ali.drawLinearGenomeLabels(linearGenomeLabelCoords);
-		expect(ali.svgD3.selectAll('.genomeLabelGroup').size()).toEqual(1);
+		expect(ali.svgD3.selectAll('.genomeLabelRegion').size()).toEqual(1);
 	});
 	it('if a tree is drawn the genomeLabel group should be transformed', function(){
 		ali.setData(data8);
@@ -1469,7 +1469,7 @@ describe('The drawLinearGenomeLabels method of AliTV objects is supposed to draw
 		ali.conf.labels.showAllLabels = true;
 		ali.conf.tree.drawTree = true;
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.genomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
+		expect(ali.svgD3.selectAll('.genomeLabelRegion').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
 	});
 	it('no genome labels are drawn when the configuration for showAllLabels and showGenomeLabels are both false', function(){
 		var svg = $('<svg></svg>');
@@ -1479,7 +1479,7 @@ describe('The drawLinearGenomeLabels method of AliTV objects is supposed to draw
 		ali.conf.labels.showAllLabels = false;
 		ali.conf.labels.genome.showGenomeLabels = false;
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.genomeLabelGroup').size()).toEqual(0);
+		expect(ali.svgD3.selectAll('.genomeLabelRegion').size()).toEqual(0);
 	});
 });
 
