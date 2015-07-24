@@ -135,7 +135,7 @@ var filters4_offset = {'karyo': {
 	'order': ['c1', 'c2', 'c3', 'c4'],
 	'genome_order': [0, 1, 2],
 	'genome_region': {
-		'0': {'start': 1000}
+		'1': {'start': 1000}
 	},
 	'chromosomes': {
 		'c1': {'reverse': false, 'visible': true},
@@ -149,7 +149,7 @@ var filters4_region = {'karyo': {
 	'order': ['c1', 'c2', 'c3', 'c4'],
 	'genome_order': [0, 1, 2],
 	'genome_region': {
-		'0': {'start': 500, 'end': 1000}
+		'1': {'start': 500, 'end': 1000}
 	},
 	'chromosomes': {
 		'c1': {'reverse': false, 'visible': true},
