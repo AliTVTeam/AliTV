@@ -749,7 +749,7 @@ describe('The setJSON method is supposed to set the internal data, filters and c
 	});
 });
 
-describe('The getAlignmentRegion method is supposed to return the inner alignmentRegion svg element as d3 selection', function(){
+describe('The getAlignmentRegion method is supposed to return the inner alignmentRegion g element as d3 selection', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
 	
@@ -757,7 +757,7 @@ describe('The getAlignmentRegion method is supposed to return the inner alignmen
 		expect(typeof ali.getAlignmentRegion).toEqual('function');
 	});
 	it('the function should return the alignmentRegion as d3 selection object', function(){
-		ali.svgD3.append("svg").attr("class", "alignmentRegion");
+		ali.svgD3.append("g").attr("class", "alignmentRegion");
 		expect(ali.getAlignmentRegion()).toEqual(ali.svgD3.selectAll(".alignmentRegion"));
 	});
 	it('the function should return a newly created alignmentRegion as d3 selection object if it did not exist', function(){

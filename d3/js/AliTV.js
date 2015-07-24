@@ -2453,7 +2453,7 @@ AliTV.prototype.setFeatureInvisible = function(featureId, group, karyo) {
 /**
  * This function returns the internal alignmentRegion g element as d3 selection. It is created if it does not exist.
  * It also creates and adds the clipPath if it does not exist.
- * @returns {Object} internal alignmentRegion svg as d3 selection.
+ * @returns {Object} internal alignmentRegion g as d3 selection.
  * @author Markus Ankenbrand
  */
 
