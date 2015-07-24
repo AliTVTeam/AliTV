@@ -373,12 +373,15 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 			'height': conf.graphicalParameters.karyoHeight,
 			'genome': value.genome_id
 		};
+		var genome2svgScale = d3.scale.linear()
+			.domain([0, maxTotalSize])
+			.range([0, conf.graphicalParameters.canvasWidth]);
 
 		if (this.filters.karyo.chromosomes[key].reverse === false) {
 			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.canvasWidth;
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.canvasWidth;
+			coord.x = genome2svgScale(current[genome_order.indexOf(value.genome_id)]);
 		} else {
-			coord.x = (current[genome_order.indexOf(value.genome_id)] / maxTotalSize) * conf.graphicalParameters.canvasWidth + (value.length / maxTotalSize) * conf.graphicalParameters.canvasWidth;
+			coord.x = genome2svgScale(current[genome_order.indexOf(value.genome_id)] + value.length);
 			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.canvasWidth * (-1);
 		}
 		current[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
