@@ -1642,3 +1642,12 @@ describe('The drawLinearTickLabels method is supposed to add labels to the ticks
 		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(0);
 	});
 });
+
+describe('The setLinksInvisible method is supposed to push a link to ali.filters.links.invisibleLinks', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setLinksInvisible method is supposed to be a function', function(){
+		expect(typeof ali.setLinksInvisible).toEqual('function');
+	});
+
+});
