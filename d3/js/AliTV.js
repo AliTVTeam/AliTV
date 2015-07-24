@@ -349,6 +349,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	var that = this;
 	var visibleChromosomes = that.filterChromosomes();
 	var orderOfVisibleChromosomes = that.filterChromosomeOrder(visibleChromosomes);
+	var genomeScale = {};
 
 	var total = [];
 	var current = [];
@@ -364,6 +365,32 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	});
 	var maxTotalSize = Math.max.apply(null, total);
 
+	// Calculate genome specific scales
+	var getGenomeScale = function(gid) {
+		var genomeSvgScale = d3.scale.linear()
+			.domain([0, maxTotalSize]);
+		var genome_start = 0;
+		var genome_region = that.filters.karyo.genome_region || {};
+		if (typeof(genome_region[gid] || {}).start !== 'undefined') {
+			genome_start = genome_region[gid].start;
+		}
+		var genome_end = maxTotalSize;
+		if (typeof(genome_region[gid] || {}).end !== 'undefined') {
+			genome_end = genome_region[gid].end;
+		} else {
+			genome_end += genome_start;
+		}
+		// The calculation of the range for the scale depends on ideas of the intercept theorem
+		genomeSvgScale.range([conf.graphicalParameters.canvasWidth * genome_start / (genome_start - genome_end),
+			conf.graphicalParameters.canvasWidth * (maxTotalSize - genome_start) / (genome_end - genome_start)
+		]);
+		return genomeSvgScale;
+	};
+
+	for (i = 0; i < genome_order.length; i++) {
+		genomeScale[genome_order[i]] = getGenomeScale(genome_order[i]);
+	}
+
 	for (i = 0; i < orderOfVisibleChromosomes.length; i++) {
 		var key = orderOfVisibleChromosomes[i];
 		var value = visibleChromosomes[key];
@@ -373,9 +400,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 			'height': conf.graphicalParameters.karyoHeight,
 			'genome': value.genome_id
 		};
-		var genome2svgScale = d3.scale.linear()
-			.domain([0, maxTotalSize])
-			.range([0, conf.graphicalParameters.canvasWidth]);
+		var genome2svgScale = genomeScale[value.genome_id];
 
 		if (this.filters.karyo.chromosomes[key].reverse === false) {
 			coord.width = genome2svgScale(value.length) - genome2svgScale(0);
