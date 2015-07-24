@@ -749,6 +749,23 @@ describe('The setJSON method is supposed to set the internal data, filters and c
 	});
 });
 
+describe('The getAlignmentRegion method is supposed to return the inner alignmentRegion svg element as d3 selection', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getAlignmentRegion method is supposed to be a function', function(){
+		expect(typeof ali.getAlignmentRegion).toEqual('function');
+	});
+	it('the function should return the alignmentRegion as d3 selection object', function(){
+		ali.svgD3.append("svg").attr("class", "alignmentRegion");
+		expect(ali.getAlignmentRegion()).toEqual(ali.svgD3.selectAll(".alignmentRegion"));
+	});
+	it('the function should return a newly created alignmentRegion as d3 selection object if it did not exist', function(){
+		svg = $('<svg></svg>');
+		ali = new AliTV(svg);
+		expect(ali.getAlignmentRegion().size()).toEqual(1);
+	});
+});
 describe('The getGenomeLabelColor method is supposed to get the color of the genome labels', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
