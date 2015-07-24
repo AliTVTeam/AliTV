@@ -1548,66 +1548,6 @@ describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to 
 	});
 });
 
-describe('The getFeatureLabelCoords method is supposed to calculate the coords for adding labels to the features', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('getFeatureLabelCoords method is supposed to be a function', function(){
-		expect(typeof ali.getFeatureLabelCoords).toEqual('function');
-	});
-	it('getFeatureLabelCoords method is supposed to return the array linearFeatureLabelCoords, which should be defined', function(){
-		ali.setData(data8);
-		ali.setFilters(filters);
-		ali.conf.features.showAllFeatures = true;
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
-		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
-		expect(linearFeatureLabelCoords).toBeDefined();
-	});
-});
-
-describe('The drawLinearFeatureLabels method of AliTV objects is supposed to draw feature labels onto the chromosomes', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('drawLinearFeatureLabels method is supposed to be a function', function(){
-		expect(typeof ali.drawLinearFeatureLabels).toEqual('function');
-	});
-	it('there should be exactly one featureLabelGroup in the simple test svg', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData({karyo: karyo, features: features17});
-		ali.setFilters(filters);
-		ali.conf.features.showAllFeatures = true;
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
-		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
-		ali.drawLinearFeatureLabels(linearFeatureLabelCoords);
-		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(1);
-	});
-	it('there should be exactly one featureLabelGroup in a more complex test svg', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData({karyo: karyo, features: features18});
-		ali.setFilters(filters);
-		ali.conf.features.showAllFeatures = true;
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
-		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
-		ali.drawLinearFeatureLabels(linearFeatureLabelCoords);
-		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(1);
-	});
-	it('if there are no genome labels drawn the feature labels are not transformed', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData(data8);
-		ali.setFilters(filters);
-		ali.conf.features.showAllFeatures = true;
-		ali.conf.labels.showAllLabels = false;
-		ali.conf.labels.genome.showGenomeLabels = false;
-		ali.conf.labels.features.showFeatureLabels = true;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.featureLabelGroup').attr("transform")).toEqual(null);
-	});
-});
 
 describe('The drawLinearTickLabels method is supposed to add labels to the ticks', function(){
 	var svg = $('<svg></svg>');
