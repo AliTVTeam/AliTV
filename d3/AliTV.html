@@ -694,11 +694,11 @@
 		            .append($("<option></option>")
 		            .attr("value", key)
 		            .text("LinkID: " + key))
-		            .selectpicker("refresh"); 
-		   });   			
+		            .selectpicker("refresh");
+		   });  		    
 		}
     }
-    
+
 	function restoreLink(){
 		var selectedLinkID = $('.selectpicker[name=invisibleLinks]').val();
 		ali.showInvisibleLink(selectedLinkID);
