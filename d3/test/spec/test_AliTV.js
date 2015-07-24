@@ -212,6 +212,25 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 		// This test checks only the height attribute of the first selected element
 		expect(Number(wga.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.graphicalParameters.karyoHeight);
 	});
+	it('if a tree is drawn the alignmentRegion should be transformed', function(){
+		wga.setData(data8);
+		wga.setFilters(filters);
+		wga.conf.labels.showAllLabels = false;
+		wga.conf.labels.genome.showGenomeLabels = false;
+		wga.conf.labels.chromosome.showChromosomeLabels = false;
+		wga.conf.labels.features.showFeatureLabels = false;
+		wga.conf.tree.drawTree = true;
+		wga.drawLinear();
+		expect(wga.getAlignmentRegion().attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
+	});
+	it('if a tree is drawn and all labels should be shown the alignmentRegion is transformed', function(){
+		wga.setData(data8);
+		wga.setFilters(filters);
+		wga.conf.labels.showAllLabels = true;
+		wga.conf.tree.drawTree = true;
+		wga.drawLinear();
+		expect(wga.getAlignmentRegion().attr("transform")).toEqual("translate(" + (defaultConf.graphicalParameters.treeWidth + defaultConf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	});
 });
 
 describe('The getCircularKaryoCoords method of AliTV objects is supposed to calculate coordinates for the karyos in the circular case', function(){
@@ -1408,25 +1427,6 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		ali.drawLinearFeatures(linearFeatureCoords);
 		expect(ali.svgD3.selectAll('.feature').size()).toEqual(1);
 	});
-	it('if a tree is drawn the feature group should be transformed', function(){
-		ali.setData(data8);
-		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = false;
-		ali.conf.labels.genome.showGenomeLabels = false;
-		ali.conf.labels.chromosome.showChromosomeLabels = false;
-		ali.conf.labels.features.showFeatureLabels = false;
-		ali.conf.tree.drawTree = true;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.featureGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
-	});
-	it('if a tree is drawn and all labels should be shown the feature group is transformed', function(){
-		ali.setData(data8);
-		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = true;
-		ali.conf.tree.drawTree = true;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.featureGroup').attr("transform")).toEqual("translate(" + (defaultConf.graphicalParameters.treeWidth + defaultConf.graphicalParameters.genomeLabelWidth) + ", 0)");
-	});
 });
 
 describe('The getGenomeLabelCoords method is supposed to calculate the coords for adding genome labels', function(){
@@ -1529,39 +1529,6 @@ describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to 
 		ali.conf.labels.showAllLabels = false;
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(0);
-	});
-	it('if genome labels are drawn the chromosome labels should be transformed', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData(data);
-		ali.setFilters(filters);
-		ali.conf.labels.genome.showGenomeLabels = true;
-		ali.conf.labels.chromosome.showChromosomeLabels = true;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.genomeLabelWidth + ", 0)");
-	});
-	it('if there are no genome labels drawn the chromosome labels are not transformed', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData(data);
-		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = false;
-		ali.conf.labels.genome.showGenomeLabels = false;
-		ali.conf.labels.chromosome.showChromosomeLabels = true;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual(null);
-	});
-	it('if no genome labels are drawn, but the tree is drawn, the chromosomes whould be transformed', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData(data8);
-		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = false;
-		ali.conf.tree.drawTree = true;
-		ali.conf.labels.genome.showGenomeLabels = false;
-		ali.conf.labels.chromosome.showChromosomeLabels = true;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
 	});
 });
 
