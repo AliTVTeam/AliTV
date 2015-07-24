@@ -1142,4 +1142,14 @@ describe("The getMaxChromosomeLength method is supposed to return the value of t
 	it('getMaxChromosomeLength method is supposed to be a function', function(){
 		expect(typeof ali.getMaxChromosomeLength).toEqual('function');
 	});	
+	it('the returned value of the getMacChromosomeLength method should should return a defined value', function(){
+		var maxLength = ali.getMaxChromosomeLength();
+		expect(ali.setNStretchColor(maxLength)).toEqual(maxLength);
+	});	
+	it('the function should return the color ofNStretchs which is defined in the defaultConf', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var maxLength = ali.getMaxChromosomeLength()
+		expect(maxLength).toEqual(2000);
+	});
 });
