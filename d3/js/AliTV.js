@@ -2506,3 +2506,12 @@ AliTV.prototype.getAlignmentRegion = function() {
 	}
 	return alignmentRegion;
 };
+
+/**
+ * This function returns linkCoords with those removed that have their ends outside the visible region.
+ * Optionally also links with only one end in the visible region can be removed.
+ * @param {Array}   - linearLinkCoords as returned by getLinearLinkCoords
+ * @param {boolean} - if true also links with one end inside the visual region will be removed
+ * @returns {Array} - filtered linearLinkCoords
+ * @author Markus Ankenbrand
+ */
