@@ -467,7 +467,7 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 	var that = this;
 
 	that.svgD3.selectAll(".karyoGroup").remove();
-	that.svgD3.selectAll(".alignmentRegion").append("g")
+	that.getAlignmentRegion().append("g")
 		.attr("class", "karyoGroup")
 		.selectAll("path")
 		.data(linearKaryoCoords)
@@ -590,8 +590,8 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 
 AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 	var that = this;
-	this.svgD3.selectAll(".alignmentRegion").selectAll(".tickGroup").remove();
-	that.svgD3.selectAll(".alignmentRegion").append("g")
+	this.getAlignmentRegion().selectAll(".tickGroup").remove();
+	that.getAlignmentRegion().append("g")
 		.attr("class", "tickGroup")
 		.selectAll("path")
 		.data(linearTickCoords)
@@ -648,7 +648,7 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 		counter++;
 	});
 
-	var labels = that.svgD3.selectAll(".alignmentRegion").append("g")
+	var labels = that.getAlignmentRegion().append("g")
 		.attr("class", "tickLabelGroup")
 		.selectAll("path")
 		.data(filteredLinearTickCoords)
@@ -735,8 +735,8 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		return shape;
 	};
 
-	this.svgD3.selectAll(".alignmentRegion").selectAll(".linkGroup").remove();
-	this.svgD3.selectAll(".alignmentRegion").append("g")
+	this.getAlignmentRegion().selectAll(".linkGroup").remove();
+	this.getAlignmentRegion().append("g")
 		.attr("class", "linkGroup")
 		.selectAll("path")
 		.data(linearLinkCoords)
@@ -766,12 +766,8 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
  */
 AliTV.prototype.drawLinear = function() {
 	this.clearAli();
-	this.svgD3.selectAll(".alignmentRegion").remove();
-	this.svgD3.append("svg")
-		.attr("class", "alignmentRegion")
-		.attr("width", this.conf.graphicalParameters.canvasWidth)
-		.attr("height", this.conf.graphicalParameters.canvasHeight);
-
+	this.getAlignmentRegion().remove();
+	this.getAlignmentRegion();
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
@@ -808,13 +804,13 @@ AliTV.prototype.drawLinear = function() {
 	}
 
 	if (this.conf.tree.drawTree === true && this.conf.tree.orientation === "left") {
-		this.svgD3.selectAll(".alignmentRegion").attr("transform", "translate(" + this.conf.graphicalParameters.treeWidth + ", 0)");
+		this.getAlignmentRegion().attr("transform", "translate(" + this.conf.graphicalParameters.treeWidth + ", 0)");
 	}
 	if (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels === true) {
-		this.svgD3.selectAll(".alignmentRegion").attr("transform", "translate(" + this.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+		this.getAlignmentRegion().attr("transform", "translate(" + this.conf.graphicalParameters.genomeLabelWidth + ", 0)");
 	}
 	if ((this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels === true) && this.conf.tree.drawTree === true && this.conf.tree.orientation === "left") {
-		this.svgD3.selectAll(".alignmentRegion").attr("transform", "translate(" + (this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+		this.getAlignmentRegion().attr("transform", "translate(" + (this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
 
 	this.conf.layout = "linear";
@@ -1838,8 +1834,8 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 	var that = this;
 
-	that.svgD3.selectAll(".alignmentRegion").selectAll(".featureGroup").remove();
-	var shapes = that.svgD3.selectAll(".alignmentRegion").append("g")
+	that.getAlignmentRegion().selectAll(".featureGroup").remove();
+	var shapes = that.getAlignmentRegion().append("g")
 		.attr("class", "featureGroup")
 		.selectAll("path")
 		.data(linearFeatureCoords)
@@ -2042,8 +2038,8 @@ AliTV.prototype.getChromosomeLabelCoords = function(linearKaryoCoords) {
  */
 AliTV.prototype.drawLinearChromosomeLabels = function(linearChromosomeLabelCoords) {
 	var that = this;
-	this.svgD3.selectAll(".alignmentRegion").selectAll(".chromosomeLabelGroup").remove();
-	that.svgD3.selectAll(".alignmentRegion").append("g")
+	this.getAlignmentRegion().selectAll(".chromosomeLabelGroup").remove();
+	that.getAlignmentRegion().append("g")
 		.attr("class", "chromosomeLabelGroup")
 		.selectAll("path")
 		.data(linearChromosomeLabelCoords)
