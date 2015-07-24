@@ -378,11 +378,11 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 			.range([0, conf.graphicalParameters.canvasWidth]);
 
 		if (this.filters.karyo.chromosomes[key].reverse === false) {
-			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.canvasWidth;
+			coord.width = genome2svgScale(value.length) - genome2svgScale(0);
 			coord.x = genome2svgScale(current[genome_order.indexOf(value.genome_id)]);
 		} else {
 			coord.x = genome2svgScale(current[genome_order.indexOf(value.genome_id)] + value.length);
-			coord.width = (value.length / maxTotalSize) * conf.graphicalParameters.canvasWidth * (-1);
+			coord.width = genome2svgScale(0) - genome2svgScale(value.length);
 		}
 		current[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
 		linearKaryoCoords.push(coord);
