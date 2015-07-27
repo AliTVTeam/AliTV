@@ -334,6 +334,12 @@ AliTV.prototype.setData = function(data) {
  */
 AliTV.prototype.setFilters = function(filters) {
 	this.filters = filters;
+	if (this.filters.links === undefined) {
+		this.filters.links = {};
+	}
+	if (this.filters.links.invisibleLinks === undefined) {
+		this.filters.links.invisibleLinks = {};
+	}
 };
 
 /**
