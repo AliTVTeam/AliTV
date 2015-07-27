@@ -808,20 +808,19 @@
         $.contextMenu({
             selector: '.featureGroup', 
             build: function($trigger, e) {
-            		var id = $(e.target).attr("id");
-            		var split = id.split("_");
-                	var name = split[0];
+            		var feature = $(e.target).attr("id");
+            		var split = feature.split("_");
+                	var featureId = split[0];
                 	var group = split[1];
                 return { 
                     items: {
-                    	"name": {name: "Name: " + name},
+                    	"name": {name: "Name: " + featureId},
                     	"group": {name: "Group: " + group},
 		                "sep1": "---------",
                     	"Visible": {
 		                    name: "Hide",
 		                    callback: function(key, options) {
-		                        var selectedFeatureId = $(e.target).attr("id");
-		                        ali.setFeatureInvisible();
+		                        ali.setFeatureInvisible(featureId, group);
 		                        $(e.target).hide();
 		                    }
 		                },
