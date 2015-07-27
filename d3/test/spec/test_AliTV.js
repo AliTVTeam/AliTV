@@ -1595,7 +1595,7 @@ describe('The setLinkInvisible method is supposed to push a link to ali.filters.
 		ali.visibleLinks = {};
 		ali.visibleLinks["l1"] = {'source': 'f1', 'target': 'f2', 'identity': 90};
 		var linkID = "l1";
-		var expectedInvisibleLinks = {"l1": {'source': 'f1', 'target': 'f2', 'identity': 80}};
+		var expectedInvisibleLinks = {"l1": {'source': 'f1', 'target': 'f2', 'identity': 90}};
 		expect(ali.setLinkInvisible(linkID)).toEqual(expectedInvisibleLinks);
 	})
 });
