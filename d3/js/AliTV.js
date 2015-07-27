@@ -2369,6 +2369,7 @@ AliTV.prototype.setTickLabelSize = function(size) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.setLinkInvisible = function(selectedLinkID) {
+	$("#" + selectedLinkID).hide();
 	var selectedLink = this.visibleLinks[selectedLinkID];
 	this.filters.links.invisibleLinks[selectedLinkID] = selectedLink;
 	return this.filters.links.invisibleLinks;
@@ -2396,11 +2397,7 @@ AliTV.prototype.getInvisibleLinks = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.showInvisibleLink = function(selectedLinkID) {
-	$("#" + selectedLinkID).each(function() {
-		if ($(this).css("display") === "none" && $(this).attr("id") === selectedLinkID) {
-			$(this).show();
-		}
-	});
+	$("#" + selectedLinkID).show();
 	delete this.filters.links.invisibleLinks[selectedLinkID];
 	return this.filters.links.invisibleLinks;
 };
