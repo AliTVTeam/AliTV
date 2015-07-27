@@ -809,11 +809,10 @@
             selector: '.featureGroup', 
             build: function($trigger, e) {
             		var feature = $(e.target).attr("id");
-            		var feature;
             		var split = feature.split("_");
                 	var featureId = split[0];
                 	var group = split[1];
-                	var karyo = split[2];
+                	var karyo = split[2] + "_" + split[3];
                 return { 
                     items: {
                     	"name": {name: "Name: " + featureId},
