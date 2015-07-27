@@ -641,16 +641,6 @@ AliTV.prototype.drawLinearTicks = function(linearTickCoords) {
 			return d.y2;
 		})
 		.style("stroke", that.getTickLabelColor());
-
-	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
-		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
-	}
-	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
-		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
-	}
-	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
-		that.svgD3.selectAll(".tickGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
-	}
 };
 
 /**
@@ -711,16 +701,6 @@ AliTV.prototype.drawLinearTickLabels = function(linearTickCoords) {
 		})
 		.attr("font-size", that.getTickLabelSize() + "px")
 		.attr("fill", that.getTickLabelColor());
-
-	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
-		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
-	}
-	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
-		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
-	}
-	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
-		that.svgD3.selectAll(".tickLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
-	}
 };
 
 /**
