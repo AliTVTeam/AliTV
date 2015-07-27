@@ -1638,10 +1638,10 @@ describe('The showInvisibleLink method is supposed to restore a selected link wh
 		ali.setLinkInvisible("l2");
 		ali.setLinkInvisible("l3");
 		var invisibleLinks = ali.getInvisibleLinks();
-		expect(invisibleLinks).toEqual(13);
+		expect(invisibleLinks).toEqual(3);
 		ali.showInvisibleLink("l2");
 		invisibleLinks = ali.getInvisibleLinks();
-		expect(invisibleLinks).toEqual(1);
+		expect(invisibleLinks).toEqual(2);
 	})
 });
 
