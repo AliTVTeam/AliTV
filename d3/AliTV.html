@@ -809,9 +809,11 @@
             selector: '.featureGroup', 
             build: function($trigger, e) {
             		var feature = $(e.target).attr("id");
+            		var feature;
             		var split = feature.split("_");
                 	var featureId = split[0];
                 	var group = split[1];
+                	var karyo = split[2];
                 return { 
                     items: {
                     	"name": {name: "Name: " + featureId},
@@ -820,7 +822,7 @@
                     	"Visible": {
 		                    name: "Hide",
 		                    callback: function(key, options) {
-		                        ali.setFeatureInvisible(featureId, group);
+		                        ali.setFeatureInvisible(featureId, group, karyo);
 		                        $(e.target).hide();
 		                    }
 		                },
