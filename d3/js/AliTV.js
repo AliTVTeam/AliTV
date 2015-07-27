@@ -2439,3 +2439,15 @@ AliTV.prototype.clearAli = function() {
 	this.svgD3.selectAll(".karyoGroup").remove();
 	this.svgD3.selectAll(".linkGroup").remove();
 };
+
+/**
+ * This function gets a selected feature ID and pushes it to ali.filters.Features.invisibleFeatures.
+ * The function marks all features, which are set invisible.
+ * @param selectedFeatureID: gets the ID of the selected feature.
+ * @returns ali.filters.features.invisibleFeatures: returns the features which are invisible in the current settings.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setFeatureInvisible = function(featureId, group) {
+	console.log(featureId);
+	console.log(group);
+};
