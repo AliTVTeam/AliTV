@@ -820,8 +820,9 @@
                     	"Visible": {
 		                    name: "Hide",
 		                    callback: function(key, options) {
-		                        var m = "hide was clicked";
-		                        console.log(m);
+		                        var selectedFeatureId = $(e.target).attr("id");
+		                        ali.setFeatureInvisible();
+		                        $(e.target).hide();
 		                    }
 		                },
 		                "Quit": {name: "Quit", callback: $.noop}
