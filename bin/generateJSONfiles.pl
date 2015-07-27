@@ -188,6 +188,11 @@ sub create_dir_structure{
                              lib/jsoneditor.min.css
                              lib/jsoneditor.min.js
                              lib/img/jsoneditor-icons.png
+                             lib/img/arrow.png
+                             lib/img/circular.png
+                             lib/img/linear.png
+                             lib/img/rect.png
+
                              lib/colorpicker/bootstrap-colorpicker.min.css
                              lib/colorpicker/bootstrap-colorpicker.min.js
                              lib/colorpicker/img/bootstrap-colorpicker/alpha-horizontal.png
@@ -201,6 +206,9 @@ sub create_dir_structure{
                              js/AliTV.js
                              
                              css/AliTV.css
+                             css/AliTV_logo.ico
+                             css/AliTV_logo.svg
+                             css/AliTV_logo.png
 
                              AliTV.html
                             );
