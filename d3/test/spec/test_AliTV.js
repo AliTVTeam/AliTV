@@ -1617,7 +1617,7 @@ describe('The getInvisibleLinks mehtod is supposed to count the elements in ali.
 		ali.setLinkInvisible("l2");
 		ali.setLinkInvisible("l3");
 		var invisibleLinks = ali.getInvisibleLinks();
-		expect(invisibleLinks).toEqual(2);
+		expect(invisibleLinks).toEqual(3);
 	})
 });
 
