@@ -1666,3 +1666,11 @@ describe("The clearAli method is supposed to remove all svg groups of ali", func
 		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(0);
 	});
 });
+
+describe('The setFeatureInvisible method is supposed to push a feature to ali.filters.features.invisibleFeatures', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setFeatureInvisible method is supposed to be a function', function(){
+		expect(typeof ali.setFeatureInvisible).toEqual('function');
+	});
+});
