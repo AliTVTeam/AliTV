@@ -1786,7 +1786,8 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 					"id": value.name,
 					"type": type,
 					"y": currentY,
-					"height": featureStyle.height
+					"height": featureStyle.height,
+					"karyo": value.karyo
 				};
 
 				currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
@@ -1796,7 +1797,8 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 			} else if (featureStyle.form === "arrow") {
 				currentFeature = {
 					"type": type,
-					"id": value.name
+					"id": value.name,
+					"karyo": value.karyo
 				};
 				currentFeature.path = [];
 				currentFeature.path.push({
@@ -1835,7 +1837,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
  */
 AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 	var that = this;
-
+		
 	that.svgD3.selectAll(".featureGroup").remove();
 	var shapes = that.svgD3.append("g")
 		.attr("class", "featureGroup")
@@ -1874,7 +1876,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		})
 		.attr("class", "feature")
 		.attr("id", function(d) {
-			return d.id + "_" + d.type;
+			return d.id + "_" + d.type + "_" + d.karyo;
 		})
 		.attr("x", function(d) {
 			if (d.width < 0) {
@@ -1938,7 +1940,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			d3.select(this)
 				.attr("class", "feature")
 				.attr("id", function(d) {
-					return d.id + "_" + d.type;
+					return d.id + "_" + d.type + "_" + d.karyo;
 				})
 				.attr("d", lineFunction(d.path))
 				.attr("fill", function(d) {
@@ -2443,11 +2445,12 @@ AliTV.prototype.clearAli = function() {
 /**
  * This function gets a selected feature ID and pushes it to ali.filters.Features.invisibleFeatures.
  * The function marks all features, which are set invisible.
- * @param selectedFeatureID: gets the ID of the selected feature.
+ * @param featureID: gets the ID of the selected feature.
+ * @param group: gets the group of the selected feature for example invertedRepeat.
+ * @param karyo: gets the chromsome which belongs to the selected feature.
  * @returns ali.filters.features.invisibleFeatures: returns the features which are invisible in the current settings.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.setFeatureInvisible = function(featureId, group) {
-	console.log(featureId);
-	console.log(group);
+AliTV.prototype.setFeatureInvisible = function(featureId, group, karyo) {
+	console.log(featureId, group, karyo)
 };
