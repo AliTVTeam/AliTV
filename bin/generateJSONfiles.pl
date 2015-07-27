@@ -250,6 +250,10 @@ sub parse_karyo{
 		$genome_info{$gid}{'elements'}++;
 	}
 	$filters{'karyo'}{'genome_order'} = [sort map {$_} keys %genome_info];
+	# Add empty genome_region entry for each genome
+	foreach(keys %genome_info){
+		$filters{'karyo'}{'genome_region'}{$_} = {};
+	}
 	optimize_filters_and_conf(\%genome_info);
 	close IN or $L->logdie("Can not close file $file\n$!");
 	return (\%karyo);
