@@ -1589,6 +1589,15 @@ describe('The setLinkInvisible method is supposed to push a link to ali.filters.
 	it('setLinkInvisible method is supposed to be a function', function(){
 		expect(typeof ali.setLinkInvisible).toEqual('function');
 	});
+	it('the method is assigned with an id of a link, the link is pushed to ali.fiters.links.invisibleLinks', function(){
+		ali.setData(data2);
+		ali.setFilters(filters);
+		ali.visibleLinks = {};
+		ali.visibleLinks["l1"] = {'source': 'f1', 'target': 'f2', 'identity': 90};
+		var linkID = "l1";
+		var expectedInvisibleLinks = {"l1": {'source': 'f1', 'target': 'f2', 'identity': 80}};
+		expect(ali.setLinkInvisible(linkID)).toEqual(expectedInvisibleLinks);
+	})
 });
 
 describe('The getInvisibleLinks mehtod is supposed to count the elements in ali.filters.links.invisibleLinks and return them as a number', function(){

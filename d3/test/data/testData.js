@@ -597,8 +597,8 @@ var tree = {
 		}]
 	};
 
-var data = {'karyo': karyo, 'features': features, 'links': links, 'visibleLinks': links};
-var data2 = {'karyo': karyo2, 'features': features, 'links': links, 'visibleLinks': links};
+var data = {'karyo': karyo, 'features': features, 'links': links};
+var data2 = {'karyo': karyo2, 'features': features, 'links': links};
 var data3 = {'karyo': karyo3, 'features': features, 'links': links};
 var data4 = {'karyo': karyo4, 'features': features, 'links': links};
 var data5 = {'karyo': karyo, 'features': features, 'links': links, "tree": tree};
