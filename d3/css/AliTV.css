@@ -48,3 +48,22 @@
 .dropdown-toggle.disabled {
     padding-right: 40px;
 }
+
+rect.selection {
+    stroke          : darkblue;
+    stroke-dasharray: 4px;
+    stroke-opacity  : 0.99;
+    fill            : transparent;
+}
+
+svg *::selection {
+    background : transparent;
+}
+
+svg *::-moz-selection {
+    background:transparent;
+}
+
+svg *::-webkit-selection {
+    background:transparent;
+}
