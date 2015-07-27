@@ -1837,7 +1837,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
  */
 AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 	var that = this;
-		
+
 	that.svgD3.selectAll(".featureGroup").remove();
 	var shapes = that.svgD3.append("g")
 		.attr("class", "featureGroup")
@@ -2452,5 +2452,11 @@ AliTV.prototype.clearAli = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.setFeatureInvisible = function(featureId, group, karyo) {
-	console.log(featureId, group, karyo)
+	var that = this;
+
+	$.each(this.data.features[group], function(key, value) {
+		if (karyo === value.name) {
+			that.filters.features.invisibleFeatures[featureId] = value;
+		}
+	});
 };

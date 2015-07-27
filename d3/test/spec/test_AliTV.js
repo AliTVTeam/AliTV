@@ -1232,9 +1232,9 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setData({karyo: karyo3, features: features11});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		var expectedFeatures = [{"id": "f1", "type": "gene", "height": defaultConf.features.supportedFeatures.gene.height, "x": 100 * 1000 / 2000, "width": Math.abs(200 - 100) * 1000 / 2000, "y": 0},
-		                        {"id": "f2", "type": "gene", "height": defaultConf.features.supportedFeatures.gene.height, "x": 300 * 500 / 1000, "width": Math.abs(300 - 400) * 500 / 1000, "y": 485},
-		                        {"id": "f3", "type": "gene", "height": defaultConf.features.supportedFeatures.gene.height, "x": 500 * 500 / 1000, "width": Math.abs(600 - 500) * 500 / 1000, "y": 970}];
+		var expectedFeatures = [{"id": "f1", "type": "gene", "karyo": "c1", "height": defaultConf.features.supportedFeatures.gene.height, "x": 100 * 1000 / 2000, "width": Math.abs(200 - 100) * 1000 / 2000, "y": 0},
+		                        {"id": "f2", "type": "gene", "karyo": "c2", "height": defaultConf.features.supportedFeatures.gene.height, "x": 300 * 500 / 1000, "width": Math.abs(300 - 400) * 500 / 1000, "y": 485},
+		                        {"id": "f3", "type": "gene", "karyo": "c3", "height": defaultConf.features.supportedFeatures.gene.height, "x": 500 * 500 / 1000, "width": Math.abs(600 - 500) * 500 / 1000, "y": 970}];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
@@ -1243,7 +1243,7 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setData({karyo: karyo3, features: features14});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", path: [{x: 100 * 1000/2000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 100 * 1000/2000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
 		                                                 {x: 100 * 1000/2000 + 5/6 * (200 - 100) * 1000 / 2000, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
 		                                                 {x: 100 * 1000/2000 + 5/6 * (200 - 100) * 1000 / 2000, y: 0}, 
 		                                                 {x: 100 * 1000/2000 + (200 - 100) * 1000 / 2000, y: 0 +  1/2 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
@@ -1258,7 +1258,7 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setData({karyo: karyo3, features: features14r});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", path: [{x: 200 * 1000/2000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 200 * 1000/2000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
 	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
 	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 0}, 
 	                                                 {x: 200 * 1000/2000 + (100 - 200) * 1000 / 2000, y: 0 +  1/2 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
