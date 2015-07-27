@@ -1627,6 +1627,22 @@ describe('The showInvisibleLink method is supposed to restore a selected link wh
 	it('showInvisibleLink method is supposed to be a function', function(){
 		expect(typeof ali.showInvisibleLink).toEqual('function');
 	});
+	it('the showInvisibleLink method is supposed to remove invisibleLinks from ali.filters.links.invisibleLinks', function(){
+		ali.setData({karyo: karyo9, features: features10, links: links13});
+		ali.setFilters(filters18);
+		ali.visibleLinks = {};
+		ali.visibleLinks["l1"] = {'source': 'f1', 'target': 'f4', 'identity': 30};
+		ali.visibleLinks["l2"] = {'source': 'f2', 'target': 'f5', 'identity': 99};
+		ali.visibleLinks["l3"] = {'source': 'f3', 'target': 'f6', 'identity': 88};
+		ali.setLinkInvisible("l1");
+		ali.setLinkInvisible("l2");
+		ali.setLinkInvisible("l3");
+		var invisibleLinks = ali.getInvisibleLinks();
+		expect(invisibleLinks).toEqual(13);
+		ali.showInvisibleLink("l2");
+		invisibleLinks = ali.getInvisibleLinks();
+		expect(invisibleLinks).toEqual(1);
+	})
 });
 
 describe("The clearAli method is supposed to remove all svg groups of ali", function(){

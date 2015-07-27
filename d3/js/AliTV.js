@@ -2407,7 +2407,6 @@ AliTV.prototype.showInvisibleLink = function(selectedLinkID) {
 			$(this).show();
 		}
 	});
-
 	delete this.filters.links.invisibleLinks[selectedLinkID];
 	return this.filters.links.invisibleLinks;
 };
