@@ -2405,7 +2405,6 @@ AliTV.prototype.getInvisibleLinks = function() {
  */
 AliTV.prototype.showInvisibleLink = function(selectedLinkID) {
 	$("#" + selectedLinkID).each(function() {
-		console.log($(this));
 		if ($(this).css("display") === "none" && $(this).attr("id") === selectedLinkID) {
 			$(this).show();
 		}
