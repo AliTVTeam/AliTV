@@ -292,6 +292,20 @@ var filters17 = {'karyo': {
 }
 }
 
+var filters18 = {'karyo': {
+	'order': ['c1', 'c2', 'c3', 'c4', 'c5', 'c6'],
+	'genome_order': [0, 1, 2],
+	'chromosomes': {
+		'c1': {'reverse': false, 'visible': true},
+		'c2': {'reverse': false, 'visible': true},
+		'c3': {'reverse': false, 'visible': true},
+		'c4': {'reverse': false, 'visible': true},
+		'c5': {'reverse': false, 'visible': true},
+		'c6': {'reverse': false, 'visible': true}
+	}},
+	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000, "invisibleLinks": {}}
+}
+
 var features = {
 	'link':{
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},

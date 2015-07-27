@@ -1606,6 +1606,19 @@ describe('The getInvisibleLinks mehtod is supposed to count the elements in ali.
 	it('getInvisibleLinks method is supposed to be a function', function(){
 		expect(typeof ali.getInvisibleLinks).toEqual('function');
 	});
+	it('the getInvisibleLinks method returns the number of links which are set invisible', function(){
+		ali.setData({karyo: karyo9, features: features10, links: links13});
+		ali.setFilters(filters18);
+		ali.visibleLinks = {};
+		ali.visibleLinks["l1"] = {'source': 'f1', 'target': 'f4', 'identity': 30};
+		ali.visibleLinks["l2"] = {'source': 'f2', 'target': 'f5', 'identity': 99};
+		ali.visibleLinks["l3"] = {'source': 'f3', 'target': 'f6', 'identity': 88};
+		ali.setLinkInvisible("l1");
+		ali.setLinkInvisible("l2");
+		ali.setLinkInvisible("l3");
+		var invisibleLinks = ali.getInvisibleLinks();
+		expect(invisibleLinks).toEqual(2);
+	})
 });
 
 describe('The showInvisibleLink method is supposed to restore a selected link which is set invisible', function(){
