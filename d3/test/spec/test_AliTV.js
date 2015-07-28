@@ -1770,7 +1770,7 @@ describe('The getInvisibleChromosomes method is supposed to count all chromosome
 		ali.setData(data);
 		ali.setFilters(filters);
 		ali.filters.karyo.chromosomes["c1"].visible = false;
-		expect(ali.getInvisibleChromosomes()).toEqual(2);
+		expect(ali.getInvisibleChromosomes()).toEqual(1);
 	});
 });
 
