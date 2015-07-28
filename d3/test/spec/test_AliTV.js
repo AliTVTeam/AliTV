@@ -1714,7 +1714,7 @@ describe('The showInvisibleFeature method is supposed to restore a selected feat
 		expect(invisibleFeatures).toEqual(2);
 		ali.showInvisibleFeature("f1_gene_c1_gi");
 		invisibleFeatures = ali.getInvisibleFeatures();
-		expect(invisibleFeatures).toEqual(2);
+		expect(invisibleFeatures).toEqual(1);
 	})
 });
 
