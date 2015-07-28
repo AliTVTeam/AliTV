@@ -1695,7 +1695,7 @@ describe('The getInvisibleFeatures mehtod is supposed to count the elements in a
 		ali.setFeatureInvisible("f1_gene_c1_gi");
 		ali.setFeatureInvisible("f2_gene_c2_gi");
 		var invisibleFeatures = ali.getInvisibleFeatures();
-		expect(invisibleFeatures).toEqual(3);
+		expect(invisibleFeatures).toEqual(2);
 	})
 });
 
