@@ -597,6 +597,7 @@
 		$("#nStretchColor").val(ali.getNStretchColor());
 		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
 		$("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
+		$("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
 		
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showChromosomeLabels').attr('checked', false);
@@ -698,7 +699,7 @@
 		        $('#invisibleLinks')
 		            .append($("<option></option>")
 		            .attr("value", key)
-		            .text("LinkID: " + key))
+		            .text(key))
 		            .selectpicker("refresh");
 		   });  		    
 		}
@@ -720,7 +721,7 @@
 			        $('#invisibleFeatures')
 			            .append($("<option></option>")
 			            .attr("value", key)
-			            .text("Feature: " + key))
+			            .text(key))
 			            .selectpicker("refresh");
 			   });  		    
 			}
@@ -733,6 +734,33 @@
 			$("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
 		}
 
+		  function setInvisibleChromosomeSelection(){
+		    	$('#invisibleChromosomes').text("");
+				if(ali.getInvisibleChromosomes() === 0){
+					$('.selectpicker').selectpicker('val', '')
+				} else {
+				    $.each(ali.filters.karyo.chromosomes, function(key, value) {
+				    	if(value.visible === false){
+				    		var chromosomeName = ali.data.karyo.chromosomes[key].genome_id;
+					        $('#invisibleChromosomes')
+					            .append($("<option></option>")
+					            .attr("value", chromosomeName)
+					            .text(chromosomeName))
+					            .selectpicker("refresh");			    		
+				    	}
+				   });  		    
+				}
+		    }
+
+			function restoreChromosome(){
+				var selectedChromosomeName = $('.selectpicker[name=invisibleChromosomes]').val();
+				console.log(selectedChromosomeName);
+				ali.changeChromosomeVisibility(selectedChromosomeName);
+				setInvisibleChromosomeSelection();
+				$("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
+				ali.drawLinear();
+			}
+			
 	function setAliFromJSONEditor(){
 		var json = editor.get();
 		ali.setJSON(json);
@@ -785,8 +813,11 @@
                     	"Visible": {
 		                    name: "Hide",
 		                    callback: function(key, options) {
-		                        var m = "hide was clicked";
-		                        console.log(m);
+		                        ali.changeChromosomeVisibility(name);
+		                        ali.getInvisibleChromosomes();
+		                        setInvisibleChromosomeSelection();
+		                        ali.drawLinear();
+		                        $("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
 		                    }
 		                },
 		                "Change orientation": {name: "Change orientation"},
@@ -1013,6 +1044,16 @@
 				    	</div>	
 					</div> 
 				</div> 
+				<div class="col-sm-4">
+					<div class="form-group">
+						Invisible chromosomes:
+						<div class="input-group" style="margin: 10px 10px"> 
+				    			<span class="input-group-addon"><input type="text" id="invisibleChromosomesLabel" size="4" readonly></span>
+								<span class="input-group-addon"><select id="invisibleChromosomes" class="selectPicker" data-style="btn-info" name="invisibleChromosomes"></select></span>
+								<span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleChromosomes" onclick="restoreChromosome();">Restore Chromosome</button></span>
+				    	</div>	
+					</div> 
+				</div>
 			</div>
 		</div>
 	</div>
