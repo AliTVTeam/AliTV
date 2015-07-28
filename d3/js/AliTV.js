@@ -2584,11 +2584,9 @@ AliTV.prototype.changeChromosomeVisibility = function(chromosomeName) {
 AliTV.prototype.getInvisibleChromosomes = function() {
 	var invisibleChromosomeSize = 0;
 	$.each(this.filters.karyo.chromosomes, function(key, value) {
-		if(value.visible === false){
+		if (value.visible === false) {
 			invisibleChromosomeSize = invisibleChromosomeSize + 1;
 		}
 	});
 	return invisibleChromosomeSize;
 };
-
-
