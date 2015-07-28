@@ -337,8 +337,14 @@ AliTV.prototype.setFilters = function(filters) {
 	if (this.filters.links === undefined) {
 		this.filters.links = {};
 	}
+	if (this.filters.features === undefined) {
+		this.filters.features = {};
+	}
 	if (this.filters.links.invisibleLinks === undefined) {
 		this.filters.links.invisibleLinks = {};
+	}
+	if (this.filters.features.invisibleFeatures === undefined) {
+		this.filters.features.invisibleFeatures = {};
 	}
 };
 
@@ -2440,8 +2446,18 @@ AliTV.prototype.clearAli = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.setFeatureInvisible = function(feature) {
+	var that = this;
 	$("#" + feature).hide();
-
+	var split = feature.split("_");
+	var featureId = split[0];
+	var group = split[1];
+	var karyo = split[2] + "_" + split[3];
+	$.each(that.data.features[group], function(key, value) {
+		if (value.karyo === karyo) {
+			that.filters.features.invisibleFeatures[feature] = value;
+		}
+	});
+	return that.filters.features.invisibleFeatures;
 };
 
 /**

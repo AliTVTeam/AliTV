@@ -1674,6 +1674,13 @@ describe('The setFeatureInvisible method is supposed to push a feature to ali.fi
 	it('setFeatureInvisible method is supposed to be a function', function(){
 		expect(typeof ali.setFeatureInvisible).toEqual('function');
 	});
+	it('the method is assigned with an id of a feature, the feature is pushed to ali.fiters.features.invisibleFeatures', function(){
+		ali.setData({karyo: karyo, links: links, features: features13});
+		ali.setFilters(filters);
+		var featureID = "f1_gene_c1";
+		var expectedInvisibleFeatures = {"f1_gene_c2": {'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1"}};
+		expect(ali.setFeatureInvisible(featureID)).toEqual(expectedInvisibleFeatures);
+	})
 });
 
 describe('The removeLinksOutsideVisibleRegion method is supposed to remove links outside the visible region', function(){
