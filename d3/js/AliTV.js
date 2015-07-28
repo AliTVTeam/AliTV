@@ -2439,14 +2439,9 @@ AliTV.prototype.clearAli = function() {
  * @returns ali.filters.features.invisibleFeatures: returns the features which are invisible in the current settings.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.setFeatureInvisible = function(featureId, group, karyo) {
-	var that = this;
+AliTV.prototype.setFeatureInvisible = function(feature) {
+	$("#" + feature).hide();
 
-	$.each(this.data.features[group], function(key, value) {
-		if (karyo === value.name) {
-			that.filters.features.invisibleFeatures[featureId] = value;
-		}
-	});
 };
 
 /**
