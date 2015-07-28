@@ -1760,3 +1760,15 @@ describe('The changeChromosomeVisibility method is supposed to set a selected ch
 	});
 });
 
+describe('The getInvisibleChromosomes method is supposed to count all chromosomes which are set invisible', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getInvisibleChromosomes method is supposed to be a function', function(){
+		expect(typeof ali.getInvisibleChromosomes).toEqual('function');
+	});
+	it("the method is supposed to set the visibility of a selected chromosome equal false", function(){
+		
+	});
+});
+
+
