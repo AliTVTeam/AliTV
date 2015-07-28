@@ -340,6 +340,7 @@ var filters18 = {'karyo': {
 	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000, "invisibleLinks": {}}
 }
 
+<<<<<<< HEAD
 var filters19 = {'karyo': {
 	'order': ['c1_gi', 'c2_gi'],
 	'genome_order': [0, 1],
@@ -349,6 +350,8 @@ var filters19 = {'karyo': {
 	}},
 	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000, "invisibleLinks": {}}
 }
+=======
+>>>>>>> d3da9a3ab6ea5ce9ed8ea25263fe8e64446f516a
 var features = {
 	'link':{
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},

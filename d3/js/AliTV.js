@@ -790,6 +790,7 @@ AliTV.prototype.drawLinear = function() {
 	this.clearAli();
 	this.getAlignmentRegion().remove();
 	this.getAlignmentRegion();
+
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
@@ -2457,6 +2458,7 @@ AliTV.prototype.clearAli = function() {
  * @returns ali.filters.features.invisibleFeatures: returns the features which are invisible in the current settings.
  * @author Sonja Hohlfeld
  */
+
 AliTV.prototype.setFeatureInvisible = function(feature) {
 	var that = this;
 	$("#" + feature).hide();

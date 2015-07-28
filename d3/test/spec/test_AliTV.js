@@ -1738,3 +1738,4 @@ describe('The removeLinksOutsideVisibleRegion method is supposed to remove links
 		expect(filteredHalf).toEqual([linearLinkCoords[0]]);
 	});
 });
+});

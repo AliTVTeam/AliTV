@@ -766,6 +766,7 @@ describe('The getAlignmentRegion method is supposed to return the inner alignmen
 		expect(ali.getAlignmentRegion().size()).toEqual(1);
 	});
 });
+
 describe('The getGenomeLabelColor method is supposed to get the color of the genome labels', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
