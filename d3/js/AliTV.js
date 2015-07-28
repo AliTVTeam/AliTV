@@ -2588,7 +2588,6 @@ AliTV.prototype.getInvisibleChromosomes = function() {
 			invisibleChromosomeSize = invisibleChromosomeSize + 1;
 		}
 	});
-	console.log(invisibleChromosomeSize);
 	return invisibleChromosomeSize;
 };
 
