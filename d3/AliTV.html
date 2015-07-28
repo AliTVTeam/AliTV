@@ -596,6 +596,7 @@
 		$("#repeatColor").val(ali.getRepeatColor());
 		$("#nStretchColor").val(ali.getNStretchColor());
 		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
+		$("#invisibleFeaturessLabel").val(ali.getInvisibleFeatures());
 		
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showChromosomeLabels').attr('checked', false);
@@ -710,6 +711,28 @@
 		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
 	}
     
+	  function setInvisibleFeatureSelection(){
+	    	$('#invisibleFeatures').text("");
+			if(ali.getInvisibleFeatures() === 0){
+				$('.selectpicker').selectpicker('val', '')
+			} else {
+			    $.each(ali.filters.features.invisibleFeatures, function(key, value) {   
+			        $('#invisibleFeatures')
+			            .append($("<option></option>")
+			            .attr("value", key)
+			            .text("Feature: " + key))
+			            .selectpicker("refresh");
+			   });  		    
+			}
+	    }
+
+		function restoreFeature(){
+			var selectedFeatureId = $('.selectpicker[name=invisibleFeatures]').val();
+			ali.showInvisibleFeature(selectedFeatureId);
+			setInvisibleFeatureSelection();
+			$("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
+		}
+	
 	function setAliFromJSONEditor(){
 		var json = editor.get();
 		ali.setJSON(json);
@@ -820,7 +843,9 @@
                     	"Visible": {
 		                    name: "Hide",
 		                    callback: function(key, options) {
-		                        ali.setFeatureInvisible(feature);
+			                       ali.setFeatureInvisible(feature);
+			                       setInvisibleFeatureSelection();
+			                       $("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
 		                    }
 		                },
 		                "Quit": {name: "Quit", callback: $.noop}
@@ -984,7 +1009,7 @@
 						<div class="input-group" style="margin: 10px 10px"> 
 				    			<span class="input-group-addon"><input type="text" id="invisibleFeaturesLabel" size="4" readonly></span>
 								<span class="input-group-addon"><select id="invisibleFeatures" class="selectPicker" data-style="btn-info" name="invisibleFeatures"></select></span>
-								<span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleFeatures">Restore Feature</button></span>
+								<span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleFeatures" onclick="restoreFeature();">Restore Feature</button></span>
 				    	</div>	
 					</div> 
 				</div> 
