@@ -1678,7 +1678,7 @@ describe('The setFeatureInvisible method is supposed to push a feature to ali.fi
 		ali.setData({karyo: karyo13, links: links, features: features21});
 		ali.setFilters(filters19);
 		var featureID = "f1_gene_c1_gi";
-		var expectedInvisibleFeatures = {"f1_gene_c2_gi": {'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1"}};
+		var expectedInvisibleFeatures = {"f1_gene_c1_gi": {'karyo': 'c1_gi', 'start': 100, 'end': 200, 'name': "f1"}};
 		expect(ali.setFeatureInvisible(featureID)).toEqual(expectedInvisibleFeatures);
 	})
 });
