@@ -1683,6 +1683,22 @@ describe('The setFeatureInvisible method is supposed to push a feature to ali.fi
 	})
 });
 
+describe('The getInvisibleFeatures mehtod is supposed to count the elements in ali.filters.features.invisibleFeatures and return them as a number', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getInvisibleFeatures method is supposed to be a function', function(){
+		expect(typeof ali.getInvisibleFeatures).toEqual('function');
+	});
+	it('the getInvisibleFeatures method returns the number of features which are set invisible', function(){
+		ali.setData({karyo: karyo13, links: links, features: features21});
+		ali.setFilters(filters19);
+		ali.setFeatureInvisible("f1_gene_c1_gi");
+		ali.setFeatureInvisible("f2_gene_c2_gi");
+		var invisibleFeatures = ali.getInvisibleFeatures();
+		expect(invisibleFeatures).toEqual(3);
+	})
+});
+
 describe('The removeLinksOutsideVisibleRegion method is supposed to remove links outside the visible region', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);

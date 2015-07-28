@@ -2461,6 +2461,20 @@ AliTV.prototype.setFeatureInvisible = function(feature) {
 };
 
 /**
+ * This functions gets the number of all features which are in ali.filters.features.invisibleFeatures
+ * @returns invisibleFeatureSize: the number of all features which are invisible.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getInvisibleFeatures = function() {
+	var keylist = [];
+	$.each(this.filters.features.invisibleFeatures, function(key, value) {
+		keylist.push(key);
+	});
+	var invisibleFeatureSize = keylist.length;
+	return invisibleFeatureSize;
+};
+
+/**
  * This function returns the internal alignmentRegion g element as d3 selection. It is created if it does not exist.
  * It also creates and adds the clipPath if it does not exist.
  * @returns {Object} internal alignmentRegion g as d3 selection.
