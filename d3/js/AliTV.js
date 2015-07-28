@@ -2559,11 +2559,37 @@ AliTV.prototype.removeLinksOutsideVisibleRegion = function(linkCoords, removeHal
 };
 
 /**
- * This function is supposed to hide a selected chromosome.
- * The function gets the name of a chromosome and set his visibility in filters.karyo.chromosomes equal false.
- * @param {String} chromosomeId: the name of the selected chromosome.
+ * This function is supposed to change the visibility of a selected chromosome.
+ * The function gets the name of a chromosome and set his visibility in filters.karyo.chromosomes equal false or true.
+ * @param {String} chromosomeName: the name of the selected chromosome.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.setChromosomeInvisible = function(chromosomeId) {
-
+AliTV.prototype.changeChromosomeVisibility = function(chromosomeName) {
+	var that = this;
+	var chromosomeId;
+	$.each(that.data.karyo.chromosomes, function(key, value) {
+		if (chromosomeName === value.genome_id) {
+			chromosomeId = key;
+		}
+	});
+	that.filters.karyo.chromosomes[chromosomeId].visible = !that.filters.karyo.chromosomes[chromosomeId].visible;
+	return that.filters.karyo.chromosomes;
 };
+
+/**
+ * This functions gets the number of all chromosomes which are set invisible.
+ * @returns invisibleChromosomeSize: the number of all chromosomes which are invisible.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getInvisibleChromosomes = function() {
+	var invisibleChromosomeSize = 0;
+	$.each(this.filters.karyo.chromosomes, function(key, value) {
+		if(value.visible === false){
+			invisibleChromosomeSize = invisibleChromosomeSize + 1;
+		}
+	});
+	console.log(invisibleChromosomeSize);
+	return invisibleChromosomeSize;
+};
+
+
