@@ -1805,7 +1805,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 					"id": value.name,
 					"type": type,
 					"y": currentY,
-					"height": featureStyle.height,
+					"height": that.conf.graphicalParameters.karyoHeight,
 					"karyo": value.karyo
 				};
 
@@ -1822,25 +1822,25 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				currentFeature.path = [];
 				currentFeature.path.push({
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + 1 / 5 * featureStyle.height
+					y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
 				}, {
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + 1 / 5 * featureStyle.height
+					y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
 				}, {
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
 					y: currentY
 				}, {
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + 1 / 2 * featureStyle.height
+					y: currentY + 1 / 2 * that.conf.graphicalParameters.karyoHeight
 				}, {
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + featureStyle.height
+					y: currentY + that.conf.graphicalParameters.karyoHeight
 				}, {
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + featureStyle.height - 1 / 5 * featureStyle.height
+					y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
 				}, {
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + featureStyle.height - 1 / 5 * featureStyle.height
+					y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
 				});
 				linearFeatureCoords.push(currentFeature);
 			}
