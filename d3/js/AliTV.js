@@ -1936,6 +1936,12 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 					return color;
 				}
 			}
+		})
+		.style("display", function(d) {
+			var featureId = d.id + "_" + d.type + "_" + d.karyo;
+			if (featureId in that.filters.features.invisibleFeatures) {
+				return "none";
+			}
 		});
 
 
@@ -1972,6 +1978,12 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 					} else {
 						color = that.conf.features.supportedFeatures[d.type].color;
 						return color;
+					}
+				})
+				.style("display", function(d) {
+					var featureId = d.id + "_" + d.type + "_" + d.karyo;
+					if (featureId in that.filters.features.invisibleFeatures) {
+						return "none";
 					}
 				});
 		});
