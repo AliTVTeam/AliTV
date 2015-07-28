@@ -1742,8 +1742,21 @@ describe('The removeLinksOutsideVisibleRegion method is supposed to remove links
 describe('The setChromosomeInvisible method is supposed to set a selected chromosome invisible', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
+	beforeEach(function(done){
+		ali.setData({karyo: karyo14, links: links, features: features21});
+		ali.setFilters(filters20);
+		var chromosomeName = "species_1";
+		ali.setChromosomeInvisible(chromosomeName);
+		done();
+	});
 	it('setChromosomeInvisible method is supposed to be a function', function(){
 		expect(typeof ali.setChromosomeInvisible).toEqual('function');
+	});
+	it("the method is supposed to set the visibility of a selected chromosome equal false", function(){
+		setTimeout(function(){
+			expect(ali.filters.karyo.chromosomes["c1_gi"].visible).toEqual(false);		
+			done();
+		}, 1000);
 	});
 });
 
