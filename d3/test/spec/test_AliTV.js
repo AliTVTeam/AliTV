@@ -1699,6 +1699,25 @@ describe('The getInvisibleFeatures mehtod is supposed to count the elements in a
 	})
 });
 
+describe('The showInvisibleFeature method is supposed to restore a selected feature which is set invisible', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('showInvisibleFeature method is supposed to be a function', function(){
+		expect(typeof ali.showInvisibleFeature).toEqual('function');
+	});
+	it('the showInvisibleFeature method is supposed to remove invisibleFeatures from ali.filters.features.invisibleFeatures', function(){
+		ali.setData({karyo: karyo13, links: links, features: features21});
+		ali.setFilters(filters19);
+		ali.setFeatureInvisible("f1_gene_c1_gi");
+		ali.setFeatureInvisible("f2_gene_c2_gi");
+		var invisibleFeatures = ali.getInvisibleFeatures();
+		expect(invisibleFeatures).toEqual(2);
+		ali.showInvisibleFeature("f1_gene_c1_gi");
+		invisibleFeatures = ali.getInvisibleFeatures();
+		expect(invisibleFeatures).toEqual(2);
+	})
+});
+
 describe('The removeLinksOutsideVisibleRegion method is supposed to remove links outside the visible region', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);

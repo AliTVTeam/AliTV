@@ -2475,6 +2475,19 @@ AliTV.prototype.getInvisibleFeatures = function() {
 };
 
 /**
+ * This function is supposed to get the ID of a selected feature, which is hidden and should be restored.
+ * The function show the hidden feature and delete it from the invisibleFeatures-object in ali.filters.features.invisibleFeatures
+ * @param selectedFeatureId: the Id of the features which should be restored.
+ * @returns ali.filters.features.invisibleFeatures: the current features which are set invisible.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.showInvisibleFeature = function(selectedFeatureId) {
+	$("#" + selectedFeatureId).show();
+	delete this.filters.features.invisibleFeatures[selectedFeatureId];
+	return this.filters.features.invisibleFeatures;
+};
+
+/**
  * This function returns the internal alignmentRegion g element as d3 selection. It is created if it does not exist.
  * It also creates and adds the clipPath if it does not exist.
  * @returns {Object} internal alignmentRegion g as d3 selection.
