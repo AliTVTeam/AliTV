@@ -1,15 +1,15 @@
 var karyo = {
 		'chromosomes': {
-			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
-			'c2': {'genome_id': 1, 'length': 1000, 'seq': null}
+			'c1_gi': {'genome_id': 0, 'length': 2000, 'seq': null},
+			'c2_gi': {'genome_id': 1, 'length': 1000, 'seq': null}
 		}
 };
 var filters = {'karyo': {
-		'order': ['c1', 'c2'],
+		'order': ['c1_gi', 'c2_gi'],
 		'genome_order': [0, 1],
 		'chromosomes': {
-			'c1': {'reverse': false, 'visible': true},
-			'c2': {'reverse': false, 'visible': true}
+			'c1_gi': {'reverse': false, 'visible': true},
+			'c2_gi': {'reverse': false, 'visible': true}
 		}},
 		"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000, "invisibleLinks": {}}
 }
@@ -453,8 +453,8 @@ var features12 = {
 
 var features13 = {
 	'gene':[
-		{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1"},
-		{'karyo': 'c1', 'start': 300, 'end': 400, 'name': "f2"}
+		{'karyo': 'c1_gi', 'start': 100, 'end': 200, 'name': "f1"},
+		{'karyo': 'c1_gi', 'start': 300, 'end': 400, 'name': "f2"}
 	]
 };
 

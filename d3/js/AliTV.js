@@ -2453,7 +2453,7 @@ AliTV.prototype.setFeatureInvisible = function(feature) {
 	var group = split[1];
 	var karyo = split[2] + "_" + split[3];
 	$.each(that.data.features[group], function(key, value) {
-		if (value.karyo === karyo) {
+		if (value.karyo === karyo && value.name === featureId) {
 			that.filters.features.invisibleFeatures[feature] = value;
 		}
 	});
