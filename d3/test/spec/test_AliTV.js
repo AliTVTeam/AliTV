@@ -1766,8 +1766,11 @@ describe('The getInvisibleChromosomes method is supposed to count all chromosome
 	it('getInvisibleChromosomes method is supposed to be a function', function(){
 		expect(typeof ali.getInvisibleChromosomes).toEqual('function');
 	});
-	it("the method is supposed to set the visibility of a selected chromosome equal false", function(){
-		
+	it("the method is supposed to return the number of all chromosomes which are set invisible", function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c1"].visible = false;
+		expect(ali.getInvisibleChromosomes()).toEqual(2);
 	});
 });
 
