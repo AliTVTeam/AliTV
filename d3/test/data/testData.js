@@ -126,6 +126,12 @@ var karyo13 = {
 			'c2_gi': {'genome_id': 1, 'length': 1000, 'seq': null}
 		}
 };
+var karyo14 = {
+		'chromosomes': {
+			'c1_gi': {'genome_id': "species_2", 'length': 2000, 'seq': null},
+			'c2_gi': {'genome_id': "species_1", 'length': 1000, 'seq': null}
+		}
+};
 var filters4 = {'karyo': {
 		'order': ['c1', 'c2', 'c3', 'c4'],
 		'genome_order': [0, 1, 2],
@@ -343,6 +349,16 @@ var filters18 = {'karyo': {
 var filters19 = {'karyo': {
 	'order': ['c1_gi', 'c2_gi'],
 	'genome_order': [0, 1],
+	'chromosomes': {
+		'c1_gi': {'reverse': false, 'visible': true},
+		'c2_gi': {'reverse': false, 'visible': true}
+	}},
+	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000, "invisibleLinks": {}}
+}
+
+var filters20 = {'karyo': {
+	'order': ['c1_gi', 'c2_gi'],
+	'genome_order': ["species_1", "species_2"],
 	'chromosomes': {
 		'c1_gi': {'reverse': false, 'visible': true},
 		'c2_gi': {'reverse': false, 'visible': true}
