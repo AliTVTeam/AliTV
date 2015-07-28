@@ -1738,4 +1738,12 @@ describe('The removeLinksOutsideVisibleRegion method is supposed to remove links
 		expect(filteredHalf).toEqual([linearLinkCoords[0]]);
 	});
 });
+
+describe('The setChromosomeInvisible method is supposed to set a selected chromosome invisible', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setChromosomeInvisible method is supposed to be a function', function(){
+		expect(typeof ali.setChromosomeInvisible).toEqual('function');
+	});
 });
+

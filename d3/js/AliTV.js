@@ -2557,3 +2557,13 @@ AliTV.prototype.removeLinksOutsideVisibleRegion = function(linkCoords, removeHal
 	});
 	return filteredCoords;
 };
+
+/**
+ * This function is supposed to hide a selected chromosome.
+ * The function gets the name of a chromosome and set his visibility in filters.karyo.chromosomes equal false.
+ * @param {String} chromosomeId: the name of the selected chromosome.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setChromosomeInvisible = function(chromosomeId) {
+
+};
