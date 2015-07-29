@@ -92,6 +92,13 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
         ];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
+	it('getLinearKaryoCoords method is supposed to set the maxGenomeSize in cache (2 genomes, 2 chromosomes)', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var expectedMaxGenomeSize = 1000;
+		expect(ali.cache.linear.maxGenomeSize).toEqual(expectedMaxGenomeSize);
+	});
 	it('getLinearKaryoCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes)', function(){
 		ali.setData(data2);
 		ali.setFilters(filters2);
