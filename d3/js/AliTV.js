@@ -315,6 +315,9 @@ function AliTV(svg) {
 
 			s.attr(d);
 		}
+	}).on("mouseup", function() {
+		var s = that.svgD3.selectAll("rect.selection");
+		s.remove();
 	});
 }
 
