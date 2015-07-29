@@ -1718,6 +1718,17 @@ describe('Mousedown inside of the svg should append a selection rect if layout i
 		ali.svg.d3Trigger("mousedown");
 		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(1);
 	});
+	it('the second mousedown should preserve the x and y coordinates of the first one', function(){
+		// If the mouseup event happens outside the svg the selection rect remains and keeps adjusting to mousemove
+		// Often the click is only used to trigger a new mouseup in this case the new coordinates should not be set as start for the selection rect.
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var xOld=342,xNew=234,yOld=23,yNew=892;
+		ali.svg.d3TriggerAt("mousedown",xOld,yOld);
+		ali.svg.d3TriggerAt("mousedown",xNew,yNew);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("x"))).toEqual(xOld);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("y"))).toEqual(yOld);
+	});
 	it('the selection rect should have the same x and y coordinates as the mousedown event', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
