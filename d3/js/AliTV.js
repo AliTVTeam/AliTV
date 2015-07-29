@@ -265,9 +265,8 @@ function AliTV(svg) {
 	var that = this;
 	// add mouse event handlers for the selection rect (inspired by http://bl.ocks.org/lgersman/5311083)
 	this.svgD3.on("mousedown", function() {
-		// only procede in the linear case:
-		that.svgD3.selectAll("rect.selection").remove();
-		if (that.conf.layout !== "linear") {
+		// only procede in the linear case and if no selection rect exists.
+		if (that.conf.layout !== "linear" || that.svgD3.selectAll("rect.selection").size() > 0) {
 			return;
 		}
 		var p = d3.mouse(this);
