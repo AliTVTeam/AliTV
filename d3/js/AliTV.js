@@ -432,6 +432,7 @@ AliTV.prototype.setFilters = function(filters) {
  * Calculates coordinates for the chromosomes to draw in the linear layout.
  * This function operates on the data property of the object and therefore needs no parameters.
  * This function is primarily meant for internal usage, the user should not need to call this directly.
+ * The function also updates the value cache.linear.maxGenomeSize
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  * @returns {Array} Array containing one Object for each element in data.karyo of the form {karyo: 'karyo_name', x:0, y:0, width:10, height:10}
  */
