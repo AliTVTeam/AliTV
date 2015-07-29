@@ -281,6 +281,40 @@ function AliTV(svg) {
 				width: 0,
 				height: 0
 			});
+	}).on("mousemove", function() {
+		var s = that.svgD3.select("rect.selection");
+		if (!s.empty()) {
+			var p = d3.mouse(this),
+				d = {
+					x: Number(s.attr("x")),
+					y: Number(s.attr("y")),
+					width: Number(s.attr("width")),
+					height: Number(s.attr("height"))
+				},
+				move = {
+					x: p[0] - d.x,
+					y: p[1] - d.y
+				};
+
+			// this somewhat strange code is required to correct for lag between multiple calls from mousemove
+			// this code is likely executed more than once concurrently when the mouse pointer is moved too fast.
+			// therefore the selection box may loose the right coordinates if the mouse is moved rapidly.
+			if (move.x < 1 || (move.x * 2 < d.width)) {
+				d.x = p[0];
+				d.width -= move.x;
+			} else {
+				d.width = move.x;
+			}
+
+			if (move.y < 1 || (move.y * 2 < d.height)) {
+				d.y = p[1];
+				d.height -= move.y;
+			} else {
+				d.height = move.y;
+			}
+
+			s.attr(d);
+		}
 	});
 }
 
