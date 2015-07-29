@@ -1705,15 +1705,24 @@ describe('The removeLinksOutsideVisibleRegion method is supposed to remove links
 });
 
 describe('Mousedown inside of the svg should append a selection rect if layout is linear', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
 	it('in the linear layout exactly one selection rect should be added', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		ali.svg.d3Trigger("mousedown");
-		expect(ali.svgD3.select("rect.selection").size()).toEqual(1);
+		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(1);
 	});
-	ali.conf.layout = "circular";
-	it('in the circular layout no selection rect should be added', function(){
+	it('in the linear layout exactly one selection rect should be added even after multiple mousedowns', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		ali.svg.d3Trigger("mousedown");
-		expect(ali.svgD3.select("rect.selection").size()).toEqual(0);
+		ali.svg.d3Trigger("mousedown");
+		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(1);
+	});
+	it('in the circular layout no selection rect should be added', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.conf.layout = "circular";
+		ali.svg.d3Trigger("mousedown");
+		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(0);
 	});
 });
