@@ -250,6 +250,15 @@ function AliTV(svg) {
 			}
 		}
 	};
+	/**
+	 * property to cache calculated values
+	 * @property {Object}  cache                      				 - the data dependent displaying information
+	 * @property {Object}  cache.linear                        		 - the chromosome dependent displaying information
+	 * @property {Object}  cache.linear.maxGenomeSize	      		 - the chromosome dependent displaying information
+	 */
+	this.cache = {
+		'linear': {}
+	};
 	// Initialize svg size
 	this.setSvgWidth(this.getCanvasWidth());
 	this.setSvgHeight(this.getCanvasHeight());
