@@ -263,82 +263,20 @@ function AliTV(svg) {
 	this.setSvgWidth(this.getCanvasWidth());
 	this.setSvgHeight(this.getCanvasHeight());
 	var that = this;
-	// selection rectangle inspired by http://bl.ocks.org/lgersman/5311083
+	// add mouse event handlers for the selection rect (inspired by http://bl.ocks.org/lgersman/5311083)
 	this.svgD3.on("mousedown", function() {
-			d3.selectAll('g.selected').classed("selected", false);
-			var p = d3.mouse(this);
-
-			that.svgD3.append("rect")
-				.attr({
-					rx: 6,
-					ry: 6,
-					class: "selection",
-					x: p[0],
-					y: p[1],
-					width: 0,
-					height: 0
-				});
-		})
-		.on("mousemove", function() {
-			var s = that.svgD3.select("rect.selection");
-			if (!s.empty()) {
-				var p = d3.mouse(this),
-					d = {
-						x: parseInt(s.attr("x"), 10),
-						y: parseInt(s.attr("y"), 10),
-						width: parseInt(s.attr("width"), 10),
-						height: parseInt(s.attr("height"), 10)
-					},
-					move = {
-						x: p[0] - d.x,
-						y: p[1] - d.y
-					};
-
-				if (move.x < 1 || (move.x * 2 < d.width)) {
-					d.x = p[0];
-					d.width -= move.x;
-				} else {
-					d.width = move.x;
-				}
-
-				if (move.y < 1 || (move.y * 2 < d.height)) {
-					d.y = p[1];
-					d.height -= move.y;
-				} else {
-					d.height = move.y;
-				}
-
-				s.attr(d);
-			}
-		})
-		.on("mouseup", function() {
-			// remove selection frame
-			var selectionRect = that.svgD3.selectAll("rect.selection");
-			if (selectionRect.attr("width") > 10) {
-				var distance = that.conf.graphicalParameters.canvasHeight / (that.filters.karyo.genome_order.length - 1);
-				if (typeof that.filters.karyo.genome_region === 'undefined') {
-					that.filters.karyo.genome_region = {};
-				}
-				for (var i = 0; i < that.filters.karyo.genome_order.length; i++) {
-					var genome = that.filters.karyo.genome_order[i];
-					if (typeof that.filters.karyo.genome_region[genome] === 'undefined') {
-						that.filters.karyo.genome_region[genome] = {};
-					}
-					var region = that.filters.karyo.genome_region[genome];
-					var start = (region.start || 0);
-					var end = (region.end || that.maxTotalSize + start);
-					var transformToGenomeScale = d3.scale.linear().domain([0, that.conf.graphicalParameters.canvasWidth]).range([start, end]);
-					if (i * distance + 15 >= Number(selectionRect.attr("y")) && i * distance + 15 <= Number(selectionRect.attr("y")) + Number(selectionRect.attr("height"))) {
-						that.filters.karyo.genome_region[genome].start = transformToGenomeScale(Number(selectionRect.attr("x")) - 400);
-						that.filters.karyo.genome_region[genome].end = transformToGenomeScale(Number(selectionRect.attr("x")) - 400 + Number(selectionRect.attr("width")));
-					}
-				}
-				selectionRect.remove();
-				that.drawLinear();
-			} else {
-				that.svgD3.selectAll("rect.selection").remove();
-			}
-		});
+		var p = d3.mouse(this);
+		that.svgD3.append("rect")
+			.attr({
+				rx: 6,
+				ry: 6,
+				class: "selection",
+				x: p[0],
+				y: p[1],
+				width: 0,
+				height: 0
+			});
+	});
 }
 
 /**
