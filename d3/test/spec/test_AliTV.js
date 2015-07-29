@@ -1718,6 +1718,15 @@ describe('Mousedown inside of the svg should append a selection rect if layout i
 		ali.svg.d3Trigger("mousedown");
 		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(1);
 	});
+	it('the selection rect should have the same x and y coordinates as the mousedown event', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var x = 17;
+		var y = 39;
+		ali.svg.d3TriggerAt("mousedown", x, y);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("x"))).toEqual(x);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("y"))).toEqual(y);
+	});
 	it('in the circular layout no selection rect should be added', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
