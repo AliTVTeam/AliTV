@@ -1766,3 +1766,18 @@ describe('Mousemove inside the svg should modify the selection rect if it exists
 		expect(Number(ali.svgD3.selectAll("rect.selection").attr("height"))).toEqual(Math.abs(yEnd - yStart));
 	});
 });
+
+describe('Mouseup updates filters to set genome_region appropriatly, selection rect is removed', function(){
+	it('the mouseup event removes all selection rects', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var xStart = 17;
+		var yStart = 39;
+		var xEnd = 243;
+		var yEnd = 341;
+		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
+		ali.svg.d3Trigger("mousemove");
+		ali.svg.d3TriggerAt("mouseup", xEnd, yEnd);
+		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(0);
+	});
+});
