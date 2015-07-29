@@ -1703,3 +1703,17 @@ describe('The removeLinksOutsideVisibleRegion method is supposed to remove links
 		expect(filteredHalf).toEqual([linearLinkCoords[0]]);
 	});
 });
+
+describe('Mousedown inside of the svg should append a selection rect if layout is linear', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('in the linear layout exactly one selection rect should be added', function(){
+		ali.svg.d3Trigger("mousedown");
+		expect(ali.svgD3.select("rect.selection").size()).toEqual(1);
+	});
+	ali.conf.layout = "circular";
+	it('in the circular layout no selection rect should be added', function(){
+		ali.svg.d3Trigger("mousedown");
+		expect(ali.svgD3.select("rect.selection").size()).toEqual(0);
+	});
+});
