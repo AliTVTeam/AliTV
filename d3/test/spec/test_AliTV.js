@@ -1746,7 +1746,23 @@ describe('Mousemove inside the svg should modify the selection rect if it exists
 		var yEnd = 341;
 		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
 		ali.svg.d3TriggerAt("mousemove", xEnd, yEnd);
-		expect(Number(ali.svgD3.selectAll("rect.selection").attr("width"))).toEqual(xEnd - xStart);
-		expect(Number(ali.svgD3.selectAll("rect.selection").attr("height"))).toEqual(yEnd - yStart);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("x"))).toEqual(Math.min(xStart, xEnd));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("y"))).toEqual(Math.min(yEnd, yStart));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("width"))).toEqual(Math.abs(xEnd - xStart));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("height"))).toEqual(Math.abs(yEnd - yStart));
+	});
+	it('the width and height should correspond to the coordinates of mousedown and mousemove also when negative', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var xStart = 325;
+		var yStart = 332;
+		var xEnd = 23;
+		var yEnd = 71;
+		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
+		ali.svg.d3TriggerAt("mousemove", xEnd, yEnd);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("x"))).toEqual(Math.min(xStart, xEnd));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("y"))).toEqual(Math.min(yEnd, yStart));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("width"))).toEqual(Math.abs(xEnd - xStart));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("height"))).toEqual(Math.abs(yEnd - yStart));
 	});
 });
