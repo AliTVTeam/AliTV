@@ -1735,3 +1735,18 @@ describe('Mousedown inside of the svg should append a selection rect if layout i
 		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(0);
 	});
 });
+
+describe('Mousemove inside the svg should modify the selection rect if it exists (linear layout, after mousedown)', function(){
+	it('the width and height should correspond to the coordinates of mousedown and mousemove', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var xStart = 17;
+		var yStart = 39;
+		var xEnd = 243;
+		var yEnd = 341;
+		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
+		ali.svg.d3TriggerAt("mousemove", xEnd, yEnd);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("width"))).toEqual(xEnd - xStart);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("height"))).toEqual(yEnd - yStart);
+	});
+});
