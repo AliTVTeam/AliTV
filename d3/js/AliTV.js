@@ -268,7 +268,7 @@ function AliTV(svg) {
 					y: p[1],
 					width: 0,
 					height: 0
-				})
+				});
 		})
 		.on("mousemove", function() {
 			var s = that.svgD3.select("rect.selection");
@@ -305,8 +305,30 @@ function AliTV(svg) {
 		.on("mouseup", function() {
 			// remove selection frame
 			var selectionRect = that.svgD3.selectAll("rect.selection");
-			console.log(selectionRect.attr("x"), selectionRect.attr("y"), selectionRect.attr("width"), selectionRect.attr("height"));
-			selectionRect.remove();
+			if (selectionRect.attr("width") > 10) {
+				var distance = that.conf.graphicalParameters.canvasHeight / (that.filters.karyo.genome_order.length - 1);
+				if (typeof that.filters.karyo.genome_region === 'undefined') {
+					that.filters.karyo.genome_region = {};
+				}
+				for (var i = 0; i < that.filters.karyo.genome_order.length; i++) {
+					var genome = that.filters.karyo.genome_order[i];
+					if (typeof that.filters.karyo.genome_region[genome] === 'undefined') {
+						that.filters.karyo.genome_region[genome] = {};
+					}
+					var region = that.filters.karyo.genome_region[genome];
+					var start = (region.start || 0);
+					var end = (region.end || that.maxTotalSize + start);
+					var transformToGenomeScale = d3.scale.linear().domain([0, that.conf.graphicalParameters.canvasWidth]).range([start, end]);
+					if (i * distance + 15 >= Number(selectionRect.attr("y")) && i * distance + 15 <= Number(selectionRect.attr("y")) + Number(selectionRect.attr("height"))) {
+						that.filters.karyo.genome_region[genome].start = transformToGenomeScale(Number(selectionRect.attr("x")) - 400);
+						that.filters.karyo.genome_region[genome].end = transformToGenomeScale(Number(selectionRect.attr("x")) - 400 + Number(selectionRect.attr("width")));
+					}
+				}
+				selectionRect.remove();
+				that.drawLinear();
+			} else {
+				that.svgD3.selectAll("rect.selection").remove();
+			}
 		});
 }
 
@@ -426,18 +448,18 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 	$.each(visibleChromosomes, function(key, value) {
 		total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
 	});
-	var maxTotalSize = Math.max.apply(null, total);
+	this.maxTotalSize = Math.max.apply(null, total);
 
 	// Calculate genome specific scales
 	var getGenomeScale = function(gid) {
 		var genomeSvgScale = d3.scale.linear()
-			.domain([0, maxTotalSize]);
+			.domain([0, that.maxTotalSize]);
 		var genome_start = 0;
 		var genome_region = that.filters.karyo.genome_region || {};
 		if (typeof(genome_region[gid] || {}).start !== 'undefined') {
 			genome_start = genome_region[gid].start;
 		}
-		var genome_end = maxTotalSize;
+		var genome_end = that.maxTotalSize;
 		if (typeof(genome_region[gid] || {}).end !== 'undefined') {
 			genome_end = genome_region[gid].end;
 		} else {
@@ -445,7 +467,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		}
 		// The calculation of the range for the scale depends on ideas of the intercept theorem
 		genomeSvgScale.range([conf.graphicalParameters.canvasWidth * genome_start / (genome_start - genome_end),
-			conf.graphicalParameters.canvasWidth * (maxTotalSize - genome_start) / (genome_end - genome_start)
+			conf.graphicalParameters.canvasWidth * (that.maxTotalSize - genome_start) / (genome_end - genome_start)
 		]);
 		return genomeSvgScale;
 	};
