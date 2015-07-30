@@ -1782,6 +1782,9 @@ describe('Mouseup updates filters to set genome_region appropriatly, selection r
 	it('the mouseup event removes all selection rects', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.drawLinear();
 		var xStart = 17;
 		var yStart = 39;
 		var xEnd = 243;
@@ -1805,7 +1808,7 @@ describe('Mouseup updates filters to set genome_region appropriatly, selection r
 		var xEnd = 500;
 		var yEnd = 500;
 		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
-		ali.svg.d3Trigger("mousemove");
+		ali.svg.d3TriggerAt("mousemove", xEnd, yEnd);
 		ali.svg.d3TriggerAt("mouseup", xEnd, yEnd);
 		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
 		expect(ali.filters.karyo.genome_region["0"].end).toEqual(1000);
