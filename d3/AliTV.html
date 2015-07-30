@@ -820,7 +820,19 @@
 		                        $("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
 		                    }
 		                },
-		                "Change orientation": {name: "Change orientation"},
+		                "Change orientation": {
+		                	name: "Change orientation",
+		                    callback: function(key, options) {
+		                    	var chromosomeId;
+		                    	$.each(ali.data.karyo.chromosomes, function(key, value) {
+		                    		if (name === value.genome_id) {
+		                    			chromosomeId = key;
+		                    		}
+		                    	});
+		                        ali.changeChromosomeOrientation(chromosomeId);
+		                        ali.drawLinear();
+		                    }
+		               },
 		                "scrollUp": {
 		                    name: "Move up",
 		                    callback: function(key, options) {
