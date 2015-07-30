@@ -6,7 +6,7 @@ Those are listed here:
 ** List of included libraries
 *** Bootstrap
 **** Repository
-[[https://github.com/twbs/bootstrap]
+https://github.com/twbs/bootstrap
 **** Version
 3.3.5
 **** LICENSE
