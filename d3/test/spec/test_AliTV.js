@@ -1803,7 +1803,7 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		ali.setData(data);
-		ali.setFilters(filters);
+		ali.setFilters($.extend(true, {}, filters));
 		ali.setCanvasHeight(1000);
 		ali.setCanvasWidth(1000);
 		ali.conf.labels.genome.showGenomeLabels = false;
@@ -1819,7 +1819,7 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		ali.setData(data);
-		ali.setFilters(filters);
+		ali.setFilters($.extend(true, {}, filters));
 		ali.setCanvasHeight(1000);
 		ali.setCanvasWidth(1000);
 		ali.conf.labels.genome.showGenomeLabels = false;
@@ -1835,7 +1835,7 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		ali.setData(data);
-		ali.setFilters(filters);
+		ali.setFilters($.extend(true, {}, filters));
 		ali.setCanvasHeight(1000);
 		ali.setCanvasWidth(1000);
 		ali.conf.labels.genome.showGenomeLabels = false;
@@ -1851,7 +1851,7 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		ali.setData(data);
-		ali.setFilters(filters);
+		ali.setFilters($.extend(true, {}, filters));
 		ali.setCanvasHeight(1000);
 		ali.setCanvasWidth(1000);
 		ali.conf.labels.genome.showGenomeLabels = false;
@@ -1868,13 +1868,13 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		ali.setData(data);
-		ali.setFilters(filters);
+		ali.setFilters($.extend(true, {}, filters));
 		ali.setCanvasHeight(1000);
 		ali.setCanvasWidth(1000);
 		ali.conf.labels.genome.showGenomeLabels = true;
 		ali.drawLinear();
 		transformX = ali.conf.graphicalParameters.genomeLabelWidth;
-		var selection = {x:transformX, y:0, width:500+transformX, height: 500};
+		var selection = {x:transformX, y:0, width:500, height: 500};
 		ali.updateGenomeRegionBySvgRect(selection);
 		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
 		expect(ali.filters.karyo.genome_region["0"].end).toEqual(1000);
