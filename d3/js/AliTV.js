@@ -2590,3 +2590,13 @@ AliTV.prototype.getInvisibleChromosomes = function() {
 	});
 	return invisibleChromosomeSize;
 };
+
+/**
+ * This function is supposed to swap a genome with its adjacent genomes according to the order of all genomes which is defined in ali.filters.karyo.chromosomes.genome_order.
+ * @param {String} name: the name of the selected genome.
+ * @param {Number} position: +1 or -1. The number defines if the genome is moved one genome up or down.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.changeGenomeOrder = function(name, position) {
+
+};
