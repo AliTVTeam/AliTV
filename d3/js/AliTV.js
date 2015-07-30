@@ -2627,3 +2627,13 @@ AliTV.prototype.changeGenomeOrder = function(name, value) {
 	}
 	return that.filters.karyo.genome_order;
 };
+
+/**
+ * This function is supposed to change the orientation of an assigned chromosome from reverse equal false or reverse equal true.
+ * @param {String} chromosome: the selected chromosome which orientation should be changed.
+ * @retrun {String} ali.filters.karyo.chromosomes[<chromosome>]: return the current settings for the filters.
+ * @author {Sonja Hohlfeld}
+ */
+AliTV.prototype.changeChromosomeOrientation = function(chromosome) {
+
+};
