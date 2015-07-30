@@ -1806,6 +1806,8 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 		ali.setFilters(filters);
 		ali.setCanvasHeight(1000);
 		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
 		var selection = {x:0, y:0, width:500, height: 500};
 		ali.updateGenomeRegionBySvgRect(selection);
 		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
@@ -1820,6 +1822,8 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 		ali.setFilters(filters);
 		ali.setCanvasHeight(1000);
 		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
 		var selection = {x:0, y:250, width:500, height: 500};
 		ali.updateGenomeRegionBySvgRect(selection);
 		expect(typeof ali.filters.karyo.genome_region["0"].start).toEqual('undefined');
@@ -1834,6 +1838,8 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 		ali.setFilters(filters);
 		ali.setCanvasHeight(1000);
 		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
 		var selection = {x:0, y:0, width:500, height: 1000};
 		ali.updateGenomeRegionBySvgRect(selection);
 		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
@@ -1848,6 +1854,8 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 		ali.setFilters(filters);
 		ali.setCanvasHeight(1000);
 		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
 		var selection = {x:0, y:0, width:500, height: 500};
 		ali.updateGenomeRegionBySvgRect(selection);
 		ali.updateGenomeRegionBySvgRect(selection);
