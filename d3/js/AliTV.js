@@ -551,7 +551,7 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			that.fadeLinks(g, 1);
 		})
 		.on("click", function(g) {
-			that.filters.karyo.chromosomes[g.karyo].reverse = !that.filters.karyo.chromosomes[g.karyo].reverse;
+			that.changeChromosomeOrientation(g.karyo);
 			that.drawLinear();
 		})
 		.style("fill", function(d) {
@@ -2631,9 +2631,10 @@ AliTV.prototype.changeGenomeOrder = function(name, value) {
 /**
  * This function is supposed to change the orientation of an assigned chromosome from reverse equal false or reverse equal true.
  * @param {String} chromosome: the selected chromosome which orientation should be changed.
- * @retrun {String} ali.filters.karyo.chromosomes[<chromosome>]: return the current settings for the filters.
+ * @retrun {String} ali.filters: return the current settings for the filters.
  * @author {Sonja Hohlfeld}
  */
 AliTV.prototype.changeChromosomeOrientation = function(chromosome) {
-
+	this.filters.karyo.chromosomes[chromosome].reverse = !this.filters.karyo.chromosomes[chromosome].reverse;
+	return this.filters.karyo.chromosomes[chromosome].reverse;
 };

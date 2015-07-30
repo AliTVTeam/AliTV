@@ -1812,6 +1812,7 @@ describe('The changeChromosomeOrientation method is supposed to change the orien
 	it("the method is supposed to set the orientation of the assigned chromosome from reverse equal false to reverse equal true", function(){
 		ali.setData(data);
 		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c1"].reverse = false;
 		expect(ali.changeChromosomeOrientation("c1")).toEqual(true);
 	});
 	it("the method is supposed to set the orientation of the assigned chromosome from reverse equal true to reverse equal false", function(){
