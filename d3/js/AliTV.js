@@ -316,7 +316,19 @@ function AliTV(svg) {
 		}
 	}).on("mouseup", function() {
 		var s = that.svgD3.selectAll("rect.selection");
-		s.remove();
+		if (s.size() > 0) {
+			var rect = {
+				x: Number(s.attr("x")),
+				y: Number(s.attr("y")),
+				width: Number(s.attr("width")),
+				height: Number(s.attr("height"))
+			};
+			if (rect.width >= 10) {
+				that.updateGenomeRegionBySvgRect(rect);
+				that.drawLinear();
+			}
+			s.remove();
+		}
 	});
 }
 
