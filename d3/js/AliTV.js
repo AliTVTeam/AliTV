@@ -2610,7 +2610,7 @@ AliTV.prototype.changeGenomeOrder = function(name, value) {
 		tmp = that.filters.karyo.genome_order[genomePosition];
 		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[(that.filters.karyo.genome_order.length - 1)];
 		that.filters.karyo.genome_order[(that.filters.karyo.genome_order.length - 1)] = tmp;
-	} else if (genomePosition === (that.filters.karyo.genome_order.length - 1) && value === -1) {
+	} else {
 		tmp = that.filters.karyo.genome_order[genomePosition];
 		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[0];
 		that.filters.karyo.genome_order[0] = tmp;
