@@ -2526,7 +2526,6 @@ AliTV.prototype.setFeatureInvisible = function(featureId, group, karyo) {
  * @returns {Object} internal alignmentRegion g as d3 selection.
  * @author Markus Ankenbrand
  */
-
 AliTV.prototype.getAlignmentRegion = function() {
 	var alignmentRegion = this.svgD3.selectAll(".alignmentRegion");
 	if (alignmentRegion.size() < 1) {
@@ -2557,7 +2556,6 @@ AliTV.prototype.getAlignmentRegion = function() {
  * @returns {Array} - filtered linearLinkCoords
  * @author Markus Ankenbrand
  */
-
 AliTV.prototype.removeLinksOutsideVisibleRegion = function(linkCoords, removeHalfVisible) {
 	var filteredCoords = [];
 	var canvasWidth = this.getCanvasWidth();
@@ -2582,3 +2580,6 @@ AliTV.prototype.removeLinksOutsideVisibleRegion = function(linkCoords, removeHal
  * @param {Object}  - rect an object with properties x, y, width and height (relative to the svg)
  * @author Markus Ankenbrand
  */
+AliTV.prototype.updateGenomeRegionBySvgRect = function(rect) {
+
+};
