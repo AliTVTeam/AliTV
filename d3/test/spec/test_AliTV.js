@@ -1803,4 +1803,23 @@ describe('The changeGenomeOrder method is supposed to change the order of the ge
 	});
 });
 
+describe('The changeChromosomeOrientation method is supposed to change the orientation of an assigned chromosome', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('changeChromosomeOrientation method is supposed to be a function', function(){
+		expect(typeof ali.changeChromosomeOrientation).toEqual('function');
+	});
+	it("the method is supposed to set the orientation of the assigned chromosome from reverse equal false to reverse equal true", function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		expect(ali.changeChromosomeOrientation("c1")).toEqual(true);
+	});
+	it("the method is supposed to set the orientation of the assigned chromosome from reverse equal true to reverse equal false", function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c2"].reverse = true;
+		expect(ali.changeChromosomeOrientation("c2")).toEqual(false);
+	});
+});
+
 
