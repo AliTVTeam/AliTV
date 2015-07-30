@@ -1792,3 +1792,11 @@ describe('Mouseup updates filters to set genome_region appropriatly, selection r
 		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(0);
 	});
 });
+
+describe('The updateGenomeRegionBySvgRect method is supposed to update genome_region filters according to a rect on the svg', function(){
+	it('updateGenomeRegionBySvgRect method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.updateGenomeRegionBySvgRect).toEqual('function');
+	});
+});
