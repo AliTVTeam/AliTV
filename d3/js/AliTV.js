@@ -2581,5 +2581,26 @@ AliTV.prototype.removeLinksOutsideVisibleRegion = function(linkCoords, removeHal
  * @author Markus Ankenbrand
  */
 AliTV.prototype.updateGenomeRegionBySvgRect = function(rect) {
-
+	var that = this;
+	var distance = that.getGenomeDistance();
+	var karyoHeight = that.getKaryoHeight();
+	if (typeof that.filters.karyo.genome_region === 'undefined') {
+		that.filters.karyo.genome_region = {};
+	}
+	for (var i = 0; i < that.filters.karyo.genome_order.length; i++) {
+		var genome = that.filters.karyo.genome_order[i];
+		if (typeof that.filters.karyo.genome_region[genome] === 'undefined') {
+			that.filters.karyo.genome_region[genome] = {};
+		}
+		var yPosCurrentGenome = i * distance + karyoHeight / 2;
+		if (yPosCurrentGenome >= rect.y && yPosCurrentGenome <= rect.y + rect.height) {
+			var region = that.filters.karyo.genome_region[genome];
+			var start = (region.start || 0);
+			var end = (region.end || that.cache.linear.maxGenomeSize + start);
+			var translateX = d3.transform(that.svgD3.select('.alignmentRegion').attr("transform")).translate[0];
+			var transformToGenomeScale = d3.scale.linear().domain([0 + translateX, that.getCanvasWidth() + translateX]).range([start, end]);
+			region.start = transformToGenomeScale(rect.x);
+			region.end = transformToGenomeScale(rect.x + rect.width);
+		}
+	}
 };
