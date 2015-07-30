@@ -1791,6 +1791,27 @@ describe('Mouseup updates filters to set genome_region appropriatly, selection r
 		ali.svg.d3TriggerAt("mouseup", xEnd, yEnd);
 		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(0);
 	});
+	it('the mouseup event updates the filters according to the selection rect', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		var xStart = 0;
+		var yStart = 0;
+		var xEnd = 500;
+		var yEnd = 500;
+		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
+		ali.svg.d3Trigger("mousemove");
+		ali.svg.d3TriggerAt("mouseup", xEnd, yEnd);
+		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["0"].end).toEqual(1000);
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
+	});
 });
 
 describe('The updateGenomeRegionBySvgRect method is supposed to update genome_region filters according to a rect on the svg', function(){
