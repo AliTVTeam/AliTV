@@ -821,6 +821,18 @@
 		                    }
 		                },
 		                "Change orientation": {name: "Change orientation"},
+		                "scrollUp": {
+		                    name: "Scroll up",
+		                    callback: function(key, options) {
+			                	ali.changeGenomeOrder(name, -1);
+		                    }
+		                },
+		                "scrollDown": {
+		                    name: "Scroll down",
+		                    callback: function(key, options) {
+			                    ali.changeGenomeOrder(name, +1);
+		                    }
+		                },
 		                "Quit": {name: "Quit", callback: $.noop}
                     }
                  };
