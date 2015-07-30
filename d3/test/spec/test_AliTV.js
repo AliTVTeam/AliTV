@@ -1864,4 +1864,21 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
 		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
 	});
+	it('updateGenomeRegionBySvgRect should work when alignmentRegion is transformed', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = true;
+		ali.drawLinear();
+		transformX = ali.conf.graphicalParameters.genomeLabelWidth;
+		var selection = {x:transformX, y:0, width:500+transformX, height: 500};
+		ali.updateGenomeRegionBySvgRect(selection);
+		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["0"].end).toEqual(1000);
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
+	});
 });
