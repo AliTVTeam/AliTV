@@ -2576,3 +2576,9 @@ AliTV.prototype.removeLinksOutsideVisibleRegion = function(linkCoords, removeHal
 	});
 	return filteredCoords;
 };
+
+/**
+ * This function updates the genome_region filter according to the specified region on the svg
+ * @param {Object}  - rect an object with properties x, y, width and height (relative to the svg)
+ * @author Markus Ankenbrand
+ */
