@@ -13,24 +13,24 @@ Those are listed here:
 [[file:LICENSE-bootstrap][LICENSE-bootstrap]]
 **** Files
  - [[../d3/lib/bootstrap.min.js]]
- - [[../d3/lib/bootstrap.min.css]
+ - [[../d3/lib/bootstrap.min.js]]
 *** Bootstrap-select
 **** Repository
-[[http://silviomoreto.github.io/bootstrap-select/]
+http://silviomoreto.github.io/bootstrap-select/
 **** Version
 1.7.2
 **** LICENSE
-[[file:LICENSE-bootstrap-select][LICENSE-bootstrap-select]
+[[file:LICENSE-bootstrap-select][LICENSE-bootstrap-select]]
 **** Files
-- [[../d3/lib/bootstrap-select.min.js]
-- [[::/d3/lib/bootstrap-select.min.css]
+- [[../d3/lib/bootstrap-select.min.js]]
+- [[../d3/lib/bootstrap-select.min.css]]
 *** Colorpicker
 **** Repository
 [[https://github.com/mjolnic/bootstrap-colorpicker]]
 **** Version
 2.1
 **** LICENSE
-[[file:LICENSE-colorpicker][LICENSE-colorpicker]
+[[file:LICENSE-colorpicker][LICENSE-colorpicker]]
 **** Files
  - [[../d3/lib/colorpicker/]]
 *** D3.js
