@@ -2600,9 +2600,20 @@ AliTV.prototype.getInvisibleChromosomes = function() {
 AliTV.prototype.changeGenomeOrder = function(name, value) {
 	var that = this;
 	var genomePosition = that.filters.karyo.genome_order.indexOf(name);
-	var adjacentGenomePosition = genomePosition + value;
-	var tmp = that.filters.karyo.genome_order[genomePosition];
-	that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[adjacentGenomePosition];
-	that.filters.karyo.genome_order[adjacentGenomePosition] = tmp;
+	var tmp;
+	if ((genomePosition !== 0 || (genomePosition === 0 && value === -1)) && (genomePosition !== (that.filters.karyo.genome_order.length - 1) || (genomePosition === (that.filters.karyo.genome_order.length - 1) && value === +1))) {
+		var adjacentGenomePosition = genomePosition - value;
+		tmp = that.filters.karyo.genome_order[genomePosition];
+		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[adjacentGenomePosition];
+		that.filters.karyo.genome_order[adjacentGenomePosition] = tmp;
+	} else if (genomePosition === 0 && value === +1) {
+		tmp = that.filters.karyo.genome_order[genomePosition];
+		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[(that.filters.karyo.genome_order.length - 1)];
+		that.filters.karyo.genome_order[(that.filters.karyo.genome_order.length - 1)] = tmp;
+	} else if (genomePosition === (that.filters.karyo.genome_order.length - 1) && value === -1) {
+		tmp = that.filters.karyo.genome_order[genomePosition];
+		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[0];
+		that.filters.karyo.genome_order[0] = tmp;
+	}
 	return that.filters.karyo.genome_order;
 };

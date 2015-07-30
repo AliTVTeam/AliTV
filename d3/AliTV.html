@@ -822,16 +822,17 @@
 		                },
 		                "Change orientation": {name: "Change orientation"},
 		                "scrollUp": {
-		                    name: "Scroll up",
+		                    name: "Move up",
 		                    callback: function(key, options) {
-			                	ali.changeGenomeOrder(name, -1);
+			                	ali.changeGenomeOrder(name, +1);
 			                	ali.drawLinear();
 		                    }
 		                },
 		                "scrollDown": {
-		                    name: "Scroll down",
+		                    name: "Move down",
 		                    callback: function(key, options) {
-			                    ali.changeGenomeOrder(name, +1);
+			                    ali.changeGenomeOrder(name, -1);
+			                    ali.drawLinear();
 		                    }
 		                },
 		                "Quit": {name: "Quit", callback: $.noop}

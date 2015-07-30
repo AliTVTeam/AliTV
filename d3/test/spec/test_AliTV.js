@@ -1788,10 +1788,10 @@ describe('The changeGenomeOrder method is supposed to change the order of the ge
 		expect(expectedOrder).toEqual(order);
 	});
 	it('the method is supposed to change the order of two genomes in the testdata by pushing up', function(){
-		ali.setData(data);
-		ali.setFilters(filters);
-		var expectedOrder = [1, 0];
-		var order = ali.changeGenomeOrder(1, 1);
+		ali.setData({karyo: karyo3, links: links, features: features});
+		ali.setFilters(filters3);
+		var expectedOrder = [0, 2, 1];
+		var order = ali.changeGenomeOrder(2, 1);
 		expect(expectedOrder).toEqual(order);
 	});
 });
