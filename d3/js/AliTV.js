@@ -508,15 +508,15 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 	var that = this;
 
-	function dragEvent () {
-		  that.svgD3.selectAll('.karyoGroup')
-		    .attr("x", d3.event.x - parseInt(that.svgD3.selectAll('.karyoGroup').attr("width")) / 2)
-		    .attr("y", d3.event.y - parseInt(that.svgD3.selectAll('.karyoGroup').attr("height")) / 2);
-		}
-	
+	function dragEvent() {
+		that.svgD3.selectAll('.karyoGroup')
+			.attr("x", d3.event.x - parseInt(that.svgD3.selectAll('.karyoGroup').attr("width")) / 2)
+			.attr("y", d3.event.y - parseInt(that.svgD3.selectAll('.karyoGroup').attr("height")) / 2);
+	}
+
 	var drag = d3.behavior.drag()
-    	.on("drag",dragEvent);
-	
+		.on("drag", dragEvent);
+
 	that.svgD3.selectAll(".karyoGroup").remove();
 	that.getAlignmentRegion().append("g")
 		.attr("class", "karyoGroup")
