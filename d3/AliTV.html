@@ -809,6 +809,8 @@
                 	var split = selectedChromosome.split(", ");
                 	var name = split[0];
                 	var chromosomeId = split[1];
+                	//Remove selection rect if exists
+                	ali.svgD3.selectAll("rect.selection").remove();
                 	
                 return { 
                     items: {
