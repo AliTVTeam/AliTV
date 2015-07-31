@@ -805,7 +805,11 @@
         $.contextMenu({
             selector: '.karyoGroup', 
             build: function($trigger, e) {
-                	var name = ($(e.target).attr("id"));
+                	var selectedChromosome = ($(e.target).attr("id"));
+                	var split = selectedChromosome.split(", ");
+                	var name = split[0];
+                	var chromosomeId = split[1];
+                	
                 return { 
                     items: {
                     	"info": {name: "Name: " + name},
@@ -823,12 +827,6 @@
 		                "Change orientation": {
 		                	name: "Change orientation",
 		                    callback: function(key, options) {
-		                    	var chromosomeId;
-		                    	$.each(ali.data.karyo.chromosomes, function(key, value) {
-		                    		if (name === value.genome_id) {
-		                    			chromosomeId = key;
-		                    		}
-		                    	});
 		                        ali.changeChromosomeOrientation(chromosomeId);
 		                        ali.drawLinear();
 		                    }
@@ -850,14 +848,14 @@
 		                "left": {
 		                    name: "Move left",
 		                    callback: function(key, options) {
-			                	ali.changeChromosomeOrder(name, +1);
+			                	ali.changeChromosomeOrder(chromosomeId, -1);
 			                	ali.drawLinear();
 		                    }
 		                },
 		                "right": {
 		                    name: "Move right",
 		                    callback: function(key, options) {
-			                    ali.changeChromosomeOrder(name, -1);
+			                    ali.changeChromosomeOrder(chromosomeId, 1);
 			                    ali.drawLinear();
 		                    }
 		                },

@@ -526,7 +526,7 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		.append("rect")
 		.attr("class", "karyo")
 		.attr("id", function(d) {
-			return that.data.karyo.chromosomes[d.karyo].genome_id;
+			return that.data.karyo.chromosomes[d.karyo].genome_id + ", " + d.karyo;
 		})
 		.attr("x", function(d) {
 			if (d.width < 0) {
