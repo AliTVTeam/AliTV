@@ -50,7 +50,7 @@ Both the query and the reference file should be in fasta format.
 
 We have not yet submitted a manuscript.
 Please use this repository to cite AliTV if you use it in your project.
-[[http://dx.doi.org/10.5281/zenodo.20551][https://zenodo.org/badge/doi/10.5281/zenodo.20551.svg]]
+[[https://zenodo.org/badge/latestdoi/12731/BioInf-Wuerzburg/AliTV][https://zenodo.org/badge/12731/BioInf-Wuerzburg/AliTV.svg]]
 
 Please also consider citing:
  - lastz or MUMmer
