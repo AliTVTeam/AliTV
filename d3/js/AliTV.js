@@ -2657,7 +2657,7 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 		that.filters.karyo.order[chromosomePosition] = tmp;
 	} else if (value === 1 && that.data.karyo.chromosomes[that.filters.karyo.order[chromosomePosition + value]].genome_id !== that.data.karyo.chromosomes[id].genome_id) {
 		i = chromosomePosition;
-		while (that.data.karyo.chromosomes[that.filters.karyo.order[i]].genome_id === that.data.karyo.chromosomes[id].genome_id) {
+		while (i !== 0 && that.data.karyo.chromosomes[that.filters.karyo.order[i]].genome_id === that.data.karyo.chromosomes[id].genome_id) {
 			i = i - 1;
 		}
 		tmp = that.filters.karyo.order[i];
@@ -2665,7 +2665,7 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 		that.filters.karyo.order[chromosomePosition] = tmp;
 	} else if (value === -1 && that.data.karyo.chromosomes[that.filters.karyo.order[chromosomePosition + value]].genome_id !== that.data.karyo.chromosomes[id].genome_id) {
 		i = chromosomePosition;
-		while (that.data.karyo.chromosomes[that.filters.karyo.order[i]].genome_id === that.data.karyo.chromosomes[id].genome_id) {
+		while (i <= that.filters.karyo.order.length && that.data.karyo.chromosomes[that.filters.karyo.order[i]].genome_id === that.data.karyo.chromosomes[id].genome_id) {
 			i = i + 1;
 		}
 		tmp = that.filters.karyo.order[i];

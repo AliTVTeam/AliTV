@@ -1843,6 +1843,13 @@ describe('The changeChromosomeOrder method is supposed to change the order of ch
 		var order = ali.changeChromosomeOrder("c2", 1);
 		expect(expectedOrder).toEqual(order);
 	});
+	it('the method is supposed to change the order of more chromosomes on the testdata', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var expectedOrder = ["c1", "c2"];
+		var order = ali.changeChromosomeOrder("c1", 1);
+		expect(expectedOrder).toEqual(order);
+	});
 });
 
 
