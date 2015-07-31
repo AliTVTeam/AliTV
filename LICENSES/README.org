@@ -6,14 +6,24 @@ Those are listed here:
 ** List of included libraries
 *** Bootstrap
 **** Repository
-[[https://github.com/twbs/bootstrap]]
+https://github.com/twbs/bootstrap
 **** Version
 3.3.5
 **** LICENSE
 [[file:LICENSE-bootstrap][LICENSE-bootstrap]]
 **** Files
  - [[../d3/lib/bootstrap.min.js]]
- - [[../d3/lib/bootstrap.min.css]]
+ - [[../d3/lib/bootstrap.min.js]]
+*** Bootstrap-select
+**** Repository
+http://silviomoreto.github.io/bootstrap-select/
+**** Version
+1.7.2
+**** LICENSE
+[[file:LICENSE-bootstrap-select][LICENSE-bootstrap-select]]
+**** Files
+- [[../d3/lib/bootstrap-select.min.js]]
+- [[../d3/lib/bootstrap-select.min.css]]
 *** Colorpicker
 **** Repository
 [[https://github.com/mjolnic/bootstrap-colorpicker]]
@@ -90,4 +100,5 @@ Those are listed here:
 [[file:LICENSE-textures][LICENSE-textures]]
 **** Files
  - [[../d3/lib/textures.min.js]]
+
 			    

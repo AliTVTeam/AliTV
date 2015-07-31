@@ -3,126 +3,168 @@ describe('The constructor is supposed a proper AliTV object', function(){
 		expect(AliTV).toBeDefined();
 	});
 	var svg = $('<svg></svg>');
-	var wga = new AliTV(svg);
+	var ali = new AliTV(svg);
 	it('WgaPipelie object is not null', function(){
-		expect(wga).not.toBeNull();
+		expect(ali).not.toBeNull();
 	});
 	it('WgaPipelie object should be an instance of AliTV class', function(){
-		expect(wga instanceof AliTV).toBeTruthy();
+		expect(ali instanceof AliTV).toBeTruthy();
 	});
 	it('the svg property is properly set', function(){
-		expect(wga.svg).toEqual(svg);
+		expect(ali.svg).toEqual(svg);
 	});
 	it('the height of the svg should be set to the configured height', function(){
-		expect(Number(wga.svg.attr("height"))).toEqual(defaultConf.graphicalParameters.canvasHeight);
+		expect(Number(ali.svg.attr("height"))).toEqual(defaultConf.graphicalParameters.canvasHeight);
 	});
 	it('the width of the svg should be set to the configured width if the tree is not set', function(){
-		expect(Number(wga.svg.attr("width"))).toEqual(defaultConf.graphicalParameters.canvasWidth);
+		expect(Number(ali.svg.attr("width"))).toEqual(defaultConf.graphicalParameters.canvasWidth);
 	});
 	it('the svgD3 property should exist', function(){
-		expect(wga.svgD3).not.toBeNull();
+		expect(ali.svgD3).not.toBeNull();
 	});
 	it('the svgD3 property should be a d3 object', function(){
-		expect(wga.svgD3 instanceof d3.selection).toBeTruthy();
+		expect(ali.svgD3 instanceof d3.selection).toBeTruthy();
 	});
 	it('the data property is initialized as empty object', function(){
-		expect(wga.data).toEqual({});
+		expect(ali.data).toEqual({});
 	});
 	it('the conf property is initialized with default values', function(){
-		expect(wga.conf).toEqual(defaultConf);
+		expect(ali.conf).toEqual(defaultConf);
 	});
 });
 
 describe('The setData method of AliTV objects is supposed to set the data', function(){
 	var svg = $('<svg></svg>');
-	var wga = new AliTV(svg);
+	var ali = new AliTV(svg);
 	it('setData method is supposed to be a function', function(){
-		expect(typeof wga.setData).toEqual('function');
+		expect(typeof ali.setData).toEqual('function');
 	});
 	it('setData method is supposed to set the data variable', function(){
-		wga.setData(data);
-		expect(wga.data).toEqual(data);
+		ali.setData(data);
+		expect(ali.data).toEqual(data);
 	});
 	it('setData method is supposed to overwrite existing data', function(){
-		wga.setData(data2);
-		expect(wga.data).toEqual(data2);
+		ali.setData(data2);
+		expect(ali.data).toEqual(data2);
 	});
 });
 
 describe('The setFilters method of AliTV objects is supposed to set the filters', function(){
 	var svg = $('<svg></svg>');
-	var wga = new AliTV(svg);
+	var ali = new AliTV(svg);
 	it('setFilters method is supposed to be a function', function(){
-		expect(typeof wga.setFilters).toEqual('function');
+		expect(typeof ali.setFilters).toEqual('function');
 	});
 	it('setFilters method is supposed to set the filters variable', function(){
-		wga.setData(data);
-		wga.setFilters(filters);
-		expect(wga.filters).toEqual(filters);
+		ali.setData(data);
+		ali.setFilters(filters);
+		expect(ali.filters).toEqual(filters);
 	});
 	it('setData method is supposed to overwrite existing filters', function(){
-		wga.setData(data2);
-		wga.setFilters(filters2);
-		expect(wga.filters).toEqual(filters2);
+		ali.setData(data2);
+		ali.setFilters(filters2);
+		expect(ali.filters).toEqual(filters2);
 	});
 });
 
 describe('The getLinearKaryoCoords method of AliTV objects is supposed to calculate coordinates for the karyos in the linear case', function(){
+	beforeEach(function() {
+	    jasmine.addMatchers(customMatchers);
+	});
 	var svg = $('<svg></svg>');
-	var wga = new AliTV(svg);
+	var ali = new AliTV(svg);
 	it('getLinearKaryoCoords method is supposed to be a function', function(){
-		expect(typeof wga.getLinearKaryoCoords).toEqual('function');
+		expect(typeof ali.getLinearKaryoCoords).toEqual('function');
 	});
 	it('getLinearKaryoCoords method is supposed to return linearKaryoCoords', function(){
-		wga.setData(data);
-		wga.setFilters(filters);
-		var linearKaryoCoords = wga.getLinearKaryoCoords();
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		expect(linearKaryoCoords).toBeDefined();
 	});
 	it('getLinearKaryoCoords method is supposed to work with simple test data (2 genomes, 2 chromosomes)', function(){
-		wga.setData(data);
-		wga.setFilters(filters);
-		var linearKaryoCoords = wga.getLinearKaryoCoords();
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var expectedCoords = [
             {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.canvasWidth, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
-            {'karyo': 'c2', 'x': 0, 'y': wga.getGenomeDistance(), 'width': defaultConf.graphicalParameters.canvasWidth/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
+            {'karyo': 'c2', 'x': 0, 'y': ali.getGenomeDistance(), 'width': defaultConf.graphicalParameters.canvasWidth/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
         ];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
+	it('getLinearKaryoCoords method is supposed to set the maxGenomeSize in cache (2 genomes, 2 chromosomes)', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var expectedMaxGenomeSize = 2000;
+		expect(ali.cache.linear.maxGenomeSize).toEqual(expectedMaxGenomeSize);
+	});
 	it('getLinearKaryoCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes)', function(){
-		wga.setData(data2);
-		wga.setFilters(filters2);
-		var linearKaryoCoords = wga.getLinearKaryoCoords();
+		ali.setData(data2);
+		ali.setFilters(filters2);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var expectedCoords = [
 		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/2000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
-		    {'karyo': 'c2', 'x': 0, 'y': wga.getGenomeDistance(), 'width': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
-		    {'karyo': 'c3', 'x': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/(1000+defaultConf.graphicalParameters.karyoDistance)), 'y': wga.getGenomeDistance(), 'width': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
+		    {'karyo': 'c2', 'x': 0, 'y': ali.getGenomeDistance(), 'width': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/(1000+defaultConf.graphicalParameters.karyoDistance)), 'y': ali.getGenomeDistance(), 'width': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
 	it('getLinearKaryoCoords method is supposed to work with simple test data (3 genomes, 3 chromosomes)', function(){
-		wga.setData(data3);
-		wga.setFilters(filters3);
-		var linearKaryoCoords = wga.getLinearKaryoCoords();
+		ali.setData(data3);
+		ali.setFilters(filters3);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var expectedCoords = [
 		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.canvasWidth, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
-            {'karyo': 'c2', 'x': 0, 'y': wga.getGenomeDistance(), 'width': defaultConf.graphicalParameters.canvasWidth/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
-		    {'karyo': 'c3', 'x': 0, 'y': wga.getGenomeDistance()*2, 'width': defaultConf.graphicalParameters.canvasWidth/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 2}
+            {'karyo': 'c2', 'x': 0, 'y': ali.getGenomeDistance(), 'width': defaultConf.graphicalParameters.canvasWidth/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': 0, 'y': ali.getGenomeDistance()*2, 'width': defaultConf.graphicalParameters.canvasWidth/2, 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 2}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
 	it('getLinearKaryoCoords method is supposed to work with simple test data (3 genomes, 4 chromosomes)', function(){
-		wga.setData(data4);
-		wga.setFilters(filters4);
-		var linearKaryoCoords = wga.getLinearKaryoCoords();
+		ali.setData(data4);
+		ali.setFilters(filters4);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var expectedCoords = [
 		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/2000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 0},
-		    {'karyo': 'c2', 'x': 0, 'y': wga.getGenomeDistance(), 'width': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
-		    {'karyo': 'c3', 'x': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/(1000+defaultConf.graphicalParameters.karyoDistance)), 'y': wga.getGenomeDistance(), 'width': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
-		    {'karyo': 'c4', 'x': 0, 'y': wga.getGenomeDistance()*2, 'width': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 2}
+		    {'karyo': 'c2', 'x': 0, 'y': ali.getGenomeDistance(), 'width': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/(1000+defaultConf.graphicalParameters.karyoDistance)), 'y': ali.getGenomeDistance(), 'width': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 1},
+		    {'karyo': 'c4', 'x': 0, 'y': ali.getGenomeDistance()*2, 'width': defaultConf.graphicalParameters.canvasWidth/((2000+defaultConf.graphicalParameters.karyoDistance)/1000), 'height': defaultConf.graphicalParameters.karyoHeight, 'genome': 2}
 		];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
-	});	
+	});
+	it('getLinearKaryoCoords method is supposed to work when the filters set an offset for one genome (3 genomes, 4 chromosomes)', function(){
+		ali.setData(data4);
+		ali.setFilters(filters4_offset);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var canvasWidth = defaultConf.graphicalParameters.canvasWidth;
+		var karyoDistance = defaultConf.graphicalParameters.karyoDistance;
+		var karyoHeight = defaultConf.graphicalParameters.karyoHeight;
+		var expectedCoords = [
+		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': canvasWidth/((2000+karyoDistance)/2000), 'height': karyoHeight, 'genome': 0},
+		    {'karyo': 'c2', 'x': -1000*canvasWidth/(2000+karyoDistance), 'y': ali.getGenomeDistance(), 'width': 1000*canvasWidth/(2000+karyoDistance), 'height': karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': (1000+karyoDistance-1000)*canvasWidth/(2000+karyoDistance), 'y': ali.getGenomeDistance(), 'width': canvasWidth/((2000+karyoDistance)/1000), 'height': karyoHeight, 'genome': 1},
+		    {'karyo': 'c4', 'x': 0, 'y': ali.getGenomeDistance()*2, 'width': canvasWidth/((2000+karyoDistance)/1000), 'height': karyoHeight, 'genome': 2}
+		];
+		expect(linearKaryoCoords).toHaveSameLinearKaryoCoords(expectedCoords);
+	});
+	it('getLinearKaryoCoords method is supposed to work when the filters set a start and end for one genome region (3 genomes, 4 chromosomes)', function(){
+		ali.setData(data4);
+		ali.setFilters(filters4_region);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var canvasWidth = defaultConf.graphicalParameters.canvasWidth;
+		var karyoDistance = defaultConf.graphicalParameters.karyoDistance;
+		var karyoHeight = defaultConf.graphicalParameters.karyoHeight;
+		var expectedCoords = [
+		    {'karyo': 'c1', 'x': 0, 'y': 0, 'width': canvasWidth/((2000+karyoDistance)/2000), 'height': karyoHeight, 'genome': 0},
+		    {'karyo': 'c2', 'x': canvasWidth*500/(-500), 'y': ali.getGenomeDistance(), 
+		    	'width': 1000*canvasWidth/500, 'height': karyoHeight, 'genome': 1},
+		    {'karyo': 'c3', 'x': ((karyoDistance)/500) * canvasWidth + canvasWidth, 'y': ali.getGenomeDistance(), 
+		    	'width': 1000*canvasWidth/500, 'height': karyoHeight, 'genome': 1},
+		    {'karyo': 'c4', 'x': 0, 'y': ali.getGenomeDistance()*2, 'width': canvasWidth/((2000+karyoDistance)/1000), 'height': karyoHeight, 'genome': 2}
+		];
+		expect(linearKaryoCoords).toHaveSameLinearKaryoCoords(expectedCoords);
+	});
 });
 
 describe('The drawLinearKaryo method of AliTV objects is supposed to draw karyos', function(){
@@ -167,34 +209,53 @@ describe('The drawLinearKaryo method of AliTV objects is supposed to draw karyos
 
 describe('The drawLinear method of AliTV objects is supposed to draw the linear layout', function(){
 	var svg = $('<svg></svg>');
-	var wga = new AliTV(svg);
-	wga.setData(data2);
-	wga.setFilters(filters2);
+	var ali = new AliTV(svg);
+	ali.setData(data2);
+	ali.setFilters(filters2);
 	it('drawLinear method is supposed to be a function', function(){
-		expect(typeof wga.drawLinear).toEqual('function');
+		expect(typeof ali.drawLinear).toEqual('function');
 	});
 	it('there should be exactly three karyos, ticks (depend on tickDistance) and one link in the test svg', function(){	
-		var karyoCoords = wga.getLinearKaryoCoords();
-		var ticks = wga.getLinearTickCoords(karyoCoords);
-		wga.drawLinearTicks(ticks, karyoCoords);
-		wga.drawLinearKaryo(karyoCoords);
-		var linkCoords = wga.getLinearLinkCoords(karyoCoords);
-		wga.drawLinearLinks(linkCoords);
+		var karyoCoords = ali.getLinearKaryoCoords();
+		var ticks = ali.getLinearTickCoords(karyoCoords);
+		ali.drawLinearTicks(ticks, karyoCoords);
+		ali.drawLinearKaryo(karyoCoords);
+		var linkCoords = ali.getLinearLinkCoords(karyoCoords);
+		ali.drawLinearLinks(linkCoords);
 		
 		var totalTicks = 0;
 		$.each(karyoCoords, function(key, value){
-			var tickFrequency = wga.data.karyo.chromosomes[value.karyo].length / wga.conf.graphicalParameters.tickDistance;
+			var tickFrequency = ali.data.karyo.chromosomes[value.karyo].length / ali.conf.graphicalParameters.tickDistance;
 			totalTicks += tickFrequency + 1;
 		});
 		
-		expect(wga.svgD3.selectAll('.link').size()).toEqual(1);
-		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(3);
-		expect(wga.svgD3.selectAll('.tick').size()).toEqual(totalTicks);
+		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
+		expect(ali.svgD3.selectAll('.tick').size()).toEqual(totalTicks);
 	});
 	it('the drawn karyos have the expected height', function(){
-		wga.drawLinear();
+		ali.drawLinear();
 		// This test checks only the height attribute of the first selected element
-		expect(Number(wga.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.graphicalParameters.karyoHeight);
+		expect(Number(ali.svgD3.selectAll('.karyo').attr("height"))).toEqual(defaultConf.graphicalParameters.karyoHeight);
+	});
+	it('if a tree is drawn the alignmentRegion should be transformed', function(){
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.labels.showAllLabels = false;
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.conf.labels.chromosome.showChromosomeLabels = false;
+		ali.conf.labels.features.showFeatureLabels = false;
+		ali.conf.tree.drawTree = true;
+		ali.drawLinear();
+		expect(ali.getAlignmentRegion().attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
+	});
+	it('if a tree is drawn and all labels should be shown the alignmentRegion is transformed', function(){
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.labels.showAllLabels = true;
+		ali.conf.tree.drawTree = true;
+		ali.drawLinear();
+		expect(ali.getAlignmentRegion().attr("transform")).toEqual("translate(" + (defaultConf.graphicalParameters.treeWidth + defaultConf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	});
 });
 
@@ -203,20 +264,20 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 	    jasmine.addMatchers(customMatchers);
 	});
 	var svg = $('<svg></svg>');
-	var wga = new AliTV(svg);
+	var ali = new AliTV(svg);
 	it('getCircularKaryoCoords method is supposed to be a function', function(){
-		expect(typeof wga.getCircularKaryoCoords).toEqual('function');
+		expect(typeof ali.getCircularKaryoCoords).toEqual('function');
 	});
 	it('getCircularKaryoCoords method is supposed to return circularKaryoCoords', function(){
-		wga.setData(data);
-		wga.setFilters(filters);
-		var circularKaryoCoords = wga.getCircularKaryoCoords();
+		ali.setData(data);
+		ali.setFilters(filters);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
 		expect(circularKaryoCoords).toBeDefined();
 	});
 	it('getCircularKaryoCoords method is supposed to work with simple test data (2 genomes, 2 chromosomes)', function(){
-		wga.setData(data);
-		wga.setFilters(filters);
-		var circularKaryoCoords = wga.getCircularKaryoCoords();
+		ali.setData(data);
+		ali.setFilters(filters);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
 		var expAnglePerBase = 2*Math.PI/(3000+2*defaultConf.graphicalParameters.karyoDistance);
 		var expAnglePerSpace = expAnglePerBase * defaultConf.graphicalParameters.karyoDistance;
 		var expectedCoords = [
@@ -226,9 +287,9 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
 	});
 	it('getCircularKaryoCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes)', function(){
-		wga.setData(data2);
-		wga.setFilters(filters2);
-		var circularKaryoCoords = wga.getCircularKaryoCoords();
+		ali.setData(data2);
+		ali.setFilters(filters2);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
 		var expAnglePerBase = 2*Math.PI/(4000+3*defaultConf.graphicalParameters.karyoDistance);
 		var expAnglePerSpace = expAnglePerBase * defaultConf.graphicalParameters.karyoDistance;
 		var expectedCoords = [
@@ -239,9 +300,9 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
 	});
 	it('getCircularKaryoCoords method is supposed to work with simple test data (3 genomes, 3 chromosomes)', function(){
-		wga.setData(data3);
-		wga.setFilters(filters3);
-		var circularKaryoCoords = wga.getCircularKaryoCoords();
+		ali.setData(data3);
+		ali.setFilters(filters3);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
 		var expAnglePerBase = 2*Math.PI/(4000+3*defaultConf.graphicalParameters.karyoDistance);
 		var expAnglePerSpace = expAnglePerBase * defaultConf.graphicalParameters.karyoDistance;
 		var expectedCoords = [
@@ -252,9 +313,9 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
 	});
 	it('getCircularKaryoCoords method is supposed to work with simple test data (3 genomes, 4 chromosomes)', function(){
-		wga.setData(data4);
-		wga.setFilters(filters4);
-		var circularKaryoCoords = wga.getCircularKaryoCoords();
+		ali.setData(data4);
+		ali.setFilters(filters4);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
 		var expAnglePerBase = 2*Math.PI/(5000+4*defaultConf.graphicalParameters.karyoDistance);
 		var expAnglePerSpace = expAnglePerBase * defaultConf.graphicalParameters.karyoDistance;
 		var expectedCoords = [
@@ -266,9 +327,9 @@ describe('The getCircularKaryoCoords method of AliTV objects is supposed to calc
 		expect(circularKaryoCoords).toHaveSameAngles(expectedCoords);
 	});
 	it('getCircularKaryoCoords method is supposed to use the reverse property of filters', function(){
-		wga.setData(data4);
-		wga.setFilters(filters4_reverse);
-		var circularKaryoCoords = wga.getCircularKaryoCoords();
+		ali.setData(data4);
+		ali.setFilters(filters4_reverse);
+		var circularKaryoCoords = ali.getCircularKaryoCoords();
 		var expAnglePerBase = 2*Math.PI/(5000+4*defaultConf.graphicalParameters.karyoDistance);
 		var expAnglePerSpace = expAnglePerBase * defaultConf.graphicalParameters.karyoDistance;
 		var expectedCoords = [
@@ -385,16 +446,16 @@ describe('The drawCircularKaryo method of AliTV objects is supposed to draw kary
 
 describe('The drawCircular method of AliTV objects is supposed to draw the circular layout', function(){
 	var svg = $('<svg></svg>');
-	var wga = new AliTV(svg);
-	wga.setData(data2);
-	wga.setFilters(filters2);
+	var ali = new AliTV(svg);
+	ali.setData(data2);
+	ali.setFilters(filters2);
 	it('drawCircular method is supposed to be a function', function(){
-		expect(typeof wga.drawCircular).toEqual('function');
+		expect(typeof ali.drawCircular).toEqual('function');
 	});
 	it('there should be exactly three karyos and one link in the test svg', function(){
-		wga.drawCircular();
-		expect(wga.svgD3.selectAll('.karyo').size()).toEqual(3);
-		expect(wga.svgD3.selectAll('.link').size()).toEqual(1);
+		ali.drawCircular();
+		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
+		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 	});
 });
 
@@ -699,7 +760,7 @@ describe('The drawLinearLinks method of AliTV objects is supposed to draw links 
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 	});
 	it('there should be exactly two links and three chromosomes in the simple test svg', function(){
-		ali.setData({karyo:karyo5,features:features3, links:links5});
+		ali.setData({karyo:karyo5,features:features3, links:links5, visibleLinks: links5});
 		ali.setFilters(filters5);
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
@@ -1231,9 +1292,9 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setData({karyo: karyo3, features: features11});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		var expectedFeatures = [{"id": "f1", "type": "gene", "height": defaultConf.features.supportedFeatures.gene.height, "x": 100 * 1000 / 2000, "width": Math.abs(200 - 100) * 1000 / 2000, "y": 0},
-		                        {"id": "f2", "type": "gene", "height": defaultConf.features.supportedFeatures.gene.height, "x": 300 * 500 / 1000, "width": Math.abs(300 - 400) * 500 / 1000, "y": 485},
-		                        {"id": "f3", "type": "gene", "height": defaultConf.features.supportedFeatures.gene.height, "x": 500 * 500 / 1000, "width": Math.abs(600 - 500) * 500 / 1000, "y": 970}];
+		var expectedFeatures = [{"id": "f1", "type": "gene", "karyo": "c1", "height": defaultConf.features.supportedFeatures.gene.height, "x": 100 * 1000 / 2000, "width": Math.abs(200 - 100) * 1000 / 2000, "y": 0},
+		                        {"id": "f2", "type": "gene", "karyo": "c2", "height": defaultConf.features.supportedFeatures.gene.height, "x": 300 * 500 / 1000, "width": Math.abs(300 - 400) * 500 / 1000, "y": 485},
+		                        {"id": "f3", "type": "gene", "karyo": "c3", "height": defaultConf.features.supportedFeatures.gene.height, "x": 500 * 500 / 1000, "width": Math.abs(600 - 500) * 500 / 1000, "y": 970}];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
@@ -1242,7 +1303,7 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setData({karyo: karyo3, features: features14});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", path: [{x: 100 * 1000/2000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 100 * 1000/2000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
 		                                                 {x: 100 * 1000/2000 + 5/6 * (200 - 100) * 1000 / 2000, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
 		                                                 {x: 100 * 1000/2000 + 5/6 * (200 - 100) * 1000 / 2000, y: 0}, 
 		                                                 {x: 100 * 1000/2000 + (200 - 100) * 1000 / 2000, y: 0 +  1/2 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
@@ -1257,7 +1318,7 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setData({karyo: karyo3, features: features14r});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", path: [{x: 200 * 1000/2000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 200 * 1000/2000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
 	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
 	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 0}, 
 	                                                 {x: 200 * 1000/2000 + (100 - 200) * 1000 / 2000, y: 0 +  1/2 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
@@ -1392,25 +1453,6 @@ describe('The drawLinearFeatures method of AliTV objects is supposed to draw fea
 		ali.drawLinearFeatures(linearFeatureCoords);
 		expect(ali.svgD3.selectAll('.feature').size()).toEqual(1);
 	});
-	it('if a tree is drawn the feature group should be transformed', function(){
-		ali.setData(data8);
-		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = false;
-		ali.conf.labels.genome.showGenomeLabels = false;
-		ali.conf.labels.chromosome.showChromosomeLabels = false;
-		ali.conf.labels.features.showFeatureLabels = false;
-		ali.conf.tree.drawTree = true;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.featureGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
-	});
-	it('if a tree is drawn and all labels should be shown the feature group is transformed', function(){
-		ali.setData(data8);
-		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = true;
-		ali.conf.tree.drawTree = true;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.featureGroup').attr("transform")).toEqual("translate(" + (defaultConf.graphicalParameters.treeWidth + defaultConf.graphicalParameters.genomeLabelWidth) + ", 0)");
-	});
 });
 
 describe('The getGenomeLabelCoords method is supposed to calculate the coords for adding genome labels', function(){
@@ -1514,100 +1556,8 @@ describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to 
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(0);
 	});
-	it('if genome labels are drawn the chromosome labels should be transformed', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData(data);
-		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = true;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.genomeLabelWidth + ", 0)");
-	});
-	it('if there are no genome labels drawn the chromosome labels are not transformed', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData(data);
-		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = false;
-		ali.conf.labels.genome.showGenomeLabels = false;
-		ali.conf.labels.chromosome.showChromosomeLabels = true;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual(null);
-	});
-	it('if no genome labels are drawn, but the tree is drawn, the chromosomes whould be transformed', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData(data8);
-		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = false;
-		ali.conf.tree.drawTree = true;
-		ali.conf.labels.genome.showGenomeLabels = false;
-		ali.conf.labels.chromosome.showChromosomeLabels = true;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
-	});
 });
 
-describe('The getFeatureLabelCoords method is supposed to calculate the coords for adding labels to the features', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('getFeatureLabelCoords method is supposed to be a function', function(){
-		expect(typeof ali.getFeatureLabelCoords).toEqual('function');
-	});
-	it('getFeatureLabelCoords method is supposed to return the array linearFeatureLabelCoords, which should be defined', function(){
-		ali.setData(data8);
-		ali.setFilters(filters);
-		ali.conf.features.showAllFeatures = true;
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
-		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
-		expect(linearFeatureLabelCoords).toBeDefined();
-	});
-});
-
-describe('The drawLinearFeatureLabels method of AliTV objects is supposed to draw feature labels onto the chromosomes', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('drawLinearFeatureLabels method is supposed to be a function', function(){
-		expect(typeof ali.drawLinearFeatureLabels).toEqual('function');
-	});
-	it('there should be exactly one featureLabelGroup in the simple test svg', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData({karyo: karyo, features: features17});
-		ali.setFilters(filters);
-		ali.conf.features.showAllFeatures = true;
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
-		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
-		ali.drawLinearFeatureLabels(linearFeatureLabelCoords);
-		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(1);
-	});
-	it('there should be exactly one featureLabelGroup in a more complex test svg', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData({karyo: karyo, features: features18});
-		ali.setFilters(filters);
-		ali.conf.features.showAllFeatures = true;
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
-		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
-		ali.drawLinearFeatureLabels(linearFeatureLabelCoords);
-		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(1);
-	});
-	it('if there are no genome labels drawn the feature labels are not transformed', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData(data8);
-		ali.setFilters(filters);
-		ali.conf.features.showAllFeatures = true;
-		ali.conf.labels.showAllLabels = false;
-		ali.conf.labels.genome.showGenomeLabels = false;
-		ali.conf.labels.features.showFeatureLabels = true;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.featureLabelGroup').attr("transform")).toEqual(null);
-	});
-});
 
 describe('The drawLinearTickLabels method is supposed to add labels to the ticks', function(){
 	var svg = $('<svg></svg>');
@@ -1628,17 +1578,494 @@ describe('The drawLinearTickLabels method is supposed to add labels to the ticks
 	it('the ticks should be labeled', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
-		ali.conf.labels.ticks.showTickLabels = false;
-		ali.conf.labels.showAllLabels = true;
+		ali.conf.labels.ticks.showTickLabels = true;
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(10);
 	});
-	it('the ticks are not labeled because the default value is set in false', function(){
+	it('the ticks are not labeled because the default value is set false', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
 		ali.conf.labels.ticks.showTickLabels = false;
-		ali.conf.labels.showAllLabels = false;
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(0);
 	});
 });
+
+describe('The setLinkInvisible method is supposed to push a link to ali.filters.links.invisibleLinks', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setLinkInvisible method is supposed to be a function', function(){
+		expect(typeof ali.setLinkInvisible).toEqual('function');
+	});
+	it('the method is assigned with an id of a link, the link is pushed to ali.fiters.links.invisibleLinks', function(){
+		ali.setData(data2);
+		ali.setFilters(filters);
+		ali.visibleLinks = {};
+		ali.visibleLinks["l1"] = {'source': 'f1', 'target': 'f2', 'identity': 90};
+		var linkID = "l1";
+		var expectedInvisibleLinks = {"l1": {'source': 'f1', 'target': 'f2', 'identity': 90}};
+		expect(ali.setLinkInvisible(linkID)).toEqual(expectedInvisibleLinks);
+	})
+});
+
+describe('The getInvisibleLinks mehtod is supposed to count the elements in ali.filters.links.invisibleLinks and return them as a number', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getInvisibleLinks method is supposed to be a function', function(){
+		expect(typeof ali.getInvisibleLinks).toEqual('function');
+	});
+	it('the getInvisibleLinks method returns the number of links which are set invisible', function(){
+		ali.setData({karyo: karyo9, features: features10, links: links13});
+		ali.setFilters(filters18);
+		ali.visibleLinks = {};
+		ali.visibleLinks["l1"] = {'source': 'f1', 'target': 'f4', 'identity': 30};
+		ali.visibleLinks["l2"] = {'source': 'f2', 'target': 'f5', 'identity': 99};
+		ali.visibleLinks["l3"] = {'source': 'f3', 'target': 'f6', 'identity': 88};
+		ali.setLinkInvisible("l1");
+		ali.setLinkInvisible("l2");
+		ali.setLinkInvisible("l3");
+		var invisibleLinks = ali.getInvisibleLinks();
+		expect(invisibleLinks).toEqual(3);
+	})
+});
+
+describe('The showInvisibleLink method is supposed to restore a selected link which is set invisible', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('showInvisibleLink method is supposed to be a function', function(){
+		expect(typeof ali.showInvisibleLink).toEqual('function');
+	});
+	it('the showInvisibleLink method is supposed to remove invisibleLinks from ali.filters.links.invisibleLinks', function(){
+		ali.setData({karyo: karyo9, features: features10, links: links13});
+		ali.setFilters(filters18);
+		ali.visibleLinks = {};
+		ali.visibleLinks["l1"] = {'source': 'f1', 'target': 'f4', 'identity': 30};
+		ali.visibleLinks["l2"] = {'source': 'f2', 'target': 'f5', 'identity': 99};
+		ali.visibleLinks["l3"] = {'source': 'f3', 'target': 'f6', 'identity': 88};
+		ali.setLinkInvisible("l1");
+		ali.setLinkInvisible("l2");
+		ali.setLinkInvisible("l3");
+		var invisibleLinks = ali.getInvisibleLinks();
+		expect(invisibleLinks).toEqual(3);
+		ali.showInvisibleLink("l2");
+		invisibleLinks = ali.getInvisibleLinks();
+		expect(invisibleLinks).toEqual(2);
+	})
+});
+
+describe("The clearAli method is supposed to remove all svg groups of ali", function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('clearAli method is supposed to be a function', function(){
+		expect(typeof ali.clearAli).toEqual('function');
+	});
+	it('clearAli method is supposed to remove all svg groups (karyos, links, features, ticks, tree, labels', function(){
+		ali.setData(data8);
+		ali.setFilters(filters);
+		ali.conf.labels.chromosome.showChromosomeLabels = true;
+		ali.drawLinear();
+		ali.clearAli();
+		expect(ali.svgD3.selectAll('.karyoGroup').size()).toEqual(0);
+		expect(ali.svgD3.selectAll('.linkGroup').size()).toEqual(0);
+		expect(ali.svgD3.selectAll('.featureGroup').size()).toEqual(0);
+		expect(ali.svgD3.selectAll('.genomeLabelGroup').size()).toEqual(0);
+		expect(ali.svgD3.selectAll('.tickGroup').size()).toEqual(0);
+		expect(ali.svgD3.selectAll('.tickLabelGroup').size()).toEqual(0);
+		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(0);
+	});
+});
+
+describe('The setFeatureInvisible method is supposed to push a feature to ali.filters.features.invisibleFeatures', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setFeatureInvisible method is supposed to be a function', function(){
+		expect(typeof ali.setFeatureInvisible).toEqual('function');
+	});
+	it('the method is assigned with an id of a feature, the feature is pushed to ali.fiters.features.invisibleFeatures', function(){
+		ali.setData({karyo: karyo13, links: links, features: features21});
+		ali.setFilters(filters19);
+		var featureID = "f1_gene_c1_gi";
+		var expectedInvisibleFeatures = {"f1_gene_c1_gi": {'karyo': 'c1_gi', 'start': 100, 'end': 200, 'name': "f1"}};
+		expect(ali.setFeatureInvisible(featureID)).toEqual(expectedInvisibleFeatures);
+	})
+});
+
+describe('The getInvisibleFeatures mehtod is supposed to count the elements in ali.filters.features.invisibleFeatures and return them as a number', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getInvisibleFeatures method is supposed to be a function', function(){
+		expect(typeof ali.getInvisibleFeatures).toEqual('function');
+	});
+	it('the getInvisibleFeatures method returns the number of features which are set invisible', function(){
+		ali.setData({karyo: karyo13, links: links, features: features21});
+		ali.setFilters(filters19);
+		ali.setFeatureInvisible("f1_gene_c1_gi");
+		ali.setFeatureInvisible("f2_gene_c2_gi");
+		var invisibleFeatures = ali.getInvisibleFeatures();
+		expect(invisibleFeatures).toEqual(2);
+	})
+});
+
+describe('The showInvisibleFeature method is supposed to restore a selected feature which is set invisible', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('showInvisibleFeature method is supposed to be a function', function(){
+		expect(typeof ali.showInvisibleFeature).toEqual('function');
+	});
+	it('the showInvisibleFeature method is supposed to remove invisibleFeatures from ali.filters.features.invisibleFeatures', function(){
+		ali.setData({karyo: karyo13, links: links, features: features21});
+		ali.setFilters(filters19);
+		ali.setFeatureInvisible("f1_gene_c1_gi");
+		ali.setFeatureInvisible("f2_gene_c2_gi");
+		var invisibleFeatures = ali.getInvisibleFeatures();
+		expect(invisibleFeatures).toEqual(2);
+		ali.showInvisibleFeature("f1_gene_c1_gi");
+		invisibleFeatures = ali.getInvisibleFeatures();
+		expect(invisibleFeatures).toEqual(1);
+	})
+});
+
+describe('The removeLinksOutsideVisibleRegion method is supposed to remove links outside the visible region', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('removeLinksOutsideVisibleRegion method is supposed to be a function', function(){
+		expect(typeof ali.removeLinksOutsideVisibleRegion).toEqual('function');
+	});
+	ali.setCanvasHeight(200);
+	ali.setCanvasWidth(200);
+	var linearLinkCoords = [{ 'linkID': "0", 'source0': {'x': 0, 'y': 0}, 'source1': {'x': 100, 'y': 0}, 'target0': {'x': 100, 'y': 100}, 'target1': {'x': 200, 'y': 100}}, //fullyVisible
+	                        { 'linkID': "1", 'source0': {'x': -100, 'y': 0}, 'source1': {'x': -1, 'y': 0}, 'target0': {'x': 0, 'y': 100}, 'target1': {'x': 100, 'y': 100}}, //partlyVisible
+	                        { 'linkID': "2", 'source0': {'x': -100, 'y': 0}, 'source1': {'x': -1, 'y': 0}, 'target0': {'x': 201, 'y': 100}, 'target1': {'x': 300, 'y': 100}}]; //notVisible (crossing)
+	var filteredFull = ali.removeLinksOutsideVisibleRegion(linearLinkCoords, false);
+	var filteredHalf = ali.removeLinksOutsideVisibleRegion(linearLinkCoords, true);
+	it('removeLinksOutsideVisibleRegion method filters links completely outside region', function(){
+		expect(filteredFull).toEqual([linearLinkCoords[0],linearLinkCoords[1]]);
+	});
+	it('removeLinksOutsideVisibleRegion method filters links half outside region if requested', function(){
+		expect(filteredHalf).toEqual([linearLinkCoords[0]]);
+	});
+});
+
+describe('Mousedown inside of the svg should append a selection rect if layout is linear', function(){
+	it('in the linear layout exactly one selection rect should be added', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.svg.d3Trigger("mousedown");
+		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(1);
+	});
+	it('in the linear layout exactly one selection rect should be added even after multiple mousedowns', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.svg.d3Trigger("mousedown");
+		ali.svg.d3Trigger("mousedown");
+		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(1);
+	});
+	it('the second mousedown should preserve the x and y coordinates of the first one', function(){
+		// If the mouseup event happens outside the svg the selection rect remains and keeps adjusting to mousemove
+		// Often the click is only used to trigger a new mouseup in this case the new coordinates should not be set as start for the selection rect.
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var xOld=342,xNew=234,yOld=23,yNew=892;
+		ali.svg.d3TriggerAt("mousedown",xOld,yOld);
+		ali.svg.d3TriggerAt("mousedown",xNew,yNew);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("x"))).toEqual(xOld);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("y"))).toEqual(yOld);
+	});
+	it('the selection rect should have the same x and y coordinates as the mousedown event', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var x = 17;
+		var y = 39;
+		ali.svg.d3TriggerAt("mousedown", x, y);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("x"))).toEqual(x);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("y"))).toEqual(y);
+	});
+	it('in the circular layout no selection rect should be added', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.conf.layout = "circular";
+		ali.svg.d3Trigger("mousedown");
+		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(0);
+	});
+});
+
+describe('Mousemove inside the svg should modify the selection rect if it exists (linear layout, after mousedown)', function(){
+	it('the width and height should correspond to the coordinates of mousedown and mousemove', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var xStart = 17;
+		var yStart = 39;
+		var xEnd = 243;
+		var yEnd = 341;
+		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
+		ali.svg.d3TriggerAt("mousemove", xEnd, yEnd);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("x"))).toEqual(Math.min(xStart, xEnd));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("y"))).toEqual(Math.min(yEnd, yStart));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("width"))).toEqual(Math.abs(xEnd - xStart));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("height"))).toEqual(Math.abs(yEnd - yStart));
+	});
+	it('the width and height should correspond to the coordinates of mousedown and mousemove also when negative', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var xStart = 325;
+		var yStart = 332;
+		var xEnd = 23;
+		var yEnd = 71;
+		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
+		ali.svg.d3TriggerAt("mousemove", xEnd, yEnd);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("x"))).toEqual(Math.min(xStart, xEnd));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("y"))).toEqual(Math.min(yEnd, yStart));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("width"))).toEqual(Math.abs(xEnd - xStart));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("height"))).toEqual(Math.abs(yEnd - yStart));
+	});
+});
+
+describe('Mouseup updates filters to set genome_region appropriatly, selection rect is removed', function(){
+	it('the mouseup event removes all selection rects', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.drawLinear();
+		var xStart = 17;
+		var yStart = 39;
+		var xEnd = 243;
+		var yEnd = 341;
+		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
+		ali.svg.d3Trigger("mousemove");
+		ali.svg.d3TriggerAt("mouseup", xEnd, yEnd);
+		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(0);
+	});
+	it('the mouseup event updates the filters according to the selection rect', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		var xStart = 0;
+		var yStart = 0;
+		var xEnd = 500;
+		var yEnd = 500;
+		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
+		ali.svg.d3TriggerAt("mousemove", xEnd, yEnd);
+		ali.svg.d3TriggerAt("mouseup", xEnd, yEnd);
+		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["0"].end).toEqual(1000);
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
+	});
+});
+
+describe('The updateGenomeRegionBySvgRect method is supposed to update genome_region filters according to a rect on the svg', function(){
+	it('updateGenomeRegionBySvgRect method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.updateGenomeRegionBySvgRect).toEqual('function');
+	});
+	it('updateGenomeRegionBySvgRect updates genome_region filters in a simple case (2 genomes, 2 chromosomes)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		var selection = {x:0, y:0, width:500, height: 500};
+		ali.updateGenomeRegionBySvgRect(selection);
+		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["0"].end).toEqual(1000);
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
+	});
+	it('updateGenomeRegionBySvgRect should not work if no karyo is in the y range', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		var selection = {x:0, y:250, width:500, height: 500};
+		ali.updateGenomeRegionBySvgRect(selection);
+		expect(typeof ali.filters.karyo.genome_region["0"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["0"].end).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
+	});
+	it('updateGenomeRegionBySvgRect should work for multiple genomes in the y range', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		var selection = {x:0, y:0, width:500, height: 1000};
+		ali.updateGenomeRegionBySvgRect(selection);
+		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["0"].end).toEqual(1000);
+		expect(ali.filters.karyo.genome_region["1"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["1"].end).toEqual(1000);
+	});
+	it('updateGenomeRegionBySvgRect should work for already set filters (apply twice consecutively)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		var selection = {x:0, y:0, width:500, height: 500};
+		ali.updateGenomeRegionBySvgRect(selection);
+		ali.updateGenomeRegionBySvgRect(selection);
+		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["0"].end).toEqual(500);
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
+	});
+	it('updateGenomeRegionBySvgRect should work when alignmentRegion is transformed', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = true;
+		ali.drawLinear();
+		transformX = ali.conf.graphicalParameters.genomeLabelWidth;
+		var selection = {x:transformX, y:0, width:500, height: 500};
+		ali.updateGenomeRegionBySvgRect(selection);
+		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["0"].end).toEqual(1000);
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
+	});
+});
+
+describe('The changeChromosomeVisibility method is supposed to set a selected chromosome invisible', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	beforeEach(function(done){
+		ali.setData({karyo: karyo14, links: links, features: features21});
+		ali.setFilters(filters20);
+		var chromosomeName = "species_1";
+		ali.changeChromosomeVisibility(chromosomeName);
+		done();
+	});
+	it('changeChromosomeVisibility method is supposed to be a function', function(){
+		expect(typeof ali.changeChromosomeVisibility).toEqual('function');
+	});
+	it("the method is supposed to set the visibility of a selected chromosome equal false", function(){
+		setTimeout(function(){
+			expect(ali.filters.karyo.chromosomes["c1_gi"].visible).toEqual(false);		
+			done();
+		}, 1000);
+	});
+});
+
+describe('The getInvisibleChromosomes method is supposed to count all chromosomes which are set invisible', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getInvisibleChromosomes method is supposed to be a function', function(){
+		expect(typeof ali.getInvisibleChromosomes).toEqual('function');
+	});
+	it("the method is supposed to return the number of all chromosomes which are set invisible", function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c1"].visible = false;
+		expect(ali.getInvisibleChromosomes()).toEqual(1);
+	});
+});
+
+describe('The changeGenomeOrder method is supposed to change the order of the genomes in filters.karyo.chromosomes.genome_order', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('changeGenomeOrder method is supposed to be a function', function(){
+		expect(typeof ali.changeGenomeOrder).toEqual('function');
+	});
+	it('the method is supposed to change the order of two genomes in the testdata by pushing down', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var expectedOrder = [1, 0];
+		var order = ali.changeGenomeOrder(1, -1);
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of three genomes in the testdata by pushing up', function(){
+		ali.setData({karyo: karyo3, links: links, features: features});
+		ali.setFilters(filters3);
+		var expectedOrder = [0, 2, 1];
+		var order = ali.changeGenomeOrder(2, 1);
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of three genomes in the testdata by pushing down', function(){
+		ali.setData({karyo: karyo9, links: links, features: features});
+		ali.setFilters(filters3);
+		var expectedOrder = [1, 2, 0];
+		var order = ali.changeGenomeOrder(0, 1);
+		expect(expectedOrder).toEqual(order);
+	});
+});
+
+describe('The changeChromosomeOrientation method is supposed to change the orientation of an assigned chromosome', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('changeChromosomeOrientation method is supposed to be a function', function(){
+		expect(typeof ali.changeChromosomeOrientation).toEqual('function');
+	});
+	it("the method is supposed to set the orientation of the assigned chromosome from reverse equal false to reverse equal true", function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c1"].reverse = false;
+		expect(ali.changeChromosomeOrientation("c1")).toEqual(true);
+	});
+	it("the method is supposed to set the orientation of the assigned chromosome from reverse equal true to reverse equal false", function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c2"].reverse = true;
+		expect(ali.changeChromosomeOrientation("c2")).toEqual(false);
+	});
+});
+
+describe('The changeChromosomeOrder method is supposed to change the order of chromosomes for one genome', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('changeChromosomeOrder method is supposed to be a function', function(){
+		expect(typeof ali.changeChromosomeOrder).toEqual('function');
+	});
+	it('the method is supposed to change the order of three chromosomes in the testdata', function(){
+		ali.setData({karyo: karyo2, links: links, features: features});
+		ali.setFilters(filters3);
+		var expectedOrder = ["c1", "c3", "c2"];
+		var order = ali.changeChromosomeOrder("c3", -1);
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of more chromosomes on the destdata', function(){
+		ali.setData({karyo: karyo12, links: links, features: features});
+		ali.setFilters(filters17);
+		var expectedOrder = ["c1", "c3", "c2", "c4", "c5"];
+		var order = ali.changeChromosomeOrder("c2", 1);
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of two chromosomes on the testdata', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var expectedOrder = ["c1", "c2"];
+		var order = ali.changeChromosomeOrder("c1", 1);
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of one chromosomes on the testdata', function(){
+		ali.setData({karyo: karyo8, links: links, features: features});
+		ali.setFilters(filters10);
+		var expectedOrder = ["c2", "c1", "c3", "c4", "c5", "c6", "c7"];
+		var order = ali.changeChromosomeOrder("c1", -1);
+		expect(expectedOrder).toEqual(order);
+	});
+});
+

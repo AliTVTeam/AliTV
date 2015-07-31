@@ -5,7 +5,14 @@ jQuery.fn.d3Trigger = function(type) {
 	this.each(function(i, e) {
 		var evt = document.createEvent("MouseEvents");
 		evt.initMouseEvent(type, true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+		e.dispatchEvent(evt);
+	});
+};
 
+jQuery.fn.d3TriggerAt = function(type, x, y) {
+	this.each(function(i, e) {
+		var evt = document.createEvent("MouseEvents");
+		evt.initMouseEvent(type, true, true, window, 0, 0, 0, x, y, false, false, false, false, 0, null);
 		e.dispatchEvent(evt);
 	});
 };

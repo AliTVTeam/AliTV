@@ -188,6 +188,11 @@ sub create_dir_structure{
                              lib/jsoneditor.min.css
                              lib/jsoneditor.min.js
                              lib/img/jsoneditor-icons.png
+                             lib/img/arrow.png
+                             lib/img/circular.png
+                             lib/img/linear.png
+                             lib/img/rect.png
+
                              lib/colorpicker/bootstrap-colorpicker.min.css
                              lib/colorpicker/bootstrap-colorpicker.min.js
                              lib/colorpicker/img/bootstrap-colorpicker/alpha-horizontal.png
@@ -201,6 +206,9 @@ sub create_dir_structure{
                              js/AliTV.js
                              
                              css/AliTV.css
+                             css/AliTV_logo.ico
+                             css/AliTV_logo.svg
+                             css/AliTV_logo.png
 
                              AliTV.html
                             );
@@ -250,6 +258,10 @@ sub parse_karyo{
 		$genome_info{$gid}{'elements'}++;
 	}
 	$filters{'karyo'}{'genome_order'} = [sort map {$_} keys %genome_info];
+	# Add empty genome_region entry for each genome
+	foreach(keys %genome_info){
+		$filters{'karyo'}{'genome_region'}{$_} = {};
+	}
 	optimize_filters_and_conf(\%genome_info);
 	close IN or $L->logdie("Can not close file $file\n$!");
 	return (\%karyo);
@@ -289,7 +301,9 @@ sub optimize_filters_and_conf{
 	my $maxTotalSize = $genome_info{(sort {$genome_info{$b}{'length'} <=> $genome_info{$a}{'length'}} keys %genome_info)[0]}{'length'};
 	my $maxNumElements = $genome_info{(sort {$genome_info{$b}{'elements'} <=> $genome_info{$a}{'elements'}} keys %genome_info)[0]}{'elements'};
 	# Set total karyoDistance to 5% of maximum genomeLength
-	$conf{'graphicalParameters'}{'karyoDistance'} = round(($maxTotalSize * 0.05) / ($maxNumElements - 1));
+	if($maxNumElements > 1){
+		$conf{'graphicalParameters'}{'karyoDistance'} = round(($maxTotalSize * 0.05) / ($maxNumElements - 1));		
+	}
 	# Set tickDistance to nearest multiple of a power of 10 of 1% of maximum genomeLength
 	$conf{'graphicalParameters'}{'tickDistance'} = nearest(10**(int(log($maxTotalSize*0.01)/log(10))), $maxTotalSize * 0.01);
 	# Set minLinkLength to 0.05% of maximum genomeLength

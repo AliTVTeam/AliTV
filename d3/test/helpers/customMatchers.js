@@ -32,6 +32,45 @@ var customMatchers = {
 			}
 		};
 	},
+	toHaveSameLinearKaryoCoords : function(util, customEqualityTesters) {
+		return {
+			compare : function(actual, expected) {
+				var result = {
+					pass : true
+				};
+				if (actual.length !== expected.length) {
+					result.pass = false;
+				} else {
+					var precision = 8;
+					var factor = Math.pow(10, precision);
+					for (var i = 0; i < actual.length; i++) {
+						var xActual = Math.round(actual[i].x *
+								factor) / factor;
+						var xExpected = Math.round(expected[i].x *
+								factor) / factor;
+						var widthActual = Math.round(actual[i].width * factor) /
+								factor;
+						var widthExpected = Math.round(expected[i].width *
+								factor) / factor;
+						var yActual = Math.round(actual[i].y * factor) /
+								factor;
+						var yExpected = Math.round(expected[i].y *
+								factor) / factor;
+						var heightActual = Math.round(actual[i].height * factor) /
+							factor;
+						var heightExpected = Math.round(expected[i].height *
+								factor) / factor;
+						if ((xActual !== xExpected) || (yActual !== yExpected) ||
+								(widthActual !== widthExpected) || (heightActual !== heightExpected)) {
+							result.pass = false;
+							result.message = "mismatch in coordinates of "+actual[i].karyo+": "+JSON.stringify(actual[i])+" vs "+JSON.stringify(expected[i]);
+						}
+					}
+				}
+				return result;
+			}
+		};
+	},
 	toHaveSameLinearLinkCoordinates : function(util, customEqualityTesters) {
 		return {
 			compare : function(actual, expected) {

@@ -2,6 +2,7 @@ var defaultConf =  {
 		linear: {
 			startLineColor: "#49006a",
 			endLineColor: "#1d91c0",
+			hideHalfVisibleLinks: false
 		},
 		circular: {
 			tickSize: 5
@@ -15,7 +16,8 @@ var defaultConf =  {
 			tickLabelFrequency: 10,
 			tickDistance: 100,
 			treeWidth: 300,
-			genomeLabelWidth: 150
+			genomeLabelWidth: 150,
+			fade: 0.1
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -74,16 +76,21 @@ var defaultConf =  {
 			}
 		},
 		labels: {
-			showAllLabels: false,
 			ticks: {
 				showTicks: true,
-				showTickLabels: true
+				showTickLabels: true,
+				color: "#000000",
+				size: 10
 			},
 			chromosome: {
-				showChromosomeLabels: false
+				showChromosomeLabels: false,
+				color: "#000000",
+				size: 25
 			},
 			genome: {
-				showGenomeLabels: true
+				showGenomeLabels: true,
+				color: "#000000",
+				size: 25
 			},
 			features: {
 				showFeatureLabels: false

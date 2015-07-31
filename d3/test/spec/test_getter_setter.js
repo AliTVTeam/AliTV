@@ -748,3 +748,428 @@ describe('The setJSON method is supposed to set the internal data, filters and c
 		expect(ali.getJSON()).toEqual(expectedJSON);
 	});
 });
+
+describe('The getAlignmentRegion method is supposed to return the inner alignmentRegion g element as d3 selection', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getAlignmentRegion method is supposed to be a function', function(){
+		expect(typeof ali.getAlignmentRegion).toEqual('function');
+	});
+	it('the function should return the alignmentRegion as d3 selection object', function(){
+		ali.svgD3.append("g").attr("class", "alignmentRegion");
+		expect(ali.getAlignmentRegion()).toEqual(ali.svgD3.selectAll(".alignmentRegion"));
+	});
+	it('the function should return a newly created alignmentRegion as d3 selection object if it did not exist', function(){
+		svg = $('<svg></svg>');
+		ali = new AliTV(svg);
+		expect(ali.getAlignmentRegion().size()).toEqual(1);
+	});
+});
+
+describe('The getGenomeLabelColor method is supposed to get the color of the genome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getGenomeLabelColor method is supposed to be a function', function(){
+		expect(typeof ali.getGenomeLabelColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getGenomeLabelColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color of the genome Labels which is set in the defaultConf', function(){
+		var color = ali.getGenomeLabelColor();
+		expect(color).toEqual(defaultConf.labels.genome.color);
+	});
+});
+
+describe('The setGenomeLabelColor method is supposed to set a new color for the genome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setGenomeLabelColor method is supposed to be a function', function(){
+		expect(typeof ali.setGenomeLabelColor).toEqual('function');
+	});	
+	it('the returned value of the setGenomeLabelColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = "#000000";
+		expect(ali.setGenomeLabelColor(color)).toEqual(color);
+	});	
+	it('when setGenomeLabelColor is called several times the color should have the same value as the returned color of getGenomeLabelColor method', function(){
+		var color = "#000000";
+		ali.setGenomeLabelColor(color);
+		var newColor = ali.getGenomeLabelColor();
+		expect(newColor).toEqual(color);
+	});
+	it('the setGenomeLabelColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setGenomeLabelColor(color);}).toThrow("empty");
+	});
+});
+
+describe('The getGenomeLabelSize method is supposed to get the size of the genome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getGenomeLabelSize method is supposed to be a function', function(){
+		expect(typeof ali.getGenomeLabelSize).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getGenomeLabelSize();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the current size of the genome Labels which is set in the defaultConf', function(){
+		var color = ali.getGenomeLabelSize();
+		expect(color).toEqual(defaultConf.labels.genome.size);
+	});
+});
+
+describe('The setGenomeLabelSize method is supposed to set a new size of the genome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setGenomeLabelSize method is supposed to be a function', function(){
+		expect(typeof ali.setGenomeLabelSize).toEqual('function');
+	});
+	it('when setGenomeLabelSize is called several times the size should have the same value as the returned size of the getGenomeLabelSize method', function(){
+		ali.setGenomeLabelSize(20);
+		expect(ali.getGenomeLabelSize()).toEqual(20);
+		ali.setGenomeLabelSize(1);
+		expect(ali.getGenomeLabelSize()).toEqual(1);
+		ali.setGenomeLabelSize(13.25);
+		expect(ali.getGenomeLabelSize()).toEqual(13.25);
+	});
+	it('the setGenomeLabelSize method should throw an error message if the assigned size is empty', function(){
+		var size = "";
+		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("empty");
+	});
+	it('the setGenomeLabelSize method should throw an error message if the assigned size is not a number', function(){
+		var size = "test";
+		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("not a number");
+	});
+	it('the setGenomeLabelSize method should throw an error message if the assigned size is 0', function(){
+		var size = 0;
+		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("size is to small, it should be > 0");
+	});
+	it('the setGenomeLabelSize method should throw an error message if the assigned size is less than 0', function(){
+		var size = -30;
+		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("size is to small, it should be > 0");
+	});
+});
+
+describe('The getChromosomeLabelColor method is supposed to get the color of the chromosome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getChromosomeLabelColor method is supposed to be a function', function(){
+		expect(typeof ali.getChromosomeLabelColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getChromosomeLabelColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color of the chromosome labels which is set in the defaultConf', function(){
+		var color = ali.getChromosomeLabelColor();
+		expect(color).toEqual(defaultConf.labels.chromosome.color);
+	});
+});
+
+describe('The setChromosomeLabelColor method is supposed to set a new color for the Chromosome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setChromosomeLabelColor method is supposed to be a function', function(){
+		expect(typeof ali.setChromosomeLabelColor).toEqual('function');
+	});	
+	it('the returned value of the setChromosomeLabelColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = "#000000";
+		expect(ali.setChromosomeLabelColor(color)).toEqual(color);
+	});	
+	it('when setChromosomeLabelColor is called several times the color should have the same value as the returned color of getChromosomeLabelColor method', function(){
+		var color = "#000000";
+		ali.setChromosomeLabelColor(color);
+		var newColor = ali.getChromosomeLabelColor();
+		expect(newColor).toEqual(color);
+	});
+	it('the setChromosomeLabelColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setChromosomeLabelColor(color);}).toThrow("empty");
+	});
+});
+
+describe('The getChromosomeLabelSize method is supposed to get the size of the Chromosome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getChromosomeLabelSize method is supposed to be a function', function(){
+		expect(typeof ali.getChromosomeLabelSize).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getChromosomeLabelSize();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the current size of the Chromosome Labels which is set in the defaultConf', function(){
+		var color = ali.getChromosomeLabelSize();
+		expect(color).toEqual(defaultConf.labels.chromosome.size);
+	});
+});
+
+describe('The setChromosomeLabelSize method is supposed to set a new size of the Chromosome labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setChromosomeLabelSize method is supposed to be a function', function(){
+		expect(typeof ali.setChromosomeLabelSize).toEqual('function');
+	});
+	it('when setChromosomeLabelSize is called several times the size should have the same value as the returned size of the getChromosomeLabelSize method', function(){
+		ali.setChromosomeLabelSize(20);
+		expect(ali.getChromosomeLabelSize()).toEqual(20);
+		ali.setChromosomeLabelSize(1);
+		expect(ali.getChromosomeLabelSize()).toEqual(1);
+		ali.setChromosomeLabelSize(13.25);
+		expect(ali.getChromosomeLabelSize()).toEqual(13.25);
+	});
+	it('the setChromosomeLabelSize method should throw an error message if the assigned size is empty', function(){
+		var size = "";
+		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("empty");
+	});
+	it('the setChromosomeLabelSize method should throw an error message if the assigned size is not a number', function(){
+		var size = "test";
+		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("not a number");
+	});
+	it('the setChromosomeLabelSize method should throw an error message if the assigned size is 0', function(){
+		var size = 0;
+		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("size is to small, it should be > 0");
+	});
+	it('the setChromosomeLabelSize method should throw an error message if the assigned size is less than 0', function(){
+		var size = -30;
+		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("size is to small, it should be > 0");
+	});
+});
+
+describe('The getTickLabelColor method is supposed to get the color of the Ticks labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getTickLabelColor method is supposed to be a function', function(){
+		expect(typeof ali.getTickLabelColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getTickLabelColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color of the Tick labels which is set in the defaultConf', function(){
+		var color = ali.getTickLabelColor();
+		expect(color).toEqual(defaultConf.labels.ticks.color);
+	});
+});
+
+describe('The setTickLabelColor method is supposed to set a new color for the Tick labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setTickLabelColor method is supposed to be a function', function(){
+		expect(typeof ali.setTickLabelColor).toEqual('function');
+	});	
+	it('the returned value of the setTickLabelColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = "#000000";
+		expect(ali.setTickLabelColor(color)).toEqual(color);
+	});	
+	it('when setTickLabelColor is called several times the color should have the same value as the returned color of getTickLabelColor method', function(){
+		var color = "#000000";
+		ali.setTickLabelColor(color);
+		var newColor = ali.getTickLabelColor();
+		expect(newColor).toEqual(color);
+	});
+	it('the setTickLabelColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setTickLabelColor(color);}).toThrow("empty");
+	});
+});
+
+describe('The getTickLabelSize method is supposed to get the size of the Tick labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getTickLabelSize method is supposed to be a function', function(){
+		expect(typeof ali.getTickLabelSize).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var size = ali.getTickLabelSize();
+		expect(size).toBeDefined();
+	});
+	it('the function should return the current size of the Tick Labels which is set in the defaultConf', function(){
+		var size = ali.getTickLabelSize();
+		expect(size).toEqual(defaultConf.labels.ticks.size);
+	});
+});
+
+describe('The setTickLabelSize method is supposed to set a new size of the Tick labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setTickLabelSize method is supposed to be a function', function(){
+		expect(typeof ali.setTickLabelSize).toEqual('function');
+	});
+	it('when setTickLabelSize is called several times the size should have the same value as the returned size of the getTickLabelSize method', function(){
+		ali.setTickLabelSize(20);
+		expect(ali.getTickLabelSize()).toEqual(20);
+		ali.setTickLabelSize(1);
+		expect(ali.getTickLabelSize()).toEqual(1);
+		ali.setTickLabelSize(13.25);
+		expect(ali.getTickLabelSize()).toEqual(13.25);
+	});
+	it('the setTickLabelSize method should throw an error message if the assigned size is empty', function(){
+		var size = "";
+		expect(function(){ali.setTickLabelSize(size);}).toThrow("empty");
+	});
+	it('the setTickLabelSize method should throw an error message if the assigned size is not a number', function(){
+		var size = "test";
+		expect(function(){ali.setTickLabelSize(size);}).toThrow("not a number");
+	});
+	it('the setTickLabelSize method should throw an error message if the assigned size is 0', function(){
+		var size = 0;
+		expect(function(){ali.setTickLabelSize(size);}).toThrow("size is to small, it should be > 0");
+	});
+	it('the setTickLabelSize method should throw an error message if the assigned size is less than 0', function(){
+		var size = -30;
+		expect(function(){ali.setTickLabelSize(size);}).toThrow("size is to small, it should be > 0");
+	});
+});
+
+describe('The getInvertedRepeat method is supposed to get the current color of inverted repeats', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getInvertedRepeatColor method is supposed to be a function', function(){
+		expect(typeof ali.getInvertedRepeatColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getInvertedRepeatColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color of inverted repeats which is defined in the defaultConf', function(){
+		var color = ali.getInvertedRepeatColor();
+		expect(color).toEqual(defaultConf.features.supportedFeatures.invertedRepeat.color);
+	});
+	
+});
+
+describe('The setInvertedRepeatColor method is supposed to set a new color for inverted repeats', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setInvertedRepeatColor method is supposed to be a function', function(){
+		expect(typeof ali.setInvertedRepeatColor).toEqual('function');
+	});	
+	it('the returned value of the setInvertedRepeatColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = "#000000";
+		expect(ali.setInvertedRepeatColor(color)).toEqual(color);
+	});	
+	it('when setInvertedRepeatColor is called several times the color should have the same value as the returned color of getInvertedRepeatColor method', function(){
+		ali.setInvertedRepeatColor("#000000");
+		expect(ali.getInvertedRepeatColor()).toEqual("#000000");
+		ali.setInvertedRepeatColor("#36b6cd");
+		expect(ali.getInvertedRepeatColor()).toEqual("#36b6cd");
+		ali.setInvertedRepeatColor("#334e53");
+		expect(ali.getInvertedRepeatColor()).toEqual("#334e53");
+	});
+	it('the setInvertedRepeatColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setInvertedRepeatColor(color);}).toThrow("empty");
+	});
+});
+
+describe('The getRepeatColor method is supposed to get the current color of repeats', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getRepeatColor method is supposed to be a function', function(){
+		expect(typeof ali.getRepeatColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getRepeatColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color ofrepeats which is defined in the defaultConf', function(){
+		var color = ali.getRepeatColor();
+		expect(color).toEqual(defaultConf.features.supportedFeatures.repeat.color);
+	});
+	
+});
+
+describe('The setRepeatColor method is supposed to set a new color for  repeats', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setRepeatColor method is supposed to be a function', function(){
+		expect(typeof ali.setRepeatColor).toEqual('function');
+	});	
+	it('the returned value of the setRepeatColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = "#000000";
+		expect(ali.setRepeatColor(color)).toEqual(color);
+	});	
+	it('when setRepeatColor is called several times the color should have the same value as the returned color of getRepeatColor method', function(){
+		ali.setRepeatColor("#000000");
+		expect(ali.getRepeatColor()).toEqual("#000000");
+		ali.setRepeatColor("#36b6cd");
+		expect(ali.getRepeatColor()).toEqual("#36b6cd");
+		ali.setRepeatColor("#334e53");
+		expect(ali.getRepeatColor()).toEqual("#334e53");
+	});
+	it('the setRepeatColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setRepeatColor(color);}).toThrow("empty");
+	});
+});
+
+describe('The getNStretchColor method is supposed to get the current color of NStretchs', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getNStretchColor method is supposed to be a function', function(){
+		expect(typeof ali.getNStretchColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getNStretchColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color ofNStretchs which is defined in the defaultConf', function(){
+		var color = ali.getNStretchColor();
+		expect(color).toEqual(defaultConf.features.supportedFeatures.nStretch.color);
+	});
+	
+});
+
+describe('The setNStretchColor method is supposed to set a new color for  NStretchs', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setNStretchColor method is supposed to be a function', function(){
+		expect(typeof ali.setNStretchColor).toEqual('function');
+	});	
+	it('the returned value of the setNStretchColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var color = "#000000";
+		expect(ali.setNStretchColor(color)).toEqual(color);
+	});	
+	it('when setNStretchColor is called several times the color should have the same value as the returned color of getNStretchColor method', function(){
+		ali.setNStretchColor("#000000");
+		expect(ali.getNStretchColor()).toEqual("#000000");
+		ali.setNStretchColor("#36b6cd");
+		expect(ali.getNStretchColor()).toEqual("#36b6cd");
+		ali.setNStretchColor("#334e53");
+		expect(ali.getNStretchColor()).toEqual("#334e53");
+	});
+	it('the setNStretchColor method should throw an error message if the assigned color is empty', function(){
+		var color = "";
+		expect(function(){ali.setNStretchColor(color);}).toThrow("empty");
+	});
+});
+
+describe("The getMaxChromosomeLength method is supposed to return the value of the longest chromosome", function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getMaxChromosomeLength method is supposed to be a function', function(){
+		expect(typeof ali.getMaxChromosomeLength).toEqual('function');
+	});	
+	it('the returned value of the getMacChromosomeLength method should should return a defined value', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var maxLength = ali.getMaxChromosomeLength();
+		expect(ali.setNStretchColor(maxLength)).toEqual(maxLength);
+	});	
+	it('the function should return the value of the longest chromosome', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var maxLength = ali.getMaxChromosomeLength()
+		expect(maxLength).toEqual(2000);
+	});
+});
