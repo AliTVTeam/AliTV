@@ -1681,6 +1681,48 @@ describe('The setFeatureInvisible method is supposed to push a feature to ali.fi
 	it('setFeatureInvisible method is supposed to be a function', function(){
 		expect(typeof ali.setFeatureInvisible).toEqual('function');
 	});
+	it('the method is assigned with an id of a feature, the feature is pushed to ali.fiters.features.invisibleFeatures', function(){
+		ali.setData({karyo: karyo13, links: links, features: features21});
+		ali.setFilters(filters19);
+		var featureID = "f1_gene_c1_gi";
+		var expectedInvisibleFeatures = {"f1_gene_c1_gi": {'karyo': 'c1_gi', 'start': 100, 'end': 200, 'name': "f1"}};
+		expect(ali.setFeatureInvisible(featureID)).toEqual(expectedInvisibleFeatures);
+	})
+});
+
+describe('The getInvisibleFeatures mehtod is supposed to count the elements in ali.filters.features.invisibleFeatures and return them as a number', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getInvisibleFeatures method is supposed to be a function', function(){
+		expect(typeof ali.getInvisibleFeatures).toEqual('function');
+	});
+	it('the getInvisibleFeatures method returns the number of features which are set invisible', function(){
+		ali.setData({karyo: karyo13, links: links, features: features21});
+		ali.setFilters(filters19);
+		ali.setFeatureInvisible("f1_gene_c1_gi");
+		ali.setFeatureInvisible("f2_gene_c2_gi");
+		var invisibleFeatures = ali.getInvisibleFeatures();
+		expect(invisibleFeatures).toEqual(2);
+	})
+});
+
+describe('The showInvisibleFeature method is supposed to restore a selected feature which is set invisible', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('showInvisibleFeature method is supposed to be a function', function(){
+		expect(typeof ali.showInvisibleFeature).toEqual('function');
+	});
+	it('the showInvisibleFeature method is supposed to remove invisibleFeatures from ali.filters.features.invisibleFeatures', function(){
+		ali.setData({karyo: karyo13, links: links, features: features21});
+		ali.setFilters(filters19);
+		ali.setFeatureInvisible("f1_gene_c1_gi");
+		ali.setFeatureInvisible("f2_gene_c2_gi");
+		var invisibleFeatures = ali.getInvisibleFeatures();
+		expect(invisibleFeatures).toEqual(2);
+		ali.showInvisibleFeature("f1_gene_c1_gi");
+		invisibleFeatures = ali.getInvisibleFeatures();
+		expect(invisibleFeatures).toEqual(1);
+	})
 });
 
 describe('The removeLinksOutsideVisibleRegion method is supposed to remove links outside the visible region', function(){
@@ -1906,3 +1948,124 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
 	});
 });
+
+describe('The changeChromosomeVisibility method is supposed to set a selected chromosome invisible', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	beforeEach(function(done){
+		ali.setData({karyo: karyo14, links: links, features: features21});
+		ali.setFilters(filters20);
+		var chromosomeName = "species_1";
+		ali.changeChromosomeVisibility(chromosomeName);
+		done();
+	});
+	it('changeChromosomeVisibility method is supposed to be a function', function(){
+		expect(typeof ali.changeChromosomeVisibility).toEqual('function');
+	});
+	it("the method is supposed to set the visibility of a selected chromosome equal false", function(){
+		setTimeout(function(){
+			expect(ali.filters.karyo.chromosomes["c1_gi"].visible).toEqual(false);		
+			done();
+		}, 1000);
+	});
+});
+
+describe('The getInvisibleChromosomes method is supposed to count all chromosomes which are set invisible', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getInvisibleChromosomes method is supposed to be a function', function(){
+		expect(typeof ali.getInvisibleChromosomes).toEqual('function');
+	});
+	it("the method is supposed to return the number of all chromosomes which are set invisible", function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c1"].visible = false;
+		expect(ali.getInvisibleChromosomes()).toEqual(1);
+	});
+});
+
+describe('The changeGenomeOrder method is supposed to change the order of the genomes in filters.karyo.chromosomes.genome_order', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('changeGenomeOrder method is supposed to be a function', function(){
+		expect(typeof ali.changeGenomeOrder).toEqual('function');
+	});
+	it('the method is supposed to change the order of two genomes in the testdata by pushing down', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var expectedOrder = [1, 0];
+		var order = ali.changeGenomeOrder(1, -1);
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of three genomes in the testdata by pushing up', function(){
+		ali.setData({karyo: karyo3, links: links, features: features});
+		ali.setFilters(filters3);
+		var expectedOrder = [0, 2, 1];
+		var order = ali.changeGenomeOrder(2, 1);
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of three genomes in the testdata by pushing down', function(){
+		ali.setData({karyo: karyo9, links: links, features: features});
+		ali.setFilters(filters3);
+		var expectedOrder = [1, 2, 0];
+		var order = ali.changeGenomeOrder(0, 1);
+		expect(expectedOrder).toEqual(order);
+	});
+});
+
+describe('The changeChromosomeOrientation method is supposed to change the orientation of an assigned chromosome', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('changeChromosomeOrientation method is supposed to be a function', function(){
+		expect(typeof ali.changeChromosomeOrientation).toEqual('function');
+	});
+	it("the method is supposed to set the orientation of the assigned chromosome from reverse equal false to reverse equal true", function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c1"].reverse = false;
+		expect(ali.changeChromosomeOrientation("c1")).toEqual(true);
+	});
+	it("the method is supposed to set the orientation of the assigned chromosome from reverse equal true to reverse equal false", function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c2"].reverse = true;
+		expect(ali.changeChromosomeOrientation("c2")).toEqual(false);
+	});
+});
+
+describe('The changeChromosomeOrder method is supposed to change the order of chromosomes for one genome', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('changeChromosomeOrder method is supposed to be a function', function(){
+		expect(typeof ali.changeChromosomeOrder).toEqual('function');
+	});
+	it('the method is supposed to change the order of three chromosomes in the testdata', function(){
+		ali.setData({karyo: karyo2, links: links, features: features});
+		ali.setFilters(filters3);
+		var expectedOrder = ["c1", "c3", "c2"];
+		var order = ali.changeChromosomeOrder("c3", -1);
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of more chromosomes on the destdata', function(){
+		ali.setData({karyo: karyo12, links: links, features: features});
+		ali.setFilters(filters17);
+		var expectedOrder = ["c1", "c3", "c2", "c4", "c5"];
+		var order = ali.changeChromosomeOrder("c2", 1);
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of two chromosomes on the testdata', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var expectedOrder = ["c1", "c2"];
+		var order = ali.changeChromosomeOrder("c1", 1);
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of one chromosomes on the testdata', function(){
+		ali.setData({karyo: karyo8, links: links, features: features});
+		ali.setFilters(filters10);
+		var expectedOrder = ["c2", "c1", "c3", "c4", "c5", "c6", "c7"];
+		var order = ali.changeChromosomeOrder("c1", -1);
+		expect(expectedOrder).toEqual(order);
+	});
+});
+

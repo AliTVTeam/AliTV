@@ -414,8 +414,14 @@ AliTV.prototype.setFilters = function(filters) {
 	if (this.filters.links === undefined) {
 		this.filters.links = {};
 	}
+	if (this.filters.features === undefined) {
+		this.filters.features = {};
+	}
 	if (this.filters.links.invisibleLinks === undefined) {
 		this.filters.links.invisibleLinks = {};
+	}
+	if (this.filters.features.invisibleFeatures === undefined) {
+		this.filters.features.invisibleFeatures = {};
 	}
 };
 
@@ -581,6 +587,15 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 	var that = this;
 
+	function dragEvent() {
+		that.svgD3.selectAll('.karyoGroup')
+			.attr("x", d3.event.x - parseInt(that.svgD3.selectAll('.karyoGroup').attr("width")) / 2)
+			.attr("y", d3.event.y - parseInt(that.svgD3.selectAll('.karyoGroup').attr("height")) / 2);
+	}
+
+	var drag = d3.behavior.drag()
+		.on("drag", dragEvent);
+
 	that.svgD3.selectAll(".karyoGroup").remove();
 	that.getAlignmentRegion().append("g")
 		.attr("class", "karyoGroup")
@@ -590,7 +605,7 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 		.append("rect")
 		.attr("class", "karyo")
 		.attr("id", function(d) {
-			return that.data.karyo.chromosomes[d.karyo].genome_id;
+			return that.data.karyo.chromosomes[d.karyo].genome_id + ", " + d.karyo;
 		})
 		.attr("x", function(d) {
 			if (d.width < 0) {
@@ -615,12 +630,13 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			that.fadeLinks(g, 1);
 		})
 		.on("click", function(g) {
-			that.filters.karyo.chromosomes[g.karyo].reverse = !that.filters.karyo.chromosomes[g.karyo].reverse;
+			that.changeChromosomeOrientation(g.karyo);
 			that.drawLinear();
 		})
 		.style("fill", function(d) {
 			return that.colorKaryoByGenomeId(that.data.karyo.chromosomes[d.karyo].genome_id);
-		});
+		})
+		.call(drag);
 };
 
 /**
@@ -863,6 +879,7 @@ AliTV.prototype.drawLinear = function() {
 	this.clearAli();
 	this.getAlignmentRegion().remove();
 	this.getAlignmentRegion();
+
 	var karyoCoords = this.getLinearKaryoCoords();
 	var linearTickCoords = this.getLinearTickCoords(karyoCoords);
 	this.drawLinearTicks(linearTickCoords);
@@ -1877,7 +1894,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 					"id": value.name,
 					"type": type,
 					"y": currentY,
-					"height": featureStyle.height,
+					"height": that.conf.graphicalParameters.karyoHeight,
 					"karyo": value.karyo
 				};
 
@@ -1894,25 +1911,25 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				currentFeature.path = [];
 				currentFeature.path.push({
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + 1 / 5 * featureStyle.height
+					y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
 				}, {
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + 1 / 5 * featureStyle.height
+					y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
 				}, {
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
 					y: currentY
 				}, {
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + 1 / 2 * featureStyle.height
+					y: currentY + 1 / 2 * that.conf.graphicalParameters.karyoHeight
 				}, {
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + featureStyle.height
+					y: currentY + that.conf.graphicalParameters.karyoHeight
 				}, {
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + featureStyle.height - 1 / 5 * featureStyle.height
+					y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
 				}, {
 					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + featureStyle.height - 1 / 5 * featureStyle.height
+					y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
 				});
 				linearFeatureCoords.push(currentFeature);
 			}
@@ -2009,6 +2026,12 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 					return color;
 				}
 			}
+		})
+		.style("display", function(d) {
+			var featureId = d.id + "_" + d.type + "_" + d.karyo;
+			if (featureId in that.filters.features.invisibleFeatures) {
+				return "none";
+			}
 		});
 
 
@@ -2045,6 +2068,12 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 					} else {
 						color = that.conf.features.supportedFeatures[d.type].color;
 						return color;
+					}
+				})
+				.style("display", function(d) {
+					var featureId = d.id + "_" + d.type + "_" + d.karyo;
+					if (featureId in that.filters.features.invisibleFeatures) {
+						return "none";
 					}
 				});
 		});
@@ -2441,13 +2470,13 @@ AliTV.prototype.setTickLabelSize = function(size) {
 };
 
 /**
- * This function gets a selected link and pushes it to ali.filters.links.selectedLinks.
- * The function marks all links, which are set invisible.
+ * This function gets the id of a selected link, hides it and pushes it to ali.filters.links.selectedLinks.
  * @param selectedLinkID: gets the id of the selected link
- * @returns ali.filters.links.invisibleLinks: returns the links which are invisible in the current settings.
+ * @returns ali.filters.links.invisibleLinks: returns the links which are invisible in the current settings of ali.filters.links.invisibleLinks.
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.setLinkInvisible = function(selectedLinkID) {
+	$("#" + selectedLinkID).hide();
 	var selectedLink = this.visibleLinks[selectedLinkID];
 	this.filters.links.invisibleLinks[selectedLinkID] = selectedLink;
 	return this.filters.links.invisibleLinks;
@@ -2475,11 +2504,7 @@ AliTV.prototype.getInvisibleLinks = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.showInvisibleLink = function(selectedLinkID) {
-	$("#" + selectedLinkID).each(function() {
-		if ($(this).css("display") === "none" && $(this).attr("id") === selectedLinkID) {
-			$(this).show();
-		}
-	});
+	$("#" + selectedLinkID).show();
 	delete this.filters.links.invisibleLinks[selectedLinkID];
 	return this.filters.links.invisibleLinks;
 };
@@ -2522,14 +2547,47 @@ AliTV.prototype.clearAli = function() {
  * @returns ali.filters.features.invisibleFeatures: returns the features which are invisible in the current settings.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.setFeatureInvisible = function(featureId, group, karyo) {
-	var that = this;
 
-	$.each(this.data.features[group], function(key, value) {
-		if (karyo === value.name) {
-			that.filters.features.invisibleFeatures[featureId] = value;
+AliTV.prototype.setFeatureInvisible = function(feature) {
+	var that = this;
+	$("#" + feature).hide();
+	var split = feature.split("_");
+	var featureId = split[0];
+	var group = split[1];
+	var karyo = split[2] + "_" + split[3];
+	$.each(that.data.features[group], function(key, value) {
+		if (value.karyo === karyo && value.name === featureId) {
+			that.filters.features.invisibleFeatures[feature] = value;
 		}
 	});
+	return that.filters.features.invisibleFeatures;
+};
+
+/**
+ * This functions gets the number of all features which are in ali.filters.features.invisibleFeatures
+ * @returns invisibleFeatureSize: the number of all features which are invisible.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getInvisibleFeatures = function() {
+	var keylist = [];
+	$.each(this.filters.features.invisibleFeatures, function(key, value) {
+		keylist.push(key);
+	});
+	var invisibleFeatureSize = keylist.length;
+	return invisibleFeatureSize;
+};
+
+/**
+ * This function is supposed to get the ID of a selected feature, which is hidden and should be restored.
+ * The function show the hidden feature and delete it from the invisibleFeatures-object in ali.filters.features.invisibleFeatures
+ * @param selectedFeatureId: the Id of the features which should be restored.
+ * @returns ali.filters.features.invisibleFeatures: the current features which are set invisible.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.showInvisibleFeature = function(selectedFeatureId) {
+	$("#" + selectedFeatureId).show();
+	delete this.filters.features.invisibleFeatures[selectedFeatureId];
+	return this.filters.features.invisibleFeatures;
 };
 
 /**
@@ -2615,4 +2673,106 @@ AliTV.prototype.updateGenomeRegionBySvgRect = function(rect) {
 			region.end = transformToGenomeScale(rect.x + rect.width);
 		}
 	}
+};
+
+/**	
+ * This function is supposed to change the visibility of a selected chromosome.
+ * The function gets the name of a chromosome and set his visibility in filters.karyo.chromosomes equal false or true.
+ * @param {String} chromosomeName: the name of the selected chromosome.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.changeChromosomeVisibility = function(chromosomeName) {
+	var that = this;
+	var chromosomeId;
+	$.each(that.data.karyo.chromosomes, function(key, value) {
+		if (chromosomeName === value.genome_id) {
+			chromosomeId = key;
+		}
+	});
+	that.filters.karyo.chromosomes[chromosomeId].visible = !that.filters.karyo.chromosomes[chromosomeId].visible;
+	return that.filters.karyo.chromosomes;
+};
+
+/**
+ * This functions gets the number of all chromosomes which are set invisible.
+ * @returns invisibleChromosomeSize: the number of all chromosomes which are invisible.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getInvisibleChromosomes = function() {
+	var invisibleChromosomeSize = 0;
+	$.each(this.filters.karyo.chromosomes, function(key, value) {
+		if (value.visible === false) {
+			invisibleChromosomeSize = invisibleChromosomeSize + 1;
+		}
+	});
+	return invisibleChromosomeSize;
+};
+
+/**
+ * This function is supposed to swap a genome with its adjacent genomes according to the order of all genomes which is defined in ali.filters.karyo.genome_order.
+ * @param {String} name: the name of the selected genome.
+ * @param {Number} value: +1 or -1. The number defines if the genome is moved one genome up or down.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.changeGenomeOrder = function(name, value) {
+	var that = this;
+	var genomePosition = that.filters.karyo.genome_order.indexOf(name);
+	var tmp;
+	if ((genomePosition !== 0 || (genomePosition === 0 && value === -1)) && (genomePosition !== (that.filters.karyo.genome_order.length - 1) || (genomePosition === (that.filters.karyo.genome_order.length - 1) && value === +1))) {
+		var adjacentGenomePosition = genomePosition - value;
+		tmp = that.filters.karyo.genome_order[genomePosition];
+		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[adjacentGenomePosition];
+		that.filters.karyo.genome_order[adjacentGenomePosition] = tmp;
+	} else if (genomePosition === 0 && value === +1) {
+		tmp = that.filters.karyo.genome_order[genomePosition];
+		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[(that.filters.karyo.genome_order.length - 1)];
+		that.filters.karyo.genome_order[(that.filters.karyo.genome_order.length - 1)] = tmp;
+	} else {
+		tmp = that.filters.karyo.genome_order[genomePosition];
+		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[0];
+		that.filters.karyo.genome_order[0] = tmp;
+	}
+	return that.filters.karyo.genome_order;
+};
+
+/**
+ * This function is supposed to change the orientation of an assigned chromosome from reverse equal false or reverse equal true.
+ * @param {String} chromosome: the selected chromosome which orientation should be changed.
+ * @retrun {String} ali.filters: return the current settings for the filters.
+ * @author {Sonja Hohlfeld}
+ */
+AliTV.prototype.changeChromosomeOrientation = function(chromosome) {
+	this.filters.karyo.chromosomes[chromosome].reverse = !this.filters.karyo.chromosomes[chromosome].reverse;
+	return this.filters.karyo.chromosomes[chromosome].reverse;
+};
+
+/**
+ * This function is supposed to change the order of chromosomes according to their genome.
+ * If a genome has only one chromosomes it is not possible to change the order.
+ * @param id: The name of the selected chromosome.
+ * @param value: +1 (moves right) and -1 (moves left).
+ * @author: Sonja Hohlfeld
+ */
+AliTV.prototype.changeChromosomeOrder = function(id, value) {
+	var that = this;
+	var chromosomePosition = that.filters.karyo.order.indexOf(id);
+	var order = that.filters.karyo.order;
+	var i;
+
+	if (value === +1) {
+		i = (chromosomePosition + 1) % order.length;
+		while (that.data.karyo.chromosomes[order[i]].genome_id !== that.data.karyo.chromosomes[id].genome_id) {
+			i = (i + 1) % order.length;
+		}
+	} else if (value === -1) {
+		i = chromosomePosition - 1;
+		i = (i === -1 ? order.length - 1 : i);
+		while (that.data.karyo.chromosomes[order[i]].genome_id !== that.data.karyo.chromosomes[id].genome_id) {
+			i = (i === 0 ? order.length - 1 : (i - 1));
+		}
+	}
+	var tmp = order[i];
+	order[i] = order[chromosomePosition];
+	order[chromosomePosition] = tmp;
+	return that.filters.karyo.order;
 };
