@@ -875,6 +875,8 @@
             build: function($trigger, e) {
                 	var name = ($(e.target).attr("id"));
                 	var identity = ali.visibleLinks[name].identity;
+                	//Remove selection rect if exists
+                	ali.svgD3.selectAll("rect.selection").remove();
                 return { 
                     items: {
                     	"name": {name: "Link: " + name},
@@ -906,6 +908,8 @@
                 	var featureId = split[0];
                 	var group = split[1];
                 	var karyo = split[2] + "_" + split[3];
+                	//Remove selection rect if exists
+                	ali.svgD3.selectAll("rect.selection").remove();
                 return { 
                     items: {
                     	"name": {name: "Name: " + featureId},
