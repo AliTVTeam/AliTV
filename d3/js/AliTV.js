@@ -2642,10 +2642,35 @@ AliTV.prototype.changeChromosomeOrientation = function(chromosome) {
 /**
  * This function is supposed to change the order of chromosomes according to their genome.
  * If a genome has only one chromosomes it is not possible to change the order.
- * @param name: The name of the selected chromosome.
+ * @param id: The name of the selected chromosome.
  * @param value: +1 or -1, the value defines if the chromosome is moved left or right.
  * @author: Sonja Hohlfeld
  */
-AliTV.prototype.changeChromosomeOrder = function(name, value) {
-
+AliTV.prototype.changeChromosomeOrder = function(id, value) {
+	var that = this;
+	var tmp;
+	var i;
+	var chromosomePosition = that.filters.karyo.order.indexOf(id);
+	if (that.data.karyo.chromosomes[that.filters.karyo.order[chromosomePosition + value]].genome_id === that.data.karyo.chromosomes[id].genome_id) {
+		tmp = that.filters.karyo.order[chromosomePosition + value];
+		that.filters.karyo.order[chromosomePosition + value] = that.filters.karyo.order[chromosomePosition];
+		that.filters.karyo.order[chromosomePosition] = tmp;
+	} else if (value === 1 && that.data.karyo.chromosomes[that.filters.karyo.order[chromosomePosition + value]].genome_id !== that.data.karyo.chromosomes[id].genome_id) {
+		i = chromosomePosition;
+		while (that.data.karyo.chromosomes[that.filters.karyo.order[i]].genome_id === that.data.karyo.chromosomes[id].genome_id) {
+			i = i - 1;
+		}
+		tmp = that.filters.karyo.order[i];
+		that.filters.karyo.order[i] = that.filters.karyo.order[chromosomePosition];
+		that.filters.karyo.order[chromosomePosition] = tmp;
+	} else if (value === -1 && that.data.karyo.chromosomes[that.filters.karyo.order[chromosomePosition + value]].genome_id !== that.data.karyo.chromosomes[id].genome_id) {
+		i = chromosomePosition;
+		while (that.data.karyo.chromosomes[that.filters.karyo.order[i]].genome_id === that.data.karyo.chromosomes[id].genome_id) {
+			i = i + 1;
+		}
+		tmp = that.filters.karyo.order[i];
+		that.filters.karyo.order[i] = that.filters.karyo.order[chromosomePosition];
+		that.filters.karyo.order[chromosomePosition] = tmp;
+	}
+	return that.filters.karyo.order;
 };
