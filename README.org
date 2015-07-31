@@ -80,6 +80,13 @@ hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/AliT
 #+LaTeX_HEADER: \setlength{\parskip}{1.5ex}
 #+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
 ** Changelog
+*** 0.3 <2015-07-31 Fr>
+ - Show selected genome regions (independent)
+ - Horizontal scroll bar
+ - Add complete tab structure for the interface
+ - Add context menus for chromosomes, features and links
+ - Allow reordering of genomes and chromosomes by using the context menus
+ - Allow specific hiding of features, links and chromosomes
 *** 0.2.1 <2015-07-16 Do>
  - Added MIT License
  - Included License information for third party libraries
