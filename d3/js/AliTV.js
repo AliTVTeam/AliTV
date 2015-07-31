@@ -250,9 +250,86 @@ function AliTV(svg) {
 			}
 		}
 	};
+	/**
+	 * property to cache calculated values
+	 * @property {Object}  cache                      				 - the data dependent displaying information
+	 * @property {Object}  cache.linear                        		 - the chromosome dependent displaying information
+	 * @property {Object}  cache.linear.maxGenomeSize	      		 - the chromosome dependent displaying information
+	 */
+	this.cache = {
+		'linear': {}
+	};
 	// Initialize svg size
 	this.setSvgWidth(this.getCanvasWidth());
 	this.setSvgHeight(this.getCanvasHeight());
+	var that = this;
+	// add mouse event handlers for the selection rect (inspired by http://bl.ocks.org/lgersman/5311083)
+	this.svgD3.on("mousedown", function() {
+		// only procede in the linear case and if no selection rect exists.
+		if (that.conf.layout !== "linear" || that.svgD3.selectAll("rect.selection").size() > 0) {
+			return;
+		}
+		var p = d3.mouse(this);
+		that.svgD3.append("rect")
+			.attr({
+				rx: 6,
+				ry: 6,
+				class: "selection",
+				x: p[0],
+				y: p[1],
+				width: 0,
+				height: 0
+			});
+	}).on("mousemove", function() {
+		var s = that.svgD3.select("rect.selection");
+		if (!s.empty()) {
+			var p = d3.mouse(this),
+				d = {
+					x: Number(s.attr("x")),
+					y: Number(s.attr("y")),
+					width: Number(s.attr("width")),
+					height: Number(s.attr("height"))
+				},
+				move = {
+					x: p[0] - d.x,
+					y: p[1] - d.y
+				};
+
+			// this somewhat strange code is required to correct for lag between multiple calls from mousemove
+			// this code is likely executed more than once concurrently when the mouse pointer is moved too fast.
+			// therefore the selection box may loose the right coordinates if the mouse is moved rapidly.
+			if (move.x < 1 || (move.x * 2 < d.width)) {
+				d.x = p[0];
+				d.width -= move.x;
+			} else {
+				d.width = move.x;
+			}
+
+			if (move.y < 1 || (move.y * 2 < d.height)) {
+				d.y = p[1];
+				d.height -= move.y;
+			} else {
+				d.height = move.y;
+			}
+
+			s.attr(d);
+		}
+	}).on("mouseup", function() {
+		var s = that.svgD3.selectAll("rect.selection");
+		if (s.size() > 0) {
+			var rect = {
+				x: Number(s.attr("x")),
+				y: Number(s.attr("y")),
+				width: Number(s.attr("width")),
+				height: Number(s.attr("height"))
+			};
+			if (rect.width >= 10) {
+				that.updateGenomeRegionBySvgRect(rect);
+				that.drawLinear();
+			}
+			s.remove();
+		}
+	});
 }
 
 /**
@@ -346,6 +423,7 @@ AliTV.prototype.setFilters = function(filters) {
  * Calculates coordinates for the chromosomes to draw in the linear layout.
  * This function operates on the data property of the object and therefore needs no parameters.
  * This function is primarily meant for internal usage, the user should not need to call this directly.
+ * The function also updates the value cache.linear.maxGenomeSize
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  * @returns {Array} Array containing one Object for each element in data.karyo of the form {karyo: 'karyo_name', x:0, y:0, width:10, height:10}
  */
@@ -372,6 +450,7 @@ AliTV.prototype.getLinearKaryoCoords = function() {
 		total[genome_order.indexOf(value.genome_id)] += value.length + conf.graphicalParameters.karyoDistance;
 	});
 	var maxTotalSize = Math.max.apply(null, total);
+	that.cache.linear.maxGenomeSize = maxTotalSize;
 
 	// Calculate genome specific scales
 	var getGenomeScale = function(gid) {
@@ -2459,7 +2538,6 @@ AliTV.prototype.setFeatureInvisible = function(featureId, group, karyo) {
  * @returns {Object} internal alignmentRegion g as d3 selection.
  * @author Markus Ankenbrand
  */
-
 AliTV.prototype.getAlignmentRegion = function() {
 	var alignmentRegion = this.svgD3.selectAll(".alignmentRegion");
 	if (alignmentRegion.size() < 1) {
@@ -2490,7 +2568,6 @@ AliTV.prototype.getAlignmentRegion = function() {
  * @returns {Array} - filtered linearLinkCoords
  * @author Markus Ankenbrand
  */
-
 AliTV.prototype.removeLinksOutsideVisibleRegion = function(linkCoords, removeHalfVisible) {
 	var filteredCoords = [];
 	var canvasWidth = this.getCanvasWidth();
@@ -2508,4 +2585,34 @@ AliTV.prototype.removeLinksOutsideVisibleRegion = function(linkCoords, removeHal
 		}
 	});
 	return filteredCoords;
+};
+
+/**
+ * This function updates the genome_region filter according to the specified region on the svg
+ * @param {Object}  - rect an object with properties x, y, width and height (relative to the svg)
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.updateGenomeRegionBySvgRect = function(rect) {
+	var that = this;
+	var distance = that.getGenomeDistance();
+	var karyoHeight = that.getKaryoHeight();
+	if (typeof that.filters.karyo.genome_region === 'undefined') {
+		that.filters.karyo.genome_region = {};
+	}
+	for (var i = 0; i < that.filters.karyo.genome_order.length; i++) {
+		var genome = that.filters.karyo.genome_order[i];
+		if (typeof that.filters.karyo.genome_region[genome] === 'undefined') {
+			that.filters.karyo.genome_region[genome] = {};
+		}
+		var yPosCurrentGenome = i * distance + karyoHeight / 2;
+		if (yPosCurrentGenome >= rect.y && yPosCurrentGenome <= rect.y + rect.height) {
+			var region = that.filters.karyo.genome_region[genome];
+			var start = (region.start || 0);
+			var end = (region.end || that.cache.linear.maxGenomeSize + start);
+			var translateX = d3.transform(that.svgD3.select('.alignmentRegion').attr("transform")).translate[0];
+			var transformToGenomeScale = d3.scale.linear().domain([0 + translateX, that.getCanvasWidth() + translateX]).range([start, end]);
+			region.start = transformToGenomeScale(rect.x);
+			region.end = transformToGenomeScale(rect.x + rect.width);
+		}
+	}
 };

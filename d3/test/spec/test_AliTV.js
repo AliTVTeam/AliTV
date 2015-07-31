@@ -92,6 +92,13 @@ describe('The getLinearKaryoCoords method of AliTV objects is supposed to calcul
         ];
 		expect(linearKaryoCoords).toEqual(expectedCoords);
 	});
+	it('getLinearKaryoCoords method is supposed to set the maxGenomeSize in cache (2 genomes, 2 chromosomes)', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var expectedMaxGenomeSize = 2000;
+		expect(ali.cache.linear.maxGenomeSize).toEqual(expectedMaxGenomeSize);
+	});
 	it('getLinearKaryoCoords method is supposed to work with simple test data (2 genomes, 3 chromosomes)', function(){
 		ali.setData(data2);
 		ali.setFilters(filters2);
@@ -1694,5 +1701,208 @@ describe('The removeLinksOutsideVisibleRegion method is supposed to remove links
 	});
 	it('removeLinksOutsideVisibleRegion method filters links half outside region if requested', function(){
 		expect(filteredHalf).toEqual([linearLinkCoords[0]]);
+	});
+});
+
+describe('Mousedown inside of the svg should append a selection rect if layout is linear', function(){
+	it('in the linear layout exactly one selection rect should be added', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.svg.d3Trigger("mousedown");
+		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(1);
+	});
+	it('in the linear layout exactly one selection rect should be added even after multiple mousedowns', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.svg.d3Trigger("mousedown");
+		ali.svg.d3Trigger("mousedown");
+		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(1);
+	});
+	it('the second mousedown should preserve the x and y coordinates of the first one', function(){
+		// If the mouseup event happens outside the svg the selection rect remains and keeps adjusting to mousemove
+		// Often the click is only used to trigger a new mouseup in this case the new coordinates should not be set as start for the selection rect.
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var xOld=342,xNew=234,yOld=23,yNew=892;
+		ali.svg.d3TriggerAt("mousedown",xOld,yOld);
+		ali.svg.d3TriggerAt("mousedown",xNew,yNew);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("x"))).toEqual(xOld);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("y"))).toEqual(yOld);
+	});
+	it('the selection rect should have the same x and y coordinates as the mousedown event', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var x = 17;
+		var y = 39;
+		ali.svg.d3TriggerAt("mousedown", x, y);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("x"))).toEqual(x);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("y"))).toEqual(y);
+	});
+	it('in the circular layout no selection rect should be added', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.conf.layout = "circular";
+		ali.svg.d3Trigger("mousedown");
+		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(0);
+	});
+});
+
+describe('Mousemove inside the svg should modify the selection rect if it exists (linear layout, after mousedown)', function(){
+	it('the width and height should correspond to the coordinates of mousedown and mousemove', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var xStart = 17;
+		var yStart = 39;
+		var xEnd = 243;
+		var yEnd = 341;
+		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
+		ali.svg.d3TriggerAt("mousemove", xEnd, yEnd);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("x"))).toEqual(Math.min(xStart, xEnd));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("y"))).toEqual(Math.min(yEnd, yStart));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("width"))).toEqual(Math.abs(xEnd - xStart));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("height"))).toEqual(Math.abs(yEnd - yStart));
+	});
+	it('the width and height should correspond to the coordinates of mousedown and mousemove also when negative', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var xStart = 325;
+		var yStart = 332;
+		var xEnd = 23;
+		var yEnd = 71;
+		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
+		ali.svg.d3TriggerAt("mousemove", xEnd, yEnd);
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("x"))).toEqual(Math.min(xStart, xEnd));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("y"))).toEqual(Math.min(yEnd, yStart));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("width"))).toEqual(Math.abs(xEnd - xStart));
+		expect(Number(ali.svgD3.selectAll("rect.selection").attr("height"))).toEqual(Math.abs(yEnd - yStart));
+	});
+});
+
+describe('Mouseup updates filters to set genome_region appropriatly, selection rect is removed', function(){
+	it('the mouseup event removes all selection rects', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.drawLinear();
+		var xStart = 17;
+		var yStart = 39;
+		var xEnd = 243;
+		var yEnd = 341;
+		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
+		ali.svg.d3Trigger("mousemove");
+		ali.svg.d3TriggerAt("mouseup", xEnd, yEnd);
+		expect(ali.svgD3.selectAll("rect.selection").size()).toEqual(0);
+	});
+	it('the mouseup event updates the filters according to the selection rect', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		var xStart = 0;
+		var yStart = 0;
+		var xEnd = 500;
+		var yEnd = 500;
+		ali.svg.d3TriggerAt("mousedown", xStart, yStart);
+		ali.svg.d3TriggerAt("mousemove", xEnd, yEnd);
+		ali.svg.d3TriggerAt("mouseup", xEnd, yEnd);
+		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["0"].end).toEqual(1000);
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
+	});
+});
+
+describe('The updateGenomeRegionBySvgRect method is supposed to update genome_region filters according to a rect on the svg', function(){
+	it('updateGenomeRegionBySvgRect method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.updateGenomeRegionBySvgRect).toEqual('function');
+	});
+	it('updateGenomeRegionBySvgRect updates genome_region filters in a simple case (2 genomes, 2 chromosomes)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		var selection = {x:0, y:0, width:500, height: 500};
+		ali.updateGenomeRegionBySvgRect(selection);
+		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["0"].end).toEqual(1000);
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
+	});
+	it('updateGenomeRegionBySvgRect should not work if no karyo is in the y range', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		var selection = {x:0, y:250, width:500, height: 500};
+		ali.updateGenomeRegionBySvgRect(selection);
+		expect(typeof ali.filters.karyo.genome_region["0"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["0"].end).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
+	});
+	it('updateGenomeRegionBySvgRect should work for multiple genomes in the y range', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		var selection = {x:0, y:0, width:500, height: 1000};
+		ali.updateGenomeRegionBySvgRect(selection);
+		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["0"].end).toEqual(1000);
+		expect(ali.filters.karyo.genome_region["1"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["1"].end).toEqual(1000);
+	});
+	it('updateGenomeRegionBySvgRect should work for already set filters (apply twice consecutively)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		var selection = {x:0, y:0, width:500, height: 500};
+		ali.updateGenomeRegionBySvgRect(selection);
+		ali.updateGenomeRegionBySvgRect(selection);
+		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["0"].end).toEqual(500);
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
+	});
+	it('updateGenomeRegionBySvgRect should work when alignmentRegion is transformed', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = true;
+		ali.drawLinear();
+		transformX = ali.conf.graphicalParameters.genomeLabelWidth;
+		var selection = {x:transformX, y:0, width:500, height: 500};
+		ali.updateGenomeRegionBySvgRect(selection);
+		expect(ali.filters.karyo.genome_region["0"].start).toEqual(0);
+		expect(ali.filters.karyo.genome_region["0"].end).toEqual(1000);
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
 	});
 });
