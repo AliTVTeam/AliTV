@@ -1843,11 +1843,18 @@ describe('The changeChromosomeOrder method is supposed to change the order of ch
 		var order = ali.changeChromosomeOrder("c2", 1);
 		expect(expectedOrder).toEqual(order);
 	});
-	it('the method is supposed to change the order of more chromosomes on the testdata', function(){
+	it('the method is supposed to change the order of two chromosomes on the testdata', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
 		var expectedOrder = ["c1", "c2"];
 		var order = ali.changeChromosomeOrder("c1", 1);
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of one chromosomes on the testdata', function(){
+		ali.setData({karyo: karyo8, links: links, features: features});
+		ali.setFilters(filters10);
+		var expectedOrder = ["c2", "c1", "c3", "c4", "c5", "c6", "c7"];
+		var order = ali.changeChromosomeOrder("c1", -1);
 		expect(expectedOrder).toEqual(order);
 	});
 });
