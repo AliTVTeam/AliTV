@@ -2638,3 +2638,14 @@ AliTV.prototype.changeChromosomeOrientation = function(chromosome) {
 	this.filters.karyo.chromosomes[chromosome].reverse = !this.filters.karyo.chromosomes[chromosome].reverse;
 	return this.filters.karyo.chromosomes[chromosome].reverse;
 };
+
+/**
+ * This function is supposed to change the order of chromosomes according to their genome.
+ * If a genome has only one chromosomes it is not possible to change the order.
+ * @param name: The name of the selected chromosome.
+ * @param value: +1 or -1, the value defines if the chromosome is moved left or right.
+ * @author: Sonja Hohlfeld
+ */
+AliTV.prototype.changeChromosomeOrder = function(name, value) {
+
+};
