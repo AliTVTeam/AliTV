@@ -1795,7 +1795,7 @@ describe('The changeGenomeOrder method is supposed to change the order of the ge
 		expect(expectedOrder).toEqual(order);
 	});
 	it('the method is supposed to change the order of three genomes in the testdata by pushing down', function(){
-		ali.setData({karyo: karyo3, links: links, features: features});
+		ali.setData({karyo: karyo9, links: links, features: features});
 		ali.setFilters(filters3);
 		var expectedOrder = [1, 2, 0];
 		var order = ali.changeGenomeOrder(0, 1);
@@ -1820,6 +1820,28 @@ describe('The changeChromosomeOrientation method is supposed to change the orien
 		ali.setFilters(filters);
 		ali.filters.karyo.chromosomes["c2"].reverse = true;
 		expect(ali.changeChromosomeOrientation("c2")).toEqual(false);
+	});
+});
+
+describe('The changeChromosomeOrder method is supposed to change the order of chromosomes for one genome', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('changeChromosomeOrder method is supposed to be a function', function(){
+		expect(typeof ali.changeChromosomeOrder).toEqual('function');
+	});
+	it('the method is supposed to change the order of three chromosomes in the testdata', function(){
+		ali.setData({karyo: karyo2, links: links, features: features});
+		ali.setFilters(filters3);
+		var expectedOrder = ["c1", "c3", "c2"];
+		var order = ali.changeChromosomeOrder("c3");
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of more chromosomes on the destdata', function(){
+		ali.setData({karyo: karyo3, links: links, features: features});
+		ali.setFilters(filters3);
+		var expectedOrder = [1, 2, 0];
+		var order = ali.changeChromosomeOrder(0, 1);
+		expect(expectedOrder).toEqual(order);
 	});
 });
 

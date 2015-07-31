@@ -847,6 +847,20 @@
 			                    ali.drawLinear();
 		                    }
 		                },
+		                "left": {
+		                    name: "Move left",
+		                    callback: function(key, options) {
+			                	ali.changeChromosomeOrder(name, +1);
+			                	ali.drawLinear();
+		                    }
+		                },
+		                "right": {
+		                    name: "Move right",
+		                    callback: function(key, options) {
+			                    ali.changeChromosomeOrder(name, -1);
+			                    ali.drawLinear();
+		                    }
+		                },
 		                "Quit": {name: "Quit", callback: $.noop}
                     }
                  };
