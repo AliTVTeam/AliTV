@@ -2680,6 +2680,9 @@ AliTV.prototype.updateGenomeRegionBySvgRect = function(rect) {
  * @param {String}  - genome_id
  * @author Markus Ankenbrand
  */
+AliTV.prototype.resetGenomeRegion = function(genome_id) {
+
+};
 
 /**	
  * This function is supposed to change the visibility of a selected chromosome.
