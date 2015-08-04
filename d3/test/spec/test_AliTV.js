@@ -1949,6 +1949,31 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 	});
 });
 
+describe('The resetGenomeRegion method is supposed to reset the genome_region filter according to the genome_id', function(){
+	it('resetGenomeRegion method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.resetGenomeRegion).toEqual('function');
+	});
+	it('resetGenomeRegion resets genome_region filter after changing it in a simple case (2 genomes, 2 chromosomes)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		var selection = {x:0, y:0, width:500, height: 500};
+		ali.updateGenomeRegionBySvgRect(selection);
+		ali.resetGenomeRegion("0");
+		expect(typeof ali.filters.karyo.genome_region["0"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["0"].end).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
+	});
+});
+
 describe('The changeChromosomeVisibility method is supposed to set a selected chromosome invisible', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
