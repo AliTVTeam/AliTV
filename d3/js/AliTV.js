@@ -2681,7 +2681,9 @@ AliTV.prototype.updateGenomeRegionBySvgRect = function(rect) {
  * @author Markus Ankenbrand
  */
 AliTV.prototype.resetGenomeRegion = function(genome_id) {
-
+	if (typeof this.filters.karyo.genome_region !== "undefined") {
+		this.filters.karyo.genome_region[genome_id] = {};
+	}
 };
 
 /**	
