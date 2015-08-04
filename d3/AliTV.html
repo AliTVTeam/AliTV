@@ -861,6 +861,13 @@
 			                    ali.drawLinear();
 		                    }
 		                },
+		                "Reset genome zoom/pan": {
+		                	name: "Reset genome zoom/pan",
+		                    callback: function(key, options) {
+		                        ali.resetGenomeRegion(ali.data.karyo.chromosomes[chromosomeId].genome_id);
+		                        ali.drawLinear();
+		                    }
+		               },
 		                "Quit": {name: "Quit", callback: $.noop}
                     }
                  };
