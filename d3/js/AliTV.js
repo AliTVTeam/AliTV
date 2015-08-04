@@ -2675,6 +2675,12 @@ AliTV.prototype.updateGenomeRegionBySvgRect = function(rect) {
 	}
 };
 
+/**
+ * This function resets the genome_region filter to default for the specified genome
+ * @param {String}  - genome_id
+ * @author Markus Ankenbrand
+ */
+
 /**	
  * This function is supposed to change the visibility of a selected chromosome.
  * The function gets the name of a chromosome and set his visibility in filters.karyo.chromosomes equal false or true.
