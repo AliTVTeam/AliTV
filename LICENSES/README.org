@@ -4,6 +4,15 @@ There are dependencies, that are not distributed - those have their own licenses
 There are also some libraries that are part of the distribution with differing licenses.
 Those are listed here:
 ** List of included libraries
+*** Bootbox
+**** Repository
+[[https://github.com/makeusabrew/bootbox]]
+**** Version
+4.4.0
+**** LICENSE
+[[file:LICENSES-bootbox][LICENSE-bootbox]]
+**** Files
+- [[file:~/projects/AliTV/AliTV/d3/lib/bootbox.min.js][../d3/lib/bootbox.min.js]]
 *** Bootstrap
 **** Repository
 https://github.com/twbs/bootstrap
