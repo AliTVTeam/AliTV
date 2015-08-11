@@ -10,7 +10,7 @@ Those are listed here:
 **** Version
 4.4.0
 **** LICENSE
-[[file:LICENSES-bootbox][LICENSE-bootbox]]
+[[LICENSE-bootbox]]
 **** Files
 - [[file:~/projects/AliTV/AliTV/d3/lib/bootbox.min.js][../d3/lib/bootbox.min.js]]
 *** Bootstrap
