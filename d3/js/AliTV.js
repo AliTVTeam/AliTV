@@ -1155,7 +1155,7 @@ AliTV.prototype.getKaryoSpacer = function() {
  * It is called by a blur()-event, when the decription field loses focus.
  * When the method gets a wrong spacer it throws an error message.
  * @param {Number} The function gets the spacer which can be set by the user.
- * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is Sorry, you entered an empty value. Please try it again..
  * @throws Will throw an error if the argument is not a number.
  * @throws Will throw an error if the argument is less than 0 or equal to 0.
  * @author Sonja Hohlfeld
@@ -1163,7 +1163,7 @@ AliTV.prototype.getKaryoSpacer = function() {
 
 AliTV.prototype.setKaryoSpacer = function(spacer) {
 	if (spacer === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(spacer)) {
 		throw "not a number";
 	} else if (spacer <= 0) {
@@ -1197,7 +1197,7 @@ AliTV.prototype.getKaryoHeight = function() {
 
 AliTV.prototype.setKaryoHeight = function(height) {
 	if (height === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(height)) {
 		throw "not a number";
 	} else if (height <= 0) {
@@ -1231,7 +1231,7 @@ AliTV.prototype.getCanvasWidth = function() {
 
 AliTV.prototype.setCanvasWidth = function(width) {
 	if (width === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(width)) {
 		throw "not a number";
 	} else if (width <= 0) {
@@ -1266,7 +1266,7 @@ AliTV.prototype.getCanvasHeight = function() {
 
 AliTV.prototype.setCanvasHeight = function(height) {
 	if (height === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(height)) {
 		throw "not a number";
 	} else if (height <= 0) {
@@ -1362,7 +1362,7 @@ AliTV.prototype.getTreeWidth = function() {
 
 AliTV.prototype.setTreeWidth = function(treeWidth) {
 	if (treeWidth === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(treeWidth)) {
 		throw "not a number";
 	} else if (treeWidth <= 0) {
@@ -1414,7 +1414,7 @@ AliTV.prototype.getTickLabelFrequency = function() {
  */
 AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
 	if (tickLabelFrequency === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(tickLabelFrequency)) {
 		throw "not a number";
 	} else if (tickLabelFrequency <= 0) {
@@ -1444,7 +1444,7 @@ AliTV.prototype.getGeneColor = function() {
  */
 AliTV.prototype.setGeneColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.features.supportedFeatures.gene.color = color;
 		return this.conf.features.supportedFeatures.gene.color;
@@ -1469,7 +1469,7 @@ AliTV.prototype.getInvertedRepeatColor = function() {
  */
 AliTV.prototype.setInvertedRepeatColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.features.supportedFeatures.invertedRepeat.color = color;
 		return this.conf.features.supportedFeatures.invertedRepeat.color;
@@ -1494,7 +1494,7 @@ AliTV.prototype.getRepeatColor = function() {
  */
 AliTV.prototype.setRepeatColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.features.supportedFeatures.repeat.color = color;
 		return this.conf.features.supportedFeatures.repeat.color;
@@ -1519,7 +1519,7 @@ AliTV.prototype.getNStretchColor = function() {
  */
 AliTV.prototype.setNStretchColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.features.supportedFeatures.nStretch.color = color;
 		return this.conf.features.supportedFeatures.nStretch.color;
@@ -1548,7 +1548,7 @@ AliTV.prototype.getGenomeColor = function() {
 AliTV.prototype.setGenomeColor = function(color) {
 	var newColor = [];
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.linear.startLineColor = color[0];
 		this.conf.linear.endLineColor = color[1];
@@ -1581,7 +1581,7 @@ AliTV.prototype.getLinkColor = function() {
 AliTV.prototype.setLinkColor = function(color) {
 	var newColor = [];
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.minLinkIdentityColor = color[0];
 		this.conf.midLinkIdentityColor = color[1];
@@ -2265,7 +2265,7 @@ AliTV.prototype.getSvgWidth = function() {
 
 AliTV.prototype.setSvgWidth = function(width) {
 	if (width === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(width)) {
 		throw "not a number";
 	} else if (width <= 0) {
@@ -2299,7 +2299,7 @@ AliTV.prototype.getSvgHeight = function() {
 
 AliTV.prototype.setSvgHeight = function(height) {
 	if (height === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(height)) {
 		throw "not a number";
 	} else if (height <= 0) {
@@ -2371,7 +2371,7 @@ AliTV.prototype.getGenomeLabelColor = function() {
  */
 AliTV.prototype.setGenomeLabelColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.labels.genome.color = color;
 		return this.conf.labels.genome.color;
@@ -2396,7 +2396,7 @@ AliTV.prototype.getChromosomeLabelColor = function() {
  */
 AliTV.prototype.setChromosomeLabelColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.labels.chromosome.color = color;
 		return this.conf.labels.chromosome.color;
@@ -2424,7 +2424,7 @@ AliTV.prototype.getGenomeLabelSize = function() {
  */
 AliTV.prototype.setGenomeLabelSize = function(size) {
 	if (size === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(size)) {
 		throw "not a number";
 	} else if (size <= 0) {
@@ -2487,7 +2487,7 @@ AliTV.prototype.getTickLabelColor = function() {
  */
 AliTV.prototype.setTickLabelColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.labels.ticks.color = color;
 		return this.conf.labels.ticks.color;
@@ -2515,7 +2515,7 @@ AliTV.prototype.getTickLabelSize = function() {
  */
 AliTV.prototype.setTickLabelSize = function(size) {
 	if (size === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(size)) {
 		throw "not a number";
 	} else if (size <= 0) {
