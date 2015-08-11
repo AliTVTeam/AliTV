@@ -2457,7 +2457,7 @@ AliTV.prototype.getChromosomeLabelSize = function() {
  */
 AliTV.prototype.setChromosomeLabelSize = function(size) {
 	if (size === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(size)) {
 		throw "not a number";
 	} else if (size <= 0) {

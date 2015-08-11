@@ -35,7 +35,7 @@ describe('The setKaryoSpacer method is supposed to set the new information of th
 	});	
 	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is empty', function(){
 		var returnedSpacer = "";
-		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("empty");
+		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is not a number', function(){
 		var returnedSpacer = "test";
@@ -89,7 +89,7 @@ describe('The setKaryoHeight method is supposed to set the new height of chromos
 	});
 	it('the setKaryoHeight method should throw an error message if the assigned height has no value', function(){
 		var height = "";
-		expect(function(){ali.setKaryoHeight(height);}).toThrow("empty");
+		expect(function(){ali.setKaryoHeight(height);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 	it('the setKaryoHeight method should throw an error message if the assigned height is not a number', function(){
 		var height = "test";
@@ -141,9 +141,9 @@ describe('The setCanvasWidth method is supposed to set a new width of the svgDra
 		ali.setCanvasWidth(10000);
 		expect(ali.getCanvasWidth()).toEqual(10000);
 	});
-	it('the setCanvasWidth method should throw an error message if the assigned width is empty', function(){
+	it('the setCanvasWidth method should throw an error message if the assigned width is Sorry, you entered an empty value. Please try it again.', function(){
 		var width = "";
-		expect(function(){ali.setCanvasWidth(width);}).toThrow("empty");
+		expect(function(){ali.setCanvasWidth(width);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 	it('the setCanvasWidth method should throw an error message if the assigned width is not a number', function(){
 		var width = "test";
@@ -194,9 +194,9 @@ describe('The setCanvasHeight method is supposed to set a new height of the svg 
 		ali.setCanvasHeight(10000);
 		expect(ali.getCanvasHeight()).toEqual(10000);
 	});
-	it('the setCanvasHeight method should throw an error message if the assigned height is empty', function(){
+	it('the setCanvasHeight method should throw an error message if the assigned height is empty.', function(){
 		var height = "";
-		expect(function(){ali.setCanvasHeight(height);}).toThrow("empty");
+		expect(function(){ali.setCanvasHeight(height);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 	it('the setCanvasHeight method should throw an error message if the assigned height is not a number', function(){
 		var height = "test";
@@ -308,7 +308,7 @@ describe('The setTickDistance method is supposed to set a new distance between t
 		ali.setTickDistance(250);
 		expect(ali.getTickDistance()).toEqual(250);
 	});
-	it('the setTickDistance method should throw an error message if the assigned distance is empty', function(){
+	it('the setTickDistance method should throw an error message if the assigned distance is Sorry, you entered an empty value. Please try it again.', function(){
 		var distance = "";
 		expect(function(){ali.setTickDistance(distance);}).toThrow("empty");
 	});
@@ -377,9 +377,9 @@ describe('The setTreeWidth method is supposed to set a new tree width', function
 		ali.setTreeWidth(888);
 		expect(ali.getTreeWidth()).toEqual(888);
 	});
-	it('the setTreeWidth method should throw an error message if the assigned tree width is empty', function(){
+	it('the setTreeWidth method should throw an error message if the assigned tree width is empty.', function(){
 		var treeWidth = "";
-		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("empty");
+		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 	it('the setTreeWidth method should throw an error message if the assigned tree width is not a number', function(){
 		var treeWidth = "test";
@@ -430,9 +430,9 @@ describe('The setTickLabelFrequency method is supposed to set a new frequency of
 		ali.setTickLabelFrequency(22);
 		expect(ali.getTickLabelFrequency()).toEqual(22);
 	});
-	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is empty', function(){
+	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is empty.', function(){
 		var tickLabelFrequency = "";
-		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("empty");
+		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is not a number', function(){
 		var tickLabelFrequency = "test";
@@ -483,9 +483,9 @@ describe('The setGeneColor method is supposed to set a new color for genes', fun
 		ali.setGeneColor("#334e53");
 		expect(ali.getGeneColor()).toEqual("#334e53");
 	});
-	it('the setGeneColor method should throw an error message if the assigned color is empty', function(){
+	it('the setGeneColor method should throw an error message if the assigned color is empty.', function(){
 		var color = "";
-		expect(function(){ali.setGeneColor(color);}).toThrow("empty");
+		expect(function(){ali.setGeneColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 });
 
@@ -525,9 +525,9 @@ describe('The setGenomeColor method is supposed to set the new start and end col
 		expect(newColor[0]).toEqual(color[0]);
 		expect(newColor[1]).toEqual(color[1]);
 	});
-	it('the setGenomeColor method should throw an error message if the assigned color is empty', function(){
+	it('the setGenomeColor method should throw an error message if the assigned color is Sorry, you entered an empty value. Please try it again.', function(){
 		var color = "";
-		expect(function(){ali.setGenomeColor(color);}).toThrow("empty");
+		expect(function(){ali.setGenomeColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 });
 
@@ -570,9 +570,9 @@ describe('The setLinkColor method is supposed to set the new colors for the mini
 		expect(newColor[1]).toEqual(color[1]);
 		expect(newColor[2]).toEqual(color[2]);
 	});
-	it('the setLinkColor method should throw an error message if the assigned color is empty', function(){
+	it('the setLinkColor method should throw an error message if the assigned color is empty.', function(){
 		var color = "";
-		expect(function(){ali.setLinkColor(color);}).toThrow("empty");
+		expect(function(){ali.setLinkColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 });
 
@@ -635,7 +635,7 @@ describe('The setSvgWidth method is supposed to set a new width of the svg', fun
 	});
 	it('the setSvgWidth method should throw an error message if the assigned width is empty', function(){
 		var width = "";
-		expect(function(){ali.setSvgWidth(width);}).toThrow("empty");
+		expect(function(){ali.setSvgWidth(width);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 	it('the setSvgWidth method should throw an error message if the assigned width is not a number', function(){
 		var width = "test";
@@ -684,7 +684,7 @@ describe('The setSvgHeight method is supposed to set a new height of the svg dra
 	});
 	it('the setSvgHeight method should throw an error message if the assigned height is empty', function(){
 		var height = "";
-		expect(function(){ali.setSvgHeight(height);}).toThrow("empty");
+		expect(function(){ali.setSvgHeight(height);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 	it('the setSvgHeight method should throw an error message if the assigned height is not a number', function(){
 		var height = "test";
@@ -802,7 +802,7 @@ describe('The setGenomeLabelColor method is supposed to set a new color for the 
 	});
 	it('the setGenomeLabelColor method should throw an error message if the assigned color is empty', function(){
 		var color = "";
-		expect(function(){ali.setGenomeLabelColor(color);}).toThrow("empty");
+		expect(function(){ali.setGenomeLabelColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 });
 
@@ -839,7 +839,7 @@ describe('The setGenomeLabelSize method is supposed to set a new size of the gen
 	});
 	it('the setGenomeLabelSize method should throw an error message if the assigned size is empty', function(){
 		var size = "";
-		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("empty");
+		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 	it('the setGenomeLabelSize method should throw an error message if the assigned size is not a number', function(){
 		var size = "test";
@@ -890,7 +890,7 @@ describe('The setChromosomeLabelColor method is supposed to set a new color for 
 	});
 	it('the setChromosomeLabelColor method should throw an error message if the assigned color is empty', function(){
 		var color = "";
-		expect(function(){ali.setChromosomeLabelColor(color);}).toThrow("empty");
+		expect(function(){ali.setChromosomeLabelColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 });
 
@@ -927,7 +927,7 @@ describe('The setChromosomeLabelSize method is supposed to set a new size of the
 	});
 	it('the setChromosomeLabelSize method should throw an error message if the assigned size is empty', function(){
 		var size = "";
-		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("empty");
+		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 	it('the setChromosomeLabelSize method should throw an error message if the assigned size is not a number', function(){
 		var size = "test";
@@ -978,7 +978,7 @@ describe('The setTickLabelColor method is supposed to set a new color for the Ti
 	});
 	it('the setTickLabelColor method should throw an error message if the assigned color is empty', function(){
 		var color = "";
-		expect(function(){ali.setTickLabelColor(color);}).toThrow("empty");
+		expect(function(){ali.setTickLabelColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 });
 
@@ -1015,7 +1015,7 @@ describe('The setTickLabelSize method is supposed to set a new size of the Tick 
 	});
 	it('the setTickLabelSize method should throw an error message if the assigned size is empty', function(){
 		var size = "";
-		expect(function(){ali.setTickLabelSize(size);}).toThrow("empty");
+		expect(function(){ali.setTickLabelSize(size);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 	it('the setTickLabelSize method should throw an error message if the assigned size is not a number', function(){
 		var size = "test";
@@ -1068,7 +1068,7 @@ describe('The setInvertedRepeatColor method is supposed to set a new color for i
 	});
 	it('the setInvertedRepeatColor method should throw an error message if the assigned color is empty', function(){
 		var color = "";
-		expect(function(){ali.setInvertedRepeatColor(color);}).toThrow("empty");
+		expect(function(){ali.setInvertedRepeatColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 });
 
@@ -1109,7 +1109,7 @@ describe('The setRepeatColor method is supposed to set a new color for  repeats'
 	});
 	it('the setRepeatColor method should throw an error message if the assigned color is empty', function(){
 		var color = "";
-		expect(function(){ali.setRepeatColor(color);}).toThrow("empty");
+		expect(function(){ali.setRepeatColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 });
 
@@ -1150,7 +1150,7 @@ describe('The setNStretchColor method is supposed to set a new color for  NStret
 	});
 	it('the setNStretchColor method should throw an error message if the assigned color is empty', function(){
 		var color = "";
-		expect(function(){ali.setNStretchColor(color);}).toThrow("empty");
+		expect(function(){ali.setNStretchColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 });
 
