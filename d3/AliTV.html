@@ -134,7 +134,7 @@
 	$(function(){$('#drawTree').change(function() {
 		if($('#drawTree').is(':checked')){
 			if(ali.hasTree() === false){
-				alert("there is no tree data");
+				bootbox.alert("there is no tree data");
 				$("#treeWidth").attr("disabled", true);
 				$("#treeLeft").attr("disabled", true);
 				$("#treeRight").attr("disabled", true);
@@ -378,7 +378,7 @@
 		ali.setKaryoSpacer(spacer); 	
 		}
 		catch(err){
-			alert(err);
+			bootbox.alert(err);
 			$("#karyoSpacer").val(ali.getKaryoSpacer());
 		}
 	}
@@ -388,7 +388,7 @@
 		ali.setKaryoHeight(height); 	
 		}
 		catch(err){
-			alert(err);
+			bootbox.alert(err);
 			$("#karyoHeight").val(ali.getKaryoHeight());
 		}
 	}
@@ -398,7 +398,7 @@
 		ali.setCanvasWidth(width); 	
 		}
 		catch(err){
-			alert(err);
+			bootbox.alert(err);
 			$("#canvasWidth").val(ali.getCanvasWidth());
 		}
 	}
@@ -408,7 +408,7 @@
 		ali.setCanvasHeight(height); 
 		}
 		catch(err){
-			alert(err);
+			bootbox.alert(err);
 			$("#canvasHeight").val(ali.getCanvasHeight());
 		}
 	}
@@ -428,7 +428,7 @@
 		ali.setTreeWidth(treeWidth); 	
 		}
 		catch(err){
-			alert(err);
+			bootbox.alert(err);
 			$("#treeWidth").val(ali.getTreeWidth());
 		}
 	}
@@ -438,7 +438,7 @@
 		ali.setTickLabelFrequency(frequency); 	
 		}
 		catch(err){
-			alert(err);
+			bootbox.alert(err);
 			$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
 		}
 	}
@@ -448,7 +448,7 @@
 			ali.setGeneColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#geneColor").val(ali.getGeneColor());
 			}
 	}
@@ -460,7 +460,7 @@
 			ali.setGenomeColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				var defaultColor = ali.getGenomeColor();
 				$("#startLineColor").val(defaultColor[0]);
 				$("#endLineColor").val(defaultColor[1]);
@@ -475,7 +475,7 @@
 			ali.setLinkColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				var defaultColor = ali.getLinkColor();
 				$("#minLinkColor").val(defaultColor[0]);
 				$("#midLinkColor").val(defaultColor[1]);
@@ -488,7 +488,7 @@
 			ali.setGenomeLabelColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#genomeLabelColor").val(this.conf.labels.genome.color);
 			} 
 	}
@@ -498,7 +498,7 @@
 			ali.setGenomeLabelSize(size); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#genomeLabelSize").val(this.conf.labels.genome.size);
 			} 
 	}
@@ -508,7 +508,7 @@
 			ali.setChromosomeLabelColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#chromosomeLabelColor").val(this.conf.labels.chromosome.color);
 			} 
 	}
@@ -518,7 +518,7 @@
 			ali.setChromosomeLabelSize(size); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#chromosomeLabelSize").val(this.conf.labels.chromosome.size);
 			} 
 	}
@@ -528,7 +528,7 @@
 			ali.setTickLabelColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#tickLabelColor").val(this.conf.labels.ticks.color);
 			} 
 	}
@@ -538,7 +538,7 @@
 			ali.setTickLabelSize(size); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#tickLabelSize").val(this.conf.labels.ticks.size);
 			} 
 	}
@@ -548,7 +548,7 @@
 			ali.setInvertedRepeatColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#invertedRepeatColor").val(ali.getInvertedRepeatColor());
 			}
 	}
@@ -558,7 +558,7 @@
 			ali.setRepeatColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#repeatColor").val(ali.getRepeatColor());
 			}
 	}
@@ -568,7 +568,7 @@
 			ali.setNStretchColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#nStretchColor").val(ali.getNStretchColor());
 			}
 	}
