@@ -39,7 +39,7 @@ describe('The setKaryoSpacer method is supposed to set the new information of th
 	});
 	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is not a number', function(){
 		var returnedSpacer = "test";
-		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("not a number");
+		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("Sorry, you entered not a number. Please try it again.");
 	});
 	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is less than 0', function(){
 		var returnedSpacer = -12;
@@ -93,7 +93,7 @@ describe('The setKaryoHeight method is supposed to set the new height of chromos
 	});
 	it('the setKaryoHeight method should throw an error message if the assigned height is not a number', function(){
 		var height = "test";
-		expect(function(){ali.setKaryoHeight(height);}).toThrow("not a number");
+		expect(function(){ali.setKaryoHeight(height);}).toThrow("Sorry, you entered not a number. Please try it again.");
 	});
 	it('the setKaryoHeight method should throw an error message if the assigned height is 0', function(){
 		var height = 0;
@@ -147,7 +147,7 @@ describe('The setCanvasWidth method is supposed to set a new width of the svgDra
 	});
 	it('the setCanvasWidth method should throw an error message if the assigned width is not a number', function(){
 		var width = "test";
-		expect(function(){ali.setCanvasWidth(width);}).toThrow("not a number");
+		expect(function(){ali.setCanvasWidth(width);}).toThrow("Sorry, you entered not a number. Please try it again.");
 	});
 	it('the setCanvasWidth method should throw an error message if the assigned width is 0', function(){
 		var width = 0;
@@ -200,7 +200,7 @@ describe('The setCanvasHeight method is supposed to set a new height of the svg 
 	});
 	it('the setCanvasHeight method should throw an error message if the assigned height is not a number', function(){
 		var height = "test";
-		expect(function(){ali.setCanvasHeight(height);}).toThrow("not a number");
+		expect(function(){ali.setCanvasHeight(height);}).toThrow("Sorry, you entered not a number. Please try it again.");
 	});
 	it('the setCanvasHeight method should throw an error message if the assigned height is 0', function(){
 		var height = 0;
@@ -314,7 +314,7 @@ describe('The setTickDistance method is supposed to set a new distance between t
 	});
 	it('the setTickDistance method should throw an error message if the assigned distance is not a number', function(){
 		var distance = "test";
-		expect(function(){ali.setTickDistance(distance);}).toThrow("not a number");
+		expect(function(){ali.setTickDistance(distance);}).toThrow("Sorry, you entered not a number. Please try it again.");
 	});
 	it('the setTickDistance method should throw an error message if the assigned distance is 0', function(){
 		var distance = 0;
@@ -383,7 +383,7 @@ describe('The setTreeWidth method is supposed to set a new tree width', function
 	});
 	it('the setTreeWidth method should throw an error message if the assigned tree width is not a number', function(){
 		var treeWidth = "test";
-		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("not a number");
+		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("Sorry, you entered not a number. Please try it again.");
 	});
 	it('the setTreeWidth method should throw an error message if the assigned treeWidth is 0', function(){
 		var treeWidth = 0;
@@ -436,7 +436,7 @@ describe('The setTickLabelFrequency method is supposed to set a new frequency of
 	});
 	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is not a number', function(){
 		var tickLabelFrequency = "test";
-		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("not a number");
+		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("Sorry, you entered not a number. Please try it again.");
 	});
 	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is 0', function(){
 		var tickLabelFrequency = 0;
@@ -639,7 +639,7 @@ describe('The setSvgWidth method is supposed to set a new width of the svg', fun
 	});
 	it('the setSvgWidth method should throw an error message if the assigned width is not a number', function(){
 		var width = "test";
-		expect(function(){ali.setSvgWidth(width);}).toThrow("not a number");
+		expect(function(){ali.setSvgWidth(width);}).toThrow("Sorry, you entered not a number. Please try it again.");
 	});
 	it('the setSvgWidth method should throw an error message if the assigned width is 0', function(){
 		var width = 0;
@@ -686,9 +686,9 @@ describe('The setSvgHeight method is supposed to set a new height of the svg dra
 		var height = "";
 		expect(function(){ali.setSvgHeight(height);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
-	it('the setSvgHeight method should throw an error message if the assigned height is not a number', function(){
+	it('the setSvgHeight method should throw an error message if the assigned height is Sorry, you entered not a number. Please try it again.', function(){
 		var height = "test";
-		expect(function(){ali.setSvgHeight(height);}).toThrow("not a number");
+		expect(function(){ali.setSvgHeight(height);}).toThrow("Sorry, you entered not a number. Please try it again.");
 	});
 	it('the setSvgHeight method should throw an error message if the assigned height is 0', function(){
 		var height = 0;
@@ -843,7 +843,7 @@ describe('The setGenomeLabelSize method is supposed to set a new size of the gen
 	});
 	it('the setGenomeLabelSize method should throw an error message if the assigned size is not a number', function(){
 		var size = "test";
-		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("not a number");
+		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("Sorry, you entered not a number. Please try it again.");
 	});
 	it('the setGenomeLabelSize method should throw an error message if the assigned size is 0', function(){
 		var size = 0;
@@ -931,7 +931,7 @@ describe('The setChromosomeLabelSize method is supposed to set a new size of the
 	});
 	it('the setChromosomeLabelSize method should throw an error message if the assigned size is not a number', function(){
 		var size = "test";
-		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("not a number");
+		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("Sorry, you entered not a number. Please try it again.");
 	});
 	it('the setChromosomeLabelSize method should throw an error message if the assigned size is 0', function(){
 		var size = 0;
@@ -1019,7 +1019,7 @@ describe('The setTickLabelSize method is supposed to set a new size of the Tick 
 	});
 	it('the setTickLabelSize method should throw an error message if the assigned size is not a number', function(){
 		var size = "test";
-		expect(function(){ali.setTickLabelSize(size);}).toThrow("not a number");
+		expect(function(){ali.setTickLabelSize(size);}).toThrow("Sorry, you entered not a number. Please try it again.");
 	});
 	it('the setTickLabelSize method should throw an error message if the assigned size is 0', function(){
 		var size = 0;
