@@ -1363,7 +1363,7 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setData({karyo: karyo3, features: features14r});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		ali.data.features.invertedRepeat[0].strand = "-";
+		ali.data.features.invertedRepeat[0].strand = "+";
 		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 200 * 1000/2000, y: 1/25 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
 	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 1/25 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
 	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 0}, 
