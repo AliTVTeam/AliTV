@@ -1339,7 +1339,7 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
 	});
-	it('getLinearFeatureCoords method is supposed to return the expected coordinates for inverted repeats on one chromosome also with swapped start/end', function(){
+	it('getLinearFeatureCoords method is supposed to return the expected coordinates for inverted repeats on one chromosome also with swapped start/end and it should be drawed on the negative strand', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		ali.setData({karyo: karyo3, features: features14r});
@@ -1353,6 +1353,24 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: defaultConf.features.supportedFeatures.invertedRepeat.height},
 	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 24/25 * defaultConf.features.supportedFeatures.invertedRepeat.height},
 	                                                 {x: 200 * 1000/2000, y: 24/25 * defaultConf.features.supportedFeatures.invertedRepeat.height}]}];
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		expect(linearFeatureCoords).toEqual(expectedFeatures);
+	});
+	it('getLinearFeatureCoords method is supposed to return the expected coordinates for inverted repeats on one chromosome also with swapped start/end ans it should be drawed on the positiev strand', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo3, features: features14r});
+		ali.setFilters(filters3);
+		ali.conf.features.showAllFeatures = true;
+		ali.data.features.invertedRepeat[0].strand = "-";
+		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 200 * 1000/2000, y: 1/25 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 1/25 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 0}, 
+	                                                 {x: 200 * 1000/2000 + (100 - 200) * 1000 / 2000, y: 1/10 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
+	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 4/25 * defaultConf.features.supportedFeatures.invertedRepeat.height},
+	                                                 {x: 200 * 1000/2000, y: 4/25 * defaultConf.features.supportedFeatures.invertedRepeat.height}]}];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
