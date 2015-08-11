@@ -1301,7 +1301,7 @@ AliTV.prototype.getTickDistance = function() {
 
 AliTV.prototype.setTickDistance = function(distance) {
 	if (distance === "") {
-		throw "empty";
+		bootbox.alert("Sorry, you entered an empty value. Please try it again.");
 	} else if (isNaN(distance)) {
 		throw "not a number";
 	} else if (distance <= 0) {
