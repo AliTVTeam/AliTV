@@ -1167,7 +1167,7 @@ AliTV.prototype.setKaryoSpacer = function(spacer) {
 	} else if (isNaN(spacer)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (spacer <= 0) {
-		throw "spacer is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		this.conf.graphicalParameters.karyoDistance = spacer;
 		return this.conf.graphicalParameters.karyoDistance;
@@ -1201,7 +1201,7 @@ AliTV.prototype.setKaryoHeight = function(height) {
 	} else if (isNaN(height)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (height <= 0) {
-		throw "genome distance is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		height = Number(height);
 		this.conf.graphicalParameters.karyoHeight = height;
@@ -1235,7 +1235,7 @@ AliTV.prototype.setCanvasWidth = function(width) {
 	} else if (isNaN(width)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (width <= 0) {
-		throw "width is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		width = Number(width);
 		this.conf.graphicalParameters.canvasWidth = width;
@@ -1270,7 +1270,7 @@ AliTV.prototype.setCanvasHeight = function(height) {
 	} else if (isNaN(height)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (height <= 0) {
-		throw "height is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		height = Number(height);
 		this.conf.graphicalParameters.canvasHeight = height;
@@ -1366,7 +1366,7 @@ AliTV.prototype.setTreeWidth = function(treeWidth) {
 	} else if (isNaN(treeWidth)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (treeWidth <= 0) {
-		throw "the tree width is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		treeWidth = Number(treeWidth);
 		this.conf.graphicalParameters.treeWidth = treeWidth;
@@ -1418,7 +1418,7 @@ AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
 	} else if (isNaN(tickLabelFrequency)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (tickLabelFrequency <= 0) {
-		throw "the frequency is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		tickLabelFrequency = Number(tickLabelFrequency);
 		this.conf.graphicalParameters.tickLabelFrequency = tickLabelFrequency;
@@ -2269,7 +2269,7 @@ AliTV.prototype.setSvgWidth = function(width) {
 	} else if (isNaN(width)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (width <= 0) {
-		throw "width is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		width = Number(width);
 		this.svg.attr("width", width);
@@ -2303,7 +2303,7 @@ AliTV.prototype.setSvgHeight = function(height) {
 	} else if (isNaN(height)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (height <= 0) {
-		throw "height is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		height = Number(height);
 		this.svg.attr("height", height);
@@ -2428,7 +2428,7 @@ AliTV.prototype.setGenomeLabelSize = function(size) {
 	} else if (isNaN(size)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (size <= 0) {
-		throw "size is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		size = Number(size);
 		this.conf.labels.genome.size = size;
@@ -2461,7 +2461,7 @@ AliTV.prototype.setChromosomeLabelSize = function(size) {
 	} else if (isNaN(size)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (size <= 0) {
-		throw "size is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		size = Number(size);
 		this.conf.labels.chromosome.size = size;
@@ -2519,7 +2519,7 @@ AliTV.prototype.setTickLabelSize = function(size) {
 	} else if (isNaN(size)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (size <= 0) {
-		throw "size is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		size = Number(size);
 		this.conf.labels.ticks.size = size;
