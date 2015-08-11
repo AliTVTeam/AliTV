@@ -12,7 +12,7 @@ Those are listed here:
 **** LICENSE
 [[LICENSE-bootbox]]
 **** Files
-- [[file:~/projects/AliTV/AliTV/d3/lib/bootbox.min.js][../d3/lib/bootbox.min.js]]
+[[file:%20../d3/lib/bootbox.min.js][../d3/lib/bootbox.min.js]]
 *** Bootstrap
 **** Repository
 https://github.com/twbs/bootstrap
