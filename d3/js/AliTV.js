@@ -1896,13 +1896,13 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 					"karyo": value.karyo
 				};
 
-				if (value.strength === undefined) {
+				if (value.strand === undefined) {
 					currentFeature.y = currentY;
 					currentFeature.height = that.conf.graphicalParameters.karyoHeight;
-				} else if (value.strength === "+") {
+				} else if (value.strand === "+") {
 					currentFeature.y = currentY;
 					currentFeature.height = 1 / 5 * that.conf.graphicalParameters.karyoHeight;
-				} else if (value.strength === "-") {
+				} else if (value.strand === "-") {
 					currentFeature.y = currentY + 4 / 5 * that.conf.graphicalParameters.karyoHeight;
 					currentFeature.height = 1 / 5 * that.conf.graphicalParameters.karyoHeight;
 				}
@@ -1918,7 +1918,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 					"karyo": value.karyo
 				};
 				currentFeature.path = [];
-				if (value.strength === undefined){
+				if (value.strand === undefined){
 					currentFeature.path.push({
 						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
 						y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
@@ -1941,7 +1941,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
 						y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
 					});				
-				} else if (value.strength === "+"){
+				} else if (value.strand === "+"){
 					currentFeature.path.push({
 						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
 						y: currentY + 1 / 25 * that.conf.graphicalParameters.karyoHeight
@@ -1964,7 +1964,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
 						y: currentY + 1/5 * that.conf.graphicalParameters.karyoHeight - 1 / 25 * that.conf.graphicalParameters.karyoHeight
 					});	
-				} else if (value.strength === "-"){
+				} else if (value.strand === "-"){
 					currentFeature.path.push({
 						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
 						y: currentY + (4/5 + 1/25) * that.conf.graphicalParameters.karyoHeight

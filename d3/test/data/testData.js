@@ -560,8 +560,8 @@ var features21 = {
 
 var features22 = {
 		'gene':[
-			{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1", "strength": "+"},
-			{'karyo': 'c2', 'start': 300, 'end': 400, 'name': "f2", "strength": "-"}
+			{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1", "strand": "+"},
+			{'karyo': 'c2', 'start': 300, 'end': 400, 'name': "f2", "strand": "-"}
 		]
 };
 
