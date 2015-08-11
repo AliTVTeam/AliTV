@@ -1303,9 +1303,9 @@ AliTV.prototype.setTickDistance = function(distance) {
 	if (distance === "") {
 		bootbox.alert("Sorry, you entered an empty value. Please try it again.");
 	} else if (isNaN(distance)) {
-		throw "not a number";
+		bootbox.alert("Sorry, you entered not a number. Please try it again.");
 	} else if (distance <= 0) {
-		throw "distance is to small, it should be > 0";
+		bootbox.alert("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
 	} else {
 		distance = Number(distance);
 		this.conf.graphicalParameters.tickDistance = distance;
