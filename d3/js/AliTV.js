@@ -1165,7 +1165,7 @@ AliTV.prototype.setKaryoSpacer = function(spacer) {
 	if (spacer === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(spacer)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (spacer <= 0) {
 		throw "spacer is to small, it should be > 0";
 	} else {
@@ -1199,7 +1199,7 @@ AliTV.prototype.setKaryoHeight = function(height) {
 	if (height === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(height)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (height <= 0) {
 		throw "genome distance is to small, it should be > 0";
 	} else {
@@ -1233,7 +1233,7 @@ AliTV.prototype.setCanvasWidth = function(width) {
 	if (width === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(width)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (width <= 0) {
 		throw "width is to small, it should be > 0";
 	} else {
@@ -1268,7 +1268,7 @@ AliTV.prototype.setCanvasHeight = function(height) {
 	if (height === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(height)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (height <= 0) {
 		throw "height is to small, it should be > 0";
 	} else {
@@ -1364,7 +1364,7 @@ AliTV.prototype.setTreeWidth = function(treeWidth) {
 	if (treeWidth === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(treeWidth)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (treeWidth <= 0) {
 		throw "the tree width is to small, it should be > 0";
 	} else {
@@ -1416,7 +1416,7 @@ AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
 	if (tickLabelFrequency === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(tickLabelFrequency)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (tickLabelFrequency <= 0) {
 		throw "the frequency is to small, it should be > 0";
 	} else {
@@ -2267,7 +2267,7 @@ AliTV.prototype.setSvgWidth = function(width) {
 	if (width === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(width)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (width <= 0) {
 		throw "width is to small, it should be > 0";
 	} else {
@@ -2301,7 +2301,7 @@ AliTV.prototype.setSvgHeight = function(height) {
 	if (height === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(height)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (height <= 0) {
 		throw "height is to small, it should be > 0";
 	} else {
@@ -2426,7 +2426,7 @@ AliTV.prototype.setGenomeLabelSize = function(size) {
 	if (size === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(size)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (size <= 0) {
 		throw "size is to small, it should be > 0";
 	} else {
@@ -2459,7 +2459,7 @@ AliTV.prototype.setChromosomeLabelSize = function(size) {
 	if (size === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(size)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (size <= 0) {
 		throw "size is to small, it should be > 0";
 	} else {
@@ -2517,7 +2517,7 @@ AliTV.prototype.setTickLabelSize = function(size) {
 	if (size === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(size)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (size <= 0) {
 		throw "size is to small, it should be > 0";
 	} else {
