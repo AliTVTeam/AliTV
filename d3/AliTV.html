@@ -905,14 +905,13 @@
             build: function($trigger, e) {
             		var feature = $(e.target).attr("id");
             		var split = feature.split("_");
-                	var featureId = split[0];
-                	var group = split[1];
-                	var karyo = split[2] + "_" + split[3];
+            		var group = split[1];
+            		var id = split[0];
                 	//Remove selection rect if exists
                 	ali.svgD3.selectAll("rect.selection").remove();
                 return { 
                     items: {
-                    	"name": {name: "Name: " + featureId},
+                    	"name": {name: "Name: " + ali.data.features[group][id].name},
                     	"group": {name: "Group: " + group},
 		                "sep1": "---------",
                     	"Visible": {

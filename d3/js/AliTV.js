@@ -2070,17 +2070,14 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			}
 		})
 		.attr("class", "feature")
-		.attr("featureId", function(d, i) {
+		.attr("id", function(d, i) {
 			var position = that.data.features[d.type].indexOf(that.data.features[d.type][counter]);
 			if(counter < that.data.features[d.type].length - 1){
 				counter++;
 			} else {
 				counter = 0;
 			}
-			return position;
-		})
-		.attr("featureGroup", function(d){
-			return d.type;
+			return position + "_" + d.type;
 		})
 		.attr("x", function(d) {
 			if (d.width < 0) {
@@ -2645,18 +2642,12 @@ AliTV.prototype.clearAli = function() {
  */
 
 AliTV.prototype.setFeatureInvisible = function(feature) {
-	var that = this;
 	$("#" + feature).hide();
 	var split = feature.split("_");
-	var featureId = split[0];
+	var id = split[0];
 	var group = split[1];
-	var karyo = split[2] + "_" + split[3];
-	$.each(that.data.features[group], function(key, value) {
-		if (value.karyo === karyo && value.name === featureId) {
-			that.filters.features.invisibleFeatures[feature] = value;
-		}
-	});
-	return that.filters.features.invisibleFeatures;
+	this.filters.features.invisibleFeatures[id] = this.data.features[group][id];
+	return this.filters.features.invisibleFeatures;
 };
 
 /**
