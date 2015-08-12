@@ -687,29 +687,31 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 	var that = this;
 	var linearTickCoords = [];
+	
 	$.each(karyoCoords, function(key, value) {
 		var ticks = [];
 		var shift;
-		(that.filters.karyo.chromosomes[value.karyo].offset === undefined ? (shift = 0) : shift = that.filters.karyo.chromosomes[value.karyo].offset);
+		shift = (that.filters.karyo.chromosomes[value.karyo].offset === undefined ? 0 : Math.abs(that.filters.karyo.chromosomes[value.karyo].offset));
 		var scale = d3.scale.linear()
 			.domain([0, that.data.karyo.chromosomes[value.karyo].length])
 			.range([value.x, value.x + value.width]);
 
 		var rightOffsetPositive = d3.scale.linear()
 			.domain([0, that.data.karyo.chromosomes[value.karyo].length - shift])
-			.range([(shift * (value.x + value.width) / that.data.karyo.chromosomes[value.karyo].length), value.x + value.width]);
+			.range([value.x + (shift * (value.x + value.width) / that.data.karyo.chromosomes[value.karyo].length), value.x + value.width]);
 
+		
 		var leftOffsetPositive = d3.scale.linear()
 			.domain([that.data.karyo.chromosomes[value.karyo].length - shift, that.data.karyo.chromosomes[value.karyo].length])
-			.range([value.x, (shift * (value.x + value.width) / that.data.karyo.chromosomes[value.karyo].length)]);
+			.range([value.x, value.x + (shift * (value.x + value.width) / that.data.karyo.chromosomes[value.karyo].length)]);
 
-		var rightOffsetNegative = d3.scale.linear()
-			.domain([0, -shift])
-			.range([value.x + value.width - (-shift * (value.x + value.width) / that.data.karyo.chromosomes[value.karyo].length), value.x + value.width])
-			
-		var leftOffsetNegative = d3.scale.linear()
-			.domain([-shift, that.data.karyo.chromosomes[value.karyo].length])
-			.range([value.x, value.x + value.width - (-shift * (value.x + value.width) / that.data.karyo.chromosomes[value.karyo].length)])
+//		var rightOffsetNegative = d3.scale.linear()
+//			.domain([0, shift])
+//			.range([value.x + value.width - (shift * (value.x + value.width) / that.data.karyo.chromosomes[value.karyo].length), value.x + value.width])
+//			
+//		var leftOffsetNegative = d3.scale.linear()
+//			.domain([shift, that.data.karyo.chromosomes[value.karyo].length])
+//			.range([value.x, value.x + value.width - (shift * (value.x + value.width) / that.data.karyo.chromosomes[value.karyo].length)])
 			
 		var chromosomePosition = 0;
 		for (var i = 0; chromosomePosition <= that.data.karyo.chromosomes[value.karyo].length; i++) {
@@ -717,11 +719,7 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 			if (that.filters.karyo.chromosomes[value.karyo].offset === undefined || that.filters.karyo.chromosomes[value.karyo].offset === 0) {
 				ticks.push(scale(chromosomePosition));
 			} else {
-				if(that.filters.karyo.chromosomes[value.karyo].offset > 0){
-					chromosomePosition <= (that.data.karyo.chromosomes[value.karyo].length - shift) ? ticks.push(rightOffsetPositive(chromosomePosition)) : ticks.push(leftOffsetPositive(chromosomePosition));			
-				} else {
-					chromosomePosition > (-shift) ? ticks.push(leftOffsetNegative(chromosomePosition)) : ticks.push(rightOffsetNegative(chromosomePosition));
-				}
+				chromosomePosition <= (that.data.karyo.chromosomes[value.karyo].length - shift) ? ticks.push(rightOffsetPositive(chromosomePosition)) : ticks.push(leftOffsetPositive(chromosomePosition));			
 			}
 
 			chromosomePosition += that.conf.graphicalParameters.tickDistance;
