@@ -2059,8 +2059,8 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.thicker();
 
 	shapes.call(woven);
-
-
+	
+	var counter=0;
 	shapes.append("rect")
 		.filter(function(d) {
 			if (d.type in that.conf.features.supportedFeatures === true) {
@@ -2070,8 +2070,17 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			}
 		})
 		.attr("class", "feature")
-		.attr("id", function(d) {
-			return d.id + "_" + d.type + "_" + d.karyo;
+		.attr("featureId", function(d, i) {
+			var position = that.data.features[d.type].indexOf(that.data.features[d.type][counter]);
+			if(counter < that.data.features[d.type].length - 1){
+				counter++;
+			} else {
+				counter = 0;
+			}
+			return position;
+		})
+		.attr("featureGroup", function(d){
+			return d.type;
 		})
 		.attr("x", function(d) {
 			if (d.width < 0) {
