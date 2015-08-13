@@ -558,6 +558,13 @@ var features21 = {
 		]
 	};
 
+var features22 = {
+		'gene':[
+			{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1", "strand": "+"},
+			{'karyo': 'c2', 'start': 300, 'end': 400, 'name': "f2", "strand": "-"}
+		]
+};
+
 var links = {"0":{"1":{
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 }}};
