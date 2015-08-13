@@ -78,6 +78,17 @@ http://silviomoreto.github.io/bootstrap-select/
 [[file:LICENSE-jquery][LICENSE-jquery]]
 **** Files
  - [[../d3/lib/jquery.min.js]]
+*** jQuery contextMenu
+**** Repository
+[[https://github.com/medialize/jQuery-contextMenu]]
+**** Version
+1.6.6
+**** LICENSE
+[[file:LICENSE-contextMenu][LICENSE-contextMenu]]
+**** Files
+- [[file:~/projects/AliTV/AliTV/d3/lib/contextMenu/images][../d3/lib/contextMenu/images]]
+- [[file:~/projects/AliTV/AliTV/d3/lib/contextMenu/jquery.contextMenu.css][../d3/lib/contextMenu/jquery.contextMenu.css]]
+- [[file:~/projects/AliTV/AliTV/d3/lib/contextMenu/jquery.contextMenu.js][../d3/lib/contextMenu/jquery.contextMenu.js]]
 *** jQueryUI
 **** Repository
 [[https://github.com/jquery/jquery-ui]]
