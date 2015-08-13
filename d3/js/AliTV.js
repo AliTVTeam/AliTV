@@ -1921,7 +1921,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 
 				currentFeature.width = Math.abs(featureScale(value.end) - featureScale(value.start));
 				currentFeature.x = featureScale((Math.min(value.start, value.end) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
-				
+
 				linearFeatureCoords.push(currentFeature);
 			} else if (featureStyle.form === "arrow") {
 				currentFeature = {
