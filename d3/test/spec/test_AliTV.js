@@ -1986,24 +1986,19 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 	});
 });
 
-describe('The changeChromosomeVisibility method is supposed to set a selected chromosome invisible', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	beforeEach(function(done){
-		ali.setData({karyo: karyo14, links: links, features: features21});
-		ali.setFilters(filters20);
-		var chromosomeName = "species_1";
-		ali.changeChromosomeVisibility(chromosomeName);
-		done();
-	});
+describe('The changeChromosomeVisibility method is supposed to set a selected chromosome invisible', function(){	
 	it('changeChromosomeVisibility method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		expect(typeof ali.changeChromosomeVisibility).toEqual('function');
 	});
 	it("the method is supposed to set the visibility of a selected chromosome equal false", function(){
-		setTimeout(function(){
-			expect(ali.filters.karyo.chromosomes["c1_gi"].visible).toEqual(false);		
-			done();
-		}, 1000);
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo14, links: links, features: features21});
+		ali.setFilters(filters20);
+		ali.changeChromosomeVisibility("c1_gi");
+		expect(ali.filters.karyo.chromosomes["c1_gi"].visible).toEqual(false);		
 	});
 });
 
