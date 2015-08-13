@@ -2628,7 +2628,7 @@ AliTV.prototype.setFeatureInvisible = function(feature) {
 	var split = feature.split("_");
 	var id = split[0];
 	var group = split[1];
-	this.filters.features.invisibleFeatures[id] = this.data.features[group][id];
+	this.filters.features.invisibleFeatures[feature] = this.data.features[group][id];
 	return this.filters.features.invisibleFeatures;
 };
 

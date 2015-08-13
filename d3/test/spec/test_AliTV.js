@@ -1721,8 +1721,8 @@ describe('The setFeatureInvisible method is supposed to push a feature to ali.fi
 	it('the method is assigned with an id of a feature, the feature is pushed to ali.fiters.features.invisibleFeatures', function(){
 		ali.setData({karyo: karyo13, links: links, features: features21});
 		ali.setFilters(filters19);
-		var featureID = "f1_gene_c1_gi";
-		var expectedInvisibleFeatures = {"f1_gene_c1_gi": {'karyo': 'c1_gi', 'start': 100, 'end': 200, 'name': "f1"}};
+		var featureID = "0_gene";
+		var expectedInvisibleFeatures = {"0_gene": {'karyo': 'c1_gi', 'start': 100, 'end': 200, 'name': "f1"}};
 		expect(ali.setFeatureInvisible(featureID)).toEqual(expectedInvisibleFeatures);
 	})
 });
@@ -1736,8 +1736,8 @@ describe('The getInvisibleFeatures mehtod is supposed to count the elements in a
 	it('the getInvisibleFeatures method returns the number of features which are set invisible', function(){
 		ali.setData({karyo: karyo13, links: links, features: features21});
 		ali.setFilters(filters19);
-		ali.setFeatureInvisible("f1_gene_c1_gi");
-		ali.setFeatureInvisible("f2_gene_c2_gi");
+		ali.setFeatureInvisible("0_gene");
+		ali.setFeatureInvisible("1_gene");
 		var invisibleFeatures = ali.getInvisibleFeatures();
 		expect(invisibleFeatures).toEqual(2);
 	})
@@ -1752,11 +1752,11 @@ describe('The showInvisibleFeature method is supposed to restore a selected feat
 	it('the showInvisibleFeature method is supposed to remove invisibleFeatures from ali.filters.features.invisibleFeatures', function(){
 		ali.setData({karyo: karyo13, links: links, features: features21});
 		ali.setFilters(filters19);
-		ali.setFeatureInvisible("f1_gene_c1_gi");
-		ali.setFeatureInvisible("f2_gene_c2_gi");
+		ali.setFeatureInvisible("0_gene");
+		ali.setFeatureInvisible("1_gene");
 		var invisibleFeatures = ali.getInvisibleFeatures();
 		expect(invisibleFeatures).toEqual(2);
-		ali.showInvisibleFeature("f1_gene_c1_gi");
+		ali.showInvisibleFeature("1_gene");
 		invisibleFeatures = ali.getInvisibleFeatures();
 		expect(invisibleFeatures).toEqual(1);
 	})
