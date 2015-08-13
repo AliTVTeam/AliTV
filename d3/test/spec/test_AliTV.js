@@ -1313,16 +1313,6 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
 	});
-	it('getLinearFeatureCoords method is supposed to return the expected coordinates for two features on two chromosomes, even if they should be drawn strand-specific', function(){
-		ali.setData({karyo: karyo, features: features22, links: links});
-		ali.setFilters(filters);
-		ali.conf.features.showAllFeatures = true;
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		var expectedFeatures = [{ id: 'f1', type: 'gene', karyo: 'c1', height: 6, x: 950, width: 950, y: 0 },
-		                        { id: 'f2', type: 'gene', karyo: 'c2', height: 6, x: 150, width: 50, y: 994 }];
-		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
-		expect(linearFeatureCoords).toEqual(expectedFeatures);
-	});
 	it('getLinearFeatureCoords method is supposed to return the expected coordinates for one inverted repeats on one chromosome, they should be drawn as arrows', function(){
 		ali.setData({karyo: karyo3, features: features14});
 		ali.setFilters(filters3);

@@ -1871,6 +1871,7 @@ AliTV.prototype.hasTree = function() {
 AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 	var that = this;
 	var linearFeatureCoords = [];
+
 	$.each(that.data.features, function(type, features) {
 		// skip link features
 		if (type === "link") {
@@ -1883,6 +1884,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 			var currentX;
 			var currentFeature = {};
 			var featureId = value.name;
+			var shift = (that.filters.karyo.chromosomes[featureKaryo].offset === undefined ? 0 : that.filters.karyo.chromosomes[featureKaryo].offset);
 			$.each(linearKaryoCoords, function(key, value) {
 				if (featureKaryo === value.karyo) {
 					currentY = value.y;
@@ -1918,7 +1920,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 					.range([currentX, currentX + currentWidth]);
 
 				currentFeature.width = Math.abs(featureScale(value.end) - featureScale(value.start));
-				currentFeature.x = featureScale(Math.min(value.start, value.end));
+				currentFeature.x = featureScale((Math.min(value.start, value.end) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
 				
 				linearFeatureCoords.push(currentFeature);
 			} else if (featureStyle.form === "arrow") {
