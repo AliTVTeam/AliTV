@@ -20,6 +20,7 @@
 <script src="lib/jsoneditor.min.js"></script>
 <script src="lib/contextMenu/jquery.contextMenu.js"></script>
 <script src="lib/bootstrap-select.min.js"></script>
+<script src="lib/bootbox.min.js"></script>
 
 <script src="js/AliTV.js"></script>
 <script src="lib/bootstrap.min.js"></script>
@@ -133,7 +134,7 @@
 	$(function(){$('#drawTree').change(function() {
 		if($('#drawTree').is(':checked')){
 			if(ali.hasTree() === false){
-				alert("there is no tree data");
+				bootbox.alert("there is no tree data");
 				$("#treeWidth").attr("disabled", true);
 				$("#treeLeft").attr("disabled", true);
 				$("#treeRight").attr("disabled", true);
@@ -377,7 +378,7 @@
 		ali.setKaryoSpacer(spacer); 	
 		}
 		catch(err){
-			alert(err);
+			bootbox.alert(err);
 			$("#karyoSpacer").val(ali.getKaryoSpacer());
 		}
 	}
@@ -387,7 +388,7 @@
 		ali.setKaryoHeight(height); 	
 		}
 		catch(err){
-			alert(err);
+			bootbox.alert(err);
 			$("#karyoHeight").val(ali.getKaryoHeight());
 		}
 	}
@@ -397,7 +398,7 @@
 		ali.setCanvasWidth(width); 	
 		}
 		catch(err){
-			alert(err);
+			bootbox.alert(err);
 			$("#canvasWidth").val(ali.getCanvasWidth());
 		}
 	}
@@ -407,7 +408,7 @@
 		ali.setCanvasHeight(height); 
 		}
 		catch(err){
-			alert(err);
+			bootbox.alert(err);
 			$("#canvasHeight").val(ali.getCanvasHeight());
 		}
 	}
@@ -417,7 +418,7 @@
 		ali.setTickDistance(distance); 	
 		}
 		catch(err){
-			alert(err);
+			bootbox.alert(err);
 			$("#tickDistance").val(ali.getTickDistance());
 		}
 	}
@@ -427,7 +428,7 @@
 		ali.setTreeWidth(treeWidth); 	
 		}
 		catch(err){
-			alert(err);
+			bootbox.alert(err);
 			$("#treeWidth").val(ali.getTreeWidth());
 		}
 	}
@@ -437,7 +438,7 @@
 		ali.setTickLabelFrequency(frequency); 	
 		}
 		catch(err){
-			alert(err);
+			bootbox.alert(err);
 			$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
 		}
 	}
@@ -447,7 +448,7 @@
 			ali.setGeneColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#geneColor").val(ali.getGeneColor());
 			}
 	}
@@ -459,7 +460,7 @@
 			ali.setGenomeColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				var defaultColor = ali.getGenomeColor();
 				$("#startLineColor").val(defaultColor[0]);
 				$("#endLineColor").val(defaultColor[1]);
@@ -474,7 +475,7 @@
 			ali.setLinkColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				var defaultColor = ali.getLinkColor();
 				$("#minLinkColor").val(defaultColor[0]);
 				$("#midLinkColor").val(defaultColor[1]);
@@ -487,7 +488,7 @@
 			ali.setGenomeLabelColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#genomeLabelColor").val(this.conf.labels.genome.color);
 			} 
 	}
@@ -497,7 +498,7 @@
 			ali.setGenomeLabelSize(size); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#genomeLabelSize").val(this.conf.labels.genome.size);
 			} 
 	}
@@ -507,7 +508,7 @@
 			ali.setChromosomeLabelColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#chromosomeLabelColor").val(this.conf.labels.chromosome.color);
 			} 
 	}
@@ -517,7 +518,7 @@
 			ali.setChromosomeLabelSize(size); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#chromosomeLabelSize").val(this.conf.labels.chromosome.size);
 			} 
 	}
@@ -527,7 +528,7 @@
 			ali.setTickLabelColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#tickLabelColor").val(this.conf.labels.ticks.color);
 			} 
 	}
@@ -537,7 +538,7 @@
 			ali.setTickLabelSize(size); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#tickLabelSize").val(this.conf.labels.ticks.size);
 			} 
 	}
@@ -547,7 +548,7 @@
 			ali.setInvertedRepeatColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#invertedRepeatColor").val(ali.getInvertedRepeatColor());
 			}
 	}
@@ -557,7 +558,7 @@
 			ali.setRepeatColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#repeatColor").val(ali.getRepeatColor());
 			}
 	}
@@ -567,7 +568,7 @@
 			ali.setNStretchColor(color); 	
 			}
 			catch(err){
-				alert(err);
+				bootbox.alert(err);
 				$("#nStretchColor").val(ali.getNStretchColor());
 			}
 	}
@@ -717,7 +718,7 @@
 			if(ali.getInvisibleFeatures() === 0){
 				$('.selectpicker').selectpicker('val', '')
 			} else {
-			    $.each(ali.filters.features.invisibleFeatures, function(key, value) {   
+			    $.each(ali.filters.features.invisibleFeatures, function(key, value) {  
 			        $('#invisibleFeatures')
 			            .append($("<option></option>")
 			            .attr("value", key)
@@ -734,21 +735,16 @@
 			$("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
 		}
 
-		  function setInvisibleChromosomeSelection(){
+		  function setInvisibleChromosomeSelection(chromosomeId){
 		    	$('#invisibleChromosomes').text("");
 				if(ali.getInvisibleChromosomes() === 0){
 					$('.selectpicker').selectpicker('val', '')
 				} else {
-				    $.each(ali.filters.karyo.chromosomes, function(key, value) {
-				    	if(value.visible === false){
-				    		var chromosomeName = ali.data.karyo.chromosomes[key].genome_id;
 					        $('#invisibleChromosomes')
 					            .append($("<option></option>")
-					            .attr("value", chromosomeName)
-					            .text(chromosomeName))
-					            .selectpicker("refresh");			    		
-				    	}
-				   });  		    
+					            .attr("value", chromosomeId)
+					            .text(chromosomeId))
+					            .selectpicker("refresh");			    		 		    
 				}
 		    }
 
@@ -811,7 +807,6 @@
                 	var chromosomeId = split[1];
                 	//Remove selection rect if exists
                 	ali.svgD3.selectAll("rect.selection").remove();
-                	
                 return { 
                     items: {
                     	"info": {name: "Name: " + name},
@@ -819,9 +814,9 @@
                     	"Visible": {
 		                    name: "Hide",
 		                    callback: function(key, options) {
-		                        ali.changeChromosomeVisibility(name);
+		                        ali.changeChromosomeVisibility(chromosomeId);
 		                        ali.getInvisibleChromosomes();
-		                        setInvisibleChromosomeSelection();
+		                        setInvisibleChromosomeSelection(chromosomeId);
 		                        ali.drawLinear();
 		                        $("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
 		                    }
@@ -861,6 +856,13 @@
 			                    ali.drawLinear();
 		                    }
 		                },
+		                "Reset genome zoom/pan": {
+		                	name: "Reset genome zoom/pan",
+		                    callback: function(key, options) {
+		                        ali.resetGenomeRegion(ali.data.karyo.chromosomes[chromosomeId].genome_id);
+		                        ali.drawLinear();
+		                    }
+		               },
 		                "Quit": {name: "Quit", callback: $.noop}
                     }
                  };
@@ -905,14 +907,13 @@
             build: function($trigger, e) {
             		var feature = $(e.target).attr("id");
             		var split = feature.split("_");
-                	var featureId = split[0];
-                	var group = split[1];
-                	var karyo = split[2] + "_" + split[3];
+            		var group = split[1];
+            		var id = split[0];
                 	//Remove selection rect if exists
                 	ali.svgD3.selectAll("rect.selection").remove();
                 return { 
                     items: {
-                    	"name": {name: "Name: " + featureId},
+                    	"name": {name: "Name: " + ali.data.features[group][id].name},
                     	"group": {name: "Group: " + group},
 		                "sep1": "---------",
                     	"Visible": {
@@ -1530,14 +1531,10 @@
 </div>
 </div> <!-- collapse tab structure -->
 </div> <!-- collapse page header  -->
-
-<!-- <div class="form-group">
-					      <button id="setFilters" type="submit" onclick="setFilters();">Apply</button>
-					  </div> -->
 <div style="width: 100%;">
  	<svg id='wgaCanvas' style="margin:50px"></svg>
- </div> 
- <div id="jsoneditor" style="display:none"></div>
+</div> 
+<div id="jsoneditor" style="display:none"></div>
 
  </body> 
 </body> 

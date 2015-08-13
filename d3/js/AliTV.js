@@ -4,6 +4,7 @@
 /* global document: false */
 /* global textures: false */
 /* global circles: false */
+/* global bootbox: false */
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
@@ -563,6 +564,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 			karyo1Coords = karyo2Coords;
 			karyo2Coords = tmp;
 		}
+
 		link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
 		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
 		link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
@@ -685,20 +687,24 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 	var that = this;
 	var linearTickCoords = [];
+
 	$.each(karyoCoords, function(key, value) {
 		var ticks = [];
+		var shift;
+		shift = (that.filters.karyo.chromosomes[value.karyo].offset === undefined ? 0 : that.filters.karyo.chromosomes[value.karyo].offset);
 		var scale = d3.scale.linear()
 			.domain([0, that.data.karyo.chromosomes[value.karyo].length])
 			.range([value.x, value.x + value.width]);
 
 		var chromosomePosition = 0;
-		for (var i = 0; chromosomePosition <= that.data.karyo.chromosomes[value.karyo].length; i++) {
-			ticks.push(scale(chromosomePosition));
+		for (var i = 0; chromosomePosition < that.data.karyo.chromosomes[value.karyo].length; i++) {
+			var currentTick = scale((chromosomePosition + shift + that.data.karyo.chromosomes[value.karyo].length) % that.data.karyo.chromosomes[value.karyo].length);
+
 			chromosomePosition += that.conf.graphicalParameters.tickDistance;
 			var coords = {};
 			coords.id = value.karyo;
-			coords.x1 = ticks[ticks.length - 1];
-			coords.x2 = ticks[ticks.length - 1];
+			coords.x1 = currentTick;
+			coords.x2 = currentTick;
 
 			if (i % that.conf.graphicalParameters.tickLabelFrequency === 0 && (that.conf.labels.ticks.showTickLabels === true || that.conf.labels.showAllLabels === true)) {
 				coords.y1 = value.y - 10;
@@ -1154,7 +1160,7 @@ AliTV.prototype.getKaryoSpacer = function() {
  * It is called by a blur()-event, when the decription field loses focus.
  * When the method gets a wrong spacer it throws an error message.
  * @param {Number} The function gets the spacer which can be set by the user.
- * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is Sorry, you entered an empty value. Please try it again..
  * @throws Will throw an error if the argument is not a number.
  * @throws Will throw an error if the argument is less than 0 or equal to 0.
  * @author Sonja Hohlfeld
@@ -1162,11 +1168,11 @@ AliTV.prototype.getKaryoSpacer = function() {
 
 AliTV.prototype.setKaryoSpacer = function(spacer) {
 	if (spacer === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(spacer)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (spacer <= 0) {
-		throw "spacer is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		this.conf.graphicalParameters.karyoDistance = spacer;
 		return this.conf.graphicalParameters.karyoDistance;
@@ -1196,11 +1202,11 @@ AliTV.prototype.getKaryoHeight = function() {
 
 AliTV.prototype.setKaryoHeight = function(height) {
 	if (height === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(height)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (height <= 0) {
-		throw "genome distance is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		height = Number(height);
 		this.conf.graphicalParameters.karyoHeight = height;
@@ -1230,11 +1236,11 @@ AliTV.prototype.getCanvasWidth = function() {
 
 AliTV.prototype.setCanvasWidth = function(width) {
 	if (width === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(width)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (width <= 0) {
-		throw "width is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		width = Number(width);
 		this.conf.graphicalParameters.canvasWidth = width;
@@ -1265,11 +1271,11 @@ AliTV.prototype.getCanvasHeight = function() {
 
 AliTV.prototype.setCanvasHeight = function(height) {
 	if (height === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(height)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (height <= 0) {
-		throw "height is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		height = Number(height);
 		this.conf.graphicalParameters.canvasHeight = height;
@@ -1301,11 +1307,11 @@ AliTV.prototype.getTickDistance = function() {
 
 AliTV.prototype.setTickDistance = function(distance) {
 	if (distance === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(distance)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (distance <= 0) {
-		throw "distance is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		distance = Number(distance);
 		this.conf.graphicalParameters.tickDistance = distance;
@@ -1361,11 +1367,11 @@ AliTV.prototype.getTreeWidth = function() {
 
 AliTV.prototype.setTreeWidth = function(treeWidth) {
 	if (treeWidth === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(treeWidth)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (treeWidth <= 0) {
-		throw "the tree width is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		treeWidth = Number(treeWidth);
 		this.conf.graphicalParameters.treeWidth = treeWidth;
@@ -1413,11 +1419,11 @@ AliTV.prototype.getTickLabelFrequency = function() {
  */
 AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
 	if (tickLabelFrequency === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(tickLabelFrequency)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (tickLabelFrequency <= 0) {
-		throw "the frequency is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		tickLabelFrequency = Number(tickLabelFrequency);
 		this.conf.graphicalParameters.tickLabelFrequency = tickLabelFrequency;
@@ -1443,7 +1449,7 @@ AliTV.prototype.getGeneColor = function() {
  */
 AliTV.prototype.setGeneColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.features.supportedFeatures.gene.color = color;
 		return this.conf.features.supportedFeatures.gene.color;
@@ -1468,7 +1474,7 @@ AliTV.prototype.getInvertedRepeatColor = function() {
  */
 AliTV.prototype.setInvertedRepeatColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.features.supportedFeatures.invertedRepeat.color = color;
 		return this.conf.features.supportedFeatures.invertedRepeat.color;
@@ -1493,7 +1499,7 @@ AliTV.prototype.getRepeatColor = function() {
  */
 AliTV.prototype.setRepeatColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.features.supportedFeatures.repeat.color = color;
 		return this.conf.features.supportedFeatures.repeat.color;
@@ -1518,7 +1524,7 @@ AliTV.prototype.getNStretchColor = function() {
  */
 AliTV.prototype.setNStretchColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.features.supportedFeatures.nStretch.color = color;
 		return this.conf.features.supportedFeatures.nStretch.color;
@@ -1547,7 +1553,7 @@ AliTV.prototype.getGenomeColor = function() {
 AliTV.prototype.setGenomeColor = function(color) {
 	var newColor = [];
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.linear.startLineColor = color[0];
 		this.conf.linear.endLineColor = color[1];
@@ -1580,7 +1586,7 @@ AliTV.prototype.getLinkColor = function() {
 AliTV.prototype.setLinkColor = function(color) {
 	var newColor = [];
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.minLinkIdentityColor = color[0];
 		this.conf.midLinkIdentityColor = color[1];
@@ -1865,6 +1871,7 @@ AliTV.prototype.hasTree = function() {
 AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 	var that = this;
 	var linearFeatureCoords = [];
+
 	$.each(that.data.features, function(type, features) {
 		// skip link features
 		if (type === "link") {
@@ -1877,6 +1884,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 			var currentX;
 			var currentFeature = {};
 			var featureId = value.name;
+			var shift = (that.filters.karyo.chromosomes[featureKaryo].offset === undefined ? 0 : that.filters.karyo.chromosomes[featureKaryo].offset);
 			$.each(linearKaryoCoords, function(key, value) {
 				if (featureKaryo === value.karyo) {
 					currentY = value.y;
@@ -1893,13 +1901,26 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				currentFeature = {
 					"id": value.name,
 					"type": type,
-					"y": currentY,
-					"height": that.conf.graphicalParameters.karyoHeight,
 					"karyo": value.karyo
 				};
 
-				currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
-				currentFeature.x = currentX + (Math.min(value.start, value.end) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+				if (value.strand === undefined) {
+					currentFeature.y = currentY;
+					currentFeature.height = that.conf.graphicalParameters.karyoHeight;
+				} else if (value.strand === "+") {
+					currentFeature.y = currentY;
+					currentFeature.height = 1 / 5 * that.conf.graphicalParameters.karyoHeight;
+				} else if (value.strand === "-") {
+					currentFeature.y = currentY + 4 / 5 * that.conf.graphicalParameters.karyoHeight;
+					currentFeature.height = 1 / 5 * that.conf.graphicalParameters.karyoHeight;
+				}
+
+				var featureScale = d3.scale.linear()
+					.domain([0, that.data.karyo.chromosomes[featureKaryo].length])
+					.range([currentX, currentX + currentWidth]);
+
+				currentFeature.width = Math.abs(featureScale(value.end) - featureScale(value.start));
+				currentFeature.x = featureScale((Math.min(value.start, value.end) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
 
 				linearFeatureCoords.push(currentFeature);
 			} else if (featureStyle.form === "arrow") {
@@ -1909,28 +1930,76 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 					"karyo": value.karyo
 				};
 				currentFeature.path = [];
-				currentFeature.path.push({
-					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
-				}, {
-					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
-				}, {
-					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY
-				}, {
-					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + 1 / 2 * that.conf.graphicalParameters.karyoHeight
-				}, {
-					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + that.conf.graphicalParameters.karyoHeight
-				}, {
-					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
-				}, {
-					x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
-					y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
-				});
+				if (value.strand === undefined) {
+					currentFeature.path.push({
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + 1 / 2 * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
+					});
+				} else if (value.strand === "+") {
+					currentFeature.path.push({
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + 1 / 25 * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + 1 / 25 * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + 1 / 10 * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight - 1 / 25 * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight - 1 / 25 * that.conf.graphicalParameters.karyoHeight
+					});
+				} else if (value.strand === "-") {
+					currentFeature.path.push({
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + (4 / 5 + 1 / 25) * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + (4 / 5 + 1 / 25) * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + 4 / 5 * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + (4 / 5 + 1 / 10) * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length + 5 / 6 * ((value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + 24 / 25 * that.conf.graphicalParameters.karyoHeight
+					}, {
+						x: currentX + (Math.abs(value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length,
+						y: currentY + 24 / 25 * that.conf.graphicalParameters.karyoHeight
+					});
+				}
 				linearFeatureCoords.push(currentFeature);
 			}
 		});
@@ -1973,7 +2042,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 
 	shapes.call(woven);
 
-
+	var counter = 0;
 	shapes.append("rect")
 		.filter(function(d) {
 			if (d.type in that.conf.features.supportedFeatures === true) {
@@ -1983,8 +2052,14 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			}
 		})
 		.attr("class", "feature")
-		.attr("id", function(d) {
-			return d.id + "_" + d.type + "_" + d.karyo;
+		.attr("id", function(d, i) {
+			var position = that.data.features[d.type].indexOf(that.data.features[d.type][counter]);
+			if (counter < that.data.features[d.type].length - 1) {
+				counter++;
+			} else {
+				counter = 0;
+			}
+			return position + "_" + d.type;
 		})
 		.attr("x", function(d) {
 			if (d.width < 0) {
@@ -2054,7 +2129,13 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			d3.select(this)
 				.attr("class", "feature")
 				.attr("id", function(d) {
-					return d.id + "_" + d.type + "_" + d.karyo;
+					var position = that.data.features[d.type].indexOf(that.data.features[d.type][counter]);
+					if (counter < that.data.features[d.type].length - 1) {
+						counter++;
+					} else {
+						counter = 0;
+					}
+					return position + "_" + d.type;
 				})
 				.attr("d", lineFunction(d.path))
 				.attr("fill", function(d) {
@@ -2207,11 +2288,11 @@ AliTV.prototype.getSvgWidth = function() {
 
 AliTV.prototype.setSvgWidth = function(width) {
 	if (width === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(width)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (width <= 0) {
-		throw "width is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		width = Number(width);
 		this.svg.attr("width", width);
@@ -2241,11 +2322,11 @@ AliTV.prototype.getSvgHeight = function() {
 
 AliTV.prototype.setSvgHeight = function(height) {
 	if (height === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(height)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (height <= 0) {
-		throw "height is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		height = Number(height);
 		this.svg.attr("height", height);
@@ -2313,7 +2394,7 @@ AliTV.prototype.getGenomeLabelColor = function() {
  */
 AliTV.prototype.setGenomeLabelColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.labels.genome.color = color;
 		return this.conf.labels.genome.color;
@@ -2338,7 +2419,7 @@ AliTV.prototype.getChromosomeLabelColor = function() {
  */
 AliTV.prototype.setChromosomeLabelColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.labels.chromosome.color = color;
 		return this.conf.labels.chromosome.color;
@@ -2366,11 +2447,11 @@ AliTV.prototype.getGenomeLabelSize = function() {
  */
 AliTV.prototype.setGenomeLabelSize = function(size) {
 	if (size === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(size)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (size <= 0) {
-		throw "size is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		size = Number(size);
 		this.conf.labels.genome.size = size;
@@ -2399,11 +2480,11 @@ AliTV.prototype.getChromosomeLabelSize = function() {
  */
 AliTV.prototype.setChromosomeLabelSize = function(size) {
 	if (size === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(size)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (size <= 0) {
-		throw "size is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		size = Number(size);
 		this.conf.labels.chromosome.size = size;
@@ -2429,7 +2510,7 @@ AliTV.prototype.getTickLabelColor = function() {
  */
 AliTV.prototype.setTickLabelColor = function(color) {
 	if (color === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.labels.ticks.color = color;
 		return this.conf.labels.ticks.color;
@@ -2457,11 +2538,11 @@ AliTV.prototype.getTickLabelSize = function() {
  */
 AliTV.prototype.setTickLabelSize = function(size) {
 	if (size === "") {
-		throw "empty";
+		throw "Sorry, you entered an empty value. Please try it again.";
 	} else if (isNaN(size)) {
-		throw "not a number";
+		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (size <= 0) {
-		throw "size is to small, it should be > 0";
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		size = Number(size);
 		this.conf.labels.ticks.size = size;
@@ -2549,18 +2630,12 @@ AliTV.prototype.clearAli = function() {
  */
 
 AliTV.prototype.setFeatureInvisible = function(feature) {
-	var that = this;
 	$("#" + feature).hide();
 	var split = feature.split("_");
-	var featureId = split[0];
+	var id = split[0];
 	var group = split[1];
-	var karyo = split[2] + "_" + split[3];
-	$.each(that.data.features[group], function(key, value) {
-		if (value.karyo === karyo && value.name === featureId) {
-			that.filters.features.invisibleFeatures[feature] = value;
-		}
-	});
-	return that.filters.features.invisibleFeatures;
+	this.filters.features.invisibleFeatures[feature] = this.data.features[group][id];
+	return this.filters.features.invisibleFeatures;
 };
 
 /**
@@ -2675,22 +2750,26 @@ AliTV.prototype.updateGenomeRegionBySvgRect = function(rect) {
 	}
 };
 
+/**
+ * This function resets the genome_region filter to default for the specified genome
+ * @param {String}  - genome_id
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.resetGenomeRegion = function(genome_id) {
+	if (typeof this.filters.karyo.genome_region !== "undefined") {
+		this.filters.karyo.genome_region[genome_id] = {};
+	}
+};
+
 /**	
  * This function is supposed to change the visibility of a selected chromosome.
  * The function gets the name of a chromosome and set his visibility in filters.karyo.chromosomes equal false or true.
  * @param {String} chromosomeName: the name of the selected chromosome.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.changeChromosomeVisibility = function(chromosomeName) {
-	var that = this;
-	var chromosomeId;
-	$.each(that.data.karyo.chromosomes, function(key, value) {
-		if (chromosomeName === value.genome_id) {
-			chromosomeId = key;
-		}
-	});
-	that.filters.karyo.chromosomes[chromosomeId].visible = !that.filters.karyo.chromosomes[chromosomeId].visible;
-	return that.filters.karyo.chromosomes;
+AliTV.prototype.changeChromosomeVisibility = function(chromosomeId) {
+	this.filters.karyo.chromosomes[chromosomeId].visible = !this.filters.karyo.chromosomes[chromosomeId].visible;
+	return this.filters.karyo.chromosomes;
 };
 
 /**

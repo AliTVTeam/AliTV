@@ -215,23 +215,14 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 	it('drawLinear method is supposed to be a function', function(){
 		expect(typeof ali.drawLinear).toEqual('function');
 	});
-	it('there should be exactly three karyos, ticks (depend on tickDistance) and one link in the test svg', function(){	
+	it('there should be exactly three karyos and one link in the test svg', function(){	
 		var karyoCoords = ali.getLinearKaryoCoords();
-		var ticks = ali.getLinearTickCoords(karyoCoords);
-		ali.drawLinearTicks(ticks, karyoCoords);
 		ali.drawLinearKaryo(karyoCoords);
 		var linkCoords = ali.getLinearLinkCoords(karyoCoords);
 		ali.drawLinearLinks(linkCoords);
 		
-		var totalTicks = 0;
-		$.each(karyoCoords, function(key, value){
-			var tickFrequency = ali.data.karyo.chromosomes[value.karyo].length / ali.conf.graphicalParameters.tickDistance;
-			totalTicks += tickFrequency + 1;
-		});
-		
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
-		expect(ali.svgD3.selectAll('.tick').size()).toEqual(totalTicks);
 	});
 	it('the drawn karyos have the expected height', function(){
 		ali.drawLinear();
@@ -812,21 +803,44 @@ describe('The colorKaryoByGenome method of AliTV objects is supposed to color ka
 });
 
 describe('The getLinearTickCoords method is supposed to calculate coords for the linear ticks', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
 	it('getLinearTickCoords method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		expect(typeof ali.getLinearTickCoords).toEqual('function');
 	});
-	
 	it('getLinearTickCoords method is supposed to calculate the same coords as the expected coords', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		ali.setData(data);
 		ali.setFilters(filters);
 		ali.conf.labels.ticks.showTickLabels = false;
 		var ticks = ali.getGenomeDistance();
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
-		var expectedTicks = [{ id: 'c1', x1: 0, x2: 0, y1: -5, y2: 35 }, { id: 'c1', x1: 50, x2: 50, y1: -5, y2: 35 }, { id: 'c1', x1: 100, x2: 100, y1: -5, y2: 35 }, { id: 'c1', x1: 150, x2: 150, y1: -5, y2: 35 }, { id: 'c1', x1: 200, x2: 200, y1: -5, y2: 35 }, { id: 'c1', x1: 250, x2: 250, y1: -5, y2: 35 }, { id: 'c1', x1: 300, x2: 300, y1: -5, y2: 35 }, { id: 'c1', x1: 350, x2: 350, y1: -5, y2: 35 }, { id: 'c1', x1: 400, x2: 400, y1: -5, y2: 35 }, { id: 'c1', x1: 450, x2: 450, y1: -5, y2: 35 }, { id: 'c1', x1: 500, x2: 500, y1: -5, y2: 35 }, { id: 'c1', x1: 550, x2: 550, y1: -5, y2: 35 }, { id: 'c1', x1: 600, x2: 600, y1: -5, y2: 35 }, { id: 'c1', x1: 650, x2: 650, y1: -5, y2: 35 }, { id: 'c1', x1: 700, x2: 700, y1: -5, y2: 35 }, { id: 'c1', x1: 750, x2: 750, y1: -5, y2: 35 }, { id: 'c1', x1: 800, x2: 800, y1: -5, y2: 35 }, { id: 'c1', x1: 850, x2: 850, y1: -5, y2: 35 }, { id: 'c1', x1: 900, x2: 900, y1: -5, y2: 35 }, { id: 'c1', x1: 950, x2: 950, y1: -5, y2: 35 }, { id: 'c1', x1: 1000, x2: 1000, y1: -5, y2: 35 }, { id: 'c2', x1: 0, x2: 0, y1: 965, y2: 1005 }, { id: 'c2', x1: 50, x2: 50, y1: 965, y2: 1005 }, { id: 'c2', x1: 100, x2: 100, y1: 965, y2: 1005 }, { id: 'c2', x1: 150, x2: 150, y1: 965, y2: 1005 }, { id: 'c2', x1: 200, x2: 200, y1: 965, y2: 1005 }, { id: 'c2', x1: 250, x2: 250, y1: 965, y2: 1005 }, { id: 'c2', x1: 300, x2: 300, y1: 965, y2: 1005 }, { id: 'c2', x1: 350, x2: 350, y1: 965, y2: 1005 }, { id: 'c2', x1: 400, x2: 400, y1: 965, y2: 1005 }, { id: 'c2', x1: 450, x2: 450, y1: 965, y2: 1005 }, { id: 'c2', x1: 500, x2: 500, y1: 965, y2: 1005 } ]
+		var expectedTicks = [{ id: 'c1', x1: 0, x2: 0, y1: -5, y2: 35 }, { id: 'c1', x1: 50, x2: 50, y1: -5, y2: 35 }, { id: 'c1', x1: 100, x2: 100, y1: -5, y2: 35 }, { id: 'c1', x1: 150, x2: 150, y1: -5, y2: 35 }, { id: 'c1', x1: 200, x2: 200, y1: -5, y2: 35 }, { id: 'c1', x1: 250, x2: 250, y1: -5, y2: 35 }, { id: 'c1', x1: 300, x2: 300, y1: -5, y2: 35 }, { id: 'c1', x1: 350, x2: 350, y1: -5, y2: 35 }, { id: 'c1', x1: 400, x2: 400, y1: -5, y2: 35 }, { id: 'c1', x1: 450, x2: 450, y1: -5, y2: 35 }, { id: 'c1', x1: 500, x2: 500, y1: -5, y2: 35 }, { id: 'c1', x1: 550, x2: 550, y1: -5, y2: 35 }, { id: 'c1', x1: 600, x2: 600, y1: -5, y2: 35 }, { id: 'c1', x1: 650, x2: 650, y1: -5, y2: 35 }, { id: 'c1', x1: 700, x2: 700, y1: -5, y2: 35 }, { id: 'c1', x1: 750, x2: 750, y1: -5, y2: 35 }, { id: 'c1', x1: 800, x2: 800, y1: -5, y2: 35 }, { id: 'c1', x1: 850, x2: 850, y1: -5, y2: 35 }, { id: 'c1', x1: 900, x2: 900, y1: -5, y2: 35 }, { id: 'c1', x1: 950, x2: 950, y1: -5, y2: 35 }, { id: 'c2', x1: 0, x2: 0, y1: 965, y2: 1005 }, { id: 'c2', x1: 50, x2: 50, y1: 965, y2: 1005 }, { id: 'c2', x1: 100, x2: 100, y1: 965, y2: 1005 }, { id: 'c2', x1: 150, x2: 150, y1: 965, y2: 1005 }, { id: 'c2', x1: 200, x2: 200, y1: 965, y2: 1005 }, { id: 'c2', x1: 250, x2: 250, y1: 965, y2: 1005 }, { id: 'c2', x1: 300, x2: 300, y1: 965, y2: 1005 }, { id: 'c2', x1: 350, x2: 350, y1: 965, y2: 1005 }, { id: 'c2', x1: 400, x2: 400, y1: 965, y2: 1005 }, { id: 'c2', x1: 450, x2: 450, y1: 965, y2: 1005 } ]
 		expect(ticks).toEqual(expectedTicks);		
+	});
+	it('getLinearTickCoords method is supposed to calculate the same coords as the expected coords even if the chromosome should be shifted in positive direction', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c1"].offset = 500;
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
+		var expectedTicks = [{ id: 'c1', x1: 250, x2: 250, y1: -10, y2: 40 }, { id: 'c1', x1: 300, x2: 300, y1: -5, y2: 35 }, { id: 'c1', x1: 350, x2: 350, y1: -5, y2: 35 }, { id: 'c1', x1: 400, x2: 400, y1: -5, y2: 35 }, { id: 'c1', x1: 450, x2: 450, y1: -5, y2: 35 }, { id: 'c1', x1: 500, x2: 500, y1: -5, y2: 35 }, { id: 'c1', x1: 550, x2: 550, y1: -5, y2: 35 }, { id: 'c1', x1: 600, x2: 600, y1: -5, y2: 35 }, { id: 'c1', x1: 650, x2: 650, y1: -5, y2: 35 }, { id: 'c1', x1: 700, x2: 700, y1: -5, y2: 35 }, { id: 'c1', x1: 750, x2: 750, y1: -10, y2: 40 }, { id: 'c1', x1: 800, x2: 800, y1: -5, y2: 35 }, { id: 'c1', x1: 850, x2: 850, y1: -5, y2: 35 }, { id: 'c1', x1: 900, x2: 900, y1: -5, y2: 35 }, { id: 'c1', x1: 950, x2: 950, y1: -5, y2: 35 }, { id: 'c1', x1: 0, x2: 0, y1: -5, y2: 35 }, { id: 'c1', x1: 50, x2: 50, y1: -5, y2: 35 }, { id: 'c1', x1: 100, x2: 100, y1: -5, y2: 35 }, { id: 'c1', x1: 150, x2: 150, y1: -5, y2: 35 }, { id: 'c1', x1: 200, x2: 200, y1: -5, y2: 35 }, { id: 'c2', x1: 0, x2: 0, y1: 960, y2: 1010 }, { id: 'c2', x1: 50, x2: 50, y1: 965, y2: 1005 }, { id: 'c2', x1: 100, x2: 100, y1: 965, y2: 1005 }, { id: 'c2', x1: 150, x2: 150, y1: 965, y2: 1005 }, { id: 'c2', x1: 200, x2: 200, y1: 965, y2: 1005 }, { id: 'c2', x1: 250, x2: 250, y1: 965, y2: 1005 }, { id: 'c2', x1: 300, x2: 300, y1: 965, y2: 1005 }, { id: 'c2', x1: 350, x2: 350, y1: 965, y2: 1005 }, { id: 'c2', x1: 400, x2: 400, y1: 965, y2: 1005 }, { id: 'c2', x1: 450, x2: 450, y1: 965, y2: 1005 }];
+		expect(ticks).toEqual(expectedTicks);
+	});
+	it('getLinearTickCoords method is supposed to calculate the same coords as the expected coords even if the chromosome should be shifted in negative direction', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c1"].offset = -500;
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
+		var expectedTicks = [ { id: 'c1', x1: 750, x2: 750, y1: -10, y2: 40 }, { id: 'c1', x1: 800, x2: 800, y1: -5, y2: 35 }, { id: 'c1', x1: 850, x2: 850, y1: -5, y2: 35 }, { id: 'c1', x1: 900, x2: 900, y1: -5, y2: 35 }, { id: 'c1', x1: 950, x2: 950, y1: -5, y2: 35 }, { id: 'c1', x1: 0, x2: 0, y1: -5, y2: 35 }, { id: 'c1', x1: 50, x2: 50, y1: -5, y2: 35 }, { id: 'c1', x1: 100, x2: 100, y1: -5, y2: 35 }, { id: 'c1', x1: 150, x2: 150, y1: -5, y2: 35 }, { id: 'c1', x1: 200, x2: 200, y1: -5, y2: 35 }, { id: 'c1', x1: 250, x2: 250, y1: -10, y2: 40 }, { id: 'c1', x1: 300, x2: 300, y1: -5, y2: 35 }, { id: 'c1', x1: 350, x2: 350, y1: -5, y2: 35 }, { id: 'c1', x1: 400, x2: 400, y1: -5, y2: 35 }, { id: 'c1', x1: 450, x2: 450, y1: -5, y2: 35 }, { id: 'c1', x1: 500, x2: 500, y1: -5, y2: 35 }, { id: 'c1', x1: 550, x2: 550, y1: -5, y2: 35 }, { id: 'c1', x1: 600, x2: 600, y1: -5, y2: 35 }, { id: 'c1', x1: 650, x2: 650, y1: -5, y2: 35 }, { id: 'c1', x1: 700, x2: 700, y1: -5, y2: 35 }, { id: 'c2', x1: 0, x2: 0, y1: 960, y2: 1010 }, { id: 'c2', x1: 50, x2: 50, y1: 965, y2: 1005 }, { id: 'c2', x1: 100, x2: 100, y1: 965, y2: 1005 }, { id: 'c2', x1: 150, x2: 150, y1: 965, y2: 1005 }, { id: 'c2', x1: 200, x2: 200, y1: 965, y2: 1005 }, { id: 'c2', x1: 250, x2: 250, y1: 965, y2: 1005 }, { id: 'c2', x1: 300, x2: 300, y1: 965, y2: 1005 }, { id: 'c2', x1: 350, x2: 350, y1: 965, y2: 1005 }, { id: 'c2', x1: 400, x2: 400, y1: 965, y2: 1005 }, { id: 'c2', x1: 450, x2: 450, y1: 965, y2: 1005 }];
+		expect(ticks).toEqual(expectedTicks);
 	});
 });
 
@@ -913,7 +927,7 @@ describe('The drawLinearTicks method is supposed to draw ticks in the linear lay
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
 		ali.drawLinearTicks(ticks, linearKaryoCoords);
-		expect(ali.svgD3.selectAll('.tick').size()).toEqual(21);
+		expect(ali.svgD3.selectAll('.tick').size()).toEqual(20);
 	});
 });
 
@@ -1314,17 +1328,53 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
 	});
-	it('getLinearFeatureCoords method is supposed to return the expected coordinates for inverted repeats on one chromosome also with swapped start/end', function(){
+	it('getLinearFeatureCoords method is supposed to return the expected coordinates for one inverted repeats on one chromosome, they should be drawn as arrows', function(){
+		ali.setData({karyo: karyo3, features: features14});
+		ali.setFilters(filters3);
+		ali.conf.features.showAllFeatures = true;
+		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 100 * 1000/2000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		                                                 {x: 100 * 1000/2000 + 5/6 * (200 - 100) * 1000 / 2000, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		                                                 {x: 100 * 1000/2000 + 5/6 * (200 - 100) * 1000 / 2000, y: 0}, 
+		                                                 {x: 100 * 1000/2000 + (200 - 100) * 1000 / 2000, y: 0 +  1/2 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		                                                 {x: 100 * 1000/2000 + 5/6 * (200 - 100) * 1000 / 2000, y: 0 + defaultConf.features.supportedFeatures.invertedRepeat.height},
+		                                                 {x: 100 * 1000/2000 + 5/6 * (200 - 100) * 1000 / 2000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
+		                                                 {x: 100 * 1000/2000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}]}];
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		expect(linearFeatureCoords).toEqual(expectedFeatures);
+	});
+	it('getLinearFeatureCoords method is supposed to return the expected coordinates for inverted repeats on one chromosome also with swapped start/end and it should be drawed on the negative strand', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		ali.setData({karyo: karyo3, features: features14r});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 200 * 1000/2000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
-	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		ali.data.features.invertedRepeat[0].strand = "-";
+		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 200 * 1000/2000, y: (4/5 + 1/25) * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: (4/5 + 1/25) * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 4/5 * defaultConf.graphicalParameters.karyoHeight}, 
+	                                                 {x: 200 * 1000/2000 + (100 - 200) * 1000 / 2000, y: (4/5 + 1/10) * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: defaultConf.features.supportedFeatures.invertedRepeat.height},
+	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 24/25 * defaultConf.features.supportedFeatures.invertedRepeat.height},
+	                                                 {x: 200 * 1000/2000, y: 24/25 * defaultConf.features.supportedFeatures.invertedRepeat.height}]}];
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		expect(linearFeatureCoords).toEqual(expectedFeatures);
+	});
+	it('getLinearFeatureCoords method is supposed to return the expected coordinates for inverted repeats on one chromosome also with swapped start/end ans it should be drawed on the positiev strand', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo3, features: features14r});
+		ali.setFilters(filters3);
+		ali.conf.features.showAllFeatures = true;
+		ali.data.features.invertedRepeat[0].strand = "+";
+		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 200 * 1000/2000, y: 1/25 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 1/25 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
 	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 0}, 
-	                                                 {x: 200 * 1000/2000 + (100 - 200) * 1000 / 2000, y: 0 +  1/2 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
-	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 0 + defaultConf.features.supportedFeatures.invertedRepeat.height},
-	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
-	                                                 {x: 200 * 1000/2000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}]}];
+	                                                 {x: 200 * 1000/2000 + (100 - 200) * 1000 / 2000, y: 1/10 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
+	                                                 {x: 200 * 1000/2000 + 5/6 * (100 - 200) * 1000 / 2000, y: 4/25 * defaultConf.features.supportedFeatures.invertedRepeat.height},
+	                                                 {x: 200 * 1000/2000, y: 4/25 * defaultConf.features.supportedFeatures.invertedRepeat.height}]}];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
@@ -1573,14 +1623,14 @@ describe('The drawLinearTickLabels method is supposed to add labels to the ticks
 		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
 		ali.drawLinearTicks(ticks, linearKaryoCoords);
 		ali.drawLinearTickLabels(ticks);
-		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(6);
+		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(4);
 	});
 	it('the ticks should be labeled', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
 		ali.conf.labels.ticks.showTickLabels = true;
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(10);
+		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(6);
 	});
 	it('the ticks are not labeled because the default value is set false', function(){
 		ali.setData(data);
@@ -1684,8 +1734,8 @@ describe('The setFeatureInvisible method is supposed to push a feature to ali.fi
 	it('the method is assigned with an id of a feature, the feature is pushed to ali.fiters.features.invisibleFeatures', function(){
 		ali.setData({karyo: karyo13, links: links, features: features21});
 		ali.setFilters(filters19);
-		var featureID = "f1_gene_c1_gi";
-		var expectedInvisibleFeatures = {"f1_gene_c1_gi": {'karyo': 'c1_gi', 'start': 100, 'end': 200, 'name': "f1"}};
+		var featureID = "0_gene";
+		var expectedInvisibleFeatures = {"0_gene": {'karyo': 'c1_gi', 'start': 100, 'end': 200, 'name': "f1"}};
 		expect(ali.setFeatureInvisible(featureID)).toEqual(expectedInvisibleFeatures);
 	})
 });
@@ -1699,8 +1749,8 @@ describe('The getInvisibleFeatures mehtod is supposed to count the elements in a
 	it('the getInvisibleFeatures method returns the number of features which are set invisible', function(){
 		ali.setData({karyo: karyo13, links: links, features: features21});
 		ali.setFilters(filters19);
-		ali.setFeatureInvisible("f1_gene_c1_gi");
-		ali.setFeatureInvisible("f2_gene_c2_gi");
+		ali.setFeatureInvisible("0_gene");
+		ali.setFeatureInvisible("1_gene");
 		var invisibleFeatures = ali.getInvisibleFeatures();
 		expect(invisibleFeatures).toEqual(2);
 	})
@@ -1715,11 +1765,11 @@ describe('The showInvisibleFeature method is supposed to restore a selected feat
 	it('the showInvisibleFeature method is supposed to remove invisibleFeatures from ali.filters.features.invisibleFeatures', function(){
 		ali.setData({karyo: karyo13, links: links, features: features21});
 		ali.setFilters(filters19);
-		ali.setFeatureInvisible("f1_gene_c1_gi");
-		ali.setFeatureInvisible("f2_gene_c2_gi");
+		ali.setFeatureInvisible("0_gene");
+		ali.setFeatureInvisible("1_gene");
 		var invisibleFeatures = ali.getInvisibleFeatures();
 		expect(invisibleFeatures).toEqual(2);
-		ali.showInvisibleFeature("f1_gene_c1_gi");
+		ali.showInvisibleFeature("1_gene");
 		invisibleFeatures = ali.getInvisibleFeatures();
 		expect(invisibleFeatures).toEqual(1);
 	})
@@ -1949,24 +1999,45 @@ describe('The updateGenomeRegionBySvgRect method is supposed to update genome_re
 	});
 });
 
-describe('The changeChromosomeVisibility method is supposed to set a selected chromosome invisible', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	beforeEach(function(done){
-		ali.setData({karyo: karyo14, links: links, features: features21});
-		ali.setFilters(filters20);
-		var chromosomeName = "species_1";
-		ali.changeChromosomeVisibility(chromosomeName);
-		done();
+describe('The resetGenomeRegion method is supposed to reset the genome_region filter according to the genome_id', function(){
+	it('resetGenomeRegion method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.resetGenomeRegion).toEqual('function');
 	});
+	it('resetGenomeRegion resets genome_region filter after changing it in a simple case (2 genomes, 2 chromosomes)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters($.extend(true, {}, filters));
+		ali.setCanvasHeight(1000);
+		ali.setCanvasWidth(1000);
+		ali.conf.labels.genome.showGenomeLabels = false;
+		ali.drawLinear();
+		var selection = {x:0, y:0, width:500, height: 500};
+		ali.updateGenomeRegionBySvgRect(selection);
+		ali.resetGenomeRegion("0");
+		expect(typeof ali.filters.karyo.genome_region["0"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["0"].end).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].start).toEqual('undefined');
+		expect(typeof ali.filters.karyo.genome_region["1"].end).toEqual('undefined');
+	});
+});
+
+
+describe('The changeChromosomeVisibility method is supposed to set a selected chromosome invisible', function(){	
 	it('changeChromosomeVisibility method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		expect(typeof ali.changeChromosomeVisibility).toEqual('function');
 	});
 	it("the method is supposed to set the visibility of a selected chromosome equal false", function(){
-		setTimeout(function(){
-			expect(ali.filters.karyo.chromosomes["c1_gi"].visible).toEqual(false);		
-			done();
-		}, 1000);
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo14, links: links, features: features21});
+		ali.setFilters(filters20);
+		ali.changeChromosomeVisibility("c1_gi");
+		expect(ali.filters.karyo.chromosomes["c1_gi"].visible).toEqual(false);		
 	});
 });
 
