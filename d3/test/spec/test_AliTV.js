@@ -1610,14 +1610,14 @@ describe('The drawLinearTickLabels method is supposed to add labels to the ticks
 		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
 		ali.drawLinearTicks(ticks, linearKaryoCoords);
 		ali.drawLinearTickLabels(ticks);
-		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(6);
+		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(4);
 	});
 	it('the ticks should be labeled', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
 		ali.conf.labels.ticks.showTickLabels = true;
 		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(10);
+		expect(ali.svgD3.selectAll('.tickLabel').size()).toEqual(6);
 	});
 	it('the ticks are not labeled because the default value is set false', function(){
 		ali.setData(data);
