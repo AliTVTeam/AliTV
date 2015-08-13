@@ -86,9 +86,7 @@ http://silviomoreto.github.io/bootstrap-select/
 **** LICENSE
 [[file:LICENSE-contextMenu][LICENSE-contextMenu]]
 **** Files
-- [[file:~/projects/AliTV/AliTV/d3/lib/contextMenu/images][../d3/lib/contextMenu/images]]
-- [[file:~/projects/AliTV/AliTV/d3/lib/contextMenu/jquery.contextMenu.css][../d3/lib/contextMenu/jquery.contextMenu.css]]
-- [[file:~/projects/AliTV/AliTV/d3/lib/contextMenu/jquery.contextMenu.js][../d3/lib/contextMenu/jquery.contextMenu.js]]
+[[file:~/projects/AliTV/AliTV/d3/lib/contextMenu][../d3/lib/contextMenu]]
 *** jQueryUI
 **** Repository
 [[https://github.com/jquery/jquery-ui]]
