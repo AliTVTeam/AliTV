@@ -1913,9 +1913,13 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 					currentFeature.height = 1 / 5 * that.conf.graphicalParameters.karyoHeight;
 				}
 
-				currentFeature.width = (Math.abs(value.end - value.start) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
-				currentFeature.x = currentX + (Math.min(value.start, value.end) * currentWidth) / that.data.karyo.chromosomes[featureKaryo].length;
+				var featureScale = d3.scale.linear()
+					.domain([0, that.data.karyo.chromosomes[featureKaryo].length])
+					.range([currentX, currentX + currentWidth]);
 
+				currentFeature.width = Math.abs(featureScale(value.end) - featureScale(value.start));
+				currentFeature.x = featureScale(Math.min(value.start, value.end));
+				
 				linearFeatureCoords.push(currentFeature);
 			} else if (featureStyle.form === "arrow") {
 				currentFeature = {

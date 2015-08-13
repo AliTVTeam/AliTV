@@ -1318,7 +1318,7 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setFilters(filters);
 		ali.conf.features.showAllFeatures = true;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		var expectedFeatures = [{ id: 'f1', type: 'gene', karyo: 'c1', height: 6, x: 950, width: -50, y: 0 },
+		var expectedFeatures = [{ id: 'f1', type: 'gene', karyo: 'c1', height: 6, x: 950, width: 950, y: 0 },
 		                        { id: 'f2', type: 'gene', karyo: 'c2', height: 6, x: 150, width: 50, y: 994 }];
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
