@@ -564,7 +564,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 			karyo1Coords = karyo2Coords;
 			karyo2Coords = tmp;
 		}
-		
+
 		link.source0.x = karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length;
 		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
 		link.source1.x = karyo1Coords.x + karyo1Coords.width * feature1.end / karyo1.length;
@@ -687,7 +687,7 @@ AliTV.prototype.colorKaryoByGenomeId = function(genomeId) {
 AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 	var that = this;
 	var linearTickCoords = [];
-	
+
 	$.each(karyoCoords, function(key, value) {
 		var ticks = [];
 		var shift;
@@ -695,7 +695,7 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 		var scale = d3.scale.linear()
 			.domain([0, that.data.karyo.chromosomes[value.karyo].length])
 			.range([value.x, value.x + value.width]);
-		
+
 		var chromosomePosition = 0;
 		for (var i = 0; chromosomePosition < that.data.karyo.chromosomes[value.karyo].length; i++) {
 			var currentTick = scale((chromosomePosition + shift + that.data.karyo.chromosomes[value.karyo].length) % that.data.karyo.chromosomes[value.karyo].length);
@@ -2008,7 +2008,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
  */
 AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 	var that = this;
-	
+
 	that.getAlignmentRegion().selectAll(".featureGroup").remove();
 	var shapes = that.getAlignmentRegion().append("g")
 		.attr("class", "featureGroup")
@@ -2035,8 +2035,8 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.thicker();
 
 	shapes.call(woven);
-	
-	var counter=0;
+
+	var counter = 0;
 	shapes.append("rect")
 		.filter(function(d) {
 			if (d.type in that.conf.features.supportedFeatures === true) {
@@ -2048,7 +2048,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 		.attr("class", "feature")
 		.attr("id", function(d, i) {
 			var position = that.data.features[d.type].indexOf(that.data.features[d.type][counter]);
-			if(counter < that.data.features[d.type].length - 1){
+			if (counter < that.data.features[d.type].length - 1) {
 				counter++;
 			} else {
 				counter = 0;
@@ -2124,7 +2124,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 				.attr("class", "feature")
 				.attr("id", function(d) {
 					var position = that.data.features[d.type].indexOf(that.data.features[d.type][counter]);
-					if(counter < that.data.features[d.type].length - 1){
+					if (counter < that.data.features[d.type].length - 1) {
 						counter++;
 					} else {
 						counter = 0;

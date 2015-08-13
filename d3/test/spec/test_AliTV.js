@@ -215,23 +215,14 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 	it('drawLinear method is supposed to be a function', function(){
 		expect(typeof ali.drawLinear).toEqual('function');
 	});
-	it('there should be exactly three karyos, ticks (depend on tickDistance) and one link in the test svg', function(){	
+	it('there should be exactly three karyos and one link in the test svg', function(){	
 		var karyoCoords = ali.getLinearKaryoCoords();
-		var ticks = ali.getLinearTickCoords(karyoCoords);
-		ali.drawLinearTicks(ticks, karyoCoords);
 		ali.drawLinearKaryo(karyoCoords);
 		var linkCoords = ali.getLinearLinkCoords(karyoCoords);
 		ali.drawLinearLinks(linkCoords);
 		
-		var totalTicks = 0;
-		$.each(karyoCoords, function(key, value){
-			var tickFrequency = ali.data.karyo.chromosomes[value.karyo].length / ali.conf.graphicalParameters.tickDistance;
-			totalTicks += tickFrequency + 1;
-		});
-		
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
-		expect(ali.svgD3.selectAll('.tick').size()).toEqual(totalTicks);
 	});
 	it('the drawn karyos have the expected height', function(){
 		ali.drawLinear();
@@ -825,7 +816,7 @@ describe('The getLinearTickCoords method is supposed to calculate coords for the
 		var ticks = ali.getGenomeDistance();
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
-		var expectedTicks = [{ id: 'c1', x1: 0, x2: 0, y1: -5, y2: 35 }, { id: 'c1', x1: 50, x2: 50, y1: -5, y2: 35 }, { id: 'c1', x1: 100, x2: 100, y1: -5, y2: 35 }, { id: 'c1', x1: 150, x2: 150, y1: -5, y2: 35 }, { id: 'c1', x1: 200, x2: 200, y1: -5, y2: 35 }, { id: 'c1', x1: 250, x2: 250, y1: -5, y2: 35 }, { id: 'c1', x1: 300, x2: 300, y1: -5, y2: 35 }, { id: 'c1', x1: 350, x2: 350, y1: -5, y2: 35 }, { id: 'c1', x1: 400, x2: 400, y1: -5, y2: 35 }, { id: 'c1', x1: 450, x2: 450, y1: -5, y2: 35 }, { id: 'c1', x1: 500, x2: 500, y1: -5, y2: 35 }, { id: 'c1', x1: 550, x2: 550, y1: -5, y2: 35 }, { id: 'c1', x1: 600, x2: 600, y1: -5, y2: 35 }, { id: 'c1', x1: 650, x2: 650, y1: -5, y2: 35 }, { id: 'c1', x1: 700, x2: 700, y1: -5, y2: 35 }, { id: 'c1', x1: 750, x2: 750, y1: -5, y2: 35 }, { id: 'c1', x1: 800, x2: 800, y1: -5, y2: 35 }, { id: 'c1', x1: 850, x2: 850, y1: -5, y2: 35 }, { id: 'c1', x1: 900, x2: 900, y1: -5, y2: 35 }, { id: 'c1', x1: 950, x2: 950, y1: -5, y2: 35 }, { id: 'c1', x1: 1000, x2: 1000, y1: -5, y2: 35 }, { id: 'c2', x1: 0, x2: 0, y1: 965, y2: 1005 }, { id: 'c2', x1: 50, x2: 50, y1: 965, y2: 1005 }, { id: 'c2', x1: 100, x2: 100, y1: 965, y2: 1005 }, { id: 'c2', x1: 150, x2: 150, y1: 965, y2: 1005 }, { id: 'c2', x1: 200, x2: 200, y1: 965, y2: 1005 }, { id: 'c2', x1: 250, x2: 250, y1: 965, y2: 1005 }, { id: 'c2', x1: 300, x2: 300, y1: 965, y2: 1005 }, { id: 'c2', x1: 350, x2: 350, y1: 965, y2: 1005 }, { id: 'c2', x1: 400, x2: 400, y1: 965, y2: 1005 }, { id: 'c2', x1: 450, x2: 450, y1: 965, y2: 1005 }, { id: 'c2', x1: 500, x2: 500, y1: 965, y2: 1005 } ]
+		var expectedTicks = [{ id: 'c1', x1: 0, x2: 0, y1: -5, y2: 35 }, { id: 'c1', x1: 50, x2: 50, y1: -5, y2: 35 }, { id: 'c1', x1: 100, x2: 100, y1: -5, y2: 35 }, { id: 'c1', x1: 150, x2: 150, y1: -5, y2: 35 }, { id: 'c1', x1: 200, x2: 200, y1: -5, y2: 35 }, { id: 'c1', x1: 250, x2: 250, y1: -5, y2: 35 }, { id: 'c1', x1: 300, x2: 300, y1: -5, y2: 35 }, { id: 'c1', x1: 350, x2: 350, y1: -5, y2: 35 }, { id: 'c1', x1: 400, x2: 400, y1: -5, y2: 35 }, { id: 'c1', x1: 450, x2: 450, y1: -5, y2: 35 }, { id: 'c1', x1: 500, x2: 500, y1: -5, y2: 35 }, { id: 'c1', x1: 550, x2: 550, y1: -5, y2: 35 }, { id: 'c1', x1: 600, x2: 600, y1: -5, y2: 35 }, { id: 'c1', x1: 650, x2: 650, y1: -5, y2: 35 }, { id: 'c1', x1: 700, x2: 700, y1: -5, y2: 35 }, { id: 'c1', x1: 750, x2: 750, y1: -5, y2: 35 }, { id: 'c1', x1: 800, x2: 800, y1: -5, y2: 35 }, { id: 'c1', x1: 850, x2: 850, y1: -5, y2: 35 }, { id: 'c1', x1: 900, x2: 900, y1: -5, y2: 35 }, { id: 'c1', x1: 950, x2: 950, y1: -5, y2: 35 }, { id: 'c2', x1: 0, x2: 0, y1: 965, y2: 1005 }, { id: 'c2', x1: 50, x2: 50, y1: 965, y2: 1005 }, { id: 'c2', x1: 100, x2: 100, y1: 965, y2: 1005 }, { id: 'c2', x1: 150, x2: 150, y1: 965, y2: 1005 }, { id: 'c2', x1: 200, x2: 200, y1: 965, y2: 1005 }, { id: 'c2', x1: 250, x2: 250, y1: 965, y2: 1005 }, { id: 'c2', x1: 300, x2: 300, y1: 965, y2: 1005 }, { id: 'c2', x1: 350, x2: 350, y1: 965, y2: 1005 }, { id: 'c2', x1: 400, x2: 400, y1: 965, y2: 1005 }, { id: 'c2', x1: 450, x2: 450, y1: 965, y2: 1005 } ]
 		expect(ticks).toEqual(expectedTicks);		
 	});
 });
@@ -913,7 +904,7 @@ describe('The drawLinearTicks method is supposed to draw ticks in the linear lay
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
 		ali.drawLinearTicks(ticks, linearKaryoCoords);
-		expect(ali.svgD3.selectAll('.tick').size()).toEqual(21);
+		expect(ali.svgD3.selectAll('.tick').size()).toEqual(20);
 	});
 });
 
