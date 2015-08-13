@@ -2123,7 +2123,13 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			d3.select(this)
 				.attr("class", "feature")
 				.attr("id", function(d) {
-					return d.id + "_" + d.type + "_" + d.karyo;
+					var position = that.data.features[d.type].indexOf(that.data.features[d.type][counter]);
+					if(counter < that.data.features[d.type].length - 1){
+						counter++;
+					} else {
+						counter = 0;
+					}
+					return position + "_" + d.type;
 				})
 				.attr("d", lineFunction(d.path))
 				.attr("fill", function(d) {
