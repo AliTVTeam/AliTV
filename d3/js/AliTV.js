@@ -2750,16 +2750,9 @@ AliTV.prototype.updateGenomeRegionBySvgRect = function(rect) {
  * @param {String} chromosomeName: the name of the selected chromosome.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.changeChromosomeVisibility = function(chromosomeName) {
-	var that = this;
-	var chromosomeId;
-	$.each(that.data.karyo.chromosomes, function(key, value) {
-		if (chromosomeName === value.genome_id) {
-			chromosomeId = key;
-		}
-	});
-	that.filters.karyo.chromosomes[chromosomeId].visible = !that.filters.karyo.chromosomes[chromosomeId].visible;
-	return that.filters.karyo.chromosomes;
+AliTV.prototype.changeChromosomeVisibility = function(chromosomeId) {
+	this.filters.karyo.chromosomes[chromosomeId].visible = !this.filters.karyo.chromosomes[chromosomeId].visible;
+	return this.filters.karyo.chromosomes;
 };
 
 /**
