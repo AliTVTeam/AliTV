@@ -735,21 +735,16 @@
 			$("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
 		}
 
-		  function setInvisibleChromosomeSelection(){
+		  function setInvisibleChromosomeSelection(chromosomeId){
 		    	$('#invisibleChromosomes').text("");
 				if(ali.getInvisibleChromosomes() === 0){
 					$('.selectpicker').selectpicker('val', '')
 				} else {
-				    $.each(ali.filters.karyo.chromosomes, function(key, value) {
-				    	if(value.visible === false){
-				    		var chromosomeName = ali.data.karyo.chromosomes[key].genome_id;
 					        $('#invisibleChromosomes')
 					            .append($("<option></option>")
-					            .attr("value", chromosomeName)
-					            .text(chromosomeName))
-					            .selectpicker("refresh");			    		
-				    	}
-				   });  		    
+					            .attr("value", chromosomeId)
+					            .text(chromosomeId))
+					            .selectpicker("refresh");			    		 		    
 				}
 		    }
 
@@ -821,7 +816,7 @@
 		                    callback: function(key, options) {
 		                        ali.changeChromosomeVisibility(chromosomeId);
 		                        ali.getInvisibleChromosomes();
-		                        setInvisibleChromosomeSelection();
+		                        setInvisibleChromosomeSelection(chromosomeId);
 		                        ali.drawLinear();
 		                        $("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
 		                    }
