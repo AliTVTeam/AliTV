@@ -171,6 +171,8 @@ sub create_dir_structure{
                              lib/colorpicker/img
                              lib/colorpicker/img/bootstrap-colorpicker
                              lib/img
+                             lib/contextMenu
+                             lib/contextMenu/images
                              data
                              js
                              css
@@ -202,6 +204,20 @@ sub create_dir_structure{
                              lib/colorpicker/img/bootstrap-colorpicker/saturation.png
                              lib/textures.min.js
                              lib/FileSaver.min.js
+
+                             lib/contextMenu/jquery.contextMenu.css
+                             lib/contextMenu/jquery.contextMenu.js
+                             lib/contextMenu/images/change.png
+                             lib/contextMenu/images/close.png
+                             lib/contextMenu/images/cut.png
+                             lib/contextMenu/images/door.png
+                             lib/contextMenu/images/eye.png
+                             lib/contextMenu/images/hide.png
+                             lib/contextMenu/images/page_white_add.png
+                             lib/contextMenu/images/page_white_copy.png
+                             lib/contextMenu/images/page_white_delete.png
+                             lib/contextMenu/images/page_white_edit.png
+                             lib/contextMenu/images/page_white_paste.png
 
                              js/AliTV.js
                              
