@@ -1923,14 +1923,20 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				currentFeature.x = featureScale((Math.min(value.start, value.end) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
 
 				if(Math.min(value.start, value.end) + shift <= that.data.karyo.chromosomes[featureKaryo].length && Math.min(value.start, value.end) + shift + Math.abs(value.end - value.start) >= that.data.karyo.chromosomes[featureKaryo].length){
-					console.log("split");
 					currentFeature.width = featureScale(that.data.karyo.chromosomes[featureKaryo].length - (Math.min(value.start, value.end) + shift));
 					linearFeatureCoords.push(currentFeature);
 					
-//					currentFeature.x = currentX;
-//					currentFeature.width = featureScale((Math.min(value.start, value.end) + shift + Math.abs(value.end - value.start)) - that.data.karyo.chromosomes[featureKaryo].length);
-//					
-//					currentFeatureCoords.push(currentFeature);
+					var splitFeature = {
+							"x" : currentX,
+							"width" : featureScale((Math.min(value.start, value.end) + shift + Math.abs(value.end - value.start)) - that.data.karyo.chromosomes[featureKaryo].length),
+							"id": featureId,
+							"type": type,
+							"karyo": value.karyo,
+							"height": that.conf.graphicalParameters.karyoHeight,
+							"y" : currentY
+					};
+					
+					linearFeatureCoords.push(splitFeature);
 				} else {
 					linearFeatureCoords.push(currentFeature);					
 				}
