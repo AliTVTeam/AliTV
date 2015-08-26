@@ -1899,7 +1899,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 			}
 			if (featureStyle.form === "rect") {
 				currentFeature = {
-					"id": value.name,
+					"id": featureId,
 					"type": type,
 					"karyo": value.karyo
 				};
@@ -1918,11 +1918,22 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				var featureScale = d3.scale.linear()
 					.domain([0, that.data.karyo.chromosomes[featureKaryo].length])
 					.range([currentX, currentX + currentWidth]);
-
+				
 				currentFeature.width = Math.abs(featureScale(value.end) - featureScale(value.start));
 				currentFeature.x = featureScale((Math.min(value.start, value.end) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
 
-				linearFeatureCoords.push(currentFeature);
+				if(Math.min(value.start, value.end) + shift <= that.data.karyo.chromosomes[featureKaryo].length && Math.min(value.start, value.end) + shift + Math.abs(value.end - value.start) >= that.data.karyo.chromosomes[featureKaryo].length){
+					console.log("split");
+					currentFeature.width = featureScale(that.data.karyo.chromosomes[featureKaryo].length - (Math.min(value.start, value.end) + shift));
+					linearFeatureCoords.push(currentFeature);
+					
+//					currentFeature.x = currentX;
+//					currentFeature.width = featureScale((Math.min(value.start, value.end) + shift + Math.abs(value.end - value.start)) - that.data.karyo.chromosomes[featureKaryo].length);
+//					
+//					currentFeatureCoords.push(currentFeature);
+				} else {
+					linearFeatureCoords.push(currentFeature);					
+				}
 			} else if (featureStyle.form === "arrow") {
 				currentFeature = {
 					"type": type,
