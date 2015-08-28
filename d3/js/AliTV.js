@@ -1914,14 +1914,14 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 					currentFeature.y = currentY + 4 / 5 * that.conf.graphicalParameters.karyoHeight;
 					currentFeature.height = 1 / 5 * that.conf.graphicalParameters.karyoHeight;
 				}
-
+				
 				var featureScale = d3.scale.linear()
 					.domain([0, that.data.karyo.chromosomes[featureKaryo].length])
 					.range([currentX, currentX + currentWidth]);
 				
-				currentFeature.width = Math.abs(featureScale(value.end) - featureScale(value.start));
+				currentFeature.width = featureScale(Math.max(value.end, value.start)) - featureScale(Math.min(value.start, value.end));
 				currentFeature.x = featureScale((Math.min(value.start, value.end) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
-
+				
 				if(Math.min(value.start, value.end) + shift <= that.data.karyo.chromosomes[featureKaryo].length && Math.min(value.start, value.end) + shift + Math.abs(value.end - value.start) >= that.data.karyo.chromosomes[featureKaryo].length){
 					currentFeature.width = featureScale(that.data.karyo.chromosomes[featureKaryo].length - (Math.min(value.start, value.end) + shift));
 					linearFeatureCoords.push(currentFeature);
