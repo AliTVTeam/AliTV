@@ -1922,13 +1922,17 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				currentFeature.width = featureScale(Math.max(value.end, value.start)) - featureScale(Math.min(value.start, value.end));
 				currentFeature.x = featureScale((Math.min(value.start, value.end) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
 				
-				if(Math.min(value.start, value.end) + shift <= that.data.karyo.chromosomes[featureKaryo].length && Math.min(value.start, value.end) + shift + Math.abs(value.end - value.start) >= that.data.karyo.chromosomes[featureKaryo].length){
+				var start = featureScale((Math.min(value.end, value.start) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
+				var end = featureScale((Math.max(value.end, value.start) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
+
+				if(that.filters.karyo.chromosomes[featureKaryo].reverse === false && (start > end)){
+					console.log(start, end, featureScale(that.data.karyo.chromosomes[featureKaryo].length), that.data.karyo.chromosomes[featureKaryo].length);
 					currentFeature.width = featureScale(that.data.karyo.chromosomes[featureKaryo].length - (Math.min(value.start, value.end) + shift));
 					linearFeatureCoords.push(currentFeature);
 					
 					var splitFeature = {
-							"x" : currentX,
-							"width" : featureScale((Math.min(value.start, value.end) + shift + Math.abs(value.end - value.start)) - that.data.karyo.chromosomes[featureKaryo].length),
+							"x" : featureScale(0),
+							"width" : featureScale((Math.min(value.start, value.end) + shift + Math.abs(value.end - value.start)) % that.data.karyo.chromosomes[featureKaryo].length),
 							"id": featureId,
 							"type": type,
 							"karyo": value.karyo,
@@ -1937,7 +1941,23 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 					};
 					
 					linearFeatureCoords.push(splitFeature);
-				} else {
+				} else if (that.filters.karyo.chromosomes[featureKaryo].reverse === true && (start < end)) {
+					console.log(start, end, featureScale(0), that.data.karyo.chromosomes[featureKaryo].length);
+					currentFeature.x = end;
+					currentFeature.width = featureScale(0) - end;
+					linearFeatureCoords.push(currentFeature);
+					
+					var splitFeature = {
+							"x" : featureScale(that.data.karyo.chromosomes[featureKaryo].length),
+							"width" : start,
+							"id": featureId,
+							"type": type,
+							"karyo": value.karyo,
+							"height": that.conf.graphicalParameters.karyoHeight,
+							"y" : currentY
+					};
+					linearFeatureCoords.push(splitFeature);
+				}	else {
 					linearFeatureCoords.push(currentFeature);					
 				}
 			} else if (featureStyle.form === "arrow") {
