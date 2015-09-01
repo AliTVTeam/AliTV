@@ -675,7 +675,7 @@
 		setParameters();
 	}
 	
-	function addNewFeatureGroup(){
+	function getFeatureValues(){
 		var group = ($("#customGroup").val());
 		var form;
 		if( $("#customRect").is(":checked") ){ 
@@ -684,7 +684,7 @@
         	form = $("#customArrow").val();
         }
 		var color = ($("#customColor").val());
-		console.log(group, form, color);
+		ali.addNewFeatureGroup();
 	}
 	
 	$(function(){$('#loadJSON').on('change', function(evt) {
@@ -1433,7 +1433,7 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="addNewFeatureGroup();">Apply</button>
+						      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="getFeatureValues();">Apply</button>
 						    </div>
 					  	</div>
 					</div>
