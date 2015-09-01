@@ -1182,7 +1182,6 @@ describe('The setNewFeature method is supposed to set a new feature group in the
 	});	
 	it('the expected object should be the same as the object which is set and returned by setNewFeature', function(){
 		var expectedFeature = {
-				group: "applepie",
 				form: "cake",
 				color: "#ff002c",
 				visible: true
