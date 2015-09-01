@@ -2855,3 +2855,15 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 	order[chromosomePosition] = tmp;
 	return that.filters.karyo.order;
 };
+
+/**
+ * This function is supposed to get the parameters for adding a new feature group in conf.features.supportedFeatures.
+ * @param group: the name of the new feature group
+ * @param form: the form for the group which is used by drawFeatures
+ * @param color: the color for the new group
+ * @returns {ali.conf.features.supportedFeatures} The current feature groups which are supported by AliTV
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.addNewFeatureGroup = function(group, form, color){
+	return this.conf.features.supportedFeatures;
+}
