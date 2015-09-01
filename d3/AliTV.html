@@ -675,6 +675,18 @@
 		setParameters();
 	}
 	
+	function addNewFeatureGroup(){
+		var group = ($("#customGroup").val());
+		var form;
+		if( $("#customRect").is(":checked") ){ 
+            form = $("#customRect").val(); 
+        } else {
+        	form = $("#customArrow").val();
+        }
+		var color = ($("#customColor").val());
+		console.log(group, form, color);
+	}
+	
 	$(function(){$('#loadJSON').on('change', function(evt) {
 		var files = evt.target.files; // FileList object
 	    // files is a FileList of File objects.
@@ -1385,7 +1397,7 @@
 								<div class="col-sm-offset-2 col-sm-10">
 									Define the feature group: 
 									<div class="input-group" style="margin: 10px 10px">
-										<input type="text" id="customForm" placeholder="Enter a feature group" autocomplete="off">
+										<input type="text" id="customGroup" placeholder="Enter a feature group" autocomplete="off">
 									</div>
 								</div>
 							</div>
