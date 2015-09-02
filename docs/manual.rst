@@ -86,7 +86,7 @@ Set tree configurations
 
 -  Here you can decide wether the tree is drawn or not. For the next few
    steps it is easier if the tree is not shown. Therefore make the
-   checkobox unchecked.
+   checkbox unchecked.
 
 -  Submit the changes with
 
