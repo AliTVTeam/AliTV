@@ -564,7 +564,10 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 			karyo1Coords = karyo2Coords;
 			karyo2Coords = tmp;
 		}
-
+		
+		var shift1 = (that.filters.karyo.chromosomes[feature1.karyo].offset === undefined ? 0 : that.filters.karyo.chromosomes[feature1.karyo].offset);
+		var shift2 = (that.filters.karyo.chromosomes[feature2.karyo].offset === undefined ? 0 : that.filters.karyo.chromosomes[feature2.karyo].offset);
+		
 		var linkTargetScale = d3.scale.linear()
 		.domain([0, karyo2.length])
 		.range([karyo2Coords.x, karyo2Coords.x + karyo2Coords.width]);
@@ -573,18 +576,14 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		.domain([0, karyo1.length])
 		.range([karyo1Coords.x, karyo1Coords.x + karyo1Coords.width]);
 		
-		if(that.filters.karyo.chromosomes[feature1.karyo].reverse === true){
-			console.log(feature1.start, linkSourceScale(feature1.start), (karyo1Coords.x + karyo1Coords.width * feature1.start / karyo1.length));
-		}
-		
-		link.source0.x = linkSourceScale(feature1.start);
+		link.source0.x = linkSourceScale((feature1.start + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) && feature1.start === karyo1.length ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.start + shift1 + karyo1.length) % karyo1.length);
 		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
-		link.source1.x = linkSourceScale(feature1.end);
+		link.source1.x = linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) && feature1.end === karyo1.length ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length);
 		link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
 
-		link.target0.x = linkTargetScale(feature2.start);
+		link.target0.x = linkTargetScale((feature2.start + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) && feature2.start === karyo2.length ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.start + shift2 + karyo2.length) % karyo2.length);
 		link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
-		link.target1.x = linkTargetScale(feature2.end);
+		link.target1.x = linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) && feature2.end === karyo2.length ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length);
 		link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
 
 		linearLinkCoords.push(link);
