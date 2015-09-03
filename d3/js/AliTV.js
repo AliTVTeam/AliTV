@@ -2021,10 +2021,10 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 							x: featureScale(0),
 							y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
 						}, {
-							x: featureScale(0) + start,
+							x: start,
 							y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
 						}, {
-							x: featureScale(0) + start,
+							x: start,
 							y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
 						}, {
 							x: featureScale(0),
@@ -2061,7 +2061,6 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 						});	
 						linearFeatureCoords.push(splitFeature);
 					} else if (value.start < value.end && start < end && that.filters.karyo.chromosomes[featureKaryo].reverse === true){
-						console.log("test");
 						currentFeature.path.push({
 							x: featureScale(that.data.karyo.chromosomes[featureKaryo].length),
 							y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
@@ -2105,6 +2104,50 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 							y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
 						});	
 						linearFeatureCoords.push(splitFeature);
+					} else if (value.start > value.end && start > end && that.filters.karyo.chromosomes[featureKaryo].reverse === true){
+						currentFeature.path.push({
+							x: featureScale(0),
+							y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
+						}, {
+							x: start,
+							y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
+						}, {
+							x: start,
+							y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
+						}, {
+							x: featureScale(0),
+							y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
+						});	
+						
+						var splitFeature = {
+								"type": type,
+								"id": value.name,
+								"karyo": value.karyo	
+							}
+							splitFeature.path = [];
+							splitFeature.path.push({
+								x: featureScale(that.data.karyo.chromosomes[featureKaryo].length),
+								y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
+							}, {
+								x: featureScale(that.data.karyo.chromosomes[featureKaryo].length) - 5 / 6 * (featureScale(that.data.karyo.chromosomes[featureKaryo].length) - end),
+								y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
+							}, {
+								x: featureScale(that.data.karyo.chromosomes[featureKaryo].length) - 5 / 6 * (featureScale(that.data.karyo.chromosomes[featureKaryo].length) - end),
+								y: currentY
+							}, {
+								x: featureScale(that.data.karyo.chromosomes[featureKaryo].length) - (featureScale(that.data.karyo.chromosomes[featureKaryo].length) - end),
+								y: currentY + 1 / 2 * that.conf.graphicalParameters.karyoHeight
+							}, {
+								x: featureScale(that.data.karyo.chromosomes[featureKaryo].length) - 5 / 6 * (featureScale(that.data.karyo.chromosomes[featureKaryo].length) - end),
+								y: currentY + that.conf.graphicalParameters.karyoHeight
+							}, {
+								x: featureScale(that.data.karyo.chromosomes[featureKaryo].length) - 5 / 6 * (featureScale(that.data.karyo.chromosomes[featureKaryo].length) - end),
+								y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
+							}, {
+								x: featureScale(that.data.karyo.chromosomes[featureKaryo].length),
+								y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
+							});	
+							linearFeatureCoords.push(splitFeature);
 					} else {
 						currentFeature.path.push({
 							x: start,
