@@ -541,6 +541,12 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.source1 = {};
 		link.target0 = {};
 		link.target1 = {};
+		var splitLink = {};
+		splitLink.linkID = key;
+		splitLink.source0 = {};
+		splitLink.source1 = {};
+		splitLink.target0 = {};
+		splitLink.target1 = {};
 		var feature1 = that.data.features.link[value.source];
 		var feature2 = that.data.features.link[value.target];
 		var karyo1 = that.data.karyo.chromosomes[feature1.karyo];
@@ -587,20 +593,11 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
 		
 		if(link.source0.x > link.source1.x && feature1.start < feature1.end && that.filters.karyo.chromosomes[feature1.karyo].reverse === false){
-			var splitPart = (karyo1.length - (feature1.start + shift1)) / (feature1.end - feature1.start);
+			var splitPart = Math.abs(shift1) / (feature1.end - feature1.start);
 			
-			link.source1.x = linkSourceScale(karyo1.length);
 			var linkTarget = link.target1.x;
+			link.source1.x = linkSourceScale(karyo1.length);
 			link.target1.x = splitPart * linkTarget;
-			
-			console.log(linkSourceScale(0), link.source1.x);
-			
-			var splitLink = {};
-			splitLink.linkID = key;
-			splitLink.source0 = {};
-			splitLink.source1 = {};
-			splitLink.target0 = {};
-			splitLink.target1 = {};
 			
 			splitLink.source0.x = linkSourceScale(0);
 			splitLink.source0.y = link.source0.y;
