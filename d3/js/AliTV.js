@@ -612,6 +612,26 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 			linearLinkCoords.push(splitLink);
 			linearLinkCoords.push(link);
 			
+		} else if(feature2.start < feature2.end && link.target0.x > link.target1.x && that.filters.karyo.chromosomes[feature2.karyo].reverse === false) {
+			var splitPart = Math.abs(shift2) / (feature2.end - feature2.start);
+
+			var linkSource = link.source1.x;
+			
+			link.source1.x = splitPart * linkSource;
+			link.target1.x = linkTargetScale(karyo2.length);
+			
+			splitLink.source0.x = splitPart * linkSource;
+			splitLink.source0.y = link.source0.y;
+			splitLink.source1.x = linkSource;
+			splitLink.source1.y = link.source1.y;
+			
+			splitLink.target0.x = linkTargetScale(0);
+			splitLink.target0.y = link.target0.y;
+			splitLink.target1.x = linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) && feature2.end === karyo2.length ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length);
+			splitLink.target1.y = link.target1.y;
+			
+			linearLinkCoords.push(splitLink);
+			linearLinkCoords.push(link);
 		} else {
 			linearLinkCoords.push(link);			
 		}
