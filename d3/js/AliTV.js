@@ -529,6 +529,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 	var that = this;
 	var conf = this.conf;
 	var visibleChromosomes = that.filterChromosomes();
+	//console.log(that.data.links);
 	var visibleLinks = that.filterLinks(visibleChromosomes);
 	var karyoMap = {};
 	$.each(coords, function(key, value) {
@@ -581,14 +582,14 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		.domain([0, karyo1.length])
 		.range([karyo1Coords.x, karyo1Coords.x + karyo1Coords.width]);
 		
-		link.source0.x = linkSourceScale((feature1.start + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) && feature1.start === karyo1.length ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.start + shift1 + karyo1.length) % karyo1.length);
+		link.source0.x = linkSourceScale((feature1.start + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) && (feature1.start > feature1.end && feature1.start + shift1 === karyo1.length) ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.start + shift1 + karyo1.length) % karyo1.length);
 		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
-		link.source1.x = linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) && feature1.end === karyo1.length ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length);
+		link.source1.x = linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) && !(feature1.start > feature1.end && feature1.end + shift1 === karyo1.length) ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length);
 		link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
-
-		link.target0.x = linkTargetScale((feature2.start + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) && feature2.start === karyo2.length ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.start + shift2 + karyo2.length) % karyo2.length);
+		console.log(feature1.start + shift1);
+		link.target0.x = linkTargetScale((feature2.start + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) && (feature2.start + shift2 === karyo2.length && feature2.start > feature2.end) ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.start + shift2 + karyo2.length) % karyo2.length);
 		link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
-		link.target1.x = linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) && feature2.end === karyo2.length ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length);
+		link.target1.x = linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) && !(feature2.start > feature2.end && feature2.end + shift2 === karyo2.length) ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length);
 		link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
 
 		if(link.source0.x > link.source1.x && feature1.start < feature1.end && that.filters.karyo.chromosomes[feature1.karyo].reverse === false){
@@ -1790,6 +1791,7 @@ AliTV.prototype.filterVisibleLinks = function(visibleLinks, visibleChromosomes) 
 			filteredLinks[key] = value;
 		}
 	});
+	console.log(filteredLinks);
 	return filteredLinks;
 };
 /**
@@ -1850,6 +1852,7 @@ AliTV.prototype.filterLinksByAdjacency = function() {
 			var genome1 = that.filters.karyo.genome_order[i + 1];
 			var links01 = ((typeof that.data.links[genome0] === 'undefined' || typeof that.data.links[genome0][genome1] === 'undefined') ? {} : that.data.links[genome0][genome1]);
 			var links10 = ((typeof that.data.links[genome1] === 'undefined' || typeof that.data.links[genome1][genome0] === 'undefined') ? {} : that.data.links[genome1][genome0]);
+			console.log(genome0, genome1, links01, links10);
 			filteredLinks = $.extend(filteredLinks, links01);
 			filteredLinks = $.extend(filteredLinks, links10);
 		}
