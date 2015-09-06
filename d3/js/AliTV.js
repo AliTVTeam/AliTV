@@ -635,25 +635,40 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 			var linkTarget = link.target1.x;
 
 			link.source1.x = linkSourceScale(0);
-			link.target1.x = linkSourceScale(feature2.start + splitPart * (Math.abs(feature2.start - feature2.end)));
+			link.target1.x = linkTargetScale(feature2.start + splitPart * (Math.abs(feature2.start - feature2.end)));
 			
-			console.log(feature2.start, feature2.end);
 			splitLink.source0.x = linkSourceScale(karyo1.length);
 			splitLink.source0.y = link.source0.y;
 			splitLink.source1.x = linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) && !(feature1.start > feature1.end && feature1.end + shift1 === 0) ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length);
 			splitLink.source1.y = link.source1.y;
 			
-			splitLink.target0.x = linkSourceScale(feature2.start + splitPart * (Math.abs(feature2.start - feature2.end)));
+			splitLink.target0.x = linkTargetScale(feature2.start + splitPart * (Math.abs(feature2.start - feature2.end)));
 			splitLink.target0.y = link.target0.y;
 			splitLink.target1.x = linkTarget;
 			splitLink.target1.y = link.target1.y;
 
 			linearLinkCoords.push(splitLink);
 			linearLinkCoords.push(link);
-//		} else if(feature2.start > feature2.end && link.target0.x < link.target1.x && that.filters.karyo.chromosomes[feature2.karyo].reverse === false){
-//			
-//		} else if (feature1.start > feature1.end && that.filters.karyo.chromosomes[feature1.karyo].reverse === false && link.source0.x < link.source1.x){
-//			console.log("test");
+		} else if(feature2.start > feature2.end && link.target0.x < link.target1.x && that.filters.karyo.chromosomes[feature2.karyo].reverse === false){
+			var splitPart = (feature2.start + shift2 + karyo2.length) % karyo2.length / Math.abs(feature2.start - feature2.end);			
+			var linkSource = link.source1.x;
+
+			link.source1.x = linkSourceScale(feature1.start + splitPart * (Math.abs(feature1.start - feature1.end)));
+			link.target1.x = linkTargetScale(0);
+
+			splitLink.source0.x = linkSourceScale(feature1.start + splitPart * (Math.abs(feature1.start - feature1.end)));
+			splitLink.source0.y = link.source0.y;
+			splitLink.source1.x = linkSource;
+			splitLink.source1.y = link.source1.y;
+			
+			splitLink.target0.x = linkTargetScale(karyo2.length);
+			splitLink.target0.y = link.target0.y;
+			splitLink.target1.x = linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) && !(feature2.start > feature2.end && feature2.end + shift2 === 0) ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length);
+			splitLink.target1.y = link.target1.y;
+
+			linearLinkCoords.push(splitLink);
+			linearLinkCoords.push(link);
+
 		}	else {
 			linearLinkCoords.push(link);			
 		}
