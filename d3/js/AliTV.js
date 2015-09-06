@@ -558,7 +558,6 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		var lengthOfFeature1 = Math.abs(that.data.features.link[value.source].end - that.data.features.link[value.source].start);
 		var lengthOfFeature2 = Math.abs(that.data.features.link[value.target].end - that.data.features.link[value.target].start);
 
-		
 		if (genomePosition1 > genomePosition2) {
 			var tmp = feature1;
 			feature1 = feature2;
@@ -591,10 +590,9 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 		link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
 		link.target1.x = linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) && feature2.end === karyo2.length ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length);
 		link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
-		
+
 		if(link.source0.x > link.source1.x && feature1.start < feature1.end && that.filters.karyo.chromosomes[feature1.karyo].reverse === false){
 			var splitPart = Math.abs(shift1) / (feature1.end - feature1.start);
-			
 			var linkTarget = link.target1.x;
 			link.source1.x = linkSourceScale(karyo1.length);
 			link.target1.x = splitPart * linkTarget;
@@ -612,15 +610,14 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 			linearLinkCoords.push(splitLink);
 			linearLinkCoords.push(link);
 			
-		} else if(feature2.start < feature2.end && link.target0.x > link.target1.x && that.filters.karyo.chromosomes[feature2.karyo].reverse === false) {
-			var splitPart = Math.abs(shift2) / (feature2.end - feature2.start);
-
+		} else if(feature2.start < feature2.end && link.target0.x > link.target1.x && that.filters.karyo.chromosomes[feature1.karyo].reverse === false) {
+			var splitPart = (feature2.end + shift2 + karyo2.length) % karyo2.length / karyo2.length;;
 			var linkSource = link.source1.x;
-			
-			link.source1.x = splitPart * linkSource;
+			console.log(splitPart);
+			link.source1.x = (1 - splitPart) * linkSource;
 			link.target1.x = linkTargetScale(karyo2.length);
 			
-			splitLink.source0.x = splitPart * linkSource;
+			splitLink.source0.x = (1 - splitPart) * linkSource;
 			splitLink.source0.y = link.source0.y;
 			splitLink.source1.x = linkSource;
 			splitLink.source1.y = link.source1.y;
@@ -632,7 +629,29 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 			
 			linearLinkCoords.push(splitLink);
 			linearLinkCoords.push(link);
-		} else {
+		} else if(feature1.start > feature1.end && link.source0.x < link.source1.x && that.filters.karyo.chromosomes[feature1.karyo].reverse === false){
+			var splitPart = (feature1.start + shift1 + karyo1.length) % karyo1.length / karyo1.length;			
+			var linkTarget = link.target1.x;
+			
+			link.source0.x = linkSourceScale(karyo1.length);
+			link.target1.x = (1 - splitPart) * linkTarget;
+			
+			splitLink.source0.x = linkSourceScale((feature1.start + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) && feature1.start === karyo1.length ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.start + shift1 + karyo1.length) % karyo1.length);
+			splitLink.source0.y = link.source0.y;
+			splitLink.source1.x = linkSourceScale(0);
+			splitLink.source1.y = link.source1.y;
+			
+			splitLink.target0.x = (1 - splitPart) * linkTarget;
+			splitLink.target0.y = link.target0.y;
+			splitLink.target1.x = linkTarget;
+			splitLink.target1.y = link.target1.y;
+			
+			linearLinkCoords.push(splitLink);
+			linearLinkCoords.push(link);
+		} else if(feature2.start > feature2.end && link.target0.x < link.target1.x && that.filters.karyo.chromosomes[feature2.karyo].reverse === false){
+			
+		}
+		else {
 			linearLinkCoords.push(link);			
 		}
 	});
