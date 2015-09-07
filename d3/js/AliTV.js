@@ -3172,3 +3172,12 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 	order[chromosomePosition] = tmp;
 	return that.filters.karyo.order;
 };
+
+/**
+ * This method is supposed to calculate coords for arrows which should be drawn next to selected chromosomes.
+ * @param karyo: the key of the selected chromosome
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getOffsetButtonCoords = function(karyo){
+	
+}
