@@ -606,6 +606,8 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
 	});
 	it('getLinearLinkCoords method is supposed to work with simple test data and an offset of 1000)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		ali.setData(data);
 		ali.setFilters(filters);
 		ali.filters.karyo.chromosomes["c1"].offset = 1000;
@@ -831,6 +833,7 @@ describe('The getLinearTickCoords method is supposed to calculate coords for the
 		ali.setData(data);
 		ali.setFilters(filters);
 		ali.conf.labels.ticks.showTickLabels = false;
+		ali.filters.karyo.chromosomes["c1"].offset = 0;
 		var ticks = ali.getGenomeDistance();
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var ticks = ali.getLinearTickCoords(linearKaryoCoords);
