@@ -970,11 +970,43 @@
 	</div>
 	
 	<div role="tabpanel" class="tab-pane fade" id="advancedSettings" style="margin:10px 10px"> 
-		By using JSONEditor You can change all parameters directly in the structure of the conf-, data- or filters-object. <br> 
-		<div style="margin: 10px 0px">
-			<button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
-			<button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
-		</div>
+		<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-5">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<mark class="bg-info">Use JSONEditor</mark><br>
+									By using JSONEditor you can change all parameters directly in the structure of the conf-, data- or filters-object. <br> 
+									<div style="margin: 10px 0px">
+										<button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
+										<button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col-sm-5">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<mark class="bg-info">Shift chromosomes:</mark>	
+								</div>
+							</div>
+					</div>
+					<!-- <div class="col-sm-3">
+						<div class="form-group">
+							<div class="input-group" style="margin: 10px 10px">
+								Width of tree (px): <input type="text" id="treeWidth" placeholder="Tree width">
+							</div>  
+					  	</div>
+					</div> -->
+					<!-- <div class="col-sm-3">
+						<div class="form-group">
+						    <div class="col-sm-offset-2 col-sm-10">
+						      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setTreeSettings();">Apply</button>
+						    </div>
+					  	</div>
+					</div> -->
+				</div>
+			</div>
 	</div>
 	
 	<div role="tabpanel" class="tab-pane fade" id="importExport" style="margin:10px 10px"> 
@@ -1328,7 +1360,11 @@
 									<div class="checkbox">
 								        <label>
 								          <input id="showNStretch" type="checkbox"> Show N Stretches
-								        </label>
+														By using JSONEditor You can change all parameters directly in the structure of the conf-, data- or filters-object. <br> 
+									<div style="margin: 10px 0px">
+										<button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
+										<button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
+									</div>			        </label>
 								    </div>
 								    <div class="checkbox">
 								        <label>
