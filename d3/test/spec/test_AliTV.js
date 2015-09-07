@@ -605,6 +605,23 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		var expectedCoords = [];
 		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
 	});
+	it('getLinearLinkCoords method is supposed to work with simple test data and an offset of 1000)', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c1"].offset = 1000;
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		var expectedCoords = [
+		{
+			linkID : "l1", 
+        	source0: {x: (300 + ali.filters.karyo.chromosomes["c1"].offset)/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
+        	target0: {x: 100/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
+        	source1: {x: (800 + ali.filters.karyo.chromosomes["c1"].offset)/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
+        	target1: {x: 600/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}
+		}
+		];
+		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
+	});
 	
 });
 
