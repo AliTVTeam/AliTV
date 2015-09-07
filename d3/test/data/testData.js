@@ -565,6 +565,13 @@ var features22 = {
 		]
 };
 
+var features23 = {
+		'link':{
+			'f1': {'karyo': 'c1', 'start': 500, 'end': 1000},
+			'f2': {'karyo': 'c2', 'start': 500, 'end': 1000}
+		}
+};
+
 var links = {"0":{"1":{
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 }}};

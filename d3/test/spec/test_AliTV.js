@@ -632,6 +632,32 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		ali.filters.karyo.chromosomes["c1"].offset = 1500;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
+		var expectedCoords = [
+	      {
+	    	  linkID : "l1", 
+	    	  source0: {x: 0, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
+	    	  target0: {x: 150, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
+	    	  source1: {x: 150, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
+	    	  target1: {x: 300, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}
+	      },
+          {
+        	  linkID : "l1", 
+        	  source0: {x: 900, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
+        	  target0: {x: 50, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
+        	  source1: {x: 1000, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
+        	  target1: {x: 150, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}
+          }
+		];
+		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
+	});
+	it('getLinearLinkCoords method is supposed to work with simple test data and an offset of 250 (target), the link should be splitted into two links)', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo, features: features23, links: links});
+		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c2"].offset = 250;
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
 		console.log(linearLinkCoords);
 		var expectedCoords = [
 	      {
