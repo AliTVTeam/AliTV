@@ -3187,5 +3187,117 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getOffsetButtonCoords = function(karyo){
+	var coords = [];
+	var button = {
+			"id": karyo,
+			"path1": [],
+			"path2": []
+	}
 	
-}
+	button.path1.push({
+		"x": 0,
+		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * ali.getGenomeDistance() + 1/2 * this.conf.graphicalParameters.karyoHeight
+	},{
+		"x": 1/3 * this.conf.graphicalParameters.buttonWidth,
+		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * ali.getGenomeDistance()
+	}, {
+		"x": 1/3 * this.conf.graphicalParameters.buttonWidth,
+		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * ali.getGenomeDistance() + this.conf.graphicalParameters.karyoHeight
+	});
+	
+	button.path2.push({
+		"x": this.conf.graphicalParameters.buttonWidth,
+		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * ali.getGenomeDistance() + 1/2 * this.conf.graphicalParameters.karyoHeight
+	}, {
+		"x": 2/3 * this.conf.graphicalParameters.buttonWidth,
+		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * ali.getGenomeDistance() + this.conf.graphicalParameters.karyoHeight
+	}, {
+		"x": 2/3 * this.conf.graphicalParameters.buttonWidth,
+		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * ali.getGenomeDistance()
+	})
+	
+	coords.push(button);
+	return coords;
+};
+
+/**
+ * This method is supposed the buttons next to the chromosomes in order to make them shiftable.
+ * @param buttonCoords: the coords of the buttons which are returned by getOffsetButtonGroup
+ * @author: Sonja Hohlfeld
+ */
+AliTV.prototype.drawOffsetButtonGroup = function(buttonCoords){
+	var that = this;
+	var data = buttonCoords;
+
+	var buttons = that.svgD3.append("g")
+		.attr("class", "buttonGroup")
+		.attr("transform", "translate(" + that.conf.graphicalParameters.canvasWidth + ", 0)")
+		.selectAll("path")
+		.data(data)
+		.enter();
+	
+	var lineFunction = d3.svg.line()
+	.x(function(d) {
+		return d.x;
+	})
+	.y(function(d) {
+		return d.y;
+	})
+	.interpolate("linear");
+	
+	buttons.append("path")
+	.each(function(d, i) {
+		d3.select(this)
+			.attr("class", "button")
+			.attr("id", function(d) {
+				return d.id;
+			})
+			.attr("orientation", "left")
+			.attr("d", lineFunction(d.path1))
+			.attr("fill", function(d) {
+				return "black";
+			})
+			.on("mouseover", function(){
+				d3.select(this)
+					.attr("fill", "#96CDCD")
+			})
+			.on("mouseout", function(){
+				d3.select(this)
+					.attr("fill", "black")
+			})
+			.on("click", function(d){
+				var offset = that.filters.karyo.chromosomes[d.id].offset === undefined ? 0 : that.filters.karyo.chromosomes[d.id].offset;
+				that.filters.karyo.chromosomes[d.id].offset = offset - that.conf.graphicalParameters.tickDistance;
+			})
+	});
+	
+	buttons.append("path")
+	.each(function(d, i) {
+		d3.select(this)
+			.attr("class", "button")
+			.attr("id", function(d) {
+				return d.id;
+			})
+			.attr("orientation", "right")
+			.attr("d", lineFunction(d.path2))
+			.attr("fill", function(d) {
+				return "black";
+			})
+			.on("mouseover", function(){
+				d3.select(this)
+					.attr("fill", "#96CDCD")
+			})
+			.on("mouseout", function(){
+				d3.select(this)
+					.attr("fill", "black")
+			})
+			.on("click", function(d){
+				var offset = that.filters.karyo.chromosomes[d.id].offset === undefined ? 0 : that.filters.karyo.chromosomes[d.id].offset;
+				that.filters.karyo.chromosomes[d.id].offset = offset + that.conf.graphicalParameters.tickDistance;
+			})
+	});
+	
+	if (that.conf.labels.genome.showGenomeLabels === true && that.conf.tree.drawTree === true) {
+		that.svgD3.selectAll(".buttonGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.canvasWidth + that.conf.graphicalParameters.genomeLabelWidth + that.conf.graphicalParameters.treeWidth) + ", 0)");
+	}
+};
