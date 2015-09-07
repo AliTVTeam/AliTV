@@ -604,7 +604,8 @@
 		$('#showChromosomeLabels').attr('checked', false);
 		$('#showTickLabels').attr('checked', true);
 		$('#showGenes').attr('checked', false);
-		$('#geneLabels').attr('checked', false);		
+		$('#geneLabels').attr('checked', false);
+		setOffsetGroup();
 	}
 	
 	function setFilters(){
@@ -755,6 +756,17 @@
 				setInvisibleChromosomeSelection();
 				$("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
 				ali.drawLinear();
+			}
+			
+			function setOffsetGroup(){
+				$("#offsetGroup").text("");
+				$.each(ali.filters.karyo.chromosomes, function(key, value){
+					$('#offsetGroup')
+					       .append($("<option></option>")
+					       .attr("value", key)
+					       .text(key))
+					       .selectpicker("refresh");		
+				});
 			}
 			
 	function setAliFromJSONEditor(){
@@ -988,23 +1000,13 @@
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10">
 									<mark class="bg-info">Shift chromosomes:</mark>	
+									<div class="input-group" style="margin: 10px 10px"> 
+										<span class="input-group-addon"><select id="offsetGroup" class="selectPicker" data-style="btn-info" name="offsetGroup"></select></span>
+										<span class="input-group-addon"><button class="btn btn-info" type="button" id="setOffsetGroup" onclick="setOffsetGroup();">Set offset</button></span>
+				    				</div>
 								</div>
 							</div>
 					</div>
-					<!-- <div class="col-sm-3">
-						<div class="form-group">
-							<div class="input-group" style="margin: 10px 10px">
-								Width of tree (px): <input type="text" id="treeWidth" placeholder="Tree width">
-							</div>  
-					  	</div>
-					</div> -->
-					<!-- <div class="col-sm-3">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setTreeSettings();">Apply</button>
-						    </div>
-					  	</div>
-					</div> -->
 				</div>
 			</div>
 	</div>
