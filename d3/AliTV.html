@@ -751,7 +751,6 @@
 
 			function restoreChromosome(){
 				var selectedChromosomeName = $('.selectpicker[name=invisibleChromosomes]').val();
-				console.log(selectedChromosomeName);
 				ali.changeChromosomeVisibility(selectedChromosomeName);
 				setInvisibleChromosomeSelection();
 				$("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
@@ -767,6 +766,11 @@
 					       .text(key))
 					       .selectpicker("refresh");		
 				});
+			}
+			
+			function setOffsetButton(){
+				var karyo = $('.selectpicker[name=offsetGroup]').val();
+				ali.drawOffsetButton(karyo);
 			}
 			
 	function setAliFromJSONEditor(){
@@ -1002,7 +1006,7 @@
 									<mark class="bg-info">Shift chromosomes:</mark>	
 									<div class="input-group" style="margin: 10px 10px"> 
 										<span class="input-group-addon"><select id="offsetGroup" class="selectPicker" data-style="btn-info" name="offsetGroup"></select></span>
-										<span class="input-group-addon"><button class="btn btn-info" type="button" id="setOffsetGroup" onclick="setOffsetGroup();">Set offset</button></span>
+										<span class="input-group-addon"><button class="btn btn-info" type="button" id="setOffsetGroup" onclick="setOffsetButton();">Set offset</button></span>
 				    				</div>
 								</div>
 							</div>
