@@ -572,6 +572,13 @@ var features23 = {
 		}
 };
 
+var features24 = {
+		'link':{
+			'f1': {'karyo': 'c1', 'start': 500, 'end': 250},
+			'f2': {'karyo': 'c2', 'start': 250, 'end': 500}
+		}
+};
+
 var links = {"0":{"1":{
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 }}};
@@ -652,6 +659,10 @@ var links13 = {"0":{"1":{
 
 var links14 = {"0":{"1":{
    	 "l1": {'source': 'f5', 'target': 'f6', 'identity': 90}
+	 }}};
+
+var links15 = {"1":{"0":{
+  	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 	 }}};
 
 var tree = {
