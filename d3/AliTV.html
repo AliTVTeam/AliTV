@@ -769,8 +769,11 @@
 			}
 			
 			function setOffsetButton(){
+				ali.conf.offset = true;
 				var karyo = $('.selectpicker[name=offsetGroup]').val();
-				ali.getOffsetButtonCoords(karyo);
+				var buttonCoords = ali.getOffsetButtonCoords(karyo);
+				ali.drawOffsetButtonGroup(buttonCoords);
+				ali.drawLinear();
 			}
 			
 	function setAliFromJSONEditor(){

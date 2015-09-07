@@ -152,6 +152,7 @@ function AliTV(svg) {
 	 * @property {Number}  labels.genome.size					   - Defines the size of genome labels.
 	 * @property {Object}  labels.features					   	   - Contains the configurations for the feature labels.
 	 * @property {Boolean} labels.features.showFeatureLabels 	   - Defines if feature labels are shown or not.
+	 * @property {Boolean} offset								   - Defines if the offset is set or not.
 	 */
 	this.conf = {
 		linear: {
@@ -251,7 +252,8 @@ function AliTV(svg) {
 			features: {
 				showFeatureLabels: false
 			}
-		}
+		},
+		offset: false
 	};
 	/**
 	 * property to cache calculated values
