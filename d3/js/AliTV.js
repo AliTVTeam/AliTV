@@ -2616,7 +2616,11 @@ AliTV.prototype.setSvgWidth = function(width) {
 		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		width = Number(width);
-		this.svg.attr("width", width);
+		if(this.conf.offset === true){
+			this.svg.attr("width", width + this.conf.graphicalParameters.buttonWidth);	
+		} else {
+			this.svg.attr("width", width);
+		}
 	}
 };
 
