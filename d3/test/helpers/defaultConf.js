@@ -17,7 +17,8 @@ var defaultConf =  {
 			tickDistance: 100,
 			treeWidth: 300,
 			genomeLabelWidth: 150,
-			fade: 0.1
+			fade: 0.1,
+			buttonWidth: 90
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -95,5 +96,6 @@ var defaultConf =  {
 			features: {
 				showFeatureLabels: false
 			}
-		}
+		},
+		offset: false
 	};
