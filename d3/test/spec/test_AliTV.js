@@ -2402,7 +2402,7 @@ describe('The drawOffsetButtonGroup is supposed to draw the buttons next to the 
 		var karyo = "c1";
 		var buttons = ali.getOffsetButtonCoords(karyo);
 		ali.drawOffsetButtonGroup(buttons);
-		expect(ali.svgD3.selectAll('.buttonGroup').size()).toEqual(5);
+		expect(ali.svgD3.selectAll('.buttonGroup').size()).toEqual(1);
 	});
 });
 
