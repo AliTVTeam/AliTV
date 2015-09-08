@@ -132,6 +132,12 @@ var karyo14 = {
 			'c2_gi': {'genome_id': "species_1", 'length': 1000, 'seq': null}
 		}
 };
+var karyo15 = {
+		'chromosomes': {
+			'c1': {'genome_id': 0, 'length': 1250, 'seq': null},
+			'c2': {'genome_id': 1, 'length': 1250, 'seq': null}
+		}
+};
 var filters4 = {'karyo': {
 		'order': ['c1', 'c2', 'c3', 'c4'],
 		'genome_order': [0, 1, 2],
@@ -579,6 +585,13 @@ var features24 = {
 		}
 };
 
+var features25 = {
+		'link':{
+			'f1': {'karyo': 'c1', 'start': 200, 'end': 700},
+			'f2': {'karyo': 'c2', 'start': 800, 'end': 300}
+		}
+};
+
 var links = {"0":{"1":{
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 }}};
@@ -663,6 +676,10 @@ var links14 = {"0":{"1":{
 
 var links15 = {"1":{"0":{
   	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
+	 }}};
+
+var links16 = {"1":{"0":{
+ 	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 	 }}};
 
 var tree = {
