@@ -3193,27 +3193,26 @@ AliTV.prototype.getOffsetButtonCoords = function(karyo){
 			"path1": [],
 			"path2": []
 	}
-	
 	button.path1.push({
 		"x": 0,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * ali.getGenomeDistance() + 1/2 * this.conf.graphicalParameters.karyoHeight
+		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance() + 1/2 * this.conf.graphicalParameters.karyoHeight
 	},{
 		"x": 1/3 * this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * ali.getGenomeDistance()
+		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance()
 	}, {
 		"x": 1/3 * this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * ali.getGenomeDistance() + this.conf.graphicalParameters.karyoHeight
+		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance() + this.conf.graphicalParameters.karyoHeight
 	});
 	
 	button.path2.push({
 		"x": this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * ali.getGenomeDistance() + 1/2 * this.conf.graphicalParameters.karyoHeight
+		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance() + 1/2 * this.conf.graphicalParameters.karyoHeight
 	}, {
 		"x": 2/3 * this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * ali.getGenomeDistance() + this.conf.graphicalParameters.karyoHeight
+		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance() + this.conf.graphicalParameters.karyoHeight
 	}, {
 		"x": 2/3 * this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * ali.getGenomeDistance()
+		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance()
 	})
 	
 	coords.push(button);

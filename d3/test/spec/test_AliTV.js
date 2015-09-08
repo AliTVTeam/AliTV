@@ -2369,19 +2369,23 @@ describe('The changeChromosomeOrder method is supposed to change the order of ch
 });
 
 describe('The getOffsetButtonCoords method is supposed to calculate button coords which are presented next to the chromosomes', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
 	it('getOffsetButtonCoords method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		expect(typeof ali.getOffsetButtonCoords).toEqual('function');
 	});
 	it("the method is supposed to return the expected button coords", function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		ali.setData(data);
 		ali.setFilters(filters);
+		ali.filters.karyo.genome_order = [0, 1];
+		console.log(ali.getGenomeDistance());
 		var karyo = "c1";
 		var buttonCoords = ali.getOffsetButtonCoords(karyo);
 		var expectedButtonCoords = [{"id": karyo, 
-									"path1": [{"x": 0, "y": 15}, {"x": 1/3 * ali.conf.graphicalParameters.buttonWidth, "y": 0}, {"x": 1/3 * ali.conf.graphicalParameters.buttonWidth, "y": 30}], 
-									"path2": [{"x": ali.conf.graphicalParameters.buttonWidth, "y": 15}, {"x": 2/3 * ali.conf.graphicalParameters.buttonWidth, "y": 0}, {"x": 2/3 * ali.conf.graphicalParameters.buttonWidth, "y": 30}]
+									"path1": [{"x": 0, "y": 15}, {"x": 1/3 * defaultConf.graphicalParameters.buttonWidth, "y": 0}, {"x": 1/3 * defaultConf.graphicalParameters.buttonWidth, "y": 30}], 
+									"path2": [{"x": defaultConf.graphicalParameters.buttonWidth, "y": 15}, {"x": 2/3 * defaultConf.graphicalParameters.buttonWidth, "y": 30}, {"x": 2/3 * defaultConf.graphicalParameters.buttonWidth, "y": 0}]
 									}];
 		expect(expectedButtonCoords).toEqual(buttonCoords);
 	});
