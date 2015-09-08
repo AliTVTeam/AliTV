@@ -2415,7 +2415,7 @@ describe('The drawOffsetButtonGroup is supposed to draw the buttons next to the 
 		var karyo = "c1";
 		var buttons = ali.getOffsetButtonCoords(karyo);
 		ali.drawOffsetButtonGroup(buttons);
-		expect(ali.svgD3.selectAll('.buttonGroup').attr("transform")).toEqual("translate(1450, 0)");	
+		expect(ali.svgD3.selectAll('.buttonGroup').attr("transform")).toEqual("translate(" + (defaultConf.graphicalParameters.canvasWidth + defaultConf.graphicalParameters.genomeLabelWidth + defaultConf.graphicalParameters.treeWidth) + ", 0)");	
 	});
 //	it("if the mouse pointer enters a left button its color should be changed", function(done) {
 //		 var spyEvent = spyOnEvent('.button', 'mouseover');
