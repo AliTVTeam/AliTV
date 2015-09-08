@@ -2435,7 +2435,7 @@ describe('The drawOffsetButtonGroup is supposed to draw the buttons next to the 
 			ali.svg.find('.button').eq(1).d3Trigger("click");
 			setTimeout(function(){
 				var expectedOffset = ali.filters.karyo.chromosomes["c1"].offset;
-				expect(expectedOffset).toEqual(-defaultConf.graphicalParameters.tickDistance);
+				expect(expectedOffset).toEqual(defaultConf.graphicalParameters.tickDistance);
 				done();
 			}, 1000);
 	});
