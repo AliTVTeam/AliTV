@@ -618,6 +618,10 @@ var features27 = {
 		'invertedRepeat': [{'karyo': 'c1', 'start': 1900, 'end': 1800, 'name': "f1"}]
 	};
 
+var features28 = {
+		'invertedRepeat': [{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1"}]
+	};
+
 var links = {"0":{"1":{
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
 			 }}};
