@@ -1507,6 +1507,17 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
 	});
+	it('getLinearFeatureCoords method is supposed to return the expected coordinates for one feature, which is shifted and splitted into two parts', function(){
+		ali.setData({karyo: karyo16, features: features26});
+		ali.setFilters(filters21);
+		ali.conf.features.showAllFeatures = true;
+		ali.filters.karyo.chromosomes["c1"].reverse = true;
+		var expectedFeatures = [{"id": "f1", "type": "gene", "karyo": "c1", "height": defaultConf.features.supportedFeatures.gene.height, "x": 800 * 1000 / 2000, "width": Math.abs(950 - 800) * 1000 / 2000, "y": 0}];
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		console.log(linearFeatureCoords, linearKaryoCoords);
+		expect(linearFeatureCoords).toEqual(expectedFeatures);
+	});
 });
 
 describe('The drawLinearFeatures method of AliTV objects is supposed to draw features on the chromosomes', function(){

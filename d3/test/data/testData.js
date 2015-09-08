@@ -138,6 +138,12 @@ var karyo15 = {
 			'c2': {'genome_id': 1, 'length': 1250, 'seq': null}
 		}
 };
+var karyo16 = {
+		'chromosomes': {
+			'c1': {'genome_id': 0, 'length': 2000, 'seq': null},
+			'c2': {'genome_id': 1, 'length': 2000, 'seq': null}
+		}
+};
 var filters4 = {'karyo': {
 		'order': ['c1', 'c2', 'c3', 'c4'],
 		'genome_order': [0, 1, 2],
@@ -372,6 +378,16 @@ var filters20 = {'karyo': {
 	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000, "invisibleLinks": {}}
 }
 
+var filters21 = {'karyo': {
+	'order': ['c1', "c2"],
+	'genome_order': [0, 1],
+	'chromosomes': {
+		'c1': {'reverse': false, 'visible': true},
+		'c2': {'reverse': false, 'visible': true}
+	}},
+	"links": {"minLinkIdentity": 0, "maxLinkIdentity": 100, "minLinkLength": 100, "maxLinkLength": 10000}
+}
+
 var features = {
 	'link':{
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
@@ -591,6 +607,12 @@ var features25 = {
 			'f2': {'karyo': 'c2', 'start': 800, 'end': 300}
 		}
 };
+
+var features26 = {
+		'gene':[
+			{'karyo': 'c1', 'start': 800, 'end': 950, 'name': "f1"}
+		]
+	};
 
 var links = {"0":{"1":{
             	 "l1": {'source': 'f1', 'target': 'f2', 'identity': 90}
