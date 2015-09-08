@@ -2380,7 +2380,6 @@ describe('The getOffsetButtonCoords method is supposed to calculate button coord
 		ali.setData(data);
 		ali.setFilters(filters);
 		ali.filters.karyo.genome_order = [0, 1];
-		console.log(ali.getGenomeDistance());
 		var karyo = "c1";
 		var buttonCoords = ali.getOffsetButtonCoords(karyo);
 		var expectedButtonCoords = [{"id": karyo, 
@@ -2388,6 +2387,22 @@ describe('The getOffsetButtonCoords method is supposed to calculate button coord
 									"path2": [{"x": defaultConf.graphicalParameters.buttonWidth, "y": 15}, {"x": 2/3 * defaultConf.graphicalParameters.buttonWidth, "y": 30}, {"x": 2/3 * defaultConf.graphicalParameters.buttonWidth, "y": 0}]
 									}];
 		expect(expectedButtonCoords).toEqual(buttonCoords);
+	});
+});
+
+describe('The drawOffsetButtonGroup is supposed to draw the buttons next to the chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('drawOffsetButtonGroup method is supposed to be a function', function(){
+		expect(typeof ali.drawOffsetButtonGroup).toEqual('function');
+	});
+	it('there should be exactly one buttonGroup in the simple test svg', function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var karyo = "c1";
+		var buttons = ali.getOffsetButtonCoords(karyo);
+		ali.drawOffsetButtonGroup(buttons);
+		expect(ali.svgD3.selectAll('.buttonGroup').size()).toEqual(5);
 	});
 });
 
