@@ -2404,6 +2404,19 @@ describe('The drawOffsetButtonGroup is supposed to draw the buttons next to the 
 		ali.drawOffsetButtonGroup(buttons);
 		expect(ali.svgD3.selectAll('.buttonGroup').size()).toEqual(1);
 	});
+	it("if the genome labels and the tree are drawn the button group should be transformed", function() {
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.filters.karyo.chromosomes["c1"].offset = 0;
+		ali.conf.tree.drawTree = true;
+		ali.conf.labels.genome.showGenomeLabels = true;
+		var karyo = "c1";
+		var buttons = ali.getOffsetButtonCoords(karyo);
+		ali.drawOffsetButtonGroup(buttons);
+		expect(ali.svgD3.selectAll('.buttonGroup').attr("transform")).toEqual("translate(1450, 0)");	
+	});
 //	it("if the mouse pointer enters a left button its color should be changed", function(done) {
 //		 var spyEvent = spyOnEvent('.button', 'mouseover');
 //			ali.svg.find('.button').eq(0).d3Trigger("mouseover");
