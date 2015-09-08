@@ -1590,17 +1590,17 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.filters.karyo.chromosomes["c1"].reverse = true;
 		ali.filters.karyo.chromosomes["c1"].offset = 150;
 		ali.conf.features.showAllFeatures = true;
-		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 2000 * 1000/2000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
-		                                                 {x: 1000 - 5/6 * 50 * 1000 / 2000, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
-		                                                 {x: 1000 - 5/6 * 50 * 1000 / 2000, y: 0}, 
-		                                                 {x: 1000 - 50 * 1000 / 2000, y: 0 +  1/2 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
-		                                                 {x: 1000 - 5/6 * 50 * 1000 / 2000, y: 0 + defaultConf.features.supportedFeatures.invertedRepeat.height},
-		                                                 {x: 1000 - 5/6 * 50 * 1000 / 2000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
-		                                                 {x: 1000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}]},{
-		                    	 "id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 0, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
-		                                                 {x: 25.00000000000002, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
-		                                                 {x: 25.00000000000002, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
-		                                                 {x: 0, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}]	 
+		var expectedFeatures = [{"id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 0, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		                                                 {x: 20.833333333333353, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		                                                 {x: 20.833333333333353, y: 0}, 
+		                                                 {x: 25.00000000000002, y: 0 +  1/2 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		                                                 {x: 20.833333333333353, y: 0 + defaultConf.features.supportedFeatures.invertedRepeat.height},
+		                                                 {x: 20.833333333333353, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
+		                                                 {x: 0, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}]},{
+		                    	 "id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 1000, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
+		                                                 {x: 1950 * 1000/2000, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
+		                                                 {x: 1950 * 1000/2000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
+		                                                 {x: 1000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}]	 
 		                                                 }];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
