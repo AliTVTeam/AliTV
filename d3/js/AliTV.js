@@ -3254,19 +3254,22 @@ AliTV.prototype.drawOffsetButtonGroup = function(buttonCoords){
 			.attr("orientation", "left")
 			.attr("d", lineFunction(d.path1))
 			.attr("fill", function(d) {
-				return "black";
+				return ali.colorKaryoByGenomeId(ali.filters.karyo.genome_order.indexOf(ali.data.karyo.chromosomes[d.id].genome_id));
 			})
 			.on("mouseover", function(){
 				d3.select(this)
-					.attr("fill", "#96CDCD")
+					.attr("fill", "black")
 			})
 			.on("mouseout", function(){
 				d3.select(this)
-					.attr("fill", "black")
+					.attr("fill", function(d) {
+						return ali.colorKaryoByGenomeId(ali.filters.karyo.genome_order.indexOf(ali.data.karyo.chromosomes[d.id].genome_id));
+					})
 			})
 			.on("click", function(d){
 				var offset = that.filters.karyo.chromosomes[d.id].offset === undefined ? 0 : that.filters.karyo.chromosomes[d.id].offset;
 				that.filters.karyo.chromosomes[d.id].offset = offset - that.conf.graphicalParameters.tickDistance;
+				ali.drawLinear();
 			})
 	});
 	
@@ -3280,19 +3283,22 @@ AliTV.prototype.drawOffsetButtonGroup = function(buttonCoords){
 			.attr("orientation", "right")
 			.attr("d", lineFunction(d.path2))
 			.attr("fill", function(d) {
-				return "black";
+				return ali.colorKaryoByGenomeId(ali.filters.karyo.genome_order.indexOf(ali.data.karyo.chromosomes[d.id].genome_id));
 			})
 			.on("mouseover", function(){
 				d3.select(this)
-					.attr("fill", "#96CDCD")
+					.attr("fill", "black")
 			})
 			.on("mouseout", function(){
 				d3.select(this)
-					.attr("fill", "black")
+					.attr("fill", function(d) {
+						return ali.colorKaryoByGenomeId(ali.filters.karyo.genome_order.indexOf(ali.data.karyo.chromosomes[d.id].genome_id));
+					})
 			})
 			.on("click", function(d){
 				var offset = that.filters.karyo.chromosomes[d.id].offset === undefined ? 0 : that.filters.karyo.chromosomes[d.id].offset;
 				that.filters.karyo.chromosomes[d.id].offset = offset + that.conf.graphicalParameters.tickDistance;
+				ali.drawLinear();
 			})
 	});
 	
