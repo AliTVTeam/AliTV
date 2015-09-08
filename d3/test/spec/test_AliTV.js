@@ -684,7 +684,6 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		ali.filters.karyo.chromosomes["c1"].offset = -375;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-		console.log(linearLinkCoords);
 		var expectedCoords = [
           {
         	  linkID : "l1", 
@@ -708,24 +707,24 @@ describe('The getLinearLinkCoords method of AliTV objects is supposed to calcula
 		var ali = new AliTV(svg);
 		ali.setData({karyo: karyo15, features: features25, links: links16});
 		ali.setFilters(filters);
-		//ali.filters.karyo.chromosomes["c2"].offset = 350;
+		ali.filters.karyo.chromosomes["c1"].offset = 0;
+		ali.filters.karyo.chromosomes["c2"].offset = 650;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearLinkCoords = ali.getLinearLinkCoords(linearKaryoCoords);
-		console.log(linearLinkCoords);
 		var expectedCoords = [
           {
         	  linkID : "l1", 
-        	  source0: {x: 2000/2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-        	  target0: {x: 375/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
-        	  source1: {x: 937.5, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-        	  target1: {x: 750/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}
+        	  source0: {x: 400/1250 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
+        	  target0: {x: linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
+        	  source1: {x: 700/1250 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
+        	  target1: {x: 950/1250 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}
           },
           {
         	  linkID : "l1", 
-        	  source0: {x: 125/ 2000 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-        	  target0: {x: 500/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
-        	  source1: {x: 0, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
-        	  target1: {x: 375/1000 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}
+        	  source0: {x: 200/1250 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
+        	  target0: {x: 200/1250 * linearKaryoCoords[1].width, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}, 
+        	  source1: {x: 400/1250 * linearKaryoCoords[0].width, y: linearKaryoCoords[0].y + linearKaryoCoords[0].height + defaultConf.graphicalParameters.linkKaryoDistance},
+        	  target1: {x: 0, y: linearKaryoCoords[1].y - defaultConf.graphicalParameters.linkKaryoDistance}
           }
 		];
 		expect(linearLinkCoords).toHaveSameLinearLinkCoordinates(expectedCoords);
