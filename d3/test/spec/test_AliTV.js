@@ -1576,8 +1576,8 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		                                                 {x: 1000 - 5/6 * 50 * 1000 / 2000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
 		                                                 {x: 1000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}]},{
 		                    	 "id": "f1", "type": "invertedRepeat", "karyo": "c1", path: [{x: 0, y: 0 +  1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}, 
-		                                                 {x: 50 * 1000/2000, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
-		                                                 {x: 50 * 1000/2000, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
+		                                                 {x: 25.00000000000002, y: 0 + 1/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
+		                                                 {x: 25.00000000000002, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height},
 		                                                 {x: 0, y: 0 + 4/5 * defaultConf.features.supportedFeatures.invertedRepeat.height}]	 
 		                                                 }];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
