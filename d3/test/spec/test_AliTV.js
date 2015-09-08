@@ -1117,6 +1117,7 @@ describe('A left mouseclick on a chromosome should change the reverse informatio
 		}, 1000);
 	});
 	it('after the click event the reverse information is true and source0 and source1 should be changed', function(done){
+		ali.filters.karyo.chromosomes["c1"].offset = 0;
 		ali.filters.karyo.chromosomes.c1.reverse = false;
 		ali.drawLinear();
 		ali.svg.find('.karyo').eq(0).d3Trigger("click");
