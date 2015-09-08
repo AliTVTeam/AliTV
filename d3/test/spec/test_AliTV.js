@@ -2404,5 +2404,38 @@ describe('The drawOffsetButtonGroup is supposed to draw the buttons next to the 
 		ali.drawOffsetButtonGroup(buttons);
 		expect(ali.svgD3.selectAll('.buttonGroup').size()).toEqual(1);
 	});
+//	it("if the mouse pointer enters a left button its color should be changed", function(done) {
+//		 var spyEvent = spyOnEvent('.button', 'mouseover');
+//			ali.svg.find('.button').eq(0).d3Trigger("mouseover");
+//			setTimeout(function(){
+//				expect(ali.svg.find('.button').css("fill")).toEqual("rgb(0, 0, 0)");
+//				done();
+//			}, 1000);
+//	 });	
+//	it("if the mouse pointer enters a left button its color should be changed", function(done) {
+//		 var spyEvent = spyOnEvent('.button', 'mouseover');
+//			ali.svg.find('.button').eq(1).d3Trigger("mouseover");
+//			setTimeout(function(){
+//				expect(ali.svg.find('.button').css("fill")).toEqual("rgb(0, 0, 0)");
+//				done();
+//			}, 1000);
+//	 });
+	it("if the left button is clicked the offset would be set in negative direction", function(done) {
+	 var spyEvent = spyOnEvent('.button', 'click');
+		ali.svg.find('.button').eq(0).d3Trigger("click");
+		setTimeout(function(){
+			var expectedOffset = ali.filters.karyo.chromosomes["c1"].offset;
+			expect(expectedOffset).toEqual(defaultConf.graphicalParameters.tickDistance);
+			done();
+		}, 1000);
+	});	
+//	it("if the mouse pointer enters a left button its color should be changed", function(done) {
+//		 var spyEvent = spyOnEvent('.button', 'mouseover');
+//			ali.svg.find('.button').eq(1).d3Trigger("click");
+//			setTimeout(function(){
+//				expect(ali.svg.find('.button').css("fill")).toEqual("rgb(0, 0, 0)");
+//				done();
+//			}, 1000);
+//	});
 });
 
