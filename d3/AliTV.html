@@ -788,6 +788,9 @@
 		$('#jsoneditor').toggle();
 	}
 	function saveSVG(){
+		if(ali.conf.offset === true){
+			ali.svgD3.selectAll(".buttonGroup").remove();
+		}
 	    var blob = new Blob([ali.getSvgAsText()], {type: "image/svg+xml;charset=utf-8"});
 	    saveAs(blob, "AliTV.svg");
 	}
