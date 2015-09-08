@@ -2368,3 +2368,22 @@ describe('The changeChromosomeOrder method is supposed to change the order of ch
 	});
 });
 
+describe('The getOffsetButtonCoords method is supposed to calculate button coords which are presented next to the chromosomes', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getOffsetButtonCoords method is supposed to be a function', function(){
+		expect(typeof ali.getOffsetButtonCoords).toEqual('function');
+	});
+	it("the method is supposed to return the expected button coords", function(){
+		ali.setData(data);
+		ali.setFilters(filters);
+		var karyo = "c1";
+		var buttonCoords = ali.getOffsetButtonCoords(karyo);
+		var expectedButtonCoords = [{"id": karyo, 
+									"path1": [{"x": 0, "y": 15}, {"x": 1/3 * ali.conf.graphicalParameters.buttonWidth, "y": 0}, {"x": 1/3 * ali.conf.graphicalParameters.buttonWidth, "y": 30}], 
+									"path2": [{"x": ali.conf.graphicalParameters.buttonWidth, "y": 15}, {"x": 2/3 * ali.conf.graphicalParameters.buttonWidth, "y": 0}, {"x": 2/3 * ali.conf.graphicalParameters.buttonWidth, "y": 30}]
+									}];
+		expect(expectedButtonCoords).toEqual(buttonCoords);
+	});
+});
+
