@@ -1512,7 +1512,9 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setFilters(filters21);
 		ali.conf.features.showAllFeatures = true;
 		ali.filters.karyo.chromosomes["c1"].reverse = true;
-		var expectedFeatures = [{"id": "f1", "type": "gene", "karyo": "c1", "height": defaultConf.features.supportedFeatures.gene.height, "x": 800 * 1000 / 2000, "width": Math.abs(950 - 800) * 1000 / 2000, "y": 0}];
+		ali.filters.karyo.chromosomes["c1"].offset = 1150;
+		var expectedFeatures = [{"id": "f1", "type": "gene", "karyo": "c1", "height": defaultConf.features.supportedFeatures.gene.height, "x": 950, "width": 50, "y": 0},
+		                        {"id": "f1", "type": "gene", "karyo": "c1", "height": defaultConf.features.supportedFeatures.gene.height, "x": 0, "width": 25.00000000000002, "y": 0}];
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		console.log(linearFeatureCoords, linearKaryoCoords);
