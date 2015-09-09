@@ -2862,5 +2862,5 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
  * @author: Sonja Hohlfeld and Markus Ankenbrand
  */
 AliTV.prototype.getSupportedFeatures = function() {
-
+	return Object.keys(this.conf.features.supportedFeatures);
 };
