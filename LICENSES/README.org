@@ -118,5 +118,13 @@ http://silviomoreto.github.io/bootstrap-select/
 [[file:LICENSE-textures][LICENSE-textures]]
 **** Files
  - [[../d3/lib/textures.min.js]]
+*** underscore.js
+**** Repository
+[[https://github.com/jashkenas/underscore]]
+**** Version
+1.8.3
+**** LICENSE
+[[file:LICENSE-underscorejs][LICENSE-underscorejs]]
+**** Files
+ - [[../d3/lib/underscore-min.js]]
 
-			    
