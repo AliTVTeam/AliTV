@@ -260,6 +260,11 @@ function AliTV(svg) {
 	this.cache = {
 		'linear': {}
 	};
+	/**
+	 * array of registered onChange callback functions
+	 * @property {Array} onChangeCallbacks             				 - array of callback functions
+	 */
+	this.onChangeCallbacks = [];
 	// Initialize svg size
 	this.setSvgWidth(this.getCanvasWidth());
 	this.setSvgHeight(this.getCanvasHeight());
