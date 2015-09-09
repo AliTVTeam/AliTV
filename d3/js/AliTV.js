@@ -2876,5 +2876,7 @@ AliTV.prototype.getSupportedFeatures = function() {
  * @author: Sonja Hohlfeld and Markus Ankenbrand
  */
 AliTV.prototype.onDataChange = function(callback) {
-
+	if (typeof callback !== "function") {
+		throw "Not a function.";
+	}
 };
