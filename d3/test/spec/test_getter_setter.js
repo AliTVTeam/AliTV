@@ -633,6 +633,11 @@ describe('The setSvgWidth method is supposed to set a new width of the svg', fun
 		ali.setSvgWidth(10000);
 		expect(ali.getSvgWidth()).toEqual(10000);
 	});
+	it('when setSvgWidth is called and the offset is activated the method should return a greater width', function(){
+		ali.conf.offset = true;
+		ali.setSvgWidth(2000);
+		expect(ali.getSvgWidth()).toEqual(2000);
+	});
 	it('the setSvgWidth method should throw an error message if the assigned width is empty', function(){
 		var width = "";
 		expect(function(){ali.setSvgWidth(width);}).toThrow("Sorry, you entered an empty value. Please try it again.");
