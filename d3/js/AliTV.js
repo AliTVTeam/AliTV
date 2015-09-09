@@ -2855,3 +2855,12 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 	order[chromosomePosition] = tmp;
 	return that.filters.karyo.order;
 };
+
+/**
+ * This function is supposed to return an array of supported features
+ * @returns {Array} supportedFeatures
+ * @author: Sonja Hohlfeld and Markus Ankenbrand
+ */
+AliTV.prototype.getSupportedFeatures = function() {
+
+};
