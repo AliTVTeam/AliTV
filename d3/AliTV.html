@@ -777,8 +777,18 @@
 	    var blob = new Blob([JSON.stringify(ali.getJSON())], {type: "plain/text;charset=utf-8"});
 	    saveAs(blob, "AliTV.json");
 	}
-
 	
+	function addFeatureGroupTemplates(){
+	    var groups = ali.getSupportedFeatures();
+        var templateHTML = $('#template_feature_group').html();
+        var templateUS = _.template(templateHTML);
+        $('.feature_template').remove();
+        $.each(groups, function(key, value){
+			$('#featuresMenu').prepend($('<li class="feature_template"><a href="#'+value+'" data-toggle="tab">'+value+'</a></li>'));
+			$('#interface').append(templateUS({groupId: value}));
+        });
+        $('.demo2').colorpicker();
+	}
 	
  	$('#myTabs a').click(function (e) {
 		  e.preventDefault()
@@ -946,7 +956,7 @@
   	<li role="presentation"><a href="#filter" aria-controls="about" role="tab" data-toggle="tab">Filtering</a></li>
   	
   	<li class="dropdown"><a id="dLabel" data-toggle="dropdown">Add biological Features <span class="caret"></span></a>
-		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" id="featuresMenu">
 	        <li><a href="#gen" data-toggle="tab">Genes</a></li>
 			<li><a href="#invertedRepeat" data-toggle="tab">Inverted Repeat</a></li>
 	      	<li><a href="#repeat" data-toggle="tab">Repeat</a></li>
@@ -962,7 +972,7 @@
     <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab">Import & Export</a></li>  
 </ul>
 
-<div class="tab-content">
+<div class="tab-content" id="interface">
 	<div role="tabpanel" class="tab-pane active" id="about" style="margin:10px 10px">
 		AliTV (Alignment Toolbox and Visualization)
 	</div>
@@ -1534,10 +1544,8 @@
 </div> 
 <div id="jsoneditor" style="display:none"></div>
 
-<div id="Einfugeort"></div>
-
 <script type="text/template" id="template_feature_group">
-	<div role="" class="" id="<%= groupId %>" style="margin: 10px 10px">
+	<div role="tabpanel" class="tab-pane fade feature_template" id="<%= groupId %>" style="margin: 10px 10px">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-3">
