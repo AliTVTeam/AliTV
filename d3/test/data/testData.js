@@ -392,7 +392,11 @@ var features = {
 	'link':{
 		'f1': {'karyo': 'c1', 'start': 300, 'end': 800},
 		'f2': {'karyo': 'c2', 'start': 100, 'end': 600}
-	}
+	},
+	'gene':[
+			{'karyo': 'c1', 'start': 100, 'end': 200, 'name': "f1"},
+			{'karyo': 'c2', 'start': 400, 'end': 300, 'name': "f2"}
+		]
 };
 var features2 = {
 	'link':{

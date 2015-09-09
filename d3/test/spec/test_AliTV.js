@@ -215,14 +215,16 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 	it('drawLinear method is supposed to be a function', function(){
 		expect(typeof ali.drawLinear).toEqual('function');
 	});
-	it('there should be exactly three karyos and one link in the test svg', function(){	
-		var karyoCoords = ali.getLinearKaryoCoords();
-		ali.drawLinearKaryo(karyoCoords);
-		var linkCoords = ali.getLinearLinkCoords(karyoCoords);
-		ali.drawLinearLinks(linkCoords);
-		
+	it('there should be exactly three karyos, two genes and one link in the test svg', function(){	
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data2);
+		ali.setFilters(filters2);
+		ali.conf.features.showAllFeatures = true;
+		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(20);
 	});
 	it('the drawn karyos have the expected height', function(){
 		ali.drawLinear();
@@ -1445,7 +1447,6 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		ali.setData({karyo: karyo3, features: features30});
 		ali.setFilters(filters3);
 		ali.conf.features.showAllFeatures = true;
-		console.log(ali);
 		var expectedFeatures = [{"id": "f1", "type": "gene", "karyo": "c1", "height": 1/5 * defaultConf.features.supportedFeatures.gene.height, "x": 100 * 1000 / 2000, "width": Math.abs(200 - 100) * 1000 / 2000, "y": 0},
 		                        {"id": "f2", "type": "gene", "karyo": "c2", "height": 1/5 * defaultConf.features.supportedFeatures.gene.height, "x": 300 * 500 / 1000, "width": Math.abs(300 - 400) * 500 / 1000, "y": 485},
 		                        {"id": "f3", "type": "gene", "karyo": "c3", "height": 1/5 * defaultConf.features.supportedFeatures.gene.height, "x": 500 * 500 / 1000, "width": Math.abs(600 - 500) * 500 / 1000, "y": 970}];
