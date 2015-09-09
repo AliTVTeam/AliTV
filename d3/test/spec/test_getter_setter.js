@@ -1173,3 +1173,11 @@ describe("The getMaxChromosomeLength method is supposed to return the value of t
 		expect(maxLength).toEqual(2000);
 	});
 });
+
+describe("The getSupportedFeatures method is supposed to return the supported features", function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('getSupportedFeatures method is supposed to be a function', function(){
+		expect(typeof ali.getSupportedFeatures).toEqual('function');
+	});
+});
