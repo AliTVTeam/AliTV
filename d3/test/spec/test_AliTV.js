@@ -2171,4 +2171,21 @@ describe('The onDataChange and triggerChange functions are supposed to register 
 		ali.triggerChange();
 		expect(x).toEqual(1);
 	});
+	it('the onDataChange method is supposed to register multiple callbacks and triggerChange to call them upon change', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var x = 0;
+		var y = 1;
+		ali.onDataChange(function(){
+			x = 1;
+		});
+		ali.onDataChange(function(){
+			y = 0;
+		});
+		expect(x).toEqual(0);
+		expect(y).toEqual(1);
+		ali.triggerChange();
+		expect(x).toEqual(1);
+		expect(y).toEqual(0);
+	});
 });
