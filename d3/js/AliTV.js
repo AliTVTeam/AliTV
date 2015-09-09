@@ -349,6 +349,7 @@ function AliTV(svg) {
  */
 AliTV.prototype.setConf = function(conf) {
 	jQuery.extend(true, this.conf, conf);
+	this.triggerChange();
 };
 
 /**
@@ -376,6 +377,7 @@ AliTV.prototype.setConf = function(conf) {
  */
 AliTV.prototype.setData = function(data) {
 	this.data = data;
+	this.triggerChange();
 };
 
 /**
@@ -429,6 +431,7 @@ AliTV.prototype.setFilters = function(filters) {
 	if (this.filters.features.invisibleFeatures === undefined) {
 		this.filters.features.invisibleFeatures = {};
 	}
+	this.triggerChange();
 };
 
 /**
@@ -1147,6 +1150,7 @@ AliTV.prototype.drawCircular = function() {
 	var linkCoords = this.getCircularLinkCoords(karyoCoords);
 	this.drawCircularLinks(linkCoords);
 	this.conf.layout = "circular";
+	this.triggerChange();
 };
 
 /**
@@ -1180,6 +1184,7 @@ AliTV.prototype.setKaryoSpacer = function(spacer) {
 		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		this.conf.graphicalParameters.karyoDistance = spacer;
+		this.triggerChange();
 		return this.conf.graphicalParameters.karyoDistance;
 	}
 };
@@ -1215,6 +1220,7 @@ AliTV.prototype.setKaryoHeight = function(height) {
 	} else {
 		height = Number(height);
 		this.conf.graphicalParameters.karyoHeight = height;
+		this.triggerChange();
 		return this.conf.graphicalParameters.karyoHeight;
 	}
 };
@@ -1249,6 +1255,7 @@ AliTV.prototype.setCanvasWidth = function(width) {
 	} else {
 		width = Number(width);
 		this.conf.graphicalParameters.canvasWidth = width;
+		this.triggerChange();
 		return this.conf.graphicalParameters.canvasWidth;
 	}
 };
@@ -1284,6 +1291,7 @@ AliTV.prototype.setCanvasHeight = function(height) {
 	} else {
 		height = Number(height);
 		this.conf.graphicalParameters.canvasHeight = height;
+		this.triggerChange();
 		return this.conf.graphicalParameters.canvasHeight;
 	}
 };
@@ -1320,6 +1328,7 @@ AliTV.prototype.setTickDistance = function(distance) {
 	} else {
 		distance = Number(distance);
 		this.conf.graphicalParameters.tickDistance = distance;
+		this.triggerChange();
 		return this.conf.graphicalParameters.tickDistance;
 	}
 };
@@ -1380,6 +1389,7 @@ AliTV.prototype.setTreeWidth = function(treeWidth) {
 	} else {
 		treeWidth = Number(treeWidth);
 		this.conf.graphicalParameters.treeWidth = treeWidth;
+		this.triggerChange();
 		return this.conf.graphicalParameters.treeWidth;
 	}
 };
@@ -1432,6 +1442,7 @@ AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
 	} else {
 		tickLabelFrequency = Number(tickLabelFrequency);
 		this.conf.graphicalParameters.tickLabelFrequency = tickLabelFrequency;
+		this.triggerChange();
 		return this.conf.graphicalParameters.tickLabelFrequency;
 	}
 };
@@ -1457,6 +1468,7 @@ AliTV.prototype.setGeneColor = function(color) {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.features.supportedFeatures.gene.color = color;
+		this.triggerChange();
 		return this.conf.features.supportedFeatures.gene.color;
 	}
 };
@@ -1482,6 +1494,7 @@ AliTV.prototype.setInvertedRepeatColor = function(color) {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.features.supportedFeatures.invertedRepeat.color = color;
+		this.triggerChange();
 		return this.conf.features.supportedFeatures.invertedRepeat.color;
 	}
 };
@@ -1507,6 +1520,7 @@ AliTV.prototype.setRepeatColor = function(color) {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.features.supportedFeatures.repeat.color = color;
+		this.triggerChange();
 		return this.conf.features.supportedFeatures.repeat.color;
 	}
 };
@@ -1532,6 +1546,7 @@ AliTV.prototype.setNStretchColor = function(color) {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.features.supportedFeatures.nStretch.color = color;
+		this.triggerChange();
 		return this.conf.features.supportedFeatures.nStretch.color;
 	}
 };
@@ -1564,6 +1579,7 @@ AliTV.prototype.setGenomeColor = function(color) {
 		this.conf.linear.endLineColor = color[1];
 		newColor.push(this.conf.linear.startLineColor);
 		newColor.push(this.conf.linear.endLineColor);
+		this.triggerChange();
 		return newColor;
 	}
 };
@@ -1599,6 +1615,7 @@ AliTV.prototype.setLinkColor = function(color) {
 		newColor.push(this.conf.minLinkIdentityColor);
 		newColor.push(this.conf.midLinkIdentityColor);
 		newColor.push(this.conf.maxLinkIdentityColor);
+		this.triggerChange();
 		return newColor;
 	}
 };
@@ -2301,6 +2318,7 @@ AliTV.prototype.setSvgWidth = function(width) {
 	} else {
 		width = Number(width);
 		this.svg.attr("width", width);
+		this.triggerChange();
 	}
 };
 
@@ -2335,6 +2353,7 @@ AliTV.prototype.setSvgHeight = function(height) {
 	} else {
 		height = Number(height);
 		this.svg.attr("height", height);
+		this.triggerChange();
 	}
 };
 
@@ -2378,6 +2397,7 @@ AliTV.prototype.setJSON = function(json) {
 	if (typeof json.conf !== 'undefined') {
 		this.setConf(json.conf);
 	}
+	this.triggerChange();
 };
 
 /**
@@ -2402,6 +2422,7 @@ AliTV.prototype.setGenomeLabelColor = function(color) {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.labels.genome.color = color;
+		this.triggerChange();
 		return this.conf.labels.genome.color;
 	}
 };
@@ -2427,6 +2448,7 @@ AliTV.prototype.setChromosomeLabelColor = function(color) {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.labels.chromosome.color = color;
+		this.triggerChange();
 		return this.conf.labels.chromosome.color;
 	}
 };
@@ -2460,6 +2482,7 @@ AliTV.prototype.setGenomeLabelSize = function(size) {
 	} else {
 		size = Number(size);
 		this.conf.labels.genome.size = size;
+		this.triggerChange();
 		return this.conf.labels.genome.size;
 	}
 };
@@ -2493,6 +2516,7 @@ AliTV.prototype.setChromosomeLabelSize = function(size) {
 	} else {
 		size = Number(size);
 		this.conf.labels.chromosome.size = size;
+		this.triggerChange();
 		return this.conf.labels.chromosome.size;
 	}
 };
@@ -2518,6 +2542,7 @@ AliTV.prototype.setTickLabelColor = function(color) {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.labels.ticks.color = color;
+		this.triggerChange();
 		return this.conf.labels.ticks.color;
 	}
 };
@@ -2551,6 +2576,7 @@ AliTV.prototype.setTickLabelSize = function(size) {
 	} else {
 		size = Number(size);
 		this.conf.labels.ticks.size = size;
+		this.triggerChange();
 		return this.conf.labels.ticks.size;
 	}
 };
@@ -2565,6 +2591,7 @@ AliTV.prototype.setLinkInvisible = function(selectedLinkID) {
 	$("#" + selectedLinkID).hide();
 	var selectedLink = this.visibleLinks[selectedLinkID];
 	this.filters.links.invisibleLinks[selectedLinkID] = selectedLink;
+	this.triggerChange();
 	return this.filters.links.invisibleLinks;
 };
 
@@ -2592,6 +2619,7 @@ AliTV.prototype.getInvisibleLinks = function() {
 AliTV.prototype.showInvisibleLink = function(selectedLinkID) {
 	$("#" + selectedLinkID).show();
 	delete this.filters.links.invisibleLinks[selectedLinkID];
+	this.triggerChange();
 	return this.filters.links.invisibleLinks;
 };
 
@@ -2640,6 +2668,7 @@ AliTV.prototype.setFeatureInvisible = function(feature) {
 	var id = split[0];
 	var group = split[1];
 	this.filters.features.invisibleFeatures[feature] = this.data.features[group][id];
+	this.triggerChange();
 	return this.filters.features.invisibleFeatures;
 };
 
@@ -2667,6 +2696,7 @@ AliTV.prototype.getInvisibleFeatures = function() {
 AliTV.prototype.showInvisibleFeature = function(selectedFeatureId) {
 	$("#" + selectedFeatureId).show();
 	delete this.filters.features.invisibleFeatures[selectedFeatureId];
+	this.triggerChange();
 	return this.filters.features.invisibleFeatures;
 };
 
@@ -2753,6 +2783,7 @@ AliTV.prototype.updateGenomeRegionBySvgRect = function(rect) {
 			region.end = transformToGenomeScale(rect.x + rect.width);
 		}
 	}
+	this.triggerChange();
 };
 
 /**
@@ -2764,6 +2795,7 @@ AliTV.prototype.resetGenomeRegion = function(genome_id) {
 	if (typeof this.filters.karyo.genome_region !== "undefined") {
 		this.filters.karyo.genome_region[genome_id] = {};
 	}
+	this.triggerChange();
 };
 
 /**	
@@ -2774,6 +2806,7 @@ AliTV.prototype.resetGenomeRegion = function(genome_id) {
  */
 AliTV.prototype.changeChromosomeVisibility = function(chromosomeId) {
 	this.filters.karyo.chromosomes[chromosomeId].visible = !this.filters.karyo.chromosomes[chromosomeId].visible;
+	this.triggerChange();
 	return this.filters.karyo.chromosomes;
 };
 
@@ -2816,6 +2849,7 @@ AliTV.prototype.changeGenomeOrder = function(name, value) {
 		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[0];
 		that.filters.karyo.genome_order[0] = tmp;
 	}
+	this.triggerChange();
 	return that.filters.karyo.genome_order;
 };
 
@@ -2827,6 +2861,7 @@ AliTV.prototype.changeGenomeOrder = function(name, value) {
  */
 AliTV.prototype.changeChromosomeOrientation = function(chromosome) {
 	this.filters.karyo.chromosomes[chromosome].reverse = !this.filters.karyo.chromosomes[chromosome].reverse;
+	this.triggerChange();
 	return this.filters.karyo.chromosomes[chromosome].reverse;
 };
 
@@ -2858,6 +2893,7 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 	var tmp = order[i];
 	order[i] = order[chromosomePosition];
 	order[chromosomePosition] = tmp;
+	this.triggerChange();
 	return that.filters.karyo.order;
 };
 
