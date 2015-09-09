@@ -2160,4 +2160,15 @@ describe('The onDataChange and triggerChange functions are supposed to register 
 		expect(function(){ali.onDataChange([1]);}).toThrow("Not a function.");
 		expect(function(){ali.onDataChange({1: 2});}).toThrow("Not a function.");
 	});
+	it('the onDataChange method is supposed to register the callback and triggerChange to call it upon change', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var x = 0;
+		ali.onDataChange(function(){
+			x = 1;
+		});
+		expect(x).toEqual(0);
+		ali.triggerChange();
+		expect(x).toEqual(1);
+	});
 });
