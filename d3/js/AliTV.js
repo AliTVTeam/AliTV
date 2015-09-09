@@ -2869,3 +2869,12 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 AliTV.prototype.getSupportedFeatures = function() {
 	return Object.keys(this.conf.features.supportedFeatures);
 };
+
+/**
+ * This function is supposed to register callback function which are called upon data change
+ * @param {function} callback - callback to be called upon data change
+ * @author: Sonja Hohlfeld and Markus Ankenbrand
+ */
+AliTV.prototype.onDataChange = function(callback) {
+
+};
