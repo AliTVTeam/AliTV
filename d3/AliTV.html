@@ -40,24 +40,27 @@
 			$.getJSON('data/filters.json', function(filters) {
 				ali.setFilters(filters.filters);
 				$.getJSON('data/conf.json', function(conf) {
-					ali.setConf(conf.conf)
-					setJSONEditorFromAli();
-					ali.drawLinear();
-					setParameters();
-					setSlider();
+					ali.setConf(conf.conf);
+					initialize();
 				}).fail(function() {
 				    console.log( "could not load custom conf.json - using default values" );
-				    setJSONEditorFromAli();
-				    ali.drawLinear();
-				    setParameters();
-				    setSlider();
+				    initialize();
 				});
 			});
 		});	
 		
-	});  
+	});
  	
-	
+	function initialize(){
+		setJSONEditorFromAli();
+		ali.onDataChange(setJSONEditorFromAli);
+		ali.drawLinear();
+		addFeatureGroupTemplates();
+		ali.onDataChange(addFeatureGroupTemplates);
+		setParameters();
+		setSlider();
+	}
+
  	function setSlider() {		
 		$(function(){
 			$("#identity-slider").slider({
