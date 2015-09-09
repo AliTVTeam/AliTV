@@ -2879,6 +2879,7 @@ AliTV.prototype.onDataChange = function(callback) {
 	if (typeof callback !== "function") {
 		throw "Not a function.";
 	}
+	this.onChangeCallbacks.push(callback);
 };
 
 /**
@@ -2886,5 +2887,7 @@ AliTV.prototype.onDataChange = function(callback) {
  * @author: Sonja Hohlfeld and Markus Ankenbrand
  */
 AliTV.prototype.triggerChange = function() {
-
+	$.each(this.onChangeCallbacks, function(key, value) {
+		value();
+	});
 };
