@@ -1175,9 +1175,22 @@ describe("The getMaxChromosomeLength method is supposed to return the value of t
 });
 
 describe("The getSupportedFeatures method is supposed to return the supported features", function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
 	it('getSupportedFeatures method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		expect(typeof ali.getSupportedFeatures).toEqual('function');
+	});
+	it('getSupportedFeatures method is supposed to return default supported features', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(ali.getSupportedFeatures()).toEqual(Object.keys(defaultConf.features.supportedFeatures));
+	});
+	it('getSupportedFeatures method is supposed to return default and added features', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setConf({"features": {"supportedFeatures": {"bla": {}}}})
+		var expected = Object.keys(defaultConf.features.supportedFeatures);
+		expected.push("bla");
+		expect(ali.getSupportedFeatures()).toEqual(expected);
 	});
 });
