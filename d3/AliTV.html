@@ -647,12 +647,18 @@
 		setParameters();
 	}
 	
-	function setInvertedRepeatSettings(){
+	function setFeatureGroupSettings(groupId){
 		var layout = ali.getLayout();
-		changeInvertedRepeatColor();
-		setJSONEditorFromAli();
-		ali.drawEqualLayout(layout);
-		setParameters();
+		var color = ($("#color-"+groupId).val());
+		console.log(color);
+		try {
+			ali.setFeatureColor(groupId, color); 	
+		}
+		catch(err){
+			bootbox.alert(err);
+			$("#color-"+groupId).val(ali.getFeatureColor(groupId));
+		}
+		ali.drawEqualLayout(ali.getLayout());
 	}
 	
 	function setRepeatSettings(){
