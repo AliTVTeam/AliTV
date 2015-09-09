@@ -1441,6 +1441,18 @@ describe('The getLinearFeatureCoords method is supposed to calculate coordinates
 		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		expect(linearFeatureCoords).toEqual(expectedFeatures);
 	});
+	it('getLinearFeatureCoords method is supposed to return the expected coordinates for strand specific features on three chromosomes, the should be drawn on the positive strand', function(){
+		ali.setData({karyo: karyo3, features: features30});
+		ali.setFilters(filters3);
+		ali.conf.features.showAllFeatures = true;
+		console.log(ali);
+		var expectedFeatures = [{"id": "f1", "type": "gene", "karyo": "c1", "height": defaultConf.features.supportedFeatures.gene.height, "x": 100 * 1000 / 2000, "width": Math.abs(200 - 100) * 1000 / 2000, "y": 0},
+		                        {"id": "f2", "type": "gene", "karyo": "c2", "height": defaultConf.features.supportedFeatures.gene.height, "x": 300 * 500 / 1000, "width": Math.abs(300 - 400) * 500 / 1000, "y": 485},
+		                        {"id": "f3", "type": "gene", "karyo": "c3", "height": defaultConf.features.supportedFeatures.gene.height, "x": 500 * 500 / 1000, "width": Math.abs(600 - 500) * 500 / 1000, "y": 970}];
+		var linearKaryoCoords = ali.getLinearKaryoCoords();
+		var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+		expect(linearFeatureCoords).toEqual(expectedFeatures);
+	});
 	it('getLinearFeatureCoords method is supposed to return the expected coordinates for one inverted repeats on one chromosome, they should be drawn as arrows', function(){
 		ali.setData({karyo: karyo3, features: features14});
 		ali.setFilters(filters3);
