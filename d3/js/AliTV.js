@@ -2880,3 +2880,11 @@ AliTV.prototype.onDataChange = function(callback) {
 		throw "Not a function.";
 	}
 };
+
+/**
+ * This function is supposed to call all registered callback functions
+ * @author: Sonja Hohlfeld and Markus Ankenbrand
+ */
+AliTV.prototype.triggerChange = function() {
+
+};
