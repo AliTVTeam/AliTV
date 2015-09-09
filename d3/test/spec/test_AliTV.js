@@ -224,7 +224,7 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.link').size()).toEqual(1);
 		expect(ali.svgD3.selectAll('.karyo').size()).toEqual(3);
-		expect(ali.svgD3.selectAll('.feature').size()).toEqual(20);
+		expect(ali.svgD3.selectAll('.feature').size()).toEqual(2);
 	});
 	it('the drawn karyos have the expected height', function(){
 		ali.drawLinear();
