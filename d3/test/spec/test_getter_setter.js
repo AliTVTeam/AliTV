@@ -1183,7 +1183,7 @@ describe("The getSupportedFeatures method is supposed to return the supported fe
 	it('getSupportedFeatures method is supposed to return default supported features', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		expect(ali.getSupportedFeatures()).toEqual(Object.keys(defaultConf.features.supportedFeatures));
+		expect(ali.getSupportedFeatures().sort()).toEqual(Object.keys(defaultConf.features.supportedFeatures).sort());
 	});
 	it('getSupportedFeatures method is supposed to return default and added features', function(){
 		var svg = $('<svg></svg>');
@@ -1191,6 +1191,6 @@ describe("The getSupportedFeatures method is supposed to return the supported fe
 		ali.setConf({"features": {"supportedFeatures": {"bla": {}}}})
 		var expected = Object.keys(defaultConf.features.supportedFeatures);
 		expected.push("bla");
-		expect(ali.getSupportedFeatures()).toEqual(expected);
+		expect(ali.getSupportedFeatures().sort()).toEqual(expected.sort());
 	});
 });
