@@ -937,7 +937,6 @@
 </head>
 
 <body>
-<body>
 
 <div class="page-header" style="background: #f7f7f7">
   <h1><img src="css/AliTV_logo.svg" alt="logo" width="90" height="90" style="margin:0px 20px"/>AliTV <small>Visualize multiple whole genome alignments as circular or linear maps</small></h1>
@@ -1537,7 +1536,75 @@
 </div> 
 <div id="jsoneditor" style="display:none"></div>
 
- </body> 
+<div id="Einfugeort"></div>
+
+<script type="text/template" id="template_feature_group">
+	<div role="" class="" id="<%= groupId %>" style="margin: 10px 10px">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<div class="checkbox">
+								<label> <input id="show-<%= groupId %>" type="checkbox">
+									Show <%= groupId %>
+								</label>
+							</div>
+							<div class="checkbox">
+								<label> <input id="labels-<%= groupId %>"
+									type="checkbox"> Label <%= groupId %>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							Choose form:
+							<div class="input-group" style="margin: 10px 10px">
+								<span class="input-group-addon"><img
+									src="lib/img/rect.png" width="15px" height="15px"></img></span> <span
+									class="input-group-addon">Rect </span> <span
+									class="input-group-addon"><input
+									id="rect-<%= groupId %>" type="radio"
+									name="shape-<%= groupId %>" value="rect"></span>
+							</div>
+							<div class="input-group" style="margin: 10px 10px">
+								<span class="input-group-addon"><img
+									src="lib/img/arrow.png" width="15px" height="15px"></img></span> <span
+									class="input-group-addon">Arrow </span> <span
+									class="input-group-addon"><input
+									id="arrow-<%= groupId %>" type="radio"
+									name="shape-<%= groupId %>" value="arrow" checked></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							Change color: <br>
+							<div class="input-group demo2">
+								<input id="color-<%= groupId %>" type="text" value=""
+									class="form-control" /> <span class="input-group-addon"><i></i></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-info"
+								style="margin: 20px 20px"
+								onclick="setFeatureGroupSettings('<%= groupId %>');">Apply</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
 </body> 
 </html>
  
