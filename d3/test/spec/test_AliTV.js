@@ -2140,13 +2140,18 @@ describe('The changeChromosomeOrder method is supposed to change the order of ch
 	});
 });
 
-describe('The onDataChange function is supposed to register callback functions that are called upon change of data', function(){
+describe('The onDataChange and triggerChange functions are supposed to register callback functions that are called upon change of data', function(){
 	it('onDataChange method is supposed to be a function', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		expect(typeof ali.onDataChange).toEqual('function');
 	});
-	it('the method is supposed to fail if a non-function is given', function(){
+	it('triggerChange method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.triggerChange).toEqual('function');
+	});
+	it('the onDataChange method is supposed to fail if a non-function is given', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		expect(function(){ali.onDataChange(5);}).toThrow("Not a function.");
