@@ -2146,4 +2146,13 @@ describe('The onDataChange function is supposed to register callback functions t
 		var ali = new AliTV(svg);
 		expect(typeof ali.onDataChange).toEqual('function');
 	});
+	it('the method is supposed to fail if a non-function is given', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(function(){ali.onDataChange(5);}).toThrow("Not a function.");
+		expect(function(){ali.onDataChange("bla");}).toThrow("Not a function.");
+		expect(function(){ali.onDataChange();}).toThrow("Not a function.");
+		expect(function(){ali.onDataChange([1]);}).toThrow("Not a function.");
+		expect(function(){ali.onDataChange({1: 2});}).toThrow("Not a function.");
+	});
 });
