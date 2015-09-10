@@ -972,7 +972,7 @@
 	<div role="tabpanel" class="tab-pane fade" id="advancedSettings" style="margin:10px 10px"> 
 		<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-5">
+					<div class="col-sm-4">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10">
 									<mark class="bg-info">Use JSONEditor</mark><br>
@@ -984,7 +984,7 @@
 								</div>
 							</div>
 					</div>
-					<div class="col-sm-5">
+					<div class="col-sm-4">
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10">
 									<mark class="bg-info">Shift chromosomes:</mark>	
@@ -994,6 +994,19 @@
 				    				</div>
 								</div>
 							</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<div class="checkbox">
+								<mark class="bg-info">Ogra_gi:</mark>
+							        <div class="input-group" style="margin: 10px 10px">
+										Set offset distance: <input type="text" id="canvasWidth" placeholder="Enter the offset in px" autocomplete="off">
+									</div> 
+							        <button class="btn btn-info" onclick="setAliFromJSONEditor()">Remove offset</button>
+						      	</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -1549,6 +1562,19 @@
 </div> 
 <div id="jsoneditor" style="display:none"></div>
 
+<script type="text/template" id="templateShiftChromosomes">
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<div class="checkbox">
+			<mark class="bg-info"><%= gkaryoId %>:</mark>
+		        <div class="input-group" style="margin: 10px 10px">
+					Set offset distance: <input type="text" id="offset-<%= groupId %>" placeholder="Enter the offset in px" autocomplete="off">
+				</div> 
+		        <button class="btn btn-info" onclick="removeOffset('<%= groupId %>')">Remove offset</button>
+	      	</div>
+		</div>
+	</div>
+</script>
  </body> 
 </body> 
 </html>
