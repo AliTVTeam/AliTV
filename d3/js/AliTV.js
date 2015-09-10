@@ -603,14 +603,14 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 
 			linkTarget = link.target1.x;
 			link.source1.x = linkSourceScale(karyo1.length);
-			link.target1.x = linkTargetScale(Math.min(feature2.end, feature2.start) + splitPart * Math.abs(feature2.start - feature2.end));
+			link.target1.x = linkTargetScale(feature2.start > feature2.end ? Math.min(feature2.end, feature2.start) + splitPart * Math.abs(feature2.start - feature2.end) : Math.min(feature2.end, feature2.start) + (1 - splitPart) * Math.abs(feature2.start - feature2.end));
 
 			splitLink.source0.x = linkSourceScale(0);
 			splitLink.source0.y = link.source0.y;
 			splitLink.source1.x = linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) && !(feature1.start > feature1.end && feature1.end + shift1 === 0) ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length);
 			splitLink.source1.y = link.source1.y;
 
-			splitLink.target0.x = linkTargetScale(Math.min(feature2.end, feature2.start) + splitPart * Math.abs(feature2.start - feature2.end));
+			splitLink.target0.x = linkTargetScale(feature2.start > feature2.end ? Math.min(feature2.end, feature2.start) + splitPart * Math.abs(feature2.start - feature2.end) : Math.min(feature2.end, feature2.start) + (1 - splitPart) * Math.abs(feature2.start - feature2.end));
 			splitLink.target0.y = link.target0.y;
 			splitLink.target1.x = linkTarget;
 			splitLink.target1.y = link.target1.y;
