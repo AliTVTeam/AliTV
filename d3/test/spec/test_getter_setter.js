@@ -1042,6 +1042,14 @@ describe('The setFeatureProperty method is supposed to set a new color for the g
 		ali.setFeatureProperty("repeat","color","#334e53");
 		expect(ali.getFeatureProperty("repeat","color")).toEqual("#334e53");
 	});
+	it('when setFeatureProperty is called with form the form should be updated', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setFeatureProperty("invertedRepeat","form","rect");
+		expect(ali.getFeatureProperty("invertedRepeat","form")).toEqual("rect");
+		ali.setFeatureProperty("invertedRepeat","form","arrow");
+		expect(ali.getFeatureProperty("invertedRepeat","form")).toEqual("arrow");
+	});
 	it('the setFeatureProperty method should throw an error message if the assigned color is empty', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
