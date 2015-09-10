@@ -61,7 +61,7 @@
 		setSlider();
 	}
 
- 	function setSlider() {		
+ 	function setSlider() {
 		$(function(){
 			$("#identity-slider").slider({
 				range: true,
@@ -73,7 +73,7 @@
 					ali.filters.links.minLinkIdentity = ui.values[0];
 					ali.filters.links.maxLinkIdentity = ui.values[1];
 				}
-			});	
+			});
 			$("#identity-label").val($("#identity-slider").slider("values", 0) + " % - " + $("#identity-slider").slider("values", 1) + " %");
 			
 			$("#length-slider").slider({
@@ -557,7 +557,8 @@
 		$("#tickLabelSize").val(ali.getTickLabelSize());
 		$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
 		$.each(ali.getSupportedFeatures(), function(key, value){
-			$("#color-"+value).val(ali.getFeatureColor(value));
+			$("#color-"+value).val(ali.getFeatureProperty(value, 'color'));
+			$("#colorpicker-"+value).colorpicker('setValue',ali.getFeatureProperty(value, 'color'));
 		});
 		$('.demo2').colorpicker();
 		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
@@ -600,14 +601,13 @@
 	
 	function setFeatureGroupSettings(groupId){
 		var layout = ali.getLayout();
-		var color = ($("#color-"+groupId).val());
-		console.log(color);
+		var color = ($("#colorpicker-"+groupId).colorpicker('getValue'));
 		try {
-			ali.setFeatureColor(groupId, color); 	
+			ali.setFeatureProperty(groupId, 'color', color); 	
 		}
 		catch(err){
 			bootbox.alert(err);
-			$("#color-"+groupId).val(ali.getFeatureColor(groupId));
+			$("#colorpicker-"+groupId).colorpicker('setValue', ali.getFeatureProperty(groupId, 'color'));
 		}
 		ali.drawEqualLayout(ali.getLayout());
 	}
@@ -731,6 +731,7 @@
 			$('#featuresMenu').prepend($('<li class="feature_template"><a href="#'+value+'" data-toggle="tab">'+value+'</a></li>'));
 			$('#interface').append(templateUS({groupId: value}));
         });
+        $('.demo2').colorpicker();
         setParameters();
 	}
 	
@@ -1299,7 +1300,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							Change color: <br>
-							<div class="input-group demo2">
+							<div class="input-group demo2" id="colorpicker-<%= groupId %>">
 								<input id="color-<%= groupId %>" type="text" value=""
 									class="form-control" /> <span class="input-group-addon"><i></i></span>
 							</div>
