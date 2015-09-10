@@ -2101,19 +2101,19 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 							x: featureScale(0),
 							y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
 						}, {
-							x: featureScale(0) + 5 / 6 * end,
+							x: featureScale(0) + 5 / 6 * (end - featureScale(0)),
 							y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
 						}, {
-							x: featureScale(0) + 5 / 6 * end,
+							x: featureScale(0) + 5 / 6 * (end - featureScale(0)),
 							y: currentY
 						}, {
 							x: end,
 							y: currentY + 1 / 2 * that.conf.graphicalParameters.karyoHeight
 						}, {
-							x: featureScale(0) + 5 / 6 * end,
+							x: featureScale(0) + 5 / 6 * (end - featureScale(0)),
 							y: currentY + that.conf.graphicalParameters.karyoHeight
 						}, {
-							x: featureScale(0) + 5 / 6 * end,
+							x: featureScale(0) + 5 / 6 * (end - featureScale(0)),
 							y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
 						}, {
 							x: featureScale(0),
