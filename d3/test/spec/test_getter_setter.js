@@ -475,7 +475,7 @@ describe('The setGenomeColor method is supposed to set the new start and end col
 	});	
 	it('the returned value of the setGenomeColor method should be the same as the color which is setted and returned by the setter-method', function(){
 		var color = ["#000000", "#ffffff"];
-		expect(ali.setGeneColor(color)).toEqual(color);
+		expect(ali.setGenomeColor(color)).toEqual(color);
 	});	
 	it('when setGenomeColor is called several times the color should have the same value as the returned color of getGenomeColor method', function(){
 		var color = ["#000000", "#efefef"];
@@ -1058,11 +1058,11 @@ describe("The getMaxChromosomeLength method is supposed to return the value of t
 	it('getMaxChromosomeLength method is supposed to be a function', function(){
 		expect(typeof ali.getMaxChromosomeLength).toEqual('function');
 	});	
-	it('the returned value of the getMacChromosomeLength method should should return a defined value', function(){
+	it('the returned value of the getMaxChromosomeLength method should return a defined value', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
 		var maxLength = ali.getMaxChromosomeLength();
-		expect(ali.setNStretchColor(maxLength)).toEqual(maxLength);
+		expect(ali.getMaxChromosomeLength()).toBeDefined();
 	});	
 	it('the function should return the value of the longest chromosome', function(){
 		ali.setData(data);
