@@ -448,47 +448,6 @@ describe('The setTickLabelFrequency method is supposed to set a new frequency of
 	});
 });
 
-describe('The getGeneColor method is supposed to get the current color of genes', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('getGeneColor method is supposed to be a function', function(){
-		expect(typeof ali.getGeneColor).toEqual('function');
-	});	
-	it('the function should return a defined value', function(){
-		var color = ali.getGeneColor();
-		expect(color).toBeDefined();
-	});
-	it('the function should return the color of genomes which is defined in the defaultConf', function(){
-		var color = ali.getGeneColor();
-		expect(color).toEqual(defaultConf.features.supportedFeatures.gene.color);
-	});
-	
-});
-
-describe('The setGeneColor method is supposed to set a new color for genes', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('setGeneColor method is supposed to be a function', function(){
-		expect(typeof ali.setGeneColor).toEqual('function');
-	});	
-	it('the returned value of the setGeneColor method should be the same as the color which is setted and returned by the setter-method', function(){
-		var color = "#000000";
-		expect(ali.setGeneColor(color)).toEqual(color);
-	});	
-	it('when setGeneColor is called several times the color should have the same value as the returned color of getGeneColor method', function(){
-		ali.setGeneColor("#000000");
-		expect(ali.getGeneColor()).toEqual("#000000");
-		ali.setGeneColor("#36b6cd");
-		expect(ali.getGeneColor()).toEqual("#36b6cd");
-		ali.setGeneColor("#334e53");
-		expect(ali.getGeneColor()).toEqual("#334e53");
-	});
-	it('the setGeneColor method should throw an error message if the assigned color is empty.', function(){
-		var color = "";
-		expect(function(){ali.setGeneColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
-	});
-});
-
 describe('The getGenomeColor method is supposed to get the current color of the first and the last genome', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
@@ -1090,88 +1049,6 @@ describe('The setFeatureColor method is supposed to set a new color for the give
 		var ali = new AliTV(svg);
 		var color = "#000000";
 		expect(function(){ali.setFeatureColor("blablabla", color);}).toThrow("Not a supported feature.");
-	});
-});
-
-describe('The getRepeatColor method is supposed to get the current color of repeats', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('getRepeatColor method is supposed to be a function', function(){
-		expect(typeof ali.getRepeatColor).toEqual('function');
-	});	
-	it('the function should return a defined value', function(){
-		var color = ali.getRepeatColor();
-		expect(color).toBeDefined();
-	});
-	it('the function should return the color ofrepeats which is defined in the defaultConf', function(){
-		var color = ali.getRepeatColor();
-		expect(color).toEqual(defaultConf.features.supportedFeatures.repeat.color);
-	});
-	
-});
-
-describe('The setRepeatColor method is supposed to set a new color for  repeats', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('setRepeatColor method is supposed to be a function', function(){
-		expect(typeof ali.setRepeatColor).toEqual('function');
-	});	
-	it('the returned value of the setRepeatColor method should be the same as the color which is setted and returned by the setter-method', function(){
-		var color = "#000000";
-		expect(ali.setRepeatColor(color)).toEqual(color);
-	});	
-	it('when setRepeatColor is called several times the color should have the same value as the returned color of getRepeatColor method', function(){
-		ali.setRepeatColor("#000000");
-		expect(ali.getRepeatColor()).toEqual("#000000");
-		ali.setRepeatColor("#36b6cd");
-		expect(ali.getRepeatColor()).toEqual("#36b6cd");
-		ali.setRepeatColor("#334e53");
-		expect(ali.getRepeatColor()).toEqual("#334e53");
-	});
-	it('the setRepeatColor method should throw an error message if the assigned color is empty', function(){
-		var color = "";
-		expect(function(){ali.setRepeatColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
-	});
-});
-
-describe('The getNStretchColor method is supposed to get the current color of NStretchs', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('getNStretchColor method is supposed to be a function', function(){
-		expect(typeof ali.getNStretchColor).toEqual('function');
-	});	
-	it('the function should return a defined value', function(){
-		var color = ali.getNStretchColor();
-		expect(color).toBeDefined();
-	});
-	it('the function should return the color ofNStretchs which is defined in the defaultConf', function(){
-		var color = ali.getNStretchColor();
-		expect(color).toEqual(defaultConf.features.supportedFeatures.nStretch.color);
-	});
-	
-});
-
-describe('The setNStretchColor method is supposed to set a new color for  NStretchs', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('setNStretchColor method is supposed to be a function', function(){
-		expect(typeof ali.setNStretchColor).toEqual('function');
-	});	
-	it('the returned value of the setNStretchColor method should be the same as the color which is setted and returned by the setter-method', function(){
-		var color = "#000000";
-		expect(ali.setNStretchColor(color)).toEqual(color);
-	});	
-	it('when setNStretchColor is called several times the color should have the same value as the returned color of getNStretchColor method', function(){
-		ali.setNStretchColor("#000000");
-		expect(ali.getNStretchColor()).toEqual("#000000");
-		ali.setNStretchColor("#36b6cd");
-		expect(ali.getNStretchColor()).toEqual("#36b6cd");
-		ali.setNStretchColor("#334e53");
-		expect(ali.getNStretchColor()).toEqual("#334e53");
-	});
-	it('the setNStretchColor method should throw an error message if the assigned color is empty', function(){
-		var color = "";
-		expect(function(){ali.setNStretchColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
 });
 
