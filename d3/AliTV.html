@@ -502,26 +502,6 @@
 				$("#genomeLabelSize").val(this.conf.labels.genome.size);
 			} 
 	}
-	function changeChromosomeLabelColor(){
-		var color = $("#chromosomeLabelColor").val();
-		try {
-			ali.setChromosomeLabelColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#chromosomeLabelColor").val(this.conf.labels.chromosome.color);
-			} 
-	}
-	function changeChromosomeLabelSize(){
-		var size = $("#chromosomeLabelSize").val();
-		try {
-			ali.setChromosomeLabelSize(size); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#chromosomeLabelSize").val(this.conf.labels.chromosome.size);
-			} 
-	}
 	function changeTickLabelColor(){
 		var color = $("#tickLabelColor").val();
 		try {
@@ -626,8 +606,6 @@
 		changeLinkColor();
 		changeGenomeLabelColor();
 		changeGenomeLabelSize();
-		changeChromosomeLabelColor();
-		changeChromosomeLabelSize();
 		changeTickLabelColor();
 		changeTickLabelSize();
 		changeTickLabelFrequency();
