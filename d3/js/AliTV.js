@@ -1476,10 +1476,14 @@ AliTV.prototype.setGeneColor = function(color) {
 /**
  * This function returns the current color of the given supported feature.
  * @param {String} groupId - The group ID of the desired supported feature.
+ * @throws Will throw an error if the feature groupId is not supported.
  * @returns {String} The color of the given supported feature.
  * @author Markus Ankenbrand
  */
 AliTV.prototype.getFeatureColor = function(groupId) {
+	if (typeof this.conf.features.supportedFeatures[groupId] === 'undefined') {
+		throw "Not a supported feature.";
+	}
 	var color = this.conf.features.supportedFeatures[groupId].color;
 	return color;
 };
