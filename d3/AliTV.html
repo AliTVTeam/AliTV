@@ -175,78 +175,6 @@
 	});	
 	});
 
-	$(function(){$('#showGenes').change(function() {
-		if($('#showGenes').is(':checked')){
-			ali.conf.features.supportedFeatures.gene.visible = true;
-		} else {
-			ali.conf.features.supportedFeatures.gene.visible = false;
-		}
-	});	
-	});
-	
-	$(function(){$('#geneLabels').change(function() {
-		if($('#geneLabels').is(':checked')){
-			ali.conf.features.supportedFeatures.gene.labeling = true;
-		} else {
-			ali.conf.features.supportedFeatures.gene.labeling = false;
-		}
-	});	
-	});
-
-	$(function(){$('#showInvertedRepeats').change(function() {
-		if($('#showInvertedRepeats').is(':checked')){
-			ali.conf.features.supportedFeatures.invertedRepeat.visible = true;
-		} else {
-			ali.conf.features.supportedFeatures.invertedRepeat.visible = false;
-		}
-	});	
-	});
-	
-	$(function(){$('#invertedRepeatLabels').change(function() {
-		if($('#invertedRepeatLabels').is(':checked')){
-			ali.conf.features.supportedFeatures.invertedRepeat.labeling = true;
-		} else {
-			ali.conf.features.supportedFeatures.invertedRepeat.labeling = false;
-		}
-	});	
-	});
-
-	$(function(){$('#showRepeats').change(function() {
-		if($('#showRepeats').is(':checked')){
-			ali.conf.features.supportedFeatures.repeat.visible = true;
-		} else {
-			ali.conf.features.supportedFeatures.repeat.visible = false;
-		}
-	});	
-	});
-
-	$(function(){$('#repeatLabels').change(function() {
-		if($('#repeatLabels').is(':checked')){
-			ali.conf.features.supportedFeatures.repeat.labeling = true;
-		} else {
-			ali.conf.features.supportedFeatures.repeat.labeling = false;
-		}
-	});	
-	});
-	
-	$(function(){$('#showNstretch').change(function() {
-		if($('#showNstretch').is(':checked')){
-			ali.conf.features.supportedFeatures.nStretch.visible = true;
-		} else {
-			ali.conf.features.supportedFeatures.nStretch.visible = false;
-		}
-	});	
-	});
-	
-	$(function(){$('#nStretchLabels').change(function() {
-		if($('#nStretchLabels').is(':checked')){
-			ali.conf.features.supportedFeatures.nStretch.labeling = true;
-		} else {
-			ali.conf.features.supportedFeatures.nStretch.labeling = false;
-		}
-	});	
-	});
-
 	$(function(){$('#showFallback').change(function() {
 		if($('#showFallback').is(':checked')){
 			ali.conf.features.fallbackStyle.visible = true;
@@ -303,70 +231,6 @@
     });
 	});
 	
-	$(function(){$("#geneRect") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	            ali.conf.features.supportedFeatures.gene.form = $(this).val(); 
-	        }
-	    });
-		});
-	
-	$(function(){$("#geneArrow") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	           ali.conf.features.supportedFeatures.gene.form = $(this).val(); 
-	        }
-    });
-	});
-	
-	$(function(){$("#invertedRepeatRect") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	            ali.conf.features.supportedFeatures.invertedRepeat.form = $(this).val(); 
-	        }
-	    });
-		});
-	
-	$(function(){$("#invertedRepeatArrow") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	           ali.conf.features.supportedFeatures.invertedRepeat.form = $(this).val(); 
-	        }
-    });
-	});
-	
-	$(function(){$("#repeatRect") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	            ali.conf.features.supportedFeatures.repeat.form = $(this).val(); 
-	        }
-	    });
-		});
-	
-	$(function(){$("#repeatArrow") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	           ali.conf.features.supportedFeatures.repeat.form = $(this).val(); 
-	        }
-    });
-	});
-	
-	$(function(){$("#nStretchRect") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	            ali.conf.features.supportedFeatures.nStretch.form = $(this).val(); 
-	        }
-	    });
-		});
-	
-	$(function(){$("#nStretchArrow") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	           ali.conf.features.supportedFeatures.nStretch.form = $(this).val(); 
-	        }
-    });
-	});
-
 	$(function(){$('#showGenomeLabels').change(function() {
 		if($('#showGenomeLabels').is(':checked')){
 			ali.conf.labels.genome.showGenomeLabels = true;
@@ -576,8 +440,6 @@
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showChromosomeLabels').attr('checked', false);
 		$('#showTickLabels').attr('checked', true);
-		$('#showGenes').attr('checked', false);
-		$('#geneLabels').attr('checked', false);		
 	}
 	
 	function setFilters(){
