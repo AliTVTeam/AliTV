@@ -621,10 +621,10 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 			splitPart = (feature2.end + shift2 + karyo2.length) % karyo2.length / Math.abs(feature2.start - feature2.end);
 			linkSource = link.source1.x;
 
-			link.source1.x = linkSourceScale(feature1.start + (1 - splitPart) * Math.abs(feature1.start - feature1.end));
+			link.source1.x = linkSourceScale(Math.min(feature1.start, feature1.end) + splitPart * Math.abs(feature1.start - feature1.end));
 			link.target1.x = linkTargetScale(karyo2.length);
 
-			splitLink.source0.x = linkSourceScale(feature1.start + (1 - splitPart) * Math.abs(feature1.start - feature1.end));
+			splitLink.source0.x = linkSourceScale(Math.min(feature1.start, feature1.end) + splitPart * Math.abs(feature1.start - feature1.end));
 			splitLink.source0.y = link.source0.y;
 			splitLink.source1.x = linkSource;
 			splitLink.source1.y = link.source1.y;
