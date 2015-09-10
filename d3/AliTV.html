@@ -783,12 +783,8 @@
         var templateHTML = $('#templateShiftChromosomes').html();
        	var templateUS = _.template(templateHTML);
         console.log(templateUS);
-        /* $('.feature_template').remove();
-        $.each(groups, function(key, value){
-			$('#featuresMenu').prepend($('<li class="feature_template"><a href="#'+value+'" data-toggle="tab">'+value+'</a></li>'));
-			$('#interface').append(templateUS({groupId: value}));
-        });
-        setParameters(); */
+        //$('.feature_template').remove();
+		$('#offsetMenu').append(templateUS({karyoId: karyoId}));
 	}
 	
 	
@@ -977,7 +973,7 @@
     <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab">Import & Export</a></li>  
 </ul>
 
-<div class="tab-content">
+<div class="tab-content" id="interface">
 	<div role="tabpanel" class="tab-pane active" id="about" style="margin:10px 10px">
 		AliTV (Alignment Toolbox and Visualization)
 	</div>
