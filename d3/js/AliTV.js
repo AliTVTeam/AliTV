@@ -1448,32 +1448,6 @@ AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
 };
 
 /**
- * This function returns the current color of genes.
- * @returns {String} The color of genes.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.getGeneColor = function() {
-	var color = this.conf.features.supportedFeatures.gene.color;
-	return color;
-};
-
-/**
- * This function replaces the old color of genes with the new gene color in the config-object.
- * @param color: the color of genes which is returned by getGeneColor.
- * @throws Will throw an error if the argument is empty.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.setGeneColor = function(color) {
-	if (color === "") {
-		throw "Sorry, you entered an empty value. Please try it again.";
-	} else {
-		this.conf.features.supportedFeatures.gene.color = color;
-		this.triggerChange();
-		return this.conf.features.supportedFeatures.gene.color;
-	}
-};
-
-/**
  * This function returns the current color of the given supported feature.
  * @param {String} groupId - The group ID of the desired supported feature.
  * @throws Will throw an error if the feature groupId is not supported.
@@ -1506,58 +1480,6 @@ AliTV.prototype.setFeatureColor = function(groupId, color) {
 	this.conf.features.supportedFeatures[groupId].color = color;
 	this.triggerChange();
 	return this.conf.features.supportedFeatures[groupId].color;
-};
-
-/**
- * This function returns the current color of repeats.
- * @returns {String} The color of repeats.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.getRepeatColor = function() {
-	var color = this.conf.features.supportedFeatures.repeat.color;
-	return color;
-};
-
-/**
- * This function replaces the old color of repeats with the new color in the config-object.
- * @param color: the color of repeats which is returned by getRepeatColor.
- * @throws Will throw an error if the argument is empty.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.setRepeatColor = function(color) {
-	if (color === "") {
-		throw "Sorry, you entered an empty value. Please try it again.";
-	} else {
-		this.conf.features.supportedFeatures.repeat.color = color;
-		this.triggerChange();
-		return this.conf.features.supportedFeatures.repeat.color;
-	}
-};
-
-/**
- * This function returns the current color of nStretches.
- * @returns {String} The color of repeats.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.getNStretchColor = function() {
-	var color = this.conf.features.supportedFeatures.nStretch.color;
-	return color;
-};
-
-/**
- * This function replaces the old color of nStretches with the new color in the config-object.
- * @param color: the color of nStretches which is returned by getNStretchColor.
- * @throws Will throw an error if the argument is empty.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.setNStretchColor = function(color) {
-	if (color === "") {
-		throw "Sorry, you entered an empty value. Please try it again.";
-	} else {
-		this.conf.features.supportedFeatures.nStretch.color = color;
-		this.triggerChange();
-		return this.conf.features.supportedFeatures.nStretch.color;
-	}
 };
 
 /**
