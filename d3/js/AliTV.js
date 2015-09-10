@@ -1469,22 +1469,23 @@ AliTV.prototype.getFeatureProperty = function(groupId, property) {
 
 /**
  * This function replaces the old color of the specified supported feature with the new color in the config-object.
- * @param groupId: the supported feature groupId for which the color should be set.
- * @param color: the new color for the supported feature.
+ * @param {String} groupId - the supported feature groupId for which the color should be set.
+ * @param {String} property - The desired property of the feature (e.g. color, form, ...).
+ * @param value: the new value for the property of the supported feature.
  * @throws Will throw an error if the feature is not supported.
  * @throws Will throw an error if the argument is empty.
  * @author Markus Ankenbrand
  */
-AliTV.prototype.setFeatureColor = function(groupId, color) {
+AliTV.prototype.setFeatureProperty = function(groupId, property, val) {
 	if (typeof this.conf.features.supportedFeatures[groupId] === "undefined") {
 		throw "Not a supported feature.";
 	}
-	if (color === "") {
+	if (val === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	}
-	this.conf.features.supportedFeatures[groupId].color = color;
+	this.conf.features.supportedFeatures[groupId][property] = val;
 	this.triggerChange();
-	return this.conf.features.supportedFeatures[groupId].color;
+	return this.conf.features.supportedFeatures[groupId][property];
 };
 
 /**
