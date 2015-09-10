@@ -265,6 +265,11 @@ function AliTV(svg) {
 	 * @property {Array} onChangeCallbacks             				 - array of callback functions
 	 */
 	this.onChangeCallbacks = [];
+	/**
+	 * boolean that indicates whether AliTV is inside transaction, see functions startTransaction and endTransaction
+	 * @property {boolean} inTransaction             				 - is AliTV currently in transaction
+	 */
+	this.inTransaction = false;
 	// Initialize svg size
 	this.setSvgWidth(this.getCanvasWidth());
 	this.setSvgHeight(this.getCanvasHeight());
@@ -2860,6 +2865,9 @@ AliTV.prototype.onDataChange = function(callback) {
  * @author: Sonja Hohlfeld and Markus Ankenbrand
  */
 AliTV.prototype.triggerChange = function() {
+	if (this.inTransaction) {
+		return;
+	}
 	$.each(this.onChangeCallbacks, function(key, value) {
 		value();
 	});
@@ -2870,7 +2878,7 @@ AliTV.prototype.triggerChange = function() {
  * @author: Markus Ankenbrand
  */
 AliTV.prototype.startTransaction = function() {
-
+	this.inTransaction = true;
 };
 
 /**
@@ -2878,5 +2886,6 @@ AliTV.prototype.startTransaction = function() {
  * @author: Markus Ankenbrand
  */
 AliTV.prototype.endTransaction = function() {
-
+	this.inTransaction = false;
+	this.triggerChange();
 };
