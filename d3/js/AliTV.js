@@ -2039,14 +2039,13 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 
 					splitFeature = {
 						"x": featureScale(0),
-						"width": featureScale((Math.min(value.start, value.end) + shift + Math.abs(value.end - value.start)) % that.data.karyo.chromosomes[featureKaryo].length),
+						"width": end - featureScale(0),
 						"id": featureId,
 						"type": type,
 						"karyo": value.karyo,
 						"height": that.conf.graphicalParameters.karyoHeight,
 						"y": currentY
 					};
-
 					linearFeatureCoords.push(splitFeature);
 				} else if (that.filters.karyo.chromosomes[featureKaryo].reverse === true && (start < end)) {
 					currentFeature.x = end;
