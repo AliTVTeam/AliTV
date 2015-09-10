@@ -2189,3 +2189,36 @@ describe('The onDataChange and triggerChange functions are supposed to register 
 		expect(y).toEqual(0);
 	});
 });
+
+describe('The startTransaction and endTransaction methods are used to prevent AliTV from triggering multiple change events if a number of changes have to be done in row', function(){
+	it('startTransaction method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.startTransaction).toEqual('function');
+	});
+	it('endTransaction method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.endTransaction).toEqual('function');
+	});
+	it('triggerChange has no effect during transaction but before and after. End of transaction triggers a change.', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var x = 0;
+		ali.onDataChange(function(){
+			x++;
+		});
+		expect(x).toEqual(0);
+		ali.triggerChange();
+		expect(x).toEqual(1);
+		ali.startTransaction();
+		ali.triggerChange();
+		expect(x).toEqual(1);
+		ali.triggerChange();
+		expect(x).toEqual(1);
+		ali.endTransaction();
+		expect(x).toEqual(2);
+		ali.triggerChange();
+		expect(x).toEqual(3);
+	});
+});

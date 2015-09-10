@@ -2864,3 +2864,19 @@ AliTV.prototype.triggerChange = function() {
 		value();
 	});
 };
+
+/**
+ * This function is supposed to start a transaction and prevent changes from being triggered during that time
+ * @author: Markus Ankenbrand
+ */
+AliTV.prototype.startTransaction = function() {
+
+};
+
+/**
+ * This function is supposed to end a transaction, call triggerChange once and allow for new changes to trigger directly.
+ * @author: Markus Ankenbrand
+ */
+AliTV.prototype.endTransaction = function() {
+
+};
