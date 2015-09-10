@@ -1448,18 +1448,23 @@ AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
 };
 
 /**
- * This function returns the current color of the given supported feature.
+ * This function returns the specified property of the given supported feature.
  * @param {String} groupId - The group ID of the desired supported feature.
+ * @param {String} property - The desired property of the feature (e.g. color, form, ...).
  * @throws Will throw an error if the feature groupId is not supported.
- * @returns {String} The color of the given supported feature.
+ * @throws Will throw an error if the property is undefined in the feature group.
+ * @returns {String} The value of the property of the given supported feature.
  * @author Markus Ankenbrand
  */
-AliTV.prototype.getFeatureColor = function(groupId) {
+AliTV.prototype.getFeatureProperty = function(groupId, property) {
 	if (typeof this.conf.features.supportedFeatures[groupId] === 'undefined') {
 		throw "Not a supported feature.";
 	}
-	var color = this.conf.features.supportedFeatures[groupId].color;
-	return color;
+	if (typeof this.conf.features.supportedFeatures[groupId][property] === 'undefined') {
+		throw "Not a supported property.";
+	}
+	var prop = this.conf.features.supportedFeatures[groupId][property];
+	return prop;
 };
 
 /**
