@@ -446,16 +446,6 @@
 			$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
 		}
 	}
-	function changeGeneColor(){
-		var color = ($("#geneColor").val());
-		try {
-			ali.setGeneColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#geneColor").val(ali.getGeneColor());
-			}
-	}
 	function changeGenomeColor(){
 		var color = [];
 		color.push($("#startLineColor").val());
@@ -546,36 +536,6 @@
 				$("#tickLabelSize").val(this.conf.labels.ticks.size);
 			} 
 	}
-	function changeInvertedRepeatColor(){
-		var color = ($("#invertedRepeatColor").val());
-		try {
-			ali.setInvertedRepeatColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#invertedRepeatColor").val(ali.getInvertedRepeatColor());
-			}
-	}
-	function changeRepeatColor(){
-		var color = ($("#repeatColor").val());
-		try {
-			ali.setRepeatColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#repeatColor").val(ali.getRepeatColor());
-			}
-	}
-	function changeNStretchColor(){
-		var color = ($("#nStretchColor").val());
-		try {
-			ali.setNStretchColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#nStretchColor").val(ali.getNStretchColor());
-			}
-	}
 	
 	function setParameters(){
 		$("#karyoSpacer").val(ali.getKaryoSpacer());
@@ -596,14 +556,13 @@
 		$("#tickLabelColor").val(ali.getTickLabelColor());
 		$("#tickLabelSize").val(ali.getTickLabelSize());
 		$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
-		$("#geneColor").val(ali.getGeneColor());
-		$("#invertedRepeatColor").val(ali.getInvertedRepeatColor());
-		$("#repeatColor").val(ali.getRepeatColor());
-		$("#nStretchColor").val(ali.getNStretchColor());
+		$.each(ali.getSupportedFeatures(), function(key, value){
+			$("#color-"+value).val(ali.getFeatureColor(value));
+		});
+		$('.demo2').colorpicker();
 		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
 		$("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
 		$("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
-		
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showChromosomeLabels').attr('checked', false);
 		$('#showTickLabels').attr('checked', true);
@@ -639,14 +598,6 @@
 		setParameters();
 	}
 	
-	function setGeneSettings(){
-		var layout = ali.getLayout();
-		changeGeneColor();
-		setJSONEditorFromAli();
-		ali.drawEqualLayout(layout);
-		setParameters();
-	}
-	
 	function setFeatureGroupSettings(groupId){
 		var layout = ali.getLayout();
 		var color = ($("#color-"+groupId).val());
@@ -660,23 +611,7 @@
 		}
 		ali.drawEqualLayout(ali.getLayout());
 	}
-	
-	function setRepeatSettings(){
-		var layout = ali.getLayout();
-		changeRepeatColor();
-		setJSONEditorFromAli();
-		ali.drawEqualLayout(layout);
-		setParameters();
-	}
-	
-	function setNStretchSettings(){
-		var layout = ali.getLayout();
-		changeNStretchColor();
-		setJSONEditorFromAli();
-		ali.drawEqualLayout(layout);
-		setParameters();
-	}
-	
+
 	function setTreeSettings(){
 		var layout = ali.getLayout();
 		changeTreeWidth();
@@ -796,7 +731,6 @@
 			$('#featuresMenu').prepend($('<li class="feature_template"><a href="#'+value+'" data-toggle="tab">'+value+'</a></li>'));
 			$('#interface').append(templateUS({groupId: value}));
         });
-        $('.demo2').colorpicker();
         setParameters();
 	}
 	
