@@ -561,7 +561,6 @@
 			$("#colorpicker-"+value).colorpicker('setValue',ali.getFeatureProperty(value, 'color'));
 			$("#"+ali.getFeatureProperty(value, 'form')+"-"+value).prop('checked', true);
 		});
-		$('.demo2').colorpicker();
 		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
 		$("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
 		$("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
@@ -730,12 +729,13 @@
 	    var groups = ali.getSupportedFeatures();
         var templateHTML = $('#template_feature_group').html();
         var templateUS = _.template(templateHTML);
+        $('.feature-colorpicker').colorpicker('destroy');
         $('.feature_template').remove();
         $.each(groups, function(key, value){
 			$('#featuresMenu').prepend($('<li class="feature_template"><a href="#'+value+'" data-toggle="tab">'+value+'</a></li>'));
 			$('#interface').append(templateUS({groupId: value}));
         });
-        $('.demo2').colorpicker();
+        $('.feature-colorpicker').colorpicker();
         setParameters();
 	}
 	
@@ -1304,7 +1304,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							Change color: <br>
-							<div class="input-group demo2" id="colorpicker-<%= groupId %>">
+							<div class="input-group feature-colorpicker" id="colorpicker-<%= groupId %>">
 								<input id="color-<%= groupId %>" type="text" value=""
 									class="form-control" /> <span class="input-group-addon"><i></i></span>
 							</div>
