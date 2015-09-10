@@ -1474,12 +1474,13 @@ AliTV.prototype.setGeneColor = function(color) {
 };
 
 /**
- * This function returns the current color of inverted repeats.
- * @returns {String} The color of inverted repeats.
- * @author Sonja Hohlfeld
+ * This function returns the current color of the given supported feature.
+ * @param {String} groupId - The group ID of the desired supported feature.
+ * @returns {String} The color of the given supported feature.
+ * @author Markus Ankenbrand
  */
-AliTV.prototype.getInvertedRepeatColor = function() {
-	var color = this.conf.features.supportedFeatures.invertedRepeat.color;
+AliTV.prototype.getFeatureColor = function(groupId) {
+	var color = this.conf.features.supportedFeatures[groupId].color;
 	return color;
 };
 
