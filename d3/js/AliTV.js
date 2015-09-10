@@ -1483,21 +1483,6 @@ AliTV.prototype.setFeatureColor = function(groupId, color) {
 };
 
 /**
- * This function returns the current shape of the given supported feature.
- * @param {String} groupId - The group ID of the desired supported feature.
- * @throws Will throw an error if the feature groupId is not supported.
- * @returns {String} The shape of the given supported feature.
- * @author Markus Ankenbrand
- */
-AliTV.prototype.getFeatureShape = function(groupId) {
-	if (typeof this.conf.features.supportedFeatures[groupId] === 'undefined') {
-		throw "Not a supported feature.";
-	}
-	var shape = this.conf.features.supportedFeatures[groupId].form;
-	return shape;
-};
-
-/**
  * This function returns an array which contains the color of the first and the last genome. 
  * The colors are defined in the conf-object.
  * @returns {Array} The color of the first and the last genome.
