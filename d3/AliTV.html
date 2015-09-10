@@ -560,6 +560,12 @@
 			$("#color-"+value).val(ali.getFeatureProperty(value, 'color'));
 			$("#colorpicker-"+value).colorpicker('setValue',ali.getFeatureProperty(value, 'color'));
 			$("#"+ali.getFeatureProperty(value, 'form')+"-"+value).prop('checked', true);
+			if(ali.getFeatureProperty(value, 'visible')){
+				$("#show-"+value).prop('checked', true);
+			}
+			if(ali.getFeatureProperty(value, 'labeling')){
+				$("#labels-"+value).prop('checked', true);
+			}
 		});
 		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
 		$("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
@@ -603,14 +609,20 @@
 		var layout = ali.getLayout();
 		var color = ($("#colorpicker-"+groupId).colorpicker('getValue'));
 		var form = $("input[type='radio'][name='shape-"+groupId+"']:checked").val();
+		var visible = $("#show-"+groupId).is(':checked');
+		var labeling = $("#labels-"+groupId).is(':checked');
 		try {
 			ali.setFeatureProperty(groupId, 'color', color);
 			ali.setFeatureProperty(groupId, 'form', form);
+			ali.setFeatureProperty(groupId, 'visible', visible);
+			ali.setFeatureProperty(groupId, 'labeling', labeling);
 		}
 		catch(err){
 			bootbox.alert(err);
 			$("#colorpicker-"+groupId).colorpicker('setValue', ali.getFeatureProperty(groupId, 'color'));
 			$("#"+ali.getFeatureProperty(groupId, 'form')+"-"+groupId).prop('checked', true);
+			$("#show-"+value).prop('checked', ali.getFeatureProperty(value, 'visible'));
+			$("#labels-"+value).prop('checked', ali.getFeatureProperty(value, 'labeling'));
 		}
 		ali.drawEqualLayout(ali.getLayout());
 	}
