@@ -1057,27 +1057,39 @@ describe('The getFeatureColor method is supposed to get the current color of a g
 	
 });
 
-describe('The setInvertedRepeatColor method is supposed to set a new color for inverted repeats', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('setInvertedRepeatColor method is supposed to be a function', function(){
-		expect(typeof ali.setInvertedRepeatColor).toEqual('function');
+describe('The setFeatureColor method is supposed to set a new color for the given supported feature', function(){
+	it('setFeatureColor method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.setFeatureColor).toEqual('function');
 	});	
-	it('the returned value of the setInvertedRepeatColor method should be the same as the color which is setted and returned by the setter-method', function(){
+	it('the returned value of the setFeatureColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		var color = "#000000";
-		expect(ali.setInvertedRepeatColor(color)).toEqual(color);
+		expect(ali.setFeatureColor("nStretch", color)).toEqual(color);
 	});	
-	it('when setInvertedRepeatColor is called several times the color should have the same value as the returned color of getInvertedRepeatColor method', function(){
-		ali.setInvertedRepeatColor("#000000");
-		expect(ali.getInvertedRepeatColor()).toEqual("#000000");
-		ali.setInvertedRepeatColor("#36b6cd");
-		expect(ali.getInvertedRepeatColor()).toEqual("#36b6cd");
-		ali.setInvertedRepeatColor("#334e53");
-		expect(ali.getInvertedRepeatColor()).toEqual("#334e53");
+	it('when setFeatureColor is called several times the color should have the same value as the returned color of getFeatureColor method', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setFeatureColor("repeat","#000000");
+		expect(ali.getFeatureColor("repeat")).toEqual("#000000");
+		ali.setFeatureColor("repeat","#36b6cd");
+		expect(ali.getFeatureColor("repeat")).toEqual("#36b6cd");
+		ali.setFeatureColor("repeat","#334e53");
+		expect(ali.getFeatureColor("repeat")).toEqual("#334e53");
 	});
-	it('the setInvertedRepeatColor method should throw an error message if the assigned color is empty', function(){
+	it('the setFeatureColor method should throw an error message if the assigned color is empty', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		var color = "";
-		expect(function(){ali.setInvertedRepeatColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
+		expect(function(){ali.setFeatureColor("nStretch", color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
+	});
+	it('the setFeatureColor method should throw an error message if the feature is not supported', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var color = "#000000";
+		expect(function(){ali.setFeatureColor("blablabla", color);}).toThrow("Not a supported feature.");
 	});
 });
 
