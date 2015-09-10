@@ -21,6 +21,7 @@
 <script src="lib/contextMenu/jquery.contextMenu.js"></script>
 <script src="lib/bootstrap-select.min.js"></script>
 <script src="lib/bootbox.min.js"></script>
+<script src="lib/underscore-min.js"></script>
 
 <script src="js/AliTV.js"></script>
 <script src="lib/bootstrap.min.js"></script>
@@ -747,9 +748,10 @@
 			}
 			
 			function setOffsetButton(){
+				var karyoId = $('.selectpicker[name=offsetGroup]').val();
+				addOffsetTemplates(karyoId);
 				ali.conf.offset = true;
-				var karyo = $('.selectpicker[name=offsetGroup]').val();
-				var buttonCoords = ali.getOffsetButtonCoords(karyo);
+				var buttonCoords = ali.getOffsetButtonCoords(karyoId);
 				ali.drawOffsetButtonGroup(buttonCoords);
 				ali.drawLinear();
 			}
@@ -777,6 +779,17 @@
 	    saveAs(blob, "AliTV.json");
 	}
 
+	function addOffsetTemplates(karyoId){
+        var templateHTML = $('#templateShiftChromosomes').html();
+       	var templateUS = _.template(templateHTML);
+        console.log(templateUS);
+        /* $('.feature_template').remove();
+        $.each(groups, function(key, value){
+			$('#featuresMenu').prepend($('<li class="feature_template"><a href="#'+value+'" data-toggle="tab">'+value+'</a></li>'));
+			$('#interface').append(templateUS({groupId: value}));
+        });
+        setParameters(); */
+	}
 	
 	
  	$('#myTabs a').click(function (e) {
@@ -1566,11 +1579,11 @@
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
 			<div class="checkbox">
-			<mark class="bg-info"><%= gkaryoId %>:</mark>
+			<mark class="bg-info"><%= karyoId %>:</mark>
 		        <div class="input-group" style="margin: 10px 10px">
-					Set offset distance: <input type="text" id="offset-<%= groupId %>" placeholder="Enter the offset in px" autocomplete="off">
+					Set offset distance: <input type="text" id="offset-<%= karyoId %>" placeholder="Enter the offset in px" autocomplete="off">
 				</div> 
-		        <button class="btn btn-info" onclick="removeOffset('<%= groupId %>')">Remove offset</button>
+		        <button class="btn btn-info" onclick="removeOffset('<%= karyoId %>')">Remove offset</button>
 	      	</div>
 		</div>
 	</div>
