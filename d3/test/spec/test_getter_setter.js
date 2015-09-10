@@ -1056,31 +1056,6 @@ describe('The setFeatureColor method is supposed to set a new color for the give
 	});
 });
 
-describe('The getFeatureShape method is supposed to get the current shape of a given supported feature', function(){
-	it('getFeatureShape method is supposed to be a function', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		expect(typeof ali.getFeatureShape).toEqual('function');
-	});
-	it('the function should throw an error if the feature group is not supported', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		expect(function(){ali.getFeatureShape('blablabla');}).toThrow("Not a supported feature.");
-	});
-	it('the function should return a defined value', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		var shape = ali.getFeatureShape('gene');
-		expect(shape).toBeDefined();
-	});
-	it('the function should return the color of invertedRepeats which is defined in the defaultConf', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		var shape = ali.getFeatureShape('invertedRepeat');
-		expect(shape).toEqual(defaultConf.features.supportedFeatures.invertedRepeat.form);
-	});	
-});
-
 describe("The getMaxChromosomeLength method is supposed to return the value of the longest chromosome", function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
