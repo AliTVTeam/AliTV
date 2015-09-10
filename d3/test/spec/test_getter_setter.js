@@ -990,27 +990,32 @@ describe('The setTickLabelSize method is supposed to set a new size of the Tick 
 	});
 });
 
-describe('The getFeatureColor method is supposed to get the current color of a given supported feature', function(){
-	it('getFeatureColor method is supposed to be a function', function(){
+describe('The getFeatureProperty method is supposed to get the specified property of a given supported feature', function(){
+	it('getFeatureProperty method is supposed to be a function', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		expect(typeof ali.getFeatureColor).toEqual('function');
+		expect(typeof ali.getFeatureProperty).toEqual('function');
 	});
 	it('the function should throw an error if the feature group is not supported', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		expect(function(){ali.getFeatureColor('blablabla');}).toThrow("Not a supported feature.");
+		expect(function(){ali.getFeatureProperty('blablabla', 'color');}).toThrow("Not a supported feature.");
+	});
+	it('the function should throw an error if the property is not defined', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(function(){ali.getFeatureProperty('gene', 'blablabla');}).toThrow("Not a supported property.");
 	});
 	it('the function should return a defined value', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		var color = ali.getFeatureColor('gene');
+		var color = ali.getFeatureProperty('gene', 'color');
 		expect(color).toBeDefined();
 	});
 	it('the function should return the color of invertedRepeats which is defined in the defaultConf', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		var color = ali.getFeatureColor('invertedRepeat');
+		var color = ali.getFeatureProperty('invertedRepeat', 'color');
 		expect(color).toEqual(defaultConf.features.supportedFeatures.invertedRepeat.color);
 	});	
 });
