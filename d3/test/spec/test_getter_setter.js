@@ -1186,10 +1186,14 @@ describe('The getOffsetDistance method is supposed to get the distance for shift
 		expect(typeof ali.getOffsetDistance).toEqual('function');
 	});
 	it('the function should return a defined value', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		var distance = ali.getOffsetDistance();
 		expect(distance).toBeDefined();
 	});
 	it('the function should return the offset distance which is defined in the defaultConf', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		var distance = ali.getOffsetDistance();
 		expect(distance).toEqual(defaultConf.offset.distance);
 	});

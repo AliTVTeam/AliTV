@@ -3308,3 +3308,14 @@ AliTV.prototype.drawOffsetButtonGroup = function(buttonCoords) {
 		that.svgD3.selectAll(".buttonGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.canvasWidth + that.conf.graphicalParameters.genomeLabelWidth + that.conf.graphicalParameters.treeWidth) + ", 0)");
 	}
 };
+
+/**
+ * This function returns the offset for shifting chromosomes in bp.
+ * @returns {Number} The offset in bp.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.getOffsetDistance = function() {
+	var json = this.getJSON();
+	return json.conf.offset.distance;
+};
