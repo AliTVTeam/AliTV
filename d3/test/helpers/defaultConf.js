@@ -84,7 +84,6 @@ var defaultConf =  {
 				size: 10
 			},
 			chromosome: {
-				showChromosomeLabels: false,
 				color: "#000000",
 				size: 25
 			},
@@ -92,10 +91,10 @@ var defaultConf =  {
 				showGenomeLabels: true,
 				color: "#000000",
 				size: 25
-			},
-			features: {
-				showFeatureLabels: false
 			}
 		},
-		offset: false
+		offset: {
+			isSet: false,
+			distance: 1000
+		}
 	};
