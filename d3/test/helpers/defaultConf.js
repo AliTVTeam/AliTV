@@ -17,7 +17,8 @@ var defaultConf =  {
 			tickDistance: 100,
 			treeWidth: 300,
 			genomeLabelWidth: 150,
-			fade: 0.1
+			fade: 0.1,
+			buttonWidth: 90
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -39,40 +40,35 @@ var defaultConf =  {
 					form: "rect",
 					color: "#E2EDFF",
 					height: 30,
-					visible: false,
-					labeling: false
+					visible: false
 				},
 				invertedRepeat: {
 					form: "arrow",
 					color: "#e7d3e2",
 					height: 30,
 					visible: false,
-					pattern: "woven",
-					labeling: false
+					pattern: "woven"
 				},
 				nStretch: {
 					form: "rect",
 					color: "#000000",
 					height: 30,
 					visible: false,
-					pattern: "lines",
-					labeling: false
+					pattern: "lines"
 				},
 				repeat: {
 					form: "rect",
 					color: "#56cd0f",
 					height: 30,
 					visible: false,
-					pattern: "woven",
-					labeling: false
+					pattern: "woven"
 				}
 			},
 			fallbackStyle: {
 				form: "rect",
 				color: "#787878",
 				height: 30,
-				visible: false,
-				labeling: false
+				visible: false
 			}
 		},
 		labels: {
@@ -82,18 +78,14 @@ var defaultConf =  {
 				color: "#000000",
 				size: 10
 			},
-			chromosome: {
-				showChromosomeLabels: false,
-				color: "#000000",
-				size: 25
-			},
 			genome: {
 				showGenomeLabels: true,
 				color: "#000000",
 				size: 25
-			},
-			features: {
-				showFeatureLabels: false
 			}
+		},
+		offset: {
+			isSet: false,
+			distance: 1000
 		}
 	};

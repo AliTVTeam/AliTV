@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 			jsbeautifier: {
 				"default": {
 					src: ["Gruntfile.js", "d3/src/*.js",
-						"d3/js/AliTV.js"
+						"d3/js/AliTV.js", "d3/AliTV.html"
 					],
 					options: {
 						js: {

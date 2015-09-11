@@ -11,7 +11,7 @@ This will be the place for tutorials and documentation for the Alignment Toolbox
 .. toctree::
    :maxdepth: 2
 
-
+   manual
 
 Indices and tables
 ==================
@@ -19,3 +19,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`search`
 
+ 
