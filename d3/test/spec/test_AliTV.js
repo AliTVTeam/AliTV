@@ -2421,3 +2421,52 @@ describe('The drawOffsetButtonGroup is supposed to draw the buttons next to the 
 	});
 });
 
+describe('The onDataChange and triggerChange functions are supposed to register callback functions that are called upon change of data', function(){
+	it('onDataChange method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.onDataChange).toEqual('function');
+	});
+	it('triggerChange method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.triggerChange).toEqual('function');
+	});
+	it('the onDataChange method is supposed to fail if a non-function is given', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(function(){ali.onDataChange(5);}).toThrow("Not a function.");
+		expect(function(){ali.onDataChange("bla");}).toThrow("Not a function.");
+		expect(function(){ali.onDataChange();}).toThrow("Not a function.");
+		expect(function(){ali.onDataChange([1]);}).toThrow("Not a function.");
+		expect(function(){ali.onDataChange({1: 2});}).toThrow("Not a function.");
+	});
+	it('the onDataChange method is supposed to register the callback and triggerChange to call it upon change', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var x = 0;
+		ali.onDataChange(function(){
+			x = 1;
+		});
+		expect(x).toEqual(0);
+		ali.triggerChange();
+		expect(x).toEqual(1);
+	});
+	it('the onDataChange method is supposed to register multiple callbacks and triggerChange to call them upon change', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var x = 0;
+		var y = 1;
+		ali.onDataChange(function(){
+			x = 1;
+		});
+		ali.onDataChange(function(){
+			y = 0;
+		});
+		expect(x).toEqual(0);
+		expect(y).toEqual(1);
+		ali.triggerChange();
+		expect(x).toEqual(1);
+		expect(y).toEqual(0);
+	});
+});

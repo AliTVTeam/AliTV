@@ -40,24 +40,27 @@
 			$.getJSON('data/filters.json', function(filters) {
 				ali.setFilters(filters.filters);
 				$.getJSON('data/conf.json', function(conf) {
-					ali.setConf(conf.conf)
-					setJSONEditorFromAli();
-					ali.drawLinear();
-					setParameters();
-					setSlider();
+					ali.setConf(conf.conf);
+					initialize();
 				}).fail(function() {
 				    console.log( "could not load custom conf.json - using default values" );
-				    setJSONEditorFromAli();
-				    ali.drawLinear();
-				    setParameters();
-				    setSlider();
+				    initialize();
 				});
 			});
 		});	
 		
-	});  
+	});
  	
-	
+	function initialize(){
+		setJSONEditorFromAli();
+		ali.onDataChange(setJSONEditorFromAli);
+		ali.drawLinear();
+		addFeatureGroupTemplates();
+		ali.onDataChange(addFeatureGroupTemplates);
+		setParameters();
+		setSlider();
+	}
+
  	function setSlider() {		
 		$(function(){
 			$("#identity-slider").slider({
@@ -618,12 +621,18 @@
 		setParameters();
 	}
 	
-	function setInvertedRepeatSettings(){
+	function setFeatureGroupSettings(groupId){
 		var layout = ali.getLayout();
-		changeInvertedRepeatColor();
-		setJSONEditorFromAli();
-		ali.drawEqualLayout(layout);
-		setParameters();
+		var color = ($("#color-"+groupId).val());
+		console.log(color);
+		try {
+			ali.setFeatureColor(groupId, color); 	
+		}
+		catch(err){
+			bootbox.alert(err);
+			$("#color-"+groupId).val(ali.getFeatureColor(groupId));
+		}
+		ali.drawEqualLayout(ali.getLayout());
 	}
 	
 	function setRepeatSettings(){
@@ -788,6 +797,18 @@
 		$('#offsetMenu').append(templateUS({karyoId: karyoId}));
 	}
 	
+	function addFeatureGroupTemplates(){
+	    var groups = ali.getSupportedFeatures();
+        var templateHTML = $('#template_feature_group').html();
+        var templateUS = _.template(templateHTML);
+        $('.feature_template').remove();
+        $.each(groups, function(key, value){
+			$('#featuresMenu').prepend($('<li class="feature_template"><a href="#'+value+'" data-toggle="tab">'+value+'</a></li>'));
+			$('#interface').append(templateUS({groupId: value}));
+        });
+        $('.demo2').colorpicker();
+        setParameters();
+	}
 	
  	$('#myTabs a').click(function (e) {
 		  e.preventDefault()
@@ -798,9 +819,7 @@
 	$('.dropdown-toggle').dropdown() 
 	
 	$(function(){
-        $('.demo2').colorpicker().on('changeColor.colorpicker', function(){
-        	changeGeneColor();
-        });
+        $('.demo2').colorpicker();
     });
 	
     jQuery(document).ready(function ($) {
@@ -946,7 +965,6 @@
 </head>
 
 <body>
-<body>
 
 <div class="page-header" style="background: #f7f7f7">
   <h1><img src="css/ali_logo2.png" alt="logo" width="140" height="120" style="margin:0px 20px"/>AliTV <small>Visualize multiple whole genome alignments as circular or linear maps</small></h1>
@@ -958,11 +976,7 @@
   	<li role="presentation"><a href="#filter" aria-controls="about" role="tab" data-toggle="tab">Filtering</a></li>
   	
   	<li class="dropdown"><a id="dLabel" data-toggle="dropdown">Add biological Features <span class="caret"></span></a>
-		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-	        <li><a href="#gen" data-toggle="tab">Genes</a></li>
-			<li><a href="#invertedRepeat" data-toggle="tab">Inverted Repeat</a></li>
-	      	<li><a href="#repeat" data-toggle="tab">Repeat</a></li>
-	      	<li><a href="#nStretch" data-toggle="tab">N Stretch</a></li>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" id="featuresMenu">
 	      	<li role="separator" class="divider"></li>
 	      	<li><a href="#customFeature" data-toggle="tab">Add more features...</a></li>
        </ul>
@@ -974,7 +988,7 @@
     <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab">Import & Export</a></li>  
 </ul>
 
-<div class="tab-content">
+<div class="tab-content" id="interface">
 	<div role="tabpanel" class="tab-pane active" id="about" style="margin:10px 10px">
 		AliTV (Alignment Toolbox and Visualization)
 	</div>
@@ -1179,244 +1193,7 @@
 					</div>
 				</div>
 			</div>
-	</div>
-
-	<div role="tabpanel" class="tab-pane fade" id="gen" style="margin:10px 10px">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-3">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<div class="checkbox">
-								        <label>
-								          <input id="showGenes" type="checkbox"> Show Genes
-								        </label>
-								    </div>
-								    <div class="checkbox">
-								        <label>
-								          <input id="geneLabels" type="checkbox"> Label Genes
-								        </label>
-								    </div>
-								</div>
-							</div>
-					</div>
-					<div class="col-sm-3">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									Choose form:
-									<div class="input-group" style="margin: 10px 10px">
-						    			<span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px"></img></span>
-										<span class="input-group-addon">Rect </span>
-										<span class="input-group-addon"><input id="geneRect" type="radio" name="geneForm" value="rect" checked></span>
-						    		</div>
-									<div class="input-group" style="margin: 10px 10px">
-										<span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
-										<span class="input-group-addon">Arrow </span>
-										<span class="input-group-addon"><input id="geneArrow" type="radio" name="geneForm" value="arrow"></span>
-									</div>	
-								</div>
-							</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								Change color: <br>
-				 					<div class="input-group demo2">
-				    					<input id="geneColor" type="text" value="" class="form-control" />
-				    					<span class="input-group-addon"><i></i></span>
-									</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setGeneSettings();">Apply</button>
-						    </div>
-					  	</div>
-					</div>
-				</div>
-			</div>
-	</div>
-	
-	<div role="tabpanel" class="tab-pane fade" id="invertedRepeat" style="margin:10px 10px">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-3">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<div class="checkbox">
-								        <label>
-								          <input id="showInvertedRepeats" type="checkbox"> Show Inverted Repeats
-								        </label>
-								    </div>
-								    <div class="checkbox">
-								        <label>
-								          <input id="invertedRepeatLabels" type="checkbox"> Label Inverted Repeats
-								        </label>
-								    </div>
-								</div>
-							</div>
-					</div>
-					<div class="col-sm-3">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									Choose form:
-									<div class="input-group" style="margin: 10px 10px">
-						    			<span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px"></img></span>
-										<span class="input-group-addon">Rect </span>
-										<span class="input-group-addon"><input id="invertedRepeatRect" type="radio" name="invertedRepeat" value="rect"></span>
-						    		</div>
-									<div class="input-group" style="margin: 10px 10px">
-										<span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
-										<span class="input-group-addon">Arrow </span>
-										<span class="input-group-addon"><input id="invertedRepeatArrow" type="radio" name="invertedRepeat" value="arrow" checked></span>
-									</div>
-								</div>
-							</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								Change color: <br>
-				 					<div class="input-group demo2">
-				    					<input id="invertedRepeatColor" type="text" value="" class="form-control" />
-				    					<span class="input-group-addon"><i></i></span>
-									</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setInvertedRepeatSettings();">Apply</button>
-						    </div>
-					  	</div>
-					</div>
-				</div>
-			</div>
-	</div>
-	
-	<div role="tabpanel" class="tab-pane fade" id="repeat" style="margin:10px 10px">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-3">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<div class="checkbox">
-								        <label>
-								          <input id="showRepeats" type="checkbox"> Show repeats
-								        </label>
-								    </div>
-								    <div class="checkbox">
-								        <label>
-								          <input id="repeatLabels" type="checkbox"> Label repeats
-								        </label>
-								    </div>
-								</div>
-							</div>
-					</div>
-					<div class="col-sm-3">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									Choose form:
-									<div class="input-group" style="margin: 10px 10px">
-						    			<span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px"></img></span>
-										<span class="input-group-addon">Rect </span>
-										<span class="input-group-addon"><input id="repeatRect" type="radio" name="repeat" value="rect"></span>
-						    		</div>
-									<div class="input-group" style="margin: 10px 10px">
-										<span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
-										<span class="input-group-addon">Arrow </span>
-										<span class="input-group-addon"><input id="repeatArrow" type="radio" name="repeat" value="arrow" checked></span>
-									</div>
-								</div>
-							</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								Change color: <br>
-				 					<div class="input-group demo2">
-				    					<input id="repeatColor" type="text" value="" class="form-control" />
-				    					<span class="input-group-addon"><i></i></span>
-									</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setRepeatSettings();">Apply</button>
-						    </div>
-					  	</div>
-					</div>
-				</div>
-			</div>
-	</div>
-	
-	<div role="tabpanel" class="tab-pane fade" id="nStretch" style="margin:10px 10px">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-3">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<div class="checkbox">
-								        <label>
-								          <input id="showNStretch" type="checkbox"> Show N Stretches
-														By using JSONEditor You can change all parameters directly in the structure of the conf-, data- or filters-object. <br> 
-									<div style="margin: 10px 0px">
-										<button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
-										<button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
-									</div>			        </label>
-								    </div>
-								    <div class="checkbox">
-								        <label>
-								          <input id="nStretchLabels" type="checkbox"> Label N Stretches
-								        </label>
-								    </div>
-								</div>
-							</div>
-					</div>
-					<div class="col-sm-3">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									Choose form:
-									<div class="input-group" style="margin: 10px 10px">
-						    			<span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px"></img></span>
-										<span class="input-group-addon">Rect </span>
-										<span class="input-group-addon"><input id="nStretchRect" type="radio" name="nStretch" value="rect"></span>
-						    		</div>
-									<div class="input-group" style="margin: 10px 10px">
-										<span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
-										<span class="input-group-addon">Arrow </span>
-										<span class="input-group-addon"><input id="nStretchArrow" type="radio" name="nStretch" value="arrow" checked></span>
-									</div>
-								</div>
-							</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								Change color: <br>
-				 					<div class="input-group demo2">
-				    					<input id="nStretchColor" type="text" value="" class="form-control" />
-				    					<span class="input-group-addon"><i></i></span>
-									</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setNStretchSettings();">Apply</button>
-						    </div>
-					  	</div>
-					</div>
-				</div>
-			</div>
-	</div>
-	
+	</div>	
 	<div role="tabpanel" class="tab-pane fade" id="graphicalSettings" style="margin:10px 10px">
 		<div class="container-fluid">
 			<div class="row">
@@ -1578,7 +1355,74 @@
 		</div>
 	</div>
 </script>
- </body> 
+ </body>
+<script type="text/template" id="template_feature_group">
+	<div role="tabpanel" class="tab-pane fade feature_template" id="<%= groupId %>" style="margin: 10px 10px">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<div class="checkbox">
+								<label> <input id="show-<%= groupId %>" type="checkbox">
+									Show <%= groupId %>
+								</label>
+							</div>
+							<div class="checkbox">
+								<label> <input id="labels-<%= groupId %>"
+									type="checkbox"> Label <%= groupId %>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							Choose form:
+							<div class="input-group" style="margin: 10px 10px">
+								<span class="input-group-addon"><img
+									src="lib/img/rect.png" width="15px" height="15px"></img></span> <span
+									class="input-group-addon">Rect </span> <span
+									class="input-group-addon"><input
+									id="rect-<%= groupId %>" type="radio"
+									name="shape-<%= groupId %>" value="rect"></span>
+							</div>
+							<div class="input-group" style="margin: 10px 10px">
+								<span class="input-group-addon"><img
+									src="lib/img/arrow.png" width="15px" height="15px"></img></span> <span
+									class="input-group-addon">Arrow </span> <span
+									class="input-group-addon"><input
+									id="arrow-<%= groupId %>" type="radio"
+									name="shape-<%= groupId %>" value="arrow" checked></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							Change color: <br>
+							<div class="input-group demo2">
+								<input id="color-<%= groupId %>" type="text" value=""
+									class="form-control" /> <span class="input-group-addon"><i></i></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-info"
+								style="margin: 20px 20px"
+								onclick="setFeatureGroupSettings('<%= groupId %>');">Apply</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
 </body> 
 </html>
  

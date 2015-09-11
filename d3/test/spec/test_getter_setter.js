@@ -448,47 +448,6 @@ describe('The setTickLabelFrequency method is supposed to set a new frequency of
 	});
 });
 
-describe('The getGeneColor method is supposed to get the current color of genes', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('getGeneColor method is supposed to be a function', function(){
-		expect(typeof ali.getGeneColor).toEqual('function');
-	});	
-	it('the function should return a defined value', function(){
-		var color = ali.getGeneColor();
-		expect(color).toBeDefined();
-	});
-	it('the function should return the color of genomes which is defined in the defaultConf', function(){
-		var color = ali.getGeneColor();
-		expect(color).toEqual(defaultConf.features.supportedFeatures.gene.color);
-	});
-	
-});
-
-describe('The setGeneColor method is supposed to set a new color for genes', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('setGeneColor method is supposed to be a function', function(){
-		expect(typeof ali.setGeneColor).toEqual('function');
-	});	
-	it('the returned value of the setGeneColor method should be the same as the color which is setted and returned by the setter-method', function(){
-		var color = "#000000";
-		expect(ali.setGeneColor(color)).toEqual(color);
-	});	
-	it('when setGeneColor is called several times the color should have the same value as the returned color of getGeneColor method', function(){
-		ali.setGeneColor("#000000");
-		expect(ali.getGeneColor()).toEqual("#000000");
-		ali.setGeneColor("#36b6cd");
-		expect(ali.getGeneColor()).toEqual("#36b6cd");
-		ali.setGeneColor("#334e53");
-		expect(ali.getGeneColor()).toEqual("#334e53");
-	});
-	it('the setGeneColor method should throw an error message if the assigned color is empty.', function(){
-		var color = "";
-		expect(function(){ali.setGeneColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
-	});
-});
-
 describe('The getGenomeColor method is supposed to get the current color of the first and the last genome', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
@@ -516,7 +475,7 @@ describe('The setGenomeColor method is supposed to set the new start and end col
 	});	
 	it('the returned value of the setGenomeColor method should be the same as the color which is setted and returned by the setter-method', function(){
 		var color = ["#000000", "#ffffff"];
-		expect(ali.setGeneColor(color)).toEqual(color);
+		expect(ali.setGenomeColor(color)).toEqual(color);
 	});	
 	it('when setGenomeColor is called several times the color should have the same value as the returned color of getGenomeColor method', function(){
 		var color = ["#000000", "#efefef"];
@@ -948,126 +907,65 @@ describe('The setTickLabelSize method is supposed to set a new size of the Tick 
 	});
 });
 
-describe('The getInvertedRepeat method is supposed to get the current color of inverted repeats', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('getInvertedRepeatColor method is supposed to be a function', function(){
-		expect(typeof ali.getInvertedRepeatColor).toEqual('function');
-	});	
+describe('The getFeatureColor method is supposed to get the current color of a given supported feature', function(){
+	it('getFeatureColor method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.getFeatureColor).toEqual('function');
+	});
+	it('the function should throw an error if the feature group is not supported', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(function(){ali.getFeatureColor('blablabla');}).toThrow("Not a supported feature.");
+	});
 	it('the function should return a defined value', function(){
-		var color = ali.getInvertedRepeatColor();
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var color = ali.getFeatureColor('gene');
 		expect(color).toBeDefined();
 	});
-	it('the function should return the color of inverted repeats which is defined in the defaultConf', function(){
-		var color = ali.getInvertedRepeatColor();
+	it('the function should return the color of invertedRepeats which is defined in the defaultConf', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var color = ali.getFeatureColor('invertedRepeat');
 		expect(color).toEqual(defaultConf.features.supportedFeatures.invertedRepeat.color);
 	});
 	
 });
 
-describe('The setInvertedRepeatColor method is supposed to set a new color for inverted repeats', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('setInvertedRepeatColor method is supposed to be a function', function(){
-		expect(typeof ali.setInvertedRepeatColor).toEqual('function');
+describe('The setFeatureColor method is supposed to set a new color for the given supported feature', function(){
+	it('setFeatureColor method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.setFeatureColor).toEqual('function');
 	});	
-	it('the returned value of the setInvertedRepeatColor method should be the same as the color which is setted and returned by the setter-method', function(){
+	it('the returned value of the setFeatureColor method should be the same as the color which is setted and returned by the setter-method', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		var color = "#000000";
-		expect(ali.setInvertedRepeatColor(color)).toEqual(color);
+		expect(ali.setFeatureColor("nStretch", color)).toEqual(color);
 	});	
-	it('when setInvertedRepeatColor is called several times the color should have the same value as the returned color of getInvertedRepeatColor method', function(){
-		ali.setInvertedRepeatColor("#000000");
-		expect(ali.getInvertedRepeatColor()).toEqual("#000000");
-		ali.setInvertedRepeatColor("#36b6cd");
-		expect(ali.getInvertedRepeatColor()).toEqual("#36b6cd");
-		ali.setInvertedRepeatColor("#334e53");
-		expect(ali.getInvertedRepeatColor()).toEqual("#334e53");
+	it('when setFeatureColor is called several times the color should have the same value as the returned color of getFeatureColor method', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setFeatureColor("repeat","#000000");
+		expect(ali.getFeatureColor("repeat")).toEqual("#000000");
+		ali.setFeatureColor("repeat","#36b6cd");
+		expect(ali.getFeatureColor("repeat")).toEqual("#36b6cd");
+		ali.setFeatureColor("repeat","#334e53");
+		expect(ali.getFeatureColor("repeat")).toEqual("#334e53");
 	});
-	it('the setInvertedRepeatColor method should throw an error message if the assigned color is empty', function(){
+	it('the setFeatureColor method should throw an error message if the assigned color is empty', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		var color = "";
-		expect(function(){ali.setInvertedRepeatColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
+		expect(function(){ali.setFeatureColor("nStretch", color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
-});
-
-describe('The getRepeatColor method is supposed to get the current color of repeats', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('getRepeatColor method is supposed to be a function', function(){
-		expect(typeof ali.getRepeatColor).toEqual('function');
-	});	
-	it('the function should return a defined value', function(){
-		var color = ali.getRepeatColor();
-		expect(color).toBeDefined();
-	});
-	it('the function should return the color ofrepeats which is defined in the defaultConf', function(){
-		var color = ali.getRepeatColor();
-		expect(color).toEqual(defaultConf.features.supportedFeatures.repeat.color);
-	});
-	
-});
-
-describe('The setRepeatColor method is supposed to set a new color for  repeats', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('setRepeatColor method is supposed to be a function', function(){
-		expect(typeof ali.setRepeatColor).toEqual('function');
-	});	
-	it('the returned value of the setRepeatColor method should be the same as the color which is setted and returned by the setter-method', function(){
+	it('the setFeatureColor method should throw an error message if the feature is not supported', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		var color = "#000000";
-		expect(ali.setRepeatColor(color)).toEqual(color);
-	});	
-	it('when setRepeatColor is called several times the color should have the same value as the returned color of getRepeatColor method', function(){
-		ali.setRepeatColor("#000000");
-		expect(ali.getRepeatColor()).toEqual("#000000");
-		ali.setRepeatColor("#36b6cd");
-		expect(ali.getRepeatColor()).toEqual("#36b6cd");
-		ali.setRepeatColor("#334e53");
-		expect(ali.getRepeatColor()).toEqual("#334e53");
-	});
-	it('the setRepeatColor method should throw an error message if the assigned color is empty', function(){
-		var color = "";
-		expect(function(){ali.setRepeatColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
-	});
-});
-
-describe('The getNStretchColor method is supposed to get the current color of NStretchs', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('getNStretchColor method is supposed to be a function', function(){
-		expect(typeof ali.getNStretchColor).toEqual('function');
-	});	
-	it('the function should return a defined value', function(){
-		var color = ali.getNStretchColor();
-		expect(color).toBeDefined();
-	});
-	it('the function should return the color ofNStretchs which is defined in the defaultConf', function(){
-		var color = ali.getNStretchColor();
-		expect(color).toEqual(defaultConf.features.supportedFeatures.nStretch.color);
-	});
-	
-});
-
-describe('The setNStretchColor method is supposed to set a new color for  NStretchs', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('setNStretchColor method is supposed to be a function', function(){
-		expect(typeof ali.setNStretchColor).toEqual('function');
-	});	
-	it('the returned value of the setNStretchColor method should be the same as the color which is setted and returned by the setter-method', function(){
-		var color = "#000000";
-		expect(ali.setNStretchColor(color)).toEqual(color);
-	});	
-	it('when setNStretchColor is called several times the color should have the same value as the returned color of getNStretchColor method', function(){
-		ali.setNStretchColor("#000000");
-		expect(ali.getNStretchColor()).toEqual("#000000");
-		ali.setNStretchColor("#36b6cd");
-		expect(ali.getNStretchColor()).toEqual("#36b6cd");
-		ali.setNStretchColor("#334e53");
-		expect(ali.getNStretchColor()).toEqual("#334e53");
-	});
-	it('the setNStretchColor method should throw an error message if the assigned color is empty', function(){
-		var color = "";
-		expect(function(){ali.setNStretchColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
+		expect(function(){ali.setFeatureColor("blablabla", color);}).toThrow("Not a supported feature.");
 	});
 });
 
@@ -1077,11 +975,11 @@ describe("The getMaxChromosomeLength method is supposed to return the value of t
 	it('getMaxChromosomeLength method is supposed to be a function', function(){
 		expect(typeof ali.getMaxChromosomeLength).toEqual('function');
 	});	
-	it('the returned value of the getMacChromosomeLength method should should return a defined value', function(){
+	it('the returned value of the getMaxChromosomeLength method should return a defined value', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
 		var maxLength = ali.getMaxChromosomeLength();
-		expect(ali.setNStretchColor(maxLength)).toEqual(maxLength);
+		expect(ali.getMaxChromosomeLength()).toBeDefined();
 	});	
 	it('the function should return the value of the longest chromosome', function(){
 		ali.setData(data);
@@ -1156,5 +1054,26 @@ describe('The setOffsetDistance method is supposed to set a new distance for shi
 		var ali = new AliTV(svg);
 		var distance = -200;
 		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+	});
+});
+		
+describe("The getSupportedFeatures method is supposed to return the supported features", function(){
+	it('getSupportedFeatures method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.getSupportedFeatures).toEqual('function');
+	});
+	it('getSupportedFeatures method is supposed to return default supported features', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(ali.getSupportedFeatures().sort()).toEqual(Object.keys(defaultConf.features.supportedFeatures).sort());
+	});
+	it('getSupportedFeatures method is supposed to return default and added features', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setConf({"features": {"supportedFeatures": {"bla": {}}}})
+		var expected = Object.keys(defaultConf.features.supportedFeatures);
+		expected.push("bla");
+		expect(ali.getSupportedFeatures().sort()).toEqual(expected.sort());
 	});
 });

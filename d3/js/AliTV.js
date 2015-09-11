@@ -254,6 +254,11 @@ function AliTV(svg) {
 	this.cache = {
 		'linear': {}
 	};
+	/**
+	 * array of registered onChange callback functions
+	 * @property {Array} onChangeCallbacks             				 - array of callback functions
+	 */
+	this.onChangeCallbacks = [];
 	// Initialize svg size
 	this.setSvgWidth(this.getCanvasWidth());
 	this.setSvgHeight(this.getCanvasHeight());
@@ -338,6 +343,7 @@ function AliTV(svg) {
  */
 AliTV.prototype.setConf = function(conf) {
 	jQuery.extend(true, this.conf, conf);
+	this.triggerChange();
 };
 
 /**
@@ -365,6 +371,7 @@ AliTV.prototype.setConf = function(conf) {
  */
 AliTV.prototype.setData = function(data) {
 	this.data = data;
+	this.triggerChange();
 };
 
 /**
@@ -418,6 +425,7 @@ AliTV.prototype.setFilters = function(filters) {
 	if (this.filters.features.invisibleFeatures === undefined) {
 		this.filters.features.invisibleFeatures = {};
 	}
+	this.triggerChange();
 };
 
 /**
@@ -1230,6 +1238,7 @@ AliTV.prototype.drawCircular = function() {
 	var linkCoords = this.getCircularLinkCoords(karyoCoords);
 	this.drawCircularLinks(linkCoords);
 	this.conf.layout = "circular";
+	this.triggerChange();
 };
 
 /**
@@ -1263,6 +1272,7 @@ AliTV.prototype.setKaryoSpacer = function(spacer) {
 		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		this.conf.graphicalParameters.karyoDistance = spacer;
+		this.triggerChange();
 		return this.conf.graphicalParameters.karyoDistance;
 	}
 };
@@ -1298,6 +1308,7 @@ AliTV.prototype.setKaryoHeight = function(height) {
 	} else {
 		height = Number(height);
 		this.conf.graphicalParameters.karyoHeight = height;
+		this.triggerChange();
 		return this.conf.graphicalParameters.karyoHeight;
 	}
 };
@@ -1332,6 +1343,7 @@ AliTV.prototype.setCanvasWidth = function(width) {
 	} else {
 		width = Number(width);
 		this.conf.graphicalParameters.canvasWidth = width;
+		this.triggerChange();
 		return this.conf.graphicalParameters.canvasWidth;
 	}
 };
@@ -1367,6 +1379,7 @@ AliTV.prototype.setCanvasHeight = function(height) {
 	} else {
 		height = Number(height);
 		this.conf.graphicalParameters.canvasHeight = height;
+		this.triggerChange();
 		return this.conf.graphicalParameters.canvasHeight;
 	}
 };
@@ -1403,6 +1416,7 @@ AliTV.prototype.setTickDistance = function(distance) {
 	} else {
 		distance = Number(distance);
 		this.conf.graphicalParameters.tickDistance = distance;
+		this.triggerChange();
 		return this.conf.graphicalParameters.tickDistance;
 	}
 };
@@ -1463,6 +1477,7 @@ AliTV.prototype.setTreeWidth = function(treeWidth) {
 	} else {
 		treeWidth = Number(treeWidth);
 		this.conf.graphicalParameters.treeWidth = treeWidth;
+		this.triggerChange();
 		return this.conf.graphicalParameters.treeWidth;
 	}
 };
@@ -1515,108 +1530,44 @@ AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
 	} else {
 		tickLabelFrequency = Number(tickLabelFrequency);
 		this.conf.graphicalParameters.tickLabelFrequency = tickLabelFrequency;
+		this.triggerChange();
 		return this.conf.graphicalParameters.tickLabelFrequency;
 	}
 };
 
 /**
- * This function returns the current color of genes.
- * @returns {String} The color of genes.
- * @author Sonja Hohlfeld
+ * This function returns the current color of the given supported feature.
+ * @param {String} groupId - The group ID of the desired supported feature.
+ * @throws Will throw an error if the feature groupId is not supported.
+ * @returns {String} The color of the given supported feature.
+ * @author Markus Ankenbrand
  */
-AliTV.prototype.getGeneColor = function() {
-	var color = this.conf.features.supportedFeatures.gene.color;
+AliTV.prototype.getFeatureColor = function(groupId) {
+	if (typeof this.conf.features.supportedFeatures[groupId] === 'undefined') {
+		throw "Not a supported feature.";
+	}
+	var color = this.conf.features.supportedFeatures[groupId].color;
 	return color;
 };
 
 /**
- * This function replaces the old color of genes with the new gene color in the config-object.
- * @param color: the color of genes which is returned by getGeneColor.
+ * This function replaces the old color of the specified supported feature with the new color in the config-object.
+ * @param groupId: the supported feature groupId for which the color should be set.
+ * @param color: the new color for the supported feature.
+ * @throws Will throw an error if the feature is not supported.
  * @throws Will throw an error if the argument is empty.
- * @author Sonja Hohlfeld
+ * @author Markus Ankenbrand
  */
-AliTV.prototype.setGeneColor = function(color) {
+AliTV.prototype.setFeatureColor = function(groupId, color) {
+	if (typeof this.conf.features.supportedFeatures[groupId] === "undefined") {
+		throw "Not a supported feature.";
+	}
 	if (color === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
-	} else {
-		this.conf.features.supportedFeatures.gene.color = color;
-		return this.conf.features.supportedFeatures.gene.color;
 	}
-};
-
-/**
- * This function returns the current color of inverted repeats.
- * @returns {String} The color of inverted repeats.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.getInvertedRepeatColor = function() {
-	var color = this.conf.features.supportedFeatures.invertedRepeat.color;
-	return color;
-};
-
-/**
- * This function replaces the old color of inverted repeats with the new color in the config-object.
- * @param color: the color of inverted repeats which is returned by getInvertedRepeatColor.
- * @throws Will throw an error if the argument is empty.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.setInvertedRepeatColor = function(color) {
-	if (color === "") {
-		throw "Sorry, you entered an empty value. Please try it again.";
-	} else {
-		this.conf.features.supportedFeatures.invertedRepeat.color = color;
-		return this.conf.features.supportedFeatures.invertedRepeat.color;
-	}
-};
-
-/**
- * This function returns the current color of repeats.
- * @returns {String} The color of repeats.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.getRepeatColor = function() {
-	var color = this.conf.features.supportedFeatures.repeat.color;
-	return color;
-};
-
-/**
- * This function replaces the old color of repeats with the new color in the config-object.
- * @param color: the color of repeats which is returned by getRepeatColor.
- * @throws Will throw an error if the argument is empty.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.setRepeatColor = function(color) {
-	if (color === "") {
-		throw "Sorry, you entered an empty value. Please try it again.";
-	} else {
-		this.conf.features.supportedFeatures.repeat.color = color;
-		return this.conf.features.supportedFeatures.repeat.color;
-	}
-};
-
-/**
- * This function returns the current color of nStretches.
- * @returns {String} The color of repeats.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.getNStretchColor = function() {
-	var color = this.conf.features.supportedFeatures.nStretch.color;
-	return color;
-};
-
-/**
- * This function replaces the old color of nStretches with the new color in the config-object.
- * @param color: the color of nStretches which is returned by getNStretchColor.
- * @throws Will throw an error if the argument is empty.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.setNStretchColor = function(color) {
-	if (color === "") {
-		throw "Sorry, you entered an empty value. Please try it again.";
-	} else {
-		this.conf.features.supportedFeatures.nStretch.color = color;
-		return this.conf.features.supportedFeatures.nStretch.color;
-	}
+	this.conf.features.supportedFeatures[groupId].color = color;
+	this.triggerChange();
+	return this.conf.features.supportedFeatures[groupId].color;
 };
 
 /**
@@ -1647,6 +1598,7 @@ AliTV.prototype.setGenomeColor = function(color) {
 		this.conf.linear.endLineColor = color[1];
 		newColor.push(this.conf.linear.startLineColor);
 		newColor.push(this.conf.linear.endLineColor);
+		this.triggerChange();
 		return newColor;
 	}
 };
@@ -1682,6 +1634,7 @@ AliTV.prototype.setLinkColor = function(color) {
 		newColor.push(this.conf.minLinkIdentityColor);
 		newColor.push(this.conf.midLinkIdentityColor);
 		newColor.push(this.conf.maxLinkIdentityColor);
+		this.triggerChange();
 		return newColor;
 	}
 };
@@ -2557,6 +2510,7 @@ AliTV.prototype.setSvgWidth = function(width) {
 		} else {
 			this.svg.attr("width", width);
 		}
+		this.triggerChange();
 	}
 };
 
@@ -2591,6 +2545,7 @@ AliTV.prototype.setSvgHeight = function(height) {
 	} else {
 		height = Number(height);
 		this.svg.attr("height", height);
+		this.triggerChange();
 	}
 };
 
@@ -2634,6 +2589,7 @@ AliTV.prototype.setJSON = function(json) {
 	if (typeof json.conf !== 'undefined') {
 		this.setConf(json.conf);
 	}
+	this.triggerChange();
 };
 
 /**
@@ -2658,6 +2614,7 @@ AliTV.prototype.setGenomeLabelColor = function(color) {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.labels.genome.color = color;
+		this.triggerChange();
 		return this.conf.labels.genome.color;
 	}
 };
@@ -2691,6 +2648,7 @@ AliTV.prototype.setGenomeLabelSize = function(size) {
 	} else {
 		size = Number(size);
 		this.conf.labels.genome.size = size;
+		this.triggerChange();
 		return this.conf.labels.genome.size;
 	}
 };
@@ -2716,6 +2674,7 @@ AliTV.prototype.setTickLabelColor = function(color) {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	} else {
 		this.conf.labels.ticks.color = color;
+		this.triggerChange();
 		return this.conf.labels.ticks.color;
 	}
 };
@@ -2749,6 +2708,7 @@ AliTV.prototype.setTickLabelSize = function(size) {
 	} else {
 		size = Number(size);
 		this.conf.labels.ticks.size = size;
+		this.triggerChange();
 		return this.conf.labels.ticks.size;
 	}
 };
@@ -2763,6 +2723,7 @@ AliTV.prototype.setLinkInvisible = function(selectedLinkID) {
 	$("#" + selectedLinkID).hide();
 	var selectedLink = this.visibleLinks[selectedLinkID];
 	this.filters.links.invisibleLinks[selectedLinkID] = selectedLink;
+	this.triggerChange();
 	return this.filters.links.invisibleLinks;
 };
 
@@ -2790,6 +2751,7 @@ AliTV.prototype.getInvisibleLinks = function() {
 AliTV.prototype.showInvisibleLink = function(selectedLinkID) {
 	$("#" + selectedLinkID).show();
 	delete this.filters.links.invisibleLinks[selectedLinkID];
+	this.triggerChange();
 	return this.filters.links.invisibleLinks;
 };
 
@@ -2837,6 +2799,7 @@ AliTV.prototype.setFeatureInvisible = function(feature) {
 	var id = split[0];
 	var group = split[1];
 	this.filters.features.invisibleFeatures[feature] = this.data.features[group][id];
+	this.triggerChange();
 	return this.filters.features.invisibleFeatures;
 };
 
@@ -2864,6 +2827,7 @@ AliTV.prototype.getInvisibleFeatures = function() {
 AliTV.prototype.showInvisibleFeature = function(selectedFeatureId) {
 	$("#" + selectedFeatureId).show();
 	delete this.filters.features.invisibleFeatures[selectedFeatureId];
+	this.triggerChange();
 	return this.filters.features.invisibleFeatures;
 };
 
@@ -2950,6 +2914,7 @@ AliTV.prototype.updateGenomeRegionBySvgRect = function(rect) {
 			region.end = transformToGenomeScale(rect.x + rect.width);
 		}
 	}
+	this.triggerChange();
 };
 
 /**
@@ -2961,6 +2926,7 @@ AliTV.prototype.resetGenomeRegion = function(genome_id) {
 	if (typeof this.filters.karyo.genome_region !== "undefined") {
 		this.filters.karyo.genome_region[genome_id] = {};
 	}
+	this.triggerChange();
 };
 
 /**	
@@ -2971,6 +2937,7 @@ AliTV.prototype.resetGenomeRegion = function(genome_id) {
  */
 AliTV.prototype.changeChromosomeVisibility = function(chromosomeId) {
 	this.filters.karyo.chromosomes[chromosomeId].visible = !this.filters.karyo.chromosomes[chromosomeId].visible;
+	this.triggerChange();
 	return this.filters.karyo.chromosomes;
 };
 
@@ -3013,6 +2980,7 @@ AliTV.prototype.changeGenomeOrder = function(name, value) {
 		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[0];
 		that.filters.karyo.genome_order[0] = tmp;
 	}
+	this.triggerChange();
 	return that.filters.karyo.genome_order;
 };
 
@@ -3024,6 +2992,7 @@ AliTV.prototype.changeGenomeOrder = function(name, value) {
  */
 AliTV.prototype.changeChromosomeOrientation = function(chromosome) {
 	this.filters.karyo.chromosomes[chromosome].reverse = !this.filters.karyo.chromosomes[chromosome].reverse;
+	this.triggerChange();
 	return this.filters.karyo.chromosomes[chromosome].reverse;
 };
 
@@ -3055,6 +3024,7 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 	var tmp = order[i];
 	order[i] = order[chromosomePosition];
 	order[chromosomePosition] = tmp;
+	this.triggerChange();
 	return that.filters.karyo.order;
 };
 
@@ -3217,4 +3187,35 @@ AliTV.prototype.setOffsetDistance = function(distance) {
 		this.conf.offset.distance = distance;
 		return this.conf.offset.distance;
 	}
+};
+
+/**	
+ * This function is supposed to return an array of supported features
+ * @returns {Array} supportedFeatures
+ * @author: Sonja Hohlfeld and Markus Ankenbrand
+ */
+AliTV.prototype.getSupportedFeatures = function() {
+	return Object.keys(this.conf.features.supportedFeatures);
+};
+
+/**
+ * This function is supposed to register callback function which are called upon data change
+ * @param {function} callback - callback to be called upon data change
+ * @author: Sonja Hohlfeld and Markus Ankenbrand
+ */
+AliTV.prototype.onDataChange = function(callback) {
+	if (typeof callback !== "function") {
+		throw "Not a function.";
+	}
+	this.onChangeCallbacks.push(callback);
+};
+
+/**
+ * This function is supposed to call all registered callback functions
+ * @author: Sonja Hohlfeld and Markus Ankenbrand
+ */
+AliTV.prototype.triggerChange = function() {
+	$.each(this.onChangeCallbacks, function(key, value) {
+		value();
+	});
 };
