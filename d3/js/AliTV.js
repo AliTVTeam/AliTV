@@ -111,31 +111,26 @@ function AliTV(svg) {
 	 * @property {String}  features.gene.color					   - Defines the color of a gene.
 	 * @property {Number}  features.gene.height					   - Defines the height of the drawn gene onto the chromosome.
 	 * @property {Boolean} features.gene.visible				   - Defines if a gene is drawn or not.
-	 * @property {Boolean} features.gene.labeling				   - Defines if the label for a gene is shown or not.
 	 * @property {Object}  features.invertedRepeat				   - Contains the configuration for inverted repeats.
 	 * @property {String}  features.invertedRepeat.form			   - Defines the shape of an inverted repeat.
 	 * @property {String}  features.invertedRepeat.color		   - Defines the color of an inverted repeat.
 	 * @property {Number}  features.invertedRepeat.height		   - Defines the height of the drawn inverted repeat onto the chromosome.
 	 * @property {Boolean} features.invertedRepeat.visible		   - Defines if an inverted repeat is drawn or not.
-	 * @property {Boolean} features.invertedRepeat.labeling		   - Defines if the label for a inverted repeat is shown or not.
 	 * @property {Object}  features.nStretch				   	   - Contains the configuration for n stretch.
 	 * @property {String}  features.nStretch.form			   	   - Defines the shape of a n stretch.
 	 * @property {String}  features.nStretch.color		   		   - Defines the color of a n stretch.
 	 * @property {Number}  features.nStretch.height		   		   - Defines the height of the drawn n stretch onto the chromosome.
 	 * @property {Boolean} features.nStretch.visible		   	   - Defines if an inverted n stretch is drawn or not.
-	 * @property {Boolean} features.nStretch.labeling		       - Defines if the label for a n stretch is shown or not.
 	 * @property {Object}  features.repeat				   		   - Contains the configuration for inverted repeats.
 	 * @property {String}  features.repeat.form			   		   - Defines the shape of a repeat.
 	 * @property {String}  features.repeat.color		   		   - Defines the color of a repeat.
 	 * @property {Number}  features.repeat.height		   		   - Defines the height of the drawn repeat onto the chromosome.
 	 * @property {Boolean} features.repeat.visible		   		   - Defines if an repeat is drawn or not.
-	 * @property {Boolean} features.repeat.labeling		   		   - Defines if the label for a repeat is shown or not.
 	 * @property {Object}  features.fallback				   	   - Contains the configuration for non-supported feature classes.
 	 * @property {String}  features.fallback.form			   	   - Defines the shape of a non-supported feature groups.
 	 * @property {String}  features.fallback.color		   		   - Defines the color of a non-supported feature group.
 	 * @property {Number}  features.fallback.height		   		   - Defines the height of the drawn non-supported feature group onto the chromosome.
 	 * @property {Boolean} features.fallback.visible		   	   - Defines if an non-supported feature group is drawn or not.
-	 * @property {Boolean} features.fallback.labeling		   	   - Defines if the label for a non-supported feature group is shown or not.
 	 * @property {Object}  labels								   - The configuration options for the text labels.
 	 * @property {Boolean} labels.ticks							   - Contains the configuration for the labeling of the chromosome scale.
 	 * @property {Boolean} labels.ticks.showTicks				   - Defines if ticks are drawn.
@@ -191,40 +186,35 @@ function AliTV(svg) {
 					form: "rect",
 					color: "#E2EDFF",
 					height: 30,
-					visible: false,
-					labeling: false
+					visible: false
 				},
 				invertedRepeat: {
 					form: "arrow",
 					color: "#e7d3e2",
 					height: 30,
 					visible: false,
-					pattern: "woven",
-					labeling: false
+					pattern: "woven"
 				},
 				nStretch: {
 					form: "rect",
 					color: "#000000",
 					height: 30,
 					visible: false,
-					pattern: "lines",
-					labeling: false
+					pattern: "lines"
 				},
 				repeat: {
 					form: "rect",
 					color: "#56cd0f",
 					height: 30,
 					visible: false,
-					pattern: "woven",
-					labeling: false
+					pattern: "woven"
 				}
 			},
 			fallbackStyle: {
 				form: "rect",
 				color: "#787878",
 				height: 30,
-				visible: false,
-				labeling: false
+				visible: false
 			}
 		},
 		labels: {
@@ -259,6 +249,11 @@ function AliTV(svg) {
 	 * @property {Array} onChangeCallbacks             				 - array of callback functions
 	 */
 	this.onChangeCallbacks = [];
+	/**
+	 * boolean that indicates whether AliTV is inside transaction, see functions startTransaction and endTransaction
+	 * @property {boolean} inTransaction             				 - is AliTV currently in transaction
+	 */
+	this.inTransaction = false;
 	// Initialize svg size
 	this.setSvgWidth(this.getCanvasWidth());
 	this.setSvgHeight(this.getCanvasHeight());
@@ -1003,10 +998,8 @@ AliTV.prototype.drawLinear = function() {
 		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 
-	if (this.conf.features.showAllFeatures === true || this.conf.features.supportedFeatures.gene.visible === true || this.conf.features.supportedFeatures.invertedRepeat.visible === true || this.conf.features.supportedFeatures.repeat.visible === true || this.conf.features.supportedFeatures.nStretch.visible === true || this.conf.features.fallbackStyle.visible === true) {
-		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
-		this.drawLinearFeatures(linearFeatureCoords);
-	}
+	var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
+	this.drawLinearFeatures(linearFeatureCoords);
 
 	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
 		this.drawPhylogeneticTree();
@@ -1536,38 +1529,44 @@ AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
 };
 
 /**
- * This function returns the current color of the given supported feature.
+ * This function returns the specified property of the given supported feature.
  * @param {String} groupId - The group ID of the desired supported feature.
+ * @param {String} property - The desired property of the feature (e.g. color, form, ...).
  * @throws Will throw an error if the feature groupId is not supported.
- * @returns {String} The color of the given supported feature.
+ * @throws Will throw an error if the property is undefined in the feature group.
+ * @returns {String} The value of the property of the given supported feature.
  * @author Markus Ankenbrand
  */
-AliTV.prototype.getFeatureColor = function(groupId) {
+AliTV.prototype.getFeatureProperty = function(groupId, property) {
 	if (typeof this.conf.features.supportedFeatures[groupId] === 'undefined') {
 		throw "Not a supported feature.";
 	}
-	var color = this.conf.features.supportedFeatures[groupId].color;
-	return color;
+	if (typeof this.conf.features.supportedFeatures[groupId][property] === 'undefined') {
+		throw "Not a supported property.";
+	}
+	var prop = this.conf.features.supportedFeatures[groupId][property];
+	return prop;
 };
 
 /**
  * This function replaces the old color of the specified supported feature with the new color in the config-object.
- * @param groupId: the supported feature groupId for which the color should be set.
- * @param color: the new color for the supported feature.
+ * @param {String} groupId - the supported feature groupId for which the color should be set.
+ * @param {String} property - The desired property of the feature (e.g. color, form, ...).
+ * @param value: the new value for the property of the supported feature.
  * @throws Will throw an error if the feature is not supported.
  * @throws Will throw an error if the argument is empty.
  * @author Markus Ankenbrand
  */
-AliTV.prototype.setFeatureColor = function(groupId, color) {
+AliTV.prototype.setFeatureProperty = function(groupId, property, val) {
 	if (typeof this.conf.features.supportedFeatures[groupId] === "undefined") {
 		throw "Not a supported feature.";
 	}
-	if (color === "") {
+	if (val === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
 	}
-	this.conf.features.supportedFeatures[groupId].color = color;
+	this.conf.features.supportedFeatures[groupId][property] = val;
 	this.triggerChange();
-	return this.conf.features.supportedFeatures[groupId].color;
+	return this.conf.features.supportedFeatures[groupId][property];
 };
 
 /**
@@ -3215,7 +3214,27 @@ AliTV.prototype.onDataChange = function(callback) {
  * @author: Sonja Hohlfeld and Markus Ankenbrand
  */
 AliTV.prototype.triggerChange = function() {
+	if (this.inTransaction) {
+		return;
+	}
 	$.each(this.onChangeCallbacks, function(key, value) {
 		value();
 	});
+};
+
+/**
+ * This function is supposed to start a transaction and prevent changes from being triggered during that time
+ * @author: Markus Ankenbrand
+ */
+AliTV.prototype.startTransaction = function() {
+	this.inTransaction = true;
+};
+
+/**
+ * This function is supposed to end a transaction, call triggerChange once and allow for new changes to trigger directly.
+ * @author: Markus Ankenbrand
+ */
+AliTV.prototype.endTransaction = function() {
+	this.inTransaction = false;
+	this.triggerChange();
 };

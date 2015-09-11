@@ -907,65 +907,77 @@ describe('The setTickLabelSize method is supposed to set a new size of the Tick 
 	});
 });
 
-describe('The getFeatureColor method is supposed to get the current color of a given supported feature', function(){
-	it('getFeatureColor method is supposed to be a function', function(){
+describe('The getFeatureProperty method is supposed to get the specified property of a given supported feature', function(){
+	it('getFeatureProperty method is supposed to be a function', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		expect(typeof ali.getFeatureColor).toEqual('function');
+		expect(typeof ali.getFeatureProperty).toEqual('function');
 	});
 	it('the function should throw an error if the feature group is not supported', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		expect(function(){ali.getFeatureColor('blablabla');}).toThrow("Not a supported feature.");
+		expect(function(){ali.getFeatureProperty('blablabla', 'color');}).toThrow("Not a supported feature.");
+	});
+	it('the function should throw an error if the property is not defined', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(function(){ali.getFeatureProperty('gene', 'blablabla');}).toThrow("Not a supported property.");
 	});
 	it('the function should return a defined value', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		var color = ali.getFeatureColor('gene');
+		var color = ali.getFeatureProperty('gene', 'color');
 		expect(color).toBeDefined();
 	});
 	it('the function should return the color of invertedRepeats which is defined in the defaultConf', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		var color = ali.getFeatureColor('invertedRepeat');
+		var color = ali.getFeatureProperty('invertedRepeat', 'color');
 		expect(color).toEqual(defaultConf.features.supportedFeatures.invertedRepeat.color);
-	});
-	
+	});	
 });
 
-describe('The setFeatureColor method is supposed to set a new color for the given supported feature', function(){
-	it('setFeatureColor method is supposed to be a function', function(){
+describe('The setFeatureProperty method is supposed to set a new color for the given supported feature', function(){
+	it('setFeatureProperty method is supposed to be a function', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		expect(typeof ali.setFeatureColor).toEqual('function');
+		expect(typeof ali.setFeatureProperty).toEqual('function');
 	});	
-	it('the returned value of the setFeatureColor method should be the same as the color which is setted and returned by the setter-method', function(){
+	it('the returned value of the setFeatureProperty method should be the same as the property which is set and returned by the setter-method', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		var color = "#000000";
-		expect(ali.setFeatureColor("nStretch", color)).toEqual(color);
+		expect(ali.setFeatureProperty("nStretch", "color", color)).toEqual(color);
 	});	
-	it('when setFeatureColor is called several times the color should have the same value as the returned color of getFeatureColor method', function(){
+	it('when setFeatureProperty is called several times the color should have the same value as the returned color of getFeatureProperty method', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		ali.setFeatureColor("repeat","#000000");
-		expect(ali.getFeatureColor("repeat")).toEqual("#000000");
-		ali.setFeatureColor("repeat","#36b6cd");
-		expect(ali.getFeatureColor("repeat")).toEqual("#36b6cd");
-		ali.setFeatureColor("repeat","#334e53");
-		expect(ali.getFeatureColor("repeat")).toEqual("#334e53");
+		ali.setFeatureProperty("repeat","color","#000000");
+		expect(ali.getFeatureProperty("repeat","color")).toEqual("#000000");
+		ali.setFeatureProperty("repeat","color","#36b6cd");
+		expect(ali.getFeatureProperty("repeat","color")).toEqual("#36b6cd");
+		ali.setFeatureProperty("repeat","color","#334e53");
+		expect(ali.getFeatureProperty("repeat","color")).toEqual("#334e53");
 	});
-	it('the setFeatureColor method should throw an error message if the assigned color is empty', function(){
+	it('when setFeatureProperty is called with form the form should be updated', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setFeatureProperty("invertedRepeat","form","rect");
+		expect(ali.getFeatureProperty("invertedRepeat","form")).toEqual("rect");
+		ali.setFeatureProperty("invertedRepeat","form","arrow");
+		expect(ali.getFeatureProperty("invertedRepeat","form")).toEqual("arrow");
+	});
+	it('the setFeatureProperty method should throw an error message if the assigned color is empty', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		var color = "";
-		expect(function(){ali.setFeatureColor("nStretch", color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
+		expect(function(){ali.setFeatureProperty("nStretch", "color", color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
-	it('the setFeatureColor method should throw an error message if the feature is not supported', function(){
+	it('the setFeatureProperty method should throw an error message if the feature is not supported', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		var color = "#000000";
-		expect(function(){ali.setFeatureColor("blablabla", color);}).toThrow("Not a supported feature.");
+		expect(function(){ali.setFeatureProperty("blablabla", "color", color);}).toThrow("Not a supported feature.");
 	});
 });
 

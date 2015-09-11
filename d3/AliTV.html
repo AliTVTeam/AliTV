@@ -36,6 +36,7 @@
 		ali = new AliTV(svg);
 		var container = document.getElementById("jsoneditor");
 		editor = new JSONEditor(container)
+		ali.startTransaction();
 		$.getJSON('data/data.json', function(data) {
 			ali.setData(data.data);
 			$.getJSON('data/filters.json', function(filters) {
@@ -55,14 +56,16 @@
 	function initialize(){
 		setJSONEditorFromAli();
 		ali.onDataChange(setJSONEditorFromAli);
-		ali.drawLinear();
 		addFeatureGroupTemplates();
 		ali.onDataChange(addFeatureGroupTemplates);
 		setParameters();
+		ali.onDataChange(setParameters);
 		setSlider();
+		ali.drawLinear();
+		ali.endTransaction();
 	}
 
- 	function setSlider() {		
+ 	function setSlider() {
 		$(function(){
 			$("#identity-slider").slider({
 				range: true,
@@ -74,7 +77,7 @@
 					ali.filters.links.minLinkIdentity = ui.values[0];
 					ali.filters.links.maxLinkIdentity = ui.values[1];
 				}
-			});	
+			});
 			$("#identity-label").val($("#identity-slider").slider("values", 0) + " % - " + $("#identity-slider").slider("values", 1) + " %");
 			
 			$("#length-slider").slider({
@@ -173,78 +176,6 @@
 	});	
 	});
 
-	$(function(){$('#showGenes').change(function() {
-		if($('#showGenes').is(':checked')){
-			ali.conf.features.supportedFeatures.gene.visible = true;
-		} else {
-			ali.conf.features.supportedFeatures.gene.visible = false;
-		}
-	});	
-	});
-	
-	$(function(){$('#geneLabels').change(function() {
-		if($('#geneLabels').is(':checked')){
-			ali.conf.features.supportedFeatures.gene.labeling = true;
-		} else {
-			ali.conf.features.supportedFeatures.gene.labeling = false;
-		}
-	});	
-	});
-
-	$(function(){$('#showInvertedRepeats').change(function() {
-		if($('#showInvertedRepeats').is(':checked')){
-			ali.conf.features.supportedFeatures.invertedRepeat.visible = true;
-		} else {
-			ali.conf.features.supportedFeatures.invertedRepeat.visible = false;
-		}
-	});	
-	});
-	
-	$(function(){$('#invertedRepeatLabels').change(function() {
-		if($('#invertedRepeatLabels').is(':checked')){
-			ali.conf.features.supportedFeatures.invertedRepeat.labeling = true;
-		} else {
-			ali.conf.features.supportedFeatures.invertedRepeat.labeling = false;
-		}
-	});	
-	});
-
-	$(function(){$('#showRepeats').change(function() {
-		if($('#showRepeats').is(':checked')){
-			ali.conf.features.supportedFeatures.repeat.visible = true;
-		} else {
-			ali.conf.features.supportedFeatures.repeat.visible = false;
-		}
-	});	
-	});
-
-	$(function(){$('#repeatLabels').change(function() {
-		if($('#repeatLabels').is(':checked')){
-			ali.conf.features.supportedFeatures.repeat.labeling = true;
-		} else {
-			ali.conf.features.supportedFeatures.repeat.labeling = false;
-		}
-	});	
-	});
-	
-	$(function(){$('#showNstretch').change(function() {
-		if($('#showNstretch').is(':checked')){
-			ali.conf.features.supportedFeatures.nStretch.visible = true;
-		} else {
-			ali.conf.features.supportedFeatures.nStretch.visible = false;
-		}
-	});	
-	});
-	
-	$(function(){$('#nStretchLabels').change(function() {
-		if($('#nStretchLabels').is(':checked')){
-			ali.conf.features.supportedFeatures.nStretch.labeling = true;
-		} else {
-			ali.conf.features.supportedFeatures.nStretch.labeling = false;
-		}
-	});	
-	});
-
 	$(function(){$('#showFallback').change(function() {
 		if($('#showFallback').is(':checked')){
 			ali.conf.features.fallbackStyle.visible = true;
@@ -291,70 +222,6 @@
     });
 	});
 	
-	$(function(){$("#geneRect") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	            ali.conf.features.supportedFeatures.gene.form = $(this).val(); 
-	        }
-	    });
-		});
-	
-	$(function(){$("#geneArrow") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	           ali.conf.features.supportedFeatures.gene.form = $(this).val(); 
-	        }
-    });
-	});
-	
-	$(function(){$("#invertedRepeatRect") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	            ali.conf.features.supportedFeatures.invertedRepeat.form = $(this).val(); 
-	        }
-	    });
-		});
-	
-	$(function(){$("#invertedRepeatArrow") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	           ali.conf.features.supportedFeatures.invertedRepeat.form = $(this).val(); 
-	        }
-    });
-	});
-	
-	$(function(){$("#repeatRect") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	            ali.conf.features.supportedFeatures.repeat.form = $(this).val(); 
-	        }
-	    });
-		});
-	
-	$(function(){$("#repeatArrow") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	           ali.conf.features.supportedFeatures.repeat.form = $(this).val(); 
-	        }
-    });
-	});
-	
-	$(function(){$("#nStretchRect") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	            ali.conf.features.supportedFeatures.nStretch.form = $(this).val(); 
-	        }
-	    });
-		});
-	
-	$(function(){$("#nStretchArrow") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	           ali.conf.features.supportedFeatures.nStretch.form = $(this).val(); 
-	        }
-    });
-	});
-
 	$(function(){$('#showGenomeLabels').change(function() {
 		if($('#showGenomeLabels').is(':checked')){
 			ali.conf.labels.genome.showGenomeLabels = true;
@@ -435,16 +302,6 @@
 			$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
 		}
 	}
-	function changeGeneColor(){
-		var color = ($("#geneColor").val());
-		try {
-			ali.setGeneColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#geneColor").val(ali.getGeneColor());
-			}
-	}
 	function changeGenomeColor(){
 		var color = [];
 		color.push($("#startLineColor").val());
@@ -515,36 +372,6 @@
 				$("#tickLabelSize").val(this.conf.labels.ticks.size);
 			} 
 	}
-	function changeInvertedRepeatColor(){
-		var color = ($("#invertedRepeatColor").val());
-		try {
-			ali.setInvertedRepeatColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#invertedRepeatColor").val(ali.getInvertedRepeatColor());
-			}
-	}
-	function changeRepeatColor(){
-		var color = ($("#repeatColor").val());
-		try {
-			ali.setRepeatColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#repeatColor").val(ali.getRepeatColor());
-			}
-	}
-	function changeNStretchColor(){
-		var color = ($("#nStretchColor").val());
-		try {
-			ali.setNStretchColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#nStretchColor").val(ali.getNStretchColor());
-			}
-	}
 	function changeOffset(karyoId){
 		var distance = $('#offset-'+karyoId).val(); 
  		try {
@@ -573,18 +400,19 @@
 		$("#tickLabelColor").val(ali.getTickLabelColor());
 		$("#tickLabelSize").val(ali.getTickLabelSize());
 		$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
-		$("#geneColor").val(ali.getGeneColor());
-		$("#invertedRepeatColor").val(ali.getInvertedRepeatColor());
-		$("#repeatColor").val(ali.getRepeatColor());
-		$("#nStretchColor").val(ali.getNStretchColor());
+		$.each(ali.getSupportedFeatures(), function(key, value){
+			$("#color-"+value).val(ali.getFeatureProperty(value, 'color'));
+			$("#colorpicker-"+value).colorpicker('setValue',ali.getFeatureProperty(value, 'color'));
+			$("#"+ali.getFeatureProperty(value, 'form')+"-"+value).prop('checked', true);
+			if(ali.getFeatureProperty(value, 'visible')){
+				$("#show-"+value).prop('checked', true);
+			}
+		});
 		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
 		$("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
 		$("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
-		
 		$('#showGenomeLabels').attr('checked', true);
 		$('#showTickLabels').attr('checked', true);
-		$('#showGenes').attr('checked', false);
-		$('#geneLabels').attr('checked', false);
 		setOffsetGroup();
 	}
 	
@@ -596,6 +424,7 @@
 	}
 	
 	function setLayoutSettings(){
+		ali.startTransaction();
 		var layout = ali.getLayout();
 		changeCanvasWidth();
 		changeCanvasHeight();
@@ -612,46 +441,30 @@
 		setJSONEditorFromAli();
 		ali.drawEqualLayout(layout);
 		setParameters();
-	}
-	
-	function setGeneSettings(){
-		var layout = ali.getLayout();
-		changeGeneColor();
-		setJSONEditorFromAli();
-		ali.drawEqualLayout(layout);
-		setParameters();
+		ali.endTransaction();
 	}
 	
 	function setFeatureGroupSettings(groupId){
+		ali.startTransaction();
 		var layout = ali.getLayout();
-		var color = ($("#color-"+groupId).val());
-		console.log(color);
+		var color = ($("#colorpicker-"+groupId).colorpicker('getValue'));
+		var form = $("input[type='radio'][name='shape-"+groupId+"']:checked").val();
+		var visible = $("#show-"+groupId).is(':checked');
 		try {
-			ali.setFeatureColor(groupId, color); 	
+			ali.setFeatureProperty(groupId, 'color', color);
+			ali.setFeatureProperty(groupId, 'form', form);
+			ali.setFeatureProperty(groupId, 'visible', visible);
 		}
 		catch(err){
 			bootbox.alert(err);
-			$("#color-"+groupId).val(ali.getFeatureColor(groupId));
+			$("#colorpicker-"+groupId).colorpicker('setValue', ali.getFeatureProperty(groupId, 'color'));
+			$("#"+ali.getFeatureProperty(groupId, 'form')+"-"+groupId).prop('checked', true);
+			$("#show-"+value).prop('checked', ali.getFeatureProperty(value, 'visible'));
 		}
 		ali.drawEqualLayout(ali.getLayout());
+		ali.endTransaction();
 	}
-	
-	function setRepeatSettings(){
-		var layout = ali.getLayout();
-		changeRepeatColor();
-		setJSONEditorFromAli();
-		ali.drawEqualLayout(layout);
-		setParameters();
-	}
-	
-	function setNStretchSettings(){
-		var layout = ali.getLayout();
-		changeNStretchColor();
-		setJSONEditorFromAli();
-		ali.drawEqualLayout(layout);
-		setParameters();
-	}
-	
+
 	function setTreeSettings(){
 		var layout = ali.getLayout();
 		changeTreeWidth();
@@ -802,13 +615,13 @@
 	    var groups = ali.getSupportedFeatures();
         var templateHTML = $('#template_feature_group').html();
         var templateUS = _.template(templateHTML);
+        $('.feature-colorpicker').colorpicker('destroy');
         $('.feature_template').remove();
         $.each(groups, function(key, value){
 			$('#featuresMenu').prepend($('<li class="feature_template"><a href="#'+value+'" data-toggle="tab">'+value+'</a></li>'));
 			$('#interface').append(templateUS({groupId: value}));
         });
-        $('.demo2').colorpicker();
-        setParameters();
+        $('.feature-colorpicker').colorpicker();
 	}
 	
  	$('#myTabs a').click(function (e) {
@@ -1368,11 +1181,6 @@
 									Show <%= groupId %>
 								</label>
 							</div>
-							<div class="checkbox">
-								<label> <input id="labels-<%= groupId %>"
-									type="checkbox"> Label <%= groupId %>
-								</label>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -1403,7 +1211,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							Change color: <br>
-							<div class="input-group demo2">
+							<div class="input-group feature-colorpicker" id="colorpicker-<%= groupId %>">
 								<input id="color-<%= groupId %>" type="text" value=""
 									class="form-control" /> <span class="input-group-addon"><i></i></span>
 							</div>
