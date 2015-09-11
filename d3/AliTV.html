@@ -750,7 +750,7 @@
 			function setOffsetButton(){
 				var karyoId = $('.selectpicker[name=offsetGroup]').val();
 				addOffsetTemplates(karyoId);
-				ali.conf.offset = true;
+				ali.conf.offset.isSet = true;
 				var buttonCoords = ali.getOffsetButtonCoords(karyoId);
 				ali.drawOffsetButtonGroup(buttonCoords);
 				ali.drawLinear();
@@ -774,7 +774,7 @@
 		$('#jsoneditor').toggle();
 	}
 	function saveSVG(){
-		if(ali.conf.offset === true){
+		if(ali.conf.offset.isSet === true){
 			ali.svgD3.selectAll(".buttonGroup").remove();
 		}
 	    var blob = new Blob([ali.getSvgAsText()], {type: "image/svg+xml;charset=utf-8"});

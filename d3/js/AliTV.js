@@ -2618,7 +2618,7 @@ AliTV.prototype.setSvgWidth = function(width) {
 		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
 	} else {
 		width = Number(width);
-		if (this.conf.offset === true) {
+		if (this.conf.offset.isSet === true) {
 			this.svg.attr("width", width + this.conf.graphicalParameters.buttonWidth);
 		} else {
 			this.svg.attr("width", width);
@@ -3270,7 +3270,7 @@ AliTV.prototype.drawOffsetButtonGroup = function(buttonCoords) {
 				})
 				.on("click", function(d) {
 					var offset = that.filters.karyo.chromosomes[d.id].offset === undefined ? 0 : that.filters.karyo.chromosomes[d.id].offset;
-					that.filters.karyo.chromosomes[d.id].offset = offset - that.conf.graphicalParameters.tickDistance;
+					that.filters.karyo.chromosomes[d.id].offset = offset - that.conf.offset.distance;
 					that.drawLinear();
 				});
 		});
@@ -3299,7 +3299,7 @@ AliTV.prototype.drawOffsetButtonGroup = function(buttonCoords) {
 				})
 				.on("click", function(d) {
 					var offset = that.filters.karyo.chromosomes[d.id].offset === undefined ? 0 : that.filters.karyo.chromosomes[d.id].offset;
-					that.filters.karyo.chromosomes[d.id].offset = offset + that.conf.graphicalParameters.tickDistance;
+					that.filters.karyo.chromosomes[d.id].offset = offset + that.conf.offset.distance;
 					that.drawLinear();
 				});
 		});
