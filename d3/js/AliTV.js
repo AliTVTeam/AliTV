@@ -142,16 +142,10 @@ function AliTV(svg) {
 	 * @property {Boolean} labels.ticks.showTicks				   - Defines if ticks are drawn.
 	 * @property {Boolean} labels.ticks.showTickLabels			   - Defines if tick labels are drawn.
 	 * @property {String}  labels.ticks.color					   - Defines the color of ticks and their labels.
-	 * @property {Object}  labels.chromosomes					   - Contains the configurations for the chromosome labels.
-	 * @property {Boolean} labels.chromosomes.showChromosomeLabels - Defines if chromosome labels are shown or not.
-	 * @property {String}  labels.chromosomes.color				   - Defines the color of chromosome labels.
-	 * @property {Number}  labels.chromosomes.size				   - Defines the size of chromosome labels.
 	 * @property {Object}  labels.genome					   	   - Contains the configurations for the genome labels.
 	 * @property {Boolean} labels.genome.showGenomeLabels 		   - Defines if genome labels are shown or not.
 	 * @property {String}  labels.genome.color					   - Defines the color of genome labels.
 	 * @property {Number}  labels.genome.size					   - Defines the size of genome labels.
-	 * @property {Object}  labels.features					   	   - Contains the configurations for the feature labels.
-	 * @property {Boolean} labels.features.showFeatureLabels 	   - Defines if feature labels are shown or not.
 	 * @property {Object}  offset								   - Contains values for the offset
 	 * @property {Boolean} offset.isSet							   - Defines if an offset is setted or not.
 	 * @property {Number}  offset.distance						   - The value for shifting the chromosomes.
