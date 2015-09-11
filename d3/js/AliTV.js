@@ -152,7 +152,9 @@ function AliTV(svg) {
 	 * @property {Number}  labels.genome.size					   - Defines the size of genome labels.
 	 * @property {Object}  labels.features					   	   - Contains the configurations for the feature labels.
 	 * @property {Boolean} labels.features.showFeatureLabels 	   - Defines if feature labels are shown or not.
-	 * @property {Boolean} offset								   - Defines if the offset is set or not.
+	 * @property {Object}  offset								   - Contains values for the offset
+	 * @property {Boolean} offset.isSet							   - Defines if an offset is setted or not.
+	 * @property {Number}  offset.distance						   - The value for shifting the chromosomes.
 	 */
 	this.conf = {
 		linear: {
@@ -249,7 +251,10 @@ function AliTV(svg) {
 				size: 25
 			}
 		},
-		offset: false
+		offset: {
+			isSet: false,
+			distance: 1000
+		}
 	};
 	/**
 	 * property to cache calculated values
