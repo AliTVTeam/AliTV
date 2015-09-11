@@ -553,6 +553,16 @@
 				$("#nStretchColor").val(ali.getNStretchColor());
 			}
 	}
+	function changeOffset(karyoId){
+		var distance = $('#offset-'+karyoId).val(); 
+ 		try {
+		ali.setOffsetDistance(distance); 	
+		}
+		catch(err){
+			bootbox.alert(err);
+			$("#offset-"+karyoId).val(ali.getTickDistance());
+		} 
+	}
 	
 	function setParameters(){
 		$("#karyoSpacer").val(ali.getKaryoSpacer());
