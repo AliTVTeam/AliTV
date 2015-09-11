@@ -1198,3 +1198,51 @@ describe('The getOffsetDistance method is supposed to get the distance for shift
 		expect(distance).toEqual(defaultConf.offset.distance);
 	});
 });
+
+describe('The setOffsetDistance method is supposed to set a new distance for shifting chromosomes', function(){
+	it('setOffsetDistance method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.setOffsetDistance).toEqual('function');
+	});
+	it('the returned object of the getOffsetDistance method should be the same as the distance which is setted and returned by the setter-method', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var distance = 200;
+		expect(ali.setOffsetDistance(distance)).toEqual(distance);
+	});
+	it('when setOffsetDistance is called several times the distance should have the same value as the returned distance of getTickDistance method', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setOffsetDistance(20);
+		expect(ali.getOffsetDistance()).toEqual(20);
+		ali.setOffsetDistance(5);
+		expect(ali.getOffsetDistance()).toEqual(5);
+		ali.setOffsetDistance(250);
+		expect(ali.getOffsetDistance()).toEqual(250);
+	});
+	it('the setOffsetDistance method should throw an error message if the assigned distance is empty.', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var distance = "";
+		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, you entered an empty value. Please try it again.");
+	});
+	it('the setOffsetDistance method should throw an error message if the assigned distance is not a number', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var distance = "test";
+		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, you entered not a number. Please try it again.");
+	});
+	it('the setOffsetDistance method should throw an error message if the assigned distance is 0', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var distance = 0;
+		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+	});
+	it('the setOffsetDistance method should throw an error message if the assigned distance is less than 0', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var distance = -200;
+		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+	});
+});
