@@ -634,7 +634,7 @@ describe('The setSvgWidth method is supposed to set a new width of the svg', fun
 		expect(ali.getSvgWidth()).toEqual(10000);
 	});
 	it('when setSvgWidth is called and the offset is activated the method should return a greater width', function(){
-		ali.conf.offset = true;
+		ali.conf.offset.isSet = true;
 		ali.setSvgWidth(2000);
 		expect(ali.getSvgWidth()).toEqual(2000 + defaultConf.graphicalParameters.buttonWidth);
 	});
