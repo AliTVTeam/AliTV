@@ -2701,39 +2701,6 @@ AliTV.prototype.setGenomeLabelSize = function(size) {
 };
 
 /**
- * This function returns the size of the chromosomeLabels. 
- * The size is defined in the conf-object.
- * @returns The size of the chromosome labels.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.getChromosomeLabelSize = function() {
-	return this.conf.labels.chromosome.size;
-};
-
-/**
- * This function set a new size for the chromsome labels.
- * @param size: the current size of Chromosome labels which is returned by getChromosomeLabelSize.
- * @param {Number} The function gets the size of chromosome labels which can be set by the user.
- * @throws Will throw an error if the argument is empty.
- * @throws Will throw an error if the argument is not a number.
- * @throws Will throw an error if the argument is less than 0 or equal to 0.
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.setChromosomeLabelSize = function(size) {
-	if (size === "") {
-		throw "Sorry, you entered an empty value. Please try it again.";
-	} else if (isNaN(size)) {
-		throw "Sorry, you entered not a number. Please try it again.";
-	} else if (size <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
-	} else {
-		size = Number(size);
-		this.conf.labels.chromosome.size = size;
-		return this.conf.labels.chromosome.size;
-	}
-};
-
-/**
  * This function returns the color of the tick Labels. 
  * The color is defined in the conf-object.
  * @returns The color of the tick labels.
