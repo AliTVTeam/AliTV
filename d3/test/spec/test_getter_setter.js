@@ -633,6 +633,11 @@ describe('The setSvgWidth method is supposed to set a new width of the svg', fun
 		ali.setSvgWidth(10000);
 		expect(ali.getSvgWidth()).toEqual(10000);
 	});
+	it('when setSvgWidth is called and the offset is activated the method should return a greater width', function(){
+		ali.conf.offset.isSet = true;
+		ali.setSvgWidth(2000);
+		expect(ali.getSvgWidth()).toEqual(2000 + defaultConf.graphicalParameters.buttonWidth);
+	});
 	it('the setSvgWidth method should throw an error message if the assigned width is empty', function(){
 		var width = "";
 		expect(function(){ali.setSvgWidth(width);}).toThrow("Sorry, you entered an empty value. Please try it again.");
@@ -852,94 +857,6 @@ describe('The setGenomeLabelSize method is supposed to set a new size of the gen
 	it('the setGenomeLabelSize method should throw an error message if the assigned size is less than 0', function(){
 		var size = -30;
 		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
-	});
-});
-
-describe('The getChromosomeLabelColor method is supposed to get the color of the chromosome labels', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	
-	it('getChromosomeLabelColor method is supposed to be a function', function(){
-		expect(typeof ali.getChromosomeLabelColor).toEqual('function');
-	});	
-	it('the function should return a defined value', function(){
-		var color = ali.getChromosomeLabelColor();
-		expect(color).toBeDefined();
-	});
-	it('the function should return the color of the chromosome labels which is set in the defaultConf', function(){
-		var color = ali.getChromosomeLabelColor();
-		expect(color).toEqual(defaultConf.labels.chromosome.color);
-	});
-});
-
-describe('The setChromosomeLabelColor method is supposed to set a new color for the Chromosome labels', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('setChromosomeLabelColor method is supposed to be a function', function(){
-		expect(typeof ali.setChromosomeLabelColor).toEqual('function');
-	});	
-	it('the returned value of the setChromosomeLabelColor method should be the same as the color which is setted and returned by the setter-method', function(){
-		var color = "#000000";
-		expect(ali.setChromosomeLabelColor(color)).toEqual(color);
-	});	
-	it('when setChromosomeLabelColor is called several times the color should have the same value as the returned color of getChromosomeLabelColor method', function(){
-		var color = "#000000";
-		ali.setChromosomeLabelColor(color);
-		var newColor = ali.getChromosomeLabelColor();
-		expect(newColor).toEqual(color);
-	});
-	it('the setChromosomeLabelColor method should throw an error message if the assigned color is empty', function(){
-		var color = "";
-		expect(function(){ali.setChromosomeLabelColor(color);}).toThrow("Sorry, you entered an empty value. Please try it again.");
-	});
-});
-
-describe('The getChromosomeLabelSize method is supposed to get the size of the Chromosome labels', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	
-	it('getChromosomeLabelSize method is supposed to be a function', function(){
-		expect(typeof ali.getChromosomeLabelSize).toEqual('function');
-	});	
-	it('the function should return a defined value', function(){
-		var color = ali.getChromosomeLabelSize();
-		expect(color).toBeDefined();
-	});
-	it('the function should return the current size of the Chromosome Labels which is set in the defaultConf', function(){
-		var color = ali.getChromosomeLabelSize();
-		expect(color).toEqual(defaultConf.labels.chromosome.size);
-	});
-});
-
-describe('The setChromosomeLabelSize method is supposed to set a new size of the Chromosome labels', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('setChromosomeLabelSize method is supposed to be a function', function(){
-		expect(typeof ali.setChromosomeLabelSize).toEqual('function');
-	});
-	it('when setChromosomeLabelSize is called several times the size should have the same value as the returned size of the getChromosomeLabelSize method', function(){
-		ali.setChromosomeLabelSize(20);
-		expect(ali.getChromosomeLabelSize()).toEqual(20);
-		ali.setChromosomeLabelSize(1);
-		expect(ali.getChromosomeLabelSize()).toEqual(1);
-		ali.setChromosomeLabelSize(13.25);
-		expect(ali.getChromosomeLabelSize()).toEqual(13.25);
-	});
-	it('the setChromosomeLabelSize method should throw an error message if the assigned size is empty', function(){
-		var size = "";
-		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("Sorry, you entered an empty value. Please try it again.");
-	});
-	it('the setChromosomeLabelSize method should throw an error message if the assigned size is not a number', function(){
-		var size = "test";
-		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("Sorry, you entered not a number. Please try it again.");
-	});
-	it('the setChromosomeLabelSize method should throw an error message if the assigned size is 0', function(){
-		var size = 0;
-		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
-	});
-	it('the setChromosomeLabelSize method should throw an error message if the assigned size is less than 0', function(){
-		var size = -30;
-		expect(function(){ali.setChromosomeLabelSize(size);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
 	});
 });
 
@@ -1171,5 +1088,73 @@ describe("The getMaxChromosomeLength method is supposed to return the value of t
 		ali.setFilters(filters);
 		var maxLength = ali.getMaxChromosomeLength()
 		expect(maxLength).toEqual(2000);
+	});
+});
+
+describe('The getOffsetDistance method is supposed to get the distance for shifting chromosomes', function(){
+	it('getOffsetDistance method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.getOffsetDistance).toEqual('function');
+	});
+	it('the function should return a defined value', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var distance = ali.getOffsetDistance();
+		expect(distance).toBeDefined();
+	});
+	it('the function should return the offset distance which is defined in the defaultConf', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var distance = ali.getOffsetDistance();
+		expect(distance).toEqual(defaultConf.offset.distance);
+	});
+});
+
+describe('The setOffsetDistance method is supposed to set a new distance for shifting chromosomes', function(){
+	it('setOffsetDistance method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.setOffsetDistance).toEqual('function');
+	});
+	it('the returned object of the getOffsetDistance method should be the same as the distance which is setted and returned by the setter-method', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var distance = 200;
+		expect(ali.setOffsetDistance(distance)).toEqual(distance);
+	});
+	it('when setOffsetDistance is called several times the distance should have the same value as the returned distance of getTickDistance method', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setOffsetDistance(20);
+		expect(ali.getOffsetDistance()).toEqual(20);
+		ali.setOffsetDistance(5);
+		expect(ali.getOffsetDistance()).toEqual(5);
+		ali.setOffsetDistance(250);
+		expect(ali.getOffsetDistance()).toEqual(250);
+	});
+	it('the setOffsetDistance method should throw an error message if the assigned distance is empty.', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var distance = "";
+		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, you entered an empty value. Please try it again.");
+	});
+	it('the setOffsetDistance method should throw an error message if the assigned distance is not a number', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var distance = "test";
+		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, you entered not a number. Please try it again.");
+	});
+	it('the setOffsetDistance method should throw an error message if the assigned distance is 0', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var distance = 0;
+		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+	});
+	it('the setOffsetDistance method should throw an error message if the assigned distance is less than 0', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var distance = -200;
+		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
 	});
 });

@@ -17,7 +17,8 @@ var defaultConf =  {
 			tickDistance: 100,
 			treeWidth: 300,
 			genomeLabelWidth: 150,
-			fade: 0.1
+			fade: 0.1,
+			buttonWidth: 90
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -82,18 +83,14 @@ var defaultConf =  {
 				color: "#000000",
 				size: 10
 			},
-			chromosome: {
-				showChromosomeLabels: false,
-				color: "#000000",
-				size: 25
-			},
 			genome: {
 				showGenomeLabels: true,
 				color: "#000000",
 				size: 25
-			},
-			features: {
-				showFeatureLabels: false
 			}
+		},
+		offset: {
+			isSet: false,
+			distance: 1000
 		}
 	};

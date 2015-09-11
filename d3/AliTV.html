@@ -6,7 +6,7 @@
 
 <link rel="stylesheet" href="lib/jquery-ui-1.9.2.custom.min.css">
 <link rel="stylesheet" href="css/AliTV.css">
-<link rel="shortcut icon" href="css/AliTV_logo.ico" />
+<link rel="shortcut icon" href="css/ali_logo2.ico" />
 <link href="lib/bootstrap.min.css" rel="stylesheet">
 <link href="lib/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
 <link href="lib/contextMenu/jquery.contextMenu.css" rel="stylesheet">
@@ -21,6 +21,7 @@
 <script src="lib/contextMenu/jquery.contextMenu.js"></script>
 <script src="lib/bootstrap-select.min.js"></script>
 <script src="lib/bootbox.min.js"></script>
+<script src="lib/underscore-min.js"></script>
 
 <script src="js/AliTV.js"></script>
 <script src="lib/bootstrap.min.js"></script>
@@ -260,16 +261,6 @@
 	});	
 	});
 
-
-	$(function(){$('#showChromosomeLabels').change(function() {
-		if($('#showChromosomeLabels').is(':checked')){
-			ali.conf.labels.chromosome.showChromosomeLabels = true;;
-		} else {
-			ali.conf.labels.chromosome.showChromosomeLabels = false;
-		}
-	});	
-	});
-
 	$(function(){$('#showTickLabels').change(function() {
 		if($('#showTickLabels').is(':checked')){
 			ali.conf.labels.ticks.showTickLabels = true;
@@ -363,10 +354,8 @@
 	$(function(){$('#showGenomeLabels').change(function() {
 		if($('#showGenomeLabels').is(':checked')){
 			ali.conf.labels.genome.showGenomeLabels = true;
-			$("#showAllLabels").attr("disabled", true);
 		} else {
 			ali.conf.labels.genome.showGenomeLabels = false;
-			$("#showAllLabels").attr("disabled", false);
 		}
 	});	
 	});
@@ -502,26 +491,6 @@
 				$("#genomeLabelSize").val(this.conf.labels.genome.size);
 			} 
 	}
-	function changeChromosomeLabelColor(){
-		var color = $("#chromosomeLabelColor").val();
-		try {
-			ali.setChromosomeLabelColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#chromosomeLabelColor").val(this.conf.labels.chromosome.color);
-			} 
-	}
-	function changeChromosomeLabelSize(){
-		var size = $("#chromosomeLabelSize").val();
-		try {
-			ali.setChromosomeLabelSize(size); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#chromosomeLabelSize").val(this.conf.labels.chromosome.size);
-			} 
-	}
 	function changeTickLabelColor(){
 		var color = $("#tickLabelColor").val();
 		try {
@@ -572,6 +541,16 @@
 				$("#nStretchColor").val(ali.getNStretchColor());
 			}
 	}
+	function changeOffset(karyoId){
+		var distance = $('#offset-'+karyoId).val(); 
+ 		try {
+		ali.setOffsetDistance(distance); 	
+		}
+		catch(err){
+			bootbox.alert(err);
+			$("#offset-"+karyoId).val(ali.getTickDistance());
+		} 
+	}
 	
 	function setParameters(){
 		$("#karyoSpacer").val(ali.getKaryoSpacer());
@@ -587,8 +566,6 @@
 		$("#maxLinkColor").val((ali.getLinkColor()[2]));
 		$("#genomeLabelColor").val(ali.getGenomeLabelColor());
 		$("#genomeLabelSize").val(ali.getGenomeLabelSize());
-		$("#chromosomeLabelColor").val(ali.getChromosomeLabelColor());
-		$("#chromosomeLabelSize").val(ali.getChromosomeLabelSize());
 		$("#tickLabelColor").val(ali.getTickLabelColor());
 		$("#tickLabelSize").val(ali.getTickLabelSize());
 		$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
@@ -601,10 +578,10 @@
 		$("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
 		
 		$('#showGenomeLabels').attr('checked', true);
-		$('#showChromosomeLabels').attr('checked', false);
 		$('#showTickLabels').attr('checked', true);
 		$('#showGenes').attr('checked', false);
-		$('#geneLabels').attr('checked', false);		
+		$('#geneLabels').attr('checked', false);
+		setOffsetGroup();
 	}
 	
 	function setFilters(){
@@ -625,8 +602,6 @@
 		changeLinkColor();
 		changeGenomeLabelColor();
 		changeGenomeLabelSize();
-		changeChromosomeLabelColor();
-		changeChromosomeLabelSize();
 		changeTickLabelColor();
 		changeTickLabelSize();
 		changeTickLabelFrequency();
@@ -750,13 +725,39 @@
 
 			function restoreChromosome(){
 				var selectedChromosomeName = $('.selectpicker[name=invisibleChromosomes]').val();
-				console.log(selectedChromosomeName);
 				ali.changeChromosomeVisibility(selectedChromosomeName);
 				setInvisibleChromosomeSelection();
 				$("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
 				ali.drawLinear();
 			}
 			
+			function setOffsetGroup(){
+				$("#offsetGroup").text("");
+				$.each(ali.filters.karyo.chromosomes, function(key, value){
+					$('#offsetGroup')
+					       .append($("<option></option>")
+					       .attr("value", key)
+					       .text(key))
+					       .selectpicker("refresh");		
+				});
+			}
+			
+			function setOffsetButton(){
+				var karyoId = $('.selectpicker[name=offsetGroup]').val();
+				addOffsetTemplates(karyoId);
+				ali.conf.offset.isSet = true;
+				var buttonCoords = ali.getOffsetButtonCoords(karyoId);
+				ali.drawOffsetButtonGroup(buttonCoords);
+				ali.drawLinear();
+			}
+			
+			function removeOffset(karyoId){
+				$("#menu-" + karyoId).remove();		
+				ali.svgD3.selectAll("#button-"+karyoId).remove();
+				ali.filters.karyo.chromosomes[karyoId].offset = 0;
+				ali.drawLinear();
+			}
+
 	function setAliFromJSONEditor(){
 		var json = editor.get();
 		ali.setJSON(json);
@@ -769,6 +770,9 @@
 		$('#jsoneditor').toggle();
 	}
 	function saveSVG(){
+		if(ali.conf.offset.isSet === true){
+			ali.svgD3.selectAll(".buttonGroup").remove();
+		}
 	    var blob = new Blob([ali.getSvgAsText()], {type: "image/svg+xml;charset=utf-8"});
 	    saveAs(blob, "AliTV.svg");
 	}
@@ -777,6 +781,12 @@
 	    saveAs(blob, "AliTV.json");
 	}
 
+	function addOffsetTemplates(karyoId){
+        $('#menu-'+karyoId).remove();
+        var templateHTML = $('#templateShiftChromosomes').html();
+       	var templateUS = _.template(templateHTML);
+		$('#offsetMenu').append(templateUS({karyoId: karyoId}));
+	}
 	
 	
  	$('#myTabs a').click(function (e) {
@@ -939,7 +949,7 @@
 <body>
 
 <div class="page-header" style="background: #f7f7f7">
-  <h1><img src="css/AliTV_logo.svg" alt="logo" width="90" height="90" style="margin:0px 20px"/>AliTV <small>Visualize multiple whole genome alignments as circular or linear maps</small></h1>
+  <h1><img src="css/ali_logo2.png" alt="logo" width="140" height="120" style="margin:0px 20px"/>AliTV <small>Visualize multiple whole genome alignments as circular or linear maps</small></h1>
 <div> 
 
   <ul class="nav nav-tabs" role="tablist">
@@ -970,11 +980,37 @@
 	</div>
 	
 	<div role="tabpanel" class="tab-pane fade" id="advancedSettings" style="margin:10px 10px"> 
-		By using JSONEditor You can change all parameters directly in the structure of the conf-, data- or filters-object. <br> 
-		<div style="margin: 10px 0px">
-			<button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
-			<button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
-		</div>
+		<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-4">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<mark class="bg-info">Use JSONEditor</mark><br>
+									By using JSONEditor you can change all parameters directly in the structure of the conf-, data- or filters-object. <br> 
+									<div style="margin: 10px 0px">
+										<button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
+										<button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col-sm-4">
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<mark class="bg-info">Shift chromosomes:</mark>	
+									<div class="input-group" style="margin: 10px 10px"> 
+										<span class="input-group-addon"><select id="offsetGroup" class="selectPicker" data-style="btn-info" name="offsetGroup"></select></span>
+										<span class="input-group-addon"><button class="btn btn-info" type="button" id="setOffsetGroup" onclick="setOffsetButton();">Set offset</button></span>
+				    				</div>
+								</div>
+							</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group" id="offsetMenu">
+						</div>
+					</div>
+				</div>
+			</div>
 	</div>
 	
 	<div role="tabpanel" class="tab-pane fade" id="importExport" style="margin:10px 10px"> 
@@ -1328,7 +1364,11 @@
 									<div class="checkbox">
 								        <label>
 								          <input id="showNStretch" type="checkbox"> Show N Stretches
-								        </label>
+														By using JSONEditor You can change all parameters directly in the structure of the conf-, data- or filters-object. <br> 
+									<div style="margin: 10px 0px">
+										<button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
+										<button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
+									</div>			        </label>
 								    </div>
 								    <div class="checkbox">
 								        <label>
@@ -1485,19 +1525,6 @@
 							    </div>
 						      	<div class="checkbox">
 						        	<label>
-						         		<input id="showChromosomeLabels" type="checkbox"> Label Chromosomes
-						       	 	</label>
-						       	 	<div class="input-group demo2" style="margin: 10px 10px">
-							      		<span class="input-group-addon">Label color</span>
-				    					<input id="chromosomeLabelColor" type="text" class="form-control" />
-			    						<span class="input-group-addon"><i></i></span>
-									</div>
-									<div class="input-group" style="margin: 10px 10px">
-										Label size: <input type="text" id="chromosomeLabelSize" placeholder="Label size in px">
-									</div>
-						      	</div>
-						      	<div class="checkbox">
-						        	<label>
 						         		<input id="showTickLabels" type="checkbox"> Label Ticks
 						        	</label>
 						        	<div class="input-group demo2" style="margin: 10px 10px">
@@ -1536,6 +1563,21 @@
 </div> 
 <div id="jsoneditor" style="display:none"></div>
 
+<script type="text/template" id="templateShiftChromosomes">
+	<div class="form-group" id="menu-<%= karyoId %>">
+		<div class="col-sm-offset-2 col-sm-10">
+			<div class="checkbox">
+			<mark class="bg-info"><%= karyoId %>:</mark>
+				<div class="input-group" style="margin: 10px 10px">
+					<span class="input-group-addon">Set offset distance</span>
+					<span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Enter the offset in bp" autocomplete="off"></span>
+					<span class="input-group-addon"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')">Apply</button></span>
+				</div>
+		        <button class="btn btn-info" onclick="removeOffset('<%= karyoId %>')">Remove offset</button>
+	      	</div>
+		</div>
+	</div>
+</script>
  </body> 
 </body> 
 </html>
