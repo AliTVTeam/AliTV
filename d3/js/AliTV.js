@@ -240,7 +240,6 @@ function AliTV(svg) {
 				size: 10
 			},
 			chromosome: {
-				showChromosomeLabels: false,
 				color: "#000000",
 				size: 25
 			},
@@ -248,9 +247,6 @@ function AliTV(svg) {
 				showGenomeLabels: true,
 				color: "#000000",
 				size: 25
-			},
-			features: {
-				showFeatureLabels: false
 			}
 		},
 		offset: false

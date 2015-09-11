@@ -788,7 +788,6 @@
 	function addOffsetTemplates(karyoId){
         var templateHTML = $('#templateShiftChromosomes').html();
        	var templateUS = _.template(templateHTML);
-        console.log(templateUS);
         //$('.feature_template').remove();
 		$('#offsetMenu').append(templateUS({karyoId: karyoId}));
 	}
