@@ -790,7 +790,7 @@
   	<li role="presentation"><a href="#filter" aria-controls="about" role="tab" data-toggle="tab">Filtering</a></li>
   	
   	<li class="dropdown"><a id="dLabel" data-toggle="dropdown">Add biological Features <span class="caret"></span></a>
-		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" id="featuresMenu">
+		<ul class="dropdown-menu" role="menu" id="featuresMenu">
 	      	<li role="separator" class="divider"></li>
 	      	<li><a href="#customFeature" data-toggle="tab">Add more features...</a></li>
        </ul>
@@ -858,11 +858,12 @@
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								Filter links by their identity:
+								<p>
 			 						<label for="identity-label"></label> 
-			 						<div class="input-group">
-			 							<input type="text" id="identity-label" class="form-control" aria-describedby="basic-addon1" readonly>
-			 						</div>
-			 				
+								</p>
+			 						<div class="input-group"  style="margin-bottom: 15px;">
+			 							<input type="text" id="identity-label" class="form-control" readonly>
+			 						</div>			 				
 			 					<div id="identity-slider"></div>
 							</div>
 						</div>
@@ -875,10 +876,10 @@
 								Filter links by their length:
 								<p>
 									<label for="minlength-label"></label>
-									<div class="input-group">
-										<input type="text" id="minlength-label" class="form-control" aria-describedby="basic-addon1" readonly>						
-									</div>
 								</p>
+									<div class="input-group" style="margin-bottom: 15px;">
+										<input type="text" id="minlength-label" class="form-control" readonly>						
+									</div>
 			 					<div id="length-slider"></div>
 							</div>
 						</div>
