@@ -137,7 +137,6 @@ function AliTV(svg) {
 	 * @property {Boolean} features.fallback.visible		   	   - Defines if an non-supported feature group is drawn or not.
 	 * @property {Boolean} features.fallback.labeling		   	   - Defines if the label for a non-supported feature group is shown or not.
 	 * @property {Object}  labels								   - The configuration options for the text labels.
-	 * @property {Boolean} labels.showAllLabels					   - With this option it is possible to set labels to genomes, chromosomes and all features.
 	 * @property {Boolean} labels.ticks							   - Contains the configuration for the labeling of the chromosome scale.
 	 * @property {Boolean} labels.ticks.showTicks				   - Defines if ticks are drawn.
 	 * @property {Boolean} labels.ticks.showTickLabels			   - Defines if tick labels are drawn.
@@ -799,7 +798,7 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 			coords.x1 = currentTick;
 			coords.x2 = currentTick;
 
-			if (i % that.conf.graphicalParameters.tickLabelFrequency === 0 && (that.conf.labels.ticks.showTickLabels === true || that.conf.labels.showAllLabels === true)) {
+			if (i % that.conf.graphicalParameters.tickLabelFrequency === 0 && (that.conf.labels.ticks.showTickLabels === true)) {
 				coords.y1 = value.y - 10;
 				coords.y2 = value.y + value.height + 10;
 			} else {
@@ -1013,10 +1012,10 @@ AliTV.prototype.drawLinear = function() {
 	if (this.conf.tree.drawTree === true && this.conf.tree.orientation === "left") {
 		this.getAlignmentRegion().attr("transform", "translate(" + this.conf.graphicalParameters.treeWidth + ", 0)");
 	}
-	if (this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels === true) {
+	if (this.conf.labels.genome.showGenomeLabels === true) {
 		this.getAlignmentRegion().attr("transform", "translate(" + this.conf.graphicalParameters.genomeLabelWidth + ", 0)");
 	}
-	if ((this.conf.labels.showAllLabels === true || this.conf.labels.genome.showGenomeLabels === true) && this.conf.tree.drawTree === true && this.conf.tree.orientation === "left") {
+	if ((this.conf.labels.genome.showGenomeLabels === true) && this.conf.tree.drawTree === true && this.conf.tree.orientation === "left") {
 		this.getAlignmentRegion().attr("transform", "translate(" + (this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
 
@@ -1927,7 +1926,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 				return "M" + (that.conf.graphicalParameters.treeWidth - d.source.y) + "," + d.source.x + "H" + (that.conf.graphicalParameters.treeWidth - d.target.y) + "V" + d.target.x;
 			})
 			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
-		if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		if (that.conf.labels.genome.showGenomeLabels === true) {
 			that.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.canvasWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 		}
 

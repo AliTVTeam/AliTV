@@ -234,7 +234,6 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 	it('if a tree is drawn the alignmentRegion should be transformed', function(){
 		ali.setData(data8);
 		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = false;
 		ali.conf.labels.genome.showGenomeLabels = false;
 		ali.conf.tree.drawTree = true;
 		ali.drawLinear();
@@ -243,7 +242,7 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 	it('if a tree is drawn and all labels should be shown the alignmentRegion is transformed', function(){
 		ali.setData(data8);
 		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = true;
+		ali.conf.labels.genome.showGenomeLabels = true;
 		ali.conf.tree.drawTree = true;
 		ali.drawLinear();
 		expect(ali.getAlignmentRegion().attr("transform")).toEqual("translate(" + (defaultConf.graphicalParameters.treeWidth + defaultConf.graphicalParameters.genomeLabelWidth) + ", 0)");
@@ -1382,7 +1381,6 @@ describe('The drawPhylogeneticTree method is supposed to draw a phylogenetic tre
 		ali.setFilters(filters);
 		ali.conf.tree.drawTree = true;
 		ali.conf.tree.orientation = "right";
-		ali.conf.labels.showAllLabels = false;
 		ali.conf.labels.genome.showGenomeLabels = false;
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.treeGroup').attr("transform")).toEqual("translate(" + ali.conf.graphicalParameters.canvasWidth + ", 0)");
@@ -1792,17 +1790,16 @@ describe('The drawLinearGenomeLabels method of AliTV objects is supposed to draw
 	it('if a tree is drawn the genomeLabel group should be transformed', function(){
 		ali.setData(data8);
 		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = true;
+		ali.conf.labels.genome.showGenomeLabels = true;
 		ali.conf.tree.drawTree = true;
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.genomeLabelGroup').attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
 	});
-	it('no genome labels are drawn when the configuration for showAllLabels and showGenomeLabels are both false', function(){
+	it('no genome labels are drawn when the configuration for showGenomeLabels is false', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		ali.setData(data);
 		ali.setFilters(filters);
-		ali.conf.labels.showAllLabels = false;
 		ali.conf.labels.genome.showGenomeLabels = false;
 		ali.drawLinear();
 		expect(ali.svgD3.selectAll('.genomeLabelGroup').size()).toEqual(0);
