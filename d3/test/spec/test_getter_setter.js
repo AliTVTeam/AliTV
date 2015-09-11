@@ -1178,3 +1178,19 @@ describe("The getMaxChromosomeLength method is supposed to return the value of t
 		expect(maxLength).toEqual(2000);
 	});
 });
+
+describe('The getOffsetDistance method is supposed to get the distance for shifting chromosomes', function(){
+	it('getOffsetDistance method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.getOffsetDistance).toEqual('function');
+	});
+	it('the function should return a defined value', function(){
+		var distance = ali.getOffsetDistance();
+		expect(distance).toBeDefined();
+	});
+	it('the function should return the offset distance which is defined in the defaultConf', function(){
+		var distance = ali.getOffsetDistance();
+		expect(distance).toEqual(defaultConf.offset.distance);
+	});
+});
