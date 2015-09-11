@@ -2460,7 +2460,7 @@ describe('The drawOffsetButtonGroup is supposed to draw the buttons next to the 
 		ali.svg.find('.button').eq(0).d3Trigger("click");
 		setTimeout(function(){
 			var expectedOffset = ali.filters.karyo.chromosomes["c1"].offset;
-			expect(expectedOffset).toEqual(-defaultConf.graphicalParameters.tickDistance);
+			expect(expectedOffset).toEqual(-defaultConf.offset.distance);
 			done();
 		}, 1000);
 	});	
@@ -2470,7 +2470,7 @@ describe('The drawOffsetButtonGroup is supposed to draw the buttons next to the 
 			ali.svg.find('.button').eq(1).d3Trigger("click");
 			setTimeout(function(){
 				var expectedOffset = ali.filters.karyo.chromosomes["c1"].offset;
-				expect(expectedOffset).toEqual(defaultConf.graphicalParameters.tickDistance);
+				expect(expectedOffset).toEqual(defaultConf.offset.distance);
 				done();
 			}, 1000);
 	});
