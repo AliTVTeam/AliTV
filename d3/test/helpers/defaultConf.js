@@ -39,40 +39,35 @@ var defaultConf =  {
 					form: "rect",
 					color: "#E2EDFF",
 					height: 30,
-					visible: false,
-					labeling: false
+					visible: false
 				},
 				invertedRepeat: {
 					form: "arrow",
 					color: "#e7d3e2",
 					height: 30,
 					visible: false,
-					pattern: "woven",
-					labeling: false
+					pattern: "woven"
 				},
 				nStretch: {
 					form: "rect",
 					color: "#000000",
 					height: 30,
 					visible: false,
-					pattern: "lines",
-					labeling: false
+					pattern: "lines"
 				},
 				repeat: {
 					form: "rect",
 					color: "#56cd0f",
 					height: 30,
 					visible: false,
-					pattern: "woven",
-					labeling: false
+					pattern: "woven"
 				}
 			},
 			fallbackStyle: {
 				form: "rect",
 				color: "#787878",
 				height: 30,
-				visible: false,
-				labeling: false
+				visible: false
 			}
 		},
 		labels: {
@@ -91,9 +86,6 @@ var defaultConf =  {
 				showGenomeLabels: true,
 				color: "#000000",
 				size: 25
-			},
-			features: {
-				showFeatureLabels: false
 			}
 		}
 	};
