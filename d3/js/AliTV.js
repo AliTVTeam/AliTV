@@ -901,10 +901,9 @@ AliTV.prototype.drawLinear = function() {
 		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 
-	if (this.conf.features.showAllFeatures === true || this.conf.features.supportedFeatures.gene.visible === true || this.conf.features.supportedFeatures.invertedRepeat.visible === true || this.conf.features.supportedFeatures.repeat.visible === true || this.conf.features.supportedFeatures.nStretch.visible === true || this.conf.features.fallbackStyle.visible === true) {
-		var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
-		this.drawLinearFeatures(linearFeatureCoords);
-	}
+	var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
+	this.drawLinearFeatures(linearFeatureCoords);
+
 	if (this.conf.labels.chromosome.showChromosomeLabels === true) {
 		var linearChromosomeLabelCoords = this.getChromosomeLabelCoords(karyoCoords);
 		this.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
