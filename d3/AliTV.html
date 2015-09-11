@@ -767,7 +767,8 @@
 			}
 			
 			function removeOffset(karyoId){
-				$("#menu-" + karyoId).remove();			
+				$("#menu-" + karyoId).remove();		
+				ali.svgD3.selectAll("#button-"+karyoId).remove();
 				ali.filters.karyo.chromosomes[karyoId].offset = 0;
 				ali.drawLinear();
 			}
@@ -796,9 +797,9 @@
 	}
 
 	function addOffsetTemplates(karyoId){
+        $('#menu-'+karyoId).remove();
         var templateHTML = $('#templateShiftChromosomes').html();
        	var templateUS = _.template(templateHTML);
-        //$('.feature_template').remove();
 		$('#offsetMenu').append(templateUS({karyoId: karyoId}));
 	}
 	

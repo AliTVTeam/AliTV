@@ -3251,7 +3251,7 @@ AliTV.prototype.drawOffsetButtonGroup = function(buttonCoords) {
 			d3.select(this)
 				.attr("class", "button")
 				.attr("id", function(d) {
-					return d.id;
+					return "button-" + d.id;
 				})
 				.attr("orientation", "left")
 				.attr("d", lineFunction(d.path1))
@@ -3280,7 +3280,7 @@ AliTV.prototype.drawOffsetButtonGroup = function(buttonCoords) {
 			d3.select(this)
 				.attr("class", "button")
 				.attr("id", function(d) {
-					return d.id;
+					return "button-" + d.id;
 				})
 				.attr("orientation", "right")
 				.attr("d", lineFunction(d.path2))
