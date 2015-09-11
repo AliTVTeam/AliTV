@@ -1,1240 +1,1286 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>AliTV</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AliTV</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="lib/jquery-ui-1.9.2.custom.min.css">
-<link rel="stylesheet" href="css/AliTV.css">
-<link rel="shortcut icon" href="css/ali_logo2.ico" />
-<link href="lib/bootstrap.min.css" rel="stylesheet">
-<link href="lib/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-<link href="lib/contextMenu/jquery.contextMenu.css" rel="stylesheet">
-<link href="lib/jsoneditor.min.css" rel="stylesheet" type="text/css">
-<link href="lib/bootstrap-select.min.css" rel="stylesheet">
-    
-<script src="lib/d3.v3.min.js"></script>
-<script src="lib/jquery.min.js"></script>
-<script src="lib/jquery-ui.min.js"></script>
-<script src="lib/FileSaver.min.js"></script>
-<script src="lib/jsoneditor.min.js"></script>
-<script src="lib/contextMenu/jquery.contextMenu.js"></script>
-<script src="lib/bootstrap-select.min.js"></script>
-<script src="lib/bootbox.min.js"></script>
-<script src="lib/underscore-min.js"></script>
+    <link rel="stylesheet" href="lib/jquery-ui-1.9.2.custom.min.css">
+    <link rel="stylesheet" href="css/AliTV.css">
+    <link rel="shortcut icon" href="css/ali_logo2.ico" />
+    <link href="lib/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <link href="lib/contextMenu/jquery.contextMenu.css" rel="stylesheet">
+    <link href="lib/jsoneditor.min.css" rel="stylesheet" type="text/css">
+    <link href="lib/bootstrap-select.min.css" rel="stylesheet">
 
-<script src="js/AliTV.js"></script>
-<script src="lib/bootstrap.min.js"></script>
-<script src="lib/colorpicker/bootstrap-colorpicker.min.js"></script>
-<script src="lib/textures.min.js"></script> 
-<script type="text/javascript">
-	var ali;
-	var editor;
- 	$(document).ready(function() {
-		var svg = $('#wgaCanvas');
-		ali = new AliTV(svg);
-		var container = document.getElementById("jsoneditor");
-		editor = new JSONEditor(container)
-		ali.startTransaction();
-		$.getJSON('data/data.json', function(data) {
-			ali.setData(data.data);
-			$.getJSON('data/filters.json', function(filters) {
-				ali.setFilters(filters.filters);
-				$.getJSON('data/conf.json', function(conf) {
-					ali.setConf(conf.conf);
-					initialize();
-				}).fail(function() {
-				    console.log( "could not load custom conf.json - using default values" );
-				    initialize();
-				});
-			});
-		});	
-		
-	});
- 	
-	function initialize(){
-		setJSONEditorFromAli();
-		ali.onDataChange(setJSONEditorFromAli);
-		addFeatureGroupTemplates();
-		ali.onDataChange(addFeatureGroupTemplates);
-		setParameters();
-		ali.onDataChange(setParameters);
-		setSlider();
-		ali.drawLinear();
-		ali.endTransaction();
-	}
+    <script src="lib/d3.v3.min.js"></script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/jquery-ui.min.js"></script>
+    <script src="lib/FileSaver.min.js"></script>
+    <script src="lib/jsoneditor.min.js"></script>
+    <script src="lib/contextMenu/jquery.contextMenu.js"></script>
+    <script src="lib/bootstrap-select.min.js"></script>
+    <script src="lib/bootbox.min.js"></script>
+    <script src="lib/underscore-min.js"></script>
 
- 	function setSlider() {
-		$(function(){
-			$("#identity-slider").slider({
-				range: true,
-				values: [0, 100],
-				min: 0,
-				max: 100,
-				slide: function(event, ui){
-					$("#identity-label").val(ui.values[0] + " % - " + ui.values[1] + " %");
-					ali.filters.links.minLinkIdentity = ui.values[0];
-					ali.filters.links.maxLinkIdentity = ui.values[1];
-				}
-			});
-			$("#identity-label").val($("#identity-slider").slider("values", 0) + " % - " + $("#identity-slider").slider("values", 1) + " %");
-			
-			$("#length-slider").slider({
-				range: true,
-				values: [0, ali.getMaxChromosomeLength()],
-				min: 0,
-				max: ali.getMaxChromosomeLength(),
-				slide: function(event, ui){
-					$("#minlength-label").val(ui.values[0] + " bp - " + ui.values[1] + " bp");
-					ali.filters.links.minLinkLength = ui.values[0];
-					ali.filters.links.maxLinkLength = ui.values[1];
-					}
-			});
-			$("#minlength-label").val($("#length-slider").slider("values", 0) + " bp - " + $("#length-slider").slider("values", 1) + " bp");
-		});
- 	}
-	
-	$(function(){$('#skipChromosomesWithoutVisibleLinks').change(function() {
-			if($('#skipChromosomesWithoutVisibleLinks').is(':checked')){
-		     	ali.filters.skipChromosomesWithoutVisibleLinks = true;
-		     	$("#showAllChromosomes").attr("disabled", true);
-			} else {
-				ali.filters.skipChromosomesWithoutVisibleLinks = false;
-				$("#showAllChromosomes").attr("disabled", false);
-			}
-		});
-	});
+    <script src="js/AliTV.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <script src="lib/textures.min.js"></script>
+    <script type="text/javascript">
+        var ali;
+        var editor;
+        $(document).ready(function() {
+            var svg = $('#wgaCanvas');
+            ali = new AliTV(svg);
+            var container = document.getElementById("jsoneditor");
+            editor = new JSONEditor(container)
+            ali.startTransaction();
+            $.getJSON('data/data.json', function(data) {
+                ali.setData(data.data);
+                $.getJSON('data/filters.json', function(filters) {
+                    ali.setFilters(filters.filters);
+                    $.getJSON('data/conf.json', function(conf) {
+                        ali.setConf(conf.conf);
+                        initialize();
+                    }).fail(function() {
+                        console.log("could not load custom conf.json - using default values");
+                        initialize();
+                    });
+                });
+            });
 
-	$(function(){$('#showAllChromosomes').change(function() {
-		if($('#showAllChromosomes').is(':checked')){
-	     	ali.filters.showAllChromosomes = true;
-	     	$("#skipChromosomesWithoutVisibleLinks").attr("disabled", true);
-	     	$("#skipChromosomesWithoutLinks").attr("disabled", true);
-		} else {
-			ali.filters.showAllChromosomes = false;
-			$("#skipChromosomesWithoutVisibleLinks").attr("disabled", false);
-			$("#skipChromosomesWithoutLinks").attr("disabled", false);
-		}
-	});
-	});
+        });
 
-	$(function(){$('#skipChromosomesWithoutLinks').change(function() {
-		if($('#skipChromosomesWithoutLinks').is(':checked')){
-	     	ali.filters.skipChromosomesWithoutLinks = true;
-	     	$("#showAllChromosomes").attr("disabled", true);
-		} else {
-			ali.filters.skipChromosomesWithoutLinks = false;
-			$("#showAllChromosomes").attr("disabled", false);
-		}
-	});
-	});
-
-	$(function(){$('#onlyShowAdjacentLinks').change(function() {
-		if($('#onlyShowAdjacentLinks').is(':checked')){
-	     	ali.filters.onlyShowAdjacentLinks = true;
-		} else {
-			ali.filters.onlyShowAdjacentLinks = false;
-		}
-	});	
-	});
-
-	$(function(){$('#drawTree').change(function() {
-		if($('#drawTree').is(':checked')){
-			if(ali.hasTree() === false){
-				bootbox.alert("there is no tree data");
-				$("#treeWidth").attr("disabled", true);
-				$("#treeLeft").attr("disabled", true);
-				$("#treeRight").attr("disabled", true);
-			} else {
-	     	ali.conf.tree.drawTree = true;
-	     	$("#treeWidth").attr("disabled", false);
-			$("#treeLeft").attr("disabled", false);
-			$("#treeRight").attr("disabled", false);				
-			}
-			
-		} else {
-			ali.conf.tree.drawTree = false;
-			$("#treeWidth").attr("disabled", true);
-			$("#treeLeft").attr("disabled", true);
-			$("#treeRight").attr("disabled", true);
-		}
-	});	
-	});
-
-	$(function(){$('#treeLeft').change(function() {
-		if($('#treeLeft').is(':checked')){
-			ali.conf.tree.orientation = "left";
-		} 
-	});	
-	});
-
-	$(function(){$('#treeRight').change(function() {
-		if($('#treeRight').is(':checked')){
-			ali.conf.tree.orientation = "right";
-		} 
-	});	
-	});
-
-	$(function(){$('#showFallback').change(function() {
-		if($('#showFallback').is(':checked')){
-			ali.conf.features.fallbackStyle.visible = true;
-			$("#showFeatures").attr("disabled", true);
-		} else {
-			ali.conf.features.fallbackStyle.visible = false;
-			$("#showFeatures").attr("disabled", false);
-		}
-	});	
-	});
-
-	$(function(){$('#showGenomeLabels').change(function() {
-		if($('#showGenomeLabels').is(':checked')){
-			ali.conf.labels.genome.showGenomeLabels = true;
-		} else {
-			ali.conf.labels.genome.showGenomeLabels = false;
-		}
-	});	
-	});
-
-	$(function(){$('#showTickLabels').change(function() {
-		if($('#showTickLabels').is(':checked')){
-			ali.conf.labels.ticks.showTickLabels = true;
-		} else {
-			ali.conf.labels.ticks.showTickLabels = false;
-		}
-	});	
-	});
-
-	
-	$(function(){$("#linear") 
-    .change(function(){ 
-        if( $(this).is(":checked") ){ 
-            ali.conf.layout = $(this).val(); 
+        function initialize() {
+            setJSONEditorFromAli();
+            ali.onDataChange(setJSONEditorFromAli);
+            addFeatureGroupTemplates();
+            ali.onDataChange(addFeatureGroupTemplates);
+            setParameters();
+            ali.onDataChange(setParameters);
+            setSlider();
+            ali.drawLinear();
+            ali.endTransaction();
         }
-    });
-	});
-	
-	$(function(){$("#circular") 
-	    .change(function(){ 
-	        if( $(this).is(":checked") ){ 
-	           ali.conf.layout = $(this).val(); 
-	        }
-    });
-	});
-	
-	$(function(){$('#showGenomeLabels').change(function() {
-		if($('#showGenomeLabels').is(':checked')){
-			ali.conf.labels.genome.showGenomeLabels = true;
-		} else {
-			ali.conf.labels.genome.showGenomeLabels = false;
-		}
-	});	
-	});
-	
-	function changeKaryoSpacer(){
-		var spacer = $("#karyoSpacer").val(); 
-		spacer = Number(spacer);
-		try {
-		ali.setKaryoSpacer(spacer); 	
-		}
-		catch(err){
-			bootbox.alert(err);
-			$("#karyoSpacer").val(ali.getKaryoSpacer());
-		}
-	}
-	function changeKaryoHeight(){
-		var height = $("#karyoHeight").val(); 
-		try {
-		ali.setKaryoHeight(height); 	
-		}
-		catch(err){
-			bootbox.alert(err);
-			$("#karyoHeight").val(ali.getKaryoHeight());
-		}
-	}
-	function changeCanvasWidth(){
-		var width = $("#canvasWidth").val(); 
-		try {
-		ali.setCanvasWidth(width); 	
-		}
-		catch(err){
-			bootbox.alert(err);
-			$("#canvasWidth").val(ali.getCanvasWidth());
-		}
-	}
-	function changeCanvasHeight(){
-		var height = $("#canvasHeight").val(); 
-		try {
-		ali.setCanvasHeight(height); 
-		}
-		catch(err){
-			bootbox.alert(err);
-			$("#canvasHeight").val(ali.getCanvasHeight());
-		}
-	}
-	function changeTickDistance(){
-		var distance = $("#tickDistance").val(); 
-		try {
-		ali.setTickDistance(distance); 	
-		}
-		catch(err){
-			bootbox.alert(err);
-			$("#tickDistance").val(ali.getTickDistance());
-		}
-	}
-	function changeTreeWidth(){
-		var treeWidth = $("#treeWidth").val(); 
-		try {
-		ali.setTreeWidth(treeWidth); 	
-		}
-		catch(err){
-			bootbox.alert(err);
-			$("#treeWidth").val(ali.getTreeWidth());
-		}
-	}
-	function changeTickLabelFrequency(){
-		var frequency = $("#tickLabelFrequency").val(); 
-		try {
-		ali.setTickLabelFrequency(frequency); 	
-		}
-		catch(err){
-			bootbox.alert(err);
-			$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
-		}
-	}
-	function changeGenomeColor(){
-		var color = [];
-		color.push($("#startLineColor").val());
-		color.push($("#endLineColor").val());
-		try {
-			ali.setGenomeColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				var defaultColor = ali.getGenomeColor();
-				$("#startLineColor").val(defaultColor[0]);
-				$("#endLineColor").val(defaultColor[1]);
-			} 
-	}
-	function changeLinkColor(){
-		var color = [];
-		color.push($("#minLinkColor").val());
-		color.push($("#midLinkColor").val());
-		color.push($("#maxLinkColor").val());
- 		try {
-			ali.setLinkColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				var defaultColor = ali.getLinkColor();
-				$("#minLinkColor").val(defaultColor[0]);
-				$("#midLinkColor").val(defaultColor[1]);
-				$("#maxLinkColor").val(defaultColor[2]);
-			}  
-	}
-	function changeGenomeLabelColor(){
-		var color = $("#genomeLabelColor").val();
-		try {
-			ali.setGenomeLabelColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#genomeLabelColor").val(this.conf.labels.genome.color);
-			} 
-	}
-	function changeGenomeLabelSize(){
-		var size = $("#genomeLabelSize").val();
-		try {
-			ali.setGenomeLabelSize(size); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#genomeLabelSize").val(this.conf.labels.genome.size);
-			} 
-	}
-	function changeTickLabelColor(){
-		var color = $("#tickLabelColor").val();
-		try {
-			ali.setTickLabelColor(color); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#tickLabelColor").val(this.conf.labels.ticks.color);
-			} 
-	}
-	function changeTickLabelSize(){
-		var size = $("#tickLabelSize").val();
-		try {
-			ali.setTickLabelSize(size); 	
-			}
-			catch(err){
-				bootbox.alert(err);
-				$("#tickLabelSize").val(this.conf.labels.ticks.size);
-			} 
-	}
-	function changeOffset(karyoId){
-		var distance = $('#offset-'+karyoId).val(); 
- 		try {
-		ali.setOffsetDistance(distance); 	
-		}
-		catch(err){
-			bootbox.alert(err);
-			$("#offset-"+karyoId).val(ali.getTickDistance());
-		} 
-	}
-	
-	function setParameters(){
-		$("#karyoSpacer").val(ali.getKaryoSpacer());
-		$("#karyoHeight").val(ali.getKaryoHeight());
-		$("#canvasWidth").val(ali.getCanvasWidth());
-		$("#canvasHeight").val(ali.getCanvasHeight());
-		$("#tickDistance").val(ali.getTickDistance());
-		$("#treeWidth").val(ali.getTreeWidth());
-		$("#startLineColor").val((ali.getGenomeColor()[0]));
-		$("#endLineColor").val((ali.getGenomeColor()[1]));
-		$("#minLinkColor").val((ali.getLinkColor()[0]));
-		$("#midLinkColor").val((ali.getLinkColor()[1]));
-		$("#maxLinkColor").val((ali.getLinkColor()[2]));
-		$("#genomeLabelColor").val(ali.getGenomeLabelColor());
-		$("#genomeLabelSize").val(ali.getGenomeLabelSize());
-		$("#tickLabelColor").val(ali.getTickLabelColor());
-		$("#tickLabelSize").val(ali.getTickLabelSize());
-		$("#tickLabelFrequency").val(ali.getTickLabelFrequency());
-		$.each(ali.getSupportedFeatures(), function(key, value){
-			$("#color-"+value).val(ali.getFeatureProperty(value, 'color'));
-			$("#colorpicker-"+value).colorpicker('setValue',ali.getFeatureProperty(value, 'color'));
-			$("#"+ali.getFeatureProperty(value, 'form')+"-"+value).prop('checked', true);
-			if(ali.getFeatureProperty(value, 'visible')){
-				$("#show-"+value).prop('checked', true);
-			}
-		});
-		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
-		$("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
-		$("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
-		$('#showGenomeLabels').attr('checked', true);
-		$('#showTickLabels').attr('checked', true);
-		setOffsetGroup();
-	}
-	
-	function setFilters(){
-		var layout = ali.getLayout();
-		setJSONEditorFromAli();
-		ali.drawEqualLayout(layout);
-		setParameters();
-	}
-	
-	function setLayoutSettings(){
-		ali.startTransaction();
-		var layout = ali.getLayout();
-		changeCanvasWidth();
-		changeCanvasHeight();
-		changeKaryoSpacer();
-		changeKaryoHeight();
-		changeTickDistance();
-		changeGenomeColor();
-		changeLinkColor();
-		changeGenomeLabelColor();
-		changeGenomeLabelSize();
-		changeTickLabelColor();
-		changeTickLabelSize();
-		changeTickLabelFrequency();
-		setJSONEditorFromAli();
-		ali.drawEqualLayout(layout);
-		setParameters();
-		ali.endTransaction();
-	}
-	
-	function setFeatureGroupSettings(groupId){
-		ali.startTransaction();
-		var layout = ali.getLayout();
-		var color = ($("#colorpicker-"+groupId).colorpicker('getValue'));
-		var form = $("input[type='radio'][name='shape-"+groupId+"']:checked").val();
-		var visible = $("#show-"+groupId).is(':checked');
-		try {
-			ali.setFeatureProperty(groupId, 'color', color);
-			ali.setFeatureProperty(groupId, 'form', form);
-			ali.setFeatureProperty(groupId, 'visible', visible);
-		}
-		catch(err){
-			bootbox.alert(err);
-			$("#colorpicker-"+groupId).colorpicker('setValue', ali.getFeatureProperty(groupId, 'color'));
-			$("#"+ali.getFeatureProperty(groupId, 'form')+"-"+groupId).prop('checked', true);
-			$("#show-"+value).prop('checked', ali.getFeatureProperty(value, 'visible'));
-		}
-		ali.drawEqualLayout(ali.getLayout());
-		ali.endTransaction();
-	}
 
-	function setTreeSettings(){
-		var layout = ali.getLayout();
-		changeTreeWidth();
-		setJSONEditorFromAli();
-		ali.drawEqualLayout(layout);
-		setParameters();
-	}
-	
-	$(function(){$('#loadJSON').on('change', function(evt) {
-		var files = evt.target.files; // FileList object
-	    // files is a FileList of File objects.
-	    var output = [];
-	    for (var i = 0, f; f = files[i]; i++) {
-	    	var fr = new FileReader();
-	    	fr.onload = function(x){
-	    		ali.setJSON(JSON.parse(x.target.result));
-	    		setJSONEditorFromAli();
-	    		ali.drawLinear();
-	    	}
-	    	fr.readAsText(f);
-	    }
-	});
-	});
-	
-    function setInvisibleLinkSelection(){
-    	$('#invisibleLinks').text("");
-		if(ali.getInvisibleLinks() === 0){
-			$('.selectpicker').selectpicker('val', '')
-		} else {
-		    $.each(ali.filters.links.invisibleLinks, function(key, value) {   
-		        $('#invisibleLinks')
-		            .append($("<option></option>")
-		            .attr("value", key)
-		            .text(key))
-		            .selectpicker("refresh");
-		   });  		    
-		}
-    }
-
-	function restoreLink(){
-		var selectedLinkID = $('.selectpicker[name=invisibleLinks]').val();
-		ali.showInvisibleLink(selectedLinkID);
-		setInvisibleLinkSelection();
-		$("#invisibleLinksLabel").val(ali.getInvisibleLinks());
-	}
-    
-	  function setInvisibleFeatureSelection(){
-	    	$('#invisibleFeatures').text("");
-			if(ali.getInvisibleFeatures() === 0){
-				$('.selectpicker').selectpicker('val', '')
-			} else {
-			    $.each(ali.filters.features.invisibleFeatures, function(key, value) {  
-			        $('#invisibleFeatures')
-			            .append($("<option></option>")
-			            .attr("value", key)
-			            .text(key))
-			            .selectpicker("refresh");
-			   });  		    
-			}
-	    }
-
-		function restoreFeature(){
-			var selectedFeatureId = $('.selectpicker[name=invisibleFeatures]').val();
-			ali.showInvisibleFeature(selectedFeatureId);
-			setInvisibleFeatureSelection();
-			$("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
-		}
-
-		  function setInvisibleChromosomeSelection(chromosomeId){
-		    	$('#invisibleChromosomes').text("");
-				if(ali.getInvisibleChromosomes() === 0){
-					$('.selectpicker').selectpicker('val', '')
-				} else {
-					        $('#invisibleChromosomes')
-					            .append($("<option></option>")
-					            .attr("value", chromosomeId)
-					            .text(chromosomeId))
-					            .selectpicker("refresh");			    		 		    
-				}
-		    }
-
-			function restoreChromosome(){
-				var selectedChromosomeName = $('.selectpicker[name=invisibleChromosomes]').val();
-				ali.changeChromosomeVisibility(selectedChromosomeName);
-				setInvisibleChromosomeSelection();
-				$("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
-				ali.drawLinear();
-			}
-			
-			function setOffsetGroup(){
-				$("#offsetGroup").text("");
-				$.each(ali.filters.karyo.chromosomes, function(key, value){
-					$('#offsetGroup')
-					       .append($("<option></option>")
-					       .attr("value", key)
-					       .text(key))
-					       .selectpicker("refresh");		
-				});
-			}
-			
-			function setOffsetButton(){
-				var karyoId = $('.selectpicker[name=offsetGroup]').val();
-				addOffsetTemplates(karyoId);
-				ali.conf.offset.isSet = true;
-				var buttonCoords = ali.getOffsetButtonCoords(karyoId);
-				ali.drawOffsetButtonGroup(buttonCoords);
-				ali.drawLinear();
-			}
-			
-			function removeOffset(karyoId){
-				$("#menu-" + karyoId).remove();		
-				ali.svgD3.selectAll("#button-"+karyoId).remove();
-				ali.filters.karyo.chromosomes[karyoId].offset = 0;
-				ali.drawLinear();
-			}
-
-	function setAliFromJSONEditor(){
-		var json = editor.get();
-		ali.setJSON(json);
-		ali.drawEqualLayout(ali.getLayout());
-	}
-	function setJSONEditorFromAli(){
-		editor.set(ali.getJSON());
-	}
-	function toggleJSONEditor(){
-		$('#jsoneditor').toggle();
-	}
-	function saveSVG(){
-		if(ali.conf.offset.isSet === true){
-			ali.svgD3.selectAll(".buttonGroup").remove();
-		}
-	    var blob = new Blob([ali.getSvgAsText()], {type: "image/svg+xml;charset=utf-8"});
-	    saveAs(blob, "AliTV.svg");
-	}
-	function saveJSON(){
-	    var blob = new Blob([JSON.stringify(ali.getJSON())], {type: "plain/text;charset=utf-8"});
-	    saveAs(blob, "AliTV.json");
-	}
-
-	function addOffsetTemplates(karyoId){
-        $('#menu-'+karyoId).remove();
-        var templateHTML = $('#templateShiftChromosomes').html();
-       	var templateUS = _.template(templateHTML);
-		$('#offsetMenu').append(templateUS({karyoId: karyoId}));
-	}
-	
-	function addFeatureGroupTemplates(){
-	    var groups = ali.getSupportedFeatures();
-        var templateHTML = $('#template_feature_group').html();
-        var templateUS = _.template(templateHTML);
-        $('.feature-colorpicker').colorpicker('destroy');
-        $('.feature_template').remove();
-        $.each(groups, function(key, value){
-			$('#featuresMenu').prepend($('<li class="feature_template"><a href="#'+value+'" data-toggle="tab">'+value+'</a></li>'));
-			$('#interface').append(templateUS({groupId: value}));
-        });
-        $('.feature-colorpicker').colorpicker();
-	}
-	
- 	$('#myTabs a').click(function (e) {
-		  e.preventDefault()
-		  e.stopPropagation();
-		  $(this).tab('show')
-	});
-		
-	$('.dropdown-toggle').dropdown() 
-	
-	$(function(){
-        $('.demo2').colorpicker();
-    });
-	
-    jQuery(document).ready(function ($) {
-        $('#tabs').tab();
-    });
-
-    $(function(){
-        $.contextMenu({
-            selector: '.karyoGroup', 
-            build: function($trigger, e) {
-                	var selectedChromosome = ($(e.target).attr("id"));
-                	var split = selectedChromosome.split(", ");
-                	var name = split[0];
-                	var chromosomeId = split[1];
-                	//Remove selection rect if exists
-                	ali.svgD3.selectAll("rect.selection").remove();
-                return { 
-                    items: {
-                    	"info": {name: "Name: " + name},
-		                "sep1": "---------",
-                    	"Visible": {
-		                    name: "Hide",
-		                    callback: function(key, options) {
-		                        ali.changeChromosomeVisibility(chromosomeId);
-		                        ali.getInvisibleChromosomes();
-		                        setInvisibleChromosomeSelection(chromosomeId);
-		                        ali.drawLinear();
-		                        $("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
-		                    }
-		                },
-		                "Change orientation": {
-		                	name: "Change orientation",
-		                    callback: function(key, options) {
-		                        ali.changeChromosomeOrientation(chromosomeId);
-		                        ali.drawLinear();
-		                    }
-		               },
-		                "scrollUp": {
-		                    name: "Move up",
-		                    callback: function(key, options) {
-			                	ali.changeGenomeOrder(name, +1);
-			                	ali.drawLinear();
-		                    }
-		                },
-		                "scrollDown": {
-		                    name: "Move down",
-		                    callback: function(key, options) {
-			                    ali.changeGenomeOrder(name, -1);
-			                    ali.drawLinear();
-		                    }
-		                },
-		                "left": {
-		                    name: "Move left",
-		                    callback: function(key, options) {
-			                	ali.changeChromosomeOrder(chromosomeId, -1);
-			                	ali.drawLinear();
-		                    }
-		                },
-		                "right": {
-		                    name: "Move right",
-		                    callback: function(key, options) {
-			                    ali.changeChromosomeOrder(chromosomeId, 1);
-			                    ali.drawLinear();
-		                    }
-		                },
-		                "Reset genome zoom/pan": {
-		                	name: "Reset genome zoom/pan",
-		                    callback: function(key, options) {
-		                        ali.resetGenomeRegion(ali.data.karyo.chromosomes[chromosomeId].genome_id);
-		                        ali.drawLinear();
-		                    }
-		               },
-		                "Quit": {name: "Quit", callback: $.noop}
+        function setSlider() {
+            $(function() {
+                $("#identity-slider").slider({
+                    range: true,
+                    values: [0, 100],
+                    min: 0,
+                    max: 100,
+                    slide: function(event, ui) {
+                        $("#identity-label").val(ui.values[0] + " % - " + ui.values[1] + " %");
+                        ali.filters.links.minLinkIdentity = ui.values[0];
+                        ali.filters.links.maxLinkIdentity = ui.values[1];
                     }
-                 };
-            } 
-        });
-        
-    });
-    
-    $(function(){
-        $.contextMenu({
-            selector: '.linkGroup', 
-            build: function($trigger, e) {
-                	var name = ($(e.target).attr("id"));
-                	var identity = ali.visibleLinks[name].identity;
-                	//Remove selection rect if exists
-                	ali.svgD3.selectAll("rect.selection").remove();
-                return { 
-                    items: {
-                    	"name": {name: "Link: " + name},
-                    	"identity": {name: "Identity: " + identity + "%"},
-		                "sep1": "---------",
-                    	"Visible": {
-		                    name: "Hide",
-		                    callback: function() {
-		                    	var selectedLinkID = $(e.target).attr("id");
-		                       ali.setLinkInvisible(selectedLinkID);
-		                       setInvisibleLinkSelection();
-		                       $("#invisibleLinksLabel").val(ali.getInvisibleLinks());
-		                    }
-		                },
-		                "Quit": {name: "Quit",  callback: $.noop}
+                });
+                $("#identity-label").val($("#identity-slider").slider("values", 0) + " % - " + $("#identity-slider").slider("values", 1) + " %");
+
+                $("#length-slider").slider({
+                    range: true,
+                    values: [0, ali.getMaxChromosomeLength()],
+                    min: 0,
+                    max: ali.getMaxChromosomeLength(),
+                    slide: function(event, ui) {
+                        $("#minlength-label").val(ui.values[0] + " bp - " + ui.values[1] + " bp");
+                        ali.filters.links.minLinkLength = ui.values[0];
+                        ali.filters.links.maxLinkLength = ui.values[1];
                     }
-                 };
-            } 
+                });
+                $("#minlength-label").val($("#length-slider").slider("values", 0) + " bp - " + $("#length-slider").slider("values", 1) + " bp");
+            });
+        }
+
+        $(function() {
+            $('#skipChromosomesWithoutVisibleLinks').change(function() {
+                if ($('#skipChromosomesWithoutVisibleLinks').is(':checked')) {
+                    ali.filters.skipChromosomesWithoutVisibleLinks = true;
+                    $("#showAllChromosomes").attr("disabled", true);
+                } else {
+                    ali.filters.skipChromosomesWithoutVisibleLinks = false;
+                    $("#showAllChromosomes").attr("disabled", false);
+                }
+            });
         });
-        
-    });
-    
-    $(function(){
-        $.contextMenu({
-            selector: '.featureGroup', 
-            build: function($trigger, e) {
-            		var feature = $(e.target).attr("id");
-            		var split = feature.split("_");
-            		var group = split[1];
-            		var id = split[0];
-                	//Remove selection rect if exists
-                	ali.svgD3.selectAll("rect.selection").remove();
-                return { 
-                    items: {
-                    	"name": {name: "Name: " + ali.data.features[group][id].name},
-                    	"group": {name: "Group: " + group},
-		                "sep1": "---------",
-                    	"Visible": {
-		                    name: "Hide",
-		                    callback: function(key, options) {
-			                       ali.setFeatureInvisible(feature);
-			                       setInvisibleFeatureSelection();
-			                       $("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
-		                    }
-		                },
-		                "Quit": {name: "Quit", callback: $.noop}
+
+        $(function() {
+            $('#showAllChromosomes').change(function() {
+                if ($('#showAllChromosomes').is(':checked')) {
+                    ali.filters.showAllChromosomes = true;
+                    $("#skipChromosomesWithoutVisibleLinks").attr("disabled", true);
+                    $("#skipChromosomesWithoutLinks").attr("disabled", true);
+                } else {
+                    ali.filters.showAllChromosomes = false;
+                    $("#skipChromosomesWithoutVisibleLinks").attr("disabled", false);
+                    $("#skipChromosomesWithoutLinks").attr("disabled", false);
+                }
+            });
+        });
+
+        $(function() {
+            $('#skipChromosomesWithoutLinks').change(function() {
+                if ($('#skipChromosomesWithoutLinks').is(':checked')) {
+                    ali.filters.skipChromosomesWithoutLinks = true;
+                    $("#showAllChromosomes").attr("disabled", true);
+                } else {
+                    ali.filters.skipChromosomesWithoutLinks = false;
+                    $("#showAllChromosomes").attr("disabled", false);
+                }
+            });
+        });
+
+        $(function() {
+            $('#onlyShowAdjacentLinks').change(function() {
+                if ($('#onlyShowAdjacentLinks').is(':checked')) {
+                    ali.filters.onlyShowAdjacentLinks = true;
+                } else {
+                    ali.filters.onlyShowAdjacentLinks = false;
+                }
+            });
+        });
+
+        $(function() {
+            $('#drawTree').change(function() {
+                if ($('#drawTree').is(':checked')) {
+                    if (ali.hasTree() === false) {
+                        bootbox.alert("there is no tree data");
+                        $("#treeWidth").attr("disabled", true);
+                        $("#treeLeft").attr("disabled", true);
+                        $("#treeRight").attr("disabled", true);
+                    } else {
+                        ali.conf.tree.drawTree = true;
+                        $("#treeWidth").attr("disabled", false);
+                        $("#treeLeft").attr("disabled", false);
+                        $("#treeRight").attr("disabled", false);
                     }
-                 };
-            } 
+
+                } else {
+                    ali.conf.tree.drawTree = false;
+                    $("#treeWidth").attr("disabled", true);
+                    $("#treeLeft").attr("disabled", true);
+                    $("#treeRight").attr("disabled", true);
+                }
+            });
         });
-        
-    });
-	
-</script>
+
+        $(function() {
+            $('#treeLeft').change(function() {
+                if ($('#treeLeft').is(':checked')) {
+                    ali.conf.tree.orientation = "left";
+                }
+            });
+        });
+
+        $(function() {
+            $('#treeRight').change(function() {
+                if ($('#treeRight').is(':checked')) {
+                    ali.conf.tree.orientation = "right";
+                }
+            });
+        });
+
+        $(function() {
+            $('#showFallback').change(function() {
+                if ($('#showFallback').is(':checked')) {
+                    ali.conf.features.fallbackStyle.visible = true;
+                    $("#showFeatures").attr("disabled", true);
+                } else {
+                    ali.conf.features.fallbackStyle.visible = false;
+                    $("#showFeatures").attr("disabled", false);
+                }
+            });
+        });
+
+        $(function() {
+            $('#showGenomeLabels').change(function() {
+                if ($('#showGenomeLabels').is(':checked')) {
+                    ali.conf.labels.genome.showGenomeLabels = true;
+                } else {
+                    ali.conf.labels.genome.showGenomeLabels = false;
+                }
+            });
+        });
+
+        $(function() {
+            $('#showTickLabels').change(function() {
+                if ($('#showTickLabels').is(':checked')) {
+                    ali.conf.labels.ticks.showTickLabels = true;
+                } else {
+                    ali.conf.labels.ticks.showTickLabels = false;
+                }
+            });
+        });
+
+
+        $(function() {
+            $("#linear")
+                .change(function() {
+                    if ($(this).is(":checked")) {
+                        ali.conf.layout = $(this).val();
+                    }
+                });
+        });
+
+        $(function() {
+            $("#circular")
+                .change(function() {
+                    if ($(this).is(":checked")) {
+                        ali.conf.layout = $(this).val();
+                    }
+                });
+        });
+
+        $(function() {
+            $('#showGenomeLabels').change(function() {
+                if ($('#showGenomeLabels').is(':checked')) {
+                    ali.conf.labels.genome.showGenomeLabels = true;
+                } else {
+                    ali.conf.labels.genome.showGenomeLabels = false;
+                }
+            });
+        });
+
+        function changeKaryoSpacer() {
+            var spacer = $("#karyoSpacer").val();
+            spacer = Number(spacer);
+            try {
+                ali.setKaryoSpacer(spacer);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#karyoSpacer").val(ali.getKaryoSpacer());
+            }
+        }
+
+        function changeKaryoHeight() {
+            var height = $("#karyoHeight").val();
+            try {
+                ali.setKaryoHeight(height);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#karyoHeight").val(ali.getKaryoHeight());
+            }
+        }
+
+        function changeCanvasWidth() {
+            var width = $("#canvasWidth").val();
+            try {
+                ali.setCanvasWidth(width);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#canvasWidth").val(ali.getCanvasWidth());
+            }
+        }
+
+        function changeCanvasHeight() {
+            var height = $("#canvasHeight").val();
+            try {
+                ali.setCanvasHeight(height);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#canvasHeight").val(ali.getCanvasHeight());
+            }
+        }
+
+        function changeTickDistance() {
+            var distance = $("#tickDistance").val();
+            try {
+                ali.setTickDistance(distance);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#tickDistance").val(ali.getTickDistance());
+            }
+        }
+
+        function changeTreeWidth() {
+            var treeWidth = $("#treeWidth").val();
+            try {
+                ali.setTreeWidth(treeWidth);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#treeWidth").val(ali.getTreeWidth());
+            }
+        }
+
+        function changeTickLabelFrequency() {
+            var frequency = $("#tickLabelFrequency").val();
+            try {
+                ali.setTickLabelFrequency(frequency);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#tickLabelFrequency").val(ali.getTickLabelFrequency());
+            }
+        }
+
+        function changeGenomeColor() {
+            var color = [];
+            color.push($("#startLineColor").val());
+            color.push($("#endLineColor").val());
+            try {
+                ali.setGenomeColor(color);
+            } catch (err) {
+                bootbox.alert(err);
+                var defaultColor = ali.getGenomeColor();
+                $("#startLineColor").val(defaultColor[0]);
+                $("#endLineColor").val(defaultColor[1]);
+            }
+        }
+
+        function changeLinkColor() {
+            var color = [];
+            color.push($("#minLinkColor").val());
+            color.push($("#midLinkColor").val());
+            color.push($("#maxLinkColor").val());
+            try {
+                ali.setLinkColor(color);
+            } catch (err) {
+                bootbox.alert(err);
+                var defaultColor = ali.getLinkColor();
+                $("#minLinkColor").val(defaultColor[0]);
+                $("#midLinkColor").val(defaultColor[1]);
+                $("#maxLinkColor").val(defaultColor[2]);
+            }
+        }
+
+        function changeGenomeLabelColor() {
+            var color = $("#genomeLabelColor").val();
+            try {
+                ali.setGenomeLabelColor(color);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#genomeLabelColor").val(this.conf.labels.genome.color);
+            }
+        }
+
+        function changeGenomeLabelSize() {
+            var size = $("#genomeLabelSize").val();
+            try {
+                ali.setGenomeLabelSize(size);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#genomeLabelSize").val(this.conf.labels.genome.size);
+            }
+        }
+
+        function changeTickLabelColor() {
+            var color = $("#tickLabelColor").val();
+            try {
+                ali.setTickLabelColor(color);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#tickLabelColor").val(this.conf.labels.ticks.color);
+            }
+        }
+
+        function changeTickLabelSize() {
+            var size = $("#tickLabelSize").val();
+            try {
+                ali.setTickLabelSize(size);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#tickLabelSize").val(this.conf.labels.ticks.size);
+            }
+        }
+
+        function changeOffset(karyoId) {
+            var distance = $('#offset-' + karyoId).val();
+            try {
+                ali.setOffsetDistance(distance);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#offset-" + karyoId).val(ali.getTickDistance());
+            }
+        }
+
+        function setParameters() {
+            $("#karyoSpacer").val(ali.getKaryoSpacer());
+            $("#karyoHeight").val(ali.getKaryoHeight());
+            $("#canvasWidth").val(ali.getCanvasWidth());
+            $("#canvasHeight").val(ali.getCanvasHeight());
+            $("#tickDistance").val(ali.getTickDistance());
+            $("#treeWidth").val(ali.getTreeWidth());
+            $("#startLineColor").val((ali.getGenomeColor()[0]));
+            $("#endLineColor").val((ali.getGenomeColor()[1]));
+            $("#minLinkColor").val((ali.getLinkColor()[0]));
+            $("#midLinkColor").val((ali.getLinkColor()[1]));
+            $("#maxLinkColor").val((ali.getLinkColor()[2]));
+            $("#genomeLabelColor").val(ali.getGenomeLabelColor());
+            $("#genomeLabelSize").val(ali.getGenomeLabelSize());
+            $("#tickLabelColor").val(ali.getTickLabelColor());
+            $("#tickLabelSize").val(ali.getTickLabelSize());
+            $("#tickLabelFrequency").val(ali.getTickLabelFrequency());
+            $.each(ali.getSupportedFeatures(), function(key, value) {
+                $("#color-" + value).val(ali.getFeatureProperty(value, 'color'));
+                $("#colorpicker-" + value).colorpicker('setValue', ali.getFeatureProperty(value, 'color'));
+                $("#" + ali.getFeatureProperty(value, 'form') + "-" + value).prop('checked', true);
+                if (ali.getFeatureProperty(value, 'visible')) {
+                    $("#show-" + value).prop('checked', true);
+                }
+            });
+            $("#invisibleLinksLabel").val(ali.getInvisibleLinks());
+            $("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
+            $("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
+            $('#showGenomeLabels').attr('checked', true);
+            $('#showTickLabels').attr('checked', true);
+            setOffsetGroup();
+        }
+
+        function setFilters() {
+            var layout = ali.getLayout();
+            setJSONEditorFromAli();
+            ali.drawEqualLayout(layout);
+            setParameters();
+        }
+
+        function setLayoutSettings() {
+            ali.startTransaction();
+            var layout = ali.getLayout();
+            changeCanvasWidth();
+            changeCanvasHeight();
+            changeKaryoSpacer();
+            changeKaryoHeight();
+            changeTickDistance();
+            changeGenomeColor();
+            changeLinkColor();
+            changeGenomeLabelColor();
+            changeGenomeLabelSize();
+            changeTickLabelColor();
+            changeTickLabelSize();
+            changeTickLabelFrequency();
+            setJSONEditorFromAli();
+            ali.drawEqualLayout(layout);
+            setParameters();
+            ali.endTransaction();
+        }
+
+        function setFeatureGroupSettings(groupId) {
+            ali.startTransaction();
+            var layout = ali.getLayout();
+            var color = ($("#colorpicker-" + groupId).colorpicker('getValue'));
+            var form = $("input[type='radio'][name='shape-" + groupId + "']:checked").val();
+            var visible = $("#show-" + groupId).is(':checked');
+            try {
+                ali.setFeatureProperty(groupId, 'color', color);
+                ali.setFeatureProperty(groupId, 'form', form);
+                ali.setFeatureProperty(groupId, 'visible', visible);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#colorpicker-" + groupId).colorpicker('setValue', ali.getFeatureProperty(groupId, 'color'));
+                $("#" + ali.getFeatureProperty(groupId, 'form') + "-" + groupId).prop('checked', true);
+                $("#show-" + value).prop('checked', ali.getFeatureProperty(value, 'visible'));
+            }
+            ali.drawEqualLayout(ali.getLayout());
+            ali.endTransaction();
+        }
+
+        function setTreeSettings() {
+            var layout = ali.getLayout();
+            changeTreeWidth();
+            setJSONEditorFromAli();
+            ali.drawEqualLayout(layout);
+            setParameters();
+        }
+
+        $(function() {
+            $('#loadJSON').on('change', function(evt) {
+                var files = evt.target.files; // FileList object
+                // files is a FileList of File objects.
+                var output = [];
+                for (var i = 0, f; f = files[i]; i++) {
+                    var fr = new FileReader();
+                    fr.onload = function(x) {
+                        ali.setJSON(JSON.parse(x.target.result));
+                        setJSONEditorFromAli();
+                        ali.drawLinear();
+                    }
+                    fr.readAsText(f);
+                }
+            });
+        });
+
+        function setInvisibleLinkSelection() {
+            $('#invisibleLinks').text("");
+            if (ali.getInvisibleLinks() === 0) {
+                $('.selectpicker').selectpicker('val', '')
+            } else {
+                $.each(ali.filters.links.invisibleLinks, function(key, value) {
+                    $('#invisibleLinks')
+                        .append($("<option></option>")
+                            .attr("value", key)
+                            .text(key))
+                        .selectpicker("refresh");
+                });
+            }
+        }
+
+        function restoreLink() {
+            var selectedLinkID = $('.selectpicker[name=invisibleLinks]').val();
+            ali.showInvisibleLink(selectedLinkID);
+            setInvisibleLinkSelection();
+            $("#invisibleLinksLabel").val(ali.getInvisibleLinks());
+        }
+
+        function setInvisibleFeatureSelection() {
+            $('#invisibleFeatures').text("");
+            if (ali.getInvisibleFeatures() === 0) {
+                $('.selectpicker').selectpicker('val', '')
+            } else {
+                $.each(ali.filters.features.invisibleFeatures, function(key, value) {
+                    $('#invisibleFeatures')
+                        .append($("<option></option>")
+                            .attr("value", key)
+                            .text(key))
+                        .selectpicker("refresh");
+                });
+            }
+        }
+
+        function restoreFeature() {
+            var selectedFeatureId = $('.selectpicker[name=invisibleFeatures]').val();
+            ali.showInvisibleFeature(selectedFeatureId);
+            setInvisibleFeatureSelection();
+            $("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
+        }
+
+        function setInvisibleChromosomeSelection(chromosomeId) {
+            $('#invisibleChromosomes').text("");
+            if (ali.getInvisibleChromosomes() === 0) {
+                $('.selectpicker').selectpicker('val', '')
+            } else {
+                $('#invisibleChromosomes')
+                    .append($("<option></option>")
+                        .attr("value", chromosomeId)
+                        .text(chromosomeId))
+                    .selectpicker("refresh");
+            }
+        }
+
+        function restoreChromosome() {
+            var selectedChromosomeName = $('.selectpicker[name=invisibleChromosomes]').val();
+            ali.changeChromosomeVisibility(selectedChromosomeName);
+            setInvisibleChromosomeSelection();
+            $("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
+            ali.drawLinear();
+        }
+
+        function setOffsetGroup() {
+            $("#offsetGroup").text("");
+            $.each(ali.filters.karyo.chromosomes, function(key, value) {
+                $('#offsetGroup')
+                    .append($("<option></option>")
+                        .attr("value", key)
+                        .text(key))
+                    .selectpicker("refresh");
+            });
+        }
+
+        function setOffsetButton() {
+            var karyoId = $('.selectpicker[name=offsetGroup]').val();
+            addOffsetTemplates(karyoId);
+            ali.conf.offset.isSet = true;
+            var buttonCoords = ali.getOffsetButtonCoords(karyoId);
+            ali.drawOffsetButtonGroup(buttonCoords);
+            ali.drawLinear();
+        }
+
+        function removeOffset(karyoId) {
+            $("#menu-" + karyoId).remove();
+            ali.svgD3.selectAll("#button-" + karyoId).remove();
+            ali.filters.karyo.chromosomes[karyoId].offset = 0;
+            ali.drawLinear();
+        }
+
+        function setAliFromJSONEditor() {
+            var json = editor.get();
+            ali.setJSON(json);
+            ali.drawEqualLayout(ali.getLayout());
+        }
+
+        function setJSONEditorFromAli() {
+            editor.set(ali.getJSON());
+        }
+
+        function toggleJSONEditor() {
+            $('#jsoneditor').toggle();
+        }
+
+        function saveSVG() {
+            if (ali.conf.offset.isSet === true) {
+                ali.svgD3.selectAll(".buttonGroup").remove();
+            }
+            var blob = new Blob([ali.getSvgAsText()], {
+                type: "image/svg+xml;charset=utf-8"
+            });
+            saveAs(blob, "AliTV.svg");
+        }
+
+        function saveJSON() {
+            var blob = new Blob([JSON.stringify(ali.getJSON())], {
+                type: "plain/text;charset=utf-8"
+            });
+            saveAs(blob, "AliTV.json");
+        }
+
+        function addOffsetTemplates(karyoId) {
+            $('#menu-' + karyoId).remove();
+            var templateHTML = $('#templateShiftChromosomes').html();
+            var templateUS = _.template(templateHTML);
+            $('#offsetMenu').append(templateUS({
+                karyoId: karyoId
+            }));
+        }
+
+        function addFeatureGroupTemplates() {
+            var groups = ali.getSupportedFeatures();
+            var templateHTML = $('#template_feature_group').html();
+            var templateUS = _.template(templateHTML);
+            $('.feature-colorpicker').colorpicker('destroy');
+            $('.feature_template').remove();
+            $.each(groups, function(key, value) {
+                $('#featuresMenu').prepend($('<li class="feature_template"><a href="#' + value + '" data-toggle="tab">' + value + '</a></li>'));
+                $('#interface').append(templateUS({
+                    groupId: value
+                }));
+            });
+            $('.feature-colorpicker').colorpicker();
+        }
+
+        $('#myTabs a').click(function(e) {
+            e.preventDefault()
+            e.stopPropagation();
+            $(this).tab('show')
+        });
+
+        $('.dropdown-toggle').dropdown()
+
+        $(function() {
+            $('.demo2').colorpicker();
+        });
+
+        jQuery(document).ready(function($) {
+            $('#tabs').tab();
+        });
+
+        $(function() {
+            $.contextMenu({
+                selector: '.karyoGroup',
+                build: function($trigger, e) {
+                    var selectedChromosome = ($(e.target).attr("id"));
+                    var split = selectedChromosome.split(", ");
+                    var name = split[0];
+                    var chromosomeId = split[1];
+                    //Remove selection rect if exists
+                    ali.svgD3.selectAll("rect.selection").remove();
+                    return {
+                        items: {
+                            "info": {
+                                name: "Name: " + name
+                            },
+                            "sep1": "---------",
+                            "Visible": {
+                                name: "Hide",
+                                callback: function(key, options) {
+                                    ali.changeChromosomeVisibility(chromosomeId);
+                                    ali.getInvisibleChromosomes();
+                                    setInvisibleChromosomeSelection(chromosomeId);
+                                    ali.drawLinear();
+                                    $("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
+                                }
+                            },
+                            "Change orientation": {
+                                name: "Change orientation",
+                                callback: function(key, options) {
+                                    ali.changeChromosomeOrientation(chromosomeId);
+                                    ali.drawLinear();
+                                }
+                            },
+                            "scrollUp": {
+                                name: "Move up",
+                                callback: function(key, options) {
+                                    ali.changeGenomeOrder(name, +1);
+                                    ali.drawLinear();
+                                }
+                            },
+                            "scrollDown": {
+                                name: "Move down",
+                                callback: function(key, options) {
+                                    ali.changeGenomeOrder(name, -1);
+                                    ali.drawLinear();
+                                }
+                            },
+                            "left": {
+                                name: "Move left",
+                                callback: function(key, options) {
+                                    ali.changeChromosomeOrder(chromosomeId, -1);
+                                    ali.drawLinear();
+                                }
+                            },
+                            "right": {
+                                name: "Move right",
+                                callback: function(key, options) {
+                                    ali.changeChromosomeOrder(chromosomeId, 1);
+                                    ali.drawLinear();
+                                }
+                            },
+                            "Reset genome zoom/pan": {
+                                name: "Reset genome zoom/pan",
+                                callback: function(key, options) {
+                                    ali.resetGenomeRegion(ali.data.karyo.chromosomes[chromosomeId].genome_id);
+                                    ali.drawLinear();
+                                }
+                            },
+                            "Quit": {
+                                name: "Quit",
+                                callback: $.noop
+                            }
+                        }
+                    };
+                }
+            });
+
+        });
+
+        $(function() {
+            $.contextMenu({
+                selector: '.linkGroup',
+                build: function($trigger, e) {
+                    var name = ($(e.target).attr("id"));
+                    var identity = ali.visibleLinks[name].identity;
+                    //Remove selection rect if exists
+                    ali.svgD3.selectAll("rect.selection").remove();
+                    return {
+                        items: {
+                            "name": {
+                                name: "Link: " + name
+                            },
+                            "identity": {
+                                name: "Identity: " + identity + "%"
+                            },
+                            "sep1": "---------",
+                            "Visible": {
+                                name: "Hide",
+                                callback: function() {
+                                    var selectedLinkID = $(e.target).attr("id");
+                                    ali.setLinkInvisible(selectedLinkID);
+                                    setInvisibleLinkSelection();
+                                    $("#invisibleLinksLabel").val(ali.getInvisibleLinks());
+                                }
+                            },
+                            "Quit": {
+                                name: "Quit",
+                                callback: $.noop
+                            }
+                        }
+                    };
+                }
+            });
+
+        });
+
+        $(function() {
+            $.contextMenu({
+                selector: '.featureGroup',
+                build: function($trigger, e) {
+                    var feature = $(e.target).attr("id");
+                    var split = feature.split("_");
+                    var group = split[1];
+                    var id = split[0];
+                    //Remove selection rect if exists
+                    ali.svgD3.selectAll("rect.selection").remove();
+                    return {
+                        items: {
+                            "name": {
+                                name: "Name: " + ali.data.features[group][id].name
+                            },
+                            "group": {
+                                name: "Group: " + group
+                            },
+                            "sep1": "---------",
+                            "Visible": {
+                                name: "Hide",
+                                callback: function(key, options) {
+                                    ali.setFeatureInvisible(feature);
+                                    setInvisibleFeatureSelection();
+                                    $("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
+                                }
+                            },
+                            "Quit": {
+                                name: "Quit",
+                                callback: $.noop
+                            }
+                        }
+                    };
+                }
+            });
+
+        });
+    </script>
 </head>
 
 <body>
 
-<div class="page-header" style="background: #f7f7f7">
-  <h1><img src="css/ali_logo2.png" alt="logo" width="140" height="120" style="margin:0px 20px"/>AliTV <small>Visualize multiple whole genome alignments as circular or linear maps</small></h1>
-<div> 
+    <div class="page-header" style="background: #f7f7f7">
+        <h1><img src="css/ali_logo2.png" alt="logo" width="140" height="120" style="margin:0px 20px"/>AliTV <small>Visualize multiple whole genome alignments as circular or linear maps</small></h1>
+        <div>
 
-  <ul class="nav nav-tabs" role="tablist">
-  
-  	<li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About AliTV</a></li>
-  	<li role="presentation"><a href="#filter" aria-controls="about" role="tab" data-toggle="tab">Filtering</a></li>
-  	
-  	<li class="dropdown"><a id="dLabel" data-toggle="dropdown">Add biological Features <span class="caret"></span></a>
-		<ul class="dropdown-menu" role="menu" id="featuresMenu">
-	      	<li role="separator" class="divider"></li>
-	      	<li><a href="#customFeature" data-toggle="tab">Add more features...</a></li>
-       </ul>
-    </li>
-  	
-  	<li role="presentation"><a href="#tree" aria-controls="about" role="tab" data-toggle="tab">Phylogenetic Tree</a></li>
-  	<li role="presentation"><a href="#graphicalSettings" aria-controls="graphicalSettings" role="tab" data-toggle="tab">Layout Settings</a></li>
-  	<li role="presentation"><a href="#advancedSettings" aria-controls="advancedSettings" role="tab" data-toggle="tab">Advanced Settings</a></li>
-    <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab">Import &amp; Export</a></li>  
-</ul>
+            <ul class="nav nav-tabs" role="tablist">
 
-<div class="tab-content" id="interface">
-	<div role="tabpanel" class="tab-pane active" id="about" style="margin:10px 10px">
-		AliTV (Alignment Toolbox and Visualization)
-	</div>
-	
-	<div role="tabpanel" class="tab-pane fade" id="advancedSettings" style="margin:10px 10px"> 
-		<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-4">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<mark class="bg-info">Use JSONEditor</mark><br>
-									By using JSONEditor you can change all parameters directly in the structure of the conf-, data- or filters-object. <br> 
-									<div style="margin: 10px 0px">
-										<button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
-										<button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
-									</div>
-								</div>
-							</div>
-					</div>
-					<div class="col-sm-4">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<mark class="bg-info">Shift chromosomes:</mark>	
-									<div class="input-group" style="margin: 10px 10px"> 
-										<span class="input-group-addon"><select id="offsetGroup" class="selectpicker" data-style="btn-info" name="offsetGroup"></select></span>
-										<span class="input-group-addon"><button class="btn btn-info" type="button" id="setOffsetGroup" onclick="setOffsetButton();">Set offset</button></span>
-				    				</div>
-								</div>
-							</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group" id="offsetMenu">
-						</div>
-					</div>
-				</div>
-			</div>
-	</div>
-	
-	<div role="tabpanel" class="tab-pane fade" id="importExport" style="margin:10px 10px"> 
-	   	<div style="margin: 10px 0px">
-		  <button class="btn btn-info" onclick="saveSVG()">Save SVG</button>
-		  <button class="btn btn-info" onclick="saveJSON()">Save JSON</button>
-		  <button class="btn btn-info" onclick="$('#loadJSON').click()">Load JSON</button>
-		  <input type="file" id="loadJSON" name="files[]" style="display:none" multiple  accept=".json">
-		</div>
-	</div>
-	
-	<div role="tabpanel" class="tab-pane fade" id="filter" style="margin:10px 0px">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-4">
-					<form class="form-horizontal">
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								Filter links by their identity:
-								<p>
-			 						<label for="identity-label"></label> 
-								</p>
-			 						<div class="input-group"  style="margin-bottom: 15px;">
-			 							<input type="text" id="identity-label" class="form-control" readonly>
-			 						</div>			 				
-			 					<div id="identity-slider"></div>
-							</div>
-						</div>
-					</form>
-				</div>
-				<div class="col-sm-4">
-					<form class="form-horizontal">
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								Filter links by their length:
-								<p>
-									<label for="minlength-label"></label>
-								</p>
-									<div class="input-group" style="margin-bottom: 15px;">
-										<input type="text" id="minlength-label" class="form-control" readonly>						
-									</div>
-			 					<div id="length-slider"></div>
-							</div>
-						</div>
-					</form>
-				</div>
-				
-				<div class="col-sm-4">
-					<form class="form-horizontal">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-10">
-						      <div class="checkbox">
-						        <label>
-						          <input id="skipChromosomesWithoutVisibleLinks" type="checkbox"> Skip chromosomes without visible links
-						        </label>
-						      </div>
-						      <div class="checkbox">
-						        <label>
-						          <input id="skipChromosomesWithoutLinks" type="checkbox"> Skip chromosomes without links
-						        </label>
-						      </div>
-						      <div class="checkbox">
-						        <label>
-						          <input id="showAllChromosomes" type="checkbox"> Show all chromosomes (even if they are set invisble)
-						        </label>
-						      </div>
-						      <div class="checkbox">
-						        <label>
-						          <input id="onlyShowAdjacentLinks" type="checkbox"> Only show adjacent links
-						        </label>
-						      </div>
-						    </div>
-		  				</div>
-					</form>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-10"></div>
-				<div class="col-sm-2">
-					<div class="form-group">
-					    <div class="col-sm-offset-2 col-sm-10">
-					      <button class="btn btn-info" type="button" id="setFilters" onclick="setFilters();">Apply</button> 
-					    </div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="form-group">
-						Invisible links:
-						<div class="input-group" style="margin: 10px 10px">
-				    			<span class="input-group-addon"><input type="text" id="invisibleLinksLabel" size="4" readonly></span>
-								<span class="input-group-addon"><select id="invisibleLinks" class="selectpicker" data-style="btn-info" name="invisibleLinks"></select></span>
-								<span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleLinks" onclick="restoreLink();">Restore Link</button></span>
-				    							
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						Invisible features:
-						<div class="input-group" style="margin: 10px 10px"> 
-				    			<span class="input-group-addon"><input type="text" id="invisibleFeaturesLabel" size="4" readonly></span>
-								<span class="input-group-addon"><select id="invisibleFeatures" class="selectpicker" data-style="btn-info" name="invisibleFeatures"></select></span>
-								<span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleFeatures" onclick="restoreFeature();">Restore Feature</button></span>
-				    	</div>	
-					</div> 
-				</div> 
-				<div class="col-sm-4">
-					<div class="form-group">
-						Invisible chromosomes:
-						<div class="input-group" style="margin: 10px 10px"> 
-				    			<span class="input-group-addon"><input type="text" id="invisibleChromosomesLabel" size="4" readonly></span>
-								<span class="input-group-addon"><select id="invisibleChromosomes" class="selectpicker" data-style="btn-info" name="invisibleChromosomes"></select></span>
-								<span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleChromosomes" onclick="restoreChromosome();">Restore Chromosome</button></span>
-				    	</div>	
-					</div> 
-				</div>
-			</div>
-		</div>
-	</div>
+                <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About AliTV</a></li>
+                <li role="presentation"><a href="#filter" aria-controls="about" role="tab" data-toggle="tab">Filtering</a></li>
+
+                <li class="dropdown"><a id="dLabel" data-toggle="dropdown">Add biological Features <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu" id="featuresMenu">
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#customFeature" data-toggle="tab">Add more features...</a></li>
+                    </ul>
+                </li>
+
+                <li role="presentation"><a href="#tree" aria-controls="about" role="tab" data-toggle="tab">Phylogenetic Tree</a></li>
+                <li role="presentation"><a href="#graphicalSettings" aria-controls="graphicalSettings" role="tab" data-toggle="tab">Layout Settings</a></li>
+                <li role="presentation"><a href="#advancedSettings" aria-controls="advancedSettings" role="tab" data-toggle="tab">Advanced Settings</a></li>
+                <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab">Import &amp; Export</a></li>
+            </ul>
+
+            <div class="tab-content" id="interface">
+                <div role="tabpanel" class="tab-pane active" id="about" style="margin:10px 10px">
+                    AliTV (Alignment Toolbox and Visualization)
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="advancedSettings" style="margin:10px 10px">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <mark class="bg-info">Use JSONEditor</mark>
+                                        <br> By using JSONEditor you can change all parameters directly in the structure of the conf-, data- or filters-object.
+                                        <br>
+                                        <div style="margin: 10px 0px">
+                                            <button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
+                                            <button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <mark class="bg-info">Shift chromosomes:</mark>
+                                        <div class="input-group" style="margin: 10px 10px">
+                                            <span class="input-group-addon"><select id="offsetGroup" class="selectpicker" data-style="btn-info" name="offsetGroup"></select></span>
+                                            <span class="input-group-addon"><button class="btn btn-info" type="button" id="setOffsetGroup" onclick="setOffsetButton();">Set offset</button></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" id="offsetMenu">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="importExport" style="margin:10px 10px">
+                    <div style="margin: 10px 0px">
+                        <button class="btn btn-info" onclick="saveSVG()">Save SVG</button>
+                        <button class="btn btn-info" onclick="saveJSON()">Save JSON</button>
+                        <button class="btn btn-info" onclick="$('#loadJSON').click()">Load JSON</button>
+                        <input type="file" id="loadJSON" name="files[]" style="display:none" multiple accept=".json">
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="filter" style="margin:10px 0px">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            Filter links by their identity:
+                                            <p>
+                                                <label for="identity-label"></label>
+                                            </p>
+                                            <div class="input-group" style="margin-bottom: 15px;">
+                                                <input type="text" id="identity-label" class="form-control" readonly>
+                                            </div>
+                                            <div id="identity-slider"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm-4">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            Filter links by their length:
+                                            <p>
+                                                <label for="minlength-label"></label>
+                                            </p>
+                                            <div class="input-group" style="margin-bottom: 15px;">
+                                                <input type="text" id="minlength-label" class="form-control" readonly>
+                                            </div>
+                                            <div id="length-slider"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="skipChromosomesWithoutVisibleLinks" type="checkbox"> Skip chromosomes without visible links
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="skipChromosomesWithoutLinks" type="checkbox"> Skip chromosomes without links
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="showAllChromosomes" type="checkbox"> Show all chromosomes (even if they are set invisble)
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="onlyShowAdjacentLinks" type="checkbox"> Only show adjacent links
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-10"></div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button class="btn btn-info" type="button" id="setFilters" onclick="setFilters();">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    Invisible links:
+                                    <div class="input-group" style="margin: 10px 10px">
+                                        <span class="input-group-addon"><input type="text" id="invisibleLinksLabel" size="4" readonly></span>
+                                        <span class="input-group-addon"><select id="invisibleLinks" class="selectpicker" data-style="btn-info" name="invisibleLinks"></select></span>
+                                        <span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleLinks" onclick="restoreLink();">Restore Link</button></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    Invisible features:
+                                    <div class="input-group" style="margin: 10px 10px">
+                                        <span class="input-group-addon"><input type="text" id="invisibleFeaturesLabel" size="4" readonly></span>
+                                        <span class="input-group-addon"><select id="invisibleFeatures" class="selectpicker" data-style="btn-info" name="invisibleFeatures"></select></span>
+                                        <span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleFeatures" onclick="restoreFeature();">Restore Feature</button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    Invisible chromosomes:
+                                    <div class="input-group" style="margin: 10px 10px">
+                                        <span class="input-group-addon"><input type="text" id="invisibleChromosomesLabel" size="4" readonly></span>
+                                        <span class="input-group-addon"><select id="invisibleChromosomes" class="selectpicker" data-style="btn-info" name="invisibleChromosomes"></select></span>
+                                        <span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleChromosomes" onclick="restoreChromosome();">Restore Chromosome</button></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-	<div role="tabpanel" class="tab-pane fade" id="tree" style="margin:10px 10px">
-		<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-3">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<div class="checkbox">
-								        <label>
-								          <input id="drawTree" type="checkbox"> Show phylogenetic tree
-								        </label>
-								    </div>
-								</div>
-							</div>
-					</div>
-					<div class="col-sm-3">
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									Choose orientation:
-									<div class="input-group" style="margin: 10px 10px">
-						    			<span class="input-group-addon">Left </span>
-										<span class="input-group-addon"><input id="treeLeft" type="radio" name="tree" value="left" checked></span>
-						    		</div>
-									<div class="input-group" style="margin: 10px 10px">
-										<span class="input-group-addon">Right </span>
-										<span class="input-group-addon"><input id="treeRight" type="radio" name="tree" value="right"></span>
-									</div>	
-								</div>
-							</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="form-group">
-							<div class="input-group" style="margin: 10px 10px">
-								Width of tree (px): <input type="text" id="treeWidth" placeholder="Tree width">
-							</div>  
-					  	</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setTreeSettings();">Apply</button>
-						    </div>
-					  	</div>
-					</div>
-				</div>
-			</div>
-	</div>	
-	<div role="tabpanel" class="tab-pane fade" id="graphicalSettings" style="margin:10px 10px">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-3">
-					<form class="form-horizontal">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-10">
-						    	<mark class="bg-info">Choose Your layout:</mark>
-						    		<div class="input-group" style="margin: 10px 10px">
-						    			<span class="input-group-addon"><img src="lib/img/linear.png" width="15" height="15" alt="linear"></span>
-										<span class="input-group-addon">Linear Layout </span>
-										<span class="input-group-addon"><input id="linear" type="radio" name="layout" value="linear" checked></span>
-						    		</div>
-									<div class="input-group" style="margin: 10px 10px">
-										<span class="input-group-addon"><img src="lib/img/circular.png" width="15" height="15" alt="circular"></span>
-										<span class="input-group-addon">Circular Layout </span>
-										<span class="input-group-addon"><input type="radio" name="layout" value="circular" id="circular"></span>
-									</div>	     
-									Set the SVG height and width: 
-									<div class="input-group" style="margin: 10px 10px">
-										Height: <input type="text" id="canvasHeight" placeholder="Enter the SVG-width in px" autocomplete="off">
-									</div>
-									<div class="input-group" style="margin: 10px 10px">
-										Width: <input type="text" id="canvasWidth" placeholder="Enter the SVG-height in px" autocomplete="off">
-									</div>  
-						    </div> 
-		  				</div>
-					</form>
-				</div>
-				<div class="col-sm-3">
-					<form class="form-horizontal">
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<mark class="bg-info">Change parameters for chromosomes:</mark>
-								<div class="input-group" style="margin: 10px 10px">
-									Spacer between chromosomes (px): <input type="text" id="karyoSpacer" placeholder="Chromosome spacer">
-								</div>
-								<div class="input-group" style="margin: 10px 10px">
-									Height of chromosomes (px): <input type="text" id="karyoHeight" placeholder="Chromosome height">
-								</div>
-								<div class="input-group" style="margin: 10px 10px">
-									Distance between ticks (bp): <input type="text" id="tickDistance" placeholder="Tick distance in bp">
-								</div>
-<!-- 									<div class="input-group" style="margin: 10px 10px">
+                <div role="tabpanel" class="tab-pane fade" id="tree" style="margin:10px 10px">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input id="drawTree" type="checkbox"> Show phylogenetic tree
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        Choose orientation:
+                                        <div class="input-group" style="margin: 10px 10px">
+                                            <span class="input-group-addon">Left </span>
+                                            <span class="input-group-addon"><input id="treeLeft" type="radio" name="tree" value="left" checked></span>
+                                        </div>
+                                        <div class="input-group" style="margin: 10px 10px">
+                                            <span class="input-group-addon">Right </span>
+                                            <span class="input-group-addon"><input id="treeRight" type="radio" name="tree" value="right"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="input-group" style="margin: 10px 10px">
+                                        Width of tree (px):
+                                        <input type="text" id="treeWidth" placeholder="Tree width">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setTreeSettings();">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="graphicalSettings" style="margin:10px 10px">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <mark class="bg-info">Choose Your layout:</mark>
+                                            <div class="input-group" style="margin: 10px 10px">
+                                                <span class="input-group-addon"><img src="lib/img/linear.png" width="15" height="15" alt="linear"></span>
+                                                <span class="input-group-addon">Linear Layout </span>
+                                                <span class="input-group-addon"><input id="linear" type="radio" name="layout" value="linear" checked></span>
+                                            </div>
+                                            <div class="input-group" style="margin: 10px 10px">
+                                                <span class="input-group-addon"><img src="lib/img/circular.png" width="15" height="15" alt="circular"></span>
+                                                <span class="input-group-addon">Circular Layout </span>
+                                                <span class="input-group-addon"><input type="radio" name="layout" value="circular" id="circular"></span>
+                                            </div>
+                                            Set the SVG height and width:
+                                            <div class="input-group" style="margin: 10px 10px">
+                                                Height:
+                                                <input type="text" id="canvasHeight" placeholder="Enter the SVG-width in px" autocomplete="off">
+                                            </div>
+                                            <div class="input-group" style="margin: 10px 10px">
+                                                Width:
+                                                <input type="text" id="canvasWidth" placeholder="Enter the SVG-height in px" autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm-3">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <mark class="bg-info">Change parameters for chromosomes:</mark>
+                                            <div class="input-group" style="margin: 10px 10px">
+                                                Spacer between chromosomes (px):
+                                                <input type="text" id="karyoSpacer" placeholder="Chromosome spacer">
+                                            </div>
+                                            <div class="input-group" style="margin: 10px 10px">
+                                                Height of chromosomes (px):
+                                                <input type="text" id="karyoHeight" placeholder="Chromosome height">
+                                            </div>
+                                            <div class="input-group" style="margin: 10px 10px">
+                                                Distance between ticks (bp):
+                                                <input type="text" id="tickDistance" placeholder="Tick distance in bp">
+                                            </div>
+                                            <!-- 									<div class="input-group" style="margin: 10px 10px">
 										<input type="text" id="treeWidth" placeholder="Enter the tree-width">
 									</div> -->
-								Define a custome color range between color1 and color2 for the genomes:
-								<div class="input-group demo2" style="margin: 10px 10px">
-									<span class="input-group-addon">Color 1</span>
-			    					<input id="startLineColor" type="text" class="form-control" />
-			    					<span class="input-group-addon"><i></i></span>
-								</div>
-								<div class="input-group demo2" style="margin: 10px 10px">
-									<span class="input-group-addon">Color 2</span>
-			    					<input id="endLineColor" type="text" class="form-control" />
-			    					<span class="input-group-addon"><i></i></span>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-				<div class="col-sm-3">
-					<form class="form-horizontal">
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-							<mark class="bg-info">Change parameters for links:</mark>
-							<div class="input-group" style="margin: 10px 10px">
-								Define a custome color range between the minimal and maximal link identity:
-								<div class="input-group demo2" style="margin: 10px 10px">
-									<span class="input-group-addon">MinLink Color</span>
-			    					<input id="minLinkColor" type="text" class="form-control" />
-			    					<span class="input-group-addon"><i></i></span>
-								</div>
-								<div class="input-group demo2" style="margin: 10px 10px">
-									<span class="input-group-addon">MidLink Color</span>
-			    					<input id="midLinkColor" type="text" class="form-control" />
-			    					<span class="input-group-addon"><i></i></span>
-								</div>
-								<div class="input-group demo2" style="margin: 10px 10px">
-									<span class="input-group-addon">MaxLink Color</span>
-			    					<input id="maxLinkColor" type="text" class="form-control" />
-			    					<span class="input-group-addon"><i></i></span>
-								</div>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-				<div class="col-sm-3">
-					<form class="form-horizontal">
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-							<mark class="bg-info">Set labels:</mark>
-								<div class="checkbox">
-							        <label>
-							        	<input id="showGenomeLabels" type="checkbox"> Label Genomes
-							        </label>
-							        <div class="input-group demo2" style="margin: 10px 10px">
-							      		<span class="input-group-addon">Label color</span>
-				    					<input id="genomeLabelColor" type="text" class="form-control" />
-			    						<span class="input-group-addon"><i></i></span>
-									</div>
-									<div class="input-group" style="margin: 10px 10px">
-										Label size: <input type="text" id="genomeLabelSize" placeholder="Label size in px">
-									</div>
-							    </div>
-						      	<div class="checkbox">
-						        	<label>
-						         		<input id="showTickLabels" type="checkbox"> Label Ticks
-						        	</label>
-						        	<div class="input-group demo2" style="margin: 10px 10px">
-							      		<span class="input-group-addon">Label color</span>
-				    					<input id="tickLabelColor" type="text" class="form-control" />
-			    						<span class="input-group-addon"><i></i></span>
-									</div>
-									<div class="input-group" style="margin: 10px 10px">
-										Label size: <input type="text" id="tickLabelSize" placeholder="Label size in px">
-										<br>
-										Label frequency: <input type="text" id="tickLabelFrequency" placeholder="Label size in px" style="margin: 10px 0px">
-									</div>
-						      	</div>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-10"></div>
-				<div class="col-sm-2">
-					<div class="form-group">
-					    <div class="col-sm-offset-2 col-sm-10">
-					      <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setLayoutSettings();">Apply</button>
-					    </div>
-					</div>
-				</div>
-			</div>
-		</div>
- 	</div>
-</div>
-</div> <!-- collapse tab structure -->
-</div> <!-- collapse page header  -->
-<div style="width: 100%;">
- 	<svg id='wgaCanvas' style="margin:50px"></svg>
-</div> 
-<div id="jsoneditor" style="display:none"></div>
+                                            Define a custome color range between color1 and color2 for the genomes:
+                                            <div class="input-group demo2" style="margin: 10px 10px">
+                                                <span class="input-group-addon">Color 1</span>
+                                                <input id="startLineColor" type="text" class="form-control" />
+                                                <span class="input-group-addon"><i></i></span>
+                                            </div>
+                                            <div class="input-group demo2" style="margin: 10px 10px">
+                                                <span class="input-group-addon">Color 2</span>
+                                                <input id="endLineColor" type="text" class="form-control" />
+                                                <span class="input-group-addon"><i></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm-3">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <mark class="bg-info">Change parameters for links:</mark>
+                                            <div class="input-group" style="margin: 10px 10px">
+                                                Define a custome color range between the minimal and maximal link identity:
+                                                <div class="input-group demo2" style="margin: 10px 10px">
+                                                    <span class="input-group-addon">MinLink Color</span>
+                                                    <input id="minLinkColor" type="text" class="form-control" />
+                                                    <span class="input-group-addon"><i></i></span>
+                                                </div>
+                                                <div class="input-group demo2" style="margin: 10px 10px">
+                                                    <span class="input-group-addon">MidLink Color</span>
+                                                    <input id="midLinkColor" type="text" class="form-control" />
+                                                    <span class="input-group-addon"><i></i></span>
+                                                </div>
+                                                <div class="input-group demo2" style="margin: 10px 10px">
+                                                    <span class="input-group-addon">MaxLink Color</span>
+                                                    <input id="maxLinkColor" type="text" class="form-control" />
+                                                    <span class="input-group-addon"><i></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm-3">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <mark class="bg-info">Set labels:</mark>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="showGenomeLabels" type="checkbox"> Label Genomes
+                                                </label>
+                                                <div class="input-group demo2" style="margin: 10px 10px">
+                                                    <span class="input-group-addon">Label color</span>
+                                                    <input id="genomeLabelColor" type="text" class="form-control" />
+                                                    <span class="input-group-addon"><i></i></span>
+                                                </div>
+                                                <div class="input-group" style="margin: 10px 10px">
+                                                    Label size:
+                                                    <input type="text" id="genomeLabelSize" placeholder="Label size in px">
+                                                </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="showTickLabels" type="checkbox"> Label Ticks
+                                                </label>
+                                                <div class="input-group demo2" style="margin: 10px 10px">
+                                                    <span class="input-group-addon">Label color</span>
+                                                    <input id="tickLabelColor" type="text" class="form-control" />
+                                                    <span class="input-group-addon"><i></i></span>
+                                                </div>
+                                                <div class="input-group" style="margin: 10px 10px">
+                                                    Label size:
+                                                    <input type="text" id="tickLabelSize" placeholder="Label size in px">
+                                                    <br> Label frequency:
+                                                    <input type="text" id="tickLabelFrequency" placeholder="Label size in px" style="margin: 10px 0px">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-10"></div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setLayoutSettings();">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- collapse tab structure -->
+    </div>
+    <!-- collapse page header  -->
+    <div style="width: 100%;">
+        <svg id='wgaCanvas' style="margin:50px"></svg>
+    </div>
+    <div id="jsoneditor" style="display:none"></div>
 
-<script type="text/template" id="templateShiftChromosomes">
-	<div class="form-group" id="menu-<%= karyoId %>">
-		<div class="col-sm-offset-2 col-sm-10">
-			<div class="checkbox">
-			<mark class="bg-info"><%= karyoId %>:</mark>
-				<div class="input-group" style="margin: 10px 10px">
-					<span class="input-group-addon">Set offset distance</span>
-					<span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Enter the offset in bp" autocomplete="off"></span>
-					<span class="input-group-addon"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')">Apply</button></span>
-				</div>
-		        <button class="btn btn-info" onclick="removeOffset('<%= karyoId %>')">Remove offset</button>
-	      	</div>
-		</div>
-	</div>
-</script>
-<script type="text/template" id="template_feature_group">
-	<div role="tabpanel" class="tab-pane fade feature_template" id="<%= groupId %>" style="margin: 10px 10px">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-3">
-					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							<div class="checkbox">
-								<label> <input id="show-<%= groupId %>" type="checkbox">
-									Show <%= groupId %>
-								</label>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							Choose form:
-							<div class="input-group" style="margin: 10px 10px">
-								<span class="input-group-addon"><img
-									src="lib/img/rect.png" width="15" height="15" alt="rect"></span> <span
-									class="input-group-addon">Rect </span> <span
-									class="input-group-addon"><input
-									id="rect-<%= groupId %>" type="radio"
-									name="shape-<%= groupId %>" value="rect"></span>
-							</div>
-							<div class="input-group" style="margin: 10px 10px">
-								<span class="input-group-addon"><img
-									src="lib/img/arrow.png" width="15" height="15" alt="arrow"></span> <span
-									class="input-group-addon">Arrow </span> <span
-									class="input-group-addon"><input
+    <script type="text/template" id="templateShiftChromosomes">
+        <div class="form-group" id="menu-<%= karyoId %>">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <mark class="bg-info">
+                        <%=k aryoId %>:</mark>
+                    <div class="input-group" style="margin: 10px 10px">
+                        <span class="input-group-addon">Set offset distance</span>
+                        <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Enter the offset in bp" autocomplete="off"></span>
+                        <span class="input-group-addon"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')">Apply</button></span>
+                    </div>
+                    <button class="btn btn-info" onclick="removeOffset('<%= karyoId %>')">Remove offset</button>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/template" id="template_feature_group">
+        <div role="tabpanel" class="tab-pane fade feature_template" id="<%= groupId %>" style="margin: 10px 10px">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input id="show-<%= groupId %>" type="checkbox"> Show
+                                        <%=g roupId %>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                Choose form:
+                                <div class="input-group" style="margin: 10px 10px">
+                                    <span class="input-group-addon">
+									<img src="lib/img/rect.png" width="15" height="15" alt="rect"></span>
+                                    <span class="input-group-addon">Rect </span> <span class="input-group-addon">
+									<input id="rect-<%= groupId %>" type="radio" name="shape-<%= groupId %>" value="rect"></span>
+                                </div>
+                                <div class="input-group" style="margin: 10px 10px">
+                                    <span class="input-group-addon"><img
+									src="lib/img/arrow.png" width="15" height="15" alt="arrow"></span> <span class="input-group-addon">Arrow </span> <span class="input-group-addon"><input
 									id="arrow-<%= groupId %>" type="radio"
 									name="shape-<%= groupId %>" value="arrow" checked></span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							Change color: <br>
-							<div class="input-group feature-colorpicker" id="colorpicker-<%= groupId %>">
-								<input id="color-<%= groupId %>" type="text" value=""
-									class="form-control" /> <span class="input-group-addon"><i></i></span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-info"
-								style="margin: 20px 20px"
-								onclick="setFeatureGroupSettings('<%= groupId %>');">Apply</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</script>
-</body> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                Change color:
+                                <br>
+                                <div class="input-group feature-colorpicker" id="colorpicker-<%= groupId %>">
+                                    <input id="color-<%= groupId %>" type="text" value="" class="form-control" /> <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="setFeatureGroupSettings('<%= groupId %>');">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+</body>
+
 </html>
- 
-
-
-
-
