@@ -1809,56 +1809,6 @@ describe('The drawLinearGenomeLabels method of AliTV objects is supposed to draw
 	});
 });
 
-describe('The getChromosomeLabelCoords method is supposed to calculate the coords for adding labels to the chromosomes', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('getChromosomeLabelCoords method is supposed to be a function', function(){
-		expect(typeof ali.getChromosomeLabelCoords).toEqual('function');
-	});
-	it('getChromsomeLabelCoords method is supposed to return the array linearChromosomeLabelCoords, which should be defined', function(){
-		ali.setData(data);
-		ali.setFilters(filters);
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		var linearChromosomeLabelCoords = ali.getChromosomeLabelCoords(linearKaryoCoords);
-		expect(linearChromosomeLabelCoords).toBeDefined();
-	});
-	it('getChromsomeLabelCoords method is supposed to return the expected linearChromsomeLabelCoords', function(){
-		ali.setData(data);
-		ali.setFilters(filters);	
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		var linearChromosomeLabelCoords = ali.getChromosomeLabelCoords(linearKaryoCoords);
-		var expectedCoords = [{name: "c1", y: 0 + 0.85 * defaultConf.graphicalParameters.karyoHeight, x: 0 + 1/2 * 1000}, {name: "c2", x: 0 + 1/2 * 500, y: 970 + 0.85 * defaultConf.graphicalParameters.karyoHeight}];
-		expect(linearChromosomeLabelCoords).toEqual(expectedCoords);
-	});
-});
-
-describe('The drawLinearChromosomeLabels method of AliTV objects is supposed to draw chromosome labels next to the chromosomes', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
-	it('drawLinearChromosomeLabels method is supposed to be a function', function(){
-		expect(typeof ali.drawLinearChromosomeLabels).toEqual('function');
-	});
-	it('there should be exactly one chromosomeLabelGroup in the simple test svg', function(){
-		ali.setData(data);
-		ali.setFilters(filters);
-		var linearKaryoCoords = ali.getLinearKaryoCoords();
-		var linearChromosomeLabelCoords = ali.getChromosomeLabelCoords(linearKaryoCoords);
-		ali.drawLinearChromosomeLabels(linearChromosomeLabelCoords);
-		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(1);
-	});
-	it('if the default configuration of showChromosomeLabels is false no chromosomes are drawn', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		ali.setData(data);
-		ali.setFilters(filters);
-		ali.conf.labels.chromosome.showChromosomeLabels = false;
-		ali.conf.labels.showAllLabels = false;
-		ali.drawLinear();
-		expect(ali.svgD3.selectAll('.chromosomeLabelGroup').size()).toEqual(0);
-	});
-});
-
-
 describe('The drawLinearTickLabels method is supposed to add labels to the ticks', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
