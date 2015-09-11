@@ -83,10 +83,6 @@ var defaultConf =  {
 				color: "#000000",
 				size: 10
 			},
-			chromosome: {
-				color: "#000000",
-				size: 25
-			},
 			genome: {
 				showGenomeLabels: true,
 				color: "#000000",
