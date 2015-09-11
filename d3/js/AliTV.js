@@ -3319,3 +3319,27 @@ AliTV.prototype.getOffsetDistance = function() {
 	var json = this.getJSON();
 	return json.conf.offset.distance;
 };
+
+/**
+ * This function replaces the old distance for shifting chromosomes with the new distance in the config-object.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The function gets the distance for shifting chromosomes which can be set by the user.
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Sonja Hohlfeld
+ */
+
+AliTV.prototype.setOffsetDistance = function(distance) {
+	if (distance === "") {
+		throw "Sorry, you entered an empty value. Please try it again.";
+	} else if (isNaN(distance)) {
+		throw "Sorry, you entered not a number. Please try it again.";
+	} else if (distance <= 0) {
+		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+	} else {
+		distance = Number(distance);
+		this.conf.offset.distance = distance;
+		return this.conf.offset.distance;
+	}
+};
