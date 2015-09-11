@@ -236,8 +236,6 @@ describe('The drawLinear method of AliTV objects is supposed to draw the linear 
 		ali.setFilters(filters);
 		ali.conf.labels.showAllLabels = false;
 		ali.conf.labels.genome.showGenomeLabels = false;
-		ali.conf.labels.chromosome.showChromosomeLabels = false;
-		ali.conf.labels.features.showFeatureLabels = false;
 		ali.conf.tree.drawTree = true;
 		ali.drawLinear();
 		expect(ali.getAlignmentRegion().attr("transform")).toEqual("translate(" + defaultConf.graphicalParameters.treeWidth + ", 0)");
