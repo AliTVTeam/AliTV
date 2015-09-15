@@ -14,3 +14,5 @@ blib/
 MANIFEST*.bak
 Build
 MYMETA.*
+manual/manualAliTV.synctex.gz
+manual/manualAliTV.log
