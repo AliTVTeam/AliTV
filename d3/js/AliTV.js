@@ -2864,12 +2864,12 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
  * @returns {ali.conf.features.supportedFeatures} The current feature groups which are supported by AliTV
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.setNewFeature = function(group, form, color){
-	console.log(group, form, color);
+AliTV.prototype.setNewFeature = function(group, form, color) {
 	this.conf.features.supportedFeatures[group] = {
-			form: form,
-			color: color,
-			visible: true		
+		form: form,
+		color: color,
+		visible: true,
+		height: 30
 	};
 	return this.conf.features.supportedFeatures[group];
 };
