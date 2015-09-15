@@ -1184,7 +1184,8 @@ describe('The setNewFeature method is supposed to set a new feature group in the
 		var expectedFeature = {
 				form: "cake",
 				color: "#ff002c",
-				visible: true
+				visible: true,
+				height: 30
 		};
 		var newFeature = ali.setNewFeature("applepie", "cake", "#ff002c");
 		expect(expectedFeature).toEqual(newFeature);
