@@ -18,10 +18,10 @@
     \begin{center}
     \huge \textbf{\textsf{AliTV Manual}} \\
     \vspace{0.5cm}
-    \LARGE\textbf{\textsc{Version 0.3.3}}\\
+    \LARGE\textbf{\textsc{Version 0.3.1}}\\
     \vspace{1cm}
 		\begin{center}
-			\includegraphics[height=10cm]{ali_logo2.png}
+			\includegraphics[height=10cm]{AliTV_logo.png}
 		\end{center}
     \end{center}
 \end{titlepage}
@@ -150,6 +150,17 @@ AliTV provides many ways to customise the image. The following list only shows a
 	\end{figure}
 \end{itemize}
 
+\subparagraph*{Zooming}
+AliTV provides the possibility for zooming genomic regions. So you can directly interact with the AliTV image.
+Drag the mouse pointer on the genome region you want to zoom. A rect selection appears. Drop it and you have zoomed into the selected region.
+
+If you want to reset the zoom, click right on the chromosome and select \menu{Reset genome zoom/pan}.
+
+\subparagraph*{Shifting}
+For analyzing circular sequences it may be helpful to rotate them. Therefore go to \menu{Advanced Settings}. Via the selection box you can select a chromosome you want to shift. As you can see a button group appears next to the selected chromosome. By using the right or the left arrwo you can shift the chromosome. If a link or a feature has an overlap it will be splitted into two parts. 
+
+Type in an new value in the input box and the distance for shifting chromosomes has changed. Remove the offset by clicking \menu{Remove offset}.
+
 \newpage
 \section*{Features of AliTV}
 \subsection*{Main Screen}
@@ -191,10 +202,6 @@ AliTV uses the \texttt{JSONEditor} in order to offer you the possibility for cha
 First you see the structure of an AliTV object with \texttt{data, filters} and \texttt{conf}. \texttt{data} contains the data and it simply consists of \texttt{karyo, links, features (optional)} and  \texttt{tree (optional)}. All graphical parameters like color, size, layout, etc. and other configuration for drawing the AliTV image are written in \texttt{conf}. Specific configurations like hidden chromosomes, links or features and the minimal and maximal link identity and length are assigned to \texttt{filters}. All modifications you made are submitted by clicking \menu{Apply JSONEditor content}.
 
 For more information about the object structure and the means of the variables check out the documentation of AliTV. If you have problems with the JSONEditor the following link may be helpful for you: \url{https://github.com/josdejong/jsoneditor/}.
-
-By using \menu{Advanced settings} you are able to shift chromosomes. This feature is important if circular chromosomes are analyzed. Maybe you want to rotate them, so AliTV provides you the possibility to shift every chromosome you want. Therefore use the selection box. Select any chromosome you want and click \menu{Apply}. As you can see a button group appears next to the selected chromosome. If you use the left arrow the chromosome is shifted in negative direction. Using the other one you shift the chromosome in positive direction. Remember if you change the orientation of the selected chromosome the effect of the buttons are interchanged.
-
-The interface provides you the possibility to change the distance for shifting the chromosomes. Therefore type in the corresponding value in bp and submit your changes with \menu{Apply}. If you want to remove the offset click \menu{Remove}. Now the chromosome is resetted and the button group is removed.
 
 \paragraph*{\menu{Import \& Export}}
 If you want to use the AliTV image you have to download it. With \menu{Save SVG} you can download the AliTV image as SVG and open it with your favourite image-viewer. Moreover you can export the current settings in the JSON format by selecting \menu{Save JSON}. It may be helpful if you cant to save the settings and use it some other time. Then you can import JSON data by clicking \menu{Import JSON}.
