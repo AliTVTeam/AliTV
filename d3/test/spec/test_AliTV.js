@@ -4,7 +4,7 @@ describe('The constructor is supposed a proper AliTV object', function(){
 	});
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
-	it('WgaPipelie object is not null', function(){
+	it('AliTV object is not null', function(){
 		expect(ali).not.toBeNull();
 	});
 	it('WgaPipelie object should be an instance of AliTV class', function(){
