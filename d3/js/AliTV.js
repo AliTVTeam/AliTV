@@ -3267,5 +3267,7 @@ AliTV.prototype.setNewFeature = function(group, form, color) {
  * @author Markus Ankenbrand
  */
 AliTV.prototype.rotateTreeToGenomeOrder = function() {
-
+	if (typeof this.data.tree === "undefined") {
+		throw "No tree in data.";
+	}
 };
