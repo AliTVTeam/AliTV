@@ -3270,4 +3270,6 @@ AliTV.prototype.rotateTreeToGenomeOrder = function() {
 	if (typeof this.data.tree === "undefined") {
 		throw "No tree in data.";
 	}
+	var startTree = this.data.tree;
+	return startTree;
 };
