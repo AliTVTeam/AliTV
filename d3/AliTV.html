@@ -33,6 +33,7 @@
         var ali;
         var editor;
         $(document).ready(function() {
+            $('#version-placeholder').html(AliTV_VERSION);
             var svg = $('#wgaCanvas');
             ali = new AliTV(svg);
             var container = document.getElementById("jsoneditor");
