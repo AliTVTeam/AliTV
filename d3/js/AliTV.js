@@ -6,6 +6,9 @@
 /* global circles: false */
 /* global bootbox: false */
 
+// use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
+var AliTV_VERSION = "0.3.4";
+
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de> 
