@@ -2511,6 +2511,12 @@ describe('The rotateTreeToGenomeOrder method is supposed to return a rotated ver
 		var ali = new AliTV(svg);
 		expect(typeof ali.rotateTreeToGenomeOrder).toEqual('function');
 	});
+	it("the method is supposed to throw an exception if there is no tree in data", function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({});
+		expect(function(){ali.rotateTreeToGenomeOrder()}).toThrow("No tree in data.");
+	});
 	it("the method is supposed to return the tree if order and tree are already concordant", function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
