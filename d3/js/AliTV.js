@@ -3237,22 +3237,23 @@ AliTV.prototype.startTransaction = function() {
 AliTV.prototype.endTransaction = function() {
 	this.inTransaction = false;
 	this.triggerChange();
+};
 
-	/**
-	 * This function is supposed to get the parameters for adding a new feature group in conf.features.supportedFeatures.
-	 * @param group: the name of the new feature group
-	 * @param form: the form for the group which is used by drawFeatures
-	 * @param color: the color for the new group
-	 * @returns {ali.conf.features.supportedFeatures} The current feature groups which are supported by AliTV
-	 * @author Sonja Hohlfeld
-	 */
-	AliTV.prototype.setNewFeature = function(group, form, color) {
-		this.conf.features.supportedFeatures[group] = {
-			form: form,
-			color: color,
-			visible: true,
-			height: 30
-		};
-		return this.conf.features.supportedFeatures[group];
+/**
+ * This function is supposed to get the parameters for adding a new feature group in conf.features.supportedFeatures.
+ * @param group: the name of the new feature group
+ * @param form: the form for the group which is used by drawFeatures
+ * @param color: the color for the new group
+ * @returns {ali.conf.features.supportedFeatures} The current feature groups which are supported by AliTV
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.setNewFeature = function(group, form, color) {
+	this.conf.features.supportedFeatures[group] = {
+		form: form,
+		color: color,
+		visible: true,
+		height: 30
 	};
+	this.triggerChange();
+	return this.conf.features.supportedFeatures[group];
 };
