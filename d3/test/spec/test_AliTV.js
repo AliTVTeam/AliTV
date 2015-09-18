@@ -2503,3 +2503,12 @@ describe('The startTransaction and endTransaction methods are used to prevent Al
 		expect(x).toEqual(3);
 	});
 });
+
+
+describe('The rotateTreeToGenomeOrder method is supposed to return a rotated version of the tree where the leafes fit the genome_order', function(){
+	it('rotateTreeToGenomeOrder method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.rotateTreeToGenomeOrder).toEqual('function');
+	});
+});
