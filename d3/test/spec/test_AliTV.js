@@ -2511,4 +2511,13 @@ describe('The rotateTreeToGenomeOrder method is supposed to return a rotated ver
 		var ali = new AliTV(svg);
 		expect(typeof ali.rotateTreeToGenomeOrder).toEqual('function');
 	});
+	it("the method is supposed to return the tree if order and tree are already concordant", function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var tre = {"tree":{"children": [{"children": [{"children": [{"name": "A"}]}]},{"children": [{"children": [{"name": "B"},{"name": "C"}]}]}]}};
+		var fil = {"karyo": {"genome_order": ["A", "B", "C"]}};
+		ali.setData(tre);
+		ali.setFilters(fil);
+		expect(ali.rotateTreeToGenomeOrder()).toEqual(tre);
+	});
 });
