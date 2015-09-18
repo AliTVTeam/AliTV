@@ -3260,3 +3260,12 @@ AliTV.prototype.setNewFeature = function(group, form, color) {
 	this.triggerChange();
 	return this.conf.features.supportedFeatures[group];
 };
+
+/**
+ * This function is supposed to generate a tree from the supplied one that matches the current genome_order.
+ * @returns {object} tree - the tree in data rotated to match the current genome_order.
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.rotateTreeToGenomeOrder = function() {
+
+};
