@@ -1089,3 +1089,21 @@ describe("The getSupportedFeatures method is supposed to return the supported fe
 		expect(ali.getSupportedFeatures().sort()).toEqual(expected.sort());
 	});
 });
+
+describe('The setNewFeature method is supposed to set a new feature group in the supported Features object', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	it('setNewFeature method is supposed to be a function', function(){
+		expect(typeof ali.setNewFeature).toEqual('function');
+	});	
+	it('the expected object should be the same as the object which is set and returned by setNewFeature', function(){
+		var expectedFeature = {
+				form: "cake",
+				color: "#ff002c",
+				visible: true,
+				height: 30
+		};
+		var newFeature = ali.setNewFeature("applepie", "cake", "#ff002c");
+		expect(expectedFeature).toEqual(newFeature);
+	});
+});

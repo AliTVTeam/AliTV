@@ -108,6 +108,21 @@
             });
         });
 
+
+
+        function getFeatureValues() {
+            var group = ($("#customGroup").val());
+            var form;
+            if ($("#customRect").is(":checked")) {
+                form = $("#customRect").val();
+            } else {
+                form = $("#customArrow").val();
+            }
+            var color = ($("#customColor").val());
+            ali.setNewFeature(group, form, color);
+            addFeatureGroupTemplates();
+        }
+
         $(function() {
             $('#showAllChromosomes').change(function() {
                 if ($('#showAllChromosomes').is(':checked')) {
@@ -1005,6 +1020,58 @@
                     </div>
                 </div>
 
+                <div role="tabpanel" class="tab-pane fade" id="customFeature" style="margin:10px 10px">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        Define the feature group:
+                                        <div class="input-group" style="margin: 10px 10px">
+                                            <input type="text" id="customGroup" placeholder="Enter a feature group" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        Choose form:
+                                        <div class="input-group" style="margin: 10px 10px">
+                                            <span class="input-group-addon"><img src="lib/img/rect.png" width="15px" height="15px"></img></span>
+                                            <span class="input-group-addon">Rect </span>
+                                            <span class="input-group-addon"><input id="customRect" type="radio" name="customForm" value="rect" checked></span>
+                                        </div>
+                                        <div class="input-group" style="margin: 10px 10px">
+                                            <span class="input-group-addon"><img src="lib/img/arrow.png" width="15px" height="15px"></img></span>
+                                            <span class="input-group-addon">Arrow </span>
+                                            <span class="input-group-addon"><input id="customArrow" type="radio" name="customForm" value="arrow"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        Set color:
+                                        <br>
+                                        <div class="input-group demo2">
+                                            <input id="customColor" type="text" value="" class="form-control" />
+                                            <span class="input-group-addon"><i></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-info" style="margin: 20px 20px" onclick="getFeatureValues();">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div role="tabpanel" class="tab-pane fade" id="tree" style="margin:10px 10px">
                     <div class="container-fluid">
@@ -1213,7 +1280,7 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                     <mark class="bg-info">
-                        <%=k aryoId %>:</mark>
+                        <%= karyoId %>:</mark>
                     <div class="input-group" style="margin: 10px 10px">
                         <span class="input-group-addon">Set offset distance</span>
                         <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Enter the offset in bp" autocomplete="off"></span>
