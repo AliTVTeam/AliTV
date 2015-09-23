@@ -1836,7 +1836,23 @@ AliTV.prototype.filterLinksByAdjacency = function() {
  */
 AliTV.prototype.drawPhylogeneticTree = function() {
 	var that = this;
-	var treeData = $.extend(true, {}, that.data.tree);
+	try {
+		treeData = this.rotateTreeToGenomeOrder();
+	} catch (err) {
+		that.svgD3.append("g")
+			.attr("class", "treeGroup")
+			.append("text")
+			.attr("class", "treeWarningLabel")
+			.attr("x", that.conf.graphicalParameters.treeWidth / 2)
+			.attr("y", that.conf.graphicalParameters.canvasHeight / 2)
+			.text("WARNING: Genome order not concordant with tree")
+			.attr("font-family", "sans-serif")
+			.attr("font-size", "20px")
+			.attr("fill", "#ff0000")
+			.attr("transform", "rotate(-90, " + (that.conf.graphicalParameters.treeWidth / 2) + "," + (that.conf.graphicalParameters.canvasHeight / 2) + ")")
+			.style("text-anchor", "middle");
+		return;
+	}
 	// Create a tree "canvas"
 	var genomeDistance = that.getGenomeDistance();
 
