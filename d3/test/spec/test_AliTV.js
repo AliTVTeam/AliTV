@@ -2545,4 +2545,14 @@ describe('The rotateTreeToGenomeOrder method is supposed to return a rotated ver
 		ali.setFilters(fil);
 		expect(ali.rotateTreeToGenomeOrder()).toEqual(rotated);
 	});
+	it("the method is supposed to rotate the tree according to the defined order also on lower levels", function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var tre = {"children": [{"children": [{"children": [{"name": "A"}]}]},{"children": [{"children": [{"name": "B"},{"name": "C"}]},{"children": [{"name": "D"},{"name": "E"}]}]}]};
+		var rotated = {"children": [{"children": [{"children": [{"name": "A"}]}]},{"children": [{"children": [{"name": "C"},{"name": "B"}]},{"children": [{"name": "E"},{"name": "D"}]}]}]};
+		var fil = {"karyo": {"genome_order": ["A", "C", "B", "E", "D"]}};
+		ali.setData({"tree": tre});
+		ali.setFilters(fil);
+		expect(ali.rotateTreeToGenomeOrder()).toEqual(rotated);
+	});
 });
