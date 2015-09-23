@@ -1836,7 +1836,23 @@ AliTV.prototype.filterLinksByAdjacency = function() {
  */
 AliTV.prototype.drawPhylogeneticTree = function() {
 	var that = this;
-	var treeData = $.extend(true, {}, that.data.tree);
+	try {
+		treeData = this.rotateTreeToGenomeOrder();
+	} catch (err) {
+		that.svgD3.append("g")
+			.attr("class", "treeGroup")
+			.append("text")
+			.attr("class", "treeWarningLabel")
+			.attr("x", that.conf.graphicalParameters.treeWidth / 2)
+			.attr("y", that.conf.graphicalParameters.canvasHeight / 2)
+			.text("WARNING: Genome order not concordant with tree")
+			.attr("font-family", "sans-serif")
+			.attr("font-size", "20px")
+			.attr("fill", "#ff0000")
+			.attr("transform", "rotate(-90, " + (that.conf.graphicalParameters.treeWidth / 2) + "," + (that.conf.graphicalParameters.canvasHeight / 2) + ")")
+			.style("text-anchor", "middle");
+		return;
+	}
 	// Create a tree "canvas"
 	var genomeDistance = that.getGenomeDistance();
 
@@ -3259,4 +3275,72 @@ AliTV.prototype.setNewFeature = function(group, form, color) {
 	};
 	this.triggerChange();
 	return this.conf.features.supportedFeatures[group];
+};
+
+/**
+ * This function is supposed to generate a tree from the supplied one that matches the current genome_order.
+ * @returns {object} tree - the tree in data rotated to match the current genome_order.
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.rotateTreeToGenomeOrder = function() {
+	if (typeof this.data.tree === "undefined") {
+		throw "No tree in data.";
+	}
+
+	// decorate the tree nodes with lists of their leaf nodes
+	var getLeafs = function(subtree) {
+		var names = [];
+		for (var i = 0; i < subtree.length; i++) {
+			if (typeof subtree[i].name !== "undefined") {
+				names.push(subtree[i].name);
+				subtree[i].leafs = [subtree[i].name];
+			} else {
+				var leafs = getLeafs(subtree[i].children);
+				subtree[i].leafs = leafs;
+				names = names.concat(leafs);
+			}
+		}
+		return names;
+	};
+
+	var startTree = {};
+	jQuery.extend(true, startTree, this.data.tree);
+	startTree.leafs = getLeafs(startTree.children);
+	// offset from the beginning of the array at which this subtree starts
+	startTree.offset = 0;
+
+	var genome_order = this.filters.karyo.genome_order;
+	var rotateTree = function(subtree) {
+		var j = subtree.offset;
+		if (typeof subtree.children !== 'undefined') {
+			var ordered_children = [];
+			while (j < subtree.offset + subtree.leafs.length) {
+				var fail = true;
+				for (var i = 0; i < subtree.children.length; i++) {
+					if (typeof subtree.children[i].leafs === 'undefined') {
+						continue;
+					}
+					if (subtree.children[i].leafs.indexOf(genome_order[j]) !== -1) {
+						fail = false;
+						ordered_children.push(subtree.children[i]);
+						subtree.children[i].offset = j;
+						j += subtree.children[i].leafs.length;
+						rotateTree(subtree.children[i]);
+						subtree.children.splice(i, 1);
+						break;
+					}
+				}
+				if (fail) {
+					throw "No rotation can lead to current genome_order.";
+				}
+			}
+			subtree.children = ordered_children;
+		}
+		delete subtree.offset;
+		delete subtree.leafs;
+	};
+
+	rotateTree(startTree);
+
+	return startTree;
 };

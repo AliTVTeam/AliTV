@@ -2503,3 +2503,56 @@ describe('The startTransaction and endTransaction methods are used to prevent Al
 		expect(x).toEqual(3);
 	});
 });
+
+
+describe('The rotateTreeToGenomeOrder method is supposed to return a rotated version of the tree where the leafes fit the genome_order', function(){
+	it('rotateTreeToGenomeOrder method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.rotateTreeToGenomeOrder).toEqual('function');
+	});
+	it("the method is supposed to throw an exception if there is no tree in data", function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({});
+		expect(function(){ali.rotateTreeToGenomeOrder()}).toThrow("No tree in data.");
+	});
+	it("the method is supposed to return the tree if order and tree are already concordant", function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var tre = {"children": [{"children": [{"name": "A"}]},{"children": [{"name": "B"},{"name": "C"}]}]};
+		var fil = {"karyo": {"genome_order": ["A", "B", "C"]}};
+		ali.setData({"tree": tre});
+		ali.setFilters(fil);
+		expect(ali.rotateTreeToGenomeOrder()).toEqual(tre);
+	});
+	it("the method is supposed to throw an error if no rotation can lead to the correct order", function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var tre = {"children": [{"children": [{"children": [{"name": "A"}]}]},{"children": [{"children": [{"name": "B"},{"name": "C"}]}]}]};
+		var fil = {"karyo": {"genome_order": ["C", "A", "B"]}};
+		ali.setData({"tree": tre});
+		ali.setFilters(fil);
+		expect(function(){ali.rotateTreeToGenomeOrder()}).toThrow("No rotation can lead to current genome_order.");
+	});
+	it("the method is supposed to rotate the tree according to the defined order", function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var tre = {"children": [{"children": [{"children": [{"name": "A"}]}]},{"children": [{"children": [{"name": "B"},{"name": "C"}]}]}]};
+		var rotated = {"children": [{"children": [{"children": [{"name": "A"}]}]},{"children": [{"children": [{"name": "C"},{"name": "B"}]}]}]};
+		var fil = {"karyo": {"genome_order": ["A", "C", "B"]}};
+		ali.setData({"tree": tre});
+		ali.setFilters(fil);
+		expect(ali.rotateTreeToGenomeOrder()).toEqual(rotated);
+	});
+	it("the method is supposed to rotate the tree according to the defined order also on lower levels", function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		var tre = {"children": [{"children": [{"children": [{"name": "A"}]}]},{"children": [{"children": [{"name": "B"},{"name": "C"}]},{"children": [{"name": "D"},{"name": "E"}]}]}]};
+		var rotated = {"children": [{"children": [{"children": [{"name": "A"}]}]},{"children": [{"children": [{"name": "C"},{"name": "B"}]},{"children": [{"name": "E"},{"name": "D"}]}]}]};
+		var fil = {"karyo": {"genome_order": ["A", "C", "B", "E", "D"]}};
+		ali.setData({"tree": tre});
+		ali.setFilters(fil);
+		expect(ali.rotateTreeToGenomeOrder()).toEqual(rotated);
+	});
+});
