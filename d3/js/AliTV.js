@@ -3271,25 +3271,53 @@ AliTV.prototype.rotateTreeToGenomeOrder = function() {
 		throw "No tree in data.";
 	}
 
+	// decorate the tree nodes with lists of their leaf nodes
 	var getLeafs = function(subtree) {
 		var names = [];
-		console.log(subtree.length);
 		for (var i = 0; i < subtree.length; i++) {
 			if (typeof subtree[i].name !== "undefined") {
 				names.push(subtree[i].name);
 			} else {
-				var leafs = getLeafs(subtree[i]);
+				var leafs = getLeafs(subtree[i].children);
 				subtree[i].leafs = leafs;
-				names.push(leafs);
+				names = names.concat(leafs);
 			}
 		}
 		return names;
 	};
 
-	var startTree = [];
+	var startTree = {};
 	jQuery.extend(true, startTree, this.data.tree);
-	console.log(startTree);
-	var leafs = getLeafs(startTree);
+	startTree.leafs = getLeafs(startTree.children);
+	// offset from the beginning of the array at which this subtree starts
+	startTree.offset = 0;
+
+	var genome_order = this.filters.karyo.genome_order;
+	var rotateTree = function(subtree) {
+		var j = subtree.offset;
+		var ordered_children = [];
+		while (j < subtree.offset + subtree.leafs.length) {
+			var fail = true;
+			for (var i = 0; i < subtree.children.length; i++) {
+				if (subtree.children[i].leafs.indexOf(genome_order[j]) !== -1) {
+					fail = false;
+					ordered_children.push(subtree.children[i]);
+					subtree.children[i].offset = subtree.offset + j;
+					j += subtree.children[i].leafs.length;
+					subtree.children.splice(i, 1);
+					break;
+				}
+			}
+			if (fail) {
+				throw "No rotation can lead to current genome_order.";
+			}
+		}
+		subtree.children = ordered_children;
+		delete subtree.offset;
+		delete subtree.leafs;
+	};
+
+	rotateTree(startTree);
 
 	return startTree;
 };
