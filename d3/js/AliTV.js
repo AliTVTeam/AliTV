@@ -3295,24 +3295,30 @@ AliTV.prototype.rotateTreeToGenomeOrder = function() {
 	var genome_order = this.filters.karyo.genome_order;
 	var rotateTree = function(subtree) {
 		var j = subtree.offset;
-		var ordered_children = [];
-		while (j < subtree.offset + subtree.leafs.length) {
-			var fail = true;
-			for (var i = 0; i < subtree.children.length; i++) {
-				if (subtree.children[i].leafs.indexOf(genome_order[j]) !== -1) {
-					fail = false;
-					ordered_children.push(subtree.children[i]);
-					subtree.children[i].offset = subtree.offset + j;
-					j += subtree.children[i].leafs.length;
-					subtree.children.splice(i, 1);
-					break;
+		if (typeof subtree.children !== 'undefined') {
+			var ordered_children = [];
+			while (j < subtree.offset + subtree.leafs.length) {
+				var fail = true;
+				for (var i = 0; i < subtree.children.length; i++) {
+					if (typeof subtree.children[i].leafs === 'undefined') {
+						continue;
+					}
+					if (subtree.children[i].leafs.indexOf(genome_order[j]) !== -1) {
+						fail = false;
+						ordered_children.push(subtree.children[i]);
+						subtree.children[i].offset = subtree.offset + j;
+						j += subtree.children[i].leafs.length;
+						rotateTree(subtree.children[i]);
+						subtree.children.splice(i, 1);
+						break;
+					}
+				}
+				if (fail) {
+					throw "No rotation can lead to current genome_order.";
 				}
 			}
-			if (fail) {
-				throw "No rotation can lead to current genome_order.";
-			}
+			subtree.children = ordered_children;
 		}
-		subtree.children = ordered_children;
 		delete subtree.offset;
 		delete subtree.leafs;
 	};
