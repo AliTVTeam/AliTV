@@ -3277,6 +3277,7 @@ AliTV.prototype.rotateTreeToGenomeOrder = function() {
 		for (var i = 0; i < subtree.length; i++) {
 			if (typeof subtree[i].name !== "undefined") {
 				names.push(subtree[i].name);
+				subtree[i].leafs = [subtree[i].name];
 			} else {
 				var leafs = getLeafs(subtree[i].children);
 				subtree[i].leafs = leafs;
@@ -3306,7 +3307,7 @@ AliTV.prototype.rotateTreeToGenomeOrder = function() {
 					if (subtree.children[i].leafs.indexOf(genome_order[j]) !== -1) {
 						fail = false;
 						ordered_children.push(subtree.children[i]);
-						subtree.children[i].offset = subtree.offset + j;
+						subtree.children[i].offset = j;
 						j += subtree.children[i].leafs.length;
 						rotateTree(subtree.children[i]);
 						subtree.children.splice(i, 1);
