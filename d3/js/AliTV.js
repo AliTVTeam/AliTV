@@ -991,6 +991,7 @@ AliTV.prototype.drawLinear = function() {
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
 	this.drawFeatureLegend();
+	this.drawLinkIdentityLegend();
 
 	if (this.conf.labels.ticks.showTickLabels === true) {
 		this.drawLinearTickLabels(linearTickCoords);
@@ -3446,4 +3447,22 @@ AliTV.prototype.drawFeatureLegend = function() {
 		.call(legendRect);
 	this.getLegendRegion().select(".legendArrow")
 		.call(legendArrow);
+};
+
+
+/**
+ * This function is supposed to draw a legend for the color code of the link identity.
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.drawLinkIdentityLegend = function() {
+	var legendRegion = this.getLegendRegion();
+	var legend = legendRegion.append("defs").append("svg:linearGradient").attr("id", "linkIdentityGradient").attr("x1", "0%").attr("y1", "100%").attr("x2", "100%").attr("y2", "100%").attr("spreadMethod", "pad");
+	var transformPercent = d3.scale.linear().range([0, 100]).domain([this.conf.minLinkIdentity, this.conf.maxLinkIdentity]);
+	legend.append("stop").attr("offset", "0%").attr("stop-color", this.conf.minLinkIdentityColor).attr("stop-opacity", 1);
+	legend.append("stop").attr("offset", transformPercent(this.conf.midLinkIdentity) + "%").attr("stop-color", this.conf.midLinkIdentityColor).attr("stop-opacity", 1);
+	legend.append("stop").attr("offset", "100%").attr("stop-color", this.conf.maxLinkIdentityColor).attr("stop-opacity", 1);
+	legendRegion.append("rect").attr("width", 300).attr("height", 20).style("fill", "url(#linkIdentityGradient)").attr("transform", "translate(" + (this.getSvgWidth() * (2 / 3)) + ", 20)");
+	var x = d3.scale.linear().range([0, 300]).domain([this.conf.minLinkIdentity, this.conf.maxLinkIdentity]);
+	var xAxis = d3.svg.axis().scale(x).orient("bottom").tickSize([0, 8]);
+	legendRegion.append("g").attr("class", "x axis").attr("transform", "translate(" + (this.getSvgWidth() * (2 / 3)) + ", 45)").call(xAxis).append("text").attr("y", 20).attr("x", 150).attr("dy", ".71em").style("text-anchor", "middle").text("Link Identity %");
 };
