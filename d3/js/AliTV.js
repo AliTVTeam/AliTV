@@ -2725,7 +2725,7 @@ AliTV.prototype.setTickLabelSize = function(size) {
 	} else if (isNaN(size)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (size <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
 		size = Number(size);
 		this.conf.labels.ticks.size = size;
