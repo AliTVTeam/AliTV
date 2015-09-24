@@ -1016,8 +1016,14 @@ AliTV.prototype.drawLinear = function() {
 	if (this.conf.tree.drawTree === true && this.conf.tree.orientation === "left") {
 		this.getAlignmentRegion().attr("transform", "translate(" + this.conf.graphicalParameters.treeWidth + ", 0)");
 	}
+	if (this.conf.tree.drawTree === true && this.conf.tree.orientation === "right" && this.conf.labels.genome.showGenomeLabels === false) {
+		this.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + this.conf.graphicalParameters.canvasWidth + ", 0)");
+	}
 	if (this.conf.labels.genome.showGenomeLabels === true) {
 		this.getAlignmentRegion().attr("transform", "translate(" + this.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+		if (this.conf.tree.drawTree === true && this.conf.tree.orientation === "right") {
+			this.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + (this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+		}
 	}
 	if ((this.conf.labels.genome.showGenomeLabels === true) && this.conf.tree.drawTree === true && this.conf.tree.orientation === "left") {
 		this.getAlignmentRegion().attr("transform", "translate(" + (this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
