@@ -42,8 +42,7 @@ module.exports = function(grunt) {
 							'd3/lib/textures.min.js',
 							'd3/lib/colorpicker/bootstrap-colorpicker.min.js',
 							'd3/lib/bootstrap.min.js',
-							'd3/lib/bootbox.min.js',
-							'd3/lib/d3-legend.min.js'
+							'd3/lib/bootbox.min.js'
 						],
 						template: require('grunt-template-jasmine-istanbul'),
 						templateOptions: {

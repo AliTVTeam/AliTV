@@ -2568,8 +2568,7 @@ describe('The drawFeatureLegend method is supposed to draw a legend for the biol
 		var ali = new AliTV(svg);
 		ali.setData(data);
 		ali.setFilters(filters);
-		ali.conf.features.supportedFeatures.gene.visible = true;
-		ali.conf.features.supportedFeatures.invertedRepeat.visible = true;
+		ali.setConf({"features": {"supportedFeatures": {"bla": {"form": "rect", "visible": true, "color": "#ff00ff"}}}});
 		ali.drawFeatureLegend();
 		expect(ali.svgD3.selectAll(".legendRect").size()).toEqual(1);
 		expect(ali.svgD3.selectAll(".legendArrow").size()).toEqual(1);
