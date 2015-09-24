@@ -3347,3 +3347,11 @@ AliTV.prototype.rotateTreeToGenomeOrder = function() {
 
 	return startTree;
 };
+
+/**
+ * This function is supposed to draw a legend for all the supportedFeatures.
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.drawFeatureLegend = function() {
+
+};
