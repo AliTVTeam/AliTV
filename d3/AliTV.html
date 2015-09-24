@@ -29,10 +29,12 @@
     <script src="lib/bootstrap.min.js"></script>
     <script src="lib/colorpicker/bootstrap-colorpicker.min.js"></script>
     <script src="lib/textures.min.js"></script>
+    <script src="lib/d3-legend.min.js"></script>
     <script type="text/javascript">
         var ali;
         var editor;
         $(document).ready(function() {
+            $('#version-placeholder').html(AliTV_VERSION);
             var svg = $('#wgaCanvas');
             ali = new AliTV(svg);
             var container = document.getElementById("jsoneditor");
@@ -838,7 +840,7 @@
 <body>
 
     <div class="page-header" style="background: #f7f7f7">
-        <h1><img src="css/ali_logo2.png" alt="logo" width="140" height="120" style="margin:0px 20px"/>AliTV <small>Visualize multiple whole genome alignments as circular or linear maps</small></h1>
+        <h1><img src="css/ali_logo2.png" alt="logo" width="140" height="120" style="margin:0px 20px"/>AliTV <sup id="version-placeholder"></sup><small>&nbsp;Visualize multiple whole genome alignments as circular or linear maps</small></h1>
         <div>
 
             <ul class="nav nav-tabs" role="tablist">
@@ -1279,7 +1281,7 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                     <mark class="bg-info">
-                        <%= karyoId %>:</mark>
+                        <%=karyoId%>:</mark>
                     <div class="input-group" style="margin: 10px 10px">
                         <span class="input-group-addon">Set offset distance</span>
                         <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Enter the offset in bp" autocomplete="off"></span>

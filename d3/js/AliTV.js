@@ -6,6 +6,9 @@
 /* global circles: false */
 /* global bootbox: false */
 
+// use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
+var AliTV_VERSION = "0.3.5";
+
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
  * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de> 
@@ -987,6 +990,8 @@ AliTV.prototype.drawLinear = function() {
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
+	this.drawFeatureLegend();
+	this.drawLinkIdentityLegend();
 
 	if (this.conf.labels.ticks.showTickLabels === true) {
 		this.drawLinearTickLabels(linearTickCoords);
@@ -1013,11 +1018,22 @@ AliTV.prototype.drawLinear = function() {
 	if (this.conf.tree.drawTree === true && this.conf.tree.orientation === "left") {
 		this.getAlignmentRegion().attr("transform", "translate(" + this.conf.graphicalParameters.treeWidth + ", 0)");
 	}
+	if (this.conf.tree.drawTree === true && this.conf.tree.orientation === "right" && this.conf.labels.genome.showGenomeLabels === false) {
+		this.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + this.conf.graphicalParameters.canvasWidth + ", 0)");
+	}
 	if (this.conf.labels.genome.showGenomeLabels === true) {
 		this.getAlignmentRegion().attr("transform", "translate(" + this.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+		if (this.conf.tree.drawTree === true && this.conf.tree.orientation === "right") {
+			this.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + (this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+		}
 	}
 	if ((this.conf.labels.genome.showGenomeLabels === true) && this.conf.tree.drawTree === true && this.conf.tree.orientation === "left") {
 		this.getAlignmentRegion().attr("transform", "translate(" + (this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
+	// move feature legend below the alignment area and adjust svg height
+	this.getLegendRegion().attr("transform", "translate(0," + this.conf.graphicalParameters.canvasHeight + ")");
+	if (typeof this.getLegendRegion().node().getBBox !== "undefined") {
+		this.setSvgHeight(this.conf.graphicalParameters.canvasHeight + this.getLegendRegion().node().getBBox().height + this.getLegendRegion().node().getBBox().y);
 	}
 
 	this.conf.layout = "linear";
@@ -1262,7 +1278,7 @@ AliTV.prototype.setKaryoSpacer = function(spacer) {
 	} else if (isNaN(spacer)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (spacer <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
 		this.conf.graphicalParameters.karyoDistance = spacer;
 		this.triggerChange();
@@ -1297,7 +1313,7 @@ AliTV.prototype.setKaryoHeight = function(height) {
 	} else if (isNaN(height)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (height <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
 		height = Number(height);
 		this.conf.graphicalParameters.karyoHeight = height;
@@ -1332,7 +1348,7 @@ AliTV.prototype.setCanvasWidth = function(width) {
 	} else if (isNaN(width)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (width <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
 		width = Number(width);
 		this.conf.graphicalParameters.canvasWidth = width;
@@ -1368,7 +1384,7 @@ AliTV.prototype.setCanvasHeight = function(height) {
 	} else if (isNaN(height)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (height <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
 		height = Number(height);
 		this.conf.graphicalParameters.canvasHeight = height;
@@ -1405,7 +1421,7 @@ AliTV.prototype.setTickDistance = function(distance) {
 	} else if (isNaN(distance)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (distance <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
 		distance = Number(distance);
 		this.conf.graphicalParameters.tickDistance = distance;
@@ -1466,7 +1482,7 @@ AliTV.prototype.setTreeWidth = function(treeWidth) {
 	} else if (isNaN(treeWidth)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (treeWidth <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
 		treeWidth = Number(treeWidth);
 		this.conf.graphicalParameters.treeWidth = treeWidth;
@@ -1519,7 +1535,7 @@ AliTV.prototype.setTickLabelFrequency = function(tickLabelFrequency) {
 	} else if (isNaN(tickLabelFrequency)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (tickLabelFrequency <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
 		tickLabelFrequency = Number(tickLabelFrequency);
 		this.conf.graphicalParameters.tickLabelFrequency = tickLabelFrequency;
@@ -1833,7 +1849,24 @@ AliTV.prototype.filterLinksByAdjacency = function() {
  */
 AliTV.prototype.drawPhylogeneticTree = function() {
 	var that = this;
-	var treeData = $.extend(true, {}, that.data.tree);
+	var treeData;
+	try {
+		treeData = this.rotateTreeToGenomeOrder();
+	} catch (err) {
+		that.svgD3.append("g")
+			.attr("class", "treeGroup")
+			.append("text")
+			.attr("class", "treeWarningLabel")
+			.attr("x", that.conf.graphicalParameters.treeWidth / 2)
+			.attr("y", that.conf.graphicalParameters.canvasHeight / 2)
+			.text("WARNING: Genome order not concordant with tree")
+			.attr("font-family", "sans-serif")
+			.attr("font-size", "20px")
+			.attr("fill", "#ff0000")
+			.attr("transform", "rotate(-90, " + (that.conf.graphicalParameters.treeWidth / 2) + "," + (that.conf.graphicalParameters.canvasHeight / 2) + ")")
+			.style("text-anchor", "middle");
+		return;
+	}
 	// Create a tree "canvas"
 	var genomeDistance = that.getGenomeDistance();
 
@@ -1878,10 +1911,6 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 				return "M" + (that.conf.graphicalParameters.treeWidth - d.source.y) + "," + d.source.x + "H" + (that.conf.graphicalParameters.treeWidth - d.target.y) + "V" + d.target.x;
 			})
 			.attr("transform", "translate(0, " + 0.5 * (that.conf.graphicalParameters.karyoHeight - genomeDistance) + ")");
-		if (that.conf.labels.genome.showGenomeLabels === true) {
-			that.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.canvasWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
-		}
-
 	}
 
 };
@@ -2501,7 +2530,7 @@ AliTV.prototype.setSvgWidth = function(width) {
 	} else if (isNaN(width)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (width <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
 		width = Number(width);
 		if (this.conf.offset.isSet === true) {
@@ -2540,7 +2569,7 @@ AliTV.prototype.setSvgHeight = function(height) {
 	} else if (isNaN(height)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (height <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
 		height = Number(height);
 		this.svg.attr("height", height);
@@ -2643,7 +2672,7 @@ AliTV.prototype.setGenomeLabelSize = function(size) {
 	} else if (isNaN(size)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (size <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
 		size = Number(size);
 		this.conf.labels.genome.size = size;
@@ -2703,7 +2732,7 @@ AliTV.prototype.setTickLabelSize = function(size) {
 	} else if (isNaN(size)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (size <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
 		size = Number(size);
 		this.conf.labels.ticks.size = size;
@@ -2856,6 +2885,21 @@ AliTV.prototype.getAlignmentRegion = function() {
 		alignmentRegion = this.svgD3.selectAll(".alignmentRegion");
 	}
 	return alignmentRegion;
+};
+
+/**
+ * This function returns the internal legendRegion g element as d3 selection. It is created if it does not exist.
+ * @returns {Object} internal legendRegion g as d3 selection.
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.getLegendRegion = function() {
+	var legendRegion = this.svgD3.selectAll(".legendRegion");
+	if (legendRegion.size() < 1) {
+		this.svgD3.append("g")
+			.attr("class", "legendRegion");
+		legendRegion = this.svgD3.selectAll(".legendRegion");
+	}
+	return legendRegion;
 };
 
 /**
@@ -3180,7 +3224,7 @@ AliTV.prototype.setOffsetDistance = function(distance) {
 	} else if (isNaN(distance)) {
 		throw "Sorry, you entered not a number. Please try it again.";
 	} else if (distance <= 0) {
-		throw "Sorry, the entered value is to small. Please, insert one which is not less than 0.";
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
 		distance = Number(distance);
 		this.conf.offset.distance = distance;
@@ -3256,4 +3300,181 @@ AliTV.prototype.setNewFeature = function(group, form, color) {
 	};
 	this.triggerChange();
 	return this.conf.features.supportedFeatures[group];
+};
+
+/**
+ * This function is supposed to generate a tree from the supplied one that matches the current genome_order.
+ * @returns {object} tree - the tree in data rotated to match the current genome_order.
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.rotateTreeToGenomeOrder = function() {
+	if (typeof this.data.tree === "undefined") {
+		throw "No tree in data.";
+	}
+
+	// decorate the tree nodes with lists of their leaf nodes
+	var getLeafs = function(subtree) {
+		var names = [];
+		for (var i = 0; i < subtree.length; i++) {
+			if (typeof subtree[i].name !== "undefined") {
+				names.push(subtree[i].name);
+				subtree[i].leafs = [subtree[i].name];
+			} else {
+				var leafs = getLeafs(subtree[i].children);
+				subtree[i].leafs = leafs;
+				names = names.concat(leafs);
+			}
+		}
+		return names;
+	};
+
+	var startTree = {};
+	jQuery.extend(true, startTree, this.data.tree);
+	startTree.leafs = getLeafs(startTree.children);
+	// offset from the beginning of the array at which this subtree starts
+	startTree.offset = 0;
+
+	var genome_order = this.filters.karyo.genome_order;
+	var rotateTree = function(subtree) {
+		var j = subtree.offset;
+		if (typeof subtree.children !== 'undefined') {
+			var ordered_children = [];
+			while (j < subtree.offset + subtree.leafs.length) {
+				var fail = true;
+				for (var i = 0; i < subtree.children.length; i++) {
+					if (typeof subtree.children[i].leafs === 'undefined') {
+						continue;
+					}
+					if (subtree.children[i].leafs.indexOf(genome_order[j]) !== -1) {
+						fail = false;
+						ordered_children.push(subtree.children[i]);
+						subtree.children[i].offset = j;
+						j += subtree.children[i].leafs.length;
+						rotateTree(subtree.children[i]);
+						subtree.children.splice(i, 1);
+						break;
+					}
+				}
+				if (fail) {
+					throw "No rotation can lead to current genome_order.";
+				}
+			}
+			subtree.children = ordered_children;
+		}
+		delete subtree.offset;
+		delete subtree.leafs;
+	};
+
+	rotateTree(startTree);
+
+	return startTree;
+};
+
+/**
+ * This function is supposed to draw a legend for all the supportedFeatures.
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.drawFeatureLegend = function() {
+	var rect = [];
+	var rectCol = [];
+	var arrow = [];
+	var arrowCol = [];
+	var that = this;
+	$.each(that.conf.features.supportedFeatures, function(key, val) {
+		if (!val.visible) {
+			return;
+		}
+		if (val.form === "rect") {
+			rect.push(key);
+			rectCol.push(val.color);
+		} else if (val.form === "arrow") {
+			arrow.push(key);
+			arrowCol.push(val.color);
+		}
+	});
+
+	this.getLegendRegion().selectAll(".legendRect").remove();
+	this.getLegendRegion().selectAll(".legendArrow").remove();
+
+	this.getLegendRegion().append("g")
+		.attr("class", "legendRect")
+		.attr("transform", "translate(0,20)");
+	this.getLegendRegion().append("g")
+		.attr("class", "legendArrow")
+		.attr("transform", "translate(" + (this.getSvgWidth() / 3) + ",20)");
+
+	var rectScale = d3.scale.ordinal()
+		.domain(rect)
+		.range(rectCol);
+	var arrowScale = d3.scale.ordinal()
+		.domain(arrow)
+		.range(arrowCol);
+
+	var arrowShape = [
+		[0, 0],
+		[10, 0],
+		[10, -5],
+		[18, 5],
+		[10, 15],
+		[10, 10],
+		[0, 10]
+	];
+	var lineGenerator = d3.svg.line().x(function(d) {
+		return d[0];
+	}).y(function(d) {
+		return d[1];
+	});
+
+	// this does not work in test cases - most likely the d3-legend library is not properly loaded
+	// to avoid meaningless fails in tests skip this region if d3.legend is not defined
+	if (typeof d3.legend === 'undefined') {
+		return;
+	}
+	var legendArrow = d3.legend.color()
+		//d3 symbol creates a path-string, for example
+		//"M0,-8.059274488676564L9.306048591020996,
+		//8.059274488676564 -9.306048591020996,8.059274488676564Z"
+		.shape("path", lineGenerator(arrowShape)) //d3.svg.symbol().type("triangle-up").size(150)())
+		.shapePadding(10)
+		.scale(arrowScale);
+
+	var legendRect = d3.legend.color()
+		.shape("rect")
+		.shapePadding(10)
+		.scale(rectScale);
+
+	this.getLegendRegion().select(".legendRect")
+		.call(legendRect);
+	this.getLegendRegion().select(".legendArrow")
+		.call(legendArrow);
+};
+
+
+/**
+ * This function is supposed to draw a legend for the color code of the link identity.
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.drawLinkIdentityLegend = function() {
+	var legendRegion = this.getLegendRegion();
+	legendRegion.selectAll(".legendLinkIdentity").remove();
+	legendRegion.selectAll("#linkIdentityGradient").remove();
+	var legend = legendRegion.append("defs")
+		.append("svg:linearGradient")
+		.attr("id", "linkIdentityGradient")
+		.attr("x1", "0%")
+		.attr("y1", "100%")
+		.attr("x2", "100%")
+		.attr("y2", "100%")
+		.attr("spreadMethod", "pad");
+	var transformPercent = d3.scale.linear().range([0, 100]).domain([this.conf.minLinkIdentity, this.conf.maxLinkIdentity]);
+	legend.append("stop").attr("offset", "0%").attr("stop-color", this.conf.minLinkIdentityColor).attr("stop-opacity", 1);
+	legend.append("stop").attr("offset", transformPercent(this.conf.midLinkIdentity) + "%").attr("stop-color", this.conf.midLinkIdentityColor).attr("stop-opacity", 1);
+	legend.append("stop").attr("offset", "100%").attr("stop-color", this.conf.maxLinkIdentityColor).attr("stop-opacity", 1);
+	var legendLinkIdentityGroup = legendRegion.append("g")
+		.attr("class", "legendLinkIdentity")
+		.attr("transform", "translate(" + (this.getSvgWidth() * (2 / 3)) + ", 20)");
+	legendLinkIdentityGroup.append("rect").attr("width", 300).attr("height", 20).style("fill", "url(#linkIdentityGradient)");
+	var x = d3.scale.linear().range([0, 300]).domain([this.conf.minLinkIdentity, this.conf.maxLinkIdentity]);
+	var xAxis = d3.svg.axis().scale(x).orient("bottom").tickSize([0, 8]);
+	legendLinkIdentityGroup.append("g").attr("class", "x axis").attr("transform", "translate(0, 25)").call(xAxis).append("text").attr("y", 20).attr("x", 150).attr("dy", ".71em").style("text-anchor", "middle").text("Link Identity %");
 };

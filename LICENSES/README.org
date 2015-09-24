@@ -127,4 +127,12 @@ http://silviomoreto.github.io/bootstrap-select/
 [[file:LICENSE-underscorejs][LICENSE-underscorejs]]
 **** Files
  - [[../d3/lib/underscore-min.js]]
-
+*** d3-legend
+**** Repository
+[[https://github.com/susielu/d3-legend]]
+**** Version
+1.3.0
+**** LICENSE
+[[file:LICENSE-d3-legend][LICENSE-d3-legend]]
+**** Files
+ - [[../d3/lib/d3-legend.min.js]]
