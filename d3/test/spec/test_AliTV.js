@@ -2574,3 +2574,19 @@ describe('The drawFeatureLegend method is supposed to draw a legend for the biol
 		expect(ali.svgD3.selectAll(".legendArrow").size()).toEqual(1);
 	});
 });
+
+describe('The drawLinkIdentityLegend method is supposed to draw a legend for the color code of the link identity', function(){
+	it('drawLinkIdentityLegend method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.drawLinkIdentityLegend).toEqual('function');
+	});
+	it("the method is supposed to add an element for legendLinkIdentity", function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.drawLinkIdentityLegend();
+		expect(ali.svgD3.selectAll(".legendLinkIdentity").size()).toEqual(1);
+	});
+});
