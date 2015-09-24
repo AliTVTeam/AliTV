@@ -2881,6 +2881,21 @@ AliTV.prototype.getAlignmentRegion = function() {
 };
 
 /**
+ * This function returns the internal legendRegion g element as d3 selection. It is created if it does not exist.
+ * @returns {Object} internal legendRegion g as d3 selection.
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.getLegendRegion = function() {
+	var legendRegion = this.svgD3.selectAll(".legendRegion");
+	if (legendRegion.size() < 1) {
+		this.svgD3.append("g")
+			.attr("class", "legendRegion");
+		legendRegion = this.svgD3.selectAll(".legendRegion");
+	}
+	return legendRegion;
+};
+
+/**
  * This function returns linkCoords with those removed that have their ends outside the visible region.
  * Optionally also links with only one end in the visible region can be removed.
  * @param {Array}   - linearLinkCoords as returned by getLinearLinkCoords
