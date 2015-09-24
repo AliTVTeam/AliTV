@@ -3368,5 +3368,70 @@ AliTV.prototype.rotateTreeToGenomeOrder = function() {
  * @author Markus Ankenbrand
  */
 AliTV.prototype.drawFeatureLegend = function() {
+	var rect = [];
+	var rectCol = [];
+	var arrow = [];
+	var arrowCol = [];
+	var that = this;
+	$.each(that.conf.features.supportedFeatures, function(key, val) {
+		if (!val.visible) {
+			return;
+		}
+		if (val.form === "rect") {
+			rect.push(key);
+			rectCol.push(val.color);
+		} else if (val.form === "arrow") {
+			arrow.push(key);
+			arrowCol.push(val.color);
+		}
+	});
+	var rectScale = d3.scale.ordinal()
+		.domain(rect)
+		.range(rectCol);
+	var arrowScale = d3.scale.ordinal()
+		.domain(arrow)
+		.range(arrowCol);
 
+	this.getLegendRegion().selectAll(".legendRect").remove();
+	this.getLegendRegion().selectAll(".legendArrow").remove();
+
+	this.getLegendRegion().append("g")
+		.attr("class", "legendRect")
+		.attr("transform", "translate(0,20)");
+	this.getLegendRegion().append("g")
+		.attr("class", "legendArrow")
+		.attr("transform", "translate(200,20)");
+
+	var arrowShape = [
+		[0, 0],
+		[10, 0],
+		[10, -5],
+		[18, 5],
+		[10, 15],
+		[10, 10],
+		[0, 10]
+	];
+	var lineGenerator = d3.svg.line().x(function(d) {
+		return d[0];
+	}).y(function(d) {
+		return d[1];
+	});
+
+	var legendArrow = d3.legend.color()
+		//d3 symbol creates a path-string, for example
+		//"M0,-8.059274488676564L9.306048591020996,
+		//8.059274488676564 -9.306048591020996,8.059274488676564Z"
+		.shape("path", lineGenerator(arrowShape)) //d3.svg.symbol().type("triangle-up").size(150)())
+		.shapePadding(10)
+		.scale(arrowScale);
+
+	var legendRect = d3.legend.color()
+		.shape("rect")
+		.shapePadding(10)
+		.scale(rectScale);
+
+	this.getLegendRegion().select(".legendArrow")
+		.call(legendArrow);
+	this.getLegendRegion().select(".legendRect")
+		.call(legendRect);
 };
