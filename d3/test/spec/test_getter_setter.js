@@ -731,6 +731,24 @@ describe('The getAlignmentRegion method is supposed to return the inner alignmen
 	});
 });
 
+describe('The getLegendRegion method is supposed to return the inner legendRegion g element as d3 selection', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getLegendRegion method is supposed to be a function', function(){
+		expect(typeof ali.getLegendRegion).toEqual('function');
+	});
+	it('the function should return the legendRegion as d3 selection object', function(){
+		ali.svgD3.append("g").attr("class", "legendRegion");
+		expect(ali.getLegendRegion()).toEqual(ali.svgD3.selectAll(".legendRegion"));
+	});
+	it('the function should return a newly created legendRegion as d3 selection object if it did not exist', function(){
+		svg = $('<svg></svg>');
+		ali = new AliTV(svg);
+		expect(ali.getLegendRegion().size()).toEqual(1);
+	});
+});
+
 describe('The getGenomeLabelColor method is supposed to get the color of the genome labels', function(){
 	var svg = $('<svg></svg>');
 	var ali = new AliTV(svg);
