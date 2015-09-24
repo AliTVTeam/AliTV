@@ -2563,4 +2563,15 @@ describe('The drawFeatureLegend method is supposed to draw a legend for the biol
 		var ali = new AliTV(svg);
 		expect(typeof ali.drawFeatureLegend).toEqual('function');
 	});
+	it("the method is supposed to add elements for rect legend and arrow legend", function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.conf.features.supportedFeatures.gene.visible = true;
+		ali.conf.features.supportedFeatures.invertedRepeat.visible = true;
+		ali.drawFeatureLegend();
+		expect(ali.svgD3.selectAll(".legendRect").size()).toEqual(1);
+		expect(ali.svgD3.selectAll(".legendArrow").size()).toEqual(1);
+	});
 });
