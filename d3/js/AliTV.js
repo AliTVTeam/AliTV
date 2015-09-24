@@ -990,6 +990,7 @@ AliTV.prototype.drawLinear = function() {
 	this.drawLinearKaryo(karyoCoords);
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
+	this.drawFeatureLegend();
 
 	if (this.conf.labels.ticks.showTickLabels === true) {
 		this.drawLinearTickLabels(linearTickCoords);
@@ -1027,6 +1028,11 @@ AliTV.prototype.drawLinear = function() {
 	}
 	if ((this.conf.labels.genome.showGenomeLabels === true) && this.conf.tree.drawTree === true && this.conf.tree.orientation === "left") {
 		this.getAlignmentRegion().attr("transform", "translate(" + (this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
+	// move feature legend below the alignment area and adjust svg height
+	this.getLegendRegion().attr("transform", "translate(0," + this.conf.graphicalParameters.canvasHeight + ")");
+	if (typeof this.getLegendRegion().node().getBBox !== "undefined") {
+		this.setSvgHeight(this.conf.graphicalParameters.canvasHeight + this.getLegendRegion().node().getBBox().height + this.getLegendRegion().node().getBBox().y);
 	}
 
 	this.conf.layout = "linear";
