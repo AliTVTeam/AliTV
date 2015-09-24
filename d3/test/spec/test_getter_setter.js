@@ -43,11 +43,11 @@ describe('The setKaryoSpacer method is supposed to set the new information of th
 	});
 	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is less than 0', function(){
 		var returnedSpacer = -12;
-		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 	it('the returned Spacer of the getKaryoSpacer method should throw an error message if the spacer is 0', function(){
 		var returnedSpacer = 0;
-		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setKaryoSpacer(returnedSpacer);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 });
 
@@ -97,11 +97,11 @@ describe('The setKaryoHeight method is supposed to set the new height of chromos
 	});
 	it('the setKaryoHeight method should throw an error message if the assigned height is 0', function(){
 		var height = 0;
-		expect(function(){ali.setKaryoHeight(height);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setKaryoHeight(height);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 	it('the setKaryoHeight method should throw an error message if the assigned height is less than 0', function(){
 		var height = -12;
-		expect(function(){ali.setKaryoHeight(height);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setKaryoHeight(height);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 
 });
@@ -151,11 +151,11 @@ describe('The setCanvasWidth method is supposed to set a new width of the svgDra
 	});
 	it('the setCanvasWidth method should throw an error message if the assigned width is 0', function(){
 		var width = 0;
-		expect(function(){ali.setCanvasWidth(width);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setCanvasWidth(width);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 	it('the setCanvasWidth method should throw an error message if the assigned width is less than 0', function(){
 		var width = -3000;
-		expect(function(){ali.setCanvasWidth(width);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setCanvasWidth(width);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 });
 
@@ -204,11 +204,11 @@ describe('The setCanvasHeight method is supposed to set a new height of the svg 
 	});
 	it('the setCanvasHeight method should throw an error message if the assigned height is 0', function(){
 		var height = 0;
-		expect(function(){ali.setCanvasHeight(height);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setCanvasHeight(height);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 	it('the setCanvasHeight method should throw an error message if the assigned height is less than 0', function(){
 		var height = -42;
-		expect(function(){ali.setCanvasHeight(height);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setCanvasHeight(height);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 });
 
@@ -318,11 +318,11 @@ describe('The setTickDistance method is supposed to set a new distance between t
 	});
 	it('the setTickDistance method should throw an error message if the assigned distance is 0', function(){
 		var distance = 0;
-		expect(function(){ali.setTickDistance(distance);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setTickDistance(distance);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 	it('the setTickDistance method should throw an error message if the assigned distance is less than 0', function(){
 		var distance = -200;
-		expect(function(){ali.setTickDistance(distance);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setTickDistance(distance);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 });
 
@@ -387,11 +387,11 @@ describe('The setTreeWidth method is supposed to set a new tree width', function
 	});
 	it('the setTreeWidth method should throw an error message if the assigned treeWidth is 0', function(){
 		var treeWidth = 0;
-		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 	it('the setTreeWidth method should throw an error message if the assigned distance is less than 0', function(){
 		var treeWidth = -200;
-		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setTreeWidth(treeWidth);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 });
 
@@ -440,11 +440,11 @@ describe('The setTickLabelFrequency method is supposed to set a new frequency of
 	});
 	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is 0', function(){
 		var tickLabelFrequency = 0;
-		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 	it('the setTickLabelFrequency method should throw an error message if the assigned frequency is less than 0', function(){
 		var tickLabelFrequency = -200;
-		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setTickLabelFrequency(tickLabelFrequency);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 });
 
@@ -607,11 +607,11 @@ describe('The setSvgWidth method is supposed to set a new width of the svg', fun
 	});
 	it('the setSvgWidth method should throw an error message if the assigned width is 0', function(){
 		var width = 0;
-		expect(function(){ali.setSvgWidth(width);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setSvgWidth(width);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 	it('the setSvgWidth method should throw an error message if the assigned width is less than 0', function(){
 		var width = -3000;
-		expect(function(){ali.setSvgWidth(width);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setSvgWidth(width);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 });
 
@@ -656,11 +656,11 @@ describe('The setSvgHeight method is supposed to set a new height of the svg dra
 	});
 	it('the setSvgHeight method should throw an error message if the assigned height is 0', function(){
 		var height = 0;
-		expect(function(){ali.setSvgHeight(height);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setSvgHeight(height);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 	it('the setSvgHeight method should throw an error message if the assigned height is less than 0', function(){
 		var height = -42;
-		expect(function(){ali.setSvgHeight(height);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setSvgHeight(height);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 });
 
@@ -728,6 +728,24 @@ describe('The getAlignmentRegion method is supposed to return the inner alignmen
 		svg = $('<svg></svg>');
 		ali = new AliTV(svg);
 		expect(ali.getAlignmentRegion().size()).toEqual(1);
+	});
+});
+
+describe('The getLegendRegion method is supposed to return the inner legendRegion g element as d3 selection', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getLegendRegion method is supposed to be a function', function(){
+		expect(typeof ali.getLegendRegion).toEqual('function');
+	});
+	it('the function should return the legendRegion as d3 selection object', function(){
+		ali.svgD3.append("g").attr("class", "legendRegion");
+		expect(ali.getLegendRegion()).toEqual(ali.svgD3.selectAll(".legendRegion"));
+	});
+	it('the function should return a newly created legendRegion as d3 selection object if it did not exist', function(){
+		svg = $('<svg></svg>');
+		ali = new AliTV(svg);
+		expect(ali.getLegendRegion().size()).toEqual(1);
 	});
 });
 
@@ -811,11 +829,11 @@ describe('The setGenomeLabelSize method is supposed to set a new size of the gen
 	});
 	it('the setGenomeLabelSize method should throw an error message if the assigned size is 0', function(){
 		var size = 0;
-		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 	it('the setGenomeLabelSize method should throw an error message if the assigned size is less than 0', function(){
 		var size = -30;
-		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setGenomeLabelSize(size);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 });
 
@@ -899,11 +917,11 @@ describe('The setTickLabelSize method is supposed to set a new size of the Tick 
 	});
 	it('the setTickLabelSize method should throw an error message if the assigned size is 0', function(){
 		var size = 0;
-		expect(function(){ali.setTickLabelSize(size);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setTickLabelSize(size);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 	it('the setTickLabelSize method should throw an error message if the assigned size is less than 0', function(){
 		var size = -30;
-		expect(function(){ali.setTickLabelSize(size);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setTickLabelSize(size);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 });
 
@@ -1059,13 +1077,13 @@ describe('The setOffsetDistance method is supposed to set a new distance for shi
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		var distance = 0;
-		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 	it('the setOffsetDistance method should throw an error message if the assigned distance is less than 0', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		var distance = -200;
-		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, the entered value is to small. Please, insert one which is not less than 0.");
+		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
 	});
 });
 		

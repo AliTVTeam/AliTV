@@ -2556,3 +2556,37 @@ describe('The rotateTreeToGenomeOrder method is supposed to return a rotated ver
 		expect(ali.rotateTreeToGenomeOrder()).toEqual(rotated);
 	});
 });
+
+describe('The drawFeatureLegend method is supposed to draw a legend for the biological features', function(){
+	it('drawFeatureLegend method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.drawFeatureLegend).toEqual('function');
+	});
+	it("the method is supposed to add elements for rect legend and arrow legend", function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.setConf({"features": {"supportedFeatures": {"bla": {"form": "rect", "visible": true, "color": "#ff00ff"}}}});
+		ali.drawFeatureLegend();
+		expect(ali.svgD3.selectAll(".legendRect").size()).toEqual(1);
+		expect(ali.svgD3.selectAll(".legendArrow").size()).toEqual(1);
+	});
+});
+
+describe('The drawLinkIdentityLegend method is supposed to draw a legend for the color code of the link identity', function(){
+	it('drawLinkIdentityLegend method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.drawLinkIdentityLegend).toEqual('function');
+	});
+	it("the method is supposed to add an element for legendLinkIdentity", function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData(data);
+		ali.setFilters(filters);
+		ali.drawLinkIdentityLegend();
+		expect(ali.svgD3.selectAll(".legendLinkIdentity").size()).toEqual(1);
+	});
+});
