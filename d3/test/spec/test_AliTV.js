@@ -2556,3 +2556,11 @@ describe('The rotateTreeToGenomeOrder method is supposed to return a rotated ver
 		expect(ali.rotateTreeToGenomeOrder()).toEqual(rotated);
 	});
 });
+
+describe('The drawFeatureLegend method is supposed to draw a legend for the biological features', function(){
+	it('drawFeatureLegend method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.drawFeatureLegend).toEqual('function');
+	});
+});
