@@ -1836,6 +1836,7 @@ AliTV.prototype.filterLinksByAdjacency = function() {
  */
 AliTV.prototype.drawPhylogeneticTree = function() {
 	var that = this;
+	var treeData;
 	try {
 		treeData = this.rotateTreeToGenomeOrder();
 	} catch (err) {
