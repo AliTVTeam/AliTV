@@ -3475,6 +3475,6 @@ AliTV.prototype.drawLinkIdentityLegend = function() {
 		.attr("transform", "translate(" + (this.getSvgWidth() * (2 / 3)) + ", 20)");
 	legendLinkIdentityGroup.append("rect").attr("width", 300).attr("height", 20).style("fill", "url(#linkIdentityGradient)");
 	var x = d3.scale.linear().range([0, 300]).domain([this.conf.minLinkIdentity, this.conf.maxLinkIdentity]);
-	var xAxis = d3.svg.axis().scale(x).orient("bottom").tickSize([0, 8]);
+	var xAxis = d3.svg.axis().scale(x).orient("bottom");
 	legendLinkIdentityGroup.append("g").attr("class", "x axis").attr("transform", "translate(0, 25)").call(xAxis).append("text").attr("y", 20).attr("x", 150).attr("dy", ".71em").style("text-anchor", "middle").text("Link Identity %");
 };
