@@ -23,7 +23,7 @@
 \caption{AliTV logo}
 \end{figure}
 
-\textsc{AliTV} (\textsc{Alignment Toolbox \& Visualization}) is a free software for visualizing whole genome alignments as circular or linear maps. The figure is presented on a HTML-page with an easy-to-use graphical user interface. Comparisons between multiple genomic regions can be generated, interactively analyzed and exported as svg. 
+AliTV (\emph{Alignment Toolbox \& Visualization}) is a free software for visualizing whole genome alignments as circular or linear maps. The figure is presented on a HTML-page with an easy-to-use graphical user interface. Comparisons between multiple genomic regions can be generated, interactively analyzed and exported as svg. 
 
 \section*{Installation}
 \newpage
@@ -31,7 +31,7 @@
 In this example chloroplast genomes of seven parasitic and non-parasitic plants are compared and analyzed with AliTV. The files needed for this tutorial are used as the default data, this means you must not import them.
 
 You can checkout the demoversion of AliTV which is available via the following link: \url{http://bioinf-wuerzburg.github.io/AliTV/}
-\paragraph*{Visualizing the Whole-Genome Alignment}
+\section*{Visualizing the Whole-Genome Alignment}
 \begin{itemize}
 	\item Open \texttt{AliTV.html} with your favourite webbrowser.
 		
@@ -43,6 +43,7 @@ You can checkout the demoversion of AliTV which is available via the following l
 	
 	\item As you can see seven chloroplast genomes and the alignments between adjacent genomes are visualized. The genome of \textit{N. tabacum} is splitted in two parts. 
 	\item The phylogenetic tree represents the relationship between the analyzed genomes.
+	\item At the bottom a legend shows the biological features and the scale of the link identity.
 \end{itemize}
 
 \paragraph*{Create figure}
@@ -56,11 +57,12 @@ You can checkout the demoversion of AliTV which is available via the following l
 	\item The direction of \emph{S. americana} is the opposite in contrast to the adjacent genomes, because the alignments between them are twisted. Therefore AliTV provides the option to set the sequence orientation forward or reverse in order to obtain a clearer comparasion. 
 	\item A context menu appears by right-clicking the genome of \emph{S. americana}. Select \texttt{Change orientation}.
 	\item With an easy mouseclick you have changed the orientation of \emph{S. americana} and can now analyse the alignments between this and the adjacent genomes.
+	
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=10cm]{reverse.png}
-		\caption{By using the context menus you can change the orientation of \emph{S. americana}.}
 	\end{figure}
+	
 \end{itemize}
 	
 \paragraph*{Set tree configurations}
@@ -70,23 +72,27 @@ You can checkout the demoversion of AliTV which is available via the following l
 	\item Here you can decide wether the tree is drawn or not. For the next few steps it is easier if the tree is not shown. Therefore make the checkobox unchecked.
 	\item Submit the changes with \texttt{Apply}
 	\item Now the phylogenetic tree is hidden. You can easy show him by checking the checkbox again.
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=10cm]{noTree.png}
-		\caption{AliTV provides the option for showing and hiding the phylogenetic tree.}
-	\end{figure}
 \end{itemize}
 
 \paragraph*{Change the genome and chromosome order}	
 \begin{itemize}
-\item If you want to compare \emph{N. tabacum} to \emph{L. philippensis} AliTV provides an easy option  for changing the genome order.
+\item If you want to compare \emph{N. tabacum} to \emph{L. philippensis} AliTV provides an easy option for changing the genome order.
 \item You can change the order by right-clicking \emph{N. tabacum}. The context menu appears. Select \texttt{Move down}. Now \emph{N. tabacum} swapped its position with the genome below. So you can easy compare \emph{N. tabacum} with \emph{L. philippensis}
 
-	\begin{figure}[H]
+	\begin{figure}
 		\centering
 		\includegraphics[width=10cm]{swap1.png}
-		\caption{\emph{N. tabacum} and \emph{O. europaea} swapped their position within the genome order.}
+		\caption{}
 	\end{figure}
+	
+	\item As you can see the order of the phylogenetic tree has changed too. Its important to know that if the tree is drawn you can only swap genomes within the tree order. If the genome order is not concordant with the tree order the tree is hidden and a warning appears.
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=10cm]{warn.png}
+		\caption{}
+	\end{figure}
+	 
 	\item For changing the order of chromosomes within a genome (for example \emph{N. tabacum}) you select the chromosome which you want to resort. In the contextmenu select \texttt{Move right} or \texttt{Move left}.
 	\item When you want to save the image with the current settings you can download it as described in Create Figure.
 \end{itemize}
@@ -97,11 +103,13 @@ You can checkout the demoversion of AliTV which is available via the following l
 	\item Choose the tab \texttt{Filtering} on the HTML page.
 	\item For filtering links you use the sliders. Set the range of the identity slider on 85\% to 100\%. Submit your changes with \texttt{Apply}.
 	\item As you can see some of the red and orange colored links are not shown because their identity is less than 85\% and so they are filtered.
+	
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=10cm]{filterLinks.png}
-		\caption{By using interacitve sliders links can easy filtered by their identity and length.}
+		\caption{}
 	\end{figure}
+	
 	\item In the same way links can be filtered by their length. So try it and have fun with this nice sliders!
 \end{itemize}
 
@@ -111,11 +119,13 @@ AliTV provides many ways to customise the image. The following list only shows a
 \subparagraph*{Setting the layout}
 \begin{itemize}
 	\item Select \texttt{Layout Settings} and choose your favourite layout (circular or linear).
+	
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=10cm]{circular.png}
-		\caption{AliTV provides the option to show the image in a circular layout. This may be helpful for comparing two or three sequences. But with more than five the image will be confusing.}
+		\caption{}
 	\end{figure}
+
 	 \item At the moment the circular layout is not the development stage of the linear layout. Therefore the most options and interactive functions are not working if you use it.
 \end{itemize}
 
@@ -148,11 +158,13 @@ AliTV provides many ways to customise the image. The following list only shows a
 	\item AliTV provides a function for zooming genomic regions. For using the zoom feature you can directly interact with the AliTV image.
 	\item Drag the mousepointer on the genome region you want to zoom. In this example we want to analyze the inverted repeat IrA of \textit{L. philippensis}.
 	\item A rect selection appears. Drop it and you zoomed into the selected region.
+	
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=10cm]{zoom.png}
-		\caption{AliTV provides you a function for zooming into genome regions.}
+		\caption{}
 	\end{figure}
+	
 	\item You can reset the zoom by right-clicking onto the chromosome and select \texttt{Reset genome zoom/pan}.
 \end{itemize}
 
@@ -161,6 +173,13 @@ AliTV provides many ways to customise the image. The following list only shows a
 	\item For analyzing circular sequences it may be helpful to rotate them. Therefore go to \texttt{Advanced Settings}.
 	\item Via the selection box you select the chromosome you want to shift. As you can see a button group appears next to the selected chromosome.
 	\item By using the right or left arrow you shift the chromosome for a tick distance. If a link or a feature has an overlap it will be splitted into two parts.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=10cm]{shift.png}
+		\caption{Via the interface chromosomes can be shifted.}
+	\end{figure}	
+	
 	\item For changing the offset distance type in a new value in the cooresponding input field.
 	\item You can remove the offset by clicking \texttt{Remove Offset}. Now the button group is removed and the shifted chromosome is resetted.
 	
@@ -169,7 +188,7 @@ AliTV provides many ways to customise the image. The following list only shows a
 \newpage
 \section*{Features of AliTV}
 \subsection*{Main Screen}
-Above is the user interface of AliTV available on the HTML page when you generate the figure.
+Above is the user interface of AliTV available on the HTML page when you generate the figure. The current version of AliTV is presented on the frontend.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=14cm]{userInterface.png}

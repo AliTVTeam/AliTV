@@ -5,7 +5,7 @@ About AliTV
    :alt: AliTV logo
 
    AliTV logo
-AliTV (Alignment Toolbox & Visualization) is a free software for
+AliTV (*Alignment Toolbox & Visualization*) is a free software for
 visualizing whole genome alignments as circular or linear maps. The
 figure is presented on a HTML-page with an easy-to-use graphical user
 interface. Comparisons between multiple genomic regions can be
@@ -26,7 +26,7 @@ You can checkout the demoversion of AliTV which is available via the
 following link: http://bioinf-wuerzburg.github.io/AliTV/
 
 Visualizing the Whole-Genome Alignment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+======================================
 
 -  Open ``AliTV.html`` with your favourite webbrowser.
 
@@ -40,6 +40,9 @@ Visualizing the Whole-Genome Alignment
 
 -  The phylogenetic tree represents the relationship between the
    analyzed genomes.
+
+-  At the bottom a legend shows the biological features and the scale of
+   the link identity.
 
 Create figure
 ^^^^^^^^^^^^^
@@ -65,12 +68,7 @@ Change the genome orientation
    americana* and can now analyse the alignments between this and the
    adjacent genomes.
 
-   .. figure:: reverse.png
-      :alt: By using the context menus you can change the orientation of
-      *S. americana*.
-
-      By using the context menus you can change the orientation of *S.
-      americana*.
+   |image|
 
 Set tree configurations
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -90,13 +88,6 @@ Set tree configurations
 -  Now the phylogenetic tree is hidden. You can easy show him by
    checking the checkbox again.
 
-   .. figure:: noTree.png
-      :alt: AliTV provides the option for showing and hiding the
-      phylogenetic tree.
-
-      AliTV provides the option for showing and hiding the phylogenetic
-      tree.
-
 Change the genome and chromosome order
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -109,11 +100,16 @@ Change the genome and chromosome order
    with *L. philippensis*
 
    .. figure:: swap1.png
-      :alt: *N. tabacum* and *O. europaea* swapped their position within
-      the genome order.
+      :alt: 
 
-      *N. tabacum* and *O. europaea* swapped their position within the
-      genome order.
+-  As you can see the order of the phylogenetic tree has changed too.
+   Its important to know that if the tree is drawn you can only swap
+   genomes within the tree order. If the genome order is not concordant
+   with the tree order the tree is hidden and a warning appears.
+
+   .. figure:: warn.png
+      :alt: 
+
 -  For changing the order of chromosomes within a genome (for example
    *N. tabacum*) you select the chromosome which you want to resort. In
    the contextmenu select ``Move right`` or ``Move left``.
@@ -137,11 +133,8 @@ Filter links by identity and length
    because their identity is less than 85% and so they are filtered.
 
    .. figure:: filterLinks.png
-      :alt: By using interacitve sliders links can easy filtered by
-      their identity and length.
+      :alt: 
 
-      By using interacitve sliders links can easy filtered by their
-      identity and length.
 -  In the same way links can be filtered by their length. So try it and
    have fun with this nice sliders!
 
@@ -159,13 +152,8 @@ Setting the layout
    or linear).
 
    .. figure:: circular.png
-      :alt: AliTV provides the option to show the image in a circular
-      layout. This may be helpful for comparing two or three sequences.
-      But with more than five the image will be confusing.
+      :alt: 
 
-      AliTV provides the option to show the image in a circular layout.
-      This may be helpful for comparing two or three sequences. But with
-      more than five the image will be confusing.
 -  At the moment the circular layout is not the development stage of the
    linear layout. Therefore the most options and interactive functions
    are not working if you use it.
@@ -220,10 +208,8 @@ Zooming
    region.
 
    .. figure:: zoom.png
-      :alt: AliTV provides you a function for zooming into genome
-      regions.
+      :alt: 
 
-      AliTV provides you a function for zooming into genome regions.
 -  You can reset the zoom by right-clicking onto the chromosome and
    select ``Reset genome zoom/pan``.
 
@@ -240,6 +226,10 @@ Shifting
    distance. If a link or a feature has an overlap it will be splitted
    into two parts.
 
+   .. figure:: shift.png
+      :alt: Via the interface chromosomes can be shifted.
+
+      Via the interface chromosomes can be shifted.
 -  For changing the offset distance type in a new value in the
    cooresponding input field.
 
@@ -253,7 +243,8 @@ Main Screen
 -----------
 
 Above is the user interface of AliTV available on the HTML page when you
-generate the figure.
+generate the figure. The current version of AliTV is presented on the
+frontend.
 
 .. figure:: userInterface.png
    :alt: User interface of AliTV
@@ -354,3 +345,5 @@ download the AliTV image as SVG and open it with your favourite
 image-viewer. Moreover you can export the current settings in the JSON
 format by selecting . It may be helpful if you cant to save the settings
 and use it some other time. Then you can import JSON data by clicking .
+
+.. |image| image:: reverse.png
