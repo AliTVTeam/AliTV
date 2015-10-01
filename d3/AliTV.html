@@ -63,9 +63,19 @@
             ali.onDataChange(addFeatureGroupTemplates);
             setParameters();
             ali.onDataChange(setParameters);
+            showHideCircularWarning()
+            ali.onDataChange(showHideCircularWarning);
             setSlider();
             ali.drawLinear();
             ali.endTransaction();
+        }
+
+        function showHideCircularWarning() {
+            if (ali.getLayout() === 'circular') {
+                $('#warn-circular-layout').show();
+            } else {
+                $('#warn-circular-layout').hide();
+            }
         }
 
         function setSlider() {
@@ -1271,6 +1281,9 @@
         <!-- collapse tab structure -->
     </div>
     <!-- collapse page header  -->
+    <div style="display: none" id="warn-circular-layout">
+        <h3>&nbsp; WARNING: The circular layout is experimental and has limited functionality </h3>
+    </div>
     <div style="width: 100%;">
         <svg id='wgaCanvas' style="margin:50px"></svg>
     </div>
