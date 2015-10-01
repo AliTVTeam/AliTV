@@ -1835,7 +1835,9 @@ AliTV.prototype.filterLinksByAdjacency = function() {
 		// combine all links into a single object
 		$.each(that.data.links, function(key, value) {
 			$.each(value, function(k, v) {
-				filteredLinks = $.extend(filteredLinks, v);
+				if (key !== k || that.filters.showIntraGenomeLinks) {
+					filteredLinks = $.extend(filteredLinks, v);
+				}
 			});
 		});
 	}

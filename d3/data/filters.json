@@ -58,6 +58,7 @@
     "skipChromosomesWithoutLinks": false,
     "onlyShowAdjacentLinks": true,
     "showAllChromosomes": false,
+    "showIntraGenomeLinks": false,
     "links": {
       "maxLinkIdentity": 100,
       "maxLinkLength": 1000000,
