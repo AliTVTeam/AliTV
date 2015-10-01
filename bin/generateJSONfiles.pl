@@ -130,6 +130,7 @@ my %filters = ('karyo' => {'chromosomes' => {}, 'order' => [], 'genome_order' =>
 		       'onlyShowAdjacentLinks' => JSON::true,
 		       'showAllChromosomes' => JSON::false,
 		       'skipChromosomesWithoutVisibleLinks' => JSON::false,
+		       'showIntraGenomeLinks' => JSON::false,
 );
 
 my %conf = ('graphicalParameters' => {'tickDistance' => 100, 'karyoDistance' => 10});
