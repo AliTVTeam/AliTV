@@ -1835,7 +1835,9 @@ AliTV.prototype.filterLinksByAdjacency = function() {
 		// combine all links into a single object
 		$.each(that.data.links, function(key, value) {
 			$.each(value, function(k, v) {
-				filteredLinks = $.extend(filteredLinks, v);
+				if (key !== k || that.filters.showIntraGenomeLinks) {
+					filteredLinks = $.extend(filteredLinks, v);
+				}
 			});
 		});
 	}
@@ -2584,7 +2586,9 @@ AliTV.prototype.setSvgHeight = function(height) {
  */
 
 AliTV.prototype.getSvgAsText = function() {
-	return this.svg[0].outerHTML;
+	var svgText = this.svg[0].outerHTML;
+	svgText = svgText.replace(/&quot;/g, "");
+	return svgText;
 };
 
 /**
@@ -3475,6 +3479,6 @@ AliTV.prototype.drawLinkIdentityLegend = function() {
 		.attr("transform", "translate(" + (this.getSvgWidth() * (2 / 3)) + ", 20)");
 	legendLinkIdentityGroup.append("rect").attr("width", 300).attr("height", 20).style("fill", "url(#linkIdentityGradient)");
 	var x = d3.scale.linear().range([0, 300]).domain([this.conf.minLinkIdentity, this.conf.maxLinkIdentity]);
-	var xAxis = d3.svg.axis().scale(x).orient("bottom").tickSize([0, 8]);
-	legendLinkIdentityGroup.append("g").attr("class", "x axis").attr("transform", "translate(0, 25)").call(xAxis).append("text").attr("y", 20).attr("x", 150).attr("dy", ".71em").style("text-anchor", "middle").text("Link Identity %");
+	var xAxis = d3.svg.axis().scale(x).orient("bottom");
+	legendLinkIdentityGroup.append("g").attr("class", "x axis").attr("style", "font: 10px sans-serif; fill: none; stroke: #000; shape-rendering: crispEdges;").attr("transform", "translate(0, 20)").call(xAxis).append("text").attr("y", 20).attr("x", 150).attr("dy", ".71em").style("text-anchor", "middle").text("Link Identity %");
 };
