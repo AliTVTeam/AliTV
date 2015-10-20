@@ -1125,3 +1125,39 @@ describe('The setNewFeature method is supposed to set a new feature group in the
 		expect(expectedFeature).toEqual(newFeature);
 	});
 });
+
+describe('The getTickLabelColor method is supposed to get the color of the Ticks labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getTickLabelColor method is supposed to be a function', function(){
+		expect(typeof ali.getTickLabelColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getTickLabelColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color of the Tick labels which is set in the defaultConf', function(){
+		var color = ali.getTickLabelColor();
+		expect(color).toEqual(defaultConf.labels.ticks.color);
+	});
+});
+
+describe('The getMinLinkIdentity method is supposed to get the minimal link identity', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
+	
+	it('getMinLinkIdentity method is supposed to be a function', function(){
+		expect(typeof ali.getMinLinkIdentity).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var identity = ali.getMinLinkIdentity();
+		expect(identity).toBeDefined();
+	});
+	it('the function should return the color of the Tick labels which is set in the defaultConf', function(){
+		var identity = ali.getMinLinkIdentity();
+		expect(identity).toEqual(ali.filters.links.minLinkIdentity);
+	});
+});
