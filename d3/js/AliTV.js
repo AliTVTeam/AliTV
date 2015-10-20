@@ -423,7 +423,9 @@ AliTV.prototype.setFilters = function(filters) {
 	if (this.filters.features.invisibleFeatures === undefined) {
 		this.filters.features.invisibleFeatures = {};
 	}
-	this.filters.links.maxLinkLength = this.getMaxChromosomeLength();
+	if(this.data.karyo !== undefined){
+		this.filters.links.maxLinkLength = this.getMaxChromosomeLength();
+	}
 	this.triggerChange();
 };
 
@@ -3502,4 +3504,13 @@ AliTV.prototype.getMinLinkIdentity = function(){
 AliTV.prototype.getMaxLinkIdentity = function(){
 	var maximalLinkIdentity = this.filters.links.maxLinkIdentity;
 	return maximalLinkIdentity;
+};
+
+/**
+ * This method is supposed to return the current minimal length of links.
+ * @returns minimalLinkLength: the minimal lenght of links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getMinLinkLength = function(){
+	
 };
