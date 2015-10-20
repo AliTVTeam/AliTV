@@ -423,6 +423,7 @@ AliTV.prototype.setFilters = function(filters) {
 	if (this.filters.features.invisibleFeatures === undefined) {
 		this.filters.features.invisibleFeatures = {};
 	}
+	this.filters.links.maxLinkLength = this.getMaxChromosomeLength();
 	this.triggerChange();
 };
 
