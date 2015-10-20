@@ -3522,4 +3522,6 @@ AliTV.prototype.getMinLinkLength = function(){
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getMaxLinkLength = function(){
+	return maximalLinkLength = this.filters.links.maxLinkLength;
+	return maximalLinkLength;
 };
