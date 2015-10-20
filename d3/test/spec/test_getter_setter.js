@@ -1199,3 +1199,22 @@ describe('The getMinLinkLength method is supposed to get the minimal length of l
 		expect(length).toEqual(ali.filters.links.minLinkLength);
 	});
 });
+
+describe('The getMaxLinkLength method is supposed to get the maximal length of links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
+	
+	it('getMaxLinkLength method is supposed to be a function', function(){
+		expect(typeof ali.getMaxLinkLength).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var length = ali.getMaxLinkLength();
+		expect(length).toBeDefined();
+	});
+	it('the function should return the maximal length of links which is setted in the filters', function(){
+		var length = ali.getMaxLinkLength();
+		expect(length).toEqual(ali.filters.links.maxLinkLength);
+	});
+});
