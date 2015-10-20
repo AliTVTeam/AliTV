@@ -1156,8 +1156,27 @@ describe('The getMinLinkIdentity method is supposed to get the minimal link iden
 		var identity = ali.getMinLinkIdentity();
 		expect(identity).toBeDefined();
 	});
-	it('the function should return the color of the Tick labels which is set in the defaultConf', function(){
+	it('the function should return the minimal link identity which is setted in the filters', function(){
 		var identity = ali.getMinLinkIdentity();
 		expect(identity).toEqual(ali.filters.links.minLinkIdentity);
+	});
+});
+
+describe('The getMaxLinkIdentity method is supposed to get the maximal link identity', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
+	
+	it('getMaxLinkIdentity method is supposed to be a function', function(){
+		expect(typeof ali.getMaxLinkIdentity).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var identity = ali.getMaxLinkIdentity();
+		expect(identity).toBeDefined();
+	});
+	it('the function should return the maximal link identity which is setted in the filters', function(){
+		var identity = ali.getMaxLinkIdentity();
+		expect(identity).toEqual(ali.filters.links.MaxLinkIdentity);
 	});
 });
