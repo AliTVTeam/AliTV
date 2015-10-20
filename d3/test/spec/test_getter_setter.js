@@ -1177,6 +1177,6 @@ describe('The getMaxLinkIdentity method is supposed to get the maximal link iden
 	});
 	it('the function should return the maximal link identity which is setted in the filters', function(){
 		var identity = ali.getMaxLinkIdentity();
-		expect(identity).toEqual(ali.filters.links.MaxLinkIdentity);
+		expect(identity).toEqual(ali.filters.links.maxLinkIdentity);
 	});
 });

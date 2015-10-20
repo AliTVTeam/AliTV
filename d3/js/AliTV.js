@@ -3489,6 +3489,14 @@ AliTV.prototype.drawLinkIdentityLegend = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getMinLinkIdentity = function(){
-	var identity = this.filters.links.minLinkIdentity;
-	return identity;
+	var minimalLinkIdentity = this.filters.links.minLinkIdentity;
+	return minimalLinkIdentity;
+};
+
+/**
+ * This method is supposed to return the current maximal identity of links.
+ * @returns maximalLinkIdentity: the maximal identity of links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getMaxLinkIdentity = function(){
 };
