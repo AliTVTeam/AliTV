@@ -3499,4 +3499,6 @@ AliTV.prototype.getMinLinkIdentity = function(){
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getMaxLinkIdentity = function(){
+	var maximalLinkIdentity = this.filters.links.maxLinkIdentity;
+	return maximalLinkIdentity;
 };
