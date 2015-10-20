@@ -3489,5 +3489,6 @@ AliTV.prototype.drawLinkIdentityLegend = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getMinLinkIdentity = function(){
-	
+	var identity = this.filters.links.minLinkIdentity;
+	return identity;
 };
