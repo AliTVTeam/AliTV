@@ -95,7 +95,7 @@
 
                 $("#length-slider").slider({
                     range: true,
-                    values: [0, ali.getMaxChromosomeLength()],
+                    values: [ali.getMinLinkLength(), ali.getMaxChromosomeLength()],
                     min: 0,
                     max: ali.getMaxChromosomeLength(),
                     slide: function(event, ui) {
