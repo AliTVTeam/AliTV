@@ -3482,3 +3482,12 @@ AliTV.prototype.drawLinkIdentityLegend = function() {
 	var xAxis = d3.svg.axis().scale(x).orient("bottom");
 	legendLinkIdentityGroup.append("g").attr("class", "x axis").attr("style", "font: 10px sans-serif; fill: none; stroke: #000; shape-rendering: crispEdges;").attr("transform", "translate(0, 20)").call(xAxis).append("text").attr("y", 20).attr("x", 150).attr("dy", ".71em").style("text-anchor", "middle").text("Link Identity %");
 };
+
+/**
+ * This method is supposed to return the current minimal identity of links.
+ * @returns minimalLinkIdentity: the minimal identity of links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getMinLinkIdentity = function(){
+	
+};
