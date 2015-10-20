@@ -3515,3 +3515,11 @@ AliTV.prototype.getMinLinkLength = function(){
 	var minimalLinkLength = this.filters.links.minLinkLength;
 	return minimalLinkLength;
 };
+
+/**
+ * This method is supposed to return the current maximal length of links.
+ * @returns maximalLinkLength: the maximal length of links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getMaxLinkLength = function(){
+};
