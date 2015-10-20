@@ -1009,12 +1009,12 @@ describe("The getMaxChromosomeLength method is supposed to return the value of t
 		ali.setData(data);
 		ali.setFilters(filters);
 		var maxLength = ali.getMaxChromosomeLength();
-		expect(ali.getMaxChromosomeLength()).toBeDefined();
+		expect(maxLength).toBeDefined();
 	});	
 	it('the function should return the value of the longest chromosome', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
-		var maxLength = ali.getMaxChromosomeLength()
+		var maxLength = ali.getMaxChromosomeLength();
 		expect(maxLength).toEqual(2000);
 	});
 });
@@ -1178,5 +1178,24 @@ describe('The getMaxLinkIdentity method is supposed to get the maximal link iden
 	it('the function should return the maximal link identity which is setted in the filters', function(){
 		var identity = ali.getMaxLinkIdentity();
 		expect(identity).toEqual(ali.filters.links.maxLinkIdentity);
+	});
+});
+
+describe('The getMinLinkLength method is supposed to get the minimal length of links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
+	
+	it('getMinLinkLength method is supposed to be a function', function(){
+		expect(typeof ali.getMinLinkLength).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var length = ali.getMinLinkLength();
+		expect(length).toBeDefined();
+	});
+	it('the function should return the minimal length of links which is setted in the filters', function(){
+		var length = ali.getMinLinkLength();
+		expect(length).toEqual(ali.filters.links.minLinkLength);
 	});
 });
