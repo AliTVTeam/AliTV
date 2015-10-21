@@ -2394,7 +2394,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			}
 		})
 		.style("display", function(d) {
-			var featureId = d.id + "_" + d.type + "_" + d.karyo;
+			var featureId = $(this).attr("id");
 			if (featureId in that.filters.features.invisibleFeatures) {
 				return "none";
 			}
@@ -2443,7 +2443,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 					}
 				})
 				.style("display", function(d) {
-					var featureId = d.id + "_" + d.type + "_" + d.karyo;
+					var featureId = $(this).attr("id");
 					if (featureId in that.filters.features.invisibleFeatures) {
 						return "none";
 					}
