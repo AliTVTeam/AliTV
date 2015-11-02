@@ -670,6 +670,10 @@
             $('.feature-colorpicker').colorpicker();
         }
 
+        function removeOffsetButton(karyoId) {
+			$("#menu-" + karyoId).remove();
+        }
+
         $('#myTabs a').click(function(e) {
             e.preventDefault()
             e.stopPropagation();
@@ -1301,7 +1305,8 @@
                         <span class="input-group-addon">Set offset distance:</span>
                         <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Offset in bp" autocomplete="off"></span>
                         <span class="input-group-addon"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')">Apply</button></span>
-                    </div>
+                    	<span><button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeOffsetButton('<%= karyoId %>')"><span aria-hidden="true">&times;</span></button></span>
+					</div>
         		</div>
         </div>
     </script>
