@@ -7,7 +7,7 @@
 /* global bootbox: false */
 
 // use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
-var AliTV_VERSION = "0.3.5";
+var AliTV_VERSION = "0.3.6";
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
@@ -1906,6 +1906,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 	} else {
 		that.svgD3.append("g")
 			.attr("class", "treeGroup")
+			.attr("style", "fill:none;stroke:#000;stroke-width:2px;")
 			.attr("transform", "translate(" + that.conf.graphicalParameters.canvasWidth + ", 0)")
 			.selectAll("path")
 			.data(links)
@@ -2397,7 +2398,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			}
 		})
 		.style("display", function(d) {
-			var featureId = d.id + "_" + d.type + "_" + d.karyo;
+			var featureId = $(this).attr("id");
 			if (featureId in that.filters.features.invisibleFeatures) {
 				return "none";
 			}
@@ -2446,7 +2447,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 					}
 				})
 				.style("display", function(d) {
-					var featureId = d.id + "_" + d.type + "_" + d.karyo;
+					var featureId = $(this).attr("id");
 					if (featureId in that.filters.features.invisibleFeatures) {
 						return "none";
 					}
