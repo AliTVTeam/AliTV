@@ -850,36 +850,44 @@
 
 <body>
 
-    <div class="page-header" style="background: #f7f7f7">
-        <h1><img src="css/AliTV_logo.png" alt="logo" width="160" height="120" style="margin:0px 20px"/>AliTV <sup id="version-placeholder"></sup><small>&nbsp;Visualize multiple whole genome alignments as circular or linear maps</small></h1>
+    <div class="page-header">
+        <h1><img src="css/AliTV_logo.png" alt="logo" width="200" height="160" style="margin:0px 20px"/><b>AliTV <sup id="version-placeholder"></sup></b><small>&nbsp;Visualize multiple whole genome alignments as circular or linear maps</small></h1>
         <div>
             <ul class="nav nav-tabs" role="tablist">
 
-                <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About AliTV</a></li>
-                <li role="presentation"><a href="#filter" aria-controls="about" role="tab" data-toggle="tab">Filtering</a></li>
+                <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><b>About AliTV</b></a></li>
+                <li role="presentation"><a href="#filter" aria-controls="about" role="tab" data-toggle="tab"><b>Filtering</b></a></li>
 
-                <li class="dropdown"><a id="dLabel" data-toggle="dropdown">Add biological Features <span class="caret"></span></a>
+                <li class="dropdown"><a id="dLabel" data-toggle="dropdown"><b>Add biological Features</b> <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu" id="featuresMenu">
                         <li role="separator" class="divider"></li>
                         <li><a href="#customFeature" data-toggle="tab">Add more features...</a></li>
                     </ul>
                 </li>
 
-                <li role="presentation"><a href="#tree" aria-controls="about" role="tab" data-toggle="tab">Phylogenetic Tree</a></li>
-                <li role="presentation"><a href="#graphicalSettings" aria-controls="graphicalSettings" role="tab" data-toggle="tab">Layout Settings</a></li>
-                <li role="presentation"><a href="#advancedSettings" aria-controls="advancedSettings" role="tab" data-toggle="tab">Advanced Settings</a></li>
-                <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab">Import &amp; Export</a></li>
+                <li role="presentation"><a href="#tree" aria-controls="about" role="tab" data-toggle="tab"><b>Phylogenetic Tree</b></a></li>
+                <li role="presentation"><a href="#graphicalSettings" aria-controls="graphicalSettings" role="tab" data-toggle="tab"><b>Layout Settings</b></a></li>
+                <li role="presentation"><a href="#advancedSettings" aria-controls="advancedSettings" role="tab" data-toggle="tab"><b>Advanced Settings</b></a></li>
+                <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab"><b>Import &amp; Export</b></a></li>
             </ul>
 
             <div class="tab-content" id="interface">
                 <div role="tabpanel" class="tab-pane active" id="about" style="margin:10px 10px">
-                    AliTV (Alignment Toolbox and Visualization)
+                   <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12"> 
+			                    <p>AliTV (Alignment Toolbox and Visualization) is a software for visualizing Whole Genome Alignments. <br>AliTV provides interactive visualization and analysis for generating publication-ready figures.
+			                    
+			                    <p>If you need help, please checkout the official website of AliTV <a>http://test-bla.de</a> There you will find a tutorial for AliTVs functionality and some example datasets.</p>
+                    		</div>
+                    	</div>
+                    </div>
                 </div>
 
                 <div role="tabpanel" class="tab-pane fade" id="advancedSettings" style="margin:10px 10px">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-5">
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <mark class="bg-info">Use JSONEditor</mark>
@@ -892,7 +900,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-5">
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <mark class="bg-info">Shift chromosomes:</mark>
@@ -912,11 +920,15 @@
                 </div>
 
                 <div role="tabpanel" class="tab-pane fade" id="importExport" style="margin:10px 10px">
-                    <div style="margin: 10px 0px">
-                        <button class="btn btn-info" onclick="saveSVG()">Save SVG</button>
-                        <button class="btn btn-info" onclick="saveJSON()">Save JSON</button>
-                        <button class="btn btn-info" onclick="$('#loadJSON').click()">Load JSON</button>
-                        <input type="file" id="loadJSON" name="files[]" style="display:none" multiple accept=".json">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+			                        <button class="btn btn-info" onclick="saveSVG()">Save SVG</button>
+			                        <button class="btn btn-info" onclick="saveJSON()">Save JSON</button>
+			                        <button class="btn btn-info" onclick="$('#loadJSON').click()">Load JSON</button>
+			                        <input type="file" id="loadJSON" name="files[]" style="display:none" multiple accept=".json">
+	                  		</div>
+	                    </div>
                     </div>
                 </div>
 
@@ -1282,7 +1294,7 @@
     </div>
     <!-- collapse page header  -->
     <div style="display: none" id="warn-circular-layout">
-        <h3>&nbsp; WARNING: The circular layout is experimental and has limited functionality </h3>
+        <div class="alert alert-warning" role="alert" style="font-size: 24px">&nbsp; <b>WARNING:</b> The circular layout is experimental and has limited functionality </div>
     </div>
     <div style="width: 100%;">
         <svg id='wgaCanvas' style="margin:50px"></svg>
