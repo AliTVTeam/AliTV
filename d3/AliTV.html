@@ -413,9 +413,10 @@
         }
 
         function changeOffset(karyoId) {
-            var distance = $('#offset-' + karyoId).val();
+            var offset = Number($('#offset-' + karyoId).val());
             try {
-                ali.setOffsetDistance(distance);
+                ali.setOffset(offset, karyoId);
+                ali.drawLinear();
             } catch (err) {
                 bootbox.alert(err);
                 $("#offset-" + karyoId).val(ali.getTickDistance());
