@@ -1903,6 +1903,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 	} else {
 		that.svgD3.append("g")
 			.attr("class", "treeGroup")
+			.attr("style", "fill:none;stroke:#000;stroke-width:2px;")
 			.attr("transform", "translate(" + that.conf.graphicalParameters.canvasWidth + ", 0)")
 			.selectAll("path")
 			.data(links)
