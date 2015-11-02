@@ -3080,20 +3080,20 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 };
 
 /**
- * This function returns the offset for shifting chromosomes in bp.
- * @returns {Number} The offset in bp.
+ * This function returns the offset for a specific chromosome.
+ * @returns {Number} The offset in bp of a chromosome.
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.getOffsetDistance = function() {
-	var json = this.getJSON();
-	return json.conf.offset.distance;
+AliTV.prototype.getOffset = function(karyoId) {
+	return this.filters.karyo.chromosomes[karyoId].offset;
 };
 
 /**
- * This function replaces the old distance for shifting chromosomes with the new distance in the config-object.
+ * This function sets a new offset for specific chromosome.
  * When the method gets a wrong value it throws an error message.
  * @param {Number} The function gets the distance for shifting chromosomes which can be set by the user.
+ * @param {String} The function gets the Id of the chromosome which should be shifted.
  * @throws Will throw an error if the argument is empty.
  * @throws Will throw an error if the argument is not a number.
  * @author Sonja Hohlfeld
