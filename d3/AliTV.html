@@ -615,13 +615,6 @@
             ali.conf.offset.isSet = true;
         }
 
-        function removeOffset(karyoId) {
-            $("#menu-" + karyoId).remove();
-            ali.svgD3.selectAll("#button-" + karyoId).remove();
-            ali.filters.karyo.chromosomes[karyoId].offset = 0;
-            ali.drawLinear();
-        }
-
         function setAliFromJSONEditor() {
             var json = editor.get();
             ali.setJSON(json);
@@ -1309,8 +1302,7 @@
                         <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Offset in bp" autocomplete="off"></span>
                         <span class="input-group-addon"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')">Apply</button></span>
                     </div>
-                    <button class="btn btn-info" onclick="removeOffset('<%= karyoId %>')">Remove offset</button>
-                </div>
+        		</div>
         </div>
     </script>
     <script type="text/template" id="template_feature_group">
