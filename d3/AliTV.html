@@ -886,7 +886,7 @@
                 <div role="tabpanel" class="tab-pane fade" id="advancedSettings" style="margin:10px 10px">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group">
 	                                <mark class="bg-info">Use JSONEditor</mark>
 	                                <br> By using JSONEditor you can change all parameters directly in the structure of the conf-, data- or filters-object.
@@ -1298,16 +1298,13 @@
 
     <script type="text/template" id="templateShiftChromosomes">
         <div class="form-group" id="menu-<%= karyoId %>">
-                <div class="checkbox">
                     <mark class="bg-info">
                         <%=karyoId%>:</mark>
-                    <div class="input-group" style="margin: 10px 10px; width=20px">
+                    <div class="input-group" style="margin-top: 10px">
                         <span class="input-group-addon">Set offset distance:</span>
-                        <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Offset in bp" autocomplete="off"></span>
-                        <span class="input-group-addon"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')">Apply</button></span>
-                    	<span><button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeOffsetButton('<%= karyoId %>')"><span aria-hidden="true">&times;</span></button></span>
+                        <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Offset in bp" autocomplete="off"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')" style="margin-left: 20px">Apply</button></span>
+                    	<span class="input-group-addon"><button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeOffsetButton('<%= karyoId %>')"><span aria-hidden="true">&times;</span></button></span>
 					</div>
-        		</div>
         </div>
     </script>
     <script type="text/template" id="template_feature_group">
