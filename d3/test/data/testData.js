@@ -784,3 +784,4 @@ var data6 = {'karyo': karyo, 'features': features, 'links': links, "tree": {}};
 var data7 = {'karyo': karyo, 'features': features, 'links': links, "tree": null};
 var data8 = {'karyo': karyo, 'features': features16, "links": links14, "tree": tree};
 var data9 = {'karyo': karyo, 'features': features17, "links": links14, "tree": tree};
+var data10 = {'karyo': karyo, 'features': features, 'links': links7};

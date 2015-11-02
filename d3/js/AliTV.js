@@ -423,6 +423,9 @@ AliTV.prototype.setFilters = function(filters) {
 	if (this.filters.features.invisibleFeatures === undefined) {
 		this.filters.features.invisibleFeatures = {};
 	}
+	if(this.data.karyo !== undefined){
+		this.filters.links.maxLinkLength = this.getMaxChromosomeLength();
+	}
 	this.triggerChange();
 };
 
@@ -1835,7 +1838,9 @@ AliTV.prototype.filterLinksByAdjacency = function() {
 		// combine all links into a single object
 		$.each(that.data.links, function(key, value) {
 			$.each(value, function(k, v) {
-				filteredLinks = $.extend(filteredLinks, v);
+				if (key !== k || that.filters.showIntraGenomeLinks) {
+					filteredLinks = $.extend(filteredLinks, v);
+				}
 			});
 		});
 	}
@@ -2584,7 +2589,9 @@ AliTV.prototype.setSvgHeight = function(height) {
  */
 
 AliTV.prototype.getSvgAsText = function() {
-	return this.svg[0].outerHTML;
+	var svgText = this.svg[0].outerHTML;
+	svgText = svgText.replace(/&quot;/g, "");
+	return svgText;
 };
 
 /**
@@ -3475,6 +3482,46 @@ AliTV.prototype.drawLinkIdentityLegend = function() {
 		.attr("transform", "translate(" + (this.getSvgWidth() * (2 / 3)) + ", 20)");
 	legendLinkIdentityGroup.append("rect").attr("width", 300).attr("height", 20).style("fill", "url(#linkIdentityGradient)");
 	var x = d3.scale.linear().range([0, 300]).domain([this.conf.minLinkIdentity, this.conf.maxLinkIdentity]);
-	var xAxis = d3.svg.axis().scale(x).orient("bottom").tickSize([0, 8]);
-	legendLinkIdentityGroup.append("g").attr("class", "x axis").attr("transform", "translate(0, 25)").call(xAxis).append("text").attr("y", 20).attr("x", 150).attr("dy", ".71em").style("text-anchor", "middle").text("Link Identity %");
+	var xAxis = d3.svg.axis().scale(x).orient("bottom");
+	legendLinkIdentityGroup.append("g").attr("class", "x axis").attr("style", "font: 10px sans-serif; fill: none; stroke: #000; shape-rendering: crispEdges;").attr("transform", "translate(0, 20)").call(xAxis).append("text").attr("y", 20).attr("x", 150).attr("dy", ".71em").style("text-anchor", "middle").text("Link Identity %");
+};
+
+/**
+ * This method is supposed to return the current minimal identity of links.
+ * @returns minimalLinkIdentity: the minimal identity of links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getMinLinkIdentity = function(){
+	var minimalLinkIdentity = this.filters.links.minLinkIdentity;
+	return minimalLinkIdentity;
+};
+
+/**
+ * This method is supposed to return the current maximal identity of links.
+ * @returns maximalLinkIdentity: the maximal identity of links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getMaxLinkIdentity = function(){
+	var maximalLinkIdentity = this.filters.links.maxLinkIdentity;
+	return maximalLinkIdentity;
+};
+
+/**
+ * This method is supposed to return the current minimal length of links.
+ * @returns minimalLinkLength: the minimal lenght of links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getMinLinkLength = function(){
+	var minimalLinkLength = this.filters.links.minLinkLength;
+	return minimalLinkLength;
+};
+
+/**
+ * This method is supposed to return the current maximal length of links.
+ * @returns maximalLinkLength: the maximal length of links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getMaxLinkLength = function(){
+	return maximalLinkLength = this.filters.links.maxLinkLength;
+	return maximalLinkLength;
 };

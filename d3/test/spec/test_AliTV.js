@@ -1304,7 +1304,7 @@ describe('The filterLinksByIdentity method is supposed to filter all links whose
 	it('filterLinksByIdentity method is supposed to filter the assigned links according to the minLinkIdentity and the maxLinkIdentity', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		ali.setData({links: links7});
+		ali.setData(data10);
 		ali.setFilters(filters14);
 		ali.filters.links.minLinkIdentity = 50;
 		ali.filters.links.maxLinkIdentity = 70;

@@ -63,16 +63,26 @@
             ali.onDataChange(addFeatureGroupTemplates);
             setParameters();
             ali.onDataChange(setParameters);
+            showHideCircularWarning()
+            ali.onDataChange(showHideCircularWarning);
             setSlider();
             ali.drawLinear();
             ali.endTransaction();
+        }
+
+        function showHideCircularWarning() {
+            if (ali.getLayout() === 'circular') {
+                $('#warn-circular-layout').show();
+            } else {
+                $('#warn-circular-layout').hide();
+            }
         }
 
         function setSlider() {
             $(function() {
                 $("#identity-slider").slider({
                     range: true,
-                    values: [0, 100],
+                    values: [ali.getMinLinkIdentity(), ali.getMaxLinkIdentity()],
                     min: 0,
                     max: 100,
                     slide: function(event, ui) {
@@ -85,7 +95,7 @@
 
                 $("#length-slider").slider({
                     range: true,
-                    values: [0, ali.getMaxChromosomeLength()],
+                    values: [ali.getMinLinkLength(), ali.getMaxLinkLength()],
                     min: 0,
                     max: ali.getMaxChromosomeLength(),
                     slide: function(event, ui) {
@@ -443,6 +453,7 @@
             $('#showGenomeLabels').attr('checked', true);
             $('#showTickLabels').attr('checked', true);
             setOffsetGroup();
+            setSlider();
         }
 
         function setFilters() {
@@ -842,7 +853,6 @@
     <div class="page-header" style="background: #f7f7f7">
         <h1><img src="css/ali_logo2.png" alt="logo" width="140" height="120" style="margin:0px 20px"/>AliTV <sup id="version-placeholder"></sup><small>&nbsp;Visualize multiple whole genome alignments as circular or linear maps</small></h1>
         <div>
-
             <ul class="nav nav-tabs" role="tablist">
 
                 <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About AliTV</a></li>
@@ -1271,6 +1281,9 @@
         <!-- collapse tab structure -->
     </div>
     <!-- collapse page header  -->
+    <div style="display: none" id="warn-circular-layout">
+        <h3>&nbsp; WARNING: The circular layout is experimental and has limited functionality </h3>
+    </div>
     <div style="width: 100%;">
         <svg id='wgaCanvas' style="margin:50px"></svg>
     </div>

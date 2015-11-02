@@ -1009,12 +1009,12 @@ describe("The getMaxChromosomeLength method is supposed to return the value of t
 		ali.setData(data);
 		ali.setFilters(filters);
 		var maxLength = ali.getMaxChromosomeLength();
-		expect(ali.getMaxChromosomeLength()).toBeDefined();
+		expect(maxLength).toBeDefined();
 	});	
 	it('the function should return the value of the longest chromosome', function(){
 		ali.setData(data);
 		ali.setFilters(filters);
-		var maxLength = ali.getMaxChromosomeLength()
+		var maxLength = ali.getMaxChromosomeLength();
 		expect(maxLength).toEqual(2000);
 	});
 });
@@ -1123,5 +1123,98 @@ describe('The setNewFeature method is supposed to set a new feature group in the
 		};
 		var newFeature = ali.setNewFeature("applepie", "cake", "#ff002c");
 		expect(expectedFeature).toEqual(newFeature);
+	});
+});
+
+describe('The getTickLabelColor method is supposed to get the color of the Ticks labels', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	
+	it('getTickLabelColor method is supposed to be a function', function(){
+		expect(typeof ali.getTickLabelColor).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var color = ali.getTickLabelColor();
+		expect(color).toBeDefined();
+	});
+	it('the function should return the color of the Tick labels which is set in the defaultConf', function(){
+		var color = ali.getTickLabelColor();
+		expect(color).toEqual(defaultConf.labels.ticks.color);
+	});
+});
+
+describe('The getMinLinkIdentity method is supposed to get the minimal link identity', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
+	
+	it('getMinLinkIdentity method is supposed to be a function', function(){
+		expect(typeof ali.getMinLinkIdentity).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var identity = ali.getMinLinkIdentity();
+		expect(identity).toBeDefined();
+	});
+	it('the function should return the minimal link identity which is setted in the filters', function(){
+		var identity = ali.getMinLinkIdentity();
+		expect(identity).toEqual(ali.filters.links.minLinkIdentity);
+	});
+});
+
+describe('The getMaxLinkIdentity method is supposed to get the maximal link identity', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
+	
+	it('getMaxLinkIdentity method is supposed to be a function', function(){
+		expect(typeof ali.getMaxLinkIdentity).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var identity = ali.getMaxLinkIdentity();
+		expect(identity).toBeDefined();
+	});
+	it('the function should return the maximal link identity which is setted in the filters', function(){
+		var identity = ali.getMaxLinkIdentity();
+		expect(identity).toEqual(ali.filters.links.maxLinkIdentity);
+	});
+});
+
+describe('The getMinLinkLength method is supposed to get the minimal length of links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
+	
+	it('getMinLinkLength method is supposed to be a function', function(){
+		expect(typeof ali.getMinLinkLength).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var length = ali.getMinLinkLength();
+		expect(length).toBeDefined();
+	});
+	it('the function should return the minimal length of links which is setted in the filters', function(){
+		var length = ali.getMinLinkLength();
+		expect(length).toEqual(ali.filters.links.minLinkLength);
+	});
+});
+
+describe('The getMaxLinkLength method is supposed to get the maximal length of links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
+	
+	it('getMaxLinkLength method is supposed to be a function', function(){
+		expect(typeof ali.getMaxLinkLength).toEqual('function');
+	});	
+	it('the function should return a defined value', function(){
+		var length = ali.getMaxLinkLength();
+		expect(length).toBeDefined();
+	});
+	it('the function should return the maximal length of links which is setted in the filters', function(){
+		var length = ali.getMaxLinkLength();
+		expect(length).toEqual(ali.filters.links.maxLinkLength);
 	});
 });

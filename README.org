@@ -1,3 +1,5 @@
+[[https://github.com/BioInf-Wuerzburg/AliTV/blob/master/LICENSE][https://img.shields.io/github/license/mashape/apistatus.svg]]
+
 ** Build
 [[https://travis-ci.org/BioInf-Wuerzburg/AliTV/][https://travis-ci.org/BioInf-Wuerzburg/AliTV.svg?branch=master]]
 [[https://coveralls.io/github/BioInf-Wuerzburg/AliTV?branch=master][https://coveralls.io/repos/github/BioInf-Wuerzburg/AliTV/badge.svg?branch=master]]
