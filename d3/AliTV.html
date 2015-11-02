@@ -612,9 +612,6 @@
             var karyoId = $('.selectpicker[name=offsetGroup]').val();
             addOffsetTemplates(karyoId);
             ali.conf.offset.isSet = true;
-            var buttonCoords = ali.getOffsetButtonCoords(karyoId);
-            ali.drawOffsetButtonGroup(buttonCoords);
-            ali.drawLinear();
         }
 
         function removeOffset(karyoId) {
@@ -1307,7 +1304,7 @@
                     <mark class="bg-info">
                         <%=karyoId%>:</mark>
                     <div class="input-group" style="margin: 10px 10px; width=20px">
-                        <span class="input-group-addon">Set offset distance</span>
+                        <span class="input-group-addon">Set offset distance:</span>
                         <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Offset in bp" autocomplete="off"></span>
                         <span class="input-group-addon"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')">Apply</button></span>
                     </div>
