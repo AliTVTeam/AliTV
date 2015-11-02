@@ -423,7 +423,7 @@ AliTV.prototype.setFilters = function(filters) {
 	if (this.filters.features.invisibleFeatures === undefined) {
 		this.filters.features.invisibleFeatures = {};
 	}
-	if(this.data.karyo !== undefined){
+	if (this.data.karyo !== undefined) {
 		this.filters.links.maxLinkLength = this.getMaxChromosomeLength();
 	}
 	this.triggerChange();
@@ -3492,7 +3492,7 @@ AliTV.prototype.drawLinkIdentityLegend = function() {
  * @returns minimalLinkIdentity: the minimal identity of links.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.getMinLinkIdentity = function(){
+AliTV.prototype.getMinLinkIdentity = function() {
 	var minimalLinkIdentity = this.filters.links.minLinkIdentity;
 	return minimalLinkIdentity;
 };
@@ -3502,7 +3502,7 @@ AliTV.prototype.getMinLinkIdentity = function(){
  * @returns maximalLinkIdentity: the maximal identity of links.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.getMaxLinkIdentity = function(){
+AliTV.prototype.getMaxLinkIdentity = function() {
 	var maximalLinkIdentity = this.filters.links.maxLinkIdentity;
 	return maximalLinkIdentity;
 };
@@ -3512,7 +3512,7 @@ AliTV.prototype.getMaxLinkIdentity = function(){
  * @returns minimalLinkLength: the minimal lenght of links.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.getMinLinkLength = function(){
+AliTV.prototype.getMinLinkLength = function() {
 	var minimalLinkLength = this.filters.links.minLinkLength;
 	return minimalLinkLength;
 };
@@ -3522,7 +3522,7 @@ AliTV.prototype.getMinLinkLength = function(){
  * @returns maximalLinkLength: the maximal length of links.
  * @author Sonja Hohlfeld
  */
-AliTV.prototype.getMaxLinkLength = function(){
-	return maximalLinkLength = this.filters.links.maxLinkLength;
+AliTV.prototype.getMaxLinkLength = function() {
+	var maximalLinkLength = this.filters.links.maxLinkLength;
 	return maximalLinkLength;
 };
