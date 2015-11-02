@@ -452,6 +452,9 @@
             $("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
             $('#showGenomeLabels').attr('checked', true);
             $('#showTickLabels').attr('checked', true);
+            $('#drawTree').attr('checked', function(){
+				return ali.conf.tree.drawTree;
+            });
             setOffsetGroup();
             setSlider();
         }
