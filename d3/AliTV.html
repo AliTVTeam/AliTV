@@ -416,6 +416,7 @@
             var offset = Number($('#offset-' + karyoId).val());
             try {
                 ali.setOffset(offset, karyoId);
+                $("#offset-" + karyoId).val(ali.getOffset(karyoId));
                 ali.drawLinear();
             } catch (err) {
                 bootbox.alert(err);
@@ -653,6 +654,7 @@
             $('#offsetMenu').append(templateUS({
                 karyoId: karyoId
             }));
+            $("#offset-" + karyoId).val(ali.getOffset(karyoId));
         }
 
         function addFeatureGroupTemplates() {
@@ -1302,7 +1304,7 @@
                         <%=karyoId%>:</mark>
                     <div class="input-group" style="margin-top: 10px">
                         <span class="input-group-addon">Set offset distance:</span>
-                        <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Offset in bp" autocomplete="off"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')" style="margin-left: 20px">Apply</button></span>
+                        <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Offset in bp"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')" style="margin-left: 20px">Apply</button></span>
                     	<span class="input-group-addon"><button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeOffsetButton('<%= karyoId %>')"><span aria-hidden="true">&times;</span></button></span>
 					</div>
         </div>
