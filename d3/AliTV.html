@@ -698,15 +698,18 @@
                 build: function($trigger, e) {
                     var selectedChromosome = ($(e.target).attr("id"));
                     var split = selectedChromosome.split(", ");
-                    var name = split[0];
+                    var genome = split[0];
                     var chromosomeId = split[1];
                     //Remove selection rect if exists
                     ali.svgD3.selectAll("rect.selection").remove();
                     return {
                         items: {
                             "info": {
-                                name: "Name: " + name
-                            },
+                                name: "Name: " + chromosomeId
+                            }, 
+				"genome": {
+                                name: "Genome: " + genome
+                            },	
                             "sep1": "---------",
                             "Visible": {
                                 name: "Hide",
