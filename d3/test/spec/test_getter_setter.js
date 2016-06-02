@@ -1019,71 +1019,68 @@ describe("The getMaxChromosomeLength method is supposed to return the value of t
 	});
 });
 
-describe('The getOffsetDistance method is supposed to get the distance for shifting chromosomes', function(){
-	it('getOffsetDistance method is supposed to be a function', function(){
+describe('The getOffset method is supposed to get the offset for shifted chromosomes', function(){
+	it('getOffset method is supposed to be a function', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		expect(typeof ali.getOffsetDistance).toEqual('function');
+		expect(typeof ali.getOffset).toEqual('function');
 	});
 	it('the function should return a defined value', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		var distance = ali.getOffsetDistance();
-		expect(distance).toBeDefined();
-	});
-	it('the function should return the offset distance which is defined in the defaultConf', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		var distance = ali.getOffsetDistance();
-		expect(distance).toEqual(defaultConf.offset.distance);
+		ali.setData(data);
+		ali.setFilters(filters);
+		var karyoId = "c1";
+		var offset = ali.getOffset(karyoId);
+		expect(offset).toBeDefined();
 	});
 });
 
-describe('The setOffsetDistance method is supposed to set a new distance for shifting chromosomes', function(){
-	it('setOffsetDistance method is supposed to be a function', function(){
+describe('The setOffset method is supposed to set a new offset for shifted chromosomes', function(){
+	it('setOffset method is supposed to be a function', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		expect(typeof ali.setOffsetDistance).toEqual('function');
+		expect(typeof ali.setOffset).toEqual('function');
 	});
-	it('the returned object of the getOffsetDistance method should be the same as the distance which is setted and returned by the setter-method', function(){
+	it('the returned object of the getOffset method should be the same as the offset which is setted and returned by the setter-method', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		var distance = 200;
-		expect(ali.setOffsetDistance(distance)).toEqual(distance);
+		ali.setData(data);
+		ali.setFilters(filters);
+		var karyoId = "c1";
+		var offset = 200;
+		expect(ali.setOffset(offset, karyoId)).toEqual(offset);
 	});
-	it('when setOffsetDistance is called several times the distance should have the same value as the returned distance of getTickDistance method', function(){
+	it('when setOffset is called several times the offset should have the same value as the returned distance of getTickDistance method', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		ali.setOffsetDistance(20);
-		expect(ali.getOffsetDistance()).toEqual(20);
-		ali.setOffsetDistance(5);
-		expect(ali.getOffsetDistance()).toEqual(5);
-		ali.setOffsetDistance(250);
-		expect(ali.getOffsetDistance()).toEqual(250);
+		ali.setData(data);
+		ali.setFilters(filters);
+		var karyoId = "c1";
+		ali.setOffset(20, karyoId);
+		expect(ali.getOffset(karyoId)).toEqual(20);
+		ali.setOffset(5, karyoId);
+		expect(ali.getOffset(karyoId)).toEqual(5);
+		ali.setOffset(250, karyoId);
+		expect(ali.getOffset(karyoId)).toEqual(250);
 	});
-	it('the setOffsetDistance method should throw an error message if the assigned distance is empty.', function(){
+	it('the setOffset method should throw an error message if the assigned offset is empty.', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		var distance = "";
-		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, you entered an empty value. Please try it again.");
+		ali.setData(data);
+		ali.setFilters(filters);
+		var karyoId = "c1";
+		var offset = "";
+		expect(function(){ali.setOffset(offset, karyoId);}).toThrow("Sorry, you entered an empty value. Please try it again.");
 	});
-	it('the setOffsetDistance method should throw an error message if the assigned distance is not a number', function(){
+	it('the setOffset method should throw an error message if the assigned offset is not a number', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
-		var distance = "test";
-		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, you entered not a number. Please try it again.");
-	});
-	it('the setOffsetDistance method should throw an error message if the assigned distance is 0', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		var distance = 0;
-		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
-	});
-	it('the setOffsetDistance method should throw an error message if the assigned distance is less than 0', function(){
-		var svg = $('<svg></svg>');
-		var ali = new AliTV(svg);
-		var distance = -200;
-		expect(function(){ali.setOffsetDistance(distance);}).toThrow("Sorry, the entered value is too small. Please, insert one which is not less than 0.");
+		ali.setData(data);
+		ali.setFilters(filters);
+		var karyoId = "c1";
+		var offset = "test";
+		expect(function(){ali.setOffset(offset, karyoId);}).toThrow("Sorry, you entered not a number. Please try it again.");
 	});
 });
 		

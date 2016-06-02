@@ -7,7 +7,7 @@
 /* global bootbox: false */
 
 // use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
-var AliTV_VERSION = "0.3.6";
+var AliTV_VERSION = "0.3.7";
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
@@ -3080,163 +3080,33 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 };
 
 /**
- * This method is supposed to calculate coords for arrows which should be drawn next to selected chromosomes.
- * @param karyo: the key of the selected chromosome
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.getOffsetButtonCoords = function(karyo) {
-	var coords = [];
-	var button = {
-		"id": karyo,
-		"path1": [],
-		"path2": []
-	};
-	button.path1.push({
-		"x": 0,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance() + 1 / 2 * this.conf.graphicalParameters.karyoHeight
-	}, {
-		"x": 1 / 3 * this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance()
-	}, {
-		"x": 1 / 3 * this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance() + this.conf.graphicalParameters.karyoHeight
-	});
-
-	button.path2.push({
-		"x": this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance() + 1 / 2 * this.conf.graphicalParameters.karyoHeight
-	}, {
-		"x": 2 / 3 * this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance() + this.conf.graphicalParameters.karyoHeight
-	}, {
-		"x": 2 / 3 * this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance()
-	});
-
-	coords.push(button);
-	return coords;
-};
-
-/**
- * This method is supposed the buttons next to the chromosomes in order to make them shiftable.
- * @param buttonCoords: the coords of the buttons which are returned by getOffsetButtonGroup
- * @author: Sonja Hohlfeld
- */
-AliTV.prototype.drawOffsetButtonGroup = function(buttonCoords) {
-	var that = this;
-	var data = buttonCoords;
-
-	var buttons = that.svgD3.append("g")
-		.attr("class", "buttonGroup")
-		.attr("transform", "translate(" + that.conf.graphicalParameters.canvasWidth + ", 0)")
-		.selectAll("path")
-		.data(data)
-		.enter();
-
-	var lineFunction = d3.svg.line()
-		.x(function(d) {
-			return d.x;
-		})
-		.y(function(d) {
-			return d.y;
-		})
-		.interpolate("linear");
-
-	buttons.append("path")
-		.each(function(d, i) {
-			d3.select(this)
-				.attr("class", "button")
-				.attr("id", function(d) {
-					return "button-" + d.id;
-				})
-				.attr("orientation", "left")
-				.attr("d", lineFunction(d.path1))
-				.attr("fill", function(d) {
-					return that.colorKaryoByGenomeId(that.filters.karyo.genome_order.indexOf(that.data.karyo.chromosomes[d.id].genome_id));
-				})
-				.on("mouseover", function() {
-					d3.select(this)
-						.attr("fill", "black");
-				})
-				.on("mouseout", function() {
-					d3.select(this)
-						.attr("fill", function(d) {
-							return that.colorKaryoByGenomeId(that.filters.karyo.genome_order.indexOf(that.data.karyo.chromosomes[d.id].genome_id));
-						});
-				})
-				.on("click", function(d) {
-					var offset = that.filters.karyo.chromosomes[d.id].offset === undefined ? 0 : that.filters.karyo.chromosomes[d.id].offset;
-					that.filters.karyo.chromosomes[d.id].offset = offset - that.conf.offset.distance;
-					that.drawLinear();
-				});
-		});
-
-	buttons.append("path")
-		.each(function(d, i) {
-			d3.select(this)
-				.attr("class", "button")
-				.attr("id", function(d) {
-					return "button-" + d.id;
-				})
-				.attr("orientation", "right")
-				.attr("d", lineFunction(d.path2))
-				.attr("fill", function(d) {
-					return that.colorKaryoByGenomeId(that.filters.karyo.genome_order.indexOf(that.data.karyo.chromosomes[d.id].genome_id));
-				})
-				.on("mouseover", function() {
-					d3.select(this)
-						.attr("fill", "black");
-				})
-				.on("mouseout", function() {
-					d3.select(this)
-						.attr("fill", function(d) {
-							return that.colorKaryoByGenomeId(that.filters.karyo.genome_order.indexOf(that.data.karyo.chromosomes[d.id].genome_id));
-						});
-				})
-				.on("click", function(d) {
-					var offset = that.filters.karyo.chromosomes[d.id].offset === undefined ? 0 : that.filters.karyo.chromosomes[d.id].offset;
-					that.filters.karyo.chromosomes[d.id].offset = offset + that.conf.offset.distance;
-					that.drawLinear();
-				});
-		});
-
-	if (that.conf.labels.genome.showGenomeLabels === true && that.conf.tree.drawTree === true) {
-		that.svgD3.selectAll(".buttonGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.canvasWidth + that.conf.graphicalParameters.genomeLabelWidth + that.conf.graphicalParameters.treeWidth) + ", 0)");
-	}
-};
-
-/**
- * This function returns the offset for shifting chromosomes in bp.
- * @returns {Number} The offset in bp.
+ * This function returns the offset for a specific chromosome.
+ * @returns {Number} The offset in bp of a chromosome.
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.getOffsetDistance = function() {
-	var json = this.getJSON();
-	return json.conf.offset.distance;
+AliTV.prototype.getOffset = function(karyoId) {
+	return this.filters.karyo.chromosomes[karyoId].offset;
 };
 
 /**
- * This function replaces the old distance for shifting chromosomes with the new distance in the config-object.
+ * This function sets a new offset for specific chromosome.
  * When the method gets a wrong value it throws an error message.
  * @param {Number} The function gets the distance for shifting chromosomes which can be set by the user.
+ * @param {String} The function gets the Id of the chromosome which should be shifted.
  * @throws Will throw an error if the argument is empty.
  * @throws Will throw an error if the argument is not a number.
- * @throws Will throw an error if the argument is less than 0 or equal to 0.
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.setOffsetDistance = function(distance) {
-	if (distance === "") {
+AliTV.prototype.setOffset = function(offset, karyoId) {
+	if (offset === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
-	} else if (isNaN(distance)) {
+	} else if (isNaN(offset)) {
 		throw "Sorry, you entered not a number. Please try it again.";
-	} else if (distance <= 0) {
-		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
-		distance = Number(distance);
-		this.conf.offset.distance = distance;
-		return this.conf.offset.distance;
+		this.filters.karyo.chromosomes[karyoId].offset = offset;
+		return this.filters.karyo.chromosomes[karyoId].offset;
 	}
 };
 
