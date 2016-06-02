@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>JSDoc: Source: AliTV.js</title>
-    
+
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
     <!--[if lt IE 9]>
@@ -16,16 +16,17 @@
 <body>
 
 <div id="main">
-    
+
     <h1 class="page-title">Source: AliTV.js</h1>
+
     
-    
+
 
 
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>/* global d3: false */
+            <pre class="prettyprint source linenums"><code>/* global d3: false */
 /* global $: false */
 /* global _: false */
 /* global document: false */
@@ -34,7 +35,7 @@
 /* global bootbox: false */
 
 // use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
-var AliTV_VERSION = "0.3.4";
+var AliTV_VERSION = "0.3.6";
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
@@ -450,6 +451,9 @@ AliTV.prototype.setFilters = function(filters) {
 	if (this.filters.features.invisibleFeatures === undefined) {
 		this.filters.features.invisibleFeatures = {};
 	}
+	if (this.data.karyo !== undefined) {
+		this.filters.links.maxLinkLength = this.getMaxChromosomeLength();
+	}
 	this.triggerChange();
 };
 
@@ -611,17 +615,17 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 			.domain([0, karyo1.length])
 			.range([karyo1Coords.x, karyo1Coords.x + karyo1Coords.width]);
 
-		link.source0.x = linkSourceScale((feature1.start + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) && (feature1.start > feature1.end && feature1.start + shift1 === karyo1.length) ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.start + shift1 + karyo1.length) % karyo1.length);
+		link.source0.x = linkSourceScale((feature1.start + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) &amp;&amp; (feature1.start > feature1.end &amp;&amp; feature1.start + shift1 === karyo1.length) ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.start + shift1 + karyo1.length) % karyo1.length);
 		link.source0.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
-		link.source1.x = linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) && !(feature1.start > feature1.end && feature1.end + shift1 === 0) ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length);
+		link.source1.x = linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) &amp;&amp; !(feature1.start > feature1.end &amp;&amp; feature1.end + shift1 === 0) ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length);
 		link.source1.y = karyo1Coords.y + karyo1Coords.height + conf.graphicalParameters.linkKaryoDistance;
 
-		link.target0.x = linkTargetScale((feature2.start + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) && (feature2.start + shift2 === karyo2.length && feature2.start > feature2.end) ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.start + shift2 + karyo2.length) % karyo2.length);
+		link.target0.x = linkTargetScale((feature2.start + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) &amp;&amp; (feature2.start + shift2 === karyo2.length &amp;&amp; feature2.start > feature2.end) ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.start + shift2 + karyo2.length) % karyo2.length);
 		link.target0.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
-		link.target1.x = linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) && !(feature2.start > feature2.end && feature2.end + shift2 === 0) ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length);
+		link.target1.x = linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) &amp;&amp; !(feature2.start > feature2.end &amp;&amp; feature2.end + shift2 === 0) ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length);
 		link.target1.y = karyo2Coords.y - conf.graphicalParameters.linkKaryoDistance;
 
-		if ((feature1.start &lt; feature1.end && link.source0.x > link.source1.x && that.filters.karyo.chromosomes[feature1.karyo].reverse === false) || (feature1.start &lt; feature1.end && link.source0.x &lt; link.source1.x && that.filters.karyo.chromosomes[feature1.karyo].reverse === true)) {
+		if ((feature1.start &lt; feature1.end &amp;&amp; link.source0.x > link.source1.x &amp;&amp; that.filters.karyo.chromosomes[feature1.karyo].reverse === false) || (feature1.start &lt; feature1.end &amp;&amp; link.source0.x &lt; link.source1.x &amp;&amp; that.filters.karyo.chromosomes[feature1.karyo].reverse === true)) {
 			splitPart = (feature1.end + shift1 + karyo1.length) % karyo1.length / Math.abs(feature1.start - feature1.end);
 
 			linkTarget = link.target1.x;
@@ -630,7 +634,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 
 			splitLink.source0.x = linkSourceScale(0);
 			splitLink.source0.y = link.source0.y;
-			splitLink.source1.x = linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) && !(feature1.start > feature1.end && feature1.end + shift1 === 0) ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length);
+			splitLink.source1.x = linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) &amp;&amp; !(feature1.start > feature1.end &amp;&amp; feature1.end + shift1 === 0) ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length);
 			splitLink.source1.y = link.source1.y;
 
 			splitLink.target0.x = linkTargetScale(feature2.start > feature2.end ? Math.min(feature2.end, feature2.start) + splitPart * Math.abs(feature2.start - feature2.end) : Math.min(feature2.end, feature2.start) + (1 - splitPart) * Math.abs(feature2.start - feature2.end));
@@ -640,7 +644,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 
 			linearLinkCoords.push(splitLink);
 			linearLinkCoords.push(link);
-		} else if ((feature2.start &lt; feature2.end && link.target0.x > link.target1.x && that.filters.karyo.chromosomes[feature2.karyo].reverse === false) || (feature2.start &lt; feature2.end && link.target0.x &lt; link.target1.x && that.filters.karyo.chromosomes[feature2.karyo].reverse === true)) {
+		} else if ((feature2.start &lt; feature2.end &amp;&amp; link.target0.x > link.target1.x &amp;&amp; that.filters.karyo.chromosomes[feature2.karyo].reverse === false) || (feature2.start &lt; feature2.end &amp;&amp; link.target0.x &lt; link.target1.x &amp;&amp; that.filters.karyo.chromosomes[feature2.karyo].reverse === true)) {
 			splitPart = (feature2.end + shift2 + karyo2.length) % karyo2.length / Math.abs(feature2.start - feature2.end);
 			linkSource = link.source1.x;
 
@@ -654,12 +658,12 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 
 			splitLink.target0.x = linkTargetScale(0);
 			splitLink.target0.y = link.target0.y;
-			splitLink.target1.x = linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) && !(feature2.start > feature2.end && feature2.end + shift2 === 0) ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length);
+			splitLink.target1.x = linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) &amp;&amp; !(feature2.start > feature2.end &amp;&amp; feature2.end + shift2 === 0) ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length);
 			splitLink.target1.y = link.target1.y;
 
 			linearLinkCoords.push(splitLink);
 			linearLinkCoords.push(link);
-		} else if ((feature1.start > feature1.end && link.source0.x &lt; link.source1.x && that.filters.karyo.chromosomes[feature1.karyo].reverse === false) || (feature1.start > feature1.end && link.source0.x > link.source1.x && that.filters.karyo.chromosomes[feature1.karyo].reverse === true)) {
+		} else if ((feature1.start > feature1.end &amp;&amp; link.source0.x &lt; link.source1.x &amp;&amp; that.filters.karyo.chromosomes[feature1.karyo].reverse === false) || (feature1.start > feature1.end &amp;&amp; link.source0.x > link.source1.x &amp;&amp; that.filters.karyo.chromosomes[feature1.karyo].reverse === true)) {
 			splitPart = (feature1.start + shift1 + karyo1.length) % karyo1.length / Math.abs(feature1.start - feature1.end);
 			linkTarget = link.target1.x;
 
@@ -668,7 +672,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 
 			splitLink.source0.x = linkSourceScale(karyo1.length);
 			splitLink.source0.y = link.source0.y;
-			splitLink.source1.x = linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) && !(feature1.start > feature1.end && feature1.end + shift1 === 0) ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length);
+			splitLink.source1.x = linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length) === linkSourceScale(0) &amp;&amp; !(feature1.start > feature1.end &amp;&amp; feature1.end + shift1 === 0) ? linkSourceScale(karyo1.length) : linkSourceScale((feature1.end + shift1 + karyo1.length) % karyo1.length);
 			splitLink.source1.y = link.source1.y;
 
 			splitLink.target0.x = linkTargetScale(feature2.start + splitPart * (Math.abs(feature2.start - feature2.end)));
@@ -678,7 +682,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 
 			linearLinkCoords.push(splitLink);
 			linearLinkCoords.push(link);
-		} else if ((feature2.start > feature2.end && link.target0.x &lt; link.target1.x && that.filters.karyo.chromosomes[feature2.karyo].reverse === false) || (feature2.start > feature2.end && link.target0.x > link.target1.x && that.filters.karyo.chromosomes[feature2.karyo].reverse === true)) {
+		} else if ((feature2.start > feature2.end &amp;&amp; link.target0.x &lt; link.target1.x &amp;&amp; that.filters.karyo.chromosomes[feature2.karyo].reverse === false) || (feature2.start > feature2.end &amp;&amp; link.target0.x > link.target1.x &amp;&amp; that.filters.karyo.chromosomes[feature2.karyo].reverse === true)) {
 			splitPart = (feature2.start + shift2 + karyo2.length) % karyo2.length / Math.abs(feature2.start - feature2.end);
 			linkSource = link.source1.x;
 
@@ -692,7 +696,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 
 			splitLink.target0.x = linkTargetScale(karyo2.length);
 			splitLink.target0.y = link.target0.y;
-			splitLink.target1.x = linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) && !(feature2.start > feature2.end && feature2.end + shift2 === 0) ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length);
+			splitLink.target1.x = linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length) === linkTargetScale(0) &amp;&amp; !(feature2.start > feature2.end &amp;&amp; feature2.end + shift2 === 0) ? linkTargetScale(karyo2.length) : linkTargetScale((feature2.end + shift2 + karyo2.length) % karyo2.length);
 			splitLink.target1.y = link.target1.y;
 
 			linearLinkCoords.push(splitLink);
@@ -831,7 +835,7 @@ AliTV.prototype.getLinearTickCoords = function(karyoCoords) {
 			coords.x1 = currentTick;
 			coords.x2 = currentTick;
 
-			if (i % that.conf.graphicalParameters.tickLabelFrequency === 0 && (that.conf.labels.ticks.showTickLabels === true)) {
+			if (i % that.conf.graphicalParameters.tickLabelFrequency === 0 &amp;&amp; (that.conf.labels.ticks.showTickLabels === true)) {
 				coords.y1 = value.y - 10;
 				coords.y2 = value.y + value.height + 10;
 			} else {
@@ -945,7 +949,7 @@ AliTV.prototype.fadeLinks = function(g, opacity) {
 	var that = this;
 	that.svgD3.selectAll(".link")
 		.filter(function(d) {
-			return that.data.features.link[that.visibleLinks[d.linkID].source].karyo != g.karyo && that.data.features.link[that.visibleLinks[d.linkID].target].karyo != g.karyo;
+			return that.data.features.link[that.visibleLinks[d.linkID].source].karyo != g.karyo &amp;&amp; that.data.features.link[that.visibleLinks[d.linkID].target].karyo != g.karyo;
 		})
 		.transition()
 		.style("opacity", opacity);
@@ -1018,6 +1022,7 @@ AliTV.prototype.drawLinear = function() {
 	var linkCoords = this.getLinearLinkCoords(karyoCoords);
 	this.drawLinearLinks(linkCoords);
 	this.drawFeatureLegend();
+	this.drawLinkIdentityLegend();
 
 	if (this.conf.labels.ticks.showTickLabels === true) {
 		this.drawLinearTickLabels(linearTickCoords);
@@ -1032,28 +1037,28 @@ AliTV.prototype.drawLinear = function() {
 	var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 	this.drawLinearFeatures(linearFeatureCoords);
 
-	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
+	if (this.conf.tree.drawTree === true &amp;&amp; this.hasTree() === true) {
 		this.drawPhylogeneticTree();
 		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.treeWidth);
 	}
 
-	if (this.conf.tree.drawTree === true && this.conf.labels.genome.showGenomeLabels) {
+	if (this.conf.tree.drawTree === true &amp;&amp; this.conf.labels.genome.showGenomeLabels) {
 		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
 
-	if (this.conf.tree.drawTree === true && this.conf.tree.orientation === "left") {
+	if (this.conf.tree.drawTree === true &amp;&amp; this.conf.tree.orientation === "left") {
 		this.getAlignmentRegion().attr("transform", "translate(" + this.conf.graphicalParameters.treeWidth + ", 0)");
 	}
-	if (this.conf.tree.drawTree === true && this.conf.tree.orientation === "right" && this.conf.labels.genome.showGenomeLabels === false) {
+	if (this.conf.tree.drawTree === true &amp;&amp; this.conf.tree.orientation === "right" &amp;&amp; this.conf.labels.genome.showGenomeLabels === false) {
 		this.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + this.conf.graphicalParameters.canvasWidth + ", 0)");
 	}
 	if (this.conf.labels.genome.showGenomeLabels === true) {
 		this.getAlignmentRegion().attr("transform", "translate(" + this.conf.graphicalParameters.genomeLabelWidth + ", 0)");
-		if (this.conf.tree.drawTree === true && this.conf.tree.orientation === "right") {
+		if (this.conf.tree.drawTree === true &amp;&amp; this.conf.tree.orientation === "right") {
 			this.svgD3.selectAll(".treeGroup").attr("transform", "translate(" + (this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 		}
 	}
-	if ((this.conf.labels.genome.showGenomeLabels === true) && this.conf.tree.drawTree === true && this.conf.tree.orientation === "left") {
+	if ((this.conf.labels.genome.showGenomeLabels === true) &amp;&amp; this.conf.tree.drawTree === true &amp;&amp; this.conf.tree.orientation === "left") {
 		this.getAlignmentRegion().attr("transform", "translate(" + (this.conf.graphicalParameters.treeWidth + this.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
 	}
 	// move feature legend below the alignment area and adjust svg height
@@ -1729,7 +1734,7 @@ AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosome
 		var currentChromosome = key;
 		var valueOfCurrentChromosome = value;
 		$.each(filteredLinks, function(key, value) {
-			if (that.data.features.link[value.source].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false || that.data.features.link[value.target].karyo === currentChromosome && (currentChromosome in filteredChromosomes) === false) {
+			if (that.data.features.link[value.source].karyo === currentChromosome &amp;&amp; (currentChromosome in filteredChromosomes) === false || that.data.features.link[value.target].karyo === currentChromosome &amp;&amp; (currentChromosome in filteredChromosomes) === false) {
 				filteredChromosomes[currentChromosome] = valueOfCurrentChromosome;
 			}
 		});
@@ -1790,7 +1795,7 @@ AliTV.prototype.filterVisibleLinks = function(visibleLinks, visibleChromosomes) 
 	$.each(visibleLinks, function(key, value) {
 		var targetKaryo = that.data.features.link[value.target].karyo;
 		var sourceKaryo = that.data.features.link[value.source].karyo;
-		if (listOfVisibleChromosomes.indexOf(targetKaryo) !== -1 && listOfVisibleChromosomes.indexOf(sourceKaryo) !== -1 && (value in filteredLinks) === false) {
+		if (listOfVisibleChromosomes.indexOf(targetKaryo) !== -1 &amp;&amp; listOfVisibleChromosomes.indexOf(sourceKaryo) !== -1 &amp;&amp; (value in filteredLinks) === false) {
 			filteredLinks[key] = value;
 		}
 	});
@@ -1808,7 +1813,7 @@ AliTV.prototype.filterLinksByIdentity = function(visibleLinks) {
 	var filteredLinks = {};
 	$.each(visibleLinks, function(key, value) {
 		var currentLink = value;
-		if (currentLink.identity >= minIdentity && currentLink.identity &lt;= maxIdentity) {
+		if (currentLink.identity >= minIdentity &amp;&amp; currentLink.identity &lt;= maxIdentity) {
 			filteredLinks[key] = currentLink;
 		}
 	});
@@ -1832,7 +1837,7 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 		var targetFeature = currentLink.target;
 		var lengthOfSourceFeature = Math.abs(that.data.features.link[sourceFeature].end - that.data.features.link[sourceFeature].start);
 		var lengthOfTargetFeature = Math.abs(that.data.features.link[targetFeature].end - that.data.features.link[targetFeature].start);
-		if (lengthOfSourceFeature >= minLength && lengthOfSourceFeature &lt;= maxLength || lengthOfTargetFeature >= minLength && lengthOfTargetFeature &lt;= maxLength) {
+		if (lengthOfSourceFeature >= minLength &amp;&amp; lengthOfSourceFeature &lt;= maxLength || lengthOfTargetFeature >= minLength &amp;&amp; lengthOfTargetFeature &lt;= maxLength) {
 			filteredLinks[key] = currentLink;
 		}
 	});
@@ -1848,7 +1853,7 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 AliTV.prototype.filterLinksByAdjacency = function() {
 	var that = this;
 	var filteredLinks = {};
-	if (this.filters.onlyShowAdjacentLinks === true && this.conf.layout === 'linear') {
+	if (this.filters.onlyShowAdjacentLinks === true &amp;&amp; this.conf.layout === 'linear') {
 		for (var i = 0; i &lt; that.filters.karyo.genome_order.length - 1; i++) {
 			var genome0 = that.filters.karyo.genome_order[i];
 			var genome1 = that.filters.karyo.genome_order[i + 1];
@@ -1861,7 +1866,9 @@ AliTV.prototype.filterLinksByAdjacency = function() {
 		// combine all links into a single object
 		$.each(that.data.links, function(key, value) {
 			$.each(value, function(k, v) {
-				filteredLinks = $.extend(filteredLinks, v);
+				if (key !== k || that.filters.showIntraGenomeLinks) {
+					filteredLinks = $.extend(filteredLinks, v);
+				}
 			});
 		});
 	}
@@ -1927,6 +1934,7 @@ AliTV.prototype.drawPhylogeneticTree = function() {
 	} else {
 		that.svgD3.append("g")
 			.attr("class", "treeGroup")
+			.attr("style", "fill:none;stroke:#000;stroke-width:2px;")
 			.attr("transform", "translate(" + that.conf.graphicalParameters.canvasWidth + ", 0)")
 			.selectAll("path")
 			.data(links)
@@ -1991,7 +1999,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				}
 			});
 			var featureStyle = ((typeof that.conf.features.supportedFeatures[type] !== 'undefined') ? that.conf.features.supportedFeatures[type] : that.conf.features.fallbackStyle);
-			if (featureStyle.visible === false && that.conf.features.showAllFeatures === false) {
+			if (featureStyle.visible === false &amp;&amp; that.conf.features.showAllFeatures === false) {
 				// skip if the feature type should not be visible
 				return true;
 			}
@@ -2025,7 +2033,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				start = featureScale((Math.min(value.end, value.start) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
 				end = featureScale((Math.max(value.end, value.start) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
 
-				if (that.filters.karyo.chromosomes[featureKaryo].reverse === false && (start > end)) {
+				if (that.filters.karyo.chromosomes[featureKaryo].reverse === false &amp;&amp; (start > end)) {
 					currentFeature.width = featureScale(that.data.karyo.chromosomes[featureKaryo].length) - start;
 					linearFeatureCoords.push(currentFeature);
 
@@ -2039,7 +2047,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 						"y": currentY
 					};
 					linearFeatureCoords.push(splitFeature);
-				} else if (that.filters.karyo.chromosomes[featureKaryo].reverse === true && (start &lt; end)) {
+				} else if (that.filters.karyo.chromosomes[featureKaryo].reverse === true &amp;&amp; (start &lt; end)) {
 					currentFeature.x = end;
 					currentFeature.width = featureScale(0) - end;
 					linearFeatureCoords.push(currentFeature);
@@ -2068,7 +2076,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 					start = featureScale((Math.abs(value.start) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length) === featureScale(0) ? featureScale(that.data.karyo.chromosomes[featureKaryo].length) : featureScale((Math.abs(value.start) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
 					end = featureScale((Math.abs(value.end) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length) === featureScale(0) ? featureScale(that.data.karyo.chromosomes[featureKaryo].length) : featureScale((Math.abs(value.end) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
 
-					if (value.start &lt; value.end && start > end && that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
+					if (value.start &lt; value.end &amp;&amp; start > end &amp;&amp; that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
 						currentFeature.path.push({
 							x: start,
 							y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
@@ -2112,7 +2120,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 							y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
 						});
 						linearFeatureCoords.push(splitFeature);
-					} else if (value.start > value.end && start &lt; end && that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
+					} else if (value.start > value.end &amp;&amp; start &lt; end &amp;&amp; that.filters.karyo.chromosomes[featureKaryo].reverse === false) {
 						currentFeature.path.push({
 							x: featureScale(0),
 							y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
@@ -2156,7 +2164,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 							y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
 						});
 						linearFeatureCoords.push(splitFeature);
-					} else if (value.start &lt; value.end && start &lt; end && that.filters.karyo.chromosomes[featureKaryo].reverse === true) {
+					} else if (value.start &lt; value.end &amp;&amp; start &lt; end &amp;&amp; that.filters.karyo.chromosomes[featureKaryo].reverse === true) {
 						currentFeature.path.push({
 							x: featureScale(that.data.karyo.chromosomes[featureKaryo].length),
 							y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
@@ -2200,7 +2208,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 							y: currentY + that.conf.graphicalParameters.karyoHeight - 1 / 5 * that.conf.graphicalParameters.karyoHeight
 						});
 						linearFeatureCoords.push(splitFeature);
-					} else if (value.start > value.end && start > end && that.filters.karyo.chromosomes[featureKaryo].reverse === true) {
+					} else if (value.start > value.end &amp;&amp; start > end &amp;&amp; that.filters.karyo.chromosomes[featureKaryo].reverse === true) {
 						currentFeature.path.push({
 							x: featureScale(0),
 							y: currentY + 1 / 5 * that.conf.graphicalParameters.karyoHeight
@@ -2361,7 +2369,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 	shapes.append("rect")
 		.filter(function(d) {
 			if (d.type in that.conf.features.supportedFeatures === true) {
-				return that.conf.features.supportedFeatures[d.type].form === "rect" && (that.conf.features.supportedFeatures[d.type].visible === true || that.conf.features.showAllFeatures === true);
+				return that.conf.features.supportedFeatures[d.type].form === "rect" &amp;&amp; (that.conf.features.supportedFeatures[d.type].visible === true || that.conf.features.showAllFeatures === true);
 			} else {
 				return that.conf.features.fallbackStyle.form === "rect";
 			}
@@ -2418,7 +2426,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 			}
 		})
 		.style("display", function(d) {
-			var featureId = d.id + "_" + d.type + "_" + d.karyo;
+			var featureId = $(this).attr("id");
 			if (featureId in that.filters.features.invisibleFeatures) {
 				return "none";
 			}
@@ -2437,7 +2445,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 	shapes.append("path")
 		.filter(function(d) {
 			if (d.type in that.conf.features.supportedFeatures === true) {
-				return that.conf.features.supportedFeatures[d.type].form === "arrow" && (that.conf.features.supportedFeatures[d.type].visible === true || that.conf.features.showAllFeatures === true);
+				return that.conf.features.supportedFeatures[d.type].form === "arrow" &amp;&amp; (that.conf.features.supportedFeatures[d.type].visible === true || that.conf.features.showAllFeatures === true);
 			}
 		})
 		.each(function(d, i) {
@@ -2467,7 +2475,7 @@ AliTV.prototype.drawLinearFeatures = function(linearFeatureCoords) {
 					}
 				})
 				.style("display", function(d) {
-					var featureId = d.id + "_" + d.type + "_" + d.karyo;
+					var featureId = $(this).attr("id");
 					if (featureId in that.filters.features.invisibleFeatures) {
 						return "none";
 					}
@@ -2525,7 +2533,7 @@ AliTV.prototype.drawLinearGenomeLabels = function(linearGenomeLabelCoords) {
 		.attr("fill", that.getGenomeLabelColor())
 		.style("text-anchor", "middle");
 
-	if (that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+	if (that.conf.tree.drawTree === true &amp;&amp; that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".genomeLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.treeWidth + ", 0)");
 	}
 };
@@ -2610,7 +2618,9 @@ AliTV.prototype.setSvgHeight = function(height) {
  */
 
 AliTV.prototype.getSvgAsText = function() {
-	return this.svg[0].outerHTML;
+	var svgText = this.svg[0].outerHTML;
+	svgText = svgText.replace(/&amp;quot;/g, "");
+	return svgText;
 };
 
 /**
@@ -2973,7 +2983,7 @@ AliTV.prototype.updateGenomeRegionBySvgRect = function(rect) {
 			that.filters.karyo.genome_region[genome] = {};
 		}
 		var yPosCurrentGenome = i * distance + karyoHeight / 2;
-		if (yPosCurrentGenome >= rect.y && yPosCurrentGenome &lt;= rect.y + rect.height) {
+		if (yPosCurrentGenome >= rect.y &amp;&amp; yPosCurrentGenome &lt;= rect.y + rect.height) {
 			var region = that.filters.karyo.genome_region[genome];
 			var start = (region.start || 0);
 			var end = (region.end || that.cache.linear.maxGenomeSize + start);
@@ -3035,12 +3045,12 @@ AliTV.prototype.changeGenomeOrder = function(name, value) {
 	var that = this;
 	var genomePosition = that.filters.karyo.genome_order.indexOf(name);
 	var tmp;
-	if ((genomePosition !== 0 || (genomePosition === 0 && value === -1)) && (genomePosition !== (that.filters.karyo.genome_order.length - 1) || (genomePosition === (that.filters.karyo.genome_order.length - 1) && value === +1))) {
+	if ((genomePosition !== 0 || (genomePosition === 0 &amp;&amp; value === -1)) &amp;&amp; (genomePosition !== (that.filters.karyo.genome_order.length - 1) || (genomePosition === (that.filters.karyo.genome_order.length - 1) &amp;&amp; value === +1))) {
 		var adjacentGenomePosition = genomePosition - value;
 		tmp = that.filters.karyo.genome_order[genomePosition];
 		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[adjacentGenomePosition];
 		that.filters.karyo.genome_order[adjacentGenomePosition] = tmp;
-	} else if (genomePosition === 0 && value === +1) {
+	} else if (genomePosition === 0 &amp;&amp; value === +1) {
 		tmp = that.filters.karyo.genome_order[genomePosition];
 		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[(that.filters.karyo.genome_order.length - 1)];
 		that.filters.karyo.genome_order[(that.filters.karyo.genome_order.length - 1)] = tmp;
@@ -3098,163 +3108,33 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 };
 
 /**
- * This method is supposed to calculate coords for arrows which should be drawn next to selected chromosomes.
- * @param karyo: the key of the selected chromosome
- * @author Sonja Hohlfeld
- */
-AliTV.prototype.getOffsetButtonCoords = function(karyo) {
-	var coords = [];
-	var button = {
-		"id": karyo,
-		"path1": [],
-		"path2": []
-	};
-	button.path1.push({
-		"x": 0,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance() + 1 / 2 * this.conf.graphicalParameters.karyoHeight
-	}, {
-		"x": 1 / 3 * this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance()
-	}, {
-		"x": 1 / 3 * this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance() + this.conf.graphicalParameters.karyoHeight
-	});
-
-	button.path2.push({
-		"x": this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance() + 1 / 2 * this.conf.graphicalParameters.karyoHeight
-	}, {
-		"x": 2 / 3 * this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance() + this.conf.graphicalParameters.karyoHeight
-	}, {
-		"x": 2 / 3 * this.conf.graphicalParameters.buttonWidth,
-		"y": this.filters.karyo.genome_order.indexOf(this.data.karyo.chromosomes[karyo].genome_id) * this.getGenomeDistance()
-	});
-
-	coords.push(button);
-	return coords;
-};
-
-/**
- * This method is supposed the buttons next to the chromosomes in order to make them shiftable.
- * @param buttonCoords: the coords of the buttons which are returned by getOffsetButtonGroup
- * @author: Sonja Hohlfeld
- */
-AliTV.prototype.drawOffsetButtonGroup = function(buttonCoords) {
-	var that = this;
-	var data = buttonCoords;
-
-	var buttons = that.svgD3.append("g")
-		.attr("class", "buttonGroup")
-		.attr("transform", "translate(" + that.conf.graphicalParameters.canvasWidth + ", 0)")
-		.selectAll("path")
-		.data(data)
-		.enter();
-
-	var lineFunction = d3.svg.line()
-		.x(function(d) {
-			return d.x;
-		})
-		.y(function(d) {
-			return d.y;
-		})
-		.interpolate("linear");
-
-	buttons.append("path")
-		.each(function(d, i) {
-			d3.select(this)
-				.attr("class", "button")
-				.attr("id", function(d) {
-					return "button-" + d.id;
-				})
-				.attr("orientation", "left")
-				.attr("d", lineFunction(d.path1))
-				.attr("fill", function(d) {
-					return that.colorKaryoByGenomeId(that.filters.karyo.genome_order.indexOf(that.data.karyo.chromosomes[d.id].genome_id));
-				})
-				.on("mouseover", function() {
-					d3.select(this)
-						.attr("fill", "black");
-				})
-				.on("mouseout", function() {
-					d3.select(this)
-						.attr("fill", function(d) {
-							return that.colorKaryoByGenomeId(that.filters.karyo.genome_order.indexOf(that.data.karyo.chromosomes[d.id].genome_id));
-						});
-				})
-				.on("click", function(d) {
-					var offset = that.filters.karyo.chromosomes[d.id].offset === undefined ? 0 : that.filters.karyo.chromosomes[d.id].offset;
-					that.filters.karyo.chromosomes[d.id].offset = offset - that.conf.offset.distance;
-					that.drawLinear();
-				});
-		});
-
-	buttons.append("path")
-		.each(function(d, i) {
-			d3.select(this)
-				.attr("class", "button")
-				.attr("id", function(d) {
-					return "button-" + d.id;
-				})
-				.attr("orientation", "right")
-				.attr("d", lineFunction(d.path2))
-				.attr("fill", function(d) {
-					return that.colorKaryoByGenomeId(that.filters.karyo.genome_order.indexOf(that.data.karyo.chromosomes[d.id].genome_id));
-				})
-				.on("mouseover", function() {
-					d3.select(this)
-						.attr("fill", "black");
-				})
-				.on("mouseout", function() {
-					d3.select(this)
-						.attr("fill", function(d) {
-							return that.colorKaryoByGenomeId(that.filters.karyo.genome_order.indexOf(that.data.karyo.chromosomes[d.id].genome_id));
-						});
-				})
-				.on("click", function(d) {
-					var offset = that.filters.karyo.chromosomes[d.id].offset === undefined ? 0 : that.filters.karyo.chromosomes[d.id].offset;
-					that.filters.karyo.chromosomes[d.id].offset = offset + that.conf.offset.distance;
-					that.drawLinear();
-				});
-		});
-
-	if (that.conf.labels.genome.showGenomeLabels === true && that.conf.tree.drawTree === true) {
-		that.svgD3.selectAll(".buttonGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.canvasWidth + that.conf.graphicalParameters.genomeLabelWidth + that.conf.graphicalParameters.treeWidth) + ", 0)");
-	}
-};
-
-/**
- * This function returns the offset for shifting chromosomes in bp.
- * @returns {Number} The offset in bp.
+ * This function returns the offset for a specific chromosome.
+ * @returns {Number} The offset in bp of a chromosome.
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.getOffsetDistance = function() {
-	var json = this.getJSON();
-	return json.conf.offset.distance;
+AliTV.prototype.getOffset = function(karyoId) {
+	return this.filters.karyo.chromosomes[karyoId].offset;
 };
 
 /**
- * This function replaces the old distance for shifting chromosomes with the new distance in the config-object.
+ * This function sets a new offset for specific chromosome.
  * When the method gets a wrong value it throws an error message.
  * @param {Number} The function gets the distance for shifting chromosomes which can be set by the user.
+ * @param {String} The function gets the Id of the chromosome which should be shifted.
  * @throws Will throw an error if the argument is empty.
  * @throws Will throw an error if the argument is not a number.
- * @throws Will throw an error if the argument is less than 0 or equal to 0.
  * @author Sonja Hohlfeld
  */
 
-AliTV.prototype.setOffsetDistance = function(distance) {
-	if (distance === "") {
+AliTV.prototype.setOffset = function(offset, karyoId) {
+	if (offset === "") {
 		throw "Sorry, you entered an empty value. Please try it again.";
-	} else if (isNaN(distance)) {
+	} else if (isNaN(offset)) {
 		throw "Sorry, you entered not a number. Please try it again.";
-	} else if (distance &lt;= 0) {
-		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
 	} else {
-		distance = Number(distance);
-		this.conf.offset.distance = distance;
-		return this.conf.offset.distance;
+		this.filters.karyo.chromosomes[karyoId].offset = offset;
+		return this.filters.karyo.chromosomes[karyoId].offset;
 	}
 };
 
@@ -3418,12 +3298,6 @@ AliTV.prototype.drawFeatureLegend = function() {
 			arrowCol.push(val.color);
 		}
 	});
-	var rectScale = d3.scale.ordinal()
-		.domain(rect)
-		.range(rectCol);
-	var arrowScale = d3.scale.ordinal()
-		.domain(arrow)
-		.range(arrowCol);
 
 	this.getLegendRegion().selectAll(".legendRect").remove();
 	this.getLegendRegion().selectAll(".legendArrow").remove();
@@ -3433,7 +3307,14 @@ AliTV.prototype.drawFeatureLegend = function() {
 		.attr("transform", "translate(0,20)");
 	this.getLegendRegion().append("g")
 		.attr("class", "legendArrow")
-		.attr("transform", "translate(200,20)");
+		.attr("transform", "translate(" + (this.getSvgWidth() / 3) + ",20)");
+
+	var rectScale = d3.scale.ordinal()
+		.domain(rect)
+		.range(rectCol);
+	var arrowScale = d3.scale.ordinal()
+		.domain(arrow)
+		.range(arrowCol);
 
 	var arrowShape = [
 		[0, 0],
@@ -3450,6 +3331,11 @@ AliTV.prototype.drawFeatureLegend = function() {
 		return d[1];
 	});
 
+	// this does not work in test cases - most likely the d3-legend library is not properly loaded
+	// to avoid meaningless fails in tests skip this region if d3.legend is not defined
+	if (typeof d3.legend === 'undefined') {
+		return;
+	}
 	var legendArrow = d3.legend.color()
 		//d3 symbol creates a path-string, for example
 		//"M0,-8.059274488676564L9.306048591020996,
@@ -3463,10 +3349,80 @@ AliTV.prototype.drawFeatureLegend = function() {
 		.shapePadding(10)
 		.scale(rectScale);
 
-	this.getLegendRegion().select(".legendArrow")
-		.call(legendArrow);
 	this.getLegendRegion().select(".legendRect")
 		.call(legendRect);
+	this.getLegendRegion().select(".legendArrow")
+		.call(legendArrow);
+};
+
+
+/**
+ * This function is supposed to draw a legend for the color code of the link identity.
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.drawLinkIdentityLegend = function() {
+	var legendRegion = this.getLegendRegion();
+	legendRegion.selectAll(".legendLinkIdentity").remove();
+	legendRegion.selectAll("#linkIdentityGradient").remove();
+	var legend = legendRegion.append("defs")
+		.append("svg:linearGradient")
+		.attr("id", "linkIdentityGradient")
+		.attr("x1", "0%")
+		.attr("y1", "100%")
+		.attr("x2", "100%")
+		.attr("y2", "100%")
+		.attr("spreadMethod", "pad");
+	var transformPercent = d3.scale.linear().range([0, 100]).domain([this.conf.minLinkIdentity, this.conf.maxLinkIdentity]);
+	legend.append("stop").attr("offset", "0%").attr("stop-color", this.conf.minLinkIdentityColor).attr("stop-opacity", 1);
+	legend.append("stop").attr("offset", transformPercent(this.conf.midLinkIdentity) + "%").attr("stop-color", this.conf.midLinkIdentityColor).attr("stop-opacity", 1);
+	legend.append("stop").attr("offset", "100%").attr("stop-color", this.conf.maxLinkIdentityColor).attr("stop-opacity", 1);
+	var legendLinkIdentityGroup = legendRegion.append("g")
+		.attr("class", "legendLinkIdentity")
+		.attr("transform", "translate(" + (this.getSvgWidth() * (2 / 3)) + ", 20)");
+	legendLinkIdentityGroup.append("rect").attr("width", 300).attr("height", 20).style("fill", "url(#linkIdentityGradient)");
+	var x = d3.scale.linear().range([0, 300]).domain([this.conf.minLinkIdentity, this.conf.maxLinkIdentity]);
+	var xAxis = d3.svg.axis().scale(x).orient("bottom");
+	legendLinkIdentityGroup.append("g").attr("class", "x axis").attr("style", "font: 10px sans-serif; fill: none; stroke: #000; shape-rendering: crispEdges;").attr("transform", "translate(0, 20)").call(xAxis).append("text").attr("y", 20).attr("x", 150).attr("dy", ".71em").style("text-anchor", "middle").text("Link Identity %");
+};
+
+/**
+ * This method is supposed to return the current minimal identity of links.
+ * @returns minimalLinkIdentity: the minimal identity of links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getMinLinkIdentity = function() {
+	var minimalLinkIdentity = this.filters.links.minLinkIdentity;
+	return minimalLinkIdentity;
+};
+
+/**
+ * This method is supposed to return the current maximal identity of links.
+ * @returns maximalLinkIdentity: the maximal identity of links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getMaxLinkIdentity = function() {
+	var maximalLinkIdentity = this.filters.links.maxLinkIdentity;
+	return maximalLinkIdentity;
+};
+
+/**
+ * This method is supposed to return the current minimal length of links.
+ * @returns minimalLinkLength: the minimal lenght of links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getMinLinkLength = function() {
+	var minimalLinkLength = this.filters.links.minLinkLength;
+	return minimalLinkLength;
+};
+
+/**
+ * This method is supposed to return the current maximal length of links.
+ * @returns maximalLinkLength: the maximal length of links.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getMaxLinkLength = function() {
+	var maximalLinkLength = this.filters.links.maxLinkLength;
+	return maximalLinkLength;
 };
 </code></pre>
         </article>
@@ -3478,13 +3434,13 @@ AliTV.prototype.drawFeatureLegend = function() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="AliTV.html">AliTV</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AliTV.html">AliTV</a></li></ul>
 </nav>
 
-<br clear="both">
+<br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Sep 24 2015 14:33:55 GMT+0200 (MESZ)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Jun 02 2016 16:17:42 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>
