@@ -454,8 +454,8 @@
             $("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
             $('#showGenomeLabels').attr('checked', true);
             $('#showTickLabels').attr('checked', true);
-            $('#drawTree').attr('checked', function(){
-				return ali.conf.tree.drawTree;
+            $('#drawTree').attr('checked', function() {
+                return ali.conf.tree.drawTree;
             });
             setOffsetGroup();
             setSlider();
@@ -673,7 +673,7 @@
         }
 
         function removeOffsetButton(karyoId) {
-			$("#menu-" + karyoId).remove();
+            $("#menu-" + karyoId).remove();
         }
 
         $('#myTabs a').click(function(e) {
@@ -706,10 +706,10 @@
                         items: {
                             "info": {
                                 name: "Name: " + chromosomeId
-                            }, 
-				"genome": {
+                            },
+                            "genome": {
                                 name: "Genome: " + genome
-                            },	
+                            },
                             "sep1": "---------",
                             "Visible": {
                                 name: "Hide",
@@ -876,15 +876,16 @@
 
             <div class="tab-content" id="interface">
                 <div role="tabpanel" class="tab-pane active" id="about" style="margin:10px 10px">
-                   <div class="container-fluid">
+                    <div class="container-fluid">
                         <div class="row">
-                            <div class="col-sm-12"> 
-			                    <p><mark style="font-variant: small-caps;">AliTV (Alignment Toolbox and Visualization)</mark> is a software for visualizing Whole Genome Alignments. It generates publication-ready figures which can be used for the easy comparision of complete genomes. 
-			                    AliTV stands out due to its interactive functions for analyzing the alignments directly onto the figure.</p>
-			                    
-			                    <p>If you need help with AliTV, please checkout the official website <a href="http://bioinf-wuerzburg.github.io/AliTV/">http://bioinf-wuerzburg.github.io/AliTV/</a> or the gitHub page containing AliTVs repository <a href="https://github.com/BioInf-Wuerzburg/AliTV">https://github.com/BioInf-Wuerzburg/AliTV</a>.</p>
-                    		</div>
-                    	</div>
+                            <div class="col-sm-12">
+                                <p>
+                                    <mark style="font-variant: small-caps;">AliTV (Alignment Toolbox and Visualization)</mark> is a software for visualizing Whole Genome Alignments. It generates publication-ready figures which can be used for the easy
+                                    comparision of complete genomes. AliTV stands out due to its interactive functions for analyzing the alignments directly onto the figure.</p>
+
+                                <p>If you need help with AliTV, please checkout the official website <a href="http://bioinf-wuerzburg.github.io/AliTV/">http://bioinf-wuerzburg.github.io/AliTV/</a> or the gitHub page containing AliTVs repository <a href="https://github.com/BioInf-Wuerzburg/AliTV">https://github.com/BioInf-Wuerzburg/AliTV</a>.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -893,22 +894,22 @@
                         <div class="row">
                             <div class="col-sm-3">
                                 <div class="form-group">
-	                                <mark class="bg-info">Use JSONEditor</mark>
-	                                <br> By using JSONEditor you can change all parameters directly in the structure of the conf-, data- or filters-object.
-	                                <br>
-	                                <div style="margin: 10px 0px">
-	                                    <button class="btn btn-info" onclick="toggleJSONEditor()" style="font-size: 14px;">Toggle JSON Editor</button>
-	                                    <button class="btn btn-info" onclick="setAliFromJSONEditor()" style="font-size: 14px;">Apply JSON Editor content</button>
-	                                </div>
+                                    <mark class="bg-info">Use JSONEditor</mark>
+                                    <br> By using JSONEditor you can change all parameters directly in the structure of the conf-, data- or filters-object.
+                                    <br>
+                                    <div style="margin: 10px 0px">
+                                        <button class="btn btn-info" onclick="toggleJSONEditor()" style="font-size: 14px;">Toggle JSON Editor</button>
+                                        <button class="btn btn-info" onclick="setAliFromJSONEditor()" style="font-size: 14px;">Apply JSON Editor content</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-	                                <mark class="bg-info">Shift chromosomes:</mark>
-	                                <div class="input-group" style="margin: 10px 10px">
-	                                    <span class="input-group-addon"><select id="offsetGroup" class="selectpicker" data-style="btn-info" name="offsetGroup"></select></span>
-	                                    <span class="input-group-addon"><button class="btn btn-info" type="button" id="setOffsetGroup" onclick="setOffsetButton();">Set offset</button></span>
-	                                </div>
+                                    <mark class="bg-info">Shift chromosomes:</mark>
+                                    <div class="input-group" style="margin: 10px 10px">
+                                        <span class="input-group-addon"><select id="offsetGroup" class="selectpicker" data-style="btn-info" name="offsetGroup"></select></span>
+                                        <span class="input-group-addon"><button class="btn btn-info" type="button" id="setOffsetGroup" onclick="setOffsetButton();">Set offset</button></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-3">
@@ -923,12 +924,12 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-sm-12">
-			                        <button class="btn btn-info" onclick="saveSVG()">Save SVG</button>
-			                        <button class="btn btn-info" onclick="saveJSON()">Save JSON</button>
-			                        <button class="btn btn-info" onclick="$('#loadJSON').click()">Load JSON</button>
-			                        <input type="file" id="loadJSON" name="files[]" style="display:none" multiple accept=".json">
-	                  		</div>
-	                    </div>
+                                <button class="btn btn-info" onclick="saveSVG()">Save SVG</button>
+                                <button class="btn btn-info" onclick="saveJSON()">Save JSON</button>
+                                <button class="btn btn-info" onclick="$('#loadJSON').click()">Load JSON</button>
+                                <input type="file" id="loadJSON" name="files[]" style="display:none" multiple accept=".json">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1303,13 +1304,14 @@
 
     <script type="text/template" id="templateShiftChromosomes">
         <div class="form-group" id="menu-<%= karyoId %>">
-                    <mark class="bg-info">
-                        <%=karyoId%>:</mark>
-                    <div class="input-group" style="margin-top: 10px">
-                        <span class="input-group-addon">Set offset distance:</span>
-                        <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Offset in bp"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')" style="margin-left: 20px">Apply</button></span>
-                    	<span class="input-group-addon"><button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeOffsetButton('<%= karyoId %>')"><span aria-hidden="true">&times;</span></button></span>
-					</div>
+            <mark class="bg-info">
+                <%=karyoId%>:</mark>
+            <div class="input-group" style="margin-top: 10px">
+                <span class="input-group-addon">Set offset distance:</span>
+                <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Offset in bp"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')" style="margin-left: 20px">Apply</button></span>
+                <span class="input-group-addon"><button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeOffsetButton('<%= karyoId %>')"><span aria-hidden="true">&times;</span></button>
+                </span>
+            </div>
         </div>
     </script>
     <script type="text/template" id="template_feature_group">
