@@ -82,6 +82,11 @@ hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/AliT
 #+LaTeX_HEADER: \setlength{\parskip}{1.5ex}
 #+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
 ** Changelog
+*** 0.3.7 <2016-06-02 Do>
+ - Improve general layout and style
+ - Improve tab structure of Advanced Settings (#89)
+ - Fix getter/setter for shifting chromosomes (#91)
+ - Display name and genome of a seq (#96)
 *** 0.3.6 <2015-11-02 Mo>
  - Highlight active slider range (#84)
  - Update slider range (#85)
