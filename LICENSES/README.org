@@ -73,7 +73,7 @@ http://silviomoreto.github.io/bootstrap-select/
 **** Repository
 [[https://github.com/jquery/jquery]]
 **** Version
-1.11.3
+2.2.4
 **** LICENSE
 [[file:LICENSE-jquery][LICENSE-jquery]]
 **** Files
