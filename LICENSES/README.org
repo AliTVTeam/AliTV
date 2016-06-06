@@ -91,7 +91,7 @@ http://silviomoreto.github.io/bootstrap-select/
 **** Repository
 [[https://github.com/jquery/jquery-ui]]
 **** Version
-1.11
+1.11.4
 **** LICENSE
 [[file:LICENSE-jquery-ui][LICENSE-jquery-ui]]
 **** Files
