@@ -46,7 +46,7 @@ http://silviomoreto.github.io/bootstrap-select/
 **** Repository
 [[https://github.com/mbostock/d3]]
 **** Version
-3.5.5
+3.5.17
 **** LICENSE
 [[file:LICENSE-d3][LICENSE-d3]]
 **** Files
