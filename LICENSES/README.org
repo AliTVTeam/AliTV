@@ -17,7 +17,7 @@ Those are listed here:
 **** Repository
 https://github.com/twbs/bootstrap
 **** Version
-3.3.5
+3.3.6
 **** LICENSE
 [[file:LICENSE-bootstrap][LICENSE-bootstrap]]
 **** Files
