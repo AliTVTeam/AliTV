@@ -82,6 +82,13 @@ hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/AliT
 #+LaTeX_HEADER: \setlength{\parskip}{1.5ex}
 #+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
 ** Changelog
+*** 0.3.8 <2016-06-06 Mo>
+ - Update bootstrap-select to version 1.10.0
+ - Update colorpicker to version 2.3.2
+ - Update bootstrap to version 3.3.6
+ - Update jQuery-UI to version 1.11.4
+ - Update jQuery to version 2.2.4
+ - Update d3.js to version 3.5.17
 *** 0.3.7 <2016-06-02 Do>
  - Improve general layout and style
  - Improve tab structure of Advanced Settings (#89)

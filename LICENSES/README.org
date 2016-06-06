@@ -17,7 +17,7 @@ Those are listed here:
 **** Repository
 https://github.com/twbs/bootstrap
 **** Version
-3.3.5
+3.3.6
 **** LICENSE
 [[file:LICENSE-bootstrap][LICENSE-bootstrap]]
 **** Files
@@ -27,7 +27,7 @@ https://github.com/twbs/bootstrap
 **** Repository
 http://silviomoreto.github.io/bootstrap-select/
 **** Version
-1.7.2
+1.10.0
 **** LICENSE
 [[file:LICENSE-bootstrap-select][LICENSE-bootstrap-select]]
 **** Files
@@ -37,7 +37,7 @@ http://silviomoreto.github.io/bootstrap-select/
 **** Repository
 [[https://github.com/mjolnic/bootstrap-colorpicker]]
 **** Version
-2.1
+2.3.2
 **** LICENSE
 [[file:LICENSE-colorpicker][LICENSE-colorpicker]]
 **** Files
@@ -46,7 +46,7 @@ http://silviomoreto.github.io/bootstrap-select/
 **** Repository
 [[https://github.com/mbostock/d3]]
 **** Version
-3.5.5
+3.5.17
 **** LICENSE
 [[file:LICENSE-d3][LICENSE-d3]]
 **** Files
@@ -73,7 +73,7 @@ http://silviomoreto.github.io/bootstrap-select/
 **** Repository
 [[https://github.com/jquery/jquery]]
 **** Version
-1.11.3
+2.2.4
 **** LICENSE
 [[file:LICENSE-jquery][LICENSE-jquery]]
 **** Files
@@ -91,11 +91,10 @@ http://silviomoreto.github.io/bootstrap-select/
 **** Repository
 [[https://github.com/jquery/jquery-ui]]
 **** Version
-1.11
+1.11.4
 **** LICENSE
 [[file:LICENSE-jquery-ui][LICENSE-jquery-ui]]
 **** Files
- - [[../d3/lib/jquery-ui-1.9.2.custom.min.css]]
  - [[../d3/lib/jquery-ui.min.css]]
  - [[../d3/lib/jquery-ui.min.js]]
 *** JSONeditor

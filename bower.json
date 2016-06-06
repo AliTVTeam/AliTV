@@ -1,0 +1,29 @@
+{
+  "name": "AliTV",
+  "description": "Alignment Toolbox and Visualization",
+  "main": "d3/js/AliTV.js",
+  "authors": [
+    "Markus J. Ankenbrand",
+    "Sonja Hohlfeld",
+    "Thomas Hackl",
+    "Frank Förster"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "wga"
+  ],
+  "homepage": "https://github.com/BioInf-Wuerzburg/AliTV",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "d3": "^3.5.17",
+    "jquery": "^2.2.4",
+    "jquery-ui": "^1.11.4",
+    "bootstrap": "^3.3.6"
+  }
+}
