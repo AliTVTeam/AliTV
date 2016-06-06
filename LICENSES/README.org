@@ -95,7 +95,6 @@ http://silviomoreto.github.io/bootstrap-select/
 **** LICENSE
 [[file:LICENSE-jquery-ui][LICENSE-jquery-ui]]
 **** Files
- - [[../d3/lib/jquery-ui-1.9.2.custom.min.css]]
  - [[../d3/lib/jquery-ui.min.css]]
  - [[../d3/lib/jquery-ui.min.js]]
 *** JSONeditor

@@ -22,6 +22,7 @@
   ],
   "devDependencies": {
     "d3": "^3.5.17",
-    "jquery": "^2.2.4"
+    "jquery": "^2.2.4",
+    "jquery-ui": "^1.11.4"
   }
 }

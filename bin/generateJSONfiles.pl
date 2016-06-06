@@ -183,7 +183,6 @@ sub create_dir_structure{
                              lib/jquery.min.js
                              lib/jquery-ui.min.js
                              lib/jquery-ui.min.css
-                             lib/jquery-ui-1.9.2.custom.min.css
                              lib/bootstrap.min.css
                              lib/bootstrap.min.js
                              lib/jsoneditor.min.css
