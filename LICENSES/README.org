@@ -37,7 +37,7 @@ http://silviomoreto.github.io/bootstrap-select/
 **** Repository
 [[https://github.com/mjolnic/bootstrap-colorpicker]]
 **** Version
-2.1
+2.3.2
 **** LICENSE
 [[file:LICENSE-colorpicker][LICENSE-colorpicker]]
 **** Files
