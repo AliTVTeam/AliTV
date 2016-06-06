@@ -27,7 +27,7 @@ https://github.com/twbs/bootstrap
 **** Repository
 http://silviomoreto.github.io/bootstrap-select/
 **** Version
-1.7.2
+1.10.0
 **** LICENSE
 [[file:LICENSE-bootstrap-select][LICENSE-bootstrap-select]]
 **** Files
