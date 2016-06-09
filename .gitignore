@@ -15,3 +15,4 @@ MANIFEST*.bak
 Build
 MYMETA.*
 t/
+bower_components/
