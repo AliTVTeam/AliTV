@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="lib/jquery-ui-1.9.2.custom.min.css">
+    <link rel="stylesheet" href="lib/jquery-ui.min.css">
     <link rel="stylesheet" href="css/AliTV.css">
     <link rel="shortcut icon" href="css/ali_logo2.ico" />
     <link href="lib/bootstrap.min.css" rel="stylesheet">
@@ -82,7 +82,7 @@
             $(function() {
                 $("#identity-slider").slider({
                     range: true,
-                    values: [0, 100],
+                    values: [ali.getMinLinkIdentity(), ali.getMaxLinkIdentity()],
                     min: 0,
                     max: 100,
                     slide: function(event, ui) {
@@ -95,7 +95,7 @@
 
                 $("#length-slider").slider({
                     range: true,
-                    values: [0, ali.getMaxChromosomeLength()],
+                    values: [ali.getMinLinkLength(), ali.getMaxLinkLength()],
                     min: 0,
                     max: ali.getMaxChromosomeLength(),
                     slide: function(event, ui) {
@@ -413,9 +413,11 @@
         }
 
         function changeOffset(karyoId) {
-            var distance = $('#offset-' + karyoId).val();
+            var offset = Number($('#offset-' + karyoId).val());
             try {
-                ali.setOffsetDistance(distance);
+                ali.setOffset(offset, karyoId);
+                $("#offset-" + karyoId).val(ali.getOffset(karyoId));
+                ali.drawLinear();
             } catch (err) {
                 bootbox.alert(err);
                 $("#offset-" + karyoId).val(ali.getTickDistance());
@@ -452,7 +454,11 @@
             $("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
             $('#showGenomeLabels').attr('checked', true);
             $('#showTickLabels').attr('checked', true);
+            $('#drawTree').attr('checked', function() {
+                return ali.conf.tree.drawTree;
+            });
             setOffsetGroup();
+            setSlider();
         }
 
         function setFilters() {
@@ -608,16 +614,6 @@
             var karyoId = $('.selectpicker[name=offsetGroup]').val();
             addOffsetTemplates(karyoId);
             ali.conf.offset.isSet = true;
-            var buttonCoords = ali.getOffsetButtonCoords(karyoId);
-            ali.drawOffsetButtonGroup(buttonCoords);
-            ali.drawLinear();
-        }
-
-        function removeOffset(karyoId) {
-            $("#menu-" + karyoId).remove();
-            ali.svgD3.selectAll("#button-" + karyoId).remove();
-            ali.filters.karyo.chromosomes[karyoId].offset = 0;
-            ali.drawLinear();
         }
 
         function setAliFromJSONEditor() {
@@ -658,6 +654,7 @@
             $('#offsetMenu').append(templateUS({
                 karyoId: karyoId
             }));
+            $("#offset-" + karyoId).val(ali.getOffset(karyoId));
         }
 
         function addFeatureGroupTemplates() {
@@ -673,6 +670,10 @@
                 }));
             });
             $('.feature-colorpicker').colorpicker();
+        }
+
+        function removeOffsetButton(karyoId) {
+            $("#menu-" + karyoId).remove();
         }
 
         $('#myTabs a').click(function(e) {
@@ -697,14 +698,17 @@
                 build: function($trigger, e) {
                     var selectedChromosome = ($(e.target).attr("id"));
                     var split = selectedChromosome.split(", ");
-                    var name = split[0];
+                    var genome = split[0];
                     var chromosomeId = split[1];
                     //Remove selection rect if exists
                     ali.svgD3.selectAll("rect.selection").remove();
                     return {
                         items: {
                             "info": {
-                                name: "Name: " + name
+                                name: "Name: " + chromosomeId
+                            },
+                            "genome": {
+                                name: "Genome: " + genome
                             },
                             "sep1": "---------",
                             "Visible": {
@@ -849,61 +853,66 @@
 
 <body>
 
-    <div class="page-header" style="background: #f7f7f7">
-        <h1><img src="css/ali_logo2.png" alt="logo" width="140" height="120" style="margin:0px 20px"/>AliTV <sup id="version-placeholder"></sup><small>&nbsp;Visualize multiple whole genome alignments as circular or linear maps</small></h1>
+    <div class="page-header">
+        <h1><img src="css/AliTV_logo.png" alt="logo" width="200" height="160" style="margin:0px 20px"/><b>AliTV <sup id="version-placeholder"></sup></b><small>&nbsp;Visualize multiple whole genome alignments as circular or linear maps</small></h1>
         <div>
-
             <ul class="nav nav-tabs" role="tablist">
 
-                <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About AliTV</a></li>
-                <li role="presentation"><a href="#filter" aria-controls="about" role="tab" data-toggle="tab">Filtering</a></li>
+                <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><b>About AliTV</b></a></li>
+                <li role="presentation"><a href="#filter" aria-controls="about" role="tab" data-toggle="tab"><b>Filtering</b></a></li>
 
-                <li class="dropdown"><a id="dLabel" data-toggle="dropdown">Add biological Features <span class="caret"></span></a>
+                <li class="dropdown"><a id="dLabel" data-toggle="dropdown"><b>Add biological Features</b> <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu" id="featuresMenu">
                         <li role="separator" class="divider"></li>
                         <li><a href="#customFeature" data-toggle="tab">Add more features...</a></li>
                     </ul>
                 </li>
 
-                <li role="presentation"><a href="#tree" aria-controls="about" role="tab" data-toggle="tab">Phylogenetic Tree</a></li>
-                <li role="presentation"><a href="#graphicalSettings" aria-controls="graphicalSettings" role="tab" data-toggle="tab">Layout Settings</a></li>
-                <li role="presentation"><a href="#advancedSettings" aria-controls="advancedSettings" role="tab" data-toggle="tab">Advanced Settings</a></li>
-                <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab">Import &amp; Export</a></li>
+                <li role="presentation"><a href="#tree" aria-controls="about" role="tab" data-toggle="tab"><b>Phylogenetic Tree</b></a></li>
+                <li role="presentation"><a href="#graphicalSettings" aria-controls="graphicalSettings" role="tab" data-toggle="tab"><b>Layout Settings</b></a></li>
+                <li role="presentation"><a href="#advancedSettings" aria-controls="advancedSettings" role="tab" data-toggle="tab"><b>Advanced Settings</b></a></li>
+                <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab"><b>Import &amp; Export</b></a></li>
             </ul>
 
             <div class="tab-content" id="interface">
                 <div role="tabpanel" class="tab-pane active" id="about" style="margin:10px 10px">
-                    AliTV (Alignment Toolbox and Visualization)
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p>
+                                    <mark style="font-variant: small-caps;">AliTV (Alignment Toolbox and Visualization)</mark> is a software for visualizing Whole Genome Alignments. It generates publication-ready figures which can be used for the easy
+                                    comparision of complete genomes. AliTV stands out due to its interactive functions for analyzing the alignments directly onto the figure.</p>
+
+                                <p>If you need help with AliTV, please checkout the official website <a href="http://alitvteam.github.io/AliTV/">http://alitvteam.github.io/AliTV/</a> or the gitHub page containing AliTVs repository <a href="https://github.com/AliTVTeam/AliTV">https://github.com/AliTVTeam/AliTV</a>.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div role="tabpanel" class="tab-pane fade" id="advancedSettings" style="margin:10px 10px">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <mark class="bg-info">Use JSONEditor</mark>
-                                        <br> By using JSONEditor you can change all parameters directly in the structure of the conf-, data- or filters-object.
-                                        <br>
-                                        <div style="margin: 10px 0px">
-                                            <button class="btn btn-info" onclick="toggleJSONEditor()">Toggle JSON Editor</button>
-                                            <button class="btn btn-info" onclick="setAliFromJSONEditor()">Apply JSON Editor content</button>
-                                        </div>
+                                    <mark class="bg-info">Use JSONEditor</mark>
+                                    <br> By using JSONEditor you can change all parameters directly in the structure of the conf-, data- or filters-object.
+                                    <br>
+                                    <div style="margin: 10px 0px">
+                                        <button class="btn btn-info" onclick="toggleJSONEditor()" style="font-size: 14px;">Toggle JSON Editor</button>
+                                        <button class="btn btn-info" onclick="setAliFromJSONEditor()" style="font-size: 14px;">Apply JSON Editor content</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <mark class="bg-info">Shift chromosomes:</mark>
-                                        <div class="input-group" style="margin: 10px 10px">
-                                            <span class="input-group-addon"><select id="offsetGroup" class="selectpicker" data-style="btn-info" name="offsetGroup"></select></span>
-                                            <span class="input-group-addon"><button class="btn btn-info" type="button" id="setOffsetGroup" onclick="setOffsetButton();">Set offset</button></span>
-                                        </div>
+                                    <mark class="bg-info">Shift chromosomes:</mark>
+                                    <div class="input-group" style="margin: 10px 10px">
+                                        <span class="input-group-addon"><select id="offsetGroup" class="selectpicker" data-style="btn-info" name="offsetGroup"></select></span>
+                                        <span class="input-group-addon"><button class="btn btn-info" type="button" id="setOffsetGroup" onclick="setOffsetButton();">Set offset</button></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group" id="offsetMenu">
                                 </div>
                             </div>
@@ -912,11 +921,15 @@
                 </div>
 
                 <div role="tabpanel" class="tab-pane fade" id="importExport" style="margin:10px 10px">
-                    <div style="margin: 10px 0px">
-                        <button class="btn btn-info" onclick="saveSVG()">Save SVG</button>
-                        <button class="btn btn-info" onclick="saveJSON()">Save JSON</button>
-                        <button class="btn btn-info" onclick="$('#loadJSON').click()">Load JSON</button>
-                        <input type="file" id="loadJSON" name="files[]" style="display:none" multiple accept=".json">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-info" onclick="saveSVG()">Save SVG</button>
+                                <button class="btn btn-info" onclick="saveJSON()">Save JSON</button>
+                                <button class="btn btn-info" onclick="$('#loadJSON').click()">Load JSON</button>
+                                <input type="file" id="loadJSON" name="files[]" style="display:none" multiple accept=".json">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1282,7 +1295,7 @@
     </div>
     <!-- collapse page header  -->
     <div style="display: none" id="warn-circular-layout">
-        <h3>&nbsp; WARNING: The circular layout is experimental and has limited functionality </h3>
+        <div class="alert alert-warning" role="alert" style="font-size: 24px">&nbsp; <b>WARNING:</b> The circular layout is experimental and has limited functionality </div>
     </div>
     <div style="width: 100%;">
         <svg id='wgaCanvas' style="margin:50px"></svg>
@@ -1291,17 +1304,13 @@
 
     <script type="text/template" id="templateShiftChromosomes">
         <div class="form-group" id="menu-<%= karyoId %>">
-            <div class="col-sm-offset-2 col-sm-10">
-                <div class="checkbox">
-                    <mark class="bg-info">
-                        <%=karyoId%>:</mark>
-                    <div class="input-group" style="margin: 10px 10px">
-                        <span class="input-group-addon">Set offset distance</span>
-                        <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Enter the offset in bp" autocomplete="off"></span>
-                        <span class="input-group-addon"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')">Apply</button></span>
-                    </div>
-                    <button class="btn btn-info" onclick="removeOffset('<%= karyoId %>')">Remove offset</button>
-                </div>
+            <mark class="bg-info">
+                <%=karyoId%>:</mark>
+            <div class="input-group" style="margin-top: 10px">
+                <span class="input-group-addon">Set offset distance:</span>
+                <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Offset in bp"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')" style="margin-left: 20px">Apply</button></span>
+                <span class="input-group-addon"><button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="removeOffsetButton('<%= karyoId %>')"><span aria-hidden="true">&times;</span></button>
+                </span>
             </div>
         </div>
     </script>
