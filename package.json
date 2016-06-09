@@ -1,6 +1,6 @@
 {
   "name": "AliTV",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "scripts": {
     "test": "grunt travis --verbose"
   },
@@ -24,7 +24,7 @@
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/BioInf-Wuerzburg/AliTV.git"
+    "url": "https://github.com/AliTVTeam/AliTV.git"
   },
   "keywords": [
     "wga"
@@ -32,6 +32,6 @@
   "author": "Markus Ankenbrand",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/BioInf-Wuerzburg/AliTV/issues"
+    "url": "https://github.com/AliTVTeam/AliTV/issues"
   }
 }

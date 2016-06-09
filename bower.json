@@ -12,7 +12,7 @@
   "keywords": [
     "wga"
   ],
-  "homepage": "https://github.com/BioInf-Wuerzburg/AliTV",
+  "homepage": "https://github.com/AliTVTeam/AliTV",
   "ignore": [
     "**/.*",
     "node_modules",

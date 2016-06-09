@@ -1,15 +1,15 @@
-[[https://github.com/BioInf-Wuerzburg/AliTV/blob/master/LICENSE][https://img.shields.io/github/license/mashape/apistatus.svg]]
+[[https://github.com/AliTVTeam/AliTV/blob/master/LICENSE][https://img.shields.io/github/license/mashape/apistatus.svg]]
 
 ** Build
-[[https://travis-ci.org/BioInf-Wuerzburg/AliTV/][https://travis-ci.org/BioInf-Wuerzburg/AliTV.svg?branch=master]]
-[[https://coveralls.io/github/BioInf-Wuerzburg/AliTV?branch=master][https://coveralls.io/repos/github/BioInf-Wuerzburg/AliTV/badge.svg?branch=master]]
+[[https://travis-ci.org/AliTVTeam/AliTV/][https://travis-ci.org/AliTVTeam/AliTV.svg?branch=master]]
+[[https://coveralls.io/github/AliTVTeam/AliTV?branch=master][https://coveralls.io/repos/github/AliTVTeam/AliTV/badge.svg?branch=master]]
 
 ** Homepage
-[[http://bioinf-wuerzburg.github.io/AliTV][AliTV]]
+[[http://alitvteam.github.io/AliTV][AliTV]]
 ** Installation
 
 #+BEGIN_EXAMPLE
-  git clone --recursive https://github.com/BioInf-Wuerzburg/AliTV
+  git clone --recursive https://github.com/AliTVTeam/AliTV
 #+END_EXAMPLE
    
 ** Dependencies
@@ -43,7 +43,7 @@ By default, AliTV generates ten files in the output folder:
 | <prefix>_query.fasta     | A copy of the query fasta with adjusted IDs                             |
 | <prefix>_reference.fasta | A copy of the reference fasta with adjusted IDs                         |
 
-A demo of the new interactive HTML/JavaScript output can be found [[http://bioinf-wuerzburg.github.io/AliTV/d3/AliTV.html][here]].
+A demo of the new interactive HTML/JavaScript output can be found [[http://alitvteam.github.io/AliTV/d3/AliTV.html][here]].
 
 ** Input
 Both the query and the reference file should be in fasta format.
@@ -52,7 +52,7 @@ Both the query and the reference file should be in fasta format.
 
 We have not yet submitted a manuscript.
 Please use this repository to cite AliTV if you use it in your project.
-[[https://zenodo.org/badge/latestdoi/12731/BioInf-Wuerzburg/AliTV][https://zenodo.org/badge/12731/BioInf-Wuerzburg/AliTV.svg]]
+[[https://zenodo.org/badge/latestdoi/12731/AliTVTeam/AliTV][https://zenodo.org/badge/12731/AliTVTeam/AliTV.svg]]
 
 Please also consider citing:
  - lastz or MUMmer
@@ -62,7 +62,7 @@ Please also consider citing:
 For a list of included libraries together with their respective licenses see the [[file:LICENSES/][LICENSES]] folder.
 ** Contact
 If you have any questions or encounter problems or potential bugs, don't
-hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/AliTV/issues][issues]] on github or write an email to:
+hesitate to contact us. Either report [[https://github.com/AliTVTeam/AliTV/issues][issues]] on github or write an email to:
 
 - Markus Ankenbrand - markus.ankenbrand@uni-wuerzburg.de
 
@@ -82,6 +82,8 @@ hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/AliT
 #+LaTeX_HEADER: \setlength{\parskip}{1.5ex}
 #+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
 ** Changelog
+*** 0.3.9 <2016-06-09 Do>
+ - Move to AliTVTeam organization
 *** 0.3.8 <2016-06-06 Mo>
  - Update bootstrap-select to version 1.10.0
  - Update colorpicker to version 2.3.2
