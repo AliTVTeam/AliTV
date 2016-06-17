@@ -4,8 +4,13 @@
 [[https://travis-ci.org/AliTVTeam/AliTV/][https://travis-ci.org/AliTVTeam/AliTV.svg?branch=master]]
 [[https://coveralls.io/github/AliTVTeam/AliTV?branch=master][https://coveralls.io/repos/github/AliTVTeam/AliTV/badge.svg?branch=master]]
 
+** Demo
+You can use the [[https://alitvteam.github.io/AliTV/d3/AliTV.html][Demo]] page to try the features of the interactive AliTV visualization or to import your own json file created with alitv.pl
+When loading your own data into AliTV it is not transferred to a server but remains on your local machine.
+
 ** Homepage
-[[http://alitvteam.github.io/AliTV][AliTV]]
+You can visit the homepage of AliTV [[http://alitvteam.github.io/AliTV][here]].
+
 ** Installation
 
 #+BEGIN_EXAMPLE
