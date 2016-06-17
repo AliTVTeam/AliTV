@@ -1,8 +1,9 @@
-[[https://github.com/AliTVTeam/AliTV/blob/master/LICENSE][https://img.shields.io/github/license/mashape/apistatus.svg]]
 
-** Build
-[[https://travis-ci.org/AliTVTeam/AliTV/][https://travis-ci.org/AliTVTeam/AliTV.svg?branch=master]]
-[[https://coveralls.io/github/AliTVTeam/AliTV?branch=master][https://coveralls.io/repos/github/AliTVTeam/AliTV/badge.svg?branch=master]]
+** Installation
+
+#+BEGIN_EXAMPLE
+  git clone --recursive https://github.com/AliTVTeam/AliTV
+#+END_EXAMPLE
 
 ** Demo
 You can use the [[https://alitvteam.github.io/AliTV/d3/AliTV.html][Demo]] page to try the features of the interactive AliTV visualization or to import your own json file created with alitv.pl
@@ -10,12 +11,6 @@ When loading your own data into AliTV it is not transferred to a server but rema
 
 ** Homepage
 You can visit the homepage of AliTV [[http://alitvteam.github.io/AliTV][here]].
-
-** Installation
-
-#+BEGIN_EXAMPLE
-  git clone --recursive https://github.com/AliTVTeam/AliTV
-#+END_EXAMPLE
    
 ** Dependencies
 
@@ -71,21 +66,14 @@ hesitate to contact us. Either report [[https://github.com/AliTVTeam/AliTV/issue
 
 - Markus Ankenbrand - markus.ankenbrand@uni-wuerzburg.de
 
+** License
+[[https://github.com/AliTVTeam/AliTV/blob/master/LICENSE][https://img.shields.io/github/license/mashape/apistatus.svg]]
 
-
-
-
-
-#+TITLE: AliTV manual
-#+AUTHOR: Markus Ankenbrand
-#+EMAIL: markus.ankenbrand@uni-wuerzburg.de
-#+LANGUAGE: en
-#+OPTIONS: ^:nil date:nil H:2
-#+LaTeX_CLASS: scrartcl
-#+LaTeX_CLASS_OPTIONS: [a4paper,12pt,headings=small]
-#+LaTeX_HEADER: \setlength{\parindent}{0pt}
-#+LaTeX_HEADER: \setlength{\parskip}{1.5ex}
-#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
+AliTV itself is available under MIT license.
+The licenses of included libraries might differ, please see [[LICENSES/README.org]] for details.
+** Build
+[[https://travis-ci.org/AliTVTeam/AliTV/][https://travis-ci.org/AliTVTeam/AliTV.svg?branch=master]]
+[[https://coveralls.io/github/AliTVTeam/AliTV?branch=master][https://coveralls.io/repos/github/AliTVTeam/AliTV/badge.svg?branch=master]]
 ** Changelog
 *** 0.3.9 <2016-06-09 Do>
  - Move to AliTVTeam organization
@@ -146,3 +134,14 @@ hesitate to contact us. Either report [[https://github.com/AliTVTeam/AliTV/issue
 *** 0.1.0 <2015-01-31 Sa>
  - First release of the wgaPipeline code.
  - Automated whole genome alignment and circos visualization from two fasta files.
+
+#+TITLE: AliTV manual
+#+AUTHOR: Markus Ankenbrand
+#+EMAIL: markus.ankenbrand@uni-wuerzburg.de
+#+LANGUAGE: en
+#+OPTIONS: ^:nil date:nil H:2
+#+LaTeX_CLASS: scrartcl
+#+LaTeX_CLASS_OPTIONS: [a4paper,12pt,headings=small]
+#+LaTeX_HEADER: \setlength{\parindent}{0pt}
+#+LaTeX_HEADER: \setlength{\parskip}{1.5ex}
+#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
