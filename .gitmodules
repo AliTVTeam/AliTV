@@ -1,0 +1,4 @@
+[submodule "AliTV-perl-interface"]
+	path = AliTV-perl-interface
+	url = https://github.com/AliTVTeam/AliTV-perl-interface
+	branch = develop
