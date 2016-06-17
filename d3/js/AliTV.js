@@ -7,7 +7,7 @@
 /* global bootbox: false */
 
 // use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
-var AliTV_VERSION = "0.3.9";
+var AliTV_VERSION = "0.4.0";
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
