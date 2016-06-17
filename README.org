@@ -1,27 +1,31 @@
+** Dependencies
+ - lastz
+ - perl
+ - perl modules:
+   + bioperl
+   + YAML
+   + Hash::Merge
 
 ** Installation
+You do not need to install anything to try the interactive visualization of AliTV.
+Just navigate to the [[https://alitvteam.github.io/AliTV/d3/AliTV.html][Demo]] page to try all the features on an example dataset (seven chloroplast genomes).
+You can also import your own json files on that page.
+When loading your own data into AliTV it is not transferred to a server but remains on your local machine.
 
+If you want to generate the json file for your genomes you can use the command line script alitv.pl as follows:
 #+BEGIN_EXAMPLE
+  # Install perl dependencies e.g. with cpan, cpanm or package manager (example: apt)
+  # apt install libyaml-perl libhash-merge-perl bioperl
   git clone --recursive https://github.com/AliTVTeam/AliTV
 #+END_EXAMPLE
 
-** Demo
-You can use the [[https://alitvteam.github.io/AliTV/d3/AliTV.html][Demo]] page to try the features of the interactive AliTV visualization or to import your own json file created with alitv.pl
-When loading your own data into AliTV it is not transferred to a server but remains on your local machine.
-
-** Homepage
-You can visit the homepage of AliTV [[http://alitvteam.github.io/AliTV][here]].
-   
-** Dependencies
-
-- lastz or MUMmer
-- Circos
-- optional - blastn (for IR annotation)
-
 ** Usage
-To get usage information
+AliTV.pl can be called directly on your input files or in advanced mode supplying a yaml configuration file.
+The output is a json object as required by the visualization part of AliTV (see [[https://alitvteam.github.io/AliTV/d3/doc/AliTV.html][details]]) on standard output.
+
+Simple mode: Just supply your files and redirect to json file
 #+BEGIN_EXAMPLE
-  AliTV --help
+  perl -Ilib bin/alitv.pl data/chloroset/*.fasta >test.json
 #+END_EXAMPLE
 
 Example usage
@@ -29,24 +33,14 @@ Example usage
   AliTV --query query.fa --reference reference.fa
 #+END_EXAMPLE
 
-** Output
-By default, AliTV generates ten files in the output folder:
-
-| <prefix>.txt             | The output of the whole genome alignment program in tabular format      |
-| <prefix>.svg             | The circular map of the wga created by Circos in svg format             |
-| <prefix>.png             | The circular map of the wga created by Circos in png format             |
-| <prefix>.circos.conf     | The generated circos config file                                        |
-| <prefix>.karyo           | The karyotype file for Circos                                           |
-| <prefix>.link            | The link file for Circos                                                |
-| <prefix>.high            | The highlight file for Circos                                           |
-| <prefix>.wanted_ids      | The new IDs of sequences with illegal characters replaced by underscore |
-| <prefix>_query.fasta     | A copy of the query fasta with adjusted IDs                             |
-| <prefix>_reference.fasta | A copy of the reference fasta with adjusted IDs                         |
-
-A demo of the new interactive HTML/JavaScript output can be found [[http://alitvteam.github.io/AliTV/d3/AliTV.html][here]].
-
 ** Input
 Both the query and the reference file should be in fasta format.
+
+** Output
+By default, AliTV generates a configuration file (yaml format) if none is supplied, a log file and a json string on standard out.
+
+** Homepage
+You can visit the homepage of AliTV [[http://alitvteam.github.io/AliTV][here]].
 
 ** Citing AliTV
 
@@ -54,12 +48,10 @@ We have not yet submitted a manuscript.
 Please use this repository to cite AliTV if you use it in your project.
 [[https://zenodo.org/badge/latestdoi/12731/AliTVTeam/AliTV][https://zenodo.org/badge/12731/AliTVTeam/AliTV.svg]]
 
-Please also consider citing:
- - lastz or MUMmer
- - Circos
- - BLAST (for IR annotation)
+Please also cite:
+ - lastz
+ - bioperl
 
-For a list of included libraries together with their respective licenses see the [[file:LICENSES/][LICENSES]] folder.
 ** Contact
 If you have any questions or encounter problems or potential bugs, don't
 hesitate to contact us. Either report [[https://github.com/AliTVTeam/AliTV/issues][issues]] on github or write an email to:
