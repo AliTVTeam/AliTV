@@ -36,9 +36,9 @@ Advanced mode: Supply a config yaml file
 #+END_EXAMPLE
 
 ** Input
-Input for the simple mode should be in fasta format (gb and gff will be possible soon).
-Annotation files can be supplied in tsv format (have to be specified in the yaml file).
-Documentation for the yaml file is soon to be added for now consult this [[file:AliTV-perl-interface/data/chloroset/input.yml][example file]] for usage information.
+Input for the simple mode should be in one of the [[http://bioperl.org/howtos/SeqIO_HOWTO.html#item5][Bioperl supported formats]] (currently 42 different).
+Annotation files can be supplied in tsv format (have to be specified in the yml file, [[https://github.com/AliTVTeam/AliTV-perl-interface/blob/master/data/chloroset/ndh.tsv][example file for ndh genes]]).
+Documentation for the yaml file is soon to be added for now consult this [[https://github.com/AliTVTeam/AliTV-perl-interface/blob/master/data/chloroset/input.yml][example file]] for usage information.
 
 ** Output
 By default, AliTV generates a configuration file (yaml format) if none is supplied, a log file and a json string on standard out.
