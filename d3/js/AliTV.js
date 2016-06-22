@@ -167,7 +167,7 @@ function AliTV(svg) {
 			tickDistance: 100,
 			treeWidth: 300,
 			genomeLabelWidth: 150,
-			linkOpacity: .9,
+			linkOpacity: 0.9,
 			fade: 0.1,
 			buttonWidth: 90
 		},
