@@ -3059,7 +3059,7 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 	var that = this;
 	var chromosomePosition = that.filters.karyo.order.indexOf(id);
 	var order = that.filters.karyo.order;
-	var i;
+	var i, tmp;
 
 	if (value === +1) {
 		i = (chromosomePosition + 1) % order.length;
@@ -3083,7 +3083,7 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 		order.splice(i, 0, tmp);
 	} else {
 		// ususal case
-		var tmp = order[i];
+		tmp = order[i];
 		order[i] = order[chromosomePosition];
 		order[chromosomePosition] = tmp;
 	}
