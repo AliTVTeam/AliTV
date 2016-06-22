@@ -2302,13 +2302,13 @@ describe('The changeChromosomeOrientation method is supposed to change the orien
 	});
 	it("the method is supposed to set the orientation of the assigned chromosome from reverse equal false to reverse equal true", function(){
 		ali.setData(data);
-		ali.setFilters(filters);
+		ali.setFilters(jQuery.extend(true, {}, filters));
 		ali.filters.karyo.chromosomes["c1"].reverse = false;
 		expect(ali.changeChromosomeOrientation("c1")).toEqual(true);
 	});
 	it("the method is supposed to set the orientation of the assigned chromosome from reverse equal true to reverse equal false", function(){
 		ali.setData(data);
-		ali.setFilters(filters);
+		ali.setFilters(jQuery.extend(true, {}, filters));
 		ali.filters.karyo.chromosomes["c2"].reverse = true;
 		expect(ali.changeChromosomeOrientation("c2")).toEqual(false);
 	});
@@ -2322,28 +2322,28 @@ describe('The changeChromosomeOrder method is supposed to change the order of ch
 	});
 	it('the method is supposed to change the order of three chromosomes in the testdata', function(){
 		ali.setData({karyo: karyo2, links: links, features: features});
-		ali.setFilters(filters3);
+		ali.setFilters(jQuery.extend(true, {}, filters3));
 		var expectedOrder = ["c1", "c3", "c2"];
 		var order = ali.changeChromosomeOrder("c3", -1);
 		expect(expectedOrder).toEqual(order);
 	});
 	it('the method is supposed to change the order of more chromosomes on the destdata', function(){
 		ali.setData({karyo: karyo12, links: links, features: features});
-		ali.setFilters(filters17);
+		ali.setFilters(jQuery.extend(true, {}, filters17));
 		var expectedOrder = ["c1", "c3", "c2", "c4", "c5"];
 		var order = ali.changeChromosomeOrder("c2", 1);
 		expect(expectedOrder).toEqual(order);
 	});
 	it('the method is supposed to change the order of two chromosomes on the testdata', function(){
 		ali.setData(data);
-		ali.setFilters(filters);
+		ali.setFilters(jQuery.extend(true, {}, filters));
 		var expectedOrder = ["c1", "c2"];
 		var order = ali.changeChromosomeOrder("c1", 1);
 		expect(expectedOrder).toEqual(order);
 	});
 	it('the method is supposed to change the order of one chromosomes on the testdata', function(){
 		ali.setData({karyo: karyo8, links: links, features: features});
-		ali.setFilters(filters10);
+		ali.setFilters(jQuery.extend(true, {}, filters10));
 		var expectedOrder = ["c2", "c1", "c3", "c4", "c5", "c6", "c7"];
 		var order = ali.changeChromosomeOrder("c1", -1);
 		expect(expectedOrder).toEqual(order);
