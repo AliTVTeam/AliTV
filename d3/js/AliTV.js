@@ -3073,9 +3073,20 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 			i = (i === 0 ? order.length - 1 : (i - 1));
 		}
 	}
-	var tmp = order[i];
-	order[i] = order[chromosomePosition];
-	order[chromosomePosition] = tmp;
+	if (value === +1 && i < chromosomePosition) {
+		// move over right border
+		tmp = order.splice(chromosomePosition, 1)[0];
+		order.splice(i, 0, tmp);
+	} else if (value === -1 && i > chromosomePosition) {
+		// move over left border
+		tmp = order.splice(chromosomePosition, 1)[0];
+		order.splice(i, 0, tmp);
+	} else {
+		// ususal case
+		var tmp = order[i];
+		order[i] = order[chromosomePosition];
+		order[chromosomePosition] = tmp;
+	}
 	this.triggerChange();
 	return that.filters.karyo.order;
 };
