@@ -2251,28 +2251,43 @@ describe('The getInvisibleChromosomes method is supposed to count all chromosome
 });
 
 describe('The changeGenomeOrder method is supposed to change the order of the genomes in filters.karyo.chromosomes.genome_order', function(){
-	var svg = $('<svg></svg>');
-	var ali = new AliTV(svg);
 	it('changeGenomeOrder method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		expect(typeof ali.changeGenomeOrder).toEqual('function');
 	});
 	it('the method is supposed to change the order of two genomes in the testdata by pushing down', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		ali.setData(data);
-		ali.setFilters(filters);
+		ali.setFilters(jQuery.extend(true, {}, filters));
 		var expectedOrder = [1, 0];
 		var order = ali.changeGenomeOrder(1, -1);
 		expect(expectedOrder).toEqual(order);
 	});
 	it('the method is supposed to change the order of three genomes in the testdata by pushing up', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		ali.setData({karyo: karyo3, links: links, features: features});
-		ali.setFilters(filters3);
+		ali.setFilters(jQuery.extend(true, {}, filters3));
 		var expectedOrder = [0, 2, 1];
 		var order = ali.changeGenomeOrder(2, 1);
 		expect(expectedOrder).toEqual(order);
 	});
-	it('the method is supposed to change the order of three genomes in the testdata by pushing down', function(){
+	it('the method is supposed to change the order of three genomes in the testdata by pushing lowest down', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setData({karyo: karyo3, links: links, features: features});
+		ali.setFilters(jQuery.extend(true, {}, filters3));
+		var expectedOrder = [2, 0, 1];
+		var order = ali.changeGenomeOrder(2, -1);
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of three genomes in the testdata by pushing highest up', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
 		ali.setData({karyo: karyo9, links: links, features: features});
-		ali.setFilters(filters3);
+		ali.setFilters(jQuery.extend(true, {}, filters3));
 		var expectedOrder = [1, 2, 0];
 		var order = ali.changeGenomeOrder(0, 1);
 		expect(expectedOrder).toEqual(order);
