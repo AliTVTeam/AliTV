@@ -3026,13 +3026,11 @@ AliTV.prototype.changeGenomeOrder = function(name, value) {
 		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[adjacentGenomePosition];
 		that.filters.karyo.genome_order[adjacentGenomePosition] = tmp;
 	} else if (genomePosition === 0 && value === +1) {
-		tmp = that.filters.karyo.genome_order[genomePosition];
-		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[(that.filters.karyo.genome_order.length - 1)];
-		that.filters.karyo.genome_order[(that.filters.karyo.genome_order.length - 1)] = tmp;
+		tmp = that.filters.karyo.genome_order.shift();
+		that.filters.karyo.genome_order.push(tmp);
 	} else {
-		tmp = that.filters.karyo.genome_order[genomePosition];
-		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[0];
-		that.filters.karyo.genome_order[0] = tmp;
+		tmp = that.filters.karyo.genome_order.pop();
+		that.filters.karyo.genome_order.unshift(tmp);
 	}
 	this.triggerChange();
 	return that.filters.karyo.genome_order;
