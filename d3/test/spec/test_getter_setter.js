@@ -1235,3 +1235,22 @@ describe('The getLinkOpacity method is supposed to get the default opacity of li
 	});
 });
 
+describe('The setLinkOpacity method is supposed to set the default opacity of links', function(){
+	it('setLinkOpacity method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.setLinkOpacity).toEqual('function');
+	});
+	it('the returned opacity of the getLinkOpacity method should be the same as the one set by the setter-method', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setLinkOpacity(.7);
+		expect(ali.getLinkOpacity()).toEqual(.7);
+	});
+	it('the setOffset method should throw an error message if the assigned offset is not a number', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(function(){ali.setLinkOpacity();}).toThrow("Sorry, you entered not a number. Please try it again.");
+		expect(function(){ali.setLinkOpacity("bla");}).toThrow("Sorry, you entered not a number. Please try it again.");
+	});
+});
