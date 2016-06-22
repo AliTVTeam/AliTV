@@ -1215,3 +1215,28 @@ describe('The getMaxLinkLength method is supposed to get the maximal length of l
 		expect(length).toEqual(ali.filters.links.maxLinkLength);
 	});
 });
+
+describe('The getLinkOpacity method is supposed to get the default opacity of links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
+
+	it('getLinkOpacity method is supposed to be a function', function(){
+		expect(typeof ali.getLinkOpacity).toEqual('function');
+	});
+	it('the function should return a defined value', function(){
+		var opacity = ali.getLinkOpacity();
+		expect(opacity).toBeDefined();
+	});
+	it('the function should return the opacity set in the conf', function(){
+		var opacity = ali.getLinkOpacity();
+		expect(opacity).toEqual(ali.conf.graphicalParameters.linkOpacity);
+	});
+	it('the function should return .9 as opacity if none is set in the conf', function(){
+		delete ali.conf.graphicalParameters.linkOpacity;
+		var opacity = ali.getLinkOpacity();
+		expect(opacity).toEqual(.9);
+	});
+});
+
