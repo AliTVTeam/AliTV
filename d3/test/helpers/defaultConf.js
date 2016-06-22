@@ -18,6 +18,7 @@ var defaultConf =  {
 			treeWidth: 300,
 			genomeLabelWidth: 150,
 			fade: 0.1,
+			linkOpacity: 0.9,
 			buttonWidth: 90
 		},
 		minLinkIdentity: 40,
