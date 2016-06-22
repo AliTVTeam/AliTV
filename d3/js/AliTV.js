@@ -3408,3 +3408,21 @@ AliTV.prototype.getLinkOpacity = function() {
 	var linkOpacity = this.conf.graphicalParameters.linkOpacity;
 	return linkOpacity;
 };
+
+/**
+ * This function sets a new default link opacity.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The new opacity (value between 0 and 1)
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is out of range [0,1].
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.setLinkOpacity = function(linkOpacity) {
+	if (linkOpacity === "" || isNaN(linkOpacity)) {
+		throw "Sorry, you entered not a number. Please try it again.";
+	} else if (linkOpacity > 1 || linkOpacity < 0) {
+		throw "Sorry, this value is out of range. Please enter a number between 0 and 1.";
+	} else {
+		this.conf.graphicalParameters.linkOpacity = linkOpacity;
+	}
+};
