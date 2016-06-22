@@ -7,7 +7,7 @@
 /* global bootbox: false */
 
 // use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
-var AliTV_VERSION = "0.3.9";
+var AliTV_VERSION = "0.4.0";
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
@@ -101,6 +101,7 @@ function AliTV(svg) {
 	 * @property {Number}  graphicalParameters.tickDistance        - The distance in bp of ticks on the drawn chromosomes.
 	 * @property {Number}  graphicalParameters.treeWidth		   - The width of the svg drawing area, where the tree should be shown.
 	 * @property {Number}  graphicalParameters.genomeLabelWidth    - The width of the svg drawing area, where the genome labels should be shown.
+	 * @property {Number}  graphicalParameters.linkOpacity		   - The value which is used as default opacity of links.
 	 * @property {Number}  graphicalParameters.fade				   - The value which is used for the opacity of links by the fadeLinks method.
 	 * @property {Number}  graphicalParameters.buttonWidth		   - The width of the drawing area for the offset buttons.
 	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
@@ -166,6 +167,7 @@ function AliTV(svg) {
 			tickDistance: 100,
 			treeWidth: 300,
 			genomeLabelWidth: 150,
+			linkOpacity: .9,
 			fade: 0.1,
 			buttonWidth: 90
 		},
@@ -730,7 +732,7 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			that.fadeLinks(g, that.conf.graphicalParameters.fade);
 		})
 		.on("mouseout", function(g) {
-			that.fadeLinks(g, 1);
+			that.fadeLinks(g, that.getLinkOpacity());
 		})
 		.on("click", function(g) {
 			that.changeChromosomeOrientation(g.karyo);
@@ -968,6 +970,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.visibleLinks[d.linkID].identity);
 		})
+		.style("opacity", that.getLinkOpacity())
 		.style("display", function(d) {
 			if (d.linkID in that.filters.links.invisibleLinks) {
 				return "none";
@@ -3395,4 +3398,32 @@ AliTV.prototype.getMinLinkLength = function() {
 AliTV.prototype.getMaxLinkLength = function() {
 	var maximalLinkLength = this.filters.links.maxLinkLength;
 	return maximalLinkLength;
+};
+
+/**
+ * This method is supposed to return the default link opacity.
+ * @returns linkOpacity: the default link opacity.
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.getLinkOpacity = function() {
+	var linkOpacity = this.conf.graphicalParameters.linkOpacity;
+	return linkOpacity;
+};
+
+/**
+ * This function sets a new default link opacity.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The new opacity (value between 0 and 1)
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is out of range [0,1].
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.setLinkOpacity = function(linkOpacity) {
+	if (linkOpacity === "" || isNaN(linkOpacity)) {
+		throw "Sorry, you entered not a number. Please try it again.";
+	} else if (linkOpacity > 1 || linkOpacity < 0) {
+		throw "Sorry, this value is out of range. Please enter a number between 0 and 1.";
+	} else {
+		this.conf.graphicalParameters.linkOpacity = linkOpacity;
+	}
 };

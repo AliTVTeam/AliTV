@@ -68,7 +68,7 @@
             ali.onDataChange(addFeatureGroupTemplates);
             setParameters();
             ali.onDataChange(setParameters);
-            showHideCircularWarning()
+            showHideCircularWarning();
             ali.onDataChange(showHideCircularWarning);
             setSlider();
             ali.drawLinear();
@@ -377,6 +377,16 @@
             }
         }
 
+        function changeLinkOpacity() {
+            var opacity = $("#linkOpacity").val();
+            try {
+                ali.setLinkOpacity(opacity);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#linkOpacity").val(ali.getLinkOpacity());
+            }
+        }
+
         function changeGenomeLabelColor() {
             var color = $("#genomeLabelColor").val();
             try {
@@ -462,6 +472,7 @@
             $('#drawTree').attr('checked', function() {
                 return ali.conf.tree.drawTree;
             });
+            $("#linkOpacity").val(ali.getLinkOpacity());
             setOffsetGroup();
             setSlider();
         }
@@ -483,6 +494,7 @@
             changeTickDistance();
             changeGenomeColor();
             changeLinkColor();
+            changeLinkOpacity();
             changeGenomeLabelColor();
             changeGenomeLabelSize();
             changeTickLabelColor();
@@ -856,7 +868,7 @@
 <body>
 
     <div class="page-header">
-        <h1><img src="css/AliTV_logo.png" alt="logo" width="200" height="160" style="margin:0px 20px"/><b>AliTV <sup id="version-placeholder"></sup></b><small>&nbsp;Visualize multiple whole genome alignments as circular or linear maps</small></h1>
+        <h1><img src="css/AliTV_logo.png" alt="logo" width="200" height="160" style="margin:0px 20px"/><b>AliTV <sup id="version-placeholder"></sup></b><small>&nbsp;Visualize multiple whole genome alignments as linear maps</small></h1>
         <div>
             <ul class="nav nav-tabs" role="tablist">
 
@@ -1233,6 +1245,10 @@
                                                     <span class="input-group-addon">MaxLink Color</span>
                                                     <input id="maxLinkColor" type="text" class="form-control" />
                                                     <span class="input-group-addon"><i></i></span>
+                                                </div>
+                                                <div class="input-group" style="margin: 10px 10px">
+                                                    Link opacity:
+                                                    <input type="text" id="linkOpacity" placeholder="Opacity (0-1)">
                                                 </div>
                                             </div>
                                         </div>
