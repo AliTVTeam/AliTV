@@ -1230,7 +1230,7 @@ describe('The filterChromosomeOrder method is supposed to create a new order arr
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		ali.setData({karyo: karyo8});
-		ali.setFilters(filters10);
+		ali.setFilters(jQuery.extend(true, {}, filters10));
 		var currentVisibleChromosomes = ali.filterChromosomes(ali.data.karyo.chromosomes);
 		var expectedOrder = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7'];
 		expect(ali.filterChromosomeOrder(currentVisibleChromosomes)).toEqual(expectedOrder);
@@ -2344,8 +2344,8 @@ describe('The changeChromosomeOrder method is supposed to change the order of ch
 	it('the method is supposed to change the order of one chromosomes on the testdata', function(){
 		ali.setData({karyo: karyo8, links: links, features: features});
 		ali.setFilters(jQuery.extend(true, {}, filters10));
-		var expectedOrder = ["c2", "c1", "c3", "c4", "c5", "c6", "c7"];
-		var order = ali.changeChromosomeOrder("c1", -1);
+		var expectedOrder = ["c1", "c2", "c4", "c5", "c3", "c6", "c7"];
+		var order = ali.changeChromosomeOrder("c3", -1);
 		expect(expectedOrder).toEqual(order);
 	});
 });
