@@ -1233,10 +1233,5 @@ describe('The getLinkOpacity method is supposed to get the default opacity of li
 		var opacity = ali.getLinkOpacity();
 		expect(opacity).toEqual(ali.conf.graphicalParameters.linkOpacity);
 	});
-	it('the function should return .9 as opacity if none is set in the conf', function(){
-		delete ali.conf.graphicalParameters.linkOpacity;
-		var opacity = ali.getLinkOpacity();
-		expect(opacity).toEqual(.9);
-	});
 });
 
