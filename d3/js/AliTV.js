@@ -3398,3 +3398,13 @@ AliTV.prototype.getMaxLinkLength = function() {
 	var maximalLinkLength = this.filters.links.maxLinkLength;
 	return maximalLinkLength;
 };
+
+/**
+ * This method is supposed to return the default link opacity.
+ * @returns linkOpacity: the default link opacity.
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.getLinkOpacity = function() {
+	var linkOpacity = this.conf.graphicalParameters.linkOpacity;
+	return linkOpacity;
+};
