@@ -1247,10 +1247,16 @@ describe('The setLinkOpacity method is supposed to set the default opacity of li
 		ali.setLinkOpacity(.7);
 		expect(ali.getLinkOpacity()).toEqual(.7);
 	});
-	it('the setOffset method should throw an error message if the assigned offset is not a number', function(){
+	it('the setLinkOpacity method should throw an error message if the assigned value is not a number', function(){
 		var svg = $('<svg></svg>');
 		var ali = new AliTV(svg);
 		expect(function(){ali.setLinkOpacity();}).toThrow("Sorry, you entered not a number. Please try it again.");
 		expect(function(){ali.setLinkOpacity("bla");}).toThrow("Sorry, you entered not a number. Please try it again.");
+	});
+	it('the setLinkOpacity method should throw an error message if the assigned value is out of range', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(function(){ali.setLinkOpacity(2);}).toThrow("Sorry, this value is out of range. Please enter a number between 0 and 1.");
+		expect(function(){ali.setLinkOpacity(-1);}).toThrow("Sorry, this value is out of range. Please enter a number between 0 and 1.");
 	});
 });
