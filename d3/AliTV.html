@@ -56,6 +56,11 @@
 
         });
 
+        // https://learn.jquery.com/using-jquery-core/faq/how-do-i-select-an-element-by-an-id-that-has-characters-used-in-css-notation/
+        function jq( myid ) {
+            return "#" + myid.replace( /(:|\.|\[|\]|,)/g, "\\$1" );
+        }
+
         function initialize() {
             setJSONEditorFromAli();
             ali.onDataChange(setJSONEditorFromAli);
@@ -413,7 +418,7 @@
         }
 
         function changeOffset(karyoId) {
-            var offset = Number($('#offset-' + karyoId).val());
+            var offset = Number($(jq('offset-' + karyoId)).val());
             try {
                 ali.setOffset(offset, karyoId);
                 $("#offset-" + karyoId).val(ali.getOffset(karyoId));
