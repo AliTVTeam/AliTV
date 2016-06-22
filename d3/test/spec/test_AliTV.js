@@ -2341,7 +2341,14 @@ describe('The changeChromosomeOrder method is supposed to change the order of ch
 		var order = ali.changeChromosomeOrder("c1", 1);
 		expect(expectedOrder).toEqual(order);
 	});
-	it('the method is supposed to change the order of one chromosomes on the testdata', function(){
+	it('the method is supposed to change the order of one chromosomes moved over right border', function(){
+		ali.setData({karyo: karyo8, links: links, features: features});
+		ali.setFilters(jQuery.extend(true, {}, filters10));
+		var expectedOrder = ["c1", "c2", "c5", "c3", "c4", "c6", "c7"];
+		var order = ali.changeChromosomeOrder("c5", 1);
+		expect(expectedOrder).toEqual(order);
+	});
+	it('the method is supposed to change the order of one chromosomes moved over left border', function(){
 		ali.setData({karyo: karyo8, links: links, features: features});
 		ali.setFilters(jQuery.extend(true, {}, filters10));
 		var expectedOrder = ["c1", "c2", "c4", "c5", "c3", "c6", "c7"];
