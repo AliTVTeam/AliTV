@@ -1001,7 +1001,7 @@ describe('The fadeOutLinks method is called by a mouse pointer event and is supp
 				expect(ali.svg.find('.link').css("opacity")).toEqual("0.1");
 				ali.svg.find('.karyo').eq(2).d3Trigger("mouseout");
 				setTimeout(function(){
-					expect(ali.svg.find('.link').css("opacity")).toEqual("1");			
+					expect(ali.svg.find('.link').css("opacity")).toEqual(ali.getLinkOpacity()+"");
 					done();
 				}, 1000);				
 			}, 1000);
