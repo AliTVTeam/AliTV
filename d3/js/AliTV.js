@@ -732,7 +732,7 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			that.fadeLinks(g, that.conf.graphicalParameters.fade);
 		})
 		.on("mouseout", function(g) {
-			that.fadeLinks(g, 1);
+			that.fadeLinks(g, that.getLinkOpacity());
 		})
 		.on("click", function(g) {
 			that.changeChromosomeOrientation(g.karyo);
@@ -970,6 +970,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.visibleLinks[d.linkID].identity);
 		})
+		.style("opacity", that.getLinkOpacity())
 		.style("display", function(d) {
 			if (d.linkID in that.filters.links.invisibleLinks) {
 				return "none";
