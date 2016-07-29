@@ -3396,3 +3396,14 @@ AliTV.prototype.getMaxLinkLength = function() {
 	var maximalLinkLength = this.filters.links.maxLinkLength;
 	return maximalLinkLength;
 };
+
+ /**
+ * This method is supposed to calculate the coordinates for feature labels.
+ * This method is called if the configuration of addFeatureLabels or showAllLabels is true.
+ * @param gets the coordinates of the drawn features.
+ * @returns featureLabelCoords: returns an array which contains the coords for the feature labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
+    
+};
