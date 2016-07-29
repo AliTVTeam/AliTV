@@ -1010,9 +1010,13 @@ AliTV.prototype.drawLinear = function() {
 		this.drawLinearGenomeLabels(linearGenomeLabelCoords);
 		this.setSvgWidth(this.conf.graphicalParameters.canvasWidth + this.conf.graphicalParameters.genomeLabelWidth);
 	}
-
+        
 	var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 	this.drawLinearFeatures(linearFeatureCoords);
+        if (this.conf.labels.features.showFeatureLabels === true){
+            var linearFeatureLabelCoords = this.getFeatureLabelCoords(linearFeatureCoords);
+            this.drawLinearFeatureLabels(linearFeatureLabelCoords);
+        }
 
 	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
 		this.drawPhylogeneticTree();
@@ -3440,4 +3444,33 @@ AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.drawLinearFeatureLabels = function(linearFeatureLabelCoords) {
+	var that = this;
+	this.svgD3.selectAll(".featureLabelGroup").remove();
+	that.svgD3.append("g")
+		.attr("class", "featureLabelGroup")
+		.selectAll("path")
+		.data(linearFeatureLabelCoords)
+		.enter()
+		.append("text")
+		.attr("class", "featureLabel")
+		.attr("x", function(d) {
+			return d.x;
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.text(function(d) {
+			return d.name;
+		})
+		.attr("font-family", "sans-serif")
+		.attr("font-size", 2 / 3 * that.conf.graphicalParameters.karyoHeight + "px")
+		.attr("fill", "red")
+		.style("text-anchor", "middle");
+
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
 };
