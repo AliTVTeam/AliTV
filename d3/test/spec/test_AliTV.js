@@ -2535,7 +2535,7 @@ describe('The drawLinearFeatureLabels method of AliTV objects is supposed to dra
 		ali.setFilters(filters);
 		ali.conf.features.showAllFeatures = true;
 		var linearKaryoCoords = ali.getLinearKaryoCoords();
-	var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
+                var linearFeatureCoords = ali.getLinearFeatureCoords(linearKaryoCoords);
 		var linearFeatureLabelCoords = ali.getFeatureLabelCoords(linearFeatureCoords);
 		ali.drawLinearFeatureLabels(linearFeatureLabelCoords);
 		expect(ali.svgD3.selectAll('.featureLabelGroup').size()).toEqual(1);

@@ -3410,5 +3410,26 @@ AliTV.prototype.getMaxLinkLength = function() {
  * @author Sonja Hohlfeld
  */
 AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
-    
+    var that = this;
+    var linearFeatureLabelCoords = [];
+    $.each(linearFeatureCoords, function(key, value) {
+            var feature = {
+                    name: value.id
+            };
+            if (value.type in that.conf.features.supportedFeatures === true) {
+                    if (that.conf.features.supportedFeatures[value.type].form === "rect" && (that.conf.labels.showAllLabels === true || that.conf.labels.features.showFeatureLabels === true || that.conf.features.supportedFeatures[value.type].labeling === true)) {
+                            feature.x = value.x + 1 / 2 * value.width;
+                            feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
+                    }
+                    if (that.conf.features.supportedFeatures[value.type].form === "arrow" && (that.conf.labels.showAllLabels === true || that.conf.labels.features.showFeatureLabels === true || that.conf.features.supportedFeatures[value.type].labeling === true)) {
+                            feature.x = value.path[0].x + 1 / 2 * (value.path[3].x - value.path[0].x);
+                            feature.y = value.path[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
+                    }
+            } else {
+                    feature.x = value.x + 1 / 2 * value.width;
+                    feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
+            }
+            linearFeatureLabelCoords.push(feature);
+    });
+    return linearFeatureLabelCoords;
 };
