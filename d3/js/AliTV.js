@@ -3464,7 +3464,7 @@ AliTV.prototype.drawLinearFeatureLabels = function(linearFeatureLabelCoords) {
 		})
 		.attr("font-family", "sans-serif")
 		.attr("font-size", 2 / 3 * that.conf.graphicalParameters.karyoHeight + "px")
-		.attr("fill", "red")
+		.attr("fill", "black")
 		.style("text-anchor", "middle");
 
 	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
