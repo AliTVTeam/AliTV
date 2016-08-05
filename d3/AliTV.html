@@ -242,6 +242,16 @@
             });
         });
 
+        $(function() {
+            $('#showFeatureLabels').change(function() {
+                if ($('#showFeatureLabels').is(':checked')) {
+                    ali.conf.labels.features.showFeatureLabels = true;
+                } else {
+                    ali.conf.labels.features.showFeatureLabels = false;
+                }
+            });
+        });
+
 
         $(function() {
             $("#linear")
@@ -1268,6 +1278,11 @@
                                                     <br> Label frequency:
                                                     <input type="text" id="tickLabelFrequency" placeholder="Label size in px" style="margin: 10px 0px">
                                                 </div>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="showFeatureLabels" type="checkbox"> Label Features
+                                                </label>
                                             </div>
                                         </div>
                                     </div>

@@ -82,6 +82,11 @@ var defaultConf =  {
 				showGenomeLabels: true,
 				color: "#000000",
 				size: 25
+			},
+			features: {
+				showFeatureLabels: true,
+				color: "#000000",
+				size: 25
 			}
 		},
 		offset: {

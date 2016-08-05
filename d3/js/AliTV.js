@@ -231,6 +231,11 @@ function AliTV(svg) {
 				showGenomeLabels: true,
 				color: "#000000",
 				size: 25
+			},
+			features: {
+				showFeatureLabels: true,
+				color: "#000000",
+				size: 25
 			}
 		},
 		offset: {
@@ -1008,6 +1013,10 @@ AliTV.prototype.drawLinear = function() {
 
 	var linearFeatureCoords = this.getLinearFeatureCoords(karyoCoords);
 	this.drawLinearFeatures(linearFeatureCoords);
+	if (this.conf.labels.features.showFeatureLabels === true) {
+		var linearFeatureLabelCoords = this.getFeatureLabelCoords(linearFeatureCoords);
+		this.drawLinearFeatureLabels(linearFeatureLabelCoords);
+	}
 
 	if (this.conf.tree.drawTree === true && this.hasTree() === true) {
 		this.drawPhylogeneticTree();
@@ -3395,4 +3404,73 @@ AliTV.prototype.getMinLinkLength = function() {
 AliTV.prototype.getMaxLinkLength = function() {
 	var maximalLinkLength = this.filters.links.maxLinkLength;
 	return maximalLinkLength;
+};
+
+/**
+ * This method is supposed to calculate the coordinates for feature labels.
+ * This method is called if the configuration of addFeatureLabels or showAllLabels is true.
+ * @param gets the coordinates of the drawn features.
+ * @returns featureLabelCoords: returns an array which contains the coords for the feature labels.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.getFeatureLabelCoords = function(linearFeatureCoords) {
+	var that = this;
+	var linearFeatureLabelCoords = [];
+	$.each(linearFeatureCoords, function(key, value) {
+		var feature = {
+			name: value.id
+		};
+		if (value.type in that.conf.features.supportedFeatures === true) {
+			if (that.conf.features.supportedFeatures[value.type].form === "rect" && (that.conf.labels.showAllLabels === true || that.conf.labels.features.showFeatureLabels === true || that.conf.features.supportedFeatures[value.type].labeling === true)) {
+				feature.x = value.x + 1 / 2 * value.width;
+				feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
+			}
+			if (that.conf.features.supportedFeatures[value.type].form === "arrow" && (that.conf.labels.showAllLabels === true || that.conf.labels.features.showFeatureLabels === true || that.conf.features.supportedFeatures[value.type].labeling === true)) {
+				feature.x = value.path[0].x + 1 / 2 * (value.path[3].x - value.path[0].x);
+				feature.y = value.path[0].y + 1 / 2 * that.conf.graphicalParameters.karyoHeight;
+			}
+		} else {
+			feature.x = value.x + 1 / 2 * value.width;
+			feature.y = value.y + 0.85 * that.conf.graphicalParameters.karyoHeight;
+		}
+		linearFeatureLabelCoords.push(feature);
+	});
+	return linearFeatureLabelCoords;
+};
+
+/**
+ * This method is supposed to draw labels to all features.
+ * @param linearFeatureLabelCoords: get the coords for the feature labels which are returned by getFeatureLabelCoords.
+ * @author Sonja Hohlfeld
+ */
+AliTV.prototype.drawLinearFeatureLabels = function(linearFeatureLabelCoords) {
+	var that = this;
+	this.svgD3.selectAll(".featureLabelGroup").remove();
+	that.svgD3.append("g")
+		.attr("class", "featureLabelGroup")
+		.selectAll("path")
+		.data(linearFeatureLabelCoords)
+		.enter()
+		.append("text")
+		.attr("class", "featureLabel")
+		.attr("x", function(d) {
+			return d.x;
+		})
+		.attr("y", function(d) {
+			return d.y;
+		})
+		.text(function(d) {
+			return d.name;
+		})
+		.attr("font-family", "sans-serif")
+		.attr("font-size", 2 / 3 * that.conf.graphicalParameters.karyoHeight + "px")
+		.attr("fill", "black")
+		.style("text-anchor", "middle");
+
+	if (that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) {
+		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + that.conf.graphicalParameters.genomeLabelWidth + ", 0)");
+	}
+	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
+		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
 };
