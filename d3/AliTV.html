@@ -57,8 +57,8 @@
         });
 
         // https://learn.jquery.com/using-jquery-core/faq/how-do-i-select-an-element-by-an-id-that-has-characters-used-in-css-notation/
-        function jq( myid ) {
-            return "#" + myid.replace( /(:|\.|\[|\]|,)/g, "\\$1" );
+        function jq(myid) {
+            return "#" + myid.replace(/(:|\.|\[|\]|,)/g, "\\$1");
         }
 
         function initialize() {
@@ -243,6 +243,16 @@
                     ali.conf.labels.ticks.showTickLabels = true;
                 } else {
                     ali.conf.labels.ticks.showTickLabels = false;
+                }
+            });
+        });
+
+        $(function() {
+            $('#showFeatureLabels').change(function() {
+                if ($('#showFeatureLabels').is(':checked')) {
+                    ali.conf.labels.features.showFeatureLabels = true;
+                } else {
+                    ali.conf.labels.features.showFeatureLabels = false;
                 }
             });
         });
@@ -875,7 +885,7 @@
                 <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><b>About AliTV</b></a></li>
                 <li role="presentation"><a href="#filter" aria-controls="about" role="tab" data-toggle="tab"><b>Filtering</b></a></li>
 
-                <li class="dropdown"><a id="dLabel" data-toggle="dropdown"><b>Add biological Features</b> <span class="caret"></span></a>
+                <li class="dropdown"><a id="dLabel" data-toggle="dropdown"><b>Show/Hide Annotations</b> <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu" id="featuresMenu">
                         <li role="separator" class="divider"></li>
                         <li><a href="#customFeature" data-toggle="tab">Add more features...</a></li>
@@ -1290,6 +1300,11 @@
                                                     <input type="text" id="tickLabelFrequency" placeholder="Label size in px" style="margin: 10px 0px">
                                                 </div>
                                             </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="showFeatureLabels" type="checkbox"> Label Features
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -1316,7 +1331,7 @@
         <div class="alert alert-warning" role="alert" style="font-size: 24px">&nbsp; <b>WARNING:</b> The circular layout is experimental and has limited functionality </div>
     </div>
     <div style="width: 100%;">
-        <svg id='wgaCanvas' style="margin:50px"></svg>
+        <svg id='wgaCanvas' style="margin:50px" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
     <div id="jsoneditor" style="display:none"></div>
 
