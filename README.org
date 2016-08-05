@@ -74,6 +74,7 @@ The licenses of included libraries might differ, please see [[LICENSES/README.or
 ** Changelog
 *** 0.4.2
  - Fix svg namespace (#116)
+ - Remove genome color gradient from chloro demo
 *** 0.4.1
  - Fix corner cases for move chromosome left/right
  - Fix corner cases for move genome up/down
