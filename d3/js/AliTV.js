@@ -7,7 +7,7 @@
 /* global bootbox: false */
 
 // use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
-var AliTV_VERSION = "0.4.0";
+var AliTV_VERSION = "0.4.1";
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
@@ -101,6 +101,7 @@ function AliTV(svg) {
 	 * @property {Number}  graphicalParameters.tickDistance        - The distance in bp of ticks on the drawn chromosomes.
 	 * @property {Number}  graphicalParameters.treeWidth		   - The width of the svg drawing area, where the tree should be shown.
 	 * @property {Number}  graphicalParameters.genomeLabelWidth    - The width of the svg drawing area, where the genome labels should be shown.
+	 * @property {Number}  graphicalParameters.linkOpacity		   - The value which is used as default opacity of links.
 	 * @property {Number}  graphicalParameters.fade				   - The value which is used for the opacity of links by the fadeLinks method.
 	 * @property {Number}  graphicalParameters.buttonWidth		   - The width of the drawing area for the offset buttons.
 	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
@@ -166,6 +167,7 @@ function AliTV(svg) {
 			tickDistance: 100,
 			treeWidth: 300,
 			genomeLabelWidth: 150,
+			linkOpacity: 0.9,
 			fade: 0.1,
 			buttonWidth: 90
 		},
@@ -735,7 +737,7 @@ AliTV.prototype.drawLinearKaryo = function(linearKaryoCoords) {
 			that.fadeLinks(g, that.conf.graphicalParameters.fade);
 		})
 		.on("mouseout", function(g) {
-			that.fadeLinks(g, 1);
+			that.fadeLinks(g, that.getLinkOpacity());
 		})
 		.on("click", function(g) {
 			that.changeChromosomeOrientation(g.karyo);
@@ -973,6 +975,7 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		.style("fill", function(d) {
 			return that.colorLinksByIdentity(that.visibleLinks[d.linkID].identity);
 		})
+		.style("opacity", that.getLinkOpacity())
 		.style("display", function(d) {
 			if (d.linkID in that.filters.links.invisibleLinks) {
 				return "none";
@@ -3032,13 +3035,11 @@ AliTV.prototype.changeGenomeOrder = function(name, value) {
 		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[adjacentGenomePosition];
 		that.filters.karyo.genome_order[adjacentGenomePosition] = tmp;
 	} else if (genomePosition === 0 && value === +1) {
-		tmp = that.filters.karyo.genome_order[genomePosition];
-		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[(that.filters.karyo.genome_order.length - 1)];
-		that.filters.karyo.genome_order[(that.filters.karyo.genome_order.length - 1)] = tmp;
+		tmp = that.filters.karyo.genome_order.shift();
+		that.filters.karyo.genome_order.push(tmp);
 	} else {
-		tmp = that.filters.karyo.genome_order[genomePosition];
-		that.filters.karyo.genome_order[genomePosition] = that.filters.karyo.genome_order[0];
-		that.filters.karyo.genome_order[0] = tmp;
+		tmp = that.filters.karyo.genome_order.pop();
+		that.filters.karyo.genome_order.unshift(tmp);
 	}
 	this.triggerChange();
 	return that.filters.karyo.genome_order;
@@ -3067,7 +3068,7 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 	var that = this;
 	var chromosomePosition = that.filters.karyo.order.indexOf(id);
 	var order = that.filters.karyo.order;
-	var i;
+	var i, tmp;
 
 	if (value === +1) {
 		i = (chromosomePosition + 1) % order.length;
@@ -3081,9 +3082,20 @@ AliTV.prototype.changeChromosomeOrder = function(id, value) {
 			i = (i === 0 ? order.length - 1 : (i - 1));
 		}
 	}
-	var tmp = order[i];
-	order[i] = order[chromosomePosition];
-	order[chromosomePosition] = tmp;
+	if (value === +1 && i < chromosomePosition) {
+		// move over right border
+		tmp = order.splice(chromosomePosition, 1)[0];
+		order.splice(i, 0, tmp);
+	} else if (value === -1 && i > chromosomePosition) {
+		// move over left border
+		tmp = order.splice(chromosomePosition, 1)[0];
+		order.splice(i, 0, tmp);
+	} else {
+		// ususal case
+		tmp = order[i];
+		order[i] = order[chromosomePosition];
+		order[chromosomePosition] = tmp;
+	}
 	this.triggerChange();
 	return that.filters.karyo.order;
 };
@@ -3472,5 +3484,33 @@ AliTV.prototype.drawLinearFeatureLabels = function(linearFeatureLabelCoords) {
 	}
 	if ((that.conf.labels.showAllLabels === true || that.conf.labels.genome.showGenomeLabels === true) && that.conf.tree.drawTree === true && that.conf.tree.orientation === "left") {
 		that.svgD3.selectAll(".featureLabelGroup").attr("transform", "translate(" + (that.conf.graphicalParameters.treeWidth + that.conf.graphicalParameters.genomeLabelWidth) + ", 0)");
+	}
+};
+
+/**
+ * This method is supposed to return the default link opacity.
+ * @returns linkOpacity: the default link opacity.
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.getLinkOpacity = function() {
+	var linkOpacity = this.conf.graphicalParameters.linkOpacity;
+	return linkOpacity;
+};
+
+/**
+ * This function sets a new default link opacity.
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} The new opacity (value between 0 and 1)
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is out of range [0,1].
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.setLinkOpacity = function(linkOpacity) {
+	if (linkOpacity === "" || isNaN(linkOpacity)) {
+		throw "Sorry, you entered not a number. Please try it again.";
+	} else if (linkOpacity > 1 || linkOpacity < 0) {
+		throw "Sorry, this value is out of range. Please enter a number between 0 and 1.";
+	} else {
+		this.conf.graphicalParameters.linkOpacity = linkOpacity;
 	}
 };
