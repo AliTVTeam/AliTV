@@ -1215,3 +1215,48 @@ describe('The getMaxLinkLength method is supposed to get the maximal length of l
 		expect(length).toEqual(ali.filters.links.maxLinkLength);
 	});
 });
+
+describe('The getLinkOpacity method is supposed to get the default opacity of links', function(){
+	var svg = $('<svg></svg>');
+	var ali = new AliTV(svg);
+	ali.setData(data);
+	ali.setFilters(filters);
+
+	it('getLinkOpacity method is supposed to be a function', function(){
+		expect(typeof ali.getLinkOpacity).toEqual('function');
+	});
+	it('the function should return a defined value', function(){
+		var opacity = ali.getLinkOpacity();
+		expect(opacity).toBeDefined();
+	});
+	it('the function should return the opacity set in the conf', function(){
+		var opacity = ali.getLinkOpacity();
+		expect(opacity).toEqual(ali.conf.graphicalParameters.linkOpacity);
+	});
+});
+
+describe('The setLinkOpacity method is supposed to set the default opacity of links', function(){
+	it('setLinkOpacity method is supposed to be a function', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(typeof ali.setLinkOpacity).toEqual('function');
+	});
+	it('the returned opacity of the getLinkOpacity method should be the same as the one set by the setter-method', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		ali.setLinkOpacity(.7);
+		expect(ali.getLinkOpacity()).toEqual(.7);
+	});
+	it('the setLinkOpacity method should throw an error message if the assigned value is not a number', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(function(){ali.setLinkOpacity();}).toThrow("Sorry, you entered not a number. Please try it again.");
+		expect(function(){ali.setLinkOpacity("bla");}).toThrow("Sorry, you entered not a number. Please try it again.");
+	});
+	it('the setLinkOpacity method should throw an error message if the assigned value is out of range', function(){
+		var svg = $('<svg></svg>');
+		var ali = new AliTV(svg);
+		expect(function(){ali.setLinkOpacity(2);}).toThrow("Sorry, this value is out of range. Please enter a number between 0 and 1.");
+		expect(function(){ali.setLinkOpacity(-1);}).toThrow("Sorry, this value is out of range. Please enter a number between 0 and 1.");
+	});
+});
