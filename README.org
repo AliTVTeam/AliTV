@@ -78,6 +78,8 @@ The licenses of included libraries might differ, please see [[LICENSES/README.or
  - Add linkOpacity setting (#104)
  - Remove circular from headline (#102)
  - Fix special characters in id bug (#108)
+ - Add feature labels
+ - Update perl part to version 0.1.7
 *** 0.4.0 <2016-06-18 Sa>
  - Include new perl interface
  - Update documentation
