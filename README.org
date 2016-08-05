@@ -1,87 +1,89 @@
-[[https://github.com/BioInf-Wuerzburg/AliTV/blob/master/LICENSE][https://img.shields.io/github/license/mashape/apistatus.svg]]
-
-** Build
-[[https://travis-ci.org/BioInf-Wuerzburg/AliTV/][https://travis-ci.org/BioInf-Wuerzburg/AliTV.svg?branch=master]]
-[[https://coveralls.io/github/BioInf-Wuerzburg/AliTV?branch=master][https://coveralls.io/repos/github/BioInf-Wuerzburg/AliTV/badge.svg?branch=master]]
-
-** Homepage
-[[http://bioinf-wuerzburg.github.io/AliTV][AliTV]]
-** Installation
-
-#+BEGIN_EXAMPLE
-  git clone --recursive https://github.com/BioInf-Wuerzburg/AliTV
-#+END_EXAMPLE
-   
 ** Dependencies
+ - lastz
+ - perl
+ - perl modules:
+   + bioperl
+   + YAML
+   + Hash::Merge
 
-- lastz or MUMmer
-- Circos
-- optional - blastn (for IR annotation)
+** Installation
+You do not need to install anything to try the interactive visualization of AliTV.
+Just navigate to the [[https://alitvteam.github.io/AliTV/d3/AliTV.html][demo]] page to try all the features on an example dataset (seven chloroplast genomes).
+You can also import your own json files on that page.
+When loading your own data into AliTV it is not transferred to a server but remains on your local machine.
+
+If you want to generate the json file for your genomes you can use the command line script alitv.pl as follows:
+#+BEGIN_EXAMPLE
+  # Install perl dependencies e.g. with cpan, cpanm or package manager (example: apt)
+  # apt install libyaml-perl libhash-merge-perl bioperl
+  git clone --recursive https://github.com/AliTVTeam/AliTV
+#+END_EXAMPLE
 
 ** Usage
-To get usage information
+AliTV.pl can be called directly on your input files or in advanced mode supplying a yaml configuration file.
+The output is a json object as required by the visualization part of AliTV (see [[https://alitvteam.github.io/AliTV/d3/doc/AliTV.html][details]]) on standard output.
+
+Simple mode: Just supply your files and redirect to json file
 #+BEGIN_EXAMPLE
-  AliTV --help
+  cd AliTV-perl-interface
+  perl -Ilib bin/alitv.pl data/chloroset/*.fasta >simple.json
 #+END_EXAMPLE
 
-Example usage
+Advanced mode: Supply a config yaml file
 #+BEGIN_EXAMPLE
-  AliTV --query query.fa --reference reference.fa
+  cd AliTV-perl-interface
+  perl -Ilib bin/alitv.pl data/chloroset/input.yml >advanced.json
 #+END_EXAMPLE
-
-** Output
-By default, AliTV generates ten files in the output folder:
-
-| <prefix>.txt             | The output of the whole genome alignment program in tabular format      |
-| <prefix>.svg             | The circular map of the wga created by Circos in svg format             |
-| <prefix>.png             | The circular map of the wga created by Circos in png format             |
-| <prefix>.circos.conf     | The generated circos config file                                        |
-| <prefix>.karyo           | The karyotype file for Circos                                           |
-| <prefix>.link            | The link file for Circos                                                |
-| <prefix>.high            | The highlight file for Circos                                           |
-| <prefix>.wanted_ids      | The new IDs of sequences with illegal characters replaced by underscore |
-| <prefix>_query.fasta     | A copy of the query fasta with adjusted IDs                             |
-| <prefix>_reference.fasta | A copy of the reference fasta with adjusted IDs                         |
-
-A demo of the new interactive HTML/JavaScript output can be found [[http://bioinf-wuerzburg.github.io/AliTV/d3/AliTV.html][here]].
 
 ** Input
-Both the query and the reference file should be in fasta format.
+Input for the simple mode should be in one of the [[http://bioperl.org/howtos/SeqIO_HOWTO.html#item5][Bioperl supported formats]] (currently 42 different).
+Annotation files can be supplied in tsv format (have to be specified in the yml file, [[https://github.com/AliTVTeam/AliTV-perl-interface/blob/master/data/chloroset/ndh.tsv][example file for ndh genes]]).
+Documentation for the yaml file is soon to be added for now consult this [[https://github.com/AliTVTeam/AliTV-perl-interface/blob/master/data/chloroset/input.yml][example file]] for usage information.
+
+** Output
+By default, AliTV generates a configuration file (yaml format) if none is supplied, a log file and a json string on standard out.
+The json can then be visualized with AliTV on the [[https://alitvteam.github.io/AliTV/d3/AliTV.html][demo]] page or locally in [[d3/AliTV.html]]
+
+** Homepage
+For further information visit the [[http://alitvteam.github.io/AliTV][homepage]].
 
 ** Citing AliTV
 
 We have not yet submitted a manuscript.
 Please use this repository to cite AliTV if you use it in your project.
-[[https://zenodo.org/badge/latestdoi/12731/BioInf-Wuerzburg/AliTV][https://zenodo.org/badge/12731/BioInf-Wuerzburg/AliTV.svg]]
+[[https://zenodo.org/badge/latestdoi/12731/AliTVTeam/AliTV][https://zenodo.org/badge/12731/AliTVTeam/AliTV.svg]]
 
-Please also consider citing:
- - lastz or MUMmer
- - Circos
- - BLAST (for IR annotation)
+Please also cite:
+ - lastz
+ - bioperl
 
-For a list of included libraries together with their respective licenses see the [[file:LICENSES/][LICENSES]] folder.
 ** Contact
 If you have any questions or encounter problems or potential bugs, don't
-hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/AliTV/issues][issues]] on github or write an email to:
+hesitate to contact us. Either report [[https://github.com/AliTVTeam/AliTV/issues][issues]] on github or write an email to:
 
 - Markus Ankenbrand - markus.ankenbrand@uni-wuerzburg.de
 
+** License
+[[https://github.com/AliTVTeam/AliTV/blob/master/LICENSE][https://img.shields.io/github/license/mashape/apistatus.svg]]
 
-
-
-
-
-#+TITLE: AliTV manual
-#+AUTHOR: Markus Ankenbrand
-#+EMAIL: markus.ankenbrand@uni-wuerzburg.de
-#+LANGUAGE: en
-#+OPTIONS: ^:nil date:nil H:2
-#+LaTeX_CLASS: scrartcl
-#+LaTeX_CLASS_OPTIONS: [a4paper,12pt,headings=small]
-#+LaTeX_HEADER: \setlength{\parindent}{0pt}
-#+LaTeX_HEADER: \setlength{\parskip}{1.5ex}
-#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
+AliTV itself is available under MIT license.
+The licenses of included libraries might differ, please see [[LICENSES/README.org]] for details.
+** Build
+[[https://travis-ci.org/AliTVTeam/AliTV/][https://travis-ci.org/AliTVTeam/AliTV.svg?branch=master]]
+[[https://coveralls.io/github/AliTVTeam/AliTV?branch=master][https://coveralls.io/repos/github/AliTVTeam/AliTV/badge.svg?branch=master]]
 ** Changelog
+*** 0.4.0 <2016-06-18 Sa>
+ - Include new perl interface
+ - Update documentation
+*** 0.3.9 <2016-06-09 Do>
+ - Move to AliTVTeam organization
+*** 0.3.8 <2016-06-06 Mo>
+ - Update bootstrap-select to version 1.10.0
+ - Update colorpicker to version 2.3.2
+ - Update bootstrap to version 3.3.6
+ - Update jQuery-UI to version 1.11.4
+ - Update jQuery to version 2.2.4
+ - Update d3.js to version 3.5.17
 *** 0.3.7 <2016-06-02 Do>
  - Improve general layout and style
  - Improve tab structure of Advanced Settings (#89)
@@ -132,3 +134,14 @@ hesitate to contact us. Either report [[https://github.com/BioInf-Wuerzburg/AliT
 *** 0.1.0 <2015-01-31 Sa>
  - First release of the wgaPipeline code.
  - Automated whole genome alignment and circos visualization from two fasta files.
+
+#+TITLE: AliTV manual
+#+AUTHOR: Markus Ankenbrand
+#+EMAIL: markus.ankenbrand@uni-wuerzburg.de
+#+LANGUAGE: en
+#+OPTIONS: ^:nil date:nil H:2
+#+LaTeX_CLASS: scrartcl
+#+LaTeX_CLASS_OPTIONS: [a4paper,12pt,headings=small]
+#+LaTeX_HEADER: \setlength{\parindent}{0pt}
+#+LaTeX_HEADER: \setlength{\parskip}{1.5ex}
+#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}

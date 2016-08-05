@@ -14,3 +14,4 @@ blib/
 MANIFEST*.bak
 Build
 MYMETA.*
+bower_components
