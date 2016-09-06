@@ -16,3 +16,5 @@ Build
 MYMETA.*
 t/
 bower_components/
+.idea
+AliTV-perl-interface
