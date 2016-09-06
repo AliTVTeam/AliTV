@@ -1,0 +1,61 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 22/06/2016 15:30
+  	*/
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+        font-size: 20px;
+font-style: normal;
+margin-left: 20px;
+}
+
+.flaticon-apple:before { content: "\f100"; }
+.flaticon-atom:before { content: "\f101"; }
+.flaticon-axis:before { content: "\f102"; }
+.flaticon-bacteria:before { content: "\f103"; }
+.flaticon-book:before { content: "\f104"; }
+.flaticon-calculator:before { content: "\f105"; }
+.flaticon-cell:before { content: "\f106"; }
+.flaticon-clipboard:before { content: "\f107"; }
+.flaticon-compass:before { content: "\f108"; }
+.flaticon-dna-structure:before { content: "\f109"; }
+.flaticon-earth:before { content: "\f10a"; }
+.flaticon-earth-globe:before { content: "\f10b"; }
+.flaticon-element:before { content: "\f10c"; }
+.flaticon-flasks:before { content: "\f10d"; }
+.flaticon-magnet:before { content: "\f10e"; }
+.flaticon-magnifying-glass:before { content: "\f10f"; }
+.flaticon-medicines:before { content: "\f110"; }
+.flaticon-microscope:before { content: "\f111"; }
+.flaticon-molecular:before { content: "\f112"; }
+.flaticon-molecule:before { content: "\f113"; }
+.flaticon-observation:before { content: "\f114"; }
+.flaticon-petri-dish:before { content: "\f115"; }
+.flaticon-rat:before { content: "\f116"; }
+.flaticon-satellite:before { content: "\f117"; }
+.flaticon-scientist:before { content: "\f118"; }
+.flaticon-solar-system:before { content: "\f119"; }
+.flaticon-statistics:before { content: "\f11a"; }
+.flaticon-telescope:before { content: "\f11b"; }
+.flaticon-test-tube:before { content: "\f11c"; }
+.flaticon-thermometer:before { content: "\f11d"; }
