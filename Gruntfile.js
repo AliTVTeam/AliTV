@@ -61,11 +61,11 @@ module.exports = function(grunt) {
 							}
 						},
 						helpers: ['d3/test/helpers/defaultConf.js',
-								'd3/test/helpers/eventHelper.js',
-								'd3/test/helpers/customMatchers.js',
-								'd3/test/data/testData.js'
-							]
-							// keepRunner : true
+							'd3/test/helpers/eventHelper.js',
+							'd3/test/helpers/customMatchers.js',
+							'd3/test/data/testData.js'
+						]
+						// keepRunner : true
 					}
 				}
 			},
