@@ -21,7 +21,7 @@ Tutorial I: Simple comparasion of chloroplast genomes
 
 In this example chloroplast genomes of seven parasitic and non-parasitic
 plants are compared and analyzed with AliTV. The files needed for this
-tutorial are used as the default data, this means you must not import
+tutorial are used as the default data, this means you need not import
 them.
 
 Otherwise the files are available to download from...
