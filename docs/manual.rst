@@ -1,6 +1,6 @@
 | ****
 
-| **Version 0.3.1**
+| **Version 1.0.1**
 
 |image|
 
@@ -17,9 +17,9 @@ Installation
 ============
 
 For viewing pre-computed visualizations (available as .json files) no installation is required.
-This file can be imported on the `demo website<https://alitvteam.github.io/AliTV/d3/AliTV.html/>`_.
-If you are interested in create whole genome alignment visualizations for your own data
-please refer to the `README of the AliTV-perl-interface<https://github.com/AliTVTeam/AliTV-perl-interface/>`_.
+This file can be imported on the demo website https://alitvteam.github.io/AliTV/d3/AliTV.html .
+If you are interested in creating whole genome alignment visualizations for your own data
+please refer to the README of the AliTV-perl-interface https://github.com/AliTVTeam/AliTV-perl-interface/ .
 
 Tutorial I: Simple comparasion of chloroplast genomes
 =====================================================
