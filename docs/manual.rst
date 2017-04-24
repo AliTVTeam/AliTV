@@ -29,8 +29,6 @@ plants are compared and analyzed with AliTV. The files needed for this
 tutorial are used as the default data, this means you need not import
 them.
 
-Otherwise the files are available to download from...
-
 Visualizing the Whole-Genome Alignment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -289,5 +287,38 @@ download the AliTV image as SVG and open it with your favourite
 image-viewer. Moreover you can export the current settings in the JSON
 format by selecting . It may be helpful if you cant to save the settings
 and use it some other time. Then you can import JSON data by clicking .
+
+
+Generating json files with alitv.pl
+===================================
+
+In case you want to visualize your own data you need to generate a json file.
+This can be done using the ``alitv.pl`` perl script.
+It has a simple mode where you just call it with a bunch of fasta files.
+In this case pairwise alignments are calculated using ``lastz`` and a json file with default settings is created.
+For more advanced usage there is the possibility to supply a yml file with custom parameters.
+Please consult the README of the ``AliTV-perl-interface`` project for more information:
+https://github.com/AliTVTeam/AliTV-perl-interface
+
+Here is an outline of the steps required to reproduce the demo data sets:
+
+Chloroplasts
+------------
+
+This dataset consists of the chloroplasts of seven parasitic and non-parasitic plants.
+All of those are published at NCBI with accession numbers:
+NC_025642.1, NC_001568.1, NC_022859.1, NC_001879.2, NC_013707.2, NC_023464.1, and NC_023115.1
+Along with the fasta files genbank files with annotations are available.
+So it is easy to extract the locations of ndh and ycf genes as well as the inverted repeat regions.
+This data set is also used as test set in ``AliTV-perl-interface`` so best refer to
+https://github.com/AliTVTeam/AliTV-perl-interface/tree/master/data/chloroset
+and specifically the ``input.yml`` file there.
+
+Bacteria
+--------
+
+Chromosome 4
+------------
+
 
 .. |image| image:: AliTV_logo.png
