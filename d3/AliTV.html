@@ -684,6 +684,16 @@
             $("#offset-" + karyoId).val(ali.getOffset(karyoId));
         }
 
+        function loadDemo(filename) {
+            $('#loading-indicator').show();
+            $.getJSON('data/'+filename, function(data) {
+                ali.setJSON(data);
+                setJSONEditorFromAli();
+                ali.drawLinear();
+                $('#loading-indicator').hide();
+            });
+        }
+
         function addFeatureGroupTemplates() {
             var groups = ali.getSupportedFeatures();
             var templateHTML = $('#template_feature_group').html();
@@ -910,7 +920,9 @@
                                 <p>If you need help with AliTV, please checkout the official website <a href="https://alitvteam.github.io/AliTV/">https://alitvteam.github.io/AliTV/</a> or the gitHub page containing AliTVs repository <a href="https://github.com/AliTVTeam/AliTV">https://github.com/AliTVTeam/AliTV</a>.</p>
                             </div>
                         </div>
-                    </div>
+                    </div>ali.setJSON(JSON.parse(x.target.result));
+                        setJSONEditorFromAli();
+                        ali.drawLinear();
                 </div>
 
                 <div role="tabpanel" class="tab-pane fade" id="advancedSettings" style="margin:10px 10px">
@@ -952,6 +964,13 @@
                                 <button class="btn btn-info" onclick="saveJSON()">Save JSON</button>
                                 <button class="btn btn-info" onclick="$('#loadJSON').click()">Load JSON</button>
                                 <input type="file" id="loadJSON" name="files[]" style="display:none" multiple accept=".json">
+                                <div style="float:right">
+                                    Demo data:
+                                    <button class="btn btn-info" onclick="loadDemo('chloroplasts.json')">Chloroplasts</button>
+                                    <button class="btn btn-info" onclick="loadDemo('xanthomonas_arboricola.json')">Bacteria</button>
+                                    <button class="btn btn-info" onclick="loadDemo('chromosome4.json')">Chromosome 4</button>
+                                    <span id="loading-indicator" style="display:none">Loading...</span>
+                                </div>
                             </div>
                         </div>
                     </div>
