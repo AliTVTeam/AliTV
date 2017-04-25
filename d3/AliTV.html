@@ -686,7 +686,7 @@
 
         function loadDemo(filename) {
             $('#loading-indicator').show();
-            $.getJSON('data/'+filename, function(data) {
+            $.getJSON('data/' + filename, function(data) {
                 ali.setJSON(data);
                 setJSONEditorFromAli();
                 ali.drawLinear();
