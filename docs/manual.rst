@@ -367,5 +367,47 @@ The commands to create the final json are:
 Chromosome 4
 ^^^^^^^^^^^^
 
+To demonstrate the capability of visualizing whole mammalian size chromosomes we imported a pre-calculated alignment of human and chimp chromosome 4 from `Ensembl <http://www.ensembl.org/index.html>`_.
+This three files have been downloaded:
+
+ - ftp://ftp.ensembl.org/pub/release-87/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.4.fa.gz
+ - ftp://ftp.ensembl.org/pub/release-87/fasta/pan_troglodytes/dna/Pan_troglodytes.CHIMP2.1.4.dna.chromosome.4.fa.gz
+ - ftp://ftp.ensembl.org/pub/release-87/maf/ensembl-compara/pairwise_alignments/homo_sapiens.GRCh38.vs.pan_troglodytes.CHIMP2.1.4.lastz_net.tar
+
+After unpacking all alignments those to chromosome 4 of human were combined.
+Usually ``alitv.pl`` handles tasks like renaming ids to make them unique transparently.
+However, this can not be done when importing pre-calculated alignments.
+In our example both chromosomes have the id ``4`` and are prefixed in the maf file with ``homo_sapiens.`` and ``pan_troglodytes.`` respectively.
+Furthermore the file ``chr4.maf`` contains all alignments to chromosome 4 of human and we only want those from chromosome 4 of chimp.
+So to combine and clean the maf and fasta files and to prepare them for import into AliTV you can do the following:
+
+.. code-block:: bash
+
+      zcat *H.sap.4.* >chr4.maf
+      perl -pe 's/homo_sapiens\.4/h4/;s/pan_troglodytes.4/p4/' chr4.maf >chr4.fixID.maf
+      perl -ne 'print if(/^#/);if(/^a/){$s=$_}if(/^s h4/){$h=$_}if(/^s p4/){print $s.$h.$_."\n"}' chr4.fixID.maf >chr4.clean.maf
+      perl -pe 's/^>4/>h4/' Homo_sapiens.GRCh38.dna.chromosome.4.fa >Homo_sapiens_chr4.fa
+      perl -pe 's/^>4/>h4/' Pan_troglodytes.CHIMP2.1.4.dna.chromosome.4.fa >Pan_troglodytes_chr4.fa
+
+Now ``alitv.pl`` can be executed with the ``chr4.yml``:
+
+.. code-block:: yml
+
+      ---
+      genomes:
+         -
+          name: Homo sapiens
+          sequence_files:
+            - Homo_sapiens_chr4.fa
+         -
+          name: Pan troglodytes
+          sequence_files:
+            - Pan_troglodytes_chr4.fa
+
+      alignment:
+         program: importer
+         parameter:
+             - "chr4.clean.maf"
+
 
 .. |image| image:: AliTV_logo.png
