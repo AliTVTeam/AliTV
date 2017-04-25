@@ -7,11 +7,11 @@
 /* global bootbox: false */
 
 // use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
-var AliTV_VERSION = "0.4.1";
+var AliTV_VERSION = "1.0.2";
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
- * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de> 
+ * @author Markus Ankenbrand <markus.ankenbrand@uni-wuerzburg.de>
  * @constructor
  * @param {Object} svg - jQuery object containing a svg DOM element. Visualizations will be drawn on this svg. Size may be changed by object methods. Previous content will be deleted.
  * @example
@@ -60,7 +60,7 @@ function AliTV(svg) {
 	 * @property {Object}  filters.karyo                        		 - the chromosome dependent displaying information
 	 * @property {Boolean} filters.skipChromosomesWithoutVisibleLinks	 - If a chromosome has no visible links, because they are filtered, it is possible to skip this chromosome.
 	 * @property {Boolean} filters.showAllChromosomes					 - Allows to show all chromosomes, even if when they are set not visible.
-	 * @property {Boolean} filters.onlyShowAdjacentLinks				 - Allows to show only adjacent links or all links.			
+	 * @property {Boolean} filters.onlyShowAdjacentLinks				 - Allows to show only adjacent links or all links.
 	 * @property {Array}   filters.karyo.order                  		 - array of chromosome IDs in the desired order (circular layout)
 	 * @property {Array}   filters.karyo.genome_order          		 	 - array of genome IDs in the desired order (linear layout)
 	 * @property {Object}  filters.karyo.chromosomes           			 - the chromosome drawing details, karyo IDs as keys
@@ -83,13 +83,13 @@ function AliTV(svg) {
 	 * @property {String}  linear.endLineColor                     - The end color of the color gradient.
 	 * @property {String}  linear.hideHalfVisibleLinks			   - If true - do not show links with only one end in a visible region.
 	 * @property {Object}  circular                                - The configuration options for the circular layout.
-	 * @property {Number}  circular.tickSize                       - The size of the ticks in pixels. 
+	 * @property {Number}  circular.tickSize                       - The size of the ticks in pixels.
 	 * @property {Number}  minLinkIdentity                         - The minimum of the link identity the user wants to color.
 	 * @property {Number}  maxLinkIdentity                         - The maximum of the link identity the user wants to color.
 	 * @property {Number}  midLinkIdentity                         - The middle of the link identity the user wants to color.
 	 * @property {String}  minLinkIdentityColor                    - The color of the minimum link.
 	 * @property {String}  maxLinkIdentityColor                    - The color of the maximum link.
-	 * @property {String}  midLinkIdentityColor                    - The color of the middle link.  
+	 * @property {String}  midLinkIdentityColor                    - The color of the middle link.
 	 * @property {Number}  minLinkLength						   - The minimum length of a link:
 	 * @property {Number}  maxLinkLength						   - The maximum length of a link.
 	 * @property {Object}  graphicalParameters                     - The configuration options for all graphical parameters.
@@ -1601,7 +1601,7 @@ AliTV.prototype.setFeatureProperty = function(groupId, property, val) {
 };
 
 /**
- * This function returns an array which contains the color of the first and the last genome. 
+ * This function returns an array which contains the color of the first and the last genome.
  * The colors are defined in the conf-object.
  * @returns {Array} The color of the first and the last genome.
  * @author Sonja Hohlfeld
@@ -1634,7 +1634,7 @@ AliTV.prototype.setGenomeColor = function(color) {
 };
 
 /**
- * This function returns an array which contains the color of the minLinkIdentity and the maxLinkIdentity. 
+ * This function returns an array which contains the color of the minLinkIdentity and the maxLinkIdentity.
  * The colors are defined in the conf-object.
  * @returns {Array} The color of the links with the minimal and maximal identity.
  * @author Sonja Hohlfeld
@@ -1691,7 +1691,7 @@ AliTV.prototype.filterChromosomes = function() {
  *This method should filter all chromosome which are set visible in conf.filters.karyo.chromosomes[<chromosome>].visible
  * @param visibleChromosomes: the method gets all current visible chromosomes.
  * @returns filteredChromosomes: the method returns only chromosomes whose visibility is set true
- * @author Sonja Hohlfeld 
+ * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterVisibleChromosomes = function(visibleChromosomes) {
 	var that = this;
@@ -1708,7 +1708,7 @@ AliTV.prototype.filterVisibleChromosomes = function(visibleChromosomes) {
  * This method should filter all chromosome which have no visible links with the current configurations
  * @param visibleChromosomes: the method gets all current visible chromosomes.
  * @returns filteredChromosomes: the method returns only chromosomes which have visible links
- * @author Sonja Hohlfeld 
+ * @author Sonja Hohlfeld
  */
 AliTV.prototype.filterChromosomeWithoutVisibleLinks = function(visibleChromosomes) {
 	var that = this;
@@ -2641,7 +2641,7 @@ AliTV.prototype.setJSON = function(json) {
 };
 
 /**
- * This function returns the color of the genomeLabels. 
+ * This function returns the color of the genomeLabels.
  * The color is defined in the conf-object.
  * @returns The color of the genome labels.
  * @author Sonja Hohlfeld
@@ -2668,7 +2668,7 @@ AliTV.prototype.setGenomeLabelColor = function(color) {
 };
 
 /**
- * This function returns the size of the genomeLabels. 
+ * This function returns the size of the genomeLabels.
  * The size is defined in the conf-object.
  * @returns The size of the genome labels.
  * @author Sonja Hohlfeld
@@ -2702,7 +2702,7 @@ AliTV.prototype.setGenomeLabelSize = function(size) {
 };
 
 /**
- * This function returns the color of the tick Labels. 
+ * This function returns the color of the tick Labels.
  * The color is defined in the conf-object.
  * @returns The color of the tick labels.
  * @author Sonja Hohlfeld
@@ -2728,7 +2728,7 @@ AliTV.prototype.setTickLabelColor = function(color) {
 };
 
 /**
- * This function returns the size of the tick Labels. 
+ * This function returns the size of the tick Labels.
  * The size is defined in the conf-object.
  * @returns The size of the tick labels.
  * @author Sonja Hohlfeld
@@ -2806,7 +2806,7 @@ AliTV.prototype.showInvisibleLink = function(selectedLinkID) {
 /**
  * This function is supposed to return the value of the longest chromosome.
  * @return maxLinkLength: the value of the longest chromosome in bp.
- * @author Sonja Hohlfeld 
+ * @author Sonja Hohlfeld
  */
 AliTV.prototype.getMaxChromosomeLength = function() {
 	var length = [];
@@ -2992,7 +2992,7 @@ AliTV.prototype.resetGenomeRegion = function(genome_id) {
 	this.triggerChange();
 };
 
-/**	
+/**
  * This function is supposed to change the visibility of a selected chromosome.
  * The function gets the name of a chromosome and set his visibility in filters.karyo.chromosomes equal false or true.
  * @param {String} chromosomeName: the name of the selected chromosome.
@@ -3131,7 +3131,7 @@ AliTV.prototype.setOffset = function(offset, karyoId) {
 	}
 };
 
-/**	
+/**
  * This function is supposed to return an array of supported features
  * @returns {Array} supportedFeatures
  * @author: Sonja Hohlfeld and Markus Ankenbrand
