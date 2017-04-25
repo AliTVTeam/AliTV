@@ -1,7 +1,3 @@
-| ****
-
-| **Version 1.0.1**
-
 |image|
 
 About AliTV
@@ -215,7 +211,7 @@ Features of AliTV
 =================
 
 Main Screen
------------
+^^^^^^^^^^^
 
 Above is the user interface of AliTV available on the HTML page when you
 generate the figure.
@@ -303,7 +299,7 @@ https://github.com/AliTVTeam/AliTV-perl-interface
 Here is an outline of the steps required to reproduce the demo data sets:
 
 Chloroplasts
-------------
+^^^^^^^^^^^^
 
 This dataset consists of the chloroplasts of seven parasitic and non-parasitic plants.
 All of those are published at NCBI with accession numbers:
@@ -315,10 +311,61 @@ https://github.com/AliTVTeam/AliTV-perl-interface/tree/master/data/chloroset
 and specifically the ``input.yml`` file there.
 
 Bacteria
---------
+^^^^^^^^
+
+This dataset consists of four strains of *Xanthomonas arboricola* of which two are pathogenic and two are not
+(Cesbron S, Briand M, Essakhi S, et al. Comparative Genomics of Pathogenic and Nonpathogenic Strains of Xanthomonas arboricola Unveil Molecular and Evolutionary Events Linked to Pathoadaptation. Frontiers in Plant Science. 2015;6:1126. doi:10.3389/fpls.2015.01126.).
+Data is available for download from:
+
+ - https://www.ncbi.nlm.nih.gov/Traces/wgs/?val=JZEF01
+ - https://www.ncbi.nlm.nih.gov/Traces/wgs/?val=JZEG01
+ - https://www.ncbi.nlm.nih.gov/Traces/wgs/?val=JZEH01
+ - https://www.ncbi.nlm.nih.gov/Traces/wgs/?val=JZEI01
+
+The ``xanthomonas.yml`` file has the following content:
+
+.. code-block:: yml
+
+      ---
+      genomes:
+         -
+          name: Xanthomonas arboricola pv. juglandis JZEF
+          sequence_files:
+            - JZEF01.1.fsa_nt
+         -
+          name: Xanthomonas arboricola pv. juglandis JZEG
+          sequence_files:
+            - JZEG01.1.fsa_nt
+         -
+          name: Xanthomonas arboricola JZEH
+          sequence_files:
+            - JZEH01.1.fsa_nt
+         -
+          name: Xanthomonas arboricola JZEI
+          sequence_files:
+            - JZEI01.1.fsa_nt
+
+      alignment:
+         program: lastz
+         parameter:
+             - "--format=maf"
+             - "--ambiguous=iupac"
+             - "--strand=both"
+             - "--notransition"
+             - "--step=20"
+
+So the parameters for lastz are set a little less sensitive (compared to default settings) to reduce runtime.
+The resulting json file is still >25MB in size and contains lots of very short links with low identity.
+In order to have better performance in the visualization those can be filtered on the json level with ``alitv-filter.pl``
+The commands to create the final json are:
+
+.. code-block:: bash
+
+      alitv.pl xanthomonas.yml --project xanthomonas
+      alitv-filter.pl --in xanthomonas.json --out xanthomonas_arboricola.json --min-link-len 1000 --min-link-id 60
 
 Chromosome 4
-------------
+^^^^^^^^^^^^
 
 
 .. |image| image:: AliTV_logo.png
