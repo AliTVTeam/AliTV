@@ -135,3 +135,10 @@ http://silviomoreto.github.io/bootstrap-select/
 [[file:LICENSE-d3-legend][LICENSE-d3-legend]]
 **** Files
  - [[../d3/lib/d3-legend.min.js]]
+*** OpenSans font (part of jsdoc)
+**** Website
+[[https://fonts.google.com/specimen/Open+Sans]]
+**** LICENSE
+[[file:LICENSE-opensans][LICENSE-opensans]]
+**** Files
+ - [[../d3/doc/fonts/]]
