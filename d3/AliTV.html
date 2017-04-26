@@ -684,6 +684,16 @@
             $("#offset-" + karyoId).val(ali.getOffset(karyoId));
         }
 
+        function loadDemo(filename) {
+            $('#loading-indicator').show();
+            $.getJSON('data/' + filename, function(data) {
+                ali.setJSON(data);
+                setJSONEditorFromAli();
+                ali.drawLinear();
+                $('#loading-indicator').hide();
+            });
+        }
+
         function addFeatureGroupTemplates() {
             var groups = ali.getSupportedFeatures();
             var templateHTML = $('#template_feature_group').html();
@@ -885,7 +895,7 @@
                 <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><b>About AliTV</b></a></li>
                 <li role="presentation"><a href="#filter" aria-controls="about" role="tab" data-toggle="tab"><b>Filtering</b></a></li>
 
-                <li class="dropdown"><a id="dLabel" data-toggle="dropdown"><b>Add biological Features</b> <span class="caret"></span></a>
+                <li class="dropdown"><a id="dLabel" data-toggle="dropdown"><b>Show/Hide Annotations</b> <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu" id="featuresMenu">
                         <li role="separator" class="divider"></li>
                         <li><a href="#customFeature" data-toggle="tab">Add more features...</a></li>
@@ -907,7 +917,7 @@
                                     <mark style="font-variant: small-caps;">AliTV (Alignment Toolbox and Visualization)</mark> is a software for visualizing Whole Genome Alignments. It generates publication-ready figures which can be used for the easy
                                     comparision of complete genomes. AliTV stands out due to its interactive functions for analyzing the alignments directly onto the figure.</p>
 
-                                <p>If you need help with AliTV, please checkout the official website <a href="https://alitvteam.github.io/AliTV/">https://alitvteam.github.io/AliTV/</a> or the gitHub page containing AliTVs repository <a href="https://github.com/AliTVTeam/AliTV">https://github.com/AliTVTeam/AliTV</a>.</p>
+                                <p>If you need help with AliTV, please checkout the <a href="https://alitv.readthedocs.io/en/latest/index.html">documentation</a>, <a href="https://alitvteam.github.io/AliTV/">website</a> or the <a href="https://github.com/AliTVTeam/AliTV">repository on GitHub</a>.</p>
                             </div>
                         </div>
                     </div>
@@ -952,6 +962,13 @@
                                 <button class="btn btn-info" onclick="saveJSON()">Save JSON</button>
                                 <button class="btn btn-info" onclick="$('#loadJSON').click()">Load JSON</button>
                                 <input type="file" id="loadJSON" name="files[]" style="display:none" multiple accept=".json">
+                                <div style="float:right">
+                                    Demo data:
+                                    <button class="btn btn-info" onclick="loadDemo('chloroplasts.json')">Chloroplasts</button>
+                                    <button class="btn btn-info" onclick="loadDemo('xanthomonas_arboricola.json')">Bacteria</button>
+                                    <button class="btn btn-info" onclick="loadDemo('chromosome4.json')">Chromosome 4</button>
+                                    <span id="loading-indicator" style="display:none">Loading...</span>
+                                </div>
                             </div>
                         </div>
                     </div>

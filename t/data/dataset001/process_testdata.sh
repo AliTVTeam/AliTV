@@ -37,7 +37,7 @@ cat ir.json ndh.json ycf.json gene.json >features.json
 
 # Add features.json to data.json -> features
 
-# manually remove genes that cover up huge regions (most likely due to errors)
+# manually remove genes that cover up huge regions (most likely due to introns)
 perl -F"\t" -ane 'print if(abs($F[1]-$F[2]) > 10000)' *_NC_*.bed
 #Cphe_gi	23688	0	PS35_p01
 #Cphe_gi	94380	49166	PS35_p01
@@ -45,3 +45,6 @@ perl -F"\t" -ane 'print if(abs($F[1]-$F[2]) > 10000)' *_NC_*.bed
 #Ogra_gi	26534	56952	rps12
 
 # rps12 is split in multiple exons (CDS has join region, but gene only start and end)
+
+# For the split version of Ntab:
+cat gene.json| perl -pe 's/\}/\}\n/g' | perl -pe 'if(/Ntab_gi","start":(\d+),"end":(\d+)/){if($1 > 80000 and $2 > 80000){$s=$1-80000;$e=$2-80000;s/Ntab_gi","start":\d+,"end":\d+/Ntab_gi2","start":$s,"end":$e/;}}' >gene_split.json

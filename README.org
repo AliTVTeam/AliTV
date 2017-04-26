@@ -75,6 +75,12 @@ The licenses of included libraries might differ, please see [[LICENSES/README.or
 [[https://travis-ci.org/AliTVTeam/AliTV/][https://travis-ci.org/AliTVTeam/AliTV.svg?branch=master]]
 [[https://coveralls.io/github/AliTVTeam/AliTV?branch=master][https://coveralls.io/repos/github/AliTVTeam/AliTV/badge.svg?branch=master]]
 ** Changelog
+*** 1.0.2 <2017-04-25>
+ - Add documentation of perl part (rtd)
+ - Add demo sets bacteria, chromosomes
+ - Fix svg namespace (#116)
+ - Remove genome color gradient from chloro demo
+ - Include perl part version 1.0.2
 *** 1.0.1 <2017-04-20 Do>
  - Include perl part version 1.0.1
 *** 1.0.0 <2017-04-13 Do>

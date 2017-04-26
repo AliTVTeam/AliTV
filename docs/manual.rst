@@ -1,7 +1,3 @@
-| ****
-
-| **Version 1.0.1**
-
 |image|
 
 About AliTV
@@ -28,8 +24,6 @@ In this example chloroplast genomes of seven parasitic and non-parasitic
 plants are compared and analyzed with AliTV. The files needed for this
 tutorial are used as the default data, this means you need not import
 them.
-
-Otherwise the files are available to download from...
 
 Visualizing the Whole-Genome Alignment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -217,7 +211,7 @@ Features of AliTV
 =================
 
 Main Screen
------------
+^^^^^^^^^^^
 
 Above is the user interface of AliTV available on the HTML page when you
 generate the figure.
@@ -289,5 +283,131 @@ download the AliTV image as SVG and open it with your favourite
 image-viewer. Moreover you can export the current settings in the JSON
 format by selecting . It may be helpful if you cant to save the settings
 and use it some other time. Then you can import JSON data by clicking .
+
+
+Generating json files with alitv.pl
+===================================
+
+In case you want to visualize your own data you need to generate a json file.
+This can be done using the ``alitv.pl`` perl script.
+It has a simple mode where you just call it with a bunch of fasta files.
+In this case pairwise alignments are calculated using ``lastz`` and a json file with default settings is created.
+For more advanced usage there is the possibility to supply a yml file with custom parameters.
+Please consult the README of the ``AliTV-perl-interface`` project for more information:
+https://github.com/AliTVTeam/AliTV-perl-interface
+
+Here is an outline of the steps required to reproduce the demo data sets:
+
+Chloroplasts
+^^^^^^^^^^^^
+
+This dataset consists of the chloroplasts of seven parasitic and non-parasitic plants.
+All of those are published at NCBI with accession numbers:
+NC_025642.1, NC_001568.1, NC_022859.1, NC_001879.2, NC_013707.2, NC_023464.1, and NC_023115.1
+Along with the fasta files genbank files with annotations are available.
+So it is easy to extract the locations of ndh and ycf genes as well as the inverted repeat regions.
+This data set is also used as test set in ``AliTV-perl-interface`` so best refer to
+https://github.com/AliTVTeam/AliTV-perl-interface/tree/master/data/chloroset
+and specifically the ``input.yml`` file there.
+
+Bacteria
+^^^^^^^^
+
+This dataset consists of four strains of *Xanthomonas arboricola* of which two are pathogenic and two are not
+(Cesbron S, Briand M, Essakhi S, et al. Comparative Genomics of Pathogenic and Nonpathogenic Strains of Xanthomonas arboricola Unveil Molecular and Evolutionary Events Linked to Pathoadaptation. Frontiers in Plant Science. 2015;6:1126. doi:10.3389/fpls.2015.01126.).
+Data is available for download from:
+
+ - https://www.ncbi.nlm.nih.gov/Traces/wgs/?val=JZEF01
+ - https://www.ncbi.nlm.nih.gov/Traces/wgs/?val=JZEG01
+ - https://www.ncbi.nlm.nih.gov/Traces/wgs/?val=JZEH01
+ - https://www.ncbi.nlm.nih.gov/Traces/wgs/?val=JZEI01
+
+The ``xanthomonas.yml`` file has the following content:
+
+.. code-block:: yml
+
+      ---
+      genomes:
+         -
+          name: Xanthomonas arboricola pv. juglandis JZEF
+          sequence_files:
+            - JZEF01.1.fsa_nt
+         -
+          name: Xanthomonas arboricola pv. juglandis JZEG
+          sequence_files:
+            - JZEG01.1.fsa_nt
+         -
+          name: Xanthomonas arboricola JZEH
+          sequence_files:
+            - JZEH01.1.fsa_nt
+         -
+          name: Xanthomonas arboricola JZEI
+          sequence_files:
+            - JZEI01.1.fsa_nt
+
+      alignment:
+         program: lastz
+         parameter:
+             - "--format=maf"
+             - "--ambiguous=iupac"
+             - "--strand=both"
+             - "--notransition"
+             - "--step=20"
+
+So the parameters for lastz are set a little less sensitive (compared to default settings) to reduce runtime.
+The resulting json file is still >25MB in size and contains lots of very short links with low identity.
+In order to have better performance in the visualization those can be filtered on the json level with ``alitv-filter.pl``
+The commands to create the final json are:
+
+.. code-block:: bash
+
+      alitv.pl xanthomonas.yml --project xanthomonas
+      alitv-filter.pl --in xanthomonas.json --out xanthomonas_arboricola.json --min-link-len 1000 --min-link-id 60
+
+Chromosome 4
+^^^^^^^^^^^^
+
+To demonstrate the capability of visualizing whole mammalian size chromosomes we imported a pre-calculated alignment of human and chimp chromosome 4 from `Ensembl <http://www.ensembl.org/index.html>`_.
+This three files have been downloaded:
+
+ - ftp://ftp.ensembl.org/pub/release-87/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.4.fa.gz
+ - ftp://ftp.ensembl.org/pub/release-87/fasta/pan_troglodytes/dna/Pan_troglodytes.CHIMP2.1.4.dna.chromosome.4.fa.gz
+ - ftp://ftp.ensembl.org/pub/release-87/maf/ensembl-compara/pairwise_alignments/homo_sapiens.GRCh38.vs.pan_troglodytes.CHIMP2.1.4.lastz_net.tar
+
+After unpacking all alignments those to chromosome 4 of human were combined.
+Usually ``alitv.pl`` handles tasks like renaming ids to make them unique transparently.
+However, this can not be done when importing pre-calculated alignments.
+In our example both chromosomes have the id ``4`` and are prefixed in the maf file with ``homo_sapiens.`` and ``pan_troglodytes.`` respectively.
+Furthermore the file ``chr4.maf`` contains all alignments to chromosome 4 of human and we only want those from chromosome 4 of chimp.
+So to combine and clean the maf and fasta files and to prepare them for import into AliTV you can do the following:
+
+.. code-block:: bash
+
+      zcat *H.sap.4.* >chr4.maf
+      perl -pe 's/homo_sapiens\.4/h4/;s/pan_troglodytes.4/p4/' chr4.maf >chr4.fixID.maf
+      perl -ne 'print if(/^#/);if(/^a/){$s=$_}if(/^s h4/){$h=$_}if(/^s p4/){print $s.$h.$_."\n"}' chr4.fixID.maf >chr4.clean.maf
+      perl -pe 's/^>4/>h4/' Homo_sapiens.GRCh38.dna.chromosome.4.fa >Homo_sapiens_chr4.fa
+      perl -pe 's/^>4/>h4/' Pan_troglodytes.CHIMP2.1.4.dna.chromosome.4.fa >Pan_troglodytes_chr4.fa
+
+Now ``alitv.pl`` can be executed with the ``chr4.yml``:
+
+.. code-block:: yml
+
+      ---
+      genomes:
+         -
+          name: Homo sapiens
+          sequence_files:
+            - Homo_sapiens_chr4.fa
+         -
+          name: Pan troglodytes
+          sequence_files:
+            - Pan_troglodytes_chr4.fa
+
+      alignment:
+         program: importer
+         parameter:
+             - "chr4.clean.maf"
+
 
 .. |image| image:: AliTV_logo.png
