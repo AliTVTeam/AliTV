@@ -17,6 +17,20 @@ This file can be imported on the demo website https://alitvteam.github.io/AliTV/
 If you are interested in creating whole genome alignment visualizations for your own data
 please refer to the README of the AliTV-perl-interface https://github.com/AliTVTeam/AliTV-perl-interface/ .
 
+Citation
+========
+Please cite this article
+
+.. image:: https://img.shields.io/badge/DOI-10.7717%2Fpeerj--cs.116-blue.svg
+   :target: https://peerj.com/articles/cs-116/
+
+when using AliTV.
+The source code in any specific version can additionally be cited using the zenodo doi, latest:
+
+.. image:: https://zenodo.org/badge/12731/AliTVTeam/AliTV.svg
+   :target: https://zenodo.org/badge/latestdoi/12731/AliTVTeam/AliTV
+
+
 Tutorial I: Simple comparasion of chloroplast genomes
 =====================================================
 
