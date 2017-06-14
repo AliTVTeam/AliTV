@@ -2017,7 +2017,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				start = featureScale((Math.min(value.end, value.start) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
 				end = featureScale((Math.max(value.end, value.start) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
 
-				if (that.filters.karyo.chromosomes[featureKaryo].reverse === false && (start > end)) {
+				if (that.filters.karyo.chromosomes[featureKaryo].reverse === false && (start > end) && end > 0) {
 					currentFeature.width = featureScale(that.data.karyo.chromosomes[featureKaryo].length) - start;
 					linearFeatureCoords.push(currentFeature);
 
@@ -2031,7 +2031,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 						"y": currentY
 					};
 					linearFeatureCoords.push(splitFeature);
-				} else if (that.filters.karyo.chromosomes[featureKaryo].reverse === true && (start < end)) {
+				} else if (that.filters.karyo.chromosomes[featureKaryo].reverse === true && (start < end) && (Math.abs(end - featureScale(0)) > 0.01)) {
 					currentFeature.x = end;
 					currentFeature.width = featureScale(0) - end;
 					linearFeatureCoords.push(currentFeature);
