@@ -52,8 +52,9 @@ For further information visit the [[http://alitvteam.github.io/AliTV][homepage]]
 
 ** Citing AliTV
 
-We have not yet submitted a manuscript.
-Please use this repository to cite AliTV if you use it in your project.
+An article about AliTV has been published in [[https://peerj.com/articles/cs-116/][PeerJ Computer Science]] [[https://peerj.com/articles/cs-116/][https://img.shields.io/badge/DOI-10.7717%2Fpeerj--cs.116-blue.svg]]
+Please cite this article if you use AliTV in your project.
+Additionally the software in any specific version can be cited via its zenodo doi, latest:
 [[https://zenodo.org/badge/latestdoi/12731/AliTVTeam/AliTV][https://zenodo.org/badge/12731/AliTVTeam/AliTV.svg]]
 
 Please also cite:
