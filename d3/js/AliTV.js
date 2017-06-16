@@ -2031,7 +2031,12 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 						"y": currentY
 					};
 					linearFeatureCoords.push(splitFeature);
-				} else if (that.filters.karyo.chromosomes[featureKaryo].reverse === true && (start < end) && (Math.abs(end - featureScale(0)) > 0.01)) {
+				} else if (that.filters.karyo.chromosomes[featureKaryo].reverse === true &&
+					(start < end) &&
+					// the next line should really compare end != featureScale(0) but as those are floats this comparison is not reliable
+					// a better solution would be to check for the difference to be greater than Number.EPSILON (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/EPSILON)
+					// however, this is not supported in all browsers yet, therefore, in this case 0.01 can be used as if there is a real difference it will be close to one and if there is not it will be very close to 0
+					(Math.abs(end - featureScale(0)) > 0.01)) {
 					currentFeature.x = end;
 					currentFeature.width = featureScale(0) - end;
 					linearFeatureCoords.push(currentFeature);
