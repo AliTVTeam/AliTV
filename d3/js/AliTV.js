@@ -7,7 +7,7 @@
 /* global bootbox: false */
 
 // use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
-var AliTV_VERSION = "1.0.2";
+var AliTV_VERSION = "1.0.3";
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
@@ -2017,7 +2017,7 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 				start = featureScale((Math.min(value.end, value.start) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
 				end = featureScale((Math.max(value.end, value.start) + shift + that.data.karyo.chromosomes[featureKaryo].length) % that.data.karyo.chromosomes[featureKaryo].length);
 
-				if (that.filters.karyo.chromosomes[featureKaryo].reverse === false && (start > end)) {
+				if (that.filters.karyo.chromosomes[featureKaryo].reverse === false && (start > end) && end > 0) {
 					currentFeature.width = featureScale(that.data.karyo.chromosomes[featureKaryo].length) - start;
 					linearFeatureCoords.push(currentFeature);
 
@@ -2031,7 +2031,12 @@ AliTV.prototype.getLinearFeatureCoords = function(linearKaryoCoords) {
 						"y": currentY
 					};
 					linearFeatureCoords.push(splitFeature);
-				} else if (that.filters.karyo.chromosomes[featureKaryo].reverse === true && (start < end)) {
+				} else if (that.filters.karyo.chromosomes[featureKaryo].reverse === true &&
+					(start < end) &&
+					// the next line should really compare end != featureScale(0) but as those are floats this comparison is not reliable
+					// a better solution would be to check for the difference to be greater than Number.EPSILON (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/EPSILON)
+					// however, this is not supported in all browsers yet, therefore, in this case 0.01 can be used as if there is a real difference it will be close to one and if there is not it will be very close to 0
+					(Math.abs(end - featureScale(0)) > 0.01)) {
 					currentFeature.x = end;
 					currentFeature.width = featureScale(0) - end;
 					linearFeatureCoords.push(currentFeature);
