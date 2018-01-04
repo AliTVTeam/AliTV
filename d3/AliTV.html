@@ -40,18 +40,9 @@
             var container = document.getElementById("jsoneditor");
             editor = new JSONEditor(container)
             ali.startTransaction();
-            $.getJSON('data/data.json', function(data) {
-                ali.setData(data.data);
-                $.getJSON('data/filters.json', function(filters) {
-                    ali.setFilters(filters.filters);
-                    $.getJSON('data/conf.json', function(conf) {
-                        ali.setConf(conf.conf);
-                        initialize();
-                    }).fail(function() {
-                        console.log("could not load custom conf.json - using default values");
-                        initialize();
-                    });
-                });
+            $.getJSON('data/chloroplasts.json', function(data) {
+                ali.setJSON(data);
+                initialize();
             });
 
         });
