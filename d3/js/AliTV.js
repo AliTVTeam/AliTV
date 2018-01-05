@@ -34,8 +34,8 @@ function AliTV(svg) {
 	 * @property {Object}  karyo.chromosomes                       - the chromosome details, karyo IDs as keys
 	 * @property {Number}  karyo.chromosomes.genome_id             - number of genome to which this chromosome belongs
 	 * @property {Number}  karyo.chromosomes.length                - length in bp
-     * @property {String}  karyo.chromosomes.seq                   - sequence of the chromosome
-     * @property {String}  karyo.chromosomes.name                  - name of the chromosome
+	 * @property {String}  karyo.chromosomes.seq                   - sequence of the chromosome
+	 * @property {String}  karyo.chromosomes.name                  - name of the chromosome
 	 * @property {Object}  features                                - the feature information, feature type as keys
 	 * @property {Object}  features.link                           - the link feature information, feature IDs as keys
 	 * @property {String}  features.link.karyo                     - the karyo ID
