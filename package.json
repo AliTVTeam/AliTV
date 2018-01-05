@@ -1,6 +1,6 @@
 {
   "name": "AliTV",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "scripts": {
     "test": "grunt travis --verbose"
   },
