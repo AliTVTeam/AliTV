@@ -619,11 +619,11 @@
 
         function setOffsetGroup() {
             $("#offsetGroup").text("");
-            $.each(ali.filters.karyo.chromosomes, function(key, value) {
+            $.each(ali.data.karyo.chromosomes, function(key, value) {
                 $('#offsetGroup')
                     .append($("<option></option>")
                         .attr("value", key)
-                        .text(key))
+                        .text(value.name))
                     .selectpicker("refresh");
             });
         }
@@ -727,8 +727,8 @@
                     var selectedChromosome = ($(e.target).attr("id"));
                     var split = selectedChromosome.split(", ");
                     var genome_name = split[0];
-                    var name = ali.data.karyo.chromosomes[chromosomeId].name;
                     var chromosomeId = split[1];
+                    var name = ali.data.karyo.chromosomes[chromosomeId].name;
                     //Remove selection rect if exists
                     ali.svgD3.selectAll("rect.selection").remove();
                     return {
