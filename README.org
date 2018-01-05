@@ -45,7 +45,8 @@ Documentation for the yaml file is soon to be added for now consult this [[https
 
 ** Output
 By default, AliTV generates a configuration file (yaml format) if none is supplied, a log file and a json string on standard out.
-The json can then be visualized with AliTV on the [[https://alitvteam.github.io/AliTV/d3/AliTV.html][demo]] page or locally in [[d3/AliTV.html]]
+The json can then be visualized with AliTV on the [[https://alitvteam.github.io/AliTV/d3/AliTV.html][demo]] page or locally in [[d3/AliTV.html]].
+The format of the json file is specified in the [source documentation](https://alitvteam.github.io/AliTV/d3/doc/AliTV.html) relevant members are "conf", "data", and "filters".
 
 ** Homepage
 For further information visit the [[http://alitvteam.github.io/AliTV][homepage]].
