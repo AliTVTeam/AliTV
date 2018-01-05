@@ -604,7 +604,7 @@
                 $('#invisibleChromosomes')
                     .append($("<option></option>")
                         .attr("value", chromosomeId)
-                        .text(chromosomeId))
+                        .text(ali.data.karyo.chromosomes[chromosomeId].name))
                     .selectpicker("refresh");
             }
         }
