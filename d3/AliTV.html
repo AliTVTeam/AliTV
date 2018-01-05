@@ -670,7 +670,8 @@
             var templateHTML = $('#templateShiftChromosomes').html();
             var templateUS = _.template(templateHTML);
             $('#offsetMenu').append(templateUS({
-                karyoId: karyoId
+                karyoId: karyoId,
+                karyoName: ali.data.karyo.chromosomes[karyoId].name
             }));
             $("#offset-" + karyoId).val(ali.getOffset(karyoId));
         }
@@ -1348,7 +1349,7 @@
     <script type="text/template" id="templateShiftChromosomes">
         <div class="form-group" id="menu-<%= karyoId %>">
             <mark class="bg-info">
-                <%=karyoId%>:</mark>
+                <%=karyoName%>:</mark>
             <div class="input-group" style="margin-top: 10px">
                 <span class="input-group-addon">Set offset distance:</span>
                 <span class="input-group-addon"><input type="text" id="offset-<%= karyoId %>" placeholder="Offset in bp"><button class="btn btn-info" onclick="changeOffset('<%= karyoId %>')" style="margin-left: 20px">Apply</button></span>
