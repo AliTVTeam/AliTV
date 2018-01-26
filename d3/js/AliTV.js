@@ -7,7 +7,7 @@
 /* global bootbox: false */
 
 // use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
-var AliTV_VERSION = "1.0.3";
+var AliTV_VERSION = "1.0.4";
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
@@ -35,6 +35,7 @@ function AliTV(svg) {
 	 * @property {Number}  karyo.chromosomes.genome_id             - number of genome to which this chromosome belongs
 	 * @property {Number}  karyo.chromosomes.length                - length in bp
 	 * @property {String}  karyo.chromosomes.seq                   - sequence of the chromosome
+	 * @property {String}  karyo.chromosomes.name                  - name of the chromosome
 	 * @property {Object}  features                                - the feature information, feature type as keys
 	 * @property {Object}  features.link                           - the link feature information, feature IDs as keys
 	 * @property {String}  features.link.karyo                     - the karyo ID
