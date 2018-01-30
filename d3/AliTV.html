@@ -941,6 +941,7 @@
 
                 <li role="presentation"><a href="#tree" aria-controls="about" role="tab" data-toggle="tab"><b>Phylogenetic Tree</b></a></li>
                 <li role="presentation"><a href="#graphicalSettings" aria-controls="graphicalSettings" role="tab" data-toggle="tab"><b>Layout Settings</b></a></li>
+                <li role="presentation"><a href="#orderKaryos" aria-controls="orderKaryos" role="tab" data-toggle="tab"><b>Order</b></a></li>
                 <li role="presentation"><a href="#advancedSettings" aria-controls="advancedSettings" role="tab" data-toggle="tab"><b>Advanced Settings</b></a></li>
                 <li role="presentation"><a href="#importExport" aria-controls="importExport" role="tab" data-toggle="tab"><b>Import &amp; Export</b></a></li>
             </ul>
@@ -960,6 +961,31 @@
                                     </a>).</p>
                                 <p>If you need help with AliTV, please checkout the <a href="https://alitv.readthedocs.io/en/latest/index.html">documentation</a>, <a href="https://alitvteam.github.io/AliTV/">website</a> or the <a href="https://github.com/AliTVTeam/AliTV">repository on GitHub</a>.</p>
                                 <p id="google-analytics-info">This page uses<a onclick="openGADialog()" style="padding-left: 5px;">Google Analytics (info/opt-out)</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="orderKaryos" style="margin:10px 10px">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <mark class="bg-info">Auto-order (beta)</mark><br>
+                                        Order chromosomes/contigs automatically by using the following heuristic:
+                                        <ol>
+                                            <li>Assume genome with longest chromosome is the reference</li>
+                                            <li>Reverse order of reference (if it was ordered by size, the largest chromosome comes first now)</li>
+                                            <li>Order each chromosome of non-reference genome by the position of the largest hit to the reference</li>
+                                            <li>Reverse each chromosome where the largest hit to the reference is twisted</li>
+                                        </ol>
+                                        Warning: The current order function is experimental and implemented in ES6 so if you are using an old browser it might not work.
+                                        <div style="margin: 10px 0px">
+                                            <button class="btn btn-info" onclick="ali.orderKaryosAutomatically()" style="font-size: 14px;">Auto-order</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
