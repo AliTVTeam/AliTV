@@ -1,0 +1,16 @@
+{"conf":{"linear":{"drawAllLinks":false,"startLineColor":"#1d91c0","endLineColor":"#1d91c0"},
+"circular":{"tickSize":5},
+"graphicalParameters":{"canvasWidth":900,"canvasHeight":900,"karyoHeight":30,"karyoDistance":5000,"linkKaryoDistance":20,"tickLabelFrequency":10,"tickDistance":1000,"treeWidth":200,"genomeLabelWidth":200},
+"minLinkIdentity":70,"maxLinkIdentity":100,"midLinkIdentity":85,"minLinkIdentityColor":"#D21414",
+"maxLinkIdentityColor":"#1DAD0A","midLinkIdentityColor":"#FFEE05","minLinkLength":100,"maxLinkLength":5000,
+"layout":"linear",
+"tree":{"drawTree":true,"orientation":"left"},
+"features":{"showAllFeatures":false,"supportedFeatures":{
+"gene":{"form":"rect","color":"#E2EDFF","height":30,"visible":false},
+"invertedRepeat":{"form":"arrow","color":"#e7d3e2","height":30,"visible":true,"pattern":""},
+"nStretch":{"form":"rect","color":"#000000","height":30,"visible":false,"pattern":"lines"},
+"repeat":{"form":"arrow","color":"#56cd0f","height":30,"visible":false,"pattern":"woven"},
+"ndh":{"form":"rect","color":"#FF006E","height":30,"visible":true},
+"ycf":{"form":"rect","color":"#FFAF00","height":30,"visible":true}}
+,"fallbackStyle":{"form":"rect","color":"#787878","height":30,"visible":false}},
+"labels":{"ticks":{"showTicks":true,"showTickLabels":true},"chromosome":{"showChromosomeLabels":false},"genome":{"showGenomeLabels":true},"features":{"showFeatureLabels":false}}}}

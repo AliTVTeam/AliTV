@@ -1,0 +1,128 @@
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="lib/jquery-ui.min.css">
+<style>
+body {
+	font: 10px sans-serif;
+}
+
+.tooltip {
+	border: solid 1px #aaa;
+  	border-radius: 8px;
+  	padding: 8px;
+	background: #ddd;
+	color: #000000;
+	outline: none;
+	text-decoration: none;
+	position: relative;
+	font: 12px sans-serif;
+}
+
+
+.chord path {
+	fill-opacity: .67;
+}
+
+.legend {
+	font: 12px sans-serif;
+}
+rect {
+	stroke-width: 2;
+}
+</style>
+<script src="lib/d3.v3.min.js"></script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/jquery-ui.min.js"></script>
+
+</head>
+
+<body>
+	<script src="js/AliTV_linear.js"></script>
+	
+	<script>
+		var identity_range = [75,100];
+		var min_length = 1000;
+		$(function() {
+			$("#identity-slider").slider({
+				range : true,
+				min : 0,
+				max : 100,
+				values : [ 75, 100 ],
+				slide : function(event, ui) {
+						$("#identity-label").val(ui.values[0] + " % - " + ui.values[1] + " %");
+						identity_range = [ui.values[0],ui.values[1]];
+						redraw(identity_range, min_length);
+				}
+			});
+			$("#identity-label").val(
+					$("#identity-slider").slider("values", 0) + " % - "
+							+ $("#identity-slider").slider("values", 1) + " %");
+			$("#minlength-slider").slider({
+				range : "max",
+				min : 0,
+				max : 10000,
+				step: 100,
+				value : 1000,
+				slide : function(event, ui) {
+						$("#minlength-label").val(ui.value + " bp");
+						min_length = ui.value;
+						redraw(identity_range, min_length);
+				}
+			});
+			$("#minlength-label").val(
+					$("#minlength-slider").slider("value") + " bp");
+		});
+		var fullKaryo;
+		var fullLink;
+		loadKaryoFile("data/karyo.json", function(karyo) {
+			fullKaryo = karyo_to_coords(karyo);
+			drawKaryo(fullKaryo);
+			loadLinkFile("data/link.json", karyo, function(links) {
+				fullLink = link_to_coords(links, fullKaryo);
+				redraw(identity_range, min_length);
+			});
+		});
+
+		function redraw(identity_range,min_length) {
+			clear_chords();
+			var links = filter_links_by_length(fullLink, min_length);
+			links = filter_links_by_identity(links, identity_range);
+			drawLinks(links);	
+		}
+
+		function filter_links_by_length(links, minlen) {
+			var filtered = new Array();
+			$.each(links, function(index, value) {
+				var len = Math.abs(value.source.start - value.source.end);
+				if (len >= minlen) {
+					filtered.push(value);
+				}
+			});
+			return filtered;
+		}
+		function filter_links_by_identity(links, identity_range) {
+			var filtered = new Array();
+			$.each(links, function(index, value) {
+				if (value.identity >= identity_range[0] && value.identity <= identity_range[1]) {
+					filtered.push(value);
+				}
+			});
+			return filtered;
+		}
+	</script>
+	<svg id="drawingArea"></svg>
+	<p>
+		<label for="identity-label">Identity range:</label> <input type="text"
+			id="identity-label" readonly
+			style="border: 0; color: #f6931f; font-weight: bold;">
+	</p>
+	<div id="identity-slider" style="heigth:height - 50"></div>
+	<p>
+		<label for="minlength-label">Min. length:</label> <input type="text"
+			id="minlength-label" readonly
+			style="border: 0; color: #f6931f; font-weight: bold;">
+	</p>
+	<div id="minlength-slider"></div>
+</body>
+</html>
