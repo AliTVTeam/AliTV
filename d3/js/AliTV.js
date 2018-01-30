@@ -3520,3 +3520,76 @@ AliTV.prototype.setLinkOpacity = function(linkOpacity) {
 		this.conf.graphicalParameters.linkOpacity = linkOpacity;
 	}
 };
+
+AliTV.prototype.orderKaryosAutomatically = function() {
+// get genome with longest chromosome
+    let chr = this.data.karyo.chromosomes
+    let referenceGenome = chr[Object.keys(chr).sort((a,b) => chr[b].length - chr[a].length)[0]].genome_id
+// for each karyo safe position of longest hit to reference
+    let links = this.data.links
+    let bestHitOnRef = {}
+    for(let s of Object.keys(links)){
+        for(let t of Object.keys(links[s])){
+            if(s !== referenceGenome && t !== referenceGenome){
+                continue
+            }
+            for(let link of Object.keys(links[s][t])){
+                let source = links[s][t][link].source
+                let target = links[s][t][link].target
+                let sourceFeature = this.data.features.link[source]
+                let targetFeature = this.data.features.link[target]
+                // swap source and target if source is not ref
+                let sourceIsRef = (this.data.karyo.chromosomes[sourceFeature.karyo].genome_id === referenceGenome)
+                if(!sourceIsRef){
+                    [source,target] = [target,source];
+                    [sourceFeature,targetFeature] = [targetFeature,sourceFeature]
+                }
+                let rc = ((sourceFeature.start - sourceFeature.end) * (targetFeature.start - targetFeature.end) < 0)
+                let refSeq = sourceFeature.karyo
+                let refPos = _.min([sourceFeature.start, sourceFeature.end])
+                let length = Math.abs(sourceFeature.start - sourceFeature.end)
+                if(!(targetFeature.karyo in bestHitOnRef) || bestHitOnRef[targetFeature.karyo].len < length){
+                    bestHitOnRef[targetFeature.karyo] = {
+                        len: length,
+                        rc: rc,
+                        refSeq: refSeq,
+                        refPos: refPos
+                    }
+                }
+            }
+        }
+    }
+// get all reference karyos and add them to the new_order array
+// split non-ref karyos into those with hit to ref and those without
+    let new_order = []
+    let with_hit = []
+    let without_hit = []
+    for(let karyo of this.filters.karyo.order){
+        if(! (karyo in this.data.karyo.chromosomes)){
+            continue
+        }
+        if(this.data.karyo.chromosomes[karyo].genome_id === referenceGenome){
+            new_order.unshift(karyo)
+        } else {
+            if(karyo in bestHitOnRef){
+                with_hit.push(karyo)
+                this.filters.karyo.chromosomes[karyo].reverse = bestHitOnRef[karyo].rc
+            } else {
+                without_hit.push(karyo)
+            }
+        }
+    }
+    with_hit = with_hit.sort((a,b) => {
+        let bestA = bestHitOnRef[a]
+        let bestB = bestHitOnRef[b]
+        if(bestA.refSeq !== bestB.refSeq){
+            return new_order.indexOf(bestA.refSeq) - new_order.indexOf(bestB.refSeq)
+        } else {
+            return bestA.refPos - bestB.refPos
+        }
+    })
+    new_order = [...new_order, ...with_hit, ...without_hit]
+    this.filters.karyo.order = new_order
+	this.triggerChange()
+    this.drawLinear()
+}
