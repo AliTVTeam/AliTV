@@ -80,9 +80,9 @@ http://silviomoreto.github.io/bootstrap-select/
  - [[../d3/lib/jquery.min.js]]
 *** jQuery contextMenu
 **** Repository
-[[https://github.com/medialize/jQuery-contextMenu]]
+[[https://github.com/swisnl/jQuery-contextMenu]]
 **** Version
-1.6.6
+2.6.4
 **** LICENSE
 [[file:LICENSE-contextMenu][LICENSE-contextMenu]]
 **** Files
