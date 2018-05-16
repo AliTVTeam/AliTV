@@ -73,8 +73,6 @@ module.exports = function(grunt) {
 				options: {
 					undef: true,
 					esversion: 6,
-					// allow missing semicolons
-					asi: true,
 					globals: {
 						jQuery: true
 					}

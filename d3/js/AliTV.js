@@ -5,6 +5,7 @@
 /* global textures: false */
 /* global circles: false */
 /* global bootbox: false */
+/* jshint funcscope:true */
 
 // use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
 var AliTV_VERSION = "1.0.5";
@@ -3522,16 +3523,27 @@ AliTV.prototype.setLinkOpacity = function(linkOpacity) {
 };
 
 /* helper function for transpiled ES6 function */
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+function _toConsumableArray(arr) {
+	if (Array.isArray(arr)) {
+		for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+			arr2[i] = arr[i];
+		}
+		return arr2;
+	} else {
+		return Array.from(arr);
+	}
+}
 
 /**
  * This function re-orders the karyos in all genomes according to the longest hit to the reference genome (determined by globally longest sequence)
+ * This function is transpiled using babel to make tests with phantomJS work (does not support ES6)
+ * To see the original ES6 implementation you can check out fb68a0fb290ab38ccc381bfebd4323f267f97ca6
  * @author Markus Ankenbrand
  */
-AliTV.prototype.orderKaryosAutomatically = function () {
+AliTV.prototype.orderKaryosAutomatically = function() {
 	// get genome with longest chromosome
 	var chr = this.data.karyo.chromosomes;
-	var referenceGenome = chr[Object.keys(chr).sort(function (a, b) {
+	var referenceGenome = chr[Object.keys(chr).sort(function(a, b) {
 		return chr[b].length - chr[a].length;
 	})[0]].genome_id;
 	// for each karyo safe position of longest hit to reference
@@ -3539,14 +3551,14 @@ AliTV.prototype.orderKaryosAutomatically = function () {
 	var bestHitOnRef = {};
 	var _iteratorNormalCompletion = true;
 	var _didIteratorError = false;
-	var _iteratorError = undefined;
+	var _iteratorError;
 
 	try {
 		for (var _iterator = Object.keys(links)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 			var s = _step.value;
 			var _iteratorNormalCompletion3 = true;
 			var _didIteratorError3 = false;
-			var _iteratorError3 = undefined;
+			var _iteratorError3;
 
 			try {
 				for (var _iterator3 = Object.keys(links[s])[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
@@ -3557,7 +3569,7 @@ AliTV.prototype.orderKaryosAutomatically = function () {
 					}
 					var _iteratorNormalCompletion4 = true;
 					var _didIteratorError4 = false;
-					var _iteratorError4 = undefined;
+					var _iteratorError4;
 
 					try {
 						for (var _iterator4 = Object.keys(links[s][t])[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
@@ -3642,7 +3654,7 @@ AliTV.prototype.orderKaryosAutomatically = function () {
 	var without_hit = [];
 	var _iteratorNormalCompletion2 = true;
 	var _didIteratorError2 = false;
-	var _iteratorError2 = undefined;
+	var _iteratorError2;
 
 	try {
 		for (var _iterator2 = this.filters.karyo.order[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
@@ -3677,7 +3689,7 @@ AliTV.prototype.orderKaryosAutomatically = function () {
 		}
 	}
 
-	with_hit = with_hit.sort(function (a, b) {
+	with_hit = with_hit.sort(function(a, b) {
 		var bestA = bestHitOnRef[a];
 		var bestB = bestHitOnRef[b];
 		if (bestA.refSeq !== bestB.refSeq) {
