@@ -5,9 +5,10 @@
 /* global textures: false */
 /* global circles: false */
 /* global bootbox: false */
+/* jshint funcscope:true */
 
 // use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
-var AliTV_VERSION = "1.0.4";
+var AliTV_VERSION = "1.0.5";
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
@@ -3519,4 +3520,186 @@ AliTV.prototype.setLinkOpacity = function(linkOpacity) {
 	} else {
 		this.conf.graphicalParameters.linkOpacity = linkOpacity;
 	}
+};
+
+/* helper function for transpiled ES6 function */
+function _toConsumableArray(arr) {
+	if (Array.isArray(arr)) {
+		for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+			arr2[i] = arr[i];
+		}
+		return arr2;
+	} else {
+		return Array.from(arr);
+	}
+}
+
+/**
+ * This function re-orders the karyos in all genomes according to the longest hit to the reference genome (determined by globally longest sequence)
+ * This function is transpiled using babel to make tests with phantomJS work (does not support ES6)
+ * To see the original ES6 implementation you can check out fb68a0fb290ab38ccc381bfebd4323f267f97ca6
+ * @author Markus Ankenbrand
+ */
+AliTV.prototype.orderKaryosAutomatically = function() {
+	// get genome with longest chromosome
+	var chr = this.data.karyo.chromosomes;
+	var referenceGenome = chr[Object.keys(chr).sort(function(a, b) {
+		return chr[b].length - chr[a].length;
+	})[0]].genome_id;
+	// for each karyo safe position of longest hit to reference
+	var links = this.data.links;
+	var bestHitOnRef = {};
+	var _iteratorNormalCompletion = true;
+	var _didIteratorError = false;
+	var _iteratorError;
+
+	try {
+		for (var _iterator = Object.keys(links)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+			var s = _step.value;
+			var _iteratorNormalCompletion3 = true;
+			var _didIteratorError3 = false;
+			var _iteratorError3;
+
+			try {
+				for (var _iterator3 = Object.keys(links[s])[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+					var t = _step3.value;
+
+					if (s !== referenceGenome && t !== referenceGenome) {
+						continue;
+					}
+					var _iteratorNormalCompletion4 = true;
+					var _didIteratorError4 = false;
+					var _iteratorError4;
+
+					try {
+						for (var _iterator4 = Object.keys(links[s][t])[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+							var link = _step4.value;
+
+							var source = links[s][t][link].source;
+							var target = links[s][t][link].target;
+							var sourceFeature = this.data.features.link[source];
+							var targetFeature = this.data.features.link[target];
+							// swap source and target if source is not ref
+							var sourceIsRef = this.data.karyo.chromosomes[sourceFeature.karyo].genome_id === referenceGenome;
+							if (!sourceIsRef) {
+								var _ref = [target, source];
+								source = _ref[0];
+								target = _ref[1];
+								var _ref2 = [targetFeature, sourceFeature];
+								sourceFeature = _ref2[0];
+								targetFeature = _ref2[1];
+							}
+							var rc = (sourceFeature.start - sourceFeature.end) * (targetFeature.start - targetFeature.end) < 0;
+							var refSeq = sourceFeature.karyo;
+							var refPos = _.min([sourceFeature.start, sourceFeature.end]);
+							var length = Math.abs(sourceFeature.start - sourceFeature.end);
+							if (!(targetFeature.karyo in bestHitOnRef) || bestHitOnRef[targetFeature.karyo].len < length) {
+								bestHitOnRef[targetFeature.karyo] = {
+									len: length,
+									rc: rc,
+									refSeq: refSeq,
+									refPos: refPos
+								};
+							}
+						}
+					} catch (err) {
+						_didIteratorError4 = true;
+						_iteratorError4 = err;
+					} finally {
+						try {
+							if (!_iteratorNormalCompletion4 && _iterator4.return) {
+								_iterator4.return();
+							}
+						} finally {
+							if (_didIteratorError4) {
+								throw _iteratorError4;
+							}
+						}
+					}
+				}
+			} catch (err) {
+				_didIteratorError3 = true;
+				_iteratorError3 = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion3 && _iterator3.return) {
+						_iterator3.return();
+					}
+				} finally {
+					if (_didIteratorError3) {
+						throw _iteratorError3;
+					}
+				}
+			}
+		}
+		// get all reference karyos and add them to the new_order array
+		// split non-ref karyos into those with hit to ref and those without
+	} catch (err) {
+		_didIteratorError = true;
+		_iteratorError = err;
+	} finally {
+		try {
+			if (!_iteratorNormalCompletion && _iterator.return) {
+				_iterator.return();
+			}
+		} finally {
+			if (_didIteratorError) {
+				throw _iteratorError;
+			}
+		}
+	}
+
+	var new_order = [];
+	var with_hit = [];
+	var without_hit = [];
+	var _iteratorNormalCompletion2 = true;
+	var _didIteratorError2 = false;
+	var _iteratorError2;
+
+	try {
+		for (var _iterator2 = this.filters.karyo.order[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+			var karyo = _step2.value;
+
+			if (!(karyo in this.data.karyo.chromosomes)) {
+				continue;
+			}
+			if (this.data.karyo.chromosomes[karyo].genome_id === referenceGenome) {
+				new_order.unshift(karyo);
+			} else {
+				if (karyo in bestHitOnRef) {
+					with_hit.push(karyo);
+					this.filters.karyo.chromosomes[karyo].reverse = bestHitOnRef[karyo].rc;
+				} else {
+					without_hit.push(karyo);
+				}
+			}
+		}
+	} catch (err) {
+		_didIteratorError2 = true;
+		_iteratorError2 = err;
+	} finally {
+		try {
+			if (!_iteratorNormalCompletion2 && _iterator2.return) {
+				_iterator2.return();
+			}
+		} finally {
+			if (_didIteratorError2) {
+				throw _iteratorError2;
+			}
+		}
+	}
+
+	with_hit = with_hit.sort(function(a, b) {
+		var bestA = bestHitOnRef[a];
+		var bestB = bestHitOnRef[b];
+		if (bestA.refSeq !== bestB.refSeq) {
+			return new_order.indexOf(bestA.refSeq) - new_order.indexOf(bestB.refSeq);
+		} else {
+			return bestA.refPos - bestB.refPos;
+		}
+	});
+	new_order = [].concat(_toConsumableArray(new_order), _toConsumableArray(with_hit), without_hit);
+	this.filters.karyo.order = new_order;
+	this.triggerChange();
+	this.drawLinear();
 };
