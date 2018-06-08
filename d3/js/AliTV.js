@@ -8,7 +8,7 @@
 /* jshint funcscope:true */
 
 // use const instead of var as soon as EcmaScript 6 (ES6 is widely used)
-var AliTV_VERSION = "1.0.5";
+var AliTV_VERSION = "1.0.6";
 
 /**
  * Creates an object of type AliTV for drawing whole genome alignment visualizations
