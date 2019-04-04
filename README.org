@@ -79,6 +79,7 @@ Inactive – The project has reached a stable, usable state but is no longer bei
 
 ** Changelog
 *** Next release
+ - Add CITATION.cff
  - Add repo status badge
 *** 1.0.6 <2018-06-08>
  - Update AliTV-perl-interface to v1.0.6
