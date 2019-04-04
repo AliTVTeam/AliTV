@@ -1,7 +1,3 @@
-** Repo Status
-[[https://www.repostatus.org/#inactive][https://www.repostatus.org/badges/latest/inactive.svg]]
-Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.
-
 ** Tutorial
 Read the documentation at [[http://alitv.readthedocs.io/en/latest/index.html][readthedocs]].
 
@@ -76,6 +72,10 @@ The licenses of included libraries might differ, please see [[LICENSES/README.or
 ** Build
 [[https://travis-ci.org/AliTVTeam/AliTV/][https://travis-ci.org/AliTVTeam/AliTV.svg?branch=master]]
 [[https://coveralls.io/github/AliTVTeam/AliTV?branch=master][https://coveralls.io/repos/github/AliTVTeam/AliTV/badge.svg?branch=master]]
+
+** Repo Status
+[[https://www.repostatus.org/#inactive][https://www.repostatus.org/badges/latest/inactive.svg]]
+Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.
 
 ** Changelog
 *** Next release
