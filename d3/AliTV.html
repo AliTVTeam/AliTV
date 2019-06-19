@@ -292,6 +292,16 @@
             });
         });
 
+        $(function() {
+            $('#showChromosomeLabels').change(function() {
+                if ($('#showChromosomeLabels').is(':checked')) {
+                    ali.conf.labels.chromosome.showChromosomeLabels = true;
+                } else {
+                    ali.conf.labels.chromosome.showChromosomeLabels = false;
+                }
+            });
+        });
+
 
         $(function() {
             $("#linear")
@@ -1387,6 +1397,11 @@
                                             <div class="checkbox">
                                                 <label>
                                                     <input id="showFeatureLabels" type="checkbox"> Label Features
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="showChromosomeLabels" type="checkbox"> Label Chromosomes
                                                 </label>
                                             </div>
                                         </div>

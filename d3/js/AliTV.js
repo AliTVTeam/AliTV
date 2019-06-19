@@ -142,6 +142,8 @@ function AliTV(svg) {
 	 * @property {Boolean} labels.ticks.showTicks				   - Defines if ticks are drawn.
 	 * @property {Boolean} labels.ticks.showTickLabels			   - Defines if tick labels are drawn.
 	 * @property {String}  labels.ticks.color					   - Defines the color of ticks and their labels.
+     * @property {Object}  labels.chromosome					   - Contains the configurations for the genome labels.
+     * @property {Boolean} labels.chromosome.showChromosomeLabels  - Defines if genome labels are shown or not.
 	 * @property {Object}  labels.genome					   	   - Contains the configurations for the genome labels.
 	 * @property {Boolean} labels.genome.showGenomeLabels 		   - Defines if genome labels are shown or not.
 	 * @property {String}  labels.genome.color					   - Defines the color of genome labels.
@@ -240,6 +242,9 @@ function AliTV(svg) {
 				showFeatureLabels: true,
 				color: "#000000",
 				size: 25
+			},
+			chromosome: {
+				showChromosomeLabels: false
 			}
 		},
 		offset: {
@@ -692,6 +697,37 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
 };
 
 /**
+ * This function draws the karyo labels in the linear layout
+ * @author Markus Ankenbrand
+ * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
+ */
+AliTV.prototype.drawLinearKaryoLabels = function(linearKaryoCoords) {
+    var that = this;
+    that.svgD3.selectAll(".karyoGroupLabels").remove();
+    that.getAlignmentRegion().append("g")
+        .attr("class", "karyoGroupLabels")
+        .selectAll("path")
+        .data(linearKaryoCoords)
+        .enter()
+        .append("text")
+        .attr("class", "karyoLabels")
+        .text(function(d) {
+            return d.karyo;
+        })
+        .attr("x", function(d) {
+            if (d.width < 0) {
+                return d.x + d.width;
+            } else {
+                return d.x;
+            }
+        })
+        .attr("y", function(d) {
+            return d.y + d.height - 5;
+        })
+        .attr("font-size", "30px")//that.getTickLabelSize() + "px")
+        .attr("fill", "black");//that.getTickLabelColor());
+};
+/**
  * This function draws the karyos in the linear layout, color them according to their genome_id and add some events to the chromosome.
  * @author Markus Ankenbrand and Sonja Hohlfeld
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
@@ -1052,6 +1088,9 @@ AliTV.prototype.drawLinear = function() {
 	if (typeof this.getLegendRegion().node().getBBox !== "undefined") {
 		this.setSvgHeight(this.conf.graphicalParameters.canvasHeight + this.getLegendRegion().node().getBBox().height + this.getLegendRegion().node().getBBox().y);
 	}
+    if (this.conf.labels.chromosome.showChromosomeLabels === true) {
+        this.drawLinearKaryoLabels(karyoCoords);
+    }
 
 	this.conf.layout = "linear";
 };
