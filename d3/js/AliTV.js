@@ -1107,11 +1107,15 @@ AliTV.prototype.getCircularKaryoCoords = function() {
 	var total = 0;
 	var spacer = this.conf.graphicalParameters.karyoDistance;
 	var current = -spacer;
-	$.each(this.data.karyo.chromosomes, function(key, value) {
+	var visibleChromosomes = this.filterChromosomes();
+	$.each(visibleChromosomes, function(key, value) {
 		total += value.length + spacer;
 	});
 	for (var i = 0; i < this.filters.karyo.order.length; i++) {
 		var key = this.filters.karyo.order[i];
+		if(!(key in visibleChromosomes)){
+			continue;
+		}
 		var value = this.data.karyo.chromosomes[key];
 		var data = {
 			"karyo": key,
