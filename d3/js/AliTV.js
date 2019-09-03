@@ -1821,8 +1821,8 @@ AliTV.prototype.filterLinksByLength = function(visibleLinks) {
 		var currentLink = value;
 		var sourceFeature = currentLink.source;
 		var targetFeature = currentLink.target;
-		var lengthOfSourceFeature = Math.abs(that.data.features.link[sourceFeature].end - that.data.features.link[sourceFeature].start);
-		var lengthOfTargetFeature = Math.abs(that.data.features.link[targetFeature].end - that.data.features.link[targetFeature].start);
+		var lengthOfSourceFeature = Math.abs(that.data.features.link[sourceFeature].end - that.data.features.link[sourceFeature].start) + 1;
+		var lengthOfTargetFeature = Math.abs(that.data.features.link[targetFeature].end - that.data.features.link[targetFeature].start) + 1;
 		if (lengthOfSourceFeature >= minLength && lengthOfSourceFeature <= maxLength || lengthOfTargetFeature >= minLength && lengthOfTargetFeature <= maxLength) {
 			filteredLinks[key] = currentLink;
 		}
