@@ -79,6 +79,7 @@ Inactive – The project has reached a stable, usable state but is no longer bei
 
 ** Changelog
 *** Next release
+ - Fix karyo shift error with big number of genomes
  - Fix link length filter (#146)
  - Add CITATION.cff
  - Add repo status badge
