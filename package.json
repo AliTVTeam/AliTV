@@ -5,7 +5,7 @@
     "test": "grunt travis --verbose"
   },
   "devDependencies": {
-    "grunt": "^1.0.3",
+    "grunt": "^1.3.0",
     "grunt-contrib-jasmine": "^2.1.0",
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-nodeunit": "^2.0.0",
