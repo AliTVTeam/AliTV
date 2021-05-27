@@ -432,6 +432,11 @@
             }
         }
 
+        function setDrawLinksByIdentity() {
+            var drawLinksByIdentity = $("#drawLinksByIdentity").is(':checked');
+            ali.conf.graphicalParameters.drawLinksByIdentity = drawLinksByIdentity;
+        }
+
         function changeGenomeLabelColor() {
             var color = $("#genomeLabelColor").val();
             try {
@@ -514,6 +519,7 @@
             $("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
             $('#showGenomeLabels').attr('checked', true);
             $('#showTickLabels').attr('checked', true);
+            $('#drawLinksByIdentity').attr('checked', ali.conf.graphicalParameters.drawLinksByIdentity);
             $('#drawTree').attr('checked', function() {
                 return ali.conf.tree.drawTree;
             });
@@ -540,6 +546,7 @@
             changeGenomeColor();
             changeLinkColor();
             changeLinkOpacity();
+            setDrawLinksByIdentity();
             changeGenomeLabelColor();
             changeGenomeLabelSize();
             changeTickLabelColor();
@@ -1289,7 +1296,7 @@
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <mark class="bg-info">Change parameters for chromosomes:</mark>
                                             <div class="input-group" style="margin: 10px 10px">
-                                                Spacer between chromosomes (px):
+                                                Spacer between chromosomes (bp):
                                                 <input type="text" id="karyoSpacer" placeholder="Chromosome spacer">
                                             </div>
                                             <div class="input-group" style="margin: 10px 10px">
@@ -1343,6 +1350,9 @@
                                                 <div class="input-group" style="margin: 10px 10px">
                                                     Link opacity:
                                                     <input type="text" id="linkOpacity" placeholder="Opacity (0-1)">
+                                                </div>
+                                                <div class="input-group" style="margin: 10px 10px">
+                                                    <input type="checkbox" id="drawLinksByIdentity"> draw links ordered by identity
                                                 </div>
                                             </div>
                                         </div>

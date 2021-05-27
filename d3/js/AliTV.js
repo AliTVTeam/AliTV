@@ -106,6 +106,7 @@ function AliTV(svg) {
 	 * @property {Number}  graphicalParameters.linkOpacity		   - The value which is used as default opacity of links.
 	 * @property {Number}  graphicalParameters.fade				   - The value which is used for the opacity of links by the fadeLinks method.
 	 * @property {Number}  graphicalParameters.buttonWidth		   - The width of the drawing area for the offset buttons.
+	 * @property {boolean} graphicalParameters.drawLinksByIdentity - Draw links ordered by identity (higher identity above lower identity).
 	 * @property {String}  layout                                  - Contains the current layout, this means linear or circular.
 	 * @property {Object}  tree									   - Contains the configuration objects for drawing a tree.
 	 * @property {Boolean} tree.drawTree						   - With this option it is possible to draw a phylogenetic tree ext to the chromosomes.
@@ -171,7 +172,8 @@ function AliTV(svg) {
 			genomeLabelWidth: 150,
 			linkOpacity: 0.9,
 			fade: 0.1,
-			buttonWidth: 90
+			buttonWidth: 90,
+			drawLinksByIdentity: false
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -961,6 +963,9 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		var shape = path1 + path2 + 'Z';
 		return shape;
 	};
+	if(that.conf.graphicalParameters.drawLinksByIdentity){
+		linearLinkCoords = linearLinkCoords.sort((a,b)=>that.visibleLinks[a.linkID].identity-that.visibleLinks[b.linkID].identity);
+	}
 
 	this.getAlignmentRegion().selectAll(".linkGroup").remove();
 	this.getAlignmentRegion().append("g")
