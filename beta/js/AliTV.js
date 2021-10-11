@@ -701,31 +701,31 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
  * @author Markus Ankenbrand
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
  */
-AliTV.prototype.drawLinearKaryoLabels = function(linearKaryoCoords) {
-    var that = this;
-    that.svgD3.selectAll(".karyoGroupLabels").remove();
-    that.getAlignmentRegion().append("g")
-        .attr("class", "karyoGroupLabels")
-        .selectAll("path")
-        .data(linearKaryoCoords)
-        .enter()
-        .append("text")
-        .attr("class", "karyoLabels")
-        .text(function(d) {
-            return d.karyo;
-        })
-        .attr("x", function(d) {
-            if (d.width < 0) {
-                return d.x + d.width;
-            } else {
-                return d.x;
-            }
-        })
-        .attr("y", function(d) {
-            return d.y + d.height - 5;
-        })
-        .attr("font-size", "30px")//that.getTickLabelSize() + "px")
-        .attr("fill", "black");//that.getTickLabelColor());
+AliTV.prototype.drawLinearKaryoLabels = function (linearKaryoCoords) {
+	var that = this;
+	that.svgD3.selectAll(".karyoGroupLabels").remove();
+	that.getAlignmentRegion().append("g")
+		.attr("class", "karyoGroupLabels")
+		.selectAll("path")
+		.data(linearKaryoCoords)
+		.enter()
+		.append("text")
+		.attr("class", "karyoLabels")
+		.text(function (d) {
+			return that.data.karyo.chromosomes[d.karyo].name;
+		})
+		.attr("x", function (d) {
+			if (d.width < 0) {
+				return d.x + d.width;
+			} else {
+				return d.x;
+			}
+		})
+		.attr("y", function (d) {
+			return d.y + d.height - 5;
+		})
+		.attr("font-size", "30px")//that.getTickLabelSize() + "px")
+		.attr("fill", "black");//that.getTickLabelColor());
 };
 /**
  * This function draws the karyos in the linear layout, color them according to their genome_id and add some events to the chromosome.
@@ -1107,11 +1107,15 @@ AliTV.prototype.getCircularKaryoCoords = function() {
 	var total = 0;
 	var spacer = this.conf.graphicalParameters.karyoDistance;
 	var current = -spacer;
-	$.each(this.data.karyo.chromosomes, function(key, value) {
+	var visibleChromosomes = this.filterChromosomes();
+	$.each(visibleChromosomes, function(key, value) {
 		total += value.length + spacer;
 	});
 	for (var i = 0; i < this.filters.karyo.order.length; i++) {
 		var key = this.filters.karyo.order[i];
+		if(!(key in visibleChromosomes)){
+			continue;
+		}
 		var value = this.data.karyo.chromosomes[key];
 		var data = {
 			"karyo": key,
