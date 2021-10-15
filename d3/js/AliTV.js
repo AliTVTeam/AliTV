@@ -142,8 +142,11 @@ function AliTV(svg) {
 	 * @property {Boolean} labels.ticks.showTicks				   - Defines if ticks are drawn.
 	 * @property {Boolean} labels.ticks.showTickLabels			   - Defines if tick labels are drawn.
 	 * @property {String}  labels.ticks.color					   - Defines the color of ticks and their labels.
-     * @property {Object}  labels.chromosome					   - Contains the configurations for the genome labels.
-     * @property {Boolean} labels.chromosome.showChromosomeLabels  - Defines if genome labels are shown or not.
+	 * @property {Object}  labels.chromosome					   - Contains the configurations for the genome labels.
+	 * @property {Boolean} labels.chromosome.show		- Defines if genome labels are shown or not.
+	 * @property {Number}  labels.chromosome.rotation		- Defines how much genome labels are rotation (default 0)
+	 * @property {Number}  labels.chromosome.offset		- Defines how much genome labels are offset (default 0)
+	 * @property {Number}  labels.chromosome.size		- Defines font size of genome labels
 	 * @property {Object}  labels.genome					   	   - Contains the configurations for the genome labels.
 	 * @property {Boolean} labels.genome.showGenomeLabels 		   - Defines if genome labels are shown or not.
 	 * @property {String}  labels.genome.color					   - Defines the color of genome labels.
@@ -244,7 +247,10 @@ function AliTV(svg) {
 				size: 25
 			},
 			chromosome: {
-				showChromosomeLabels: false
+				show: false,
+				rotation: 0,
+				offset: 0,
+				size: 30
 			}
 		},
 		offset: {
@@ -701,7 +707,7 @@ AliTV.prototype.getLinearLinkCoords = function(coords) {
  * @author Markus Ankenbrand
  * @param {Array} The array containing the coordinates as returned by getLinearKaryoCoords()
  */
-AliTV.prototype.drawLinearKaryoLabels = function (linearKaryoCoords) {
+AliTV.prototype.drawLinearKaryoLabels = function(linearKaryoCoords) {
 	var that = this;
 	that.svgD3.selectAll(".karyoGroupLabels").remove();
 	that.getAlignmentRegion().append("g")
@@ -711,21 +717,22 @@ AliTV.prototype.drawLinearKaryoLabels = function (linearKaryoCoords) {
 		.enter()
 		.append("text")
 		.attr("class", "karyoLabels")
-		.text(function (d) {
+		.text(function(d) {
 			return that.data.karyo.chromosomes[d.karyo].name;
 		})
-		.attr("x", function (d) {
-			if (d.width < 0) {
-				return d.x + d.width;
-			} else {
-				return d.x;
-			}
-		})
-		.attr("y", function (d) {
-			return d.y + d.height - 5;
-		})
-		.attr("font-size", "30px")//that.getTickLabelSize() + "px")
-		.attr("fill", "black");//that.getTickLabelColor());
+		// .attr("x", function (d) {
+		// 	if (d.width < 0) {
+		// 		return d.x + d.width;
+		// 	} else {
+		// 		return d.x;
+		// 	}
+		// })
+		// .attr("y", function (d) {
+		// 	return d.y + d.height - 5;
+		// })
+		.attr("transform", d => `translate(${d.width < 0 ? d.x + d.width : d.x},${d.y + d.height - that.conf.labels.chromosome.offset - 5}),rotate(${that.conf.labels.chromosome.rotation})`)
+		.attr("font-size", that.conf.labels.chromosome.size + "px") //that.getTickLabelSize() + "px")
+		.attr("fill", "black"); //that.getTickLabelColor());
 };
 /**
  * This function draws the karyos in the linear layout, color them according to their genome_id and add some events to the chromosome.
@@ -1088,9 +1095,9 @@ AliTV.prototype.drawLinear = function() {
 	if (typeof this.getLegendRegion().node().getBBox !== "undefined") {
 		this.setSvgHeight(this.conf.graphicalParameters.canvasHeight + this.getLegendRegion().node().getBBox().height + this.getLegendRegion().node().getBBox().y);
 	}
-    if (this.conf.labels.chromosome.showChromosomeLabels === true) {
-        this.drawLinearKaryoLabels(karyoCoords);
-    }
+	if (this.conf.labels.chromosome.show === true) {
+		this.drawLinearKaryoLabels(karyoCoords);
+	}
 
 	this.conf.layout = "linear";
 };
@@ -1113,7 +1120,7 @@ AliTV.prototype.getCircularKaryoCoords = function() {
 	});
 	for (var i = 0; i < this.filters.karyo.order.length; i++) {
 		var key = this.filters.karyo.order[i];
-		if(!(key in visibleChromosomes)){
+		if (!(key in visibleChromosomes)) {
 			continue;
 		}
 		var value = this.data.karyo.chromosomes[key];
@@ -2642,6 +2649,75 @@ AliTV.prototype.setSvgHeight = function(height) {
 		height = Number(height);
 		this.svg.attr("height", height);
 		this.triggerChange();
+	}
+};
+
+/**
+ * This function sets the rotation of the chromosome labels
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} rotation - the desired rotation of the chromosome label
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.setChromosomeLabelRotation = function(rotation) {
+	if (rotation === "") {
+		throw "Sorry, you entered an empty value. Please try it again.";
+	} else if (isNaN(rotation)) {
+		throw "Sorry, you entered not a number. Please try it again.";
+	} else {
+		rotation = Number(rotation);
+		this.conf.labels.chromosome.rotation = rotation;
+		this.triggerChange();
+		return rotation;
+	}
+};
+
+/**
+ * This function sets the size of the chromosome labels
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} size - the desired size of the chromosome label
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @throws Will throw an error if the argument is less than 0 or equal to 0.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.setChromosomeLabelSize = function(size) {
+	if (size === "") {
+		throw "Sorry, you entered an empty value. Please try it again.";
+	} else if (isNaN(size)) {
+		throw "Sorry, you entered not a number. Please try it again.";
+	} else if (size <= 0) {
+		throw "Sorry, the entered value is too small. Please, insert one which is not less than 0.";
+	} else {
+		size = Number(size);
+		this.conf.labels.chromosome.size = size;
+		this.triggerChange();
+		return size;
+	}
+};
+
+/**
+ * This function sets the offset of the chromosome labels
+ * When the method gets a wrong value it throws an error message.
+ * @param {Number} offset - the desired offset of the chromosome label
+ * @throws Will throw an error if the argument is empty.
+ * @throws Will throw an error if the argument is not a number.
+ * @author Markus Ankenbrand
+ */
+
+AliTV.prototype.setChromosomeLabelOffset = function(offset) {
+	if (offset === "") {
+		throw "Sorry, you entered an empty value. Please try it again.";
+	} else if (isNaN(offset)) {
+		throw "Sorry, you entered not a number. Please try it again.";
+	} else {
+		offset = Number(offset);
+		this.conf.labels.chromosome.offset = offset;
+		this.triggerChange();
+		return offset;
 	}
 };
 
