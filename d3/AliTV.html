@@ -292,6 +292,18 @@
             });
         });
 
+        $(function() {
+            $('#showChromosomeLabels').change(function() {
+                if ($('#showChromosomeLabels').is(':checked')) {
+                    $('#chromosomeLabelDetails').show();
+                    ali.conf.labels.chromosome.show = true;
+                } else {
+                    $('#chromosomeLabelDetails').hide();
+                    ali.conf.labels.chromosome.show = false;
+                }
+            });
+        });
+
 
         $(function() {
             $("#linear")
@@ -477,6 +489,36 @@
             }
         }
 
+        function changeChromosomeLabelSize() {
+            var size = $("#chromosomeLabelSize").val();
+            try {
+                ali.setChromosomeLabelSize(size)
+            } catch (err) {
+                bootbox.alert(err);
+                $("#chromosomeLabelSize").val(this.conf.labels.chromosome.size);
+            }
+        }
+
+        function changeChromosomeLabelRotation() {
+            var rotation = $("#chromosomeLabelRotation").val();
+            try {
+                ali.setChromosomeLabelRotation(rotation);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#chromosomeLabelRotation").val(this.conf.labels.chromosome.rotation);
+            }
+        }
+
+        function changeChromosomeLabelOffset() {
+            var offset = $("#chromosomeLabelOffset").val();
+            try {
+                ali.setChromosomeLabelOffset(offset);
+            } catch (err) {
+                bootbox.alert(err);
+                $("#chromosomeLabelOffset").val(this.conf.labels.chromosome.offset);
+            }
+        }
+
         function changeOffset(karyoId) {
             var offset = Number($(jq('offset-' + karyoId)).val());
             try {
@@ -517,6 +559,15 @@
             $("#invisibleLinksLabel").val(ali.getInvisibleLinks());
             $("#invisibleFeaturesLabel").val(ali.getInvisibleFeatures());
             $("#invisibleChromosomesLabel").val(ali.getInvisibleChromosomes());
+            $("#showChromosomeLabels").attr('checked', ali.conf.labels.chromosome.show);
+            $("#chromosomeLabelSize").val(ali.conf.labels.chromosome.size);
+            $("#chromosomeLabelRotation").val(ali.conf.labels.chromosome.rotation);
+            $("#chromosomeLabelOffset").val(ali.conf.labels.chromosome.offset);
+            if (ali.conf.labels.chromosome.show) {
+                $("#chromosomeLabelDetails").show();
+            } else {
+                $("#chromosomeLabelDetails").hide();
+            }
             $('#showGenomeLabels').attr('checked', true);
             $('#showTickLabels').attr('checked', true);
             $('#drawLinksByIdentity').attr('checked', ali.conf.graphicalParameters.drawLinksByIdentity);
@@ -552,6 +603,9 @@
             changeTickLabelColor();
             changeTickLabelSize();
             changeTickLabelFrequency();
+            changeChromosomeLabelSize();
+            changeChromosomeLabelRotation();
+            changeChromosomeLabelOffset();
             setJSONEditorFromAli();
             ali.drawEqualLayout(layout);
             setParameters();
@@ -932,11 +986,13 @@
 <body>
 
     <div class="page-header">
-        <h1><img src="css/AliTV_logo.png" alt="logo" width="200" height="160" style="margin:0px 20px" /><b>AliTV <sup id="version-placeholder"></sup></b><small>&nbsp;Visualize multiple whole genome alignments as linear maps</small></h1>
+        <h1><img src="css/AliTV_logo.png" alt="logo" width="200" height="160" style="margin:0px 20px" /><b>AliTV <sup id="version-placeholder"></sup></b><small>&nbsp;Visualize multiple whole genome alignments as linear
+                maps</small></h1>
         <div>
             <ul class="nav nav-tabs" role="tablist">
 
-                <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><b>About AliTV</b></a></li>
+                <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><b>About
+                            AliTV</b></a></li>
                 <li role="presentation"><a href="#filter" aria-controls="about" role="tab" data-toggle="tab"><b>Filtering</b></a></li>
 
                 <li class="dropdown"><a id="dLabel" data-toggle="dropdown"><b>Show/Hide Annotations</b> <span class="caret"></span></a>
@@ -959,13 +1015,19 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <p>
-                                    <mark style="font-variant: small-caps;">AliTV (Alignment Toolbox and Visualization)</mark> is a software for visualizing Whole Genome Alignments. It generates publication-ready figures which can be used for the easy
-                                    comparision of complete genomes. AliTV stands out due to its interactive functions for analyzing the alignments directly onto the figure.</p>
+                                    <mark style="font-variant: small-caps;">AliTV (Alignment Toolbox and
+                                        Visualization)</mark> is a software for visualizing Whole Genome Alignments. It
+                                    generates publication-ready figures which can be used for the easy
+                                    comparision of complete genomes. AliTV stands out due to its interactive functions
+                                    for analyzing the alignments directly onto the figure.
+                                </p>
 
-                                <p>Please cite <a href="https://peerj.com/articles/cs-116/">this article <img src="https://img.shields.io/badge/DOI-10.7717%2Fpeerj--cs.116-blue.svg"></img></a> when using AliTV. The source code in any specific version can
+                                <p>Please cite <a href="https://peerj.com/articles/cs-116/">this article <img src="https://img.shields.io/badge/DOI-10.7717%2Fpeerj--cs.116-blue.svg"></img></a>
+                                    when using AliTV. The source code in any specific version can
                                     additionally be cited using the zenodo doi (latest:
                                     <a href="https://zenodo.org/badge/latestdoi/12731/AliTVTeam/AliTV"><img src="https://zenodo.org/badge/12731/AliTVTeam/AliTV.svg"></img>
-                                    </a>).</p>
+                                    </a>).
+                                </p>
                                 <p>If you need help with AliTV, please checkout the <a href="https://alitv.readthedocs.io/en/latest/index.html">documentation</a>, <a href="https://alitvteam.github.io/AliTV/">website</a> or the <a href="https://github.com/AliTVTeam/AliTV">repository on GitHub</a>.</p>
                                 <p id="google-analytics-info">This page uses<a onclick="openGADialog()" style="padding-left: 5px;">Google Analytics (info/opt-out)</a></p>
                             </div>
@@ -979,14 +1041,19 @@
                             <div class="col-sm-12">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <mark class="bg-info">Auto-order (beta)</mark><br> Order chromosomes/contigs automatically by using the following heuristic:
+                                        <mark class="bg-info">Auto-order (beta)</mark><br> Order chromosomes/contigs
+                                        automatically by using the following heuristic:
                                         <ol>
                                             <li>Assume genome with longest chromosome is the reference</li>
-                                            <li>Reverse order of reference (if it was ordered by size, the largest chromosome comes first now)</li>
-                                            <li>Order each chromosome of non-reference genome by the position of the largest hit to the reference</li>
-                                            <li>Reverse each chromosome where the largest hit to the reference is twisted</li>
+                                            <li>Reverse order of reference (if it was ordered by size, the largest
+                                                chromosome comes first now)</li>
+                                            <li>Order each chromosome of non-reference genome by the position of the
+                                                largest hit to the reference</li>
+                                            <li>Reverse each chromosome where the largest hit to the reference is
+                                                twisted</li>
                                         </ol>
-                                        Warning: The current order function is experimental and implemented in ES6 so if you are using an old browser it might not work.
+                                        Warning: The current order function is experimental and implemented in ES6 so if
+                                        you are using an old browser it might not work.
                                         <div style="margin: 10px 0px">
                                             <button class="btn btn-info" onclick="ali.orderKaryosAutomatically()" style="font-size: 14px;">Auto-order</button>
                                         </div>
@@ -1003,7 +1070,8 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <mark class="bg-info">Use JSONEditor</mark>
-                                    <br> By using JSONEditor you can change all parameters directly in the structure of the conf-, data- or filters-object.
+                                    <br> By using JSONEditor you can change all parameters directly in the structure of
+                                    the conf-, data- or filters-object.
                                     <br>
                                     <div style="margin: 10px 0px">
                                         <button class="btn btn-info" onclick="toggleJSONEditor()" style="font-size: 14px;">Toggle JSON Editor</button>
@@ -1016,7 +1084,8 @@
                                     <mark class="bg-info">Shift chromosomes:</mark>
                                     <div class="input-group" style="margin: 10px 10px">
                                         <span class="input-group-addon"><select id="offsetGroup" class="selectpicker" data-style="btn-info" name="offsetGroup"></select></span>
-                                        <span class="input-group-addon"><button class="btn btn-info" type="button" id="setOffsetGroup" onclick="setOffsetButton();">Set offset</button></span>
+                                        <span class="input-group-addon"><button class="btn btn-info" type="button" id="setOffsetGroup" onclick="setOffsetButton();">Set
+                                                offset</button></span>
                                     </div>
                                 </div>
                             </div>
@@ -1040,7 +1109,8 @@
                                     Demo data:
                                     <button class="btn btn-info" onclick="loadDemo('chloroplasts.json')">Chloroplasts</button>
                                     <button class="btn btn-info" onclick="loadDemo('xanthomonas_arboricola.json')">Bacteria</button>
-                                    <button class="btn btn-info" onclick="loadDemo('chromosome4.json')">Chromosome 4</button>
+                                    <button class="btn btn-info" onclick="loadDemo('chromosome4.json')">Chromosome
+                                        4</button>
                                     <span id="loading-indicator" style="display:none">Loading...</span>
                                 </div>
                             </div>
@@ -1090,22 +1160,26 @@
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input id="skipChromosomesWithoutVisibleLinks" type="checkbox"> Skip chromosomes without visible links
+                                                    <input id="skipChromosomesWithoutVisibleLinks" type="checkbox"> Skip
+                                                    chromosomes without visible links
                                                 </label>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input id="skipChromosomesWithoutLinks" type="checkbox"> Skip chromosomes without links
+                                                    <input id="skipChromosomesWithoutLinks" type="checkbox"> Skip
+                                                    chromosomes without links
                                                 </label>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input id="showAllChromosomes" type="checkbox"> Show all chromosomes (even if they are set invisble)
+                                                    <input id="showAllChromosomes" type="checkbox"> Show all chromosomes
+                                                    (even if they are set invisble)
                                                 </label>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input id="onlyShowAdjacentLinks" type="checkbox"> Only show adjacent links
+                                                    <input id="onlyShowAdjacentLinks" type="checkbox"> Only show
+                                                    adjacent links
                                                 </label>
                                             </div>
                                         </div>
@@ -1130,7 +1204,8 @@
                                     <div class="input-group" style="margin: 10px 10px">
                                         <span class="input-group-addon"><input type="text" id="invisibleLinksLabel" size="4" readonly></span>
                                         <span class="input-group-addon"><select id="invisibleLinks" class="selectpicker" data-style="btn-info" name="invisibleLinks"></select></span>
-                                        <span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleLinks" onclick="restoreLink();">Restore Link</button></span>
+                                        <span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleLinks" onclick="restoreLink();">Restore
+                                                Link</button></span>
 
                                     </div>
                                 </div>
@@ -1141,7 +1216,8 @@
                                     <div class="input-group" style="margin: 10px 10px">
                                         <span class="input-group-addon"><input type="text" id="invisibleFeaturesLabel" size="4" readonly></span>
                                         <span class="input-group-addon"><select id="invisibleFeatures" class="selectpicker" data-style="btn-info" name="invisibleFeatures"></select></span>
-                                        <span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleFeatures" onclick="restoreFeature();">Restore Feature</button></span>
+                                        <span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleFeatures" onclick="restoreFeature();">Restore
+                                                Feature</button></span>
                                     </div>
                                 </div>
                             </div>
@@ -1151,7 +1227,8 @@
                                     <div class="input-group" style="margin: 10px 10px">
                                         <span class="input-group-addon"><input type="text" id="invisibleChromosomesLabel" size="4" readonly></span>
                                         <span class="input-group-addon"><select id="invisibleChromosomes" class="selectpicker" data-style="btn-info" name="invisibleChromosomes"></select></span>
-                                        <span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleChromosomes" onclick="restoreChromosome();">Restore Chromosome</button></span>
+                                        <span class="input-group-addon"><button class="btn btn-info" type="button" id="restoreInvisibleChromosomes" onclick="restoreChromosome();">Restore
+                                                Chromosome</button></span>
                                     </div>
                                 </div>
                             </div>
@@ -1331,7 +1408,8 @@
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <mark class="bg-info">Change parameters for links:</mark>
                                             <div class="input-group" style="margin: 10px 10px">
-                                                Define a custome color range between the minimal and maximal link identity:
+                                                Define a custome color range between the minimal and maximal link
+                                                identity:
                                                 <div class="input-group demo2" style="margin: 10px 10px">
                                                     <span class="input-group-addon">MinLink Color</span>
                                                     <input id="minLinkColor" type="text" class="form-control" />
@@ -1399,6 +1477,19 @@
                                                     <input id="showFeatureLabels" type="checkbox"> Label Features
                                                 </label>
                                             </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="showChromosomeLabels" type="checkbox"> Label Chromosomes
+                                                </label>
+                                                <div class="input-group" style="margin: 10px 10px" id="chromosomeLabelDetails">
+                                                    size:
+                                                    <input type="text" id="chromosomeLabelSize" placeholder="Label size in px">
+                                                    <br> rotation:
+                                                    <input type="text" id="chromosomeLabelRotation" placeholder="Rotation in deg" style="margin: 10px 0px">
+                                                    <br> offset:
+                                                    <input type="text" id="chromosomeLabelOffset" placeholder="Offset in px" style="margin: 10px 0px">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -1422,7 +1513,8 @@
     </div>
     <!-- collapse page header  -->
     <div style="display: none" id="warn-circular-layout">
-        <div class="alert alert-warning" role="alert" style="font-size: 24px">&nbsp; <b>WARNING:</b> The circular layout is experimental and has limited functionality </div>
+        <div class="alert alert-warning" role="alert" style="font-size: 24px">&nbsp; <b>WARNING:</b> The circular layout
+            is experimental and has limited functionality </div>
     </div>
     <div style="width: 100%;">
         <svg id='wgaCanvas' style="margin:50px" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -1505,33 +1597,69 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="googleAnalyticsDialogLabel">Google Analytics and privacy (Datenschutz)</h4>
+                    <h4 class="modal-title" id="googleAnalyticsDialogLabel">Google Analytics and privacy (Datenschutz)
+                    </h4>
                 </div>
                 <div class="modal-body">
                     <h4>English</h4>
-                    This website uses Google Analytics, a web analytics service provided by Google, Inc. (“Google”). Google Analytics uses “cookies”, which are text files placed on your computer, to help the website analyze how users use the site. The information generated
-                    by the cookie about your use of the website will be transmitted to and stored by Google on servers in the United States . In case IP-anonymisation is activated on this website, your IP address will be truncated within the area of Member
-                    States of the European Union or other parties to the Agreement on the European Economic Area. Only in exceptional cases the whole IP address will be first transfered to a Google server in the USA and truncated there. The IP-anonymisation
-                    is active on this website. Google will use this information on behalf of the operator of this website for the purpose of evaluating your use of the website, compiling reports on website activity for website operators and providing
-                    them other services relating to website activity and internet usage. The IP-address, that your Browser conveys within the scope of Google Analytics, will not be associated with any other data held by Google. You may refuse the use
-                    of cookies by selecting the appropriate settings on your browser, however please note that if you do this you may not be able to use the full functionality of this website. You can also opt-out from being tracked by Google Analytics
-                    with effect for the future by downloading and installing Google Analytics Opt-out Browser Addon for your current web browser: <a href="http://tools.google.com/dlpage/gaoptout?hl=en" style="color:#2795b6">http://tools.google.com/dlpage/gaoptout?hl=en</a>.
-                    As an alternative to the browser Addon or within browsers on mobile devices, you can <a href="javascript:gaOptout()" style="color:#2795b6">click this link</a> in order to opt-out from being tracked by Google Analytics within this website
-                    in the future (the opt-out applies only for the browser in which you set it and within this domain). - See more at: http://rechtsanwalt-schwenke.de/google-analytics-rechtssicher-nutzen-anleitung-fuer-webmaster/#sthash.jLLgpAZg.dpuf.
-                    An opt-out cookie will be stored on your device, which means that you'll have to click this link again, if you delete your cookies.
+                    This website uses Google Analytics, a web analytics service provided by Google, Inc. (“Google”).
+                    Google Analytics uses “cookies”, which are text files placed on your computer, to help the website
+                    analyze how users use the site. The information generated
+                    by the cookie about your use of the website will be transmitted to and stored by Google on servers
+                    in the United States . In case IP-anonymisation is activated on this website, your IP address will
+                    be truncated within the area of Member
+                    States of the European Union or other parties to the Agreement on the European Economic Area. Only
+                    in exceptional cases the whole IP address will be first transfered to a Google server in the USA and
+                    truncated there. The IP-anonymisation
+                    is active on this website. Google will use this information on behalf of the operator of this
+                    website for the purpose of evaluating your use of the website, compiling reports on website activity
+                    for website operators and providing
+                    them other services relating to website activity and internet usage. The IP-address, that your
+                    Browser conveys within the scope of Google Analytics, will not be associated with any other data
+                    held by Google. You may refuse the use
+                    of cookies by selecting the appropriate settings on your browser, however please note that if you do
+                    this you may not be able to use the full functionality of this website. You can also opt-out from
+                    being tracked by Google Analytics
+                    with effect for the future by downloading and installing Google Analytics Opt-out Browser Addon for
+                    your current web browser: <a href="http://tools.google.com/dlpage/gaoptout?hl=en" style="color:#2795b6">http://tools.google.com/dlpage/gaoptout?hl=en</a>.
+                    As an alternative to the browser Addon or within browsers on mobile devices, you can <a href="javascript:gaOptout()" style="color:#2795b6">click this link</a> in order to opt-out from
+                    being tracked by Google Analytics within this website
+                    in the future (the opt-out applies only for the browser in which you set it and within this domain).
+                    - See more at:
+                    http://rechtsanwalt-schwenke.de/google-analytics-rechtssicher-nutzen-anleitung-fuer-webmaster/#sthash.jLLgpAZg.dpuf.
+                    An opt-out cookie will be stored on your device, which means that you'll have to click this link
+                    again, if you delete your cookies.
 
                     <h4>German</h4>
-                    Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. („Google“). Google Analytics verwendet sog. „Cookies“, Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website durch Sie ermöglichen.
-                    Die durch den Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Im Falle der Aktivierung der IP-Anonymisierung auf dieser Webseite,
-                    wird Ihre IP-Adresse von Google jedoch innerhalb von Mitgliedstaaten der Europäischen Union oder in anderen Vertragsstaaten des Abkommens über den Europäischen Wirtschaftsraum zuvor gekürzt. Nur in Ausnahmefällen wird die volle IP-Adresse
-                    an einen Server von Google in den USA übertragen und dort gekürzt. Die IP-Anonymisierung ist auf dieser Website aktiv. Im Auftrag des Betreibers dieser Website wird Google diese Informationen benutzen, um Ihre Nutzung der Website auszuwerten,
-                    um Reports über die Websiteaktivitäten zusammenzustellen und um weitere mit der Websitenutzung und der Internetnutzung verbundene Dienstleistungen gegenüber dem Websitebetreiber zu erbringen. Die im Rahmen von Google Analytics von
-                    Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen Daten von Google zusammengeführt. Sie können die Speicherung der Cookies durch eine entsprechende Einstellung Ihrer Browser-Software verhindern; wir weisen Sie jedoch darauf
-                    hin, dass Sie in diesem Fall gegebenenfalls nicht sämtliche Funktionen dieser Website vollumfänglich werden nutzen können. Sie können darüber hinaus die Erfassung der durch das Cookie erzeugten und auf Ihre Nutzung der Website bezogenen
-                    Daten (inkl. Ihrer IP-Adresse) an Google sowie die Verarbeitung dieser Daten durch Google verhindern, indem sie das unter dem folgenden Link verfügbare Browser-Plugin herunterladen und installieren: <a href="http://tools.google.com/dlpage/gaoptout?hl=de"
-                        style="color:#2795b6">http://tools.google.com/dlpage/gaoptout?hl=de</a>. Alternativ zum Browser-Add-On oder innerhalb von Browsern auf mobilen Geräten, <a title="Google Analytics Opt-Out-Cookie setzen" href="javascript:gaOptout()"
-                        style="color:#2795b6">klicken Sie bitte diesen Link</a>, um die Erfassung durch Google Analytics innerhalb dieser Website zukünftig zu verhindern (das Opt Out funktioniert nur in dem Browser und nur für diese Domain). Dabei wird ein
-                    Opt-Out-Cookie auf Ihrem Ger&auml;t abgelegt. L&ouml;schen Sie Ihre Cookies in diesem Browser, m&uuml;ssen Sie diesen Link erneut klicken.
+                    Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. („Google“). Google
+                    Analytics verwendet sog. „Cookies“, Textdateien, die auf Ihrem Computer gespeichert werden und die
+                    eine Analyse der Benutzung der Website durch Sie ermöglichen.
+                    Die durch den Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der Regel
+                    an einen Server von Google in den USA übertragen und dort gespeichert. Im Falle der Aktivierung der
+                    IP-Anonymisierung auf dieser Webseite,
+                    wird Ihre IP-Adresse von Google jedoch innerhalb von Mitgliedstaaten der Europäischen Union oder in
+                    anderen Vertragsstaaten des Abkommens über den Europäischen Wirtschaftsraum zuvor gekürzt. Nur in
+                    Ausnahmefällen wird die volle IP-Adresse
+                    an einen Server von Google in den USA übertragen und dort gekürzt. Die IP-Anonymisierung ist auf
+                    dieser Website aktiv. Im Auftrag des Betreibers dieser Website wird Google diese Informationen
+                    benutzen, um Ihre Nutzung der Website auszuwerten,
+                    um Reports über die Websiteaktivitäten zusammenzustellen und um weitere mit der Websitenutzung und
+                    der Internetnutzung verbundene Dienstleistungen gegenüber dem Websitebetreiber zu erbringen. Die im
+                    Rahmen von Google Analytics von
+                    Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen Daten von Google zusammengeführt. Sie
+                    können die Speicherung der Cookies durch eine entsprechende Einstellung Ihrer Browser-Software
+                    verhindern; wir weisen Sie jedoch darauf
+                    hin, dass Sie in diesem Fall gegebenenfalls nicht sämtliche Funktionen dieser Website vollumfänglich
+                    werden nutzen können. Sie können darüber hinaus die Erfassung der durch das Cookie erzeugten und auf
+                    Ihre Nutzung der Website bezogenen
+                    Daten (inkl. Ihrer IP-Adresse) an Google sowie die Verarbeitung dieser Daten durch Google
+                    verhindern, indem sie das unter dem folgenden Link verfügbare Browser-Plugin herunterladen und
+                    installieren: <a href="http://tools.google.com/dlpage/gaoptout?hl=de" style="color:#2795b6">http://tools.google.com/dlpage/gaoptout?hl=de</a>. Alternativ zum
+                    Browser-Add-On oder innerhalb von Browsern auf mobilen Geräten, <a title="Google Analytics Opt-Out-Cookie setzen" href="javascript:gaOptout()" style="color:#2795b6">klicken Sie bitte diesen Link</a>, um die Erfassung durch Google Analytics
+                    innerhalb dieser Website zukünftig zu verhindern (das Opt Out funktioniert nur in dem Browser und
+                    nur für diese Domain). Dabei wird ein
+                    Opt-Out-Cookie auf Ihrem Ger&auml;t abgelegt. L&ouml;schen Sie Ihre Cookies in diesem Browser,
+                    m&uuml;ssen Sie diesen Link erneut klicken.
 
                 </div>
                 <div class="modal-footer">
