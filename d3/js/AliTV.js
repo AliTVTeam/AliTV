@@ -1006,8 +1006,8 @@ AliTV.prototype.drawLinearLinks = function(linearLinkCoords) {
 		var shape = path1 + path2 + 'Z';
 		return shape;
 	};
-	if(that.conf.graphicalParameters.drawLinksByIdentity){
-		linearLinkCoords = linearLinkCoords.sort((a,b)=>that.visibleLinks[a.linkID].identity-that.visibleLinks[b.linkID].identity);
+	if (that.conf.graphicalParameters.drawLinksByIdentity) {
+		linearLinkCoords = linearLinkCoords.sort((a, b) => that.visibleLinks[a.linkID].identity - that.visibleLinks[b.linkID].identity);
 	}
 
 	this.getAlignmentRegion().selectAll(".linkGroup").remove();
