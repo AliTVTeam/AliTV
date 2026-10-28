@@ -3,7 +3,7 @@ message: If you use this software, please cite both the software and the paper (
 authors:
   - family-names: Ankenbrand
     given-names: "Markus J"
-    orcid: 0000-0002-6620-807X
+    orcid: https://orcid.org/0000-0002-6620-807X
     affiliation: "Center for Computational and Theoretical Biology, University of Würzburg, Germany"
     email: markus.ankenbrand@uni-wuerzburg.de
   - family-names: Hohlfeld
@@ -11,11 +11,11 @@ authors:
     affiliation: "Center for Computational and Theoretical Biology, University of Würzburg, Germany"
   - family-names: Hackl
     given-names: Thomas
-    orcid: 0000-0002-0022-320X
+    orcid: https://orcid.org/0000-0002-0022-320X
     affiliation: "Department of Civil and Environmental Engineering, Massachusetts Institute of Technology, Cambridge, MA, USA"
   - family-names: Förster
     given-names: Frank
-    orcid: 0000-0003-4166-5423
+    orcid: https://orcid.org/0000-0003-4166-5423
     affiliation: "Fraunhofer Institute for Molecular Biology and Applied Ecology IME: Gießen"
     email: frank.foerster@ime.fraunhofer.de
 title: AliTV
