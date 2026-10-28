@@ -70,8 +70,13 @@ hesitate to contact us. Either report [[https://github.com/AliTVTeam/AliTV/issue
 AliTV itself is available under MIT license.
 The licenses of included libraries might differ, please see [[LICENSES/README.org]] for details.
 ** Build
-[[https://travis-ci.org/AliTVTeam/AliTV/][https://travis-ci.org/AliTVTeam/AliTV.svg?branch=master]]
-[[https://coveralls.io/github/AliTVTeam/AliTV?branch=master][https://coveralls.io/repos/github/AliTVTeam/AliTV/badge.svg?branch=master]]
+[[https://github.com/AliTVTeam/AliTV/actions/workflows/ci.yml][https://github.com/AliTVTeam/AliTV/actions/workflows/ci.yml/badge.svg?branch=master]]
+
+Run the tests locally (Node.js 20 or newer):
+#+BEGIN_EXAMPLE
+  npm ci
+  npm test
+#+END_EXAMPLE
 
 ** Repo Status
 [[https://www.repostatus.org/#inactive][https://www.repostatus.org/badges/latest/inactive.svg]]
@@ -83,6 +88,9 @@ Inactive – The project has reached a stable, usable state but is no longer bei
  - Fix link length filter (#146)
  - Add CITATION.cff
  - Add repo status badge
+ - Update development dependencies (grunt-contrib-jasmine 4, Puppeteer)
+ - Fix test suite (Jasmine runner, stale test expectations)
+ - Move CI from Travis CI to GitHub Actions (Node 20, 22); drop coverage upload
 *** 1.0.6 <2018-06-08>
  - Update AliTV-perl-interface to v1.0.6
 *** 1.0.5 <2018-05-15>
