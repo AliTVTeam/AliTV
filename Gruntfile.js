@@ -77,15 +77,6 @@ module.exports = function(grunt) {
 						destination: 'd3/doc'
 					}
 				}
-			},
-			coveralls: {
-				all: {
-					// LCOV coverage file relevant to every target
-					src: 'd3/test/coverage/lcov.info',
-					options: {
-						force: false
-					}
-				}
 			}
 		});
 
@@ -95,7 +86,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-jsbeautifier");
 	grunt.loadNpmTasks('grunt-istanbul-coverage');
 	grunt.loadNpmTasks('grunt-jsdoc');
-	grunt.loadNpmTasks('grunt-coveralls');
 
 	// Default task(s).
 	grunt.registerTask('default', ['make', 'test']);
@@ -103,9 +93,5 @@ module.exports = function(grunt) {
 	grunt.registerTask('make', ['jsbeautifier:default', 'jsdoc']);
 
 	grunt.registerTask('test', ['jsbeautifier:verify', 'jshint', 'jasmine']);
-
-	grunt.registerTask('travis', ['jsbeautifier:verify', 'jshint', 'jasmine',
-		'coveralls'
-	]);
 
 };
