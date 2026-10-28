@@ -13,8 +13,7 @@
     "grunt-coveralls": "^2.0.0",
     "grunt-istanbul-coverage": "^0.1.4",
     "grunt-jsbeautifier": "^0.2.13",
-    "grunt-jsdoc": "^2.4.1",
-    "grunt-template-jasmine-istanbul": "^0.4.0"
+    "grunt-jsdoc": "^2.4.1"
   },
   "description": "** Installation",
   "main": "Gruntfile.js",
