@@ -19,7 +19,8 @@ var defaultConf =  {
 			genomeLabelWidth: 150,
 			fade: 0.1,
 			linkOpacity: 0.9,
-			buttonWidth: 90
+			buttonWidth: 90,
+			drawLinksByIdentity: false
 		},
 		minLinkIdentity: 40,
 		maxLinkIdentity: 100,
@@ -88,6 +89,12 @@ var defaultConf =  {
 				showFeatureLabels: true,
 				color: "#000000",
 				size: 25
+			},
+			chromosome: {
+				show: false,
+				rotation: 0,
+				offset: 0,
+				size: 30
 			}
 		},
 		offset: {

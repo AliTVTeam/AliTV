@@ -258,11 +258,11 @@ describe('The getGenomeDistance method is supposed to calculate the appropriate 
 		var distance = (1000 - 30) * 1/(2 - 1);
 		expect(ali.getGenomeDistance()).toEqual(distance);
 	});
-	it('getGenomeDistance method is supposed to return 323 if default height and 4 genomes are used (1000 * 1/4)', function(){
+	it('getGenomeDistance method is supposed to return 323.33 if default height and 4 genomes are used (970 * 1/3)', function(){
 		ali.setData({karyo: karyo7});
 		ali.setFilters(filters8);
 		var distance = (1000 - 30) * 1/(4 - 1);
-		expect(ali.getGenomeDistance()).toEqual(Math.round(distance));
+		expect(ali.getGenomeDistance()).toEqual(distance);
 	});
 	it('getGenomeDistance method is supposed to return 1970 if the default height is set on 2000 and 2 genomes are used (2000 * 1/2)', function(){
 		ali.setData(data);
