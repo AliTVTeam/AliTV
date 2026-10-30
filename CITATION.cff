@@ -19,7 +19,7 @@ authors:
     affiliation: "Fraunhofer Institute for Molecular Biology and Applied Ecology IME: Gießen"
     email: frank.foerster@ime.fraunhofer.de
 title: AliTV
-version: 1.0.6
+version: 1.0.7
 doi: 10.5281/zenodo.1285849
 date-released: 2018-06-08
 repository-code: https://github.com/AliTVTeam/AliTV

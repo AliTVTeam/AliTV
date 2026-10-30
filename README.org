@@ -78,7 +78,7 @@ The licenses of included libraries might differ, please see [[LICENSES/README.or
 Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.
 
 ** Changelog
-*** Next release
+*** 1.0.7 <2024-09-24>
  - Fix karyo shift error with big number of genomes
  - Fix link length filter (#146)
  - Add CITATION.cff
