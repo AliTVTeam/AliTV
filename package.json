@@ -2,7 +2,7 @@
   "name": "AliTV",
   "version": "1.0.6",
   "scripts": {
-    "test": "grunt travis --verbose"
+    "test": "grunt test"
   },
   "devDependencies": {
     "grunt": "^1.5.3",
@@ -10,7 +10,6 @@
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-nodeunit": "^3.0.0",
     "grunt-contrib-uglify": "^1.0.2",
-    "grunt-coveralls": "^2.0.0",
     "grunt-istanbul-coverage": "^0.1.4",
     "grunt-jsbeautifier": "^0.2.13",
     "grunt-jsdoc": "^2.4.1"
